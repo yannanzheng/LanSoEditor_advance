@@ -164,29 +164,29 @@ public class PictureSetRealTimeActivity extends Activity{
 		});
     	
     	//这里仅仅是举例,当界面再次返回的时候,
-//    	mPlayView.setOnViewAvailable(new onViewAvailable() {
-//			
-//			@Override
-//			public void viewAvailable(MediaPoolView v) {
-//				// TODO Auto-generated method stub
-//				Log.i(TAG,"is started==============>"+isStarted);
-//				if(isStarted){
-//				    
-//				      String picPath=SDKDir.TMP_DIR+"/"+"picname.jpg";   
-//				      mPlayView.startMediaPool(new MediaPoolProgressListener(),new MediaPoolCompleted());
-//					  mSpriteMain=mPlayView.obtainBitmapSprite(BitmapFactory.decodeFile(picPath));
-//				      
-//				      slideEffectArray=new ArrayList<SlideEffect>();
-//				      
-//						//这里同时获取多个,只是不显示出来.
-//				      getFifthSprite(R.drawable.pic1,0,5000);  		//1--5秒.
-//				      getFifthSprite(R.drawable.pic2,5000,10000);  //5--10秒.
-//				      getFifthSprite(R.drawable.pic3,10000,15000);	//10---15秒 
-//				      getFifthSprite(R.drawable.pic4,15000,20000);  //15---20秒
-//				      getFifthSprite(R.drawable.pic5,20000,25000);  //20---25秒
-//				}
-//			}
-//		});
+    	mPlayView.setOnViewAvailable(new onViewAvailable() {
+			
+			@Override
+			public void viewAvailable(MediaPoolView v) {
+				// TODO Auto-generated method stub
+				Log.i(TAG,"is started==============>"+isStarted);
+				if(isStarted){
+				    
+				      String picPath=SDKDir.TMP_DIR+"/"+"picname.jpg";   
+				      mPlayView.startMediaPool(new MediaPoolProgressListener(),new MediaPoolCompleted());
+					  mPlayView.obtainBitmapSprite(BitmapFactory.decodeFile(picPath));
+				      
+				      slideEffectArray=new ArrayList<SlideEffect>();
+				      
+						//这里同时获取多个,只是不显示出来.
+				      getFifthSprite(R.drawable.pic1,0,5000);  		//1--5秒.
+				      getFifthSprite(R.drawable.pic2,5000,10000);  //5--10秒.
+				      getFifthSprite(R.drawable.pic3,10000,15000);	//10---15秒 
+				      getFifthSprite(R.drawable.pic4,15000,20000);  //15---20秒
+				      getFifthSprite(R.drawable.pic5,20000,25000);  //20---25秒
+				}
+			}
+		});
 		
     }
     private boolean isStarted=false; //是否已经播放过了.

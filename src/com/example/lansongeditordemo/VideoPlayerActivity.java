@@ -18,6 +18,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Surface;
@@ -155,7 +156,7 @@ public class VideoPlayerActivity extends Activity {
 		});
         
         try {
-			mediaPlayer.setDataSource(videoPath);
+				mediaPlayer.setDataSource(videoPath);
 			  mediaPlayer.setSurface(surface);  
 		        mediaPlayer.prepare();  
 		        
@@ -168,7 +169,6 @@ public class VideoPlayerActivity extends Activity {
 		        	textureView.setDispalyRatio(IRenderView.AR_ASPECT_WRAP_CONTENT);
 		        	
 		        }else{  //大于屏幕的宽度
-		        	
 		        	tvSizeHint.setText(R.string.fix_width);
 		        	textureView.setDispalyRatio(IRenderView.AR_ASPECT_FIT_PARENT);
 		        }
@@ -176,7 +176,6 @@ public class VideoPlayerActivity extends Activity {
 		        
 		        textureView.setVideoSize(mediaPlayer.getVideoWidth(), mediaPlayer.getVideoHeight());
 		        textureView.requestLayout();
-		        
 		        mediaPlayer.start();  
 		}  catch (IOException e) {
 			// TODO Auto-generated catch block

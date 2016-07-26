@@ -57,9 +57,8 @@ public class FilterSpriteExecuteActivity extends Activity{
 	boolean isRuned=false;
 	MediaInfo   mMediaInfo;
 	TextView tvProgressHint;
-	TextView tvHint;
-	
-	private GLLinearLayout mGLLinearLayout;
+	 TextView tvHint;
+	    private GLLinearLayout mGLLinearLayout;
 	 
 	 
 	    private String editTmpPath=null;
@@ -204,9 +203,5 @@ public class FilterSpriteExecuteActivity extends Activity{
 		bitmapSprite.setPosition(300, 200);
 		vMediaPool.obtainBitmapSprite(BitmapFactory.decodeResource(getResources(), R.drawable.xiaolian));	
 		
-//		mCanvasSprite=vMediaPool.obtainViewSprite();
-//        mGLLinearLayout.setViewSprite(mCanvasSprite);
-//        mGLLinearLayout.invalidate();
-        
 	}
 }	

@@ -67,7 +67,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		Thread.setDefaultUncaughtExceptionHandler(new snoCrashHandler());
         setContentView(R.layout.activity_main);
         
-        LanSoEditor.initSo();
+        LanSoEditor.initSo(getApplicationContext(),null);
         
         PermissionsManager.getInstance().requestAllManifestPermissionsIfNecessary(this, new PermissionsResultAction() {
             @Override
@@ -214,15 +214,7 @@ public class MainActivity extends Activity implements OnClickListener{
    		})
            .show();
    	}
-    public static void setIdentityM(float[] sm, int smOffset) {
-        for (int i=0 ; i<16 ; i++) {
-            sm[smOffset + i] = 0;
-        }
-        for(int i = 0; i < 16; i += 5) {
-            sm[smOffset + i] = 1.0f;
-            Log.i("modelView3",String.valueOf(sm[smOffset + i])+" i="+i);
-        }
-    }
+
     
     @Override
     protected void onDestroy() {

@@ -198,7 +198,7 @@ public class VideoVideoExecuteActivity extends Activity{
 		vMediaPool.start();
 		
 		//一下是在处理过程中, 增加的几个sprite, 来实现视频在播放过程中叠加别的一些媒体, 像图片, 文字等.
-		VideoSprite sprite=vMediaPool.obtainVideoSprite("/sdcard/2x.mp4",672,378);
+		VideoSprite sprite=vMediaPool.obtainVideoSprite(videoPath,mMediaInfo.vWidth,mMediaInfo.vHeight);
 		sprite.setScale(30);
 		
 		bitmapSprite=vMediaPool.obtainBitmapSprite(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
@@ -206,9 +206,9 @@ public class VideoVideoExecuteActivity extends Activity{
 		bitmapSprite.setPosition(300, 200);
 		vMediaPool.obtainBitmapSprite(BitmapFactory.decodeResource(getResources(), R.drawable.xiaolian));	
 		
-		mCanvasSprite=vMediaPool.obtainViewSprite();
-        mGLLinearLayout.setViewSprite(mCanvasSprite);
-        mGLLinearLayout.invalidate();
+//		mCanvasSprite=vMediaPool.obtainViewSprite();
+//        mGLLinearLayout.setViewSprite(mCanvasSprite);
+//        mGLLinearLayout.invalidate();
         
 	}
 }	

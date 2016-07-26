@@ -39,7 +39,6 @@ import com.lansosdk.box.FilterSprite;
 import com.lansosdk.box.ISprite;
 import com.lansosdk.box.MediaPoolUpdateMode;
 import com.lansosdk.box.MediaPoolViewRender;
-import com.lansosdk.box.TextureRenderView;
 import com.lansosdk.box.VideoSprite;
 import com.lansosdk.box.ViewSprite;
 import com.lansosdk.box.onMediaPoolCompletedListener;

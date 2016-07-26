@@ -18,7 +18,6 @@ import android.widget.FrameLayout;
 import jp.co.cyberagent.android.gpuimage.GPUImageFilter;
 
 import com.lansosdk.box.FilterViewRender;
-import com.lansosdk.box.TextureRenderView;
 import com.lansosdk.box.onFilterViewSizeChangedListener;
 
 

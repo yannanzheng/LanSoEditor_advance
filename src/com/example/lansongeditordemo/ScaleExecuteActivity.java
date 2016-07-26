@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -55,10 +56,10 @@ public class ScaleExecuteActivity extends Activity{
 		Thread.setDefaultUncaughtExceptionHandler(new snoCrashHandler());
 		 
 		 videoPath=getIntent().getStringExtra("videopath");
-		 mMediaInfo=new MediaInfo(videoPath);
+		 mMediaInfo=new MediaInfo(videoPath,false);
 		 mMediaInfo.prepare();
 		 
-		 
+		 Log.i(TAG,mMediaInfo.toString());
 		 
 		 setContentView(R.layout.video_edit_demo_layout);
 		 tvHint=(TextView)findViewById(R.id.id_video_editor_hint);
@@ -130,7 +131,8 @@ public class ScaleExecuteActivity extends Activity{
 		 */
 		ScaleExecute  vScale=new ScaleExecute(ScaleExecuteActivity.this,videoPath);  //videoPath是路径
 		vScale.setOutputPath(editTmpPath);
-		vScale.setScaleSize(mMediaInfo.vCodecWidth/2,mMediaInfo.vCodecHeight/2);
+		
+		vScale.setScaleSize(mMediaInfo.vCodecWidth/2,mMediaInfo.vCodecHeight/2,mMediaInfo.vBitRate/3);
 		
 		vScale.setScaleProgessListener(new onScaleProgressListener() {
 			
