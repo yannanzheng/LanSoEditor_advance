@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2006 The Android Open Source Project
+ * Copyright (C) 2013 Zhang Rui <bbcallen@gmail.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.lansosdk.videoeditor.player;
 
@@ -34,7 +50,6 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Map;
 
-import com.lansosdk.videoeditor.utils.DLog;
 
 
 
@@ -48,7 +63,8 @@ public class VideoPlayer implements IMediaPlayer{
 
     private static final int MEDIA_NOP = 0; // interface test message
     private static final int MEDIA_PREPARED = 1;
-    private static final int MEDIA_PLAYBACK_COMPLETE = 2;
+    private static final int MEDIA_PLAYBACK_COMPLETE = 2;  //播放完毕.
+    
     private static final int MEDIA_BUFFERING_UPDATE = 3;
     private static final int MEDIA_SEEK_COMPLETE = 4;
     private static final int MEDIA_SET_VIDEO_SIZE = 5;
@@ -122,7 +138,7 @@ public class VideoPlayer implements IMediaPlayer{
     
     public void setSurface(Surface surface) {
         if (mScreenOnWhilePlaying && surface != null) {
-            DLog.w(TAG, "setScreenOnWhilePlaying(true) is ineffective for Surface");
+            Log.w(TAG, "setScreenOnWhilePlaying(true) is ineffective for Surface");
         }
         _setVideoSurface(surface);
         updateSurfaceScreenOn();
@@ -339,7 +355,6 @@ public class VideoPlayer implements IMediaPlayer{
     
 
     @SuppressLint("Wakelock")
-     
     public void setWakeMode(Context context, int mode) {
         boolean washeld = false;
         if (mWakeLock != null) {
@@ -631,11 +646,16 @@ public class VideoPlayer implements IMediaPlayer{
         public void handleMessage(Message msg) {
             VideoPlayer player = mWeakPlayer.get();
             if (player == null || player.mNativeMediaPlayer == 0) {
-                Log.w(TAG,
+            	Log.w(TAG,
                         "VideoPlayer went away with unhandled events");
                 return;
             }
 
+            Log.i("sno","msg.what===============>"+msg.what+" arg:"+msg.arg1);
+            
+            if(msg.what==MEDIA_PLAYBACK_COMPLETE){
+            	Log.i("sno","收到播放完毕的命令");
+            }
             switch (msg.what) {
             case MEDIA_PREPARED:
                 player.notifyOnPrepared();
@@ -645,8 +665,11 @@ public class VideoPlayer implements IMediaPlayer{
                 player.notifyOnCompletion();
                 player.stayAwake(false);
                 return;
+                
             case VIDEOEDIT_EVENT_COMPLETE:
             	return ;
+            	
+            	
             case MEDIA_BUFFERING_UPDATE:
                 long bufferPosition = msg.arg1;
                 if (bufferPosition < 0) {
@@ -688,7 +711,7 @@ public class VideoPlayer implements IMediaPlayer{
             case MEDIA_INFO:
                 switch (msg.arg1) {
                     case MEDIA_INFO_VIDEO_RENDERING_START:
-                        DLog.i(TAG, "Info: MEDIA_INFO_VIDEO_RENDERING_START\n");
+                    	Log.i(TAG, "Info: MEDIA_INFO_VIDEO_RENDERING_START\n");
                         break;
                 }
                 player.notifyOnInfo(msg.arg1, msg.arg2);
@@ -777,7 +800,6 @@ public class VideoPlayer implements IMediaPlayer{
     }
     @SuppressWarnings("unused") /* Used from JNI */
     private static boolean onNativeInvoke(Object weakThiz, int what, Bundle args) {
-        DLog.ifmt(TAG, "onNativeInvoke %d", what);
         
         if (weakThiz == null || !(weakThiz instanceof WeakReference<?>))
             throw new IllegalStateException("<null weakThiz>.onNativeInvoke()");
@@ -897,5 +919,4 @@ public class VideoPlayer implements IMediaPlayer{
             return bestCodec.mCodecInfo.getName();
         }
     }
-
 }

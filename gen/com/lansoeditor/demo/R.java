@@ -9,6 +9,139 @@ package com.lansoeditor.demo;
 
 public final class R {
     public static final class attr {
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int normal=0x7f01000f;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int numberProgressBarStyle=0x7f01000d;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int pressed=0x7f01000e;
+        /** <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int progress_current=0x7f010003;
+        /** <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int progress_max=0x7f010004;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int progress_reached_bar_height=0x7f010007;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int progress_reached_color=0x7f010006;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int progress_text_color=0x7f01000a;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int progress_text_offset=0x7f01000b;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int progress_text_size=0x7f010009;
+        /** <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>visible</code></td><td>0</td><td></td></tr>
+<tr><td><code>invisible</code></td><td>1</td><td></td></tr>
+</table>
+         */
+        public static final int progress_text_visibility=0x7f01000c;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int progress_unreached_bar_height=0x7f010008;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int progress_unreached_color=0x7f010005;
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int text=0x7f010000;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int textColor=0x7f010001;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int textSize=0x7f010002;
     }
     public static final class color {
         /** 蜜色 
@@ -538,156 +671,234 @@ R35 B50,G71
         public static final int activity_vertical_margin=0x7f060001;
     }
     public static final class drawable {
-        public static final int amaro_map=0x7f020000;
-        public static final int arrow_red=0x7f020001;
-        public static final int blackboard_1024=0x7f020002;
-        public static final int blowout_1977=0x7f020003;
-        public static final int brannan_blowout=0x7f020004;
-        public static final int brannan_contrast=0x7f020005;
-        public static final int brannan_luma=0x7f020006;
-        public static final int brannan_process=0x7f020007;
-        public static final int brannan_screen=0x7f020008;
-        public static final int circel_button_bg=0x7f020009;
-        public static final int circle_button_blue_bg=0x7f02000a;
-        public static final int corners_btn_orange_bg=0x7f02000b;
-        public static final int early_bird_curves=0x7f02000c;
-        public static final int earlybird_blowout=0x7f02000d;
-        public static final int earlybird_map=0x7f02000e;
-        public static final int earlybird_overlay_map=0x7f02000f;
-        public static final int edge_burn=0x7f020010;
-        public static final int function_item_btn_bg=0x7f020011;
-        public static final int hefe_gradient_map=0x7f020012;
-        public static final int hefe_map=0x7f020013;
-        public static final int hefe_metal=0x7f020014;
-        public static final int hefe_soft_light=0x7f020015;
-        public static final int hudson_background=0x7f020016;
-        public static final int hudson_map=0x7f020017;
-        public static final int ic_launcher=0x7f020018;
-        public static final int ic_menu_archive=0x7f020019;
-        public static final int ic_menu_back=0x7f02001a;
-        public static final int ic_menu_block=0x7f02001b;
-        public static final int ic_menu_gallery=0x7f02001c;
-        public static final int icf_normal=0x7f02001d;
-        public static final int if_1977=0x7f02001e;
-        public static final int if_amaro=0x7f02001f;
-        public static final int if_brannan=0x7f020020;
-        public static final int if_earlybird=0x7f020021;
-        public static final int if_hefe=0x7f020022;
-        public static final int if_hudson=0x7f020023;
-        public static final int if_inkwell=0x7f020024;
-        public static final int if_lomofi=0x7f020025;
-        public static final int if_lordkelvin=0x7f020026;
-        public static final int if_nashville=0x7f020027;
-        public static final int if_normal=0x7f020028;
-        public static final int if_rise=0x7f020029;
-        public static final int if_sierra=0x7f02002a;
-        public static final int if_sutro=0x7f02002b;
-        public static final int if_toaster=0x7f02002c;
-        public static final int if_valencia=0x7f02002d;
-        public static final int if_walden=0x7f02002e;
-        public static final int if_xproii=0x7f02002f;
-        public static final int inkwell_map=0x7f020030;
-        public static final int kelvin_map=0x7f020031;
-        public static final int lomo_map=0x7f020032;
-        public static final int map_1977=0x7f020033;
-        public static final int nashville_map=0x7f020034;
-        public static final int overlay_map=0x7f020035;
-        public static final int pic1=0x7f020036;
-        public static final int pic2=0x7f020037;
-        public static final int pic3=0x7f020038;
-        public static final int pic4=0x7f020039;
-        public static final int pic5=0x7f02003a;
-        public static final int play2=0x7f02003b;
-        public static final int rdobtn_select_bg=0x7f02003c;
-        public static final int rect_button_bg=0x7f02003d;
-        public static final int right_arrow=0x7f02003e;
-        public static final int rise_map=0x7f02003f;
-        public static final int sierra_map=0x7f020040;
-        public static final int sierra_vignette=0x7f020041;
-        public static final int soft_light=0x7f020042;
-        public static final int start=0x7f020043;
-        public static final int start_background=0x7f020044;
-        public static final int sutro_curves=0x7f020045;
-        public static final int sutro_edge_burn=0x7f020046;
-        public static final int sutro_metal=0x7f020047;
-        public static final int toaster_color_shift=0x7f020048;
-        public static final int toaster_curves=0x7f020049;
-        public static final int toaster_metal=0x7f02004a;
-        public static final int toaster_overlay_map_warm=0x7f02004b;
-        public static final int toaster_soft_light=0x7f02004c;
-        public static final int valencia_gradient_map=0x7f02004d;
-        public static final int valencia_map=0x7f02004e;
-        public static final int vignette_map=0x7f02004f;
-        public static final int walden_map=0x7f020050;
-        public static final int xiaolian=0x7f020051;
-        public static final int xpro_map=0x7f020052;
+        public static final int advertising_default=0x7f020000;
+        public static final int advertising_default_1=0x7f020001;
+        public static final int advertising_default_2=0x7f020002;
+        public static final int advertising_default_3=0x7f020003;
+        public static final int allbackground=0x7f020004;
+        public static final int amaro_map=0x7f020005;
+        public static final int arrow_red=0x7f020006;
+        public static final int beau1=0x7f020007;
+        public static final int bg_second=0x7f020008;
+        public static final int big1=0x7f020009;
+        public static final int big15=0x7f02000a;
+        public static final int big99=0x7f02000b;
+        public static final int big_h=0x7f02000c;
+        public static final int blackboard_1024=0x7f02000d;
+        public static final int blowout_1977=0x7f02000e;
+        public static final int bottom=0x7f02000f;
+        public static final int brannan_blowout=0x7f020010;
+        public static final int brannan_contrast=0x7f020011;
+        public static final int brannan_luma=0x7f020012;
+        public static final int brannan_process=0x7f020013;
+        public static final int brannan_screen=0x7f020014;
+        public static final int btn_pressed=0x7f020015;
+        public static final int btn_unpressed=0x7f020016;
+        public static final int button_normal=0x7f020017;
+        public static final int button_pressed=0x7f020018;
+        public static final int cancel_normal=0x7f020019;
+        public static final int cancel_pressed=0x7f02001a;
+        public static final int circel_button_bg=0x7f02001b;
+        public static final int circle_button_blue_bg=0x7f02001c;
+        public static final int common_toolbar_bg=0x7f02001d;
+        public static final int corners_btn_orange_bg=0x7f02001e;
+        public static final int divide=0x7f02001f;
+        public static final int down1=0x7f020020;
+        public static final int down2=0x7f020021;
+        public static final int down_left=0x7f020022;
+        public static final int down_right=0x7f020023;
+        public static final int downmidd=0x7f020024;
+        public static final int early_bird_curves=0x7f020025;
+        public static final int earlybird_blowout=0x7f020026;
+        public static final int earlybird_map=0x7f020027;
+        public static final int earlybird_overlay_map=0x7f020028;
+        public static final int edge_burn=0x7f020029;
+        public static final int frame=0x7f02002a;
+        public static final int function_item_btn_bg=0x7f02002b;
+        public static final int h_m_m=0x7f02002c;
+        public static final int hefe_gradient_map=0x7f02002d;
+        public static final int hefe_map=0x7f02002e;
+        public static final int hefe_metal=0x7f02002f;
+        public static final int hefe_soft_light=0x7f020030;
+        public static final int hua=0x7f020031;
+        public static final int hudei=0x7f020032;
+        public static final int hudson_background=0x7f020033;
+        public static final int hudson_map=0x7f020034;
+        public static final int ic_=0x7f020035;
+        public static final int ic_launcher=0x7f020036;
+        public static final int ic_menu_archive=0x7f020037;
+        public static final int ic_menu_back=0x7f020038;
+        public static final int ic_menu_block=0x7f020039;
+        public static final int ic_menu_gallery=0x7f02003a;
+        public static final int icf_normal=0x7f02003b;
+        public static final int if_1977=0x7f02003c;
+        public static final int if_amaro=0x7f02003d;
+        public static final int if_brannan=0x7f02003e;
+        public static final int if_earlybird=0x7f02003f;
+        public static final int if_hefe=0x7f020040;
+        public static final int if_hudson=0x7f020041;
+        public static final int if_inkwell=0x7f020042;
+        public static final int if_lomofi=0x7f020043;
+        public static final int if_lordkelvin=0x7f020044;
+        public static final int if_nashville=0x7f020045;
+        public static final int if_normal=0x7f020046;
+        public static final int if_rise=0x7f020047;
+        public static final int if_sierra=0x7f020048;
+        public static final int if_sutro=0x7f020049;
+        public static final int if_toaster=0x7f02004a;
+        public static final int if_valencia=0x7f02004b;
+        public static final int if_walden=0x7f02004c;
+        public static final int if_xproii=0x7f02004d;
+        public static final int iloveyou_l=0x7f02004e;
+        public static final int inkwell_map=0x7f02004f;
+        public static final int itembackground=0x7f020050;
+        public static final int kelvin_map=0x7f020051;
+        public static final int left1=0x7f020052;
+        public static final int left3=0x7f020053;
+        public static final int left66=0x7f020054;
+        public static final int leftd=0x7f020055;
+        public static final int ll=0x7f020056;
+        public static final int lomo_map=0x7f020057;
+        public static final int love=0x7f020058;
+        public static final int love_m_left=0x7f020059;
+        public static final int love_middle_down=0x7f02005a;
+        public static final int love_middle_up=0x7f02005b;
+        public static final int map_1977=0x7f02005c;
+        public static final int mask=0x7f02005d;
+        public static final int midd_midd_left=0x7f02005e;
+        public static final int midd_midd_right=0x7f02005f;
+        public static final int nashville_map=0x7f020060;
+        public static final int new_iv=0x7f020061;
+        public static final int ok_normal=0x7f020062;
+        public static final int ok_pressed=0x7f020063;
+        public static final int overlay_map=0x7f020064;
+        public static final int p10=0x7f020065;
+        public static final int p11=0x7f020066;
+        public static final int p12=0x7f020067;
+        public static final int p14=0x7f020068;
+        public static final int pic1=0x7f020069;
+        public static final int pic2=0x7f02006a;
+        public static final int pic3=0x7f02006b;
+        public static final int pic4=0x7f02006c;
+        public static final int pic5=0x7f02006d;
+        public static final int play2=0x7f02006e;
+        public static final int rdobtn_select_bg=0x7f02006f;
+        public static final int rect_button_bg=0x7f020070;
+        public static final int rect_button_bg2=0x7f020071;
+        public static final int right_arrow=0x7f020072;
+        public static final int rise_map=0x7f020073;
+        public static final int sierra_map=0x7f020074;
+        public static final int sierra_vignette=0x7f020075;
+        public static final int soft_light=0x7f020076;
+        public static final int start=0x7f020077;
+        public static final int start_background=0x7f020078;
+        public static final int stick=0x7f020079;
+        public static final int sutro_curves=0x7f02007a;
+        public static final int sutro_edge_burn=0x7f02007b;
+        public static final int sutro_metal=0x7f02007c;
+        public static final int test_img=0x7f02007d;
+        public static final int title=0x7f02007e;
+        public static final int toaster_color_shift=0x7f02007f;
+        public static final int toaster_curves=0x7f020080;
+        public static final int toaster_metal=0x7f020081;
+        public static final int toaster_overlay_map_warm=0x7f020082;
+        public static final int toaster_soft_light=0x7f020083;
+        public static final int ulr1=0x7f020084;
+        public static final int valencia_gradient_map=0x7f020085;
+        public static final int valencia_map=0x7f020086;
+        public static final int vignette_map=0x7f020087;
+        public static final int walden_map=0x7f020088;
+        public static final int xiaolian=0x7f020089;
+        public static final int xpro_map=0x7f02008a;
     }
     public static final class id {
-        public static final int id_edit_gl_layout=0x7f09003a;
-        public static final int id_filter_saveplay=0x7f090017;
-        public static final int id_filtersprite_demo_seek1=0x7f09001e;
-        public static final int id_filtersprite_demo_selectbtn=0x7f09001d;
-        public static final int id_filtersprite_demo_view=0x7f09001b;
-        public static final int id_filtersprite_saveplay=0x7f09001c;
-        public static final int id_main_demoedit=0x7f090003;
-        public static final int id_main_demofilter=0x7f090004;
-        public static final int id_main_demofiltersprite=0x7f090005;
-        public static final int id_main_filterexecute=0x7f09000c;
-        public static final int id_main_mediapoolexecute=0x7f09000d;
-        public static final int id_main_mediapoolexecute_filter=0x7f09000e;
-        public static final int id_main_mediapoolpictureexecute=0x7f09000f;
-        public static final int id_main_pictures=0x7f09000a;
-        public static final int id_main_scaleexecute=0x7f09000b;
-        public static final int id_main_select_video=0x7f090001;
-        public static final int id_main_testaudiomix=0x7f090010;
-        public static final int id_main_testvideoplay=0x7f090011;
-        public static final int id_main_tvvideo=0x7f090002;
-        public static final int id_main_twovideooverlay=0x7f090006;
-        public static final int id_main_use_default_videobtn=0x7f090000;
-        public static final int id_main_videobitmapoverlay=0x7f090007;
-        public static final int id_main_viewremark=0x7f090009;
-        public static final int id_main_viewspritedemo=0x7f090008;
-        public static final int id_mediapool_hint_1=0x7f09001f;
-        public static final int id_mediapool_hint_btn=0x7f090023;
-        public static final int id_mediapool_hint_only=0x7f090021;
-        public static final int id_mediapool_layout=0x7f090024;
-        public static final int id_mediapool_saveplay=0x7f090026;
-        public static final int id_mediapool_skbar_alpha=0x7f09002d;
-        public static final int id_mediapool_skbar_blue=0x7f09002c;
-        public static final int id_mediapool_skbar_green=0x7f09002b;
-        public static final int id_mediapool_skbar_move=0x7f090029;
-        public static final int id_mediapool_skbar_red=0x7f09002a;
-        public static final int id_mediapool_skbar_rotate=0x7f090027;
-        public static final int id_mediapool_skbar_scale=0x7f090028;
-        public static final int id_mediapool_tv_count=0x7f090022;
-        public static final int id_palyer_screenhinit=0x7f09002f;
-        public static final int id_palyer_videoRatio=0x7f090030;
-        public static final int id_palyer_videoduration=0x7f090031;
-        public static final int id_palyer_videosizehint=0x7f090032;
-        public static final int id_player_btnselectfilter=0x7f090019;
-        public static final int id_player_control_linear2=0x7f090018;
-        public static final int id_player_seekbar1=0x7f09001a;
-        public static final int id_test_audio_mix1=0x7f090034;
-        public static final int id_test_audio_mix2=0x7f090035;
-        public static final int id_test_audio_play=0x7f090036;
-        public static final int id_test_video_function_hint=0x7f090037;
-        public static final int id_two_player_demo_view1=0x7f090038;
-        public static final int id_two_player_demo_view2=0x7f090039;
-        public static final int id_video_edit_btn=0x7f09003b;
-        public static final int id_video_edit_btn2=0x7f09003d;
-        public static final int id_video_edit_progress_hint=0x7f09003c;
-        public static final int id_video_editor_hint=0x7f090033;
-        public static final int id_vview_realtime_gllayout=0x7f09003e;
-        public static final int id_vview_realtime_mediapool_view=0x7f09003f;
-        public static final int id_vview_realtime_saveplay=0x7f090040;
-        public static final int imageview_rowicon=0x7f090013;
-        public static final int linearlayout_row=0x7f090012;
-        public static final int mediapool_hint_centor=0x7f090020;
-        public static final int mediapool_view=0x7f090025;
-        public static final int surface1=0x7f09002e;
-        public static final int textview_path=0x7f090015;
-        public static final int textview_rowtext=0x7f090014;
-        public static final int video_view=0x7f090016;
+        public static final int id_demo_list_tvvideo=0x7f090050;
+        public static final int id_filter_saveplay=0x7f090018;
+        public static final int id_filtersprite_demo_seek1=0x7f09001f;
+        public static final int id_filtersprite_demo_selectbtn=0x7f09001e;
+        public static final int id_filtersprite_demo_view=0x7f09001c;
+        public static final int id_filtersprite_saveplay=0x7f09001d;
+        public static final int id_gl_testbtn=0x7f090049;
+        public static final int id_gllayout_pager=0x7f090046;
+        public static final int id_gllayout_tv=0x7f090047;
+        public static final int id_gllayout_tv2=0x7f090048;
+        public static final int id_main_demoedit=0x7f090005;
+        public static final int id_main_demofilter=0x7f090006;
+        public static final int id_main_demofiltersprite=0x7f090007;
+        public static final int id_main_filterexecute=0x7f09000e;
+        public static final int id_main_mediapoolexecute=0x7f09000f;
+        public static final int id_main_mediapoolexecute_filter=0x7f090010;
+        public static final int id_main_mediapoolpictureexecute=0x7f090011;
+        public static final int id_main_pictures=0x7f09000c;
+        public static final int id_main_scaleexecute=0x7f09000d;
+        public static final int id_main_select_video=0x7f090003;
+        public static final int id_main_testvideoplay=0x7f090012;
+        public static final int id_main_tvvideo=0x7f090004;
+        public static final int id_main_twovideooverlay=0x7f090008;
+        public static final int id_main_use_default_videobtn=0x7f090002;
+        public static final int id_main_videobitmapoverlay=0x7f090009;
+        public static final int id_main_viewremark=0x7f09000b;
+        public static final int id_main_viewspritedemo=0x7f09000a;
+        public static final int id_mediapool_hint_1=0x7f090020;
+        public static final int id_mediapool_hint_btn=0x7f090024;
+        public static final int id_mediapool_hint_only=0x7f090022;
+        public static final int id_mediapool_layout=0x7f090025;
+        public static final int id_mediapool_saveplay=0x7f090027;
+        public static final int id_mediapool_skbar_alpha=0x7f09002e;
+        public static final int id_mediapool_skbar_blue=0x7f09002d;
+        public static final int id_mediapool_skbar_green=0x7f09002c;
+        public static final int id_mediapool_skbar_move=0x7f09002a;
+        public static final int id_mediapool_skbar_red=0x7f09002b;
+        public static final int id_mediapool_skbar_rotate=0x7f090028;
+        public static final int id_mediapool_skbar_scale=0x7f090029;
+        public static final int id_mediapool_tv_count=0x7f090023;
+        public static final int id_palyer_screenhinit=0x7f090030;
+        public static final int id_palyer_videoRatio=0x7f090031;
+        public static final int id_palyer_videoduration=0x7f090032;
+        public static final int id_palyer_videosizehint=0x7f090033;
+        public static final int id_playbox_hint_1=0x7f090035;
+        public static final int id_playbox_hint_2=0x7f090036;
+        public static final int id_playbox_hint_3=0x7f090037;
+        public static final int id_playbox_hint_4=0x7f090038;
+        public static final int id_playbox_hint_btn=0x7f09003a;
+        public static final int id_playbox_tv_count=0x7f090039;
+        public static final int id_player_btnselectfilter=0x7f09001a;
+        public static final int id_player_control_linear2=0x7f090019;
+        public static final int id_player_seekbar1=0x7f09001b;
+        public static final int id_sdk_hint_scrollview=0x7f090034;
+        public static final int id_test_audio_mix1=0x7f09003c;
+        public static final int id_test_audio_mix2=0x7f09003d;
+        public static final int id_test_audio_play=0x7f09003e;
+        public static final int id_test_video_function_hint=0x7f09003f;
+        public static final int id_two_player_demo_view1=0x7f090040;
+        public static final int id_two_player_demo_view2=0x7f090041;
+        public static final int id_video_edit_btn=0x7f090042;
+        public static final int id_video_edit_btn2=0x7f090044;
+        public static final int id_video_edit_progress_hint=0x7f090043;
+        public static final int id_video_editor_hint=0x7f09003b;
+        public static final int id_vview_demo_all=0x7f090056;
+        public static final int id_vview_demo_commonwidget=0x7f090051;
+        public static final int id_vview_demo_dragimage=0x7f090054;
+        public static final int id_vview_demo_drawimage=0x7f090053;
+        public static final int id_vview_demo_image3d=0x7f090055;
+        public static final int id_vview_demo_viewpage=0x7f090052;
+        public static final int id_vview_realtime_gllayout=0x7f090045;
+        public static final int id_vview_realtime_mediapool_view=0x7f09004e;
+        public static final int id_vview_realtime_saveplay=0x7f09004f;
+        public static final int imageview_rowicon=0x7f090014;
+        public static final int invisible=0x7f090000;
+        public static final int linearlayout_row=0x7f090013;
+        public static final int mMatchTextView=0x7f09004a;
+        public static final int mediapool_hint_centor=0x7f090021;
+        public static final int mediapool_view=0x7f090026;
+        public static final int numberbar1=0x7f09004d;
+        public static final int stereoView=0x7f09004c;
+        public static final int surface1=0x7f09002f;
+        public static final int switcher=0x7f09004b;
+        public static final int textview_path=0x7f090016;
+        public static final int textview_rowtext=0x7f090015;
+        public static final int video_view=0x7f090017;
+        public static final int visible=0x7f090001;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
@@ -700,38 +911,65 @@ R35 B50,G71
         public static final int mediapool_touch_layout=0x7f030007;
         public static final int picture_set_layout=0x7f030008;
         public static final int player_layout=0x7f030009;
-        public static final int test_audiomix_layout=0x7f03000a;
-        public static final int test_video_function=0x7f03000b;
-        public static final int two_video_play_layout=0x7f03000c;
-        public static final int video_edit_demo_layout=0x7f03000d;
-        public static final int video_view_realtime_layout=0x7f03000e;
+        public static final int sdk_hint_layout=0x7f03000a;
+        public static final int start_layout3=0x7f03000b;
+        public static final int test_audiomix_layout=0x7f03000c;
+        public static final int test_video_function=0x7f03000d;
+        public static final int two_video_play_layout=0x7f03000e;
+        public static final int video_edit_demo_layout=0x7f03000f;
+        public static final int video_view_realtime_layout=0x7f030010;
+        public static final int vvcommon_widget_layout=0x7f030011;
+        public static final int vview_demo_list_layout=0x7f030012;
+        public static final int vview_dragimage_demo_layout=0x7f030013;
+        public static final int vview_drawimage_demo_layout=0x7f030014;
+        public static final int vview_image3d_demo_layout=0x7f030015;
+        public static final int vview_viewpage_demo_layout=0x7f030016;
     }
     public static final class raw {
-        public static final int sunrise=0x7f040000;
-        public static final int tone_cuver_sample=0x7f040001;
+        public static final int blow=0x7f040000;
+        public static final int heartv=0x7f040001;
+        public static final int sunrise=0x7f040002;
+        public static final int thrid=0x7f040003;
+        public static final int thrid_nan=0x7f040004;
+        public static final int tone_cuver_sample=0x7f040005;
     }
     public static final class string {
+        public static final int action_settings=0x7f070002;
+        public static final int adv_hint1=0x7f070007;
+        public static final int adv_hint2=0x7f070008;
+        public static final int adv_hint3=0x7f070009;
+        public static final int adv_hint4=0x7f07000a;
+        public static final int adv_hint5=0x7f07000b;
+        public static final int adv_hint6=0x7f07000c;
         public static final int app_name=0x7f070000;
-        public static final int canvas=0x7f07000f;
-        public static final int colorblock=0x7f07000d;
-        public static final int filterexecute_demo_hint=0x7f070008;
-        public static final int fix_width=0x7f070014;
-        public static final int here_is_only_demo=0x7f070012;
-        public static final int line=0x7f07000e;
-        public static final int mediapool_hint=0x7f07000a;
-        public static final int mediapoolexecute_demo_hint=0x7f070006;
-        public static final int message_denied=0x7f070002;
-        public static final int message_granted=0x7f070001;
-        public static final int origal_width=0x7f070013;
-        public static final int picture=0x7f07000c;
-        public static final int scaleexecute_demo_hint=0x7f070007;
-        public static final int sdk_hnit=0x7f070009;
-        public static final int sdk_limit=0x7f070003;
-        public static final int select_video=0x7f070004;
-        public static final int sound=0x7f070011;
-        public static final int video=0x7f07000b;
-        public static final int video_editor_demo_hint=0x7f070005;
-        public static final int word=0x7f070010;
+        public static final int canvas=0x7f070018;
+        public static final int colorblock=0x7f070016;
+        public static final int commonwidget_hint=0x7f07001f;
+        public static final int dragimage_hint=0x7f070021;
+        public static final int drawimage_hint=0x7f070020;
+        public static final int filterexecute_demo_hint=0x7f070012;
+        public static final int filtersprite_execute_hint=0x7f070010;
+        public static final int fix_width=0x7f07001d;
+        public static final int hello_world=0x7f070001;
+        public static final int here_is_only_demo=0x7f07001b;
+        public static final int lansong_hint=0x7f070005;
+        public static final int line=0x7f070017;
+        public static final int mediapool_hint=0x7f070013;
+        public static final int mediapoolexecute_demo_hint=0x7f07000f;
+        public static final int message_denied=0x7f070004;
+        public static final int message_granted=0x7f070003;
+        public static final int origal_width=0x7f07001c;
+        public static final int picture=0x7f070015;
+        public static final int scaleexecute_demo_hint=0x7f070011;
+        public static final int sdk_limit=0x7f070006;
+        public static final int select_video=0x7f07000d;
+        public static final int sound=0x7f07001a;
+        public static final int video=0x7f070014;
+        public static final int video_editor_demo_hint=0x7f07000e;
+        public static final int vview_demo_list_hint=0x7f07001e;
+        public static final int vview_image3d_hint=0x7f070023;
+        public static final int vview_viewpage_hint=0x7f070022;
+        public static final int word=0x7f070019;
     }
     public static final class style {
         /** 
@@ -760,10 +998,320 @@ R35 B50,G71
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f080001;
+        public static final int NumberProgressBar_Default=0x7f080007;
         public static final int main_item_arrow=0x7f080006;
         public static final int main_item_linearlayout=0x7f080003;
         public static final int main_item_reletivelayout=0x7f080002;
         public static final int main_item_textview1=0x7f080004;
         public static final int main_item_textview2=0x7f080005;
     }
+    public static final class styleable {
+        /** Attributes that can be used with a NumberProgressBar.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #NumberProgressBar_progress_current com.lansoeditor.demo:progress_current}</code></td><td></td></tr>
+           <tr><td><code>{@link #NumberProgressBar_progress_max com.lansoeditor.demo:progress_max}</code></td><td></td></tr>
+           <tr><td><code>{@link #NumberProgressBar_progress_reached_bar_height com.lansoeditor.demo:progress_reached_bar_height}</code></td><td></td></tr>
+           <tr><td><code>{@link #NumberProgressBar_progress_reached_color com.lansoeditor.demo:progress_reached_color}</code></td><td></td></tr>
+           <tr><td><code>{@link #NumberProgressBar_progress_text_color com.lansoeditor.demo:progress_text_color}</code></td><td></td></tr>
+           <tr><td><code>{@link #NumberProgressBar_progress_text_offset com.lansoeditor.demo:progress_text_offset}</code></td><td></td></tr>
+           <tr><td><code>{@link #NumberProgressBar_progress_text_size com.lansoeditor.demo:progress_text_size}</code></td><td></td></tr>
+           <tr><td><code>{@link #NumberProgressBar_progress_text_visibility com.lansoeditor.demo:progress_text_visibility}</code></td><td></td></tr>
+           <tr><td><code>{@link #NumberProgressBar_progress_unreached_bar_height com.lansoeditor.demo:progress_unreached_bar_height}</code></td><td></td></tr>
+           <tr><td><code>{@link #NumberProgressBar_progress_unreached_color com.lansoeditor.demo:progress_unreached_color}</code></td><td></td></tr>
+           </table>
+           @see #NumberProgressBar_progress_current
+           @see #NumberProgressBar_progress_max
+           @see #NumberProgressBar_progress_reached_bar_height
+           @see #NumberProgressBar_progress_reached_color
+           @see #NumberProgressBar_progress_text_color
+           @see #NumberProgressBar_progress_text_offset
+           @see #NumberProgressBar_progress_text_size
+           @see #NumberProgressBar_progress_text_visibility
+           @see #NumberProgressBar_progress_unreached_bar_height
+           @see #NumberProgressBar_progress_unreached_color
+         */
+        public static final int[] NumberProgressBar = {
+            0x7f010003, 0x7f010004, 0x7f010005, 0x7f010006,
+            0x7f010007, 0x7f010008, 0x7f010009, 0x7f01000a,
+            0x7f01000b, 0x7f01000c
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.lansoeditor.demo.R.attr#progress_current}
+          attribute's value can be found in the {@link #NumberProgressBar} array.
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.lansoeditor.demo:progress_current
+        */
+        public static final int NumberProgressBar_progress_current = 0;
+        /**
+          <p>This symbol is the offset where the {@link com.lansoeditor.demo.R.attr#progress_max}
+          attribute's value can be found in the {@link #NumberProgressBar} array.
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.lansoeditor.demo:progress_max
+        */
+        public static final int NumberProgressBar_progress_max = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.lansoeditor.demo.R.attr#progress_reached_bar_height}
+          attribute's value can be found in the {@link #NumberProgressBar} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.lansoeditor.demo:progress_reached_bar_height
+        */
+        public static final int NumberProgressBar_progress_reached_bar_height = 4;
+        /**
+          <p>This symbol is the offset where the {@link com.lansoeditor.demo.R.attr#progress_reached_color}
+          attribute's value can be found in the {@link #NumberProgressBar} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.lansoeditor.demo:progress_reached_color
+        */
+        public static final int NumberProgressBar_progress_reached_color = 3;
+        /**
+          <p>This symbol is the offset where the {@link com.lansoeditor.demo.R.attr#progress_text_color}
+          attribute's value can be found in the {@link #NumberProgressBar} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.lansoeditor.demo:progress_text_color
+        */
+        public static final int NumberProgressBar_progress_text_color = 7;
+        /**
+          <p>This symbol is the offset where the {@link com.lansoeditor.demo.R.attr#progress_text_offset}
+          attribute's value can be found in the {@link #NumberProgressBar} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.lansoeditor.demo:progress_text_offset
+        */
+        public static final int NumberProgressBar_progress_text_offset = 8;
+        /**
+          <p>This symbol is the offset where the {@link com.lansoeditor.demo.R.attr#progress_text_size}
+          attribute's value can be found in the {@link #NumberProgressBar} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.lansoeditor.demo:progress_text_size
+        */
+        public static final int NumberProgressBar_progress_text_size = 6;
+        /**
+          <p>This symbol is the offset where the {@link com.lansoeditor.demo.R.attr#progress_text_visibility}
+          attribute's value can be found in the {@link #NumberProgressBar} array.
+
+
+          <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>visible</code></td><td>0</td><td></td></tr>
+<tr><td><code>invisible</code></td><td>1</td><td></td></tr>
+</table>
+          @attr name com.lansoeditor.demo:progress_text_visibility
+        */
+        public static final int NumberProgressBar_progress_text_visibility = 9;
+        /**
+          <p>This symbol is the offset where the {@link com.lansoeditor.demo.R.attr#progress_unreached_bar_height}
+          attribute's value can be found in the {@link #NumberProgressBar} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.lansoeditor.demo:progress_unreached_bar_height
+        */
+        public static final int NumberProgressBar_progress_unreached_bar_height = 5;
+        /**
+          <p>This symbol is the offset where the {@link com.lansoeditor.demo.R.attr#progress_unreached_color}
+          attribute's value can be found in the {@link #NumberProgressBar} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.lansoeditor.demo:progress_unreached_color
+        */
+        public static final int NumberProgressBar_progress_unreached_color = 2;
+        /** Attributes that can be used with a RippleView.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #RippleView_normal com.lansoeditor.demo:normal}</code></td><td></td></tr>
+           <tr><td><code>{@link #RippleView_pressed com.lansoeditor.demo:pressed}</code></td><td></td></tr>
+           </table>
+           @see #RippleView_normal
+           @see #RippleView_pressed
+         */
+        public static final int[] RippleView = {
+            0x7f01000e, 0x7f01000f
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.lansoeditor.demo.R.attr#normal}
+          attribute's value can be found in the {@link #RippleView} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name com.lansoeditor.demo:normal
+        */
+        public static final int RippleView_normal = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.lansoeditor.demo.R.attr#pressed}
+          attribute's value can be found in the {@link #RippleView} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name com.lansoeditor.demo:pressed
+        */
+        public static final int RippleView_pressed = 0;
+        /** Attributes that can be used with a Themes.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #Themes_numberProgressBarStyle com.lansoeditor.demo:numberProgressBarStyle}</code></td><td></td></tr>
+           </table>
+           @see #Themes_numberProgressBarStyle
+         */
+        public static final int[] Themes = {
+            0x7f01000d
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.lansoeditor.demo.R.attr#numberProgressBarStyle}
+          attribute's value can be found in the {@link #Themes} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name com.lansoeditor.demo:numberProgressBarStyle
+        */
+        public static final int Themes_numberProgressBarStyle = 0;
+        /** Attributes that can be used with a match.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #match_text com.lansoeditor.demo:text}</code></td><td></td></tr>
+           <tr><td><code>{@link #match_textColor com.lansoeditor.demo:textColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #match_textSize com.lansoeditor.demo:textSize}</code></td><td></td></tr>
+           </table>
+           @see #match_text
+           @see #match_textColor
+           @see #match_textSize
+         */
+        public static final int[] match = {
+            0x7f010000, 0x7f010001, 0x7f010002
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.lansoeditor.demo.R.attr#text}
+          attribute's value can be found in the {@link #match} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.lansoeditor.demo:text
+        */
+        public static final int match_text = 0;
+        /**
+          <p>This symbol is the offset where the {@link com.lansoeditor.demo.R.attr#textColor}
+          attribute's value can be found in the {@link #match} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.lansoeditor.demo:textColor
+        */
+        public static final int match_textColor = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.lansoeditor.demo.R.attr#textSize}
+          attribute's value can be found in the {@link #match} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.lansoeditor.demo:textSize
+        */
+        public static final int match_textSize = 2;
+    };
 }

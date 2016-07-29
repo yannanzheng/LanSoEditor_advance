@@ -1,7 +1,6 @@
 package org.insta;
 
 
-
 import com.lansoeditor.demo.R;
 
 import android.content.Context;

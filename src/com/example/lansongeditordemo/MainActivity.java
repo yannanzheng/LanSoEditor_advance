@@ -17,8 +17,6 @@ import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
-import com.lansosdk.videoeditor.utils.FileUtils;
-import com.lansosdk.videoeditor.utils.snoCrashHandler;
 
 
 import android.annotation.SuppressLint;
@@ -67,6 +65,8 @@ public class MainActivity extends Activity implements OnClickListener{
 		Thread.setDefaultUncaughtExceptionHandler(new snoCrashHandler());
         setContentView(R.layout.activity_main);
         
+        LoadLanSongSdk.loadLibraries();  //拿出来单独加载库文件.
+        
         LanSoEditor.initSo(getApplicationContext(),null);
         
         PermissionsManager.getInstance().requestAllManifestPermissionsIfNecessary(this, new PermissionsResultAction() {
@@ -97,6 +97,7 @@ public class MainActivity extends Activity implements OnClickListener{
         
         tvVideoPath=(TextView)findViewById(R.id.id_main_tvvideo);
         
+        
         findViewById(R.id.id_main_demofilter).setOnClickListener(this);
         findViewById(R.id.id_main_demofiltersprite).setOnClickListener(this);
         
@@ -114,7 +115,6 @@ public class MainActivity extends Activity implements OnClickListener{
         findViewById(R.id.id_main_filterexecute).setOnClickListener(this);
         findViewById(R.id.id_main_mediapoolexecute).setOnClickListener(this);
         findViewById(R.id.id_main_mediapoolpictureexecute).setOnClickListener(this);
-        findViewById(R.id.id_main_testaudiomix).setOnClickListener(this);
         
         findViewById(R.id.id_main_testvideoplay).setOnClickListener(this);
         findViewById(R.id.id_main_viewremark).setOnClickListener(this);
@@ -139,7 +139,7 @@ public class MainActivity extends Activity implements OnClickListener{
 				new CopyDefaultVideoAsyncTask().execute();
 			}
 		});
-        
+        showHintDialog();
     }
     private boolean isStarted=false;
     @Override
@@ -255,7 +255,6 @@ public class MainActivity extends Activity implements OnClickListener{
 				break;
 			case R.id.id_main_demofiltersprite:
 				startExecuteDemo(FilterSpriteDemoActivity.class);
-				
 				break;
 			case R.id.id_main_demoedit:
 				startExecuteDemo(VideoEditDemoActivity.class);
@@ -270,7 +269,7 @@ public class MainActivity extends Activity implements OnClickListener{
 				startExecuteDemo(PictureSetRealTimeActivity.class);
 				break;
 			case R.id.id_main_viewspritedemo:
-				startExecuteDemo(VideoViewRealTimeActivity.class);
+				startExecuteDemo(VideoViewDemoListActivity.class);
 				break;
 			case R.id.id_main_scaleexecute:
 				startExecuteDemo(ScaleExecuteActivity.class);
@@ -287,9 +286,9 @@ public class MainActivity extends Activity implements OnClickListener{
 			case R.id.id_main_mediapoolpictureexecute:
 				startExecuteDemo(PictureSetExecuteActivity.class);
 				break;
-			case R.id.id_main_testaudiomix:
-				startExecuteDemo(TestAudioMixManagerActivity.class);
-				break;
+		//	case R.id.id_main_testaudiomix:
+		//		startExecuteDemo(TestAudioMixManagerActivity.class);
+		//		break;
 			case R.id.id_main_testvideoplay:
 				startExecuteDemo(VideoPlayerActivity.class);
 				break;
@@ -378,7 +377,7 @@ public class MainActivity extends Activity implements OnClickListener{
    	    	
    	    	
           String str=SDKDir.TMP_DIR+"ping20s.mp4";
-          if(FileUtils.fileExist(str)==false){
+          if(SDKFileUtils.fileExist(str)==false){
           	CopyFileFromAssets.copy(getApplicationContext(), "ping20s.mp4", SDKDir.TMP_DIR, "ping20s.mp4");
           }
    	     return null;
@@ -392,7 +391,7 @@ public class MainActivity extends Activity implements OnClickListener{
 	       		 mProgressDialog=null;
  		}
  		 String str=SDKDir.TMP_DIR+"ping20s.mp4";
- 		 if(FileUtils.fileExist(str)){
+ 		 if(SDKFileUtils.fileExist(str)){
  			 Toast.makeText(getApplicationContext(), "默认视频文件拷贝完成.路径是:"+str, Toast.LENGTH_SHORT).show();
  			 if(tvVideoPath!=null)
  				tvVideoPath.setText(str);

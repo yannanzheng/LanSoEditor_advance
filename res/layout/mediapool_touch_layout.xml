@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
      
-	<com.example.lansongeditordemo.TestTouchView
+	<com.example.lansongeditordemo.view.TestTouchView
             android:id="@+id/mediapool_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

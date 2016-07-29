@@ -14,10 +14,10 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
-import jp.co.cyberagent.android.gpuimage.GPUImageFilter;
-import jp.co.cyberagent.android.gpuimage.OpenGlUtils;
-import jp.co.cyberagent.android.gpuimage.Rotation;
-import jp.co.cyberagent.android.gpuimage.util.TextureRotationUtil;
+import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.OpenGlUtils;
+import jp.co.cyberagent.lansongsdk.gpuimage.Rotation;
+import jp.co.cyberagent.lansongsdk.gpuimage.util.TextureRotationUtil;
 
 public abstract class InstaFilter extends GPUImageFilter {
 

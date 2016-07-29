@@ -108,10 +108,9 @@
         <RelativeLayout  android:id="@+id/id_main_viewspritedemo" style="@style/main_item_reletivelayout">
           
 	         <LinearLayout style="@style/main_item_linearlayout">
-           	    <TextView   android:text="视频和UI叠加" 				style="@style/main_item_textview1"/>
+           	    <TextView   android:text="视频和UI叠加[多个举例]" style="@style/main_item_textview1" android:textColor="@color/blue"/>
            	    <TextView android:text="UI嵌入视频,涂鸦/动画/任意发挥"		style="@style/main_item_textview2"/>
 			</LinearLayout>
-			
 			<TextView  style="@style/main_item_arrow"/> 
 	</RelativeLayout>
 	 <RelativeLayout  android:id="@+id/id_main_viewremark" style="@style/main_item_reletivelayout">
@@ -188,16 +187,16 @@
 			<TextView  style="@style/main_item_arrow"/> 
 	</RelativeLayout>
 	
+		<!-- 
 		<RelativeLayout  android:id="@+id/id_main_testaudiomix" style="@style/main_item_reletivelayout">
           
 	         <LinearLayout style="@style/main_item_linearlayout">
            	    <TextView   android:text="测试音频混合的例子" 				style="@style/main_item_textview1"/>
            	    <TextView android:text="测试音频混合"		style="@style/main_item_textview2"/>
 			</LinearLayout>
-			
 			<TextView  style="@style/main_item_arrow"/> 
 	</RelativeLayout>
-	
+	 -->
 			<RelativeLayout  android:id="@+id/id_main_testvideoplay" style="@style/main_item_reletivelayout">
           
 	         <LinearLayout style="@style/main_item_linearlayout">
@@ -220,7 +219,7 @@
 		        android:layout_height="wrap_content"
 		        android:layout_centerVertical="true"
 		        android:layout_marginLeft="10dip"
-		        android:text="@string/sdk_hnit"
+		        android:text="@string/adv_hint5"
 		        android:textColor="#0000ff"/>
 	</RelativeLayout>
 

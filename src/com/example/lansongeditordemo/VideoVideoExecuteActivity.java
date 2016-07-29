@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lansongeditordemo.VideoEditDemoActivity.SubAsyncTask;
+import com.example.lansongeditordemo.view.GLLinearLayout;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.BitmapSprite;
 import com.lansosdk.box.MediaPool;
@@ -37,8 +38,6 @@ import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
 import com.lansosdk.videoeditor.onVideoEditorProgressListener;
-import com.lansosdk.videoeditor.utils.FileUtils;
-import com.lansosdk.videoeditor.utils.snoCrashHandler;
 
 /**
  * 演示: 使用MediaPool在后台执行视频和视频的叠加处理.
@@ -55,9 +54,6 @@ public class VideoVideoExecuteActivity extends Activity{
 	MediaInfo   mMediaInfo;
 	TextView tvProgressHint;
 	 TextView tvHint;
-	    private GLLinearLayout mGLLinearLayout;
-	 
-	 
 	    private String editTmpPath=null;
 	    private String dstPath=null;
 	    
@@ -99,7 +95,7 @@ public class VideoVideoExecuteActivity extends Activity{
 			
 			@Override
 			public void onClick(View v) {
-				if(FileUtils.fileExist(dstPath)){
+				if(SDKFileUtils.fileExist(dstPath)){
 					Intent intent=new Intent(VideoVideoExecuteActivity.this,VideoPlayerActivity.class);
 	    	    	intent.putExtra("videopath", dstPath);
 	    	    	startActivity(intent);
@@ -108,8 +104,6 @@ public class VideoVideoExecuteActivity extends Activity{
 				}
 			}
 		});
-       
-       mGLLinearLayout=(GLLinearLayout)findViewById(R.id.id_edit_gl_layout);
        
        editTmpPath=SDKFileUtils.newMp4PathInBox();
        dstPath=SDKFileUtils.newMp4PathInBox();
@@ -123,11 +117,11 @@ public class VideoVideoExecuteActivity extends Activity{
     		vMediaPool.release();
     		vMediaPool=null;
     	}
-    	   if(FileUtils.fileExist(dstPath)){
-        	   FileUtils.deleteFile(dstPath);
+    	   if(SDKFileUtils.fileExist(dstPath)){
+    		   SDKFileUtils.deleteFile(dstPath);
            }
-           if(FileUtils.fileExist(editTmpPath)){
-        	   FileUtils.deleteFile(editTmpPath);
+           if(SDKFileUtils.fileExist(editTmpPath)){
+        	   SDKFileUtils.deleteFile(editTmpPath);
            } 
     }
 	   
@@ -189,7 +183,7 @@ public class VideoVideoExecuteActivity extends Activity{
 				
 				isExecuting=false;
 				
-				if(FileUtils.fileExist(editTmpPath)){
+				if(SDKFileUtils.fileExist(editTmpPath)){
 					VideoEditor.encoderAddAudio(videoPath, editTmpPath,SDKDir.TMP_DIR,dstPath);
 				}
 				  findViewById(R.id.id_video_edit_btn2).setEnabled(true);

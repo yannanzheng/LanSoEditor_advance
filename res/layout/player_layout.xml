@@ -11,7 +11,7 @@
             android:layout_height="wrap_content"
         android:layout_centerInParent="true">
         
-        <com.lansosdk.videoeditor.utils.TextureRenderView
+        <com.example.lansongeditordemo.view.TextureRenderView
         android:id="@+id/surface1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

@@ -9,8 +9,6 @@ import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
 import com.lansosdk.videoeditor.onVideoEditorProgressListener;
-import com.lansosdk.videoeditor.utils.FileUtils;
-import com.lansosdk.videoeditor.utils.snoCrashHandler;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -88,7 +86,7 @@ public class VideoEditDemoActivity extends Activity{
 				
 				@Override
 				public void onClick(View v) {
-					if(FileUtils.fileExist(dstPath)){
+					if(SDKFileUtils.fileExist(dstPath)){
 						Intent intent=new Intent(VideoEditDemoActivity.this,VideoPlayerActivity.class);
 		    	    	intent.putExtra("videopath", dstPath);
 		    	    	startActivity(intent);
@@ -111,8 +109,8 @@ public class VideoEditDemoActivity extends Activity{
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		
-		 if(FileUtils.fileExist(dstPath)){
-		     	FileUtils.deleteFile(dstPath);
+		 if(SDKFileUtils.fileExist(dstPath)){
+			 SDKFileUtils.deleteFile(dstPath);
 		     }
 	}
 		private void showHintDialog()

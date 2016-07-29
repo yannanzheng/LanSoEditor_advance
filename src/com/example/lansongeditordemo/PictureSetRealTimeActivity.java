@@ -4,9 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import jp.co.cyberagent.android.gpuimage.GPUImageFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 
-import com.example.lansongeditordemo.MediaPoolView.onViewAvailable;
+import com.example.lansongeditordemo.view.MediaPoolView;
+import com.example.lansongeditordemo.view.MediaPoolView.onViewAvailable;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.MediaPool;
 import com.lansosdk.box.MediaPoolUpdateMode;
@@ -18,16 +19,12 @@ import com.lansosdk.box.onMediaPoolProgressListener;
 import com.lansosdk.box.onMediaPoolSizeChangedListener;
 import com.lansosdk.videoeditor.CopyFileFromAssets;
 import com.lansosdk.videoeditor.MediaInfo;
-import com.lansosdk.videoeditor.MediaSource;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
 import com.lansosdk.videoeditor.player.IMediaPlayer;
 import com.lansosdk.videoeditor.player.IMediaPlayer.OnPlayerPreparedListener;
 import com.lansosdk.videoeditor.player.VPlayer;
-import com.lansosdk.videoeditor.utils.FileUtils;
-import com.lansosdk.videoeditor.utils.Utils;
-import com.lansosdk.videoeditor.utils.snoCrashHandler;
 
 import android.app.Activity;
 import android.content.Context;
@@ -91,7 +88,7 @@ public class PictureSetRealTimeActivity extends Activity{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				 if(FileUtils.fileExist(dstPath)){
+				 if(SDKFileUtils.fileExist(dstPath)){
 		   			 	Intent intent=new Intent(PictureSetRealTimeActivity.this,VideoPlayerActivity.class);
 			    	    	intent.putExtra("videopath", dstPath);
 			    	    	startActivity(intent);
@@ -205,7 +202,7 @@ public class PictureSetRealTimeActivity extends Activity{
 			// TODO Auto-generated method stub
 			Log.i(TAG,"MediaPoolCompleted: !!!!!!!!!:");
 			
-			if(FileUtils.fileExist(editTmpPath)){
+			if(SDKFileUtils.fileExist(editTmpPath)){
 				VideoEditor.executeH264WrapperMp4(editTmpPath,dstPath);
 		    	findViewById(R.id.id_mediapool_saveplay).setVisibility(View.VISIBLE);
 			}
@@ -255,11 +252,11 @@ public class PictureSetRealTimeActivity extends Activity{
     		 slideEffectArray.clear();
     		 slideEffectArray=null;
     	}
-    	if(FileUtils.fileExist(dstPath)){
-        	FileUtils.deleteFile(dstPath);
+    	if(SDKFileUtils.fileExist(dstPath)){
+    		SDKFileUtils.deleteFile(dstPath);
         }
-        if(FileUtils.fileExist(editTmpPath)){
-        	FileUtils.deleteFile(editTmpPath);
+        if(SDKFileUtils.fileExist(editTmpPath)){
+        	SDKFileUtils.deleteFile(editTmpPath);
         } 
     }
   

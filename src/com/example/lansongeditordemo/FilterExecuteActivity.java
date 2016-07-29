@@ -25,8 +25,6 @@ import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
-import com.lansosdk.videoeditor.utils.FileUtils;
-import com.lansosdk.videoeditor.utils.snoCrashHandler;
 
 /**
  * 此演示功能:在后台单独处理视频滤镜.适用在当不需要UI界面做滤镜预览的场合.比如不经过滤镜预览或没有预览完毕,就可以做视频滤镜处理,这样的场合使用!
@@ -84,7 +82,7 @@ public class FilterExecuteActivity extends Activity{
 			
 			@Override
 			public void onClick(View v) {
-				if(FileUtils.fileExist(dstPath)){
+				if(SDKFileUtils.fileExist(dstPath)){
 					Intent intent=new Intent(FilterExecuteActivity.this,VideoPlayerActivity.class);
 	    	    	intent.putExtra("videopath", dstPath);
 	    	    	startActivity(intent);
@@ -96,10 +94,7 @@ public class FilterExecuteActivity extends Activity{
        
        editTmpPath=SDKFileUtils.newMp4PathInBox();
        dstPath=SDKFileUtils.newMp4PathInBox();
-      
 	}
-	
-	
 	VideoEditor mVideoEditer;
 	BitmapSprite bitmapSprite=null;
 	private void showHintDialog()
@@ -144,15 +139,11 @@ public class FilterExecuteActivity extends Activity{
 			public void onCompleted(FilterExecute v) {
 				// TODO Auto-generated method stub
 				tvProgressHint.setText("Completed!!!FilterExecute");
-				
 				isExecuting=false;
-				
-				if(FileUtils.fileExist(editTmpPath)){
-					
+				if(SDKFileUtils.fileExist(editTmpPath)){
 					VideoEditor.encoderAddAudio(videoPath, editTmpPath,SDKDir.TMP_DIR, dstPath);
 				}
-				  findViewById(R.id.id_video_edit_btn2).setEnabled(true);
-				  
+				findViewById(R.id.id_video_edit_btn2).setEnabled(true);
 			}
 		});
 		vEdit.start();
@@ -161,11 +152,11 @@ public class FilterExecuteActivity extends Activity{
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		 if(FileUtils.fileExist(dstPath)){
-	    	   FileUtils.deleteFile(dstPath);
+		 if(SDKFileUtils.fileExist(dstPath)){
+			 SDKFileUtils.deleteFile(dstPath);
 	       }
-	       if(FileUtils.fileExist(editTmpPath)){
-	    	   FileUtils.deleteFile(editTmpPath);
+	       if(SDKFileUtils.fileExist(editTmpPath)){
+	    	   SDKFileUtils.deleteFile(editTmpPath);
 	       } 
 	}
 }	

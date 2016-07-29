@@ -6,18 +6,15 @@ import java.io.IOException;
 
 import com.example.lansongeditordemo.GPUImageFilterTools.FilterAdjuster;
 import com.example.lansongeditordemo.GPUImageFilterTools.OnGpuImageFilterChosenListener;
+import com.example.lansongeditordemo.view.FilterView;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.onFilterViewSizeChangedListener;
 import com.lansosdk.videoeditor.MediaInfo;
-import com.lansosdk.videoeditor.MediaSource;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
-import com.lansosdk.videoeditor.utils.FileUtils;
-import com.lansosdk.videoeditor.utils.Utils;
-import com.lansosdk.videoeditor.utils.snoCrashHandler;
 
-import jp.co.cyberagent.android.gpuimage.GPUImageFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 
 
 
@@ -108,7 +105,7 @@ public class FilterPreviewDemoActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				 if(FileUtils.fileExist(dstPath)){
+				 if(SDKFileUtils.fileExist(dstPath)){
 		   			 	Intent intent=new Intent(FilterPreviewDemoActivity.this,VideoPlayerActivity.class);
 			    	    	intent.putExtra("videopath", dstPath);
 			    	    	startActivity(intent);
@@ -164,9 +161,9 @@ public class FilterPreviewDemoActivity extends Activity {
 						
 						toastStop();
 						
-						if(FileUtils.fileExist(editTmpPath)){
+						if(SDKFileUtils.fileExist(editTmpPath)){
 							VideoEditor.encoderAddAudio(mVideoPath,editTmpPath,SDKDir.TMP_DIR,dstPath);
-							FileUtils.deleteFile(editTmpPath);
+							SDKFileUtils.deleteFile(editTmpPath);
 						}
 					}
 				}

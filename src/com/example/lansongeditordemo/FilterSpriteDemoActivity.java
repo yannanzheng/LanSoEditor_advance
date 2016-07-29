@@ -4,11 +4,12 @@ package com.example.lansongeditordemo;
 import java.io.IOException;
 import java.util.Locale;
 
-import jp.co.cyberagent.android.gpuimage.GPUImageFilter;
-import jp.co.cyberagent.android.gpuimage.GPUImageSepiaFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
 
 import com.example.lansongeditordemo.GPUImageFilterTools.FilterAdjuster;
 import com.example.lansongeditordemo.GPUImageFilterTools.OnGpuImageFilterChosenListener;
+import com.example.lansongeditordemo.view.MediaPoolView;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.AudioEncodeDecode;
 import com.lansosdk.box.FilterSprite;
@@ -22,16 +23,12 @@ import com.lansosdk.box.onMediaPoolCompletedListener;
 import com.lansosdk.box.onMediaPoolProgressListener;
 import com.lansosdk.box.onMediaPoolSizeChangedListener;
 import com.lansosdk.videoeditor.MediaInfo;
-import com.lansosdk.videoeditor.MediaSource;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
 import com.lansosdk.videoeditor.player.IMediaPlayer;
 import com.lansosdk.videoeditor.player.IMediaPlayer.OnPlayerPreparedListener;
 import com.lansosdk.videoeditor.player.VPlayer;
-import com.lansosdk.videoeditor.utils.FileUtils;
-import com.lansosdk.videoeditor.utils.Utils;
-import com.lansosdk.videoeditor.utils.snoCrashHandler;
 
 import android.app.Activity;
 import android.content.Context;
@@ -134,7 +131,7 @@ public class FilterSpriteDemoActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				 if(FileUtils.fileExist(dstPath)){
+				 if(SDKFileUtils.fileExist(dstPath)){
 		   			 	Intent intent=new Intent(FilterSpriteDemoActivity.this,VideoPlayerActivity.class);
 			    	    	intent.putExtra("videopath", dstPath);
 			    	    	startActivity(intent);
@@ -257,9 +254,9 @@ public class FilterSpriteDemoActivity extends Activity {
 			
 			toastStop();
 			
-			if(FileUtils.fileExist(editTmpPath)){
+			if(SDKFileUtils.fileExist(editTmpPath)){
 				VideoEditor.encoderAddAudio(mVideoPath,editTmpPath,SDKDir.TMP_DIR,dstPath);
-				FileUtils.deleteFile(editTmpPath);
+				SDKFileUtils.deleteFile(editTmpPath);
 			}
 			toastStop();
 		}
@@ -295,11 +292,11 @@ protected void onDestroy() {
 		mMediaPoolView.stopMediaPool();
 		mMediaPoolView=null;        		   
 	}
-	 if(FileUtils.fileExist(dstPath)){
-     	FileUtils.deleteFile(dstPath);
+	 if(SDKFileUtils.fileExist(dstPath)){
+		 SDKFileUtils.deleteFile(dstPath);
      }
-     if(FileUtils.fileExist(editTmpPath)){
-     	FileUtils.deleteFile(editTmpPath);
+     if(SDKFileUtils.fileExist(editTmpPath)){
+    	 SDKFileUtils.deleteFile(editTmpPath);
      } 
 }
 

@@ -17,9 +17,6 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
-    
-    
-    
      <style name="main_item_reletivelayout">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">60dip</item>
@@ -58,6 +55,29 @@
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:layout_marginRight">20dip</item>
         <item name="android:background">@drawable/right_arrow</item>
-    </style>	   
+    </style>	
     
+         <declare-styleable name="RippleView">
+        <attr name="pressed" format="reference"/>
+        <attr name="normal" format="reference"/>
+    </declare-styleable>
+    
+            
+    <style name="NumberProgressBar_Default">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+
+        <item name="progress_max">100</item>
+        <item name="progress_current">0</item>
+
+        <item name="progress_unreached_color">#CCCCCC</item>
+        <item name="progress_reached_color">#FF0000</item>
+
+        <item name="progress_text_size">10sp</item>
+        <item name="progress_text_color">#3498DB</item>
+
+        <item name="progress_reached_bar_height">6dp</item>
+        <item name="progress_unreached_bar_height">3dp</item>
+    </style>
+			            
 </resources>

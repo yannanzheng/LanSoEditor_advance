@@ -30,8 +30,6 @@ import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
-import com.lansosdk.videoeditor.utils.FileUtils;
-import com.lansosdk.videoeditor.utils.snoCrashHandler;
 
 /**
  * 后台执行 照片影集的功能. 
@@ -80,7 +78,7 @@ public class PictureSetExecuteActivity extends Activity{
 			
 			@Override
 			public void onClick(View v) {
-				if(FileUtils.fileExist(dstPath)){
+				if(SDKFileUtils.fileExist(dstPath)){
 					Intent intent=new Intent(PictureSetExecuteActivity.this,VideoPlayerActivity.class);
 	    	    	intent.putExtra("videopath", dstPath);
 	    	    	startActivity(intent);
@@ -116,11 +114,11 @@ public class PictureSetExecuteActivity extends Activity{
     		vMediaPool.release();
     		vMediaPool=null;
     	}
-    	 if(FileUtils.fileExist(dstPath)){
-      	   FileUtils.deleteFile(dstPath);
+    	 if(SDKFileUtils.fileExist(dstPath)){
+    		 SDKFileUtils.deleteFile(dstPath);
          }
-         if(FileUtils.fileExist(editTmpPath)){
-      	   FileUtils.deleteFile(editTmpPath);
+         if(SDKFileUtils.fileExist(editTmpPath)){
+        	 SDKFileUtils.deleteFile(editTmpPath);
          } 
     }
 	   
@@ -163,7 +161,7 @@ public class PictureSetExecuteActivity extends Activity{
 				isExecuting=false;
 				
 
-				if(FileUtils.fileExist(editTmpPath)){
+				if(SDKFileUtils.fileExist(editTmpPath)){
 					VideoEditor.executeH264WrapperMp4(editTmpPath,dstPath);
 					findViewById(R.id.id_video_edit_btn2).setEnabled(true);
 				}

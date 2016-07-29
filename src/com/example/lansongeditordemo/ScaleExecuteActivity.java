@@ -24,8 +24,6 @@ import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
-import com.lansosdk.videoeditor.utils.FileUtils;
-import com.lansosdk.videoeditor.utils.snoCrashHandler;
 
 /**
  * 对视频画面进行缩放, 用ffmpeg也可以完成, 但手机cpu的限制,ffmpeg用软件代码的形式来对一帧像素进行处理, 太慢了,在手机上完全无法使用. 基于此,我们推出了 用OpenGL来完成的硬缩放的方式,
@@ -86,7 +84,7 @@ public class ScaleExecuteActivity extends Activity{
 			
 			@Override
 			public void onClick(View v) {
-				if(FileUtils.fileExist(dstPath)){
+				if(SDKFileUtils.fileExist(dstPath)){
 					Intent intent=new Intent(ScaleExecuteActivity.this,VideoPlayerActivity.class);
 	    	    	intent.putExtra("videopath", dstPath);
 	    	    	startActivity(intent);
@@ -148,10 +146,8 @@ public class ScaleExecuteActivity extends Activity{
 			public void onCompleted(ScaleExecute v) {
 				// TODO Auto-generated method stub
 				tvProgressHint.setText("Completed!!!");
-				
 				isExecuting=false;
-				
-				if(FileUtils.fileExist(editTmpPath)){
+				if(SDKFileUtils.fileExist(editTmpPath)){
 					VideoEditor.encoderAddAudio(videoPath, editTmpPath,SDKDir.TMP_DIR, dstPath);
 				}
 				findViewById(R.id.id_video_edit_btn2).setEnabled(true);
@@ -163,11 +159,11 @@ public class ScaleExecuteActivity extends Activity{
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		 if(FileUtils.fileExist(dstPath)){
-	    	   FileUtils.deleteFile(dstPath);
+		 if(SDKFileUtils.fileExist(dstPath)){
+			 SDKFileUtils.deleteFile(dstPath);
 	       }
-	       if(FileUtils.fileExist(editTmpPath)){
-	    	   FileUtils.deleteFile(editTmpPath);
+	       if(SDKFileUtils.fileExist(editTmpPath)){
+	    	   SDKFileUtils.deleteFile(editTmpPath);
 	       } 
 	}
 }	

@@ -5,25 +5,7 @@
     android:orientation="vertical" 
     android:background="#009900">
     
-    <com.example.lansongeditordemo.GLLinearLayout
-        android:id="@+id/id_edit_gl_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="lanso测试文字"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_launcher"/>
-
-    </com.example.lansongeditordemo.GLLinearLayout>
-    
     <Button 
         android:id="@+id/id_video_edit_btn"
         android:layout_width="match_parent"

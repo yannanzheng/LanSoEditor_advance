@@ -1,7 +1,7 @@
 package com.example.lansongeditordemo;
 
-import jp.co.cyberagent.android.gpuimage.GPUImageSepiaFilter;
-import jp.co.cyberagent.android.gpuimage.GPUImageToneCurveFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageToneCurveFilter;
 
 import org.insta.IFRiseFilter;
 
@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lansongeditordemo.VideoEditDemoActivity.SubAsyncTask;
+import com.example.lansongeditordemo.view.GLLinearLayout;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.BitmapSprite;
 import com.lansosdk.box.MediaPool;
@@ -41,8 +42,6 @@ import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
 import com.lansosdk.videoeditor.onVideoEditorProgressListener;
-import com.lansosdk.videoeditor.utils.FileUtils;
-import com.lansosdk.videoeditor.utils.snoCrashHandler;
 
 /**
  * 演示FilterSprite在后台工作的场合, 比如你想设计的UI是 可以在滤镜的过程中, 让用户手动拖动增加一些图片,文字等, 增加完成后,记录下用户的操作信息,但需要统一处理时,通过此类来在后台执行.
@@ -58,8 +57,6 @@ public class FilterSpriteExecuteActivity extends Activity{
 	MediaInfo   mMediaInfo;
 	TextView tvProgressHint;
 	 TextView tvHint;
-	    private GLLinearLayout mGLLinearLayout;
-	 
 	 
 	    private String editTmpPath=null;
 	    private String dstPath=null;
@@ -81,7 +78,7 @@ public class FilterSpriteExecuteActivity extends Activity{
 		 setContentView(R.layout.video_edit_demo_layout);
 		 tvHint=(TextView)findViewById(R.id.id_video_editor_hint);
 		 
-		 tvHint.setText(R.string.mediapoolexecute_demo_hint);
+		 tvHint.setText(R.string.filtersprite_execute_hint);
    
 		 tvProgressHint=(TextView)findViewById(R.id.id_video_edit_progress_hint);
 		 
@@ -103,7 +100,7 @@ public class FilterSpriteExecuteActivity extends Activity{
 			
 			@Override
 			public void onClick(View v) {
-				if(FileUtils.fileExist(dstPath)){
+				if(SDKFileUtils.fileExist(dstPath)){
 					Intent intent=new Intent(FilterSpriteExecuteActivity.this,VideoPlayerActivity.class);
 	    	    	intent.putExtra("videopath", dstPath);
 	    	    	startActivity(intent);
@@ -112,9 +109,6 @@ public class FilterSpriteExecuteActivity extends Activity{
 				}
 			}
 		});
-       
-       mGLLinearLayout=(GLLinearLayout)findViewById(R.id.id_edit_gl_layout);
-       
        editTmpPath=SDKFileUtils.newMp4PathInBox();
        dstPath=SDKFileUtils.newMp4PathInBox();
 	}
@@ -127,17 +121,16 @@ public class FilterSpriteExecuteActivity extends Activity{
     		vMediaPool.release();
     		vMediaPool=null;
     	}
-    	   if(FileUtils.fileExist(dstPath)){
-        	   FileUtils.deleteFile(dstPath);
+    	   if(SDKFileUtils.fileExist(dstPath)){
+    		   SDKFileUtils.deleteFile(dstPath);
            }
-           if(FileUtils.fileExist(editTmpPath)){
-        	   FileUtils.deleteFile(editTmpPath);
+           if(SDKFileUtils.fileExist(editTmpPath)){
+        	   SDKFileUtils.deleteFile(editTmpPath);
            } 
     }
 	   
 	VideoEditor mVideoEditer;
 	BitmapSprite bitmapSprite=null;
-	private ViewSprite mCanvasSprite=null;
 	MediaPoolVideoFilterExecute  vMediaPool=null;
 	private boolean isExecuting=false;
 	private void showHintDialog()
@@ -190,7 +183,7 @@ public class FilterSpriteExecuteActivity extends Activity{
 				
 				isExecuting=false;
 				
-				if(FileUtils.fileExist(editTmpPath)){
+				if(SDKFileUtils.fileExist(editTmpPath)){
 					VideoEditor.encoderAddAudio(videoPath, editTmpPath,SDKDir.TMP_DIR,dstPath);
 				}
 				  findViewById(R.id.id_video_edit_btn2).setEnabled(true);

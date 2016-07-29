@@ -2,13 +2,13 @@ package com.example.lansongeditordemo;
 
 import java.io.IOException;
 
+import com.example.lansongeditordemo.view.IRenderView;
+import com.example.lansongeditordemo.view.TextureRenderView;
 import com.lansoeditor.demo.R;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.player.IMediaPlayer;
-import com.lansosdk.videoeditor.player.IRenderView;
 import com.lansosdk.videoeditor.player.VPlayer;
 import com.lansosdk.videoeditor.player.IMediaPlayer.OnPlayerPreparedListener;
-import com.lansosdk.videoeditor.utils.TextureRenderView;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -172,8 +172,6 @@ public class VideoPlayerActivity extends Activity {
 		        	tvSizeHint.setText(R.string.fix_width);
 		        	textureView.setDispalyRatio(IRenderView.AR_ASPECT_FIT_PARENT);
 		        }
-		        
-		        
 		        textureView.setVideoSize(mediaPlayer.getVideoWidth(), mediaPlayer.getVideoHeight());
 		        textureView.requestLayout();
 		        mediaPlayer.start();  

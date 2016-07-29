@@ -7,8 +7,8 @@ import com.lansoeditor.demo.R;
 import com.lansosdk.box.AudioEncodeDecode;
 import com.lansosdk.box.AudioMixManager;
 import com.lansosdk.videoeditor.MediaInfo;
+import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
-import com.lansosdk.videoeditor.utils.FileUtils;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -105,7 +105,7 @@ public class TestAudioMixManagerActivity extends Activity{
 	private String pcmMix()
 	{
 		 String ret=null;
-		if(FileUtils.fileExist(videoPath) && FileUtils.fileExist("/sdcard/wuya.aac") && FileUtils.fileExist("/sdcard/hongdou10s.mp3"))
+		if(SDKFileUtils.fileExist(videoPath) && SDKFileUtils.fileExist("/sdcard/wuya.aac") && SDKFileUtils.fileExist("/sdcard/hongdou10s.mp3"))
 		{
 				VideoEditor et=new VideoEditor();
 			      et.executeDeleteVideo("/sdcard/2x.mp4", "/sdcard/2x_audio.aac");
@@ -129,7 +129,7 @@ public class TestAudioMixManagerActivity extends Activity{
 	}
 	private String audioMix()
 	{
-		if(FileUtils.fileExist("/sdcard/hongdou10s.mp3") && FileUtils.fileExist("/sdcard/wuya.aac"))
+		if(SDKFileUtils.fileExist("/sdcard/hongdou10s.mp3") && SDKFileUtils.fileExist("/sdcard/wuya.aac"))
 		{
 			VideoEditor mMediaEditor = new VideoEditor();
 			String ret="/sdcard/audio_amix.aac";
