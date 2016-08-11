@@ -10,11 +10,14 @@ import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
 import com.example.lansongeditordemo.view.MediaPoolView;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.AudioEncodeDecode;
+import com.lansosdk.box.MediaPool;
 import com.lansosdk.box.MediaPoolUpdateMode;
 import com.lansosdk.box.AudioMixManager;
 import com.lansosdk.box.VideoSprite;
 import com.lansosdk.box.ViewSprite;
 import com.lansosdk.box.ISprite;
+import com.lansosdk.box.onMediaPoolCompletedListener;
+import com.lansosdk.box.onMediaPoolProgressListener;
 import com.lansosdk.box.onMediaPoolSizeChangedListener;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
@@ -67,11 +70,6 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
     private VideoSprite subVideoSprite=null;
     private ISprite  mSpriteMain=null;
     
-    
-
-    
-    
-    
     private String editTmpPath=null;
     private String dstPath=null;
 
@@ -95,7 +93,6 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
         initSeekBar(R.id.id_mediapool_skbar_blue,100);
         initSeekBar(R.id.id_mediapool_skbar_alpha,100);
         
-        
         findViewById(R.id.id_mediapool_saveplay).setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -110,10 +107,11 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
 		   		 }
 			}
 		});
+        
     	findViewById(R.id.id_mediapool_saveplay).setVisibility(View.GONE);
     	
         editTmpPath=SDKFileUtils.newMp4PathInBox();
-            dstPath=SDKFileUtils.newMp4PathInBox();
+        dstPath=SDKFileUtils.newMp4PathInBox();
         
     }
     private void initSeekBar(int resId,int maxvalue)
@@ -167,8 +165,12 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
 						toastStop();
 						
 						if(SDKFileUtils.fileExist(editTmpPath)){
-							VideoEditor.encoderAddAudio(mVideoPath,editTmpPath,SDKDir.TMP_DIR,dstPath);
-							SDKFileUtils.deleteFile(editTmpPath);
+							boolean ret=VideoEditor.encoderAddAudio(mVideoPath,editTmpPath,SDKDir.TMP_DIR,dstPath);
+							if(!ret){
+								dstPath=editTmpPath;
+							}else
+								SDKFileUtils.deleteFile(editTmpPath);
+							
 							findViewById(R.id.id_mediapool_saveplay).setVisibility(View.VISIBLE);
 						}
 					}
@@ -189,6 +191,8 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
 		
     	// 设置MediaPool的刷新模式,默认 {@link MediaPool.UpdateMode#ALL_VIDEO_READY};
     	mPlayView.setUpdateMode(MediaPoolUpdateMode.ALL_VIDEO_READY,25);
+//    	mPlayView.setUpdateMode(MediaPoolUpdateMode.FIRST_VIDEO_READY, 25);
+    	
     	
     	if(DemoCfg.ENCODE){
     		//设置使能 实时录制, 即把正在MediaPool中呈现的画面实时的保存下来,起到所见即所得的模式
@@ -202,7 +206,8 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
 				// TODO Auto-generated method stub
 				
 				// 开始mediaPool的渲染线程. 
-				mPlayView.startMediaPool(null,null);
+//				mPlayView.startMediaPool(new MediaPoolProgressListener(),new MediaPoolCompleted());
+				mPlayView.startMediaPool(null,null); //这里为了演示方便, 设置为null,当然你也可以使用上面这句,然后把当前行屏蔽, 这样会调用两个回调,在回调中实现可以根据时间戳的关系来设计各种效果.
 				
 				//获取一个主视频的 VideoSprite
 				mSpriteMain=mPlayView.obtainMainVideoSprite(mplayer.getVideoWidth(),mplayer.getVideoHeight());
@@ -215,6 +220,51 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
 			}
 		});
     }
+    private class MediaPoolCompleted implements onMediaPoolCompletedListener
+    {
+
+		@Override
+		public void onCompleted(MediaPool v) {
+			// TODO Auto-generated method stub
+		}
+    }
+    boolean isFirstRemove=false;
+    private class MediaPoolProgressListener implements onMediaPoolProgressListener
+    {
+
+		@Override
+		public void onProgress(MediaPool v, long currentTimeUs) {
+			// TODO Auto-generated method stub
+//			  Log.i(TAG,"MediaPoolProgressListener: us:"+currentTimeUs);
+			
+			//这里根据每帧的效果,设置当大于10秒时, 删除第二个视频画面.
+			  if(currentTimeUs>=3*1000*1000 && subVideoSprite!=null && isFirstRemove==false)  
+			  {
+					  if(mPlayView!=null){
+						  mPlayView.removeSprite(subVideoSprite);
+						  subVideoSprite=null;
+							
+							if(mplayer2!=null){
+								mplayer2.stop();
+								mplayer2.release();
+								mplayer2=null;
+							}
+					  }
+					  isFirstRemove=true;
+					  Log.i(TAG,"subVideoSprite removed: !!!!!!!!!:");
+			  }
+			  
+			  if(currentTimeUs>=6*1000*1000&& mplayer2==null)  
+			  {
+					  if(mPlayView!=null){
+						  startPlayer2();
+						  Log.i(TAG,"subVideoSprite restart!!!!!!!!:");
+					  }
+			  }
+			  
+		}
+    }
+    
     private void startPlayer2()
     {
     	mplayer2=new MediaPlayer();
@@ -232,6 +282,7 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
 				
 				// 获取一个VideoSprite
 				subVideoSprite=mPlayView.obtainSubVideoSprite(mp.getVideoWidth(),mp.getVideoHeight());
+				Log.i(TAG,"sub video sprite ....obtain..");
 				if(subVideoSprite!=null){
 					mplayer2.setSurface(new Surface(subVideoSprite.getVideoTexture()));	
 					subVideoSprite.setScale(50);
@@ -282,39 +333,39 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
     {
     	Toast.makeText(getApplicationContext(), "录制已停止!!", Toast.LENGTH_SHORT).show();
     }
-   @Override
-protected void onDestroy() {
-	// TODO Auto-generated method stub
-	super.onDestroy();
-	if(mplayer!=null){
-		mplayer.stop();
-		mplayer.release();
-		mplayer=null;
+    @Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+			super.onDestroy();
+			if(mplayer!=null){
+				mplayer.stop();
+				mplayer.release();
+				mplayer=null;
+			}
+			
+			if(mplayer2!=null){
+				mplayer2.stop();
+				mplayer2.release();
+				mplayer2=null;
+			}
+			
+			if(vplayer!=null){
+				vplayer.stop();
+				vplayer.release();
+				vplayer=null;
+			}
+			
+			if(mPlayView!=null){
+				mPlayView.stopMediaPool();
+				mPlayView=null;        		   
+			}
+			if(SDKFileUtils.fileExist(dstPath)){
+				SDKFileUtils.deleteFile(dstPath);
+		    }
+		    if(SDKFileUtils.fileExist(editTmpPath)){
+		    	SDKFileUtils.deleteFile(editTmpPath);
+		    } 
 	}
-	
-	if(mplayer2!=null){
-		mplayer2.stop();
-		mplayer2.release();
-		mplayer2=null;
-	}
-	
-	if(vplayer!=null){
-		vplayer.stop();
-		vplayer.release();
-		vplayer=null;
-	}
-	
-	if(mPlayView!=null){
-		mPlayView.stopMediaPool();
-		mPlayView=null;        		   
-	}
-	if(SDKFileUtils.fileExist(dstPath)){
-		SDKFileUtils.deleteFile(dstPath);
-    }
-    if(SDKFileUtils.fileExist(editTmpPath)){
-    	SDKFileUtils.deleteFile(editTmpPath);
-    } 
-}
     private float xpos=0,ypos=0;
     
     /**

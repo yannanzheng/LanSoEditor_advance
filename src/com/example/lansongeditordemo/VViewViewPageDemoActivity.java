@@ -9,15 +9,15 @@ import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
-import net.frakbot.jumpingbeans.JumpingBeans;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 
-import com.daimajia.numberprogressbar.NumberProgressBar;
-import com.daimajia.numberprogressbar.OnProgressBarListener;
+import com.example.lansong.animview.JumpingBeans;
+import com.example.lansong.animview.NumberProgressBar;
+import com.example.lansong.animview.OnProgressBarListener;
+import com.example.lansong.animview.PaintConstants;
 import com.example.lansongeditordemo.view.GLRelativeLayout;
 import com.example.lansongeditordemo.view.MediaPoolView;
-import com.jiangjie.utils.PaintConstants;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.ViewSprite;
 import com.lansosdk.box.ISprite;
@@ -191,8 +191,12 @@ public class VViewViewPageDemoActivity extends Activity implements OnSeekBarChan
 						toastStop();
 						
 						if(SDKFileUtils.fileExist(editTmpPath)){
-							VideoEditor.encoderAddAudio(mVideoPath,editTmpPath,SDKDir.TMP_DIR, dstPath);
-							SDKFileUtils.deleteFile(editTmpPath);
+							boolean ret=VideoEditor.encoderAddAudio(mVideoPath,editTmpPath,SDKDir.TMP_DIR, dstPath);
+							if(!ret){
+								dstPath=editTmpPath;
+							}else
+								SDKFileUtils.deleteFile(editTmpPath);
+							
 					    	findViewById(R.id.id_vview_realtime_saveplay).setVisibility(View.VISIBLE);
 						}
 					}

@@ -147,8 +147,13 @@ public class VideoPictureRealTimeActivity extends Activity implements OnSeekBarC
 						toastStop();
 						
 						if(SDKFileUtils.fileExist(editTmpPath)){
-							VideoEditor.encoderAddAudio(mVideoPath,editTmpPath,SDKDir.TMP_DIR,dstPath);
-							SDKFileUtils.deleteFile(editTmpPath);
+							boolean ret=VideoEditor.encoderAddAudio(mVideoPath,editTmpPath,SDKDir.TMP_DIR,dstPath);
+							if(!ret){
+								dstPath=editTmpPath;
+							}else{
+								SDKFileUtils.deleteFile(editTmpPath);	
+							}
+							
 							findViewById(R.id.id_mediapool_saveplay).setVisibility(View.VISIBLE);
 						}else{
 							Log.e(TAG," player completion, but file:"+editTmpPath+" is not exist!!!");

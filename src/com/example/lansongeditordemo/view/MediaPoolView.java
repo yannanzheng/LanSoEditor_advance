@@ -212,7 +212,6 @@ public class MediaPoolView extends FrameLayout {
     	            mSurfaceTexture = surface;
     	            viewHeight=height;
     	            viewWidth=width;
-//    	            Log.i(TAG,"VIEW-------->onSurfaceTextureSizeChanged");
 	        			if(mSizeChangedCB!=null)
 	        				mSizeChangedCB.onSizeChanged(width, height);
     	        }
@@ -228,7 +227,6 @@ public class MediaPoolView extends FrameLayout {
     	            mSurfaceTexture = null;
     	            viewHeight=0;
     	            viewWidth=0;
-//    	            Log.i(TAG,"VIEW-------->onSurfaceTextureDestroyed");
     	            return false;
     	        }
     	
@@ -241,7 +239,6 @@ public class MediaPoolView extends FrameLayout {
     	         */
     	        @Override
     	        public void onSurfaceTextureUpdated(SurfaceTexture surface) {
-//    	        	Log.i(TAG,"VIEW-------->onSurfaceTextureUpdated");
     	        }
     }
 		/**
@@ -335,7 +332,8 @@ public class MediaPoolView extends FrameLayout {
 			return false;
 	}
 	/**
-	 * 停止MediaPool的渲染线程.
+	 * 停止MediaPool的渲染线程
+	 * 因为视频的来源是外接驱动的, MediaPoolViewRender不会自动停止, 故需要外部在视频播放外的时候, 调用此方法来停止MediaPool渲染线程.
 	 */
 	public void stopMediaPool()
 	{
@@ -450,6 +448,7 @@ public class MediaPoolView extends FrameLayout {
 		else{
 			Log.w(TAG,"setMainVideoSprite error render is not avalid");
 		}
+		//这里只是发送过去, 没有等到真正的release这个sprite就退出了,这样会导致并没有真正的release,而提供给VideoSprite的MediaPlayer已经停止工作,而MediaPool还在等待
 	}
 	 /**
 	    * 切换 滤镜

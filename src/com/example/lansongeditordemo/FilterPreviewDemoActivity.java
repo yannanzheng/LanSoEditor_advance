@@ -162,8 +162,13 @@ public class FilterPreviewDemoActivity extends Activity {
 						toastStop();
 						
 						if(SDKFileUtils.fileExist(editTmpPath)){
-							VideoEditor.encoderAddAudio(mVideoPath,editTmpPath,SDKDir.TMP_DIR,dstPath);
-							SDKFileUtils.deleteFile(editTmpPath);
+							boolean ret=VideoEditor.encoderAddAudio(mVideoPath,editTmpPath,SDKDir.TMP_DIR,dstPath);
+							if(!ret){
+								dstPath=editTmpPath;
+							}else{
+								SDKFileUtils.deleteFile(editTmpPath);	
+							}
+							
 						}
 					}
 				}

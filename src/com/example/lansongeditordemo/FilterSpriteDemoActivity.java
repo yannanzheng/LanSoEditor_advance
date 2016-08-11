@@ -26,9 +26,6 @@ import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
-import com.lansosdk.videoeditor.player.IMediaPlayer;
-import com.lansosdk.videoeditor.player.IMediaPlayer.OnPlayerPreparedListener;
-import com.lansosdk.videoeditor.player.VPlayer;
 
 import android.app.Activity;
 import android.content.Context;
@@ -234,8 +231,13 @@ public class FilterSpriteDemoActivity extends Activity {
 			public void onSizeChanged(int viewWidth, int viewHeight) {
 				// TODO Auto-generated method stub
 				mMediaPoolView.startMediaPool(new MediaPoolProgressListener(),new MediaPoolCompleted());
+				/**
+				 * 这里获取一个FilterSprite, 并把设置滤镜效果为GPUImageSepiaFilter滤镜.
+				 */
+//				filterSprite=mMediaPoolView.obtainFilterSprite(mplayer.getVideoWidth(),mplayer.getVideoHeight(),new GPUImageSepiaFilter());
 				
-				filterSprite=mMediaPoolView.obtainFilterSprite(mplayer.getVideoWidth(),mplayer.getVideoHeight(),new GPUImageSepiaFilter());
+				filterSprite=mMediaPoolView.obtainFilterSprite(mplayer.getVideoWidth(),mplayer.getVideoHeight(),new GPUImageFilter());
+				
 				if(filterSprite!=null){
 					mplayer.setSurface(new Surface(filterSprite.getVideoTexture()));
 				}
@@ -255,8 +257,12 @@ public class FilterSpriteDemoActivity extends Activity {
 			toastStop();
 			
 			if(SDKFileUtils.fileExist(editTmpPath)){
-				VideoEditor.encoderAddAudio(mVideoPath,editTmpPath,SDKDir.TMP_DIR,dstPath);
-				SDKFileUtils.deleteFile(editTmpPath);
+				boolean ret=VideoEditor.encoderAddAudio(mVideoPath,editTmpPath,SDKDir.TMP_DIR,dstPath);
+				if(!ret){
+					dstPath=editTmpPath;
+				}else{
+					SDKFileUtils.deleteFile(editTmpPath);	
+				}
 			}
 			toastStop();
 		}

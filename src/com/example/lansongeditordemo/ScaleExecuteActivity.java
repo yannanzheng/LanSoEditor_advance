@@ -148,7 +148,10 @@ public class ScaleExecuteActivity extends Activity{
 				tvProgressHint.setText("Completed!!!");
 				isExecuting=false;
 				if(SDKFileUtils.fileExist(editTmpPath)){
-					VideoEditor.encoderAddAudio(videoPath, editTmpPath,SDKDir.TMP_DIR, dstPath);
+					boolean ret=VideoEditor.encoderAddAudio(videoPath, editTmpPath,SDKDir.TMP_DIR, dstPath);
+					if(!ret){
+						dstPath=editTmpPath;
+					}
 				}
 				findViewById(R.id.id_video_edit_btn2).setEnabled(true);
 			}

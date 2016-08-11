@@ -77,18 +77,18 @@ public class VideoVideoExecuteActivity extends Activity{
    
 		 tvProgressHint=(TextView)findViewById(R.id.id_video_edit_progress_hint);
 		 
-       findViewById(R.id.id_video_edit_btn).setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
+	       findViewById(R.id.id_video_edit_btn).setOnClickListener(new OnClickListener() {
 				
-				if(mMediaInfo.vDuration>=60*1000){//大于60秒
-					showHintDialog();
-				}else{
-					testMediaPoolExecute();
+				@Override
+				public void onClick(View v) {
+					
+					if(mMediaInfo.vDuration>=60*1000){//大于60秒
+						showHintDialog();
+					}else{
+						testMediaPoolExecute();
+					}
 				}
-			}
-		});
+			});
        
        findViewById(R.id.id_video_edit_btn2).setEnabled(false);
        findViewById(R.id.id_video_edit_btn2).setOnClickListener(new OnClickListener() {
@@ -156,6 +156,9 @@ public class VideoVideoExecuteActivity extends Activity{
 		//创建在后台调用MediaPool来处理视频的构造方法.
 		 vMediaPool=new MediaPoolVideoExecute(VideoVideoExecuteActivity.this,videoPath,480,480,25,1000000,editTmpPath);
 		
+		 
+		 vMediaPool.setUseMainVideoPts(true); //使用主视频的pts作为目标视频的pts
+		 
 		 //设置处理中的进度.
 		vMediaPool.setMediaPoolProgessListener(new onMediaPoolProgressListener() {
 			
@@ -184,7 +187,10 @@ public class VideoVideoExecuteActivity extends Activity{
 				isExecuting=false;
 				
 				if(SDKFileUtils.fileExist(editTmpPath)){
-					VideoEditor.encoderAddAudio(videoPath, editTmpPath,SDKDir.TMP_DIR,dstPath);
+					boolean ret=VideoEditor.encoderAddAudio(videoPath, editTmpPath,SDKDir.TMP_DIR,dstPath);
+					if(ret==false){
+						dstPath=editTmpPath; //没有声音的时候,临时文件为目标文件.
+					}
 				}
 				  findViewById(R.id.id_video_edit_btn2).setEnabled(true);
 			}
@@ -193,6 +199,8 @@ public class VideoVideoExecuteActivity extends Activity{
 		
 		//一下是在处理过程中, 增加的几个sprite, 来实现视频在播放过程中叠加别的一些媒体, 像图片, 文字等.
 		VideoSprite sprite=vMediaPool.obtainVideoSprite(videoPath,mMediaInfo.vWidth,mMediaInfo.vHeight);
+		
+//		VideoSprite sprite=vMediaPool.obtainVideoSprite("/sdcard/addmv.mp4",480,480);
 		sprite.setScale(30);
 		
 		bitmapSprite=vMediaPool.obtainBitmapSprite(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));

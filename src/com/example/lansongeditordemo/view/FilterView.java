@@ -217,25 +217,6 @@ public class FilterView extends FrameLayout {
         }
 	}
 	/**
-	 * 设置这个之前需要 设置是否encoder {@link #setRealEncodeEnable(String)}
-	 * @param width
-	 * @param height
-	 * @param sarnum  如采用mediaplayer设置,可以为1,
-	 * @param sarden
-	 * @param cb
-	 */
-//	public void setMediaPoolSize(int width,int height,int sarnum,int sarden,onFilterViewSizeChangedListener cb)
-//	{
-//		if (width != 0 && height != 0) {
-//            if (mTextureRenderView != null) {
-//                mTextureRenderView.setVideoSize(width, height);
-//                mTextureRenderView.setVideoSampleAspectRatio(sarnum,sarden);
-//            }
-//            mSizeChangedCB=cb;
-//            requestLayout();
-//        }
-//	}
-	/**
 	 * 开始filter 渲染线程.
 	 */
 	public void start()
@@ -246,7 +227,7 @@ public class FilterView extends FrameLayout {
 	            {
 	            	renderer=new FilterViewRender(getContext(), mSurfaceTexture, viewWidth, viewHeight,videoWidth,videoHeight);
 	            	if(encOutputPath!=null){
-	            		renderer.setEncoderEnable(glWidth, glWidth, encBitRate, encFrameRate, encOutputPath);
+	            		renderer.setEncoderEnable(glWidth, glHeight, encBitRate, encFrameRate, encOutputPath);
 	            	}
 	            	renderer.start();
 	            }

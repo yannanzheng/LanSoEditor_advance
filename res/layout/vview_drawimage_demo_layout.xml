@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent" >
         
-	  	<com.roger.match.library.MatchTextView
+	  	<com.example.lansong.animview.MatchTextView
 	        android:id="@+id/mMatchTextView"
 	        match:text="Direct by LanSong"
 	        android:layout_width="wrap_content"
@@ -27,7 +27,7 @@
 	  
   
 	  	
-	  	  <com.jiangjie.utils.ImageTouchView
+	  	  <com.example.lansong.animview.ImageTouchView
 	        android:id="@+id/switcher"
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent"

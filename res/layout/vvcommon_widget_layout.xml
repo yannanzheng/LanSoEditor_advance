@@ -53,7 +53,7 @@
              android:background="@drawable/rect_button_bg2"
              android:text="我是按钮,可以交互点击哦!"/>
       
-             <com.daimajia.numberprogressbar.NumberProgressBar
+             <com.example.lansong.animview.NumberProgressBar
 		        android:id="@+id/numberbar1"
 		        android:layout_width="match_parent"
 		        android:padding="20dp"
@@ -64,7 +64,7 @@
 		        style="@style/NumberProgressBar_Default"
 		        android:layout_height="wrap_content" />
              
-	  	<com.roger.match.library.MatchTextView
+	  	<com.example.lansong.animview.MatchTextView
 	        android:id="@+id/mMatchTextView"
 	        match:text="Direct--LanSoSdk"
 	        android:layout_width="wrap_content"

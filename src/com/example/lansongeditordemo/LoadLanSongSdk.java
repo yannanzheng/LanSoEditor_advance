@@ -5,7 +5,7 @@ import android.util.Log;
 public class LoadLanSongSdk {
 	private static boolean isLoaded=false;
 	  
-	static synchronized void loadLibraries() {
+	public static synchronized void loadLibraries() {
         if (isLoaded)
             return;
         Log.d("lansoeditor","load libraries......");
@@ -14,5 +14,5 @@ public class LoadLanSongSdk {
     	System.loadLibrary("lsplayer");
     	
 	    isLoaded=true;
-  }
+	}
 }

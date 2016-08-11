@@ -67,7 +67,7 @@
              android:layout_centerInParent="true"
              android:text="点我试试"/>
       
-	  	<com.roger.match.library.MatchTextView
+	  	<com.example.lansong.animview.MatchTextView
 	        android:id="@+id/mMatchTextView"
 	        android:layout_centerInParent="true"
 	        match:text="Direct--LanSoSdk"
@@ -81,7 +81,7 @@
 	  
   
 	  	
-	  	  <com.jiangjie.utils.ImageTouchView
+	  	  <com.example.lansong.animview.ImageTouchView
 	        android:id="@+id/switcher"
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent"
@@ -90,7 +90,7 @@
 	        android:scaleType="matrix"
 	        android:src="@drawable/test_img" />
 	  	  
-	  	   <mr_immortalz.com.stereoview.custom.StereoView
+	  	   <com.example.lansong.animview.StereoView
         android:id="@+id/stereoView"
         android:layout_width="300dp"
         android:layout_height="200dp"
@@ -112,10 +112,10 @@
             android:background="@drawable/p11"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-    	</mr_immortalz.com.stereoview.custom.StereoView>
+    	</com.example.lansong.animview.StereoView>
     
 	  	   
-	  	    <com.daimajia.numberprogressbar.NumberProgressBar
+	  	    <com.example.lansong.animview.NumberProgressBar
         android:id="@+id/numberbar1"
         android:layout_width="match_parent"
         android:padding="20dp"
@@ -123,6 +123,16 @@
         style="@style/NumberProgressBar_Default"
         android:layout_height="wrap_content" />
 	  	    
+	  	    
+	  <!--    
+	  	     <su.levenetc.android.textsurface.TextSurface
+        android:id="@+id/text_surface"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_centerInParent="true"
+        android:background="#000000">
+    </su.levenetc.android.textsurface.TextSurface>
+	  	    -->	  
     </com.example.lansongeditordemo.view.GLRelativeLayout>
    
       <com.example.lansongeditordemo.view.MediaPoolView

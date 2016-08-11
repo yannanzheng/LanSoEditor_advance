@@ -24,7 +24,7 @@
         
         
       
-	  	<com.roger.match.library.MatchTextView
+	  	<com.example.lansong.animview.MatchTextView
 	        android:id="@+id/mMatchTextView"
 	        android:layout_centerInParent="true"
 	        match:text="Direct by lansong"
