@@ -56,7 +56,7 @@
 
 	<string name="dragimage_hint">演示增加图片拖动:\n\n拖动大虫,拖动后的效果实时的保存到视频里.\n\n用在图片动画,覆盖视频中某个区域等场合.\n\n原理:是一个透明的ImageView, 操作ImageView的onTouch事件来完成,您实际项目中可任意发挥,构建炫酷或浪漫的视频.</string>
 		
-	<string name="vview_viewpage_hint">演示增加ViePage:\n\n在视频顶点放置了一个ViewPage,可以手动或自动让图片切换\n\n 用在需要增加ViewPage来实现炫酷的场合,比如你可以用开源的酷炫控件PagedHeadListView来个性化您的视频,构建炫酷或浪漫的视频.</string>
+	<string name="vview_viewpage_hint">演示增加ViewPage:\n\n在视频顶点放置了一个ViewPage,可以手动或自动让图片切换\n\n 用在需要增加ViewPage来实现炫酷的场合,比如你可以用开源的酷炫控件PagedHeadListView来个性化您的视频,构建炫酷或浪漫的视频.</string>
 	
 	<string name="vview_image3d_hint">演示增加图片3D效果:\n\n \t上下图片滑动, 呈现图片3D效果,实时增加到视频中.\n您实际项目中可任意发挥,构建炫酷或浪漫的视频.</string>
 		
