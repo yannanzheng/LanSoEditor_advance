@@ -160,7 +160,7 @@ public class VideoVideoExecuteActivity extends Activity{
 		 vMediaPool.setUseMainVideoPts(true); //使用主视频的pts作为目标视频的pts
 		 
 		 //设置处理中的进度.
-		vMediaPool.setMediaPoolProgessListener(new onMediaPoolProgressListener() {
+		vMediaPool.setMediaPoolProgressListener(new onMediaPoolProgressListener() {
 			
 			@Override
 			public void onProgress(MediaPool v, long currentTimeUs) {

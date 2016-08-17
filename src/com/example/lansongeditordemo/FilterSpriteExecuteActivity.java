@@ -158,7 +158,7 @@ public class FilterSpriteExecuteActivity extends Activity{
 		isExecuting=true;
 		 vMediaPool=new MediaPoolVideoFilterExecute(FilterSpriteExecuteActivity.this,videoPath,480,480,25,1000000,editTmpPath,new GPUImageSepiaFilter());
 		
-		vMediaPool.setMediaPoolProgessListener(new onMediaPoolProgressListener() {
+		vMediaPool.setMediaPoolProgressListener(new onMediaPoolProgressListener() {
 			
 			@Override
 			public void onProgress(MediaPool v, long currentTimeUs) {

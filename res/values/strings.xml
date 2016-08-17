@@ -9,7 +9,7 @@
     <string name="message_denied">Permission \"%1$s\" has been denied.</string>
     
      <string name="lansong_hint">杭州蓝松科技有限公司\n   专业的视频处理SDK开发团队.</string>
-    <string name="sdk_limit">SDK版本号是V1.8.0 [商用版本]\n\nSDK底层做了授权限制,仅可在此demo中运行,并有效时间到 \"%1$d\"年 \"%2$d\"月之前,请注意.</string>
+    <string name="sdk_limit">SDK版本号是\"%1$s\" [商用版本]\n\nSDK底层做了授权限制,仅可在此demo中运行,并有效时间到 \"%2$d\"年 \"%3$d\"月之前,请注意.</string>
     	
     <string name="adv_hint1">"说明\n  此SDK是lansoEditor的高级版本.\n\n包含分离,合并,裁剪,剪切,转码,压缩,拼接,水印等基本版本所具有的所有功能;\n\n 45种滤镜,任意选择. 可实时增加到视频中, 也可后台处理; 可独立,也可和图片/UI混合;\n\n[视频 + 视频 + 图片 + UI]任意组合,来设计您的炫酷画面APP,每种处理都支持预览实时保存和后台处理\n"</string>
     

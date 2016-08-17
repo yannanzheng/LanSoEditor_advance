@@ -313,7 +313,7 @@ public class MediaPoolView extends FrameLayout {
  				
  				renderer.setUpdateMode(mUpdateMode,mAutoFlushFps);
  				 
- 				renderer.setMediaPoolProgessListener(progresslistener);
+ 				renderer.setMediaPoolProgressListener(progresslistener);
  				renderer.setMediaPoolCompletedListener(completedListener);
  				
  				renderer.start();

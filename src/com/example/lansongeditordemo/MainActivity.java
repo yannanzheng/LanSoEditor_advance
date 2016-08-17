@@ -11,6 +11,7 @@ import com.anthonycr.grant.PermissionsResultAction;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.AudioEncodeDecode;
 import com.lansosdk.box.AudioSprite;
+import com.lansosdk.box.LanSongBoxVersion;
 import com.lansosdk.videoeditor.CopyFileFromAssets;
 import com.lansosdk.videoeditor.LanSoEditor;
 import com.lansosdk.videoeditor.MediaInfo;
@@ -66,8 +67,9 @@ public class MainActivity extends Activity implements OnClickListener{
         setContentView(R.layout.activity_main);
         
         LoadLanSongSdk.loadLibraries();  //拿出来单独加载库文件.
-        
         LanSoEditor.initSo(getApplicationContext(),null);
+        Log.i(TAG,"LanSong video editor version is:"+LanSongBoxVersion.version);
+        
         
         PermissionsManager.getInstance().requestAllManifestPermissionsIfNecessary(this, new PermissionsResultAction() {
             @Override
@@ -196,7 +198,7 @@ public class MainActivity extends Activity implements OnClickListener{
    		
    		Log.i(TAG,"current year is:"+year+" month is:"+month +" limit year:"+lyear+" limit month:"+lmonth);
    		String timeHint=getResources().getString(R.string.sdk_limit);
-   		timeHint=String.format(timeHint, lyear,lmonth);
+   		timeHint=String.format(timeHint, LanSongBoxVersion.version,lyear,lmonth);
    		
    		new AlertDialog.Builder(this)
    		.setTitle("提示")

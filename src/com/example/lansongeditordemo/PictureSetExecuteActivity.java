@@ -137,7 +137,7 @@ public class PictureSetExecuteActivity extends Activity{
 		//注意:这里的是直接把MediaPool设置为480x480,execute是没有自动缩放到屏幕的宽度的,如果加载图片,则最大的图片为480x480,如果超过则只显示480x480的部分. 
 		 vMediaPool=new MediaPoolPictureExecute(getApplicationContext(), 480, 480, 26*1000, 25, 1000000, editTmpPath);
 		
-		vMediaPool.setMediaPoolProgessListener(new onMediaPoolProgressListener() {
+		vMediaPool.setMediaPoolProgressListener(new onMediaPoolProgressListener() {
 			
 			@Override
 			public void onProgress(MediaPool v, long currentTimeUs) {
