@@ -39,10 +39,10 @@
       	<TextView 
       	    android:layout_width="match_parent"
       	    android:layout_height="wrap_content"
-      	    android:text="滑动画面,进行标记"
-      	    android:textSize="25sp"
+      	    android:text="@string/video_remark"
+      	    android:textSize="20sp"
       	    android:textColor="@color/red"
       	    android:gravity="center_horizontal"
-      	    android:layout_margin="20dip"
+      	    android:layout_margin="10dip"
       	    android:layout_alignParentBottom="true"/>  
 </RelativeLayout>

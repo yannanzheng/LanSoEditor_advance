@@ -26,6 +26,9 @@ import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
+import com.lansosdk.videoeditor.player.IMediaPlayer;
+import com.lansosdk.videoeditor.player.IMediaPlayer.OnPlayerPreparedListener;
+import com.lansosdk.videoeditor.player.VPlayer;
 
 import android.app.Activity;
 import android.content.Context;

@@ -61,7 +61,7 @@ public class PictureSetExecuteActivity extends Activity{
 		 setContentView(R.layout.video_edit_demo_layout);
 		 tvHint=(TextView)findViewById(R.id.id_video_editor_hint);
 		 
-		 tvHint.setText(R.string.mediapoolexecute_demo_hint);
+		 tvHint.setText(R.string.pictureset_execute_demo_hint);
    
 		 tvProgressHint=(TextView)findViewById(R.id.id_video_edit_progress_hint);
 		 
@@ -102,8 +102,7 @@ public class PictureSetExecuteActivity extends Activity{
       }
       
        editTmpPath=SDKFileUtils.newMp4PathInBox();
-     //  dstPath=SDKFileUtils.newMp4PathInBox();
-       dstPath="/sdcard/p1.mp4";
+       dstPath=SDKFileUtils.newMp4PathInBox();
 	}
    @Override
     protected void onDestroy() {
@@ -168,8 +167,8 @@ public class PictureSetExecuteActivity extends Activity{
 			}
 		});
 		
-		vMediaPool.start();
-		vMediaPool.pauseUpdateMediaPool();
+			vMediaPool.start();
+			vMediaPool.pauseUpdateMediaPool();
 		
 	      vMediaPool.obtainBitmapSprite(BitmapFactory.decodeFile(picBackGround));
 	      
@@ -184,53 +183,6 @@ public class PictureSetExecuteActivity extends Activity{
 	      
 	      vMediaPool.resumeUpdateMediaPool();
 	}
-	
-//	private void testMediaPoolExecute()
-//	{
-//		if(isExecuting)
-//			return ;
-//		
-//		isExecuting=true;
-//		//注意:这里的是直接把MediaPool设置为480x480,execute是没有自动缩放到屏幕的宽度的,如果加载图片,则最大的图片为480x480,如果超过则只显示480x480的部分. 
-//		 vMediaPool=new MediaPoolPictureExecute(getApplicationContext(), 480, 480, 2*1000, 25, 1000000, editTmpPath);
-//		
-//		vMediaPool.setMediaPoolProgessListener(new onMediaPoolProgressListener() {
-//			
-//			@Override
-//			public void onProgress(MediaPool v, long currentTimeUs) {
-//				// TODO Auto-generated method stub
-//				tvProgressHint.setText(String.valueOf(currentTimeUs));
-//			
-//					int scale= 100- (int)(currentTimeUs/2000000.f*100);
-//					Log.i("test","scale="+scale);
-//				 	bitmapSprite.setScale(scale);
-//			}
-//		});
-//		vMediaPool.setMediaPoolCompletedListener(new onMediaPoolCompletedListener() {
-//			
-//			@Override
-//			public void onCompleted(MediaPool v) {
-//				// TODO Auto-generated method stub
-//				tvProgressHint.setText("MediaPoolExecute Completed!!!");
-//				
-//				isExecuting=false;
-//				
-//
-//				if(FileUtils.fileExist(editTmpPath)){
-//					VideoEditor.executeH264WrapperMp4(editTmpPath,dstPath);
-//					findViewById(R.id.id_video_edit_btn2).setEnabled(true);
-//				}
-//			}
-//		});
-//		
-//		vMediaPool.pauseUpdateMediaPool();
-//		vMediaPool.start();
-//		
-//		
-//		bitmapSprite= vMediaPool.obtainBitmapSprite(BitmapFactory.decodeFile(picBackGround));
-//	
-//	      vMediaPool.resumeUpdateMediaPool();
-//	}
 	  private void getFifthSprite(int resId,long startMS,long endMS)
 	    {
 	    	ISprite item=vMediaPool.obtainBitmapSprite(BitmapFactory.decodeResource(getResources(), resId));

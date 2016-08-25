@@ -14,6 +14,7 @@ import com.lansosdk.box.AudioSprite;
 import com.lansosdk.box.LanSongBoxVersion;
 import com.lansosdk.videoeditor.CopyFileFromAssets;
 import com.lansosdk.videoeditor.LanSoEditor;
+import com.lansosdk.videoeditor.LoadLanSongSdk;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
@@ -53,8 +54,6 @@ public class MainActivity extends Activity implements OnClickListener{
 
 	 private static final String TAG="MainActivity";
 	 private static final boolean VERBOSE = false;   
-	   
-	 private final static int SELECT_FILE_REQUEST_CODE=10;
 	 
 	 
 	private TextView tvVideoPath;
@@ -67,9 +66,8 @@ public class MainActivity extends Activity implements OnClickListener{
         setContentView(R.layout.activity_main);
         
         LoadLanSongSdk.loadLibraries();  //拿出来单独加载库文件.
-        LanSoEditor.initSo(getApplicationContext(),null);
-        Log.i(TAG,"LanSong video editor version is:"+LanSongBoxVersion.version);
         
+        LanSoEditor.initSo(getApplicationContext(),null);
         
         PermissionsManager.getInstance().requestAllManifestPermissionsIfNecessary(this, new PermissionsResultAction() {
             @Override
@@ -98,7 +96,6 @@ public class MainActivity extends Activity implements OnClickListener{
         
         
         tvVideoPath=(TextView)findViewById(R.id.id_main_tvvideo);
-        
         
         findViewById(R.id.id_main_demofilter).setOnClickListener(this);
         findViewById(R.id.id_main_demofiltersprite).setOnClickListener(this);
@@ -140,6 +137,8 @@ public class MainActivity extends Activity implements OnClickListener{
 			}
 		});
         showHintDialog();
+        checkPath();
+        
     }
     private boolean isStarted=false;
     @Override
@@ -198,7 +197,7 @@ public class MainActivity extends Activity implements OnClickListener{
    		
    		Log.i(TAG,"current year is:"+year+" month is:"+month +" limit year:"+lyear+" limit month:"+lmonth);
    		String timeHint=getResources().getString(R.string.sdk_limit);
-   		timeHint=String.format(timeHint, LanSongBoxVersion.version,lyear,lmonth);
+   		timeHint=String.format(timeHint,LanSongBoxVersion.version, lyear,lmonth);
    		
    		new AlertDialog.Builder(this)
    		.setTitle("提示")
@@ -247,58 +246,64 @@ public class MainActivity extends Activity implements OnClickListener{
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		if(checkPath()==false)
-			return;
-		switch (v.getId()) {
-			case R.id.id_main_demofilter:
-				startExecuteDemo(FilterPreviewDemoActivity.class);
-				break;
-			case R.id.id_main_demofiltersprite:
-				startExecuteDemo(FilterSpriteDemoActivity.class);
-				break;
-			case R.id.id_main_demoedit:
-				startExecuteDemo(VideoEditDemoActivity.class);
-				break;
-			case R.id.id_main_twovideooverlay:
-				startExecuteDemo(VideoVideoRealTimeActivity.class);
-				break;
-			case R.id.id_main_videobitmapoverlay:
-				startExecuteDemo(VideoPictureRealTimeActivity.class);
-				break;
-			case R.id.id_main_pictures:
-				startExecuteDemo(PictureSetRealTimeActivity.class);
-				break;
-			case R.id.id_main_viewspritedemo:
-				startExecuteDemo(VideoViewDemoListActivity.class);
-				break;
-			case R.id.id_main_scaleexecute:
-				startExecuteDemo(ScaleExecuteActivity.class);
-				break;
-			case R.id.id_main_filterexecute:
-				startExecuteDemo(FilterExecuteActivity.class);
-				break;
-			case R.id.id_main_mediapoolexecute_filter:
-				startExecuteDemo(FilterSpriteExecuteActivity.class);
-				break;
-			case R.id.id_main_mediapoolexecute:
-				startExecuteDemo(VideoVideoExecuteActivity.class);
-				break;
-			case R.id.id_main_mediapoolpictureexecute:
-				startExecuteDemo(PictureSetExecuteActivity.class);
-				break;
-		//	case R.id.id_main_testaudiomix:
-		//		startExecuteDemo(TestAudioMixManagerActivity.class);
-		//		break;
-			case R.id.id_main_testvideoplay:
-				startExecuteDemo(VideoPlayerActivity.class);
-				break;
-			case R.id.id_main_viewremark:
-				startExecuteDemo(VideoRemarkActivity.class);
-				break;
-			default:
-				break;
+		if(isPermissionOk)
+		{
+			if(checkPath()==false)
+				return;
+			switch (v.getId()) {
+				case R.id.id_main_demofilter:
+					startExecuteDemo(FilterPreviewDemoActivity.class);
+					break;
+				case R.id.id_main_demofiltersprite:
+					startExecuteDemo(FilterSpriteDemoActivity.class);
+					break;
+				case R.id.id_main_demoedit:
+					startExecuteDemo(VideoEditDemoActivity.class);
+					break;
+				case R.id.id_main_twovideooverlay:
+					startExecuteDemo(VideoVideoRealTimeActivity.class);
+					break;
+				case R.id.id_main_videobitmapoverlay:
+					startExecuteDemo(VideoPictureRealTimeActivity.class);
+					break;
+				case R.id.id_main_pictures:
+					startExecuteDemo(PictureSetRealTimeActivity.class);
+					break;
+				case R.id.id_main_viewspritedemo:
+					startExecuteDemo(VideoViewDemoListActivity.class);
+					break;
+				case R.id.id_main_scaleexecute:
+					startExecuteDemo(ScaleExecuteActivity.class);
+					break;
+				case R.id.id_main_filterexecute:
+					startExecuteDemo(FilterExecuteActivity.class);
+					break;
+				case R.id.id_main_mediapoolexecute_filter:
+					startExecuteDemo(FilterSpriteExecuteActivity.class);
+					break;
+				case R.id.id_main_mediapoolexecute:
+					startExecuteDemo(VideoVideoExecuteActivity.class);
+					break;
+				case R.id.id_main_mediapoolpictureexecute:
+					startExecuteDemo(PictureSetExecuteActivity.class);
+					break;
+			//	case R.id.id_main_testaudiomix:
+			//		startExecuteDemo(TestAudioMixManagerActivity.class);
+			//		break;
+				case R.id.id_main_testvideoplay:
+					startExecuteDemo(VideoPlayerActivity.class);
+					break;
+				case R.id.id_main_viewremark:
+					startExecuteDemo(VideoRemarkActivity.class);
+					break;
+				default:
+					break;
+			}
 		}
 	}
+
+	//-----------------------------
+	 private final static int SELECT_FILE_REQUEST_CODE=10;
 	  	private void startSelectVideoActivity()
 	    {
 	    	Intent i = new Intent(this, FileExplorerActivity.class);

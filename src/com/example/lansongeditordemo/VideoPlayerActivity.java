@@ -7,6 +7,7 @@ import com.example.lansongeditordemo.view.TextureRenderView;
 import com.lansoeditor.demo.R;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.player.IMediaPlayer;
+import com.lansosdk.videoeditor.player.IMediaPlayer.OnPlayerCompletionListener;
 import com.lansosdk.videoeditor.player.VPlayer;
 import com.lansosdk.videoeditor.player.IMediaPlayer.OnPlayerPreparedListener;
 
@@ -157,7 +158,7 @@ public class VideoPlayerActivity extends Activity {
         
         try {
 				mediaPlayer.setDataSource(videoPath);
-			  mediaPlayer.setSurface(surface);  
+				mediaPlayer.setSurface(surface);  
 		        mediaPlayer.prepare();  
 		        
 		        Log.i("sno","mediaPlayer.getVideoWidth(), mediaPlayer.getVideoHeight()"+mediaPlayer.getVideoWidth()+mediaPlayer.getVideoHeight());
@@ -198,6 +199,15 @@ public class VideoPlayerActivity extends Activity {
     				        vplayer.start();
     					}
     			});
+    	vplayer.setOnCompletionListener(new OnPlayerCompletionListener() {
+			
+			@Override
+			public void onCompletion(IMediaPlayer mp) {
+				// TODO Auto-generated method stub
+				Log.i(TAG,"vplayer --------------oncompletion-----!");
+			}
+		});
+    	
     	vplayer.prepareAsync();
     }
     

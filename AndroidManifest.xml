@@ -24,23 +24,22 @@
         android:theme="@style/AppTheme" >
         
           <activity android:name="com.example.lansongeditordemo.StartActivity">
-              
-         </activity>
-         
-          
-        <activity
-            android:name="com.example.lansongeditordemo.MainActivity"
-            android:label="@string/app_name" >
-            
-             <intent-filter>
+              <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+         </activity>
+         
+        <activity
+            android:name="com.example.lansongeditordemo.MainActivity">
+            <!-- 因为要加载.so库, 这里一定要用MainActivity来启动 -->
+             
         </activity>
         
-    
-           <activity android:name="com.example.lansongeditordemo.VideoEditDemoActivity"></activity>
+        
+        
+        <activity android:name="com.example.lansongeditordemo.VideoEditDemoActivity"></activity>
         <activity android:name="com.example.lansongeditordemo.VideoVideoRealTimeActivity"></activity>
         
         
@@ -86,7 +85,7 @@
         <activity android:name="com.example.lansongeditordemo.VViewImage3DDemoActivity"></activity>
         
         <activity android:name="com.example.lansongeditordemo.VideoViewDemoListActivity"></activity>
-        <activity android:name="com.example.lansongeditordemo.SdkHintActivity"></activity>
+        <activity android:name="com.example.lansongeditordemo.IntroductionActivity"></activity>
         
     </application>
 

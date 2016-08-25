@@ -127,7 +127,7 @@ public class VideoVideoExecuteActivity extends Activity{
 	   
 	VideoEditor mVideoEditer;
 	BitmapSprite bitmapSprite=null;
-	private ViewSprite mCanvasSprite=null;
+	private ViewSprite mViewSprite=null;
 	MediaPoolVideoExecute  vMediaPool=null;
 	private boolean isExecuting=false;
 	private void showHintDialog()
@@ -198,14 +198,15 @@ public class VideoVideoExecuteActivity extends Activity{
 		vMediaPool.start();
 		
 		//一下是在处理过程中, 增加的几个sprite, 来实现视频在播放过程中叠加别的一些媒体, 像图片, 文字等.
-		VideoSprite sprite=vMediaPool.obtainVideoSprite(videoPath,mMediaInfo.vWidth,mMediaInfo.vHeight);
 		
-//		VideoSprite sprite=vMediaPool.obtainVideoSprite("/sdcard/addmv.mp4",480,480);
-		sprite.setScale(30);
+//		VideoSprite sprite=vMediaPool.obtainVideoSprite("/sdcard/lanso/editscenecat.mp4",480,480);//临时调试使用.
+//		sprite.setScale(30);
 		
+		//向其中增加一个图片
 		bitmapSprite=vMediaPool.obtainBitmapSprite(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
-		
 		bitmapSprite.setPosition(300, 200);
+		
+		//增加一个笑脸
 		vMediaPool.obtainBitmapSprite(BitmapFactory.decodeResource(getResources(), R.drawable.xiaolian));	
 		
 //		mCanvasSprite=vMediaPool.obtainViewSprite();

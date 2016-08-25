@@ -67,8 +67,9 @@ public class StartActivity extends Activity{
 	}
 	private void startMainActivity()
 	{
-		Intent intent=new Intent(StartActivity.this,SdkHintActivity.class);
+		Intent intent=new Intent(StartActivity.this,IntroductionActivity.class);
 		startActivity(intent);
+		StartActivity.this.finish();
 	}
 	@Override
 	protected void onResume() {

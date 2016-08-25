@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">LanSongEditorDemo</string>
+    <string name="app_name">LanSongEditor_DEMO</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
@@ -11,40 +11,26 @@
      <string name="lansong_hint">杭州蓝松科技有限公司\n   专业的视频处理SDK开发团队.</string>
     <string name="sdk_limit">SDK版本号是\"%1$s\" [商用版本]\n\nSDK底层做了授权限制,仅可在此demo中运行,并有效时间到 \"%2$d\"年 \"%3$d\"月之前,请注意.</string>
     	
-    <string name="adv_hint1">"说明\n  此SDK是lansoEditor的高级版本.\n\n包含分离,合并,裁剪,剪切,转码,压缩,拼接,水印等基本版本所具有的所有功能;\n\n 45种滤镜,任意选择. 可实时增加到视频中, 也可后台处理; 可独立,也可和图片/UI混合;\n\n[视频 + 视频 + 图片 + UI]任意组合,来设计您的炫酷画面APP,每种处理都支持预览实时保存和后台处理\n"</string>
-    
-    <string name="adv_hint2">"比如:\n[视频+视频] 呈现MV,贴纸,整理,花样,对比等效果;\n\n[视频+图片]  呈现贴纸,标记,覆盖,logo,影集等效果;\n\n[视频+UI]  呈现文字,涂鸦,动画,浪漫,炫酷等效果;\n\n[图片+图片]  组合成影集;\n\n[独立UI]  组合成浪漫情诗,炫酷画面等效果\n\n"</string>
-    
-    <string name="adv_hint3">"预览实时保存:预览同时,直接生成了视频,不再进度条一直转转转.\n后台统一处理:用户操作后,直接放后台处理,优化用户体验."</string>
-    <string name="adv_hint4">"架构:\nMediaPool架构;Pool:"池子"的意思,意味着您可以向这个池子里投放:视频,图片,文字,线条,UI等元素.\n我们把这些元素命名为"Sprite",有 FilterSprite,VideoSprite,BitmapSprite,viewSprite.\n这些Sprite都可以随时的投放进去,并可以随时的删除.每个Sprite支持 平移,缩放,旋转,RGBA调节效果.\n让您像设计UI动画一样设计您个性的视频APP."</string>
-    <string name="adv_hint5">"此APP为收费版本,价格可联系我们, 提供:单一APP,永久授权使用, 提供一年技术支持,普通问题,3个工作日内及时解决,联系方式:QQ1852600324 \n email:support@lansongtech.com."</string>
-  	<string name="adv_hint6">"视频处理,不同于APP-UI设计,专业性极强,细节参数决定成败!\n别人说可以做,但100%不等于能做好.\n我们SDK您先评估测试,然后再和我们合作,测试期间免费提供技术支持."</string>
+    <string name="adv_hint5">"此APP为收费版本,价格可联系我们. 技术支持:单一APP,永久授权使用; 提供一年技术支持;普通问题3个工作日内及时解决;\n 联系方式:\n QQ:1852600324\n 公司电话:0571-89052701\n email:support@lansongtech.com."</string>
   	
   	<string name="select_video">请选择视频</string>
 		
 	<string name="video_editor_demo_hint">兼容完整的ffmpeg命令.这里仅举例画面裁剪的功能,来演示我们优化的ffmpeg硬件加速功能,更多可以在\n https://github.com/LanSoSdk/LanSoEditor_common \n这里下载,测试\n\n,
 	    功能流程: 解码得到画面--->把画面的高度裁剪一半-->保存为新的画面</string>
     
-	<string name="mediapoolexecute_demo_hint">此功能演示:一个视频+两个图片+一个UI组合成新的视频\n\n 流程:打开视频播放,向里面增加两个图片和一个UI,其中给一个图片移动位置,并在3秒处缩小一倍,在6秒处消失,处理完后,实时的形成视频,可以用来预览和传输等</string>
+	<string name="mediapoolexecute_demo_hint">此功能演示:后台视频编辑\n\n 流程:打开视频播放,向里面增加两个图片和一个UI,其中给一个图片移动位置,并在3秒处放大一倍,在6秒处消失,处理中实时的形成视频,可以用来预览和传输等</string>
     
-		<string name="filtersprite_execute_hint">此功能演示:对视频做复古滤镜处理,在处理过程中操作图片. 流程:打开视频,做复古滤镜处理后播放,向里面增加两个图片,其中给一个图片移动位置,并在3秒处放大一倍,在6秒处消失,处理完后,实时的形成视频,可以用来预览和传输等</string>
+    <string name="pictureset_execute_demo_hint">此功能演示:后台图片合成\n\n 流程:同时向MediaPool获取多个BitmapSprite,然后根据MediaPool的时间进度,依次操作多个BitmapSprite,从而实现图片动画效果,这里仅演示平移效果, 实际使用可以平移,缩放,旋转,闪烁混合使用.也可以增加ViewSprite,来呈现花样的动画.</string>
     
-		<string name="scaleexecute_demo_hint">此演示功能: ScaleExecute类使用\n\n 流程:打开视频播放,把视频画面等比例缩小一半,处理完后,实时的形成视频,可以用来预览和传输等.
-		    适用在用户自己用手机拍摄了高清的画面,需要缩放后再传输的场合.\n[注:显示等比例缩放了,处理也是等比例缩放,浏览播放时会看起来没有变化,可导出视频后查看效果]</string>
+	<string name="filtersprite_execute_hint">此功能演示:后台视频滤镜(MediaPool架构)\n\n. 流程:打开视频,做复古滤镜处理后播放,向里面增加两个图片,其中给一个图片移动位置,并在3秒处放大一倍,在6秒处消失,处理完后,实时的形成视频,可以用来预览和传输等</string>
     
-		<string name="filterexecute_demo_hint">此演示功能:在后台单独处理视频滤镜.适用在当不需要UI界面做滤镜预览的场合.比如不经过滤镜预览或没有预览完毕,就可以做视频滤镜处理,这样的场合使用.</string>
+	<string name="scaleexecute_demo_hint">此演示演示: 视频缩放\n\n 利用我们设置的ScaleExecute类,把视频画面等比例缩小一半,处理完后,形成新视频.
+		    适用在用户自己拍摄了高清的画面,需要缩放后再传输的场合.\n[注:因预览是等比例显示的.在手机端预览感觉没变化,这是正常情况,请导出到电脑端查看]</string>
     
+    <string name="filterexecute_demo_hint">此功能演示:后台视频滤镜\n\n.适用在当不需要UI界面做滤镜预览的场合.比如不经过滤镜预览或没有预览完毕,就可以做视频滤镜处理,这样的场合使用.</string>
 	
-	<string name="mediapool_hint">我们设计了一个视频处理类MediaPool,分为MediaPoolView和MediaPoolExecute,顾名思义:是一个丢放媒体进去的一个池子,您可以认为是photoshop的工作区
-	    或android UI操作的layout类,这些媒体包括:</string>
-	<string name="video">视频</string>
-	<string name="picture">图片</string>
-	<string name="colorblock">颜色块</string>
-	<string name="line">线条</string>
-	<string name="canvas">Canvas</string>
-	<string name="word">文字</string>
-	<string name="sound">声音</string>
-	<string name="here_is_only_demo">并每种类型都支持[旋转],[移动],[缩放],[透明度]可调.增加后的画面,会实时的形成新的视频.这里仅仅是演示,详细文档正在整理中...请稍等,或联系我们,谢谢</string>
+	<string name="mediapool_hint">我们设计了一个视频处理类MediaPool,分为MediaPoolView和MediaPoolExecute,顾名思义:是一个丢放媒体进去的一个池子,您可以认为是photoshop的工作区 或android UI操作的layout类,这些媒体包括:</string>
+	    
 	<string name="origal_width">提示:\n当前视频宽度小于屏幕宽度, 采取原尺寸显示,您可以在代码中修改为自适应屏幕宽度显示形式</string>
 	<string name="fix_width">提示:\n当前视频宽度大于或等于屏幕宽度, 采取自适应到屏幕宽度,您可以在代码中修改为原尺寸的显示形式</string>
 
@@ -56,8 +42,16 @@
 
 	<string name="dragimage_hint">演示增加图片拖动:\n\n拖动大虫,拖动后的效果实时的保存到视频里.\n\n用在图片动画,覆盖视频中某个区域等场合.\n\n原理:是一个透明的ImageView, 操作ImageView的onTouch事件来完成,您实际项目中可任意发挥,构建炫酷或浪漫的视频.</string>
 		
-	<string name="vview_viewpage_hint">演示增加ViewPage:\n\n在视频顶点放置了一个ViewPage,可以手动或自动让图片切换\n\n 用在需要增加ViewPage来实现炫酷的场合,比如你可以用开源的酷炫控件PagedHeadListView来个性化您的视频,构建炫酷或浪漫的视频.</string>
+	<string name="vview_viewpage_hint">演示增加ViePage:\n\n在视频顶点放置了一个ViewPage,可以手动或自动让图片切换\n\n 用在需要增加ViewPage来实现炫酷的场合,比如你可以用开源的酷炫控件PagedHeadListView来个性化您的视频,构建炫酷或浪漫的视频.</string>
 	
 	<string name="vview_image3d_hint">演示增加图片3D效果:\n\n \t上下图片滑动, 呈现图片3D效果,实时增加到视频中.\n您实际项目中可任意发挥,构建炫酷或浪漫的视频.</string>
+	
+	<string name="video_remark">滑动画面,进行标记\n\n用在需要在画面中增加箭头,需要特意注意某个画面区域的场合.原理是:根据Touch事件来实时的增加/移动/删除一个图片</string>
+	
 		
+	<string name="sdk_hint1">我们提供纯净的API\n个性化的APP任您自由发挥</string>
+	<string name="sdk_hint2">MediaPool架构\n这是一个容器,您可以向里面增删视频/图片/文字/UI界面/声音等.\n\n像编辑UI界面一样\n编辑视频从未如此简单.</string>
+	<string name="sdk_hint3">丰富的滤镜效果\n实时切换/混合使用,完全任您个性发挥</string>
+	<string name="sdk_hint4">您可以把UI增加到视频里\n也可以直接把UI生成视频\n\n来呈现动画文字/视频涂鸦/炫酷视频/浪漫情诗...</string>
+	<string name="sdk_hint5">多种处理方法\n\n您可以在UI线程中实时编辑,也可以放到后台统一处理</string>
 </resources>

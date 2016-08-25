@@ -116,7 +116,8 @@ public class FilterPreviewDemoActivity extends Activity {
 		});
 
         editTmpPath=SDKFileUtils.newMp4PathInBox();
-            dstPath=SDKFileUtils.newMp4PathInBox();
+        dstPath=SDKFileUtils.newMp4PathInBox();
+        
     }
     boolean isStart;
     @Override
@@ -233,8 +234,11 @@ public class FilterPreviewDemoActivity extends Activity {
     	GPUImageFilterTools.showDialog(this, new OnGpuImageFilterChosenListener() {
 
             @Override
-            public void onGpuImageFilterChosenListener(final GPUImageFilter filter) {
-         	   if(mFilterView.switchFilterTo(filter)){
+            public void onGpuImageFilterChosenListener(final GPUImageFilter filter) 
+            {
+            	
+         	   if(mFilterView.switchFilterTo(filter))//<----------------------//在这里切换滤镜
+         	   {
          		   mFilterAdjuster = new FilterAdjuster(filter);
 
          		    findViewById(R.id.id_player_seekbar1).setVisibility(

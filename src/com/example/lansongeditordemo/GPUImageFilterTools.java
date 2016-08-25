@@ -109,7 +109,7 @@ public class GPUImageFilterTools {
 //        filters.addFilter("Blend (Chroma Key)", FilterType.BLEND_CHROMA_KEY);
 //        filters.addFilter("Blend (Normal)", FilterType.BLEND_NORMAL);
 
-        filters.addFilter("Lookup (Amatorka)", FilterType.LOOKUP_AMATORKA);  //PASS
+        filters.addFilter("Lookup (Amatorka)", FilterType.LOOKUP_AMATORKA); 
         filters.addFilter("Crosshatch网格", FilterType.CROSSHATCH);  //PASS
 
         filters.addFilter("CGA Color Space", FilterType.CGA_COLORSPACE);  //PASS
