@@ -12,7 +12,7 @@ import android.webkit.WebView;
 import android.widget.LinearLayout;
 
 /**
- * Created by user on 3/15/15.
+ * 用来演示ViewSprite的使用.
  */
 public class GLLinearLayout extends LinearLayout {
 

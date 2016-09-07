@@ -65,7 +65,7 @@
       <RelativeLayout  android:id="@+id/id_main_demofilter" style="@style/main_item_reletivelayout">
           
 	         <LinearLayout style="@style/main_item_linearlayout">
-           	    <TextView   android:text="视频滤镜" 				style="@style/main_item_textview1"/>
+           	    <TextView   android:text="视频滤镜[独立]" 				style="@style/main_item_textview1"/>
            	    <TextView android:text="落日,复古等instragram效果"		style="@style/main_item_textview2"/>
 			</LinearLayout>
 			
@@ -76,7 +76,7 @@
           <RelativeLayout  android:id="@+id/id_main_demofiltersprite" style="@style/main_item_reletivelayout">
           
 	         <LinearLayout style="@style/main_item_linearlayout">
-           	    <TextView   android:text="MediaPool视频滤镜" 				style="@style/main_item_textview1"/>
+           	    <TextView   android:text="视频滤镜[MediaPool]" 				style="@style/main_item_textview1"/>
            	    <TextView android:text="在mediapool中的视频滤镜效果"		style="@style/main_item_textview2"/>
 			</LinearLayout>
 			
@@ -149,8 +149,18 @@
 	<RelativeLayout  android:id="@+id/id_main_filterexecute" style="@style/main_item_reletivelayout">
           
 	         <LinearLayout style="@style/main_item_linearlayout">
-           	    <TextView   android:text="后台视频滤镜" 				style="@style/main_item_textview1"/>
+           	    <TextView   android:text="后台视频滤镜[独立]" 				style="@style/main_item_textview1"/>
            	    <TextView android:text="UI交互操作后,后台统一处理滤镜"		style="@style/main_item_textview2"/>
+			</LinearLayout>
+			
+			<TextView  style="@style/main_item_arrow"/> 
+	</RelativeLayout>
+		
+	<RelativeLayout  android:id="@+id/id_main_mediapoolexecute_filter" style="@style/main_item_reletivelayout">
+          
+	         <LinearLayout style="@style/main_item_linearlayout">
+           	    <TextView   android:text="后台视频滤镜 [MediaPool架构]" 				style="@style/main_item_textview1"/>
+           	    <TextView android:text="UI交互操作后,放在后台执行视频编辑"		style="@style/main_item_textview2"/>
 			</LinearLayout>
 			
 			<TextView  style="@style/main_item_arrow"/> 
@@ -159,28 +169,18 @@
 	<RelativeLayout  android:id="@+id/id_main_mediapoolexecute" style="@style/main_item_reletivelayout">
           
 	         <LinearLayout style="@style/main_item_linearlayout">
-           	    <TextView   android:text="后台视频编辑(MediaPool架构)" 				style="@style/main_item_textview1"/>
+           	    <TextView   android:text="后台视频编辑[MediaPool架构]" 				style="@style/main_item_textview1"/>
            	    <TextView android:text="UI交互操作后,放在后台执行视频编辑"		style="@style/main_item_textview2"/>
 			</LinearLayout>
 			
 			<TextView  style="@style/main_item_arrow"/> 
 	</RelativeLayout>
 	
-	
-	<RelativeLayout  android:id="@+id/id_main_mediapoolexecute_filter" style="@style/main_item_reletivelayout">
-          
-	         <LinearLayout style="@style/main_item_linearlayout">
-           	    <TextView   android:text="后台视频滤镜 (MediaPool架构)" 				style="@style/main_item_textview1"/>
-           	    <TextView android:text="UI交互操作后,放在后台执行视频编辑"		style="@style/main_item_textview2"/>
-			</LinearLayout>
-			
-			<TextView  style="@style/main_item_arrow"/> 
-	</RelativeLayout>
 		
 		<RelativeLayout  android:id="@+id/id_main_mediapoolpictureexecute" style="@style/main_item_reletivelayout">
           
 	         <LinearLayout style="@style/main_item_linearlayout">
-           	    <TextView   android:text="后台图片合成 (MediaPool架构)" 				style="@style/main_item_textview1"/>
+           	    <TextView   android:text="后台图片合成 [MediaPool架构]" 				style="@style/main_item_textview1"/>
            	    <TextView android:text="UI交互操作后,放在后台执行视频编辑"		style="@style/main_item_textview2"/>
 			</LinearLayout>
 			

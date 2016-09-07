@@ -19,6 +19,8 @@ import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 
 import com.lansosdk.box.FilterViewRender;
 import com.lansosdk.box.onFilterViewSizeChangedListener;
+import com.lansosdk.box.onMediaPoolCompletedListener;
+import com.lansosdk.box.onMediaPoolProgressListener;
 
 
 /**
@@ -74,11 +76,31 @@ public class FilterView extends FrameLayout {
         setFocusableInTouchMode(true);
         requestFocus();
     }
+    /**
+     * 视频画面显示模式：不裁剪直接和父view匹配， 这样如果画面超出父view的尺寸，将会只显示视频画面的
+     * 一部分，您可以使用这个来平铺视频画面，通过手动拖拽的形式来截取画面的一部分。类似视频画面区域裁剪的功能。
+     */
     static final int AR_ASPECT_FIT_PARENT = 0; // without clip
+    /**
+     * 视频画面显示模式:裁剪和父view匹配, 当视频画面超过父view大小时,不会缩放,会只显示视频画面的一部分.
+     * 超出部分不予显示.
+     */
     static final int AR_ASPECT_FILL_PARENT = 1; // may clip
+    /**
+     * 视频画面显示模式: 自适应大小.当小于画面尺寸时,自动显示.当大于尺寸时,缩放显示.
+     */
     static final int AR_ASPECT_WRAP_CONTENT = 2;
+    /**
+     * 视频画面显示模式:和父view的尺寸对其.完全填充满父view的尺寸
+     */
     static final int AR_MATCH_PARENT = 3;
+    /**
+     * 把画面的宽度等于父view的宽度, 高度按照16:9的形式显示. 大部分的网络视频推荐用这种方式显示.
+     */
     static final int AR_16_9_FIT_PARENT = 4;
+    /**
+     * 把画面的宽度等于父view的宽度, 高度按照4:3的形式显示.
+     */
     static final int AR_4_3_FIT_PARENT = 5;
 
     private void setTextureView() {
@@ -121,7 +143,10 @@ public class FilterView extends FrameLayout {
     	            viewHeight=height;
     	            viewWidth=width;
     	        }
-    	
+    	/**
+    	 * 注意,这里是当TextureView变化的时候, 才调用这个回调,如果在xml中的宽高已经固定,则不会调用这个回调.
+    	 * 相应的就不会相应mSizeChangedCB的回调.
+    	 */
     	        @Override
     	        public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
     	            mSurfaceTexture = surface;
@@ -131,13 +156,16 @@ public class FilterView extends FrameLayout {
     	            if(mSizeChangedCB!=null)
     	            	mSizeChangedCB.onSizeChanged(width, height);
     	        }
-    	
+    	/**
+    	 * 您可以在这里调用 {@link FilterView#stop()}方法,来停止FilterViewRender的工作.
+    	 * 这样以免您实际使用中忘记在Activity pause的时候,忘记释放Render
+    	 */
     	        @Override
     	        public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
     	            mSurfaceTexture = null;
     	            return false;
     	        }
-    	
+    	      
     	        @Override
     	        public void onSurfaceTextureUpdated(SurfaceTexture surface) {
     	        }
@@ -188,7 +216,16 @@ public class FilterView extends FrameLayout {
 	   private onFilterViewSizeChangedListener mSizeChangedCB=null; 
 	   /**
 	    * 设置 滤镜渲染的大小.
+	    *  设置当前FilterView的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
 	    * 
+	    * 如果在父view中已经预设好了希望的宽高,则可以不调用这个方法,直接 {@link #start()}
+	    * 可以通过 {@link #getViewHeight()} 和 {@link #getViewWidth()}来得到当前view的宽度和高度.
+	    * 
+	    * 比如设置的宽度和高度是480,480, 而父view的宽度是等于手机分辨率是1080x1920,则mediaPool默认对齐到手机宽度1080,然后把高度也按照比例缩放到1080.
+	    * 
+	    * @param width  预设值的宽度
+	    * @param height 预设值的高度 
+	    * @param cb   设置好后的回调, 注意:如果预设值的宽度和高度经过调整后 已经和父view的宽度和高度一致,则不会触发此回调(当然如果已经是希望的宽高,您也不需要调用此方法).
 	    * @param glwidth  渲染线程opengl的预设宽度
 	    * @param glheight 渲染线程opengl的预设高度.
 	    * @param videoW   需要渲染视频的画面宽度
@@ -234,7 +271,7 @@ public class FilterView extends FrameLayout {
          }
 	}
 	/**
-	 * 当前MediaPool是否在工作.
+	 * 当前Render线程是否在工作.
 	 * @return
 	 */
 	public boolean isRunning()

@@ -11,6 +11,15 @@ import android.view.MotionEvent;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.ISprite;
 
+/**
+ * 继承自MediaPoolView, 用来演示在视频中做标记的功能.
+ * 
+ *  原理是: 根据onTouch事件,
+ *  按下时,从MediaPool中获取一个BitmapSprite,
+ *  移动时,把获取到BitmapSprite实时的移动坐标.
+ *  抬起时,从MediaPool中删除BitmapSprite
+ *
+ */
 public class TestTouchView extends MediaPoolView{
 
 	  

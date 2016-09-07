@@ -61,7 +61,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 /**
  *  演示: 视频和UI界面的 实时叠加.
  *  
- *  mGLRelativeLayout是要叠加的UI界面.
+ * 把所有的视频和View叠加的效果放在一起,用来演示说明可以和您多层UI,复杂的UI任何形式的叠加.
  *
  */
 public class VViewAllWidgetDemoActivity extends Activity{

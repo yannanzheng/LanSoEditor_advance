@@ -68,13 +68,17 @@ public class SlideEffect {
 		
 		mSprite.setPosition(currentX, currentY);
 		
-	}	
-	public void release()
-	{
-		if(needReleaseSprite){
-			mSprite.release();
-			mSprite=null;
-		}
 	}
+	public ISprite getSprite()
+	{
+		return mSprite;
+	}
+//	public void release()
+//	{
+//		if(needReleaseSprite){
+//			mSprite.release();
+//			mSprite=null;
+//		}
+//	}
 	
 }

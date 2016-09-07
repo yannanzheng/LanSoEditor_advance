@@ -35,6 +35,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ *视频和View叠加来实现各种效果的列表.
+ *
+ */
 public class VideoViewDemoListActivity extends Activity implements OnClickListener{
 
 	 private static final String TAG="VideoViewOverlayDemoActivity";

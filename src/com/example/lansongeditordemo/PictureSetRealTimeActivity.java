@@ -53,9 +53,17 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 
 /**
  *  演示:  图片合成视频的同时保存成文件.
+ *  流程: 把MediaPoolView设置为自动刷新模式, 然后一次性获取多个BitmapSprite,根据画面走动的时间戳来
+ *  操作每个BitmapSprite是否移动,是否显示.
  *  
+ *  这里仅仅演示移动的属性, 您实际中可以移动,缩放,旋转,RGBA值调节来混合使用,因为BitmapSprite继承自ISprite,故有这些特性.
  *  
- *
+ *  比如你根据时间戳来调节图片的RGBA中的A值(alpha透明度),则实现图片的淡入淡出效果.
+ *  
+ *  使用移动+缩放+RGBA调节,则实现一些缓慢照片变化的效果,浪漫文艺范的效果.
+ *  
+ *  视频标记就是一个典型的BitmapSprite的使用场景.
+ *  
  */
 public class PictureSetRealTimeActivity extends Activity{
     private static final String TAG = "VideoActivity";
@@ -119,12 +127,13 @@ public class PictureSetRealTimeActivity extends Activity{
     }
     private void start()
     {
-		
+		//设置为自动刷新模式, 帧率为25
     	mPlayView.setUpdateMode(MediaPoolUpdateMode.AUTO_FLUSH,25);
-    	if(DemoCfg.ENCODE){
-    		mPlayView.setRealEncodeEnable(480,480,1000000,(int)25,editTmpPath);
-    	}
+    	//使能实时录制,并设置录制后视频的宽度和高度, 码率, 帧率,保存路径.
+    	mPlayView.setRealEncodeEnable(480,480,1000000,(int)25,editTmpPath);
     	
+    	//设置MediaPool的宽高, 这里设置为480x480,如果您已经在xml中固定大小,则不需要再次设置,
+    	//可以直接调用startMediaPool来开始录制.
     	mPlayView.setMediaPoolSize(480,480,new onMediaPoolSizeChangedListener() {
 			
 			@Override
@@ -160,7 +169,7 @@ public class PictureSetRealTimeActivity extends Activity{
 			}
 		});
     	
-    	//这里仅仅是举例,当界面再次返回的时候,
+    	//这里仅仅是举例,当界面再次返回的时候,依旧显示图片更新的动画效果,即重新开始MediaPool
     	mPlayView.setOnViewAvailable(new onViewAvailable() {
 			
 			@Override
@@ -194,6 +203,7 @@ public class PictureSetRealTimeActivity extends Activity{
 		slideEffectArray.add(slide);
 		
     }
+    //MediaPool完成时的回调.
     private class MediaPoolCompleted implements onMediaPoolCompletedListener
     {
 
@@ -209,11 +219,12 @@ public class PictureSetRealTimeActivity extends Activity{
 			toastStop();
 		}
     }
+    //MediaPool进度回调.
     private class MediaPoolProgressListener implements onMediaPoolProgressListener
     {
 
 		@Override
-		public void onProgress(MediaPool v, long currentTimeUs) {
+		public void onProgress(MediaPool v, long currentTimeUs) {  //单位是微妙
 			// TODO Auto-generated method stub
 //			  Log.i(TAG,"MediaPoolProgressListener: us:"+currentTimeUs);
 			
@@ -240,18 +251,19 @@ public class PictureSetRealTimeActivity extends Activity{
     	// TODO Auto-generated method stub
     	super.onDestroy();
     	
-    	Log.i(TAG,"is started==========onDestroy>");
+    	if(slideEffectArray!=null){
+	   		 for(SlideEffect item: slideEffectArray){
+	   			mPlayView.removeSprite(item.getSprite());
+	   		 }
+	   		 slideEffectArray.clear();
+	   		 slideEffectArray=null;
+    	}
+    	
     	if(mPlayView!=null){
     		mPlayView.stopMediaPool();
     		mPlayView=null;        		   
     	}
-    	if(slideEffectArray!=null){
-    		 for(SlideEffect item: slideEffectArray){
-    			 item.release();
-    		 }
-    		 slideEffectArray.clear();
-    		 slideEffectArray=null;
-    	}
+    	
     	if(SDKFileUtils.fileExist(dstPath)){
     		SDKFileUtils.deleteFile(dstPath);
         }

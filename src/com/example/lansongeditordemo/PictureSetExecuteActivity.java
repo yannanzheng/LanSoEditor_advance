@@ -33,7 +33,8 @@ import com.lansosdk.videoeditor.VideoEditor;
 
 /**
  * 后台执行 照片影集的功能. 
- *
+ * 使用MediaPool的扩展类:MediaPoolPictureExecute来操作.
+ * 
  */
 public class PictureSetExecuteActivity extends Activity{
 
@@ -121,9 +122,19 @@ public class PictureSetExecuteActivity extends Activity{
          } 
     }
 	   
+   
 	VideoEditor mVideoEditer;
+	/**
+	 * 图片类的Sprite
+	 */
 	BitmapSprite bitmapSprite=null;
+	/**
+	 * 使用MediaPool中的Picture执行类来做.
+	 */
 	MediaPoolPictureExecute  vMediaPool=null;
+	/**
+	 * 当前是否已经在执行, 以免造成多次执行.
+	 */
 	private boolean isExecuting=false;
 
 	
@@ -133,10 +144,23 @@ public class PictureSetExecuteActivity extends Activity{
 			return ;
 		
 		isExecuting=true;
-		//注意:这里的是直接把MediaPool设置为480x480,execute是没有自动缩放到屏幕的宽度的,如果加载图片,则最大的图片为480x480,如果超过则只显示480x480的部分. 
+		//注意:这里的是直接把MediaPool设置为480x480,execute是没有自动缩放到屏幕的宽度的,如果加载图片,则最大的图片为480x480,如果超过则只显示480x480的部分.
+		 /**
+		  * MediaPool的图片转换为视频的后台执行
+		  * @param ctx  语境,android的Context
+		  * @param glwidth  opengl的display的宽度  可以认为是MediaPool这个池子的宽度.
+		  * @param glheight  opengl的display的高度, 可以认为是MediaPool这个池子的高度.
+		  * @param duration  视频时长
+		  * @param framerate  帧率
+		  * @param bitrate   编码视频所希望的码率,比特率,设置的越大,则文件越大, 设置小一些会起到视频压缩的效果.
+		  * @param dstPath   编码视频保存的路径.
+		  */
 		 vMediaPool=new MediaPoolPictureExecute(getApplicationContext(), 480, 480, 26*1000, 25, 1000000, editTmpPath);
 		
+		 //设置MediaPool的处理进度监听, 您可以在每一帧的过程中对ISprite做各种变化,比如平移,缩放,旋转,颜色变化,增删一个Sprite等,来实现各种动画画面.
 		vMediaPool.setMediaPoolProgressListener(new onMediaPoolProgressListener() {
+			
+			//currentTimeUs是当前时间戳,单位是微妙,可以根据时间戳/(MediaInfo.vDuration*1000000)来得到当前进度百分比.
 			
 			@Override
 			public void onProgress(MediaPool v, long currentTimeUs) {
@@ -150,6 +174,7 @@ public class PictureSetExecuteActivity extends Activity{
 				  }
 			}
 		});
+		//处理完毕后的监听
 		vMediaPool.setMediaPoolCompletedListener(new onMediaPoolCompletedListener() {
 			
 			@Override
@@ -158,7 +183,14 @@ public class PictureSetExecuteActivity extends Activity{
 				tvProgressHint.setText("MediaPoolExecute Completed!!!");
 				
 				isExecuting=false;
-				
+				//清空效果数组.
+				if(slideEffectArray!=null){
+			   		 for(SlideEffect item: slideEffectArray){
+			   			vMediaPool.removeSprite(item.getSprite());
+			   		 }
+			   		 slideEffectArray.clear();
+			   		 slideEffectArray=null;
+		    	}
 
 				if(SDKFileUtils.fileExist(editTmpPath)){
 					VideoEditor.executeH264WrapperMp4(editTmpPath,dstPath);
@@ -168,22 +200,24 @@ public class PictureSetExecuteActivity extends Activity{
 		});
 		
 			vMediaPool.start();
-			vMediaPool.pauseUpdateMediaPool();
+			//可以在后台处理过程中,暂停画面的走动.比如想一次性获取多个Sprite对象后,在让MediaPool执行,这样比在画面走动中获取更精确一些.
+			vMediaPool.pauseUpdateMediaPool(); 
 		
-	      vMediaPool.obtainBitmapSprite(BitmapFactory.decodeFile(picBackGround));
+			//设置一个背景,
+			vMediaPool.obtainBitmapSprite(BitmapFactory.decodeFile(picBackGround));
 	      
-	      slideEffectArray=new ArrayList<SlideEffect>();
+	       slideEffectArray=new ArrayList<SlideEffect>();
 	      
 			//这里同时获取多个,只是不显示出来.
-	      getFifthSprite(R.drawable.pic1,0,5000);  		//1--5秒.
-	      getFifthSprite(R.drawable.pic2,5000,10000);  //5--10秒.
-	      getFifthSprite(R.drawable.pic3,10000,15000);	//10---15秒 
-	      getFifthSprite(R.drawable.pic4,15000,20000);  //15---20秒
-	      getFifthSprite(R.drawable.pic5,20000,25000);  //20---25秒
-	      
+	      getSpriteToArray(R.drawable.pic1,0,5000);  		//1--5秒.
+	      getSpriteToArray(R.drawable.pic2,5000,10000);  //5--10秒.
+	      getSpriteToArray(R.drawable.pic3,10000,15000);	//10---15秒 
+	      getSpriteToArray(R.drawable.pic4,15000,20000);  //15---20秒
+	      getSpriteToArray(R.drawable.pic5,20000,25000);  //20---25秒
+	      //获取完Sprite后,再次恢复MediaPool,让其工作.
 	      vMediaPool.resumeUpdateMediaPool();
 	}
-	  private void getFifthSprite(int resId,long startMS,long endMS)
+	  private void getSpriteToArray(int resId,long startMS,long endMS)
 	    {
 	    	ISprite item=vMediaPool.obtainBitmapSprite(BitmapFactory.decodeResource(getResources(), resId));
 			SlideEffect  slide=new SlideEffect(item, 25, startMS, endMS, true);

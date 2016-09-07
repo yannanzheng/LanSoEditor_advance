@@ -44,8 +44,14 @@ import com.lansosdk.videoeditor.VideoEditor;
 import com.lansosdk.videoeditor.onVideoEditorProgressListener;
 
 /**
- * 演示FilterSprite在后台工作的场合, 比如你想设计的UI是 可以在滤镜的过程中, 让用户手动拖动增加一些图片,文字等, 增加完成后,记录下用户的操作信息,但需要统一处理时,通过此类来在后台执行.
+ * 演示FilterSprite在后台工作的场合, 
  * 
+ * 比如你想设计的:在滤镜的过程中,让用户手动拖动增加一些图片,文字等, 增加完成后,记录下用户的操作信息,
+ * 但需要统一处理时,通过此类来在后台执行.
+ * 
+ *  流程是:使用MediaPoolVideoFilterExecute, 创建一个MediaPool,从中获取FilterSprite,然后设置到视频播放器中,在画面播放过程中,可以随时增加另外的一些
+ *  Sprite,比如BitmapSprite,ViewSprite等等.
+ *  
  *
  */
 public class FilterSpriteExecuteActivity extends Activity{

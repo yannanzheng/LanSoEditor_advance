@@ -840,8 +840,8 @@ R35 B50,G71
         public static final int id_main_demofilter=0x7f0a0006;
         public static final int id_main_demofiltersprite=0x7f0a0007;
         public static final int id_main_filterexecute=0x7f0a000e;
-        public static final int id_main_mediapoolexecute=0x7f0a000f;
-        public static final int id_main_mediapoolexecute_filter=0x7f0a0010;
+        public static final int id_main_mediapoolexecute=0x7f0a0010;
+        public static final int id_main_mediapoolexecute_filter=0x7f0a000f;
         public static final int id_main_mediapoolpictureexecute=0x7f0a0011;
         public static final int id_main_pictures=0x7f0a000c;
         public static final int id_main_scaleexecute=0x7f0a000d;

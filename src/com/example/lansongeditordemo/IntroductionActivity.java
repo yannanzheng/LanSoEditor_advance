@@ -19,7 +19,17 @@ import android.view.animation.AnimationSet;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 
+/**
+ * UI代码完全公开
+短视频APP在于个性化,您可以任意修改举例的UI代码,来实现您APP的个性
+并且我们升级的新功能,尽量不涉及UI部分.
 
+
+永久升级.
+
+像所有的正版软件一样,您购买一次授权,就可以永久享用我们SDK后期所有的新功能.
+ *
+ */
 public class IntroductionActivity extends Activity {
     /** Called when the activity is first created. */
 	private ViewPager mViewPager;	

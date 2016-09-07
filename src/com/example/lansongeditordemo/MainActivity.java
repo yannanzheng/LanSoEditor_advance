@@ -83,7 +83,6 @@ public class MainActivity extends Activity implements OnClickListener{
                 Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
             }
         });
-       
         
         DisplayMetrics dm = new DisplayMetrics();
         dm = getResources().getDisplayMetrics();
@@ -137,7 +136,9 @@ public class MainActivity extends Activity implements OnClickListener{
 			}
 		});
         showHintDialog();
-        checkPath();
+        
+        
+//        checkPath();
         
     }
     private boolean isStarted=false;

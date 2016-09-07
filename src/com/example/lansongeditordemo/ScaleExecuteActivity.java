@@ -26,11 +26,11 @@ import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
 
 /**
- * 对视频画面进行缩放, 用ffmpeg也可以完成, 但手机cpu的限制,ffmpeg用软件代码的形式来对一帧像素进行处理, 太慢了,在手机上完全无法使用. 基于此,我们推出了 用OpenGL来完成的硬缩放的方式,
- * 极大的提升了视频缩放的速度.
+ * 对视频画面进行缩放, 用ffmpeg也可以完成, 但手机cpu的限制,ffmpeg用软件代码的形式来对一帧像素进行处理, 太慢了,在手机上完全无法使用. 
+ * 基于此,我们推出了 用OpenGL来完成的硬缩放的方式,极大的提升了视频缩放的速度.
  * 
  *  演示: ScaleExecute类的使用. 这个是在后台进行缩放,在OpenGL线程中运行.
- *
+ * 流程是: 硬件解码---->OpenGL处缩放--->硬件编码.
  */
 public class ScaleExecuteActivity extends Activity{
 

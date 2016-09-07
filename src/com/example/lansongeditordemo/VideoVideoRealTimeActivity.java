@@ -52,8 +52,19 @@ import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
 /**
- * 演示: 利用MediaPool视频和视频的实时叠加.
- *
+ * 演示: 使用MediaPool来实现 视频和视频的实时叠加.
+ * 
+ * 流程是: 
+ * 先创建一个MediaPool,获取主VideoSprite,在播放过程中,再次获取一个VideoSprite然后可以调节SeekBar来对
+ * Sprite的每个参数进行调节.
+ * 
+ * 可以调节的有:平移,旋转,缩放,RGBA值,显示/不显示(闪烁)效果.
+ * 实际使用中, 可用这些属性来扩展一些功能.
+ * 
+ * 比如 调节另一个视频的RGBA中的A值来实现透明叠加效果,类似MV的效果.
+ * 
+ * 比如 调节另一个视频的平移,缩放,旋转来实现贴纸的效果.
+ * 
  */
 public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarChangeListener {
     private static final String TAG = "VideoActivity";

@@ -55,9 +55,11 @@ import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
 /**
- * 演示滤镜模块的 FilterSprite的使用, 可以在播放过程中切换滤镜, 在滤镜处理过程中, 增加其他的sprite,比如增加一个BitmapSprite和 ViewSprite等等.
+ * 演示滤镜模块的 FilterSprite的使用, 可以在播放过程中切换滤镜,
+ * 在滤镜处理过程中, 增加其他的sprite,比如增加一个BitmapSprite和 ViewSprite等等.
  * 
- * 代码流程: 从layout中得到MediaPoolView,并从MediaPoolView中获取多个sprite,并对sprite进行滤镜, 缩放等操作.
+ * 流程: 从layout中得到MediaPoolView,并从MediaPoolView中获取多个sprite,
+ * 并对sprite进行滤镜, 缩放等操作.
  *
  *
  */

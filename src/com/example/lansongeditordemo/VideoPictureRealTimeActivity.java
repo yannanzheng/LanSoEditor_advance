@@ -38,8 +38,15 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 
 /**
  * 演示: 使用MediaPool来实现 视频和图片的实时叠加. 
- *
+ * 
+ * 流程是: 
+ * 先创建一个MediaPool,然后在视频播放过程中,从MediaPool中获取一个BitmapSprite,然后可以调节SeekBar来对Sprite的每个
+ * 参数进行调节.
+ * 
+ * 可以调节的有:平移,旋转,缩放,RGBA值,显示/不显示(闪烁)效果.
+ * 实际使用中, 可用这些属性来做些动画,比如平移+RGBA调节,呈现舒缓移除的效果. 缓慢缩放呈现照片播放效果;旋转呈现欢快的炫酷效果等等.
  */
+
 public class VideoPictureRealTimeActivity extends Activity implements OnSeekBarChangeListener {
     private static final String TAG = "VideoActivity";
 
@@ -66,8 +73,8 @@ public class VideoPictureRealTimeActivity extends Activity implements OnSeekBarC
         mVideoPath = getIntent().getStringExtra("videopath");
         mPlayView = (MediaPoolView) findViewById(R.id.mediapool_view);
         
-        initSeekBar(R.id.id_mediapool_skbar_rotate,360); //角度是旋转360度.
-        initSeekBar(R.id.id_mediapool_skbar_move,100);   //move的百分比暂时没有用到,举例而已.
+        initSeekBar(R.id.id_mediapool_skbar_rotate,360); //角度是旋转360度,如果值大于360,则取360度内剩余的角度值.
+        initSeekBar(R.id.id_mediapool_skbar_move,100);   
         initSeekBar(R.id.id_mediapool_skbar_scale,800);   //这里设置最大可放大8倍
         
         initSeekBar(R.id.id_mediapool_skbar_red,100);  //red最大为100
@@ -115,6 +122,10 @@ public class VideoPictureRealTimeActivity extends Activity implements OnSeekBarC
 			}
 		}, 100);
     }
+    /**
+     * VideoSprite是外部提供画面来源, 您可以用你们自己的播放器作为画面输入源,也可以用原生的MediaPlayer,只需要视频播放器可以设置surface即可.
+     * 一下举例是采用MediaPlayer作为视频输入源.
+     */
     private void startPlayVideo()
     {
           if (mVideoPath != null){
@@ -142,7 +153,7 @@ public class VideoPictureRealTimeActivity extends Activity implements OnSeekBarC
 					
 					//completion不确定会在什么时候停，故需要判断是否为null
 					if(mPlayView!=null && mPlayView.isRunning()){
-						mPlayView.stopMediaPool();
+						
 						
 						toastStop();
 						
@@ -206,30 +217,38 @@ public class VideoPictureRealTimeActivity extends Activity implements OnSeekBarC
     		
     		
     }
+    /**
+     * 从MediaPool中得到一个BitmapSprite,填入要显示的图片,您实际可以是资源图片,也可以是png或jpg,或网络上的图片等,最后解码转换为统一的
+     * Bitmap格式即可.
+     */
     private void addBitmapSprite()
     {
     	mBitmapSprite=mPlayView.obtainBitmapSprite(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
     }
-    
+    @Override
+    protected void onPause() {
+    	// TODO Auto-generated method stub
+    	super.onPause();
+    	if(mplayer!=null){
+    		mplayer.stop();
+    		mplayer.release();
+    		mplayer=null;
+    	}
+    	
+    	if(mplayer2!=null){
+    		mplayer2.stop();
+    		mplayer2.release();
+    		mplayer2=null;
+    	}
+    	if(mPlayView!=null){
+    		mPlayView.stopMediaPool();
+    	}
+    }
    @Override
 protected void onDestroy() {
 	// TODO Auto-generated method stub
 	super.onDestroy();
-	if(mplayer!=null){
-		mplayer.stop();
-		mplayer.release();
-		mplayer=null;
-	}
 	
-	if(mplayer2!=null){
-		mplayer2.stop();
-		mplayer2.release();
-		mplayer2=null;
-	}
-	if(mPlayView!=null){
-		mPlayView.stopMediaPool();
-		mPlayView=null;        		   
-	}
     if(SDKFileUtils.fileExist(dstPath)){
     	SDKFileUtils.deleteFile(dstPath);
     }
@@ -241,6 +260,7 @@ protected void onDestroy() {
 	
     /**
      * 提示:实际使用中没有主次之分, 只要是继承自ISprite的对象(FilterSprite除外),都可以调节,这里仅仅是举例
+     * 可以调节的有:平移,旋转,缩放,RGBA值,显示/不显示(闪烁)效果.
      */
 	@Override
 	public void onProgressChanged(SeekBar seekBar, int progress,

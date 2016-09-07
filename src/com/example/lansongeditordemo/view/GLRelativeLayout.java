@@ -14,7 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**
- * Created by user on 3/15/15.
+ * 使用在ViewSprite中, 用来演示ViewSprite的使用.
  */
 public class GLRelativeLayout extends RelativeLayout {
 
@@ -35,7 +35,6 @@ public class GLRelativeLayout extends RelativeLayout {
         super(context, attrs, defStyle);
     }
 
-    // drawing magic
     @Override
     public void draw(Canvas canvas) {
     	//拿到Canvas
@@ -55,8 +54,8 @@ public class GLRelativeLayout extends RelativeLayout {
     	            
     	            glAttachedCanvas.scale(xScale, xScale);
     	            //draw the view to provided canvas
-    	            super.draw(glAttachedCanvas);  //<-----把LinearLayout上的东西, 绘制到canvas上
-    	        }
+    	            super.draw(glAttachedCanvas);  
+    	            }
     	        // notify the canvas is updated
     	        mSprite.onDrawViewEnd();
     	}

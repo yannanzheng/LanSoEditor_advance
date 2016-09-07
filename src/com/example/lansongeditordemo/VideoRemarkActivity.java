@@ -50,7 +50,8 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 /**
  *  演示: 使用MediaPool完成 视频的实时标记.
  *  
- *  在视频处理的过程中, 提供 重写MediaPool中的onTouchEvent方法的类TestTouchView,当点击这个View时,获取到点击位置, 并获取一个BitmapSprite, 并再次位置显示叠加图片.move时,移动图片.
+ *  在视频处理的过程中, 提供 重写MediaPool中的onTouchEvent方法的类TestTouchView,
+ *  当点击这个View时,获取到点击位置, 并获取一个BitmapSprite, 并再次位置显示叠加图片.move时,移动图片.
  *  在手指抬起后, 释放BitmapSprite,从而实时滑动画面实时标记的效果.
  *
  */

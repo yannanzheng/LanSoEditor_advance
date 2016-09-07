@@ -62,10 +62,17 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 /**
  *  演示: 视频和UI界面的 实时叠加.
  *  
- *  mGLRelativeLayout是要叠加的UI界面.
+ *  演示UI设计中经常使用的TextView,Button,ImageView,进度条等在视频中的叠加,
+ *  可以实时交互并实时保存到视频中.
+ * 
+ *  您实际项目中可任意发挥,构建炫酷或浪漫的视频.
+ *  
+ *  流程是: 建立一个MediaPool,从中获取视频VideoSprite,
+ *  然后获取一个ViewSprite设置到GLRelativelayout中,实时的把GLRelativeLayout中的画面绘制到
+ *  OpenGL中.
  *
  */
-public class VViewCommonWidgetActivity extends Activity implements OnSeekBarChangeListener {
+public class VViewCommonWidgetActivity extends Activity{
     private static final String TAG = "VideoActivity";
 
     private String mVideoPath;
@@ -82,6 +89,10 @@ public class VViewCommonWidgetActivity extends Activity implements OnSeekBarChan
     private String editTmpPath=null;
     private String dstPath=null;
 
+    /**
+     * 自定义的RelativeLayout,重载了其中的onDraw方法,用来把这个layout中的画面绘制到MediaPool中.
+     * 
+     */
     private GLRelativeLayout mGLRelativeLayout;
     private TextView  tvGl,tvGl2;
     private JumpingBeans jumpingBeans1, jumpingBeans2;
@@ -189,6 +200,10 @@ public class VViewCommonWidgetActivity extends Activity implements OnSeekBarChan
 			}
 		}, 100);
     }
+    /**
+     * 这里采用Android原生的MediaPlayer作为视频源,实际您可以使用任意的带有可以设置Surface视频播放器
+     * 做为VideoSprite的画面输入源.
+     */
     private void startPlayVideo()
     {
           if (mVideoPath != null)
@@ -217,6 +232,7 @@ public class VViewCommonWidgetActivity extends Activity implements OnSeekBarChan
 					
 					Log.i(TAG,"media player is completion!!!!");
 					if(mPlayView!=null && mPlayView.isRunning()){
+						//播放完成后,停止MediaPool的操作.
 						mPlayView.stopMediaPool();
 						
 						toastStop();
@@ -247,15 +263,17 @@ public class VViewCommonWidgetActivity extends Activity implements OnSeekBarChan
     	MediaInfo info=new MediaInfo(mVideoPath,false);
     	info.prepare();
     	
+    	//建立MediaPool,病设置录制的各种参数, 宽度和高度,码率,帧率,保存路径等.
     	if(DemoCfg.ENCODE){
     		mPlayView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
     	}
+    	//设置MediaPool的各种参数.
     	mPlayView.setMediaPoolSize(480,480,new onMediaPoolSizeChangedListener() {
 			
 			@Override
 			public void onSizeChanged(int viewWidth, int viewHeight) {
 				// TODO Auto-generated method stub
-				mPlayView.startMediaPool(null,null);
+				mPlayView.startMediaPool(null,null); //这里为了代码清晰,省略了进度和完成监听,如您想监听进度和结果,可以参考VideoPictureRealTimeActivity.java
 				
 				mSpriteMain=mPlayView.obtainMainVideoSprite(mplayer.getVideoWidth(),mplayer.getVideoHeight());
 				if(mSpriteMain!=null){
@@ -283,12 +301,14 @@ public class VViewCommonWidgetActivity extends Activity implements OnSeekBarChan
 			testHandler.postDelayed(testRunnable, 1000);
 		}
 	};
-    
+    /**
+     * 从MediaPool中获取一个ViewSprite,然后设置到GLRelativeLayout中.
+     */
     private void addViewSprite()
     {
     	mViewSprite=mPlayView.obtainViewSprite();
         mGLRelativeLayout.setViewSprite(mViewSprite);
-        mGLRelativeLayout.invalidate();
+        mGLRelativeLayout.invalidate(); //更新下Relativelayout
         
         ViewGroup.LayoutParams  params=mGLRelativeLayout.getLayoutParams();
         params.height=mViewSprite.getHeight();  //因为布局时, 宽度一致, 这里调整高度,让他们一致.
@@ -338,213 +358,5 @@ public class VViewCommonWidgetActivity extends Activity implements OnSeekBarChan
         	  numberBarTimer=null;
           }
     }
-    private float xpos=0,ypos=0;
-
-    /**
-     * 提示:实际使用中没有主次之分, 只要是继承自ISprite的对象(FilterSprite除外),都可以调节,这里仅仅是举例
-     */
-	@Override
-	public void onProgressChanged(SeekBar seekBar, int progress,
-			boolean fromUser) {
-		// TODO Auto-generated method stub
-		switch (seekBar.getId()) {
-			case R.id.id_mediapool_skbar_rotate:
-				if(mViewSprite!=null){
-					mViewSprite.setRotate(progress);
-				}
-				break;
-			case R.id.id_mediapool_skbar_move:
-					if(mViewSprite!=null){
-						 xpos+=10;
-						 ypos+=10;
-						 
-						 if(xpos>mPlayView.getViewWidth())
-							 xpos=0;
-						 if(ypos>mPlayView.getViewWidth())
-							 ypos=0;
-						 mViewSprite.setPosition(xpos, ypos);
-					}
-				break;				
-			case R.id.id_mediapool_skbar_scale:
-				if(mViewSprite!=null){
-					mViewSprite.setScale(progress);
-				}
-			break;		
-			case R.id.id_mediapool_skbar_red:
-					if(mViewSprite!=null){
-						mViewSprite.setRedPercent(progress);  //设置每个RGBA的比例,默认是1
-					}
-				break;
-
-			case R.id.id_mediapool_skbar_green:
-					if(mViewSprite!=null){
-						mViewSprite.setGreenPercent(progress);
-					}
-				break;
-
-			case R.id.id_mediapool_skbar_blue:
-					if(mViewSprite!=null){
-						mViewSprite.setBluePercent(progress);
-					}
-				break;
-
-			case R.id.id_mediapool_skbar_alpha:
-					if(mViewSprite!=null){
-						mViewSprite.setAlphaPercent(progress);
-					}
-				break;
-				
-			default:
-				break;
-		}
-	}
-	@Override
-	public void onStartTrackingTouch(SeekBar seekBar) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void onStopTrackingTouch(SeekBar seekBar) {
-		// TODO Auto-generated method stub
-		
-	}
-	private ViewPager advPager = null;
-	private boolean isContinue = true;
-	private AtomicInteger what = new AtomicInteger(0);
-	/**
-	 * 设置广告栏的图片及切换效果
-	 */
-	private void initViewPager() {
-		advPager = (ViewPager) findViewById(R.id.id_gllayout_pager);
-		List<View> advPics = new ArrayList<View>();
-		// 图片1
-		ImageView img1 = new ImageView(this);
-		img1.setBackgroundResource(R.drawable.advertising_default_1);
-		advPics.add(img1);
-		// 图片2
-		ImageView img2 = new ImageView(this);
-		img2.setBackgroundResource(R.drawable.advertising_default_2);
-		advPics.add(img2);
-		// 图片3
-		ImageView img3 = new ImageView(this);
-		img3.setBackgroundResource(R.drawable.advertising_default_3);
-		advPics.add(img3);
-		// 图片4
-		ImageView img4 = new ImageView(this);
-		img4.setBackgroundResource(R.drawable.advertising_default);
-		advPics.add(img4);
-  
-		advPager.setAdapter(new AdvAdapter(advPics));
-		advPager.setOnTouchListener(new View.OnTouchListener() {
-
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				switch (event.getAction()) {
-				case MotionEvent.ACTION_DOWN:
-				case MotionEvent.ACTION_MOVE:
-					isContinue = false;
-					break;
-				case MotionEvent.ACTION_UP:
-					isContinue = true;
-					break;
-				default:
-					isContinue = true;
-					break;
-				}
-				return false;
-			}
-		});
-		// 定时滑动线程
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				while (true) {
-					if (isContinue) {
-						viewHandler.sendEmptyMessage(what.get());
-						whatOption();
-					}
-				}
-			}
-
-		}).start();
-	}
-
-	/**
-	 * 操作圆点轮换变背景
-	 */
-	private void whatOption() {
-		what.incrementAndGet();
-		if (what.get() > 4 - 1) {  //共4张图片
-			what.getAndAdd(-4);
-		}
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			
-		}
-	}
-
-	/**
-	 * 处理定时切换广告栏图片的句柄
-	 */
-	private final Handler viewHandler = new Handler() {
-
-		@Override
-		public void handleMessage(Message msg) {
-			advPager.setCurrentItem(msg.what);
-			super.handleMessage(msg);
-		}
-
-	};
-	private final class AdvAdapter extends PagerAdapter {
-		private List<View> views = null;
-
-		public AdvAdapter(List<View> views) {
-			this.views = views;
-		}
-
-		@Override
-		public void destroyItem(View arg0, int arg1, Object arg2) {
-			((ViewPager) arg0).removeView(views.get(arg1));
-		}
-
-		@Override
-		public void finishUpdate(View arg0) {
-
-		}
-
-		@Override
-		public int getCount() {
-			return views.size();
-		}
-
-		@Override
-		public Object instantiateItem(View arg0, int arg1) {
-			((ViewPager) arg0).addView(views.get(arg1), 0);
-			return views.get(arg1);
-		}
-
-		@Override
-		public boolean isViewFromObject(View arg0, Object arg1) {
-			return arg0 == arg1;
-		}
-
-		@Override
-		public void restoreState(Parcelable arg0, ClassLoader arg1) {
-
-		}
-
-		@Override
-		public Parcelable saveState() {
-			return null;
-		}
-
-		@Override
-		public void startUpdate(View arg0) {
-
-		}
-
-	}
 	
 }

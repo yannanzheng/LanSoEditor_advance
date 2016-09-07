@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.SurfaceTexture;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -59,7 +60,7 @@ import com.lansosdk.videoeditor.VideoEditor;
 public class MediaPoolView extends FrameLayout {
 	
 	private static final String TAG="MediaPoolView";
-	private static final boolean VERBOSE = true;  
+	private static final boolean VERBOSE = false;  
   
     private int mVideoRotationDegree;
 
@@ -107,11 +108,31 @@ public class MediaPoolView extends FrameLayout {
         setFocusableInTouchMode(true);
         requestFocus();
     }
+    /**
+     * 视频画面显示模式：不裁剪直接和父view匹配， 这样如果画面超出父view的尺寸，将会只显示视频画面的
+     * 一部分，您可以使用这个来平铺视频画面，通过手动拖拽的形式来截取画面的一部分。类似视频画面区域裁剪的功能。
+     */
     static final int AR_ASPECT_FIT_PARENT = 0; // without clip
+    /**
+     * 视频画面显示模式:裁剪和父view匹配, 当视频画面超过父view大小时,不会缩放,会只显示视频画面的一部分.
+     * 超出部分不予显示.
+     */
     static final int AR_ASPECT_FILL_PARENT = 1; // may clip
+    /**
+     * 视频画面显示模式: 自适应大小.当小于画面尺寸时,自动显示.当大于尺寸时,缩放显示.
+     */
     static final int AR_ASPECT_WRAP_CONTENT = 2;
+    /**
+     * 视频画面显示模式:和父view的尺寸对其.完全填充满父view的尺寸
+     */
     static final int AR_MATCH_PARENT = 3;
+    /**
+     * 把画面的宽度等于父view的宽度, 高度按照16:9的形式显示. 大部分的网络视频推荐用这种方式显示.
+     */
     static final int AR_16_9_FIT_PARENT = 4;
+    /**
+     * 把画面的宽度等于父view的宽度, 高度按照4:3的形式显示.
+     */
     static final int AR_4_3_FIT_PARENT = 5;
 
     
@@ -123,7 +144,7 @@ public class MediaPoolView extends FrameLayout {
         
     	View renderUIView = mTextureRenderView.getView();
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.WRAP_CONTENT,//<--------------需要调整这里视频的宽度
+                FrameLayout.LayoutParams.WRAP_CONTENT,
                 FrameLayout.LayoutParams.WRAP_CONTENT,
                 Gravity.CENTER);
         renderUIView.setLayoutParams(lp);
@@ -153,14 +174,14 @@ public class MediaPoolView extends FrameLayout {
     	}
     }
     /**
-     * 获取当前渲染画面的 宽度
+     * 获取当前View的 宽度
      * @return
      */
     public int getViewWidth(){
     	return viewWidth;
     }
     /**
-     * 获得当前渲染画面的高度.
+     * 获得当前View的高度.
      * @return
      */
     public int getViewHeight(){
@@ -195,9 +216,9 @@ public class MediaPoolView extends FrameLayout {
     	            mSurfaceTexture = surface;
     	            viewHeight=height;
     	            viewWidth=width;
-    	            if(mViewAvailable!=null)
+    	            if(mViewAvailable!=null){
     	            	mViewAvailable.viewAvailable(null);
-//    	            Log.i(TAG,"VIEW-------->onSurfaceTextureAvailable");
+    	            }	
     	        }
     	        
     	        /**
@@ -205,7 +226,7 @@ public class MediaPoolView extends FrameLayout {
     	         * 当创建的TextureView的大小改变后, 会调用回调.
     	         * 
     	         * 当您本来设置的大小是480x480,而MediaPool会自动的缩放到父view的宽度时,会调用这个回调,提示大小已经改变, 这时您可以开始startMediaPool
-    	         * 如果你设置的大小更好等于当前Texture的大小,则不会调用这个, 详细的注释见 startMediaPool
+    	         * 如果你设置的大小更好等于当前Texture的大小,则不会调用这个, 详细的注释见 {@link MediaPoolView#startMediaPool(onMediaPoolProgressListener, onMediaPoolCompletedListener)}
     	         */
     	        @Override
     	        public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
@@ -277,8 +298,8 @@ public class MediaPoolView extends FrameLayout {
 	    * 注意: 此方法需要在 {@link #startMediaPool(onMediaPoolProgressListener, onMediaPoolCompletedListener)} 前调用.
 	    * 比如设置的宽度和高度是480,480, 而父view的宽度是等于手机分辨率是1080x1920,则mediaPool默认对齐到手机宽度1080,然后把高度也按照比例缩放到1080.
 	    * 
-	    * @param width  预设值的宽度
-	    * @param height 预设值的高度 
+	    * @param width  MediaPool宽度
+	    * @param height MediaPool高度 
 	    * @param cb   设置好后的回调, 注意:如果预设值的宽度和高度经过调整后 已经和父view的宽度和高度一致,则不会触发此回调(当然如果已经是希望的宽高,您也不需要调用此方法).
 	    */
 	public void setMediaPoolSize(int width,int height,onMediaPoolSizeChangedListener cb){
@@ -296,9 +317,9 @@ public class MediaPoolView extends FrameLayout {
 
 	/**
 	 * 开始mediaPool的渲染线程. 
-	 * 此方法需要在 {@link onMediaPoolSizeChangedListener} 完成后调用.
+	 * 此方法可以在 {@link onMediaPoolSizeChangedListener} 完成后调用.
 	 * 可以先通过 {@link #setMediaPoolSize(int, int, onMediaPoolSizeChangedListener)}来设置宽高,然后在回调中执行此方法.
-	 * 
+	 * 如果您已经在xml中固定了view的宽高,则可以直接调用这里, 无需再设置MediaPoolSize
 	 * @param progresslistener
 	 * @param completedListener
 	 */
@@ -317,9 +338,44 @@ public class MediaPoolView extends FrameLayout {
  				renderer.setMediaPoolCompletedListener(completedListener);
  				
  				renderer.start();
+ 				
  			}
          }
 	}
+	/**
+	 * 暂停MediaPool的画面更新.
+	 * 在一些场景里,您需要开启MediaPool后,暂停下, 然后obtain各种Sprite后,安排好各种事宜后,再让其画面更新,
+	 * 则用到这个方法.
+	 */
+	public void pauseMediaPool()
+	{
+		if(renderer!=null){
+			renderer.pauseUpdateMediaPool();
+		}
+	}
+	/**
+	 * 恢复之前暂停的MediaPool,让其继续画面更新. 与{@link #pauseMediaPool()}配对使用.
+	 */
+	public void resumeMediaPool()
+	{
+		if(renderer!=null){
+			renderer.resumeUpdateMediaPool();
+		}
+	}
+	/**
+    * 设置是否使用主视频的时间戳为录制视频的时间戳, 默认第一次获取到的VideoSprite或FilterSprite为主视频.
+    * 如果您传递过来的是一个完整的视频, 只是需要在此视频上做一些操作, 操作完成后,时长等于源视频的时长, 则建议使用主视频的时间戳, 如果视频是从中间截取一般开始的
+    * 则不建议使用, 默认是这里为false;
+    * 
+    * 注意:需要在MediaPool开始前使用.
+    */
+    public void setUseMainVideoPts(boolean use)
+    {
+    	if(renderer!=null){
+    		renderer.setUseMainVideoPts(use);
+    	}
+    	
+    }
 	/**
 	 * 当前MediaPool是否在工作.
 	 * @return
@@ -348,7 +404,7 @@ public class MediaPoolView extends FrameLayout {
 	 * @param width
 	 * @param height
 	 * @param sarnum  如mediaplayer设置后,可以为1,
-	 * @param sarden
+	 * @param sarden  如mediaplayer设置后,可以为1,
 	 * @param cb
 	 */
 	public void setMediaPoolSize(int width,int height,int sarnum,int sarden,onMediaPoolSizeChangedListener cb)
@@ -365,7 +421,7 @@ public class MediaPoolView extends FrameLayout {
 	/**
 	 * 获取一个主视频的 VideoSprite
 	 * @param width 主视频的画面宽度  建议用 {@link MediaInfo#vWidth}来赋值
-	 * @param height 
+	 * @param height  主视频的画面高度 
 	 * @return
 	 */
 	public VideoSprite obtainMainVideoSprite(int width, int height)
@@ -379,6 +435,16 @@ public class MediaPoolView extends FrameLayout {
 		}
 		return ret;
     }
+	/**
+	 * 为视频获取一个滤镜效果的Sprite(FilterSprite), 这样可以投递到MediaPool中的视频做滤镜处理,比如美颜,小清新等.
+	 * 
+	 * 注意:此方法一定在 startMediaPool之后,在stopMediaPool之前调用.
+	 * 
+	 * @param width  视频的宽度.
+	 * @param height 视频的高度
+	 * @param filter  滤镜对象.如果您需要在MediaPool中切换滤镜, 可以通过{@link #switchFilterTo(FilterSprite, GPUImageFilter)}来完成.
+	 * @return  返回创建好的FilterSprite对象.
+	 */
 	public FilterSprite obtainFilterSprite(int width, int height,GPUImageFilter filter)
     {
 		FilterSprite ret=null;
@@ -391,10 +457,14 @@ public class MediaPoolView extends FrameLayout {
 		return ret;
     }
 	/**
-	 * 获取一个VideoSprite
-	 * @param width  当前Sprite视频的宽度
-	 * @param height 当前Sprite视频的高度
-	 * @return
+	 * 获取一个VideoSprite,从中获取surface {@link VideoSprite#getSurface()}来设置到视频播放器中,
+	 * 用视频播放器提供的画面,来作为MediaPool的画面输入源.
+	 * 
+	 * 注意:此方法一定在 startMediaPool之后,在stopMediaPool之前调用.
+	 * 
+	 * @param width  视频的宽度
+	 * @param height 视频的高度
+	 * @return  VideoSprite对象
 	 */
 	public VideoSprite obtainSubVideoSprite(int width, int height)
 	{
@@ -407,7 +477,8 @@ public class MediaPoolView extends FrameLayout {
 	}
 	/**
 	 * 获取一个BitmapSprite
-	 * @param bmp  图片的bitmap对象
+	 * 注意:此方法一定在 startMediaPool之后,在stopMediaPool之前调用.
+	 * @param bmp  图片的bitmap对象,可以来自png或jpg等类型,这里是通过BitmapFactory.decodeXXX的方法转换后的bitmap对象.
 	 * @return 一个BitmapSprite对象
 	 */
 	public BitmapSprite obtainBitmapSprite(Bitmap bmp)
@@ -423,39 +494,41 @@ public class MediaPoolView extends FrameLayout {
 	}
 	 
 	/**
-	 * 
-	 * 获得一个 ViewSprite
-	 * 
-	 * @return
+	 * 获得一个 ViewSprite,您可以在获取后,仿照我们的例子,来为视频增加各种UI空间,比如增加一个玫瑰心的动画等等.
+	 * 注意:此方法一定在 startMediaPool之后,在stopMediaPool之前调用.
+	 * @return 返回ViewSprite对象.
 	 */
 	 public ViewSprite obtainViewSprite()
 	 {
 			if(renderer!=null)
 				return renderer.obtainViewSprite();
 			else{
-				Log.e(TAG,"obtainCanvasSprite error render is not avalid");
+				Log.e(TAG,"obtainViewSprite error render is not avalid");
 				return null;
 			}
 	 }
 	 /**
-	  * 从渲染线程列表中移除并销毁这个Sprite, 
+	  * 从渲染线程列表中移除并销毁这个Sprite;
+	  * 注意:此方法一定在 startMediaPool之后,在stopMediaPool之前调用.
 	  * @param sprite
 	  */
 	public void removeSprite(ISprite sprite)
 	{
-		if(renderer!=null)
-			renderer.removeSprite(sprite);
-		else{
-			Log.w(TAG,"setMainVideoSprite error render is not avalid");
+		if(sprite!=null)
+		{
+			if(renderer!=null)
+				renderer.removeSprite(sprite);
+			else{
+				Log.w(TAG,"removeSprite error render is not avalid");
+			}
 		}
-		//这里只是发送过去, 没有等到真正的release这个sprite就退出了,这样会导致并没有真正的release,而提供给VideoSprite的MediaPlayer已经停止工作,而MediaPool还在等待
 	}
-	 /**
-	    * 切换 滤镜
-	    * 
-	    * @param filter  切换后的滤镜对象.
-	    * @return 切换成功返回true, 否则返回false
-	    */
+	/**
+	 * 为已经创建好的FilterSprite对象切换滤镜效果
+	 * @param sprite  已经创建好的FilterSprite对象
+	 * @param filter  要切换到的滤镜对象.
+	 * @return 切换成功,返回true; 失败返回false
+	 */
 	   public boolean  switchFilterTo(FilterSprite sprite, GPUImageFilter filter) {
 	    	if(renderer!=null){
 	    		return renderer.switchFilterTo(sprite, filter);

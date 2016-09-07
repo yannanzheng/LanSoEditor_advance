@@ -42,7 +42,13 @@ import com.lansosdk.videoeditor.onVideoEditorProgressListener;
 /**
  * 演示: 使用MediaPool在后台执行视频和视频的叠加处理.
  * 
- * 适用在 一些UI界面需要用户手动操作UI界面,比如旋转叠加的视频等,增加图片后旋转图片等,这些UI交互完成后, 记录下用户的操作信息,但需要统一处理时,通过此类来在后台执行.
+ * 适用在 一些UI界面需要用户手动操作UI界面,比如旋转叠加的视频等,增加图片后旋转图片等,这些UI交互完成后, 
+ * 记录下用户的操作信息,但需要统一处理时,通过此类来在后台执行.
+ * 
+ * 流程:通过MediaPoolVideoExecute来实现视频的编辑处理,
+ * 效果:建立一个MediaPool后,获取VideoSprite让其播放,在播放过程中,向里面增加两个图片和一个UI,
+ * 其中给一个图片移动位置,并在3秒处放大一倍,在6秒处消失,处理中实时的形成视频等
+ * 
  *
  */
 public class VideoVideoExecuteActivity extends Activity{
