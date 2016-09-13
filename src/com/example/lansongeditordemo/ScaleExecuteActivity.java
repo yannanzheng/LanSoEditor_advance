@@ -54,6 +54,7 @@ public class ScaleExecuteActivity extends Activity{
 		Thread.setDefaultUncaughtExceptionHandler(new snoCrashHandler());
 		 
 		 videoPath=getIntent().getStringExtra("videopath");
+		 
 		 mMediaInfo=new MediaInfo(videoPath,false);
 		 mMediaInfo.prepare();
 		 
@@ -93,7 +94,8 @@ public class ScaleExecuteActivity extends Activity{
 				}
 			}
 		});
-       
+
+       //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
        editTmpPath=SDKFileUtils.newMp4PathInBox();
        dstPath=SDKFileUtils.newMp4PathInBox();
 	}
@@ -128,10 +130,29 @@ public class ScaleExecuteActivity extends Activity{
 		 * 创建ScaleExecute类.
 		 */
 		ScaleExecute  vScale=new ScaleExecute(ScaleExecuteActivity.this,videoPath);  //videoPath是路径
+		//设置缩放后输出文件路径.
 		vScale.setOutputPath(editTmpPath);
 		
-		vScale.setScaleSize(mMediaInfo.vCodecWidth/2,mMediaInfo.vCodecHeight/2,mMediaInfo.vBitRate/3);
 		
+		//计算等比例缩放的压缩码率.
+		 int scaleWidth=mMediaInfo.vCodecWidth/2;  //这里是把视频的宽度和高度压缩一半.
+		 int scaleHeight=mMediaInfo.vCodecHeight/2;
+		 
+	  	 int max=Math.max(mMediaInfo.vCodecWidth,mMediaInfo.vCodecHeight);  
+	  	 int scaleMax=Math.max(scaleWidth, scaleHeight);
+	  	 float scaleBitRate=(float)mMediaInfo.vBitRate*1.3f;
+	  	 
+	  	 float ratio= (float)scaleMax / (float)max;  //得到比例.
+	  	 scaleBitRate*=ratio;  //得到恒定码率的等比例值.
+		
+	  	 
+	  	vScale.setModifyAngle(false);//当没有设置或设置为false时,,如果原来视频旋转了270或90度,则缩放后的视频也旋转270或90度. 当设置为true时, 把原来旋转的视频角度值去掉,进行缩放.默认是false或不设置.
+	  	 
+	  	 
+		//设置缩放的宽度,高度和缩放后保存文件的码率.
+		vScale.setScaleSize(scaleWidth,scaleHeight,(int)scaleBitRate);
+		
+		//设置缩放进度监听.currentTimeUS当前处理的视频帧时间戳.
 		vScale.setScaleProgessListener(new onScaleProgressListener() {
 			
 			@Override
@@ -140,6 +161,8 @@ public class ScaleExecuteActivity extends Activity{
 				tvProgressHint.setText(String.valueOf(currentTimeUS));
 			}
 		});
+		
+		//设置缩放进度完成后的监听.
 		vScale.setScaleCompletedListener(new onScaleCompletedListener() {
 			
 			@Override
@@ -148,6 +171,7 @@ public class ScaleExecuteActivity extends Activity{
 				tvProgressHint.setText("Completed!!!");
 				isExecuting=false;
 				if(SDKFileUtils.fileExist(editTmpPath)){
+					//增加音频信息
 					boolean ret=VideoEditor.encoderAddAudio(videoPath, editTmpPath,SDKDir.TMP_DIR, dstPath);
 					if(!ret){
 						dstPath=editTmpPath;

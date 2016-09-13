@@ -36,7 +36,7 @@ import java.util.Map;
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 
 import com.lansosdk.box.BitmapSprite;
-import com.lansosdk.box.FilterSprite;
+import com.lansosdk.box.VideoFilterSprite;
 import com.lansosdk.box.ISprite;
 import com.lansosdk.box.MediaPoolUpdateMode;
 import com.lansosdk.box.MediaPoolViewRender;
@@ -188,12 +188,16 @@ public class MediaPoolView extends FrameLayout {
     	return viewHeight;
     }
     
-    //此回调仅仅是作为演示: 当跳入到别的Activity后的返回时,会再次预览当前画面的功能. 
-    //你完全可以重新按照你的界面需求来修改这个MediaPoolView类.
+  
     public interface onViewAvailable {	    
         void viewAvailable(MediaPoolView v);
     }
 	private onViewAvailable mViewAvailable=null;
+	  /**
+     * 此回调仅仅是作为演示: 当跳入到别的Activity后的返回时,会再次预览当前画面的功能.
+     * 你完全可以重新按照你的界面需求来修改这个MediaPoolView类.
+     *
+     */
 	public void setOnViewAvailable(onViewAvailable listener)
 	{
 		mViewAvailable=listener;
@@ -266,6 +270,14 @@ public class MediaPoolView extends FrameLayout {
 		 * 
 		 * 设置使能 实时录制, 即把正在MediaPool中呈现的画面实时的保存下来,实现所见即所得的模式
 		 * 
+		 *  如果实时保存的宽高和原视频的宽高不成比例,则会先等比例缩放原视频,然后在多出的部分出增加黑边的形式呈现,比如原视频是16:9,设置的宽高是480x480,则会先把原视频按照宽度进行16:9的比例缩放.
+		 *  在缩放后,在视频的上下增加黑边的形式来实现480x480, 从而不会让视频变形.
+		 *  
+		 *  如果视频在拍摄时有角度, 比如手机相机拍照,会有90度或270, 则会自动的识别拍摄的角度,并在缩放时,自动判断应该左右加黑边还是上下加黑边.
+		 *  
+		 *  因有缩放的特性, 您可以直接向MediaPool中投入一个视频,然后把宽高比设置一致,这样可实现一个视频压缩的功能;您也可以把宽高比设置一下,这样可实现视频加黑边的压缩功能.
+		 *  或者您完全不进行缩放, 仅仅想把视频码率减低一下, 也可以把其他参数设置为和源视频一致, 仅仅调试encBr这个参数,来实现视频压缩的功能.
+		 *  
 		 * @param encW  录制视频的宽度
 		 * @param encH  录制视频的高度
 		 * @param encBr 录制视频的bitrate,
@@ -333,11 +345,12 @@ public class MediaPoolView extends FrameLayout {
  				renderer.setEncoderEnable(encWidth,encHeight,encBitRate,encFrameRate,encodeOutput);
  				
  				renderer.setUpdateMode(mUpdateMode,mAutoFlushFps);
- 				 
+ 				
+ 				 //设置MediaPool处理的进度监听, 回传的currentTimeUs单位是微秒.
  				renderer.setMediaPoolProgressListener(progresslistener);
  				renderer.setMediaPoolCompletedListener(completedListener);
  				
- 				renderer.start();
+ 				renderer.startMediaPool();
  				
  			}
          }
@@ -374,7 +387,6 @@ public class MediaPoolView extends FrameLayout {
     	if(renderer!=null){
     		renderer.setUseMainVideoPts(use);
     	}
-    	
     }
 	/**
 	 * 当前MediaPool是否在工作.
@@ -445,12 +457,12 @@ public class MediaPoolView extends FrameLayout {
 	 * @param filter  滤镜对象.如果您需要在MediaPool中切换滤镜, 可以通过{@link #switchFilterTo(FilterSprite, GPUImageFilter)}来完成.
 	 * @return  返回创建好的FilterSprite对象.
 	 */
-	public FilterSprite obtainFilterSprite(int width, int height,GPUImageFilter filter)
+	public VideoFilterSprite obtainFilterSprite(int width, int height,GPUImageFilter filter)
     {
-		FilterSprite ret=null;
+		VideoFilterSprite ret=null;
 	    
 		if(renderer!=null)
-			ret=renderer.obtainFilterSprite(width, height,filter);
+			ret=renderer.obtainVideoFilterSprite(width, height,filter);
 		else{
 			Log.e(TAG,"obtainFilterSprite error render is not avalid");
 		}
@@ -529,7 +541,7 @@ public class MediaPoolView extends FrameLayout {
 	 * @param filter  要切换到的滤镜对象.
 	 * @return 切换成功,返回true; 失败返回false
 	 */
-	   public boolean  switchFilterTo(FilterSprite sprite, GPUImageFilter filter) {
+	   public boolean  switchFilterTo(VideoFilterSprite sprite, GPUImageFilter filter) {
 	    	if(renderer!=null){
 	    		return renderer.switchFilterTo(sprite, filter);
 	    	}

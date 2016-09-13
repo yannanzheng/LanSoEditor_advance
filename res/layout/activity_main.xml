@@ -123,8 +123,18 @@
 			<TextView  style="@style/main_item_arrow"/> 
 	</RelativeLayout>
 	
+	 <!-- 告白情诗 -->
+    <RelativeLayout  android:id="@+id/id_main_viewsprite" style="@style/main_item_reletivelayout">
+	         <LinearLayout style="@style/main_item_linearlayout">
+           	    <TextView   android:text="告白深情情诗" 	android:textColor="@color/blue"			style="@style/main_item_textview1"/>
+           	    <TextView android:text="文字动画投递到MediaPool中实现"		style="@style/main_item_textview2"/>
+			</LinearLayout>
+			<TextView  style="@style/main_item_arrow"/> 
+	</RelativeLayout>
 	
-            <RelativeLayout  android:id="@+id/id_main_pictures" style="@style/main_item_reletivelayout">
+    
+	<!-- 图片影集 -->
+    <RelativeLayout  android:id="@+id/id_main_pictures" style="@style/main_item_reletivelayout">
           
 	         <LinearLayout style="@style/main_item_linearlayout">
            	    <TextView   android:text="图像影集" 				style="@style/main_item_textview1"/>

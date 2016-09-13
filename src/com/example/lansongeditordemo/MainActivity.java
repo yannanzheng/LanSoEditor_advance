@@ -83,6 +83,7 @@ public class MainActivity extends Activity implements OnClickListener{
                 Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
             }
         });
+       
         
         DisplayMetrics dm = new DisplayMetrics();
         dm = getResources().getDisplayMetrics();
@@ -96,6 +97,12 @@ public class MainActivity extends Activity implements OnClickListener{
         
         tvVideoPath=(TextView)findViewById(R.id.id_main_tvvideo);
         
+        
+        //以下固定视频仅测试使用.
+//        tvVideoPath.setText("/sdcard/VIDEO_90du.mp4");
+//        tvVideoPath.setText("/sdcard/VIDEO_270du.mp4");
+        
+        
         findViewById(R.id.id_main_demofilter).setOnClickListener(this);
         findViewById(R.id.id_main_demofiltersprite).setOnClickListener(this);
         
@@ -105,6 +112,7 @@ public class MainActivity extends Activity implements OnClickListener{
         findViewById(R.id.id_main_videobitmapoverlay).setOnClickListener(this);
         findViewById(R.id.id_main_viewspritedemo).setOnClickListener(this);
         findViewById(R.id.id_main_pictures).setOnClickListener(this);
+        findViewById(R.id.id_main_viewsprite).setOnClickListener(this);
         
         
         findViewById(R.id.id_main_scaleexecute).setOnClickListener(this);
@@ -135,7 +143,7 @@ public class MainActivity extends Activity implements OnClickListener{
 				new CopyDefaultVideoAsyncTask().execute();
 			}
 		});
-        showHintDialog();
+//        showHintDialog();
         
         
 //        checkPath();
@@ -155,7 +163,7 @@ public class MainActivity extends Activity implements OnClickListener{
  			public void run() {
  				// TODO Auto-generated method stub
  				isStarted=true;
-// 				showHintDialog();
+ 				showHintDialog();
  				
 // 				startVideoFilterDemo(); 
 // 				startFilterExecuteActivity();
@@ -209,7 +217,7 @@ public class MainActivity extends Activity implements OnClickListener{
    			public void onClick(DialogInterface dialog, int which) {
    				// TODO Auto-generated method stub
    				
-   				showHintDialog("注意:当前已是发行商用版本.\n\n后期会依次增加各种场景的举例:比如浪漫情诗,图片影集等例子,核心功能基本不变,不影响您的使用.请知悉~~");
+   				showHintDialog("注意:当前已是发行商用版本.\n\n后期会依次增加各种场景的举例,核心功能基本不变,不影响您的使用.请知悉~~");
    			}
    		})
            .show();
@@ -253,10 +261,10 @@ public class MainActivity extends Activity implements OnClickListener{
 				return;
 			switch (v.getId()) {
 				case R.id.id_main_demofilter:
-					startExecuteDemo(FilterPreviewDemoActivity.class);
+					startExecuteDemo(FilterRealTimeActivity.class);
 					break;
 				case R.id.id_main_demofiltersprite:
-					startExecuteDemo(FilterSpriteDemoActivity.class);
+					startExecuteDemo(FilterSpriteRealTimeActivity.class);
 					break;
 				case R.id.id_main_demoedit:
 					startExecuteDemo(VideoEditDemoActivity.class);
@@ -269,6 +277,9 @@ public class MainActivity extends Activity implements OnClickListener{
 					break;
 				case R.id.id_main_pictures:
 					startExecuteDemo(PictureSetRealTimeActivity.class);
+					break;
+				case R.id.id_main_viewsprite:
+					startExecuteDemo(ViewSpriteRealTimeActivity.class);
 					break;
 				case R.id.id_main_viewspritedemo:
 					startExecuteDemo(VideoViewDemoListActivity.class);
@@ -283,7 +294,7 @@ public class MainActivity extends Activity implements OnClickListener{
 					startExecuteDemo(FilterSpriteExecuteActivity.class);
 					break;
 				case R.id.id_main_mediapoolexecute:
-					startExecuteDemo(VideoVideoExecuteActivity.class);
+					startExecuteDemo(VideoPictuerExecuteActivity.class);
 					break;
 				case R.id.id_main_mediapoolpictureexecute:
 					startExecuteDemo(PictureSetExecuteActivity.class);

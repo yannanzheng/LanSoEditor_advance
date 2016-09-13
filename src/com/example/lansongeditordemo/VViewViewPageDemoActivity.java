@@ -114,8 +114,9 @@ public class VViewViewPageDemoActivity extends Activity implements OnSeekBarChan
     	findViewById(R.id.id_vview_realtime_saveplay).setVisibility(View.GONE);
     	
 
+        //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
         editTmpPath=SDKFileUtils.newMp4PathInBox();
-            dstPath=SDKFileUtils.newMp4PathInBox();
+        dstPath=SDKFileUtils.newMp4PathInBox();
             
 	
 	    initViewPager();
@@ -310,7 +311,8 @@ public class VViewViewPageDemoActivity extends Activity implements OnSeekBarChan
 				break;				
 			case R.id.id_mediapool_skbar_scale:
 				if(mViewSprite!=null){
-					mViewSprite.setScale(progress);
+					float scale=(float)progress/100;
+					mViewSprite.setScale(scale);
 				}
 			break;		
 			case R.id.id_mediapool_skbar_red:

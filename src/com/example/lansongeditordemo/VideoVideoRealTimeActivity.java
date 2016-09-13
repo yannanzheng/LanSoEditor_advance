@@ -120,7 +120,8 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
 		});
         
     	findViewById(R.id.id_mediapool_saveplay).setVisibility(View.GONE);
-    	
+
+        //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
         editTmpPath=SDKFileUtils.newMp4PathInBox();
         dstPath=SDKFileUtils.newMp4PathInBox();
         
@@ -237,6 +238,9 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
 		@Override
 		public void onCompleted(MediaPool v) {
 			// TODO Auto-generated method stub
+			if(isDestorying==false){
+				
+			}
 		}
     }
     boolean isFirstRemove=false;
@@ -296,7 +300,7 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
 				Log.i(TAG,"sub video sprite ....obtain..");
 				if(subVideoSprite!=null){
 					mplayer2.setSurface(new Surface(subVideoSprite.getVideoTexture()));	
-					subVideoSprite.setScale(50);
+					subVideoSprite.setScale(0.5f);  //这里先缩小一半
 				}
 				mplayer2.start();
 			}
@@ -333,7 +337,7 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
 				subVideoSprite=mPlayView.obtainSubVideoSprite(mp.getVideoWidth(),mp.getVideoHeight());
 				if(subVideoSprite!=null){
 					vplayer.setSurface(new Surface(subVideoSprite.getVideoTexture()));	
-					subVideoSprite.setScale(50);
+					subVideoSprite.setScale(0.5f);
 				}
 				vplayer.start();
 			}
@@ -344,10 +348,16 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
     {
     	Toast.makeText(getApplicationContext(), "录制已停止!!", Toast.LENGTH_SHORT).show();
     }
+
+    boolean isDestorying=false;  //是否正在销毁, 因为销毁会停止MediaPool
+    
     @Override
-	protected void onDestroy() {
-		// TODO Auto-generated method stub
-			super.onDestroy();
+    protected void onDestroy() {
+    	// TODO Auto-generated method stub
+    	super.onDestroy();
+    	
+    	
+    		isDestorying=true;
 			if(mplayer!=null){
 				mplayer.stop();
 				mplayer.release();
@@ -406,7 +416,8 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
 				break;				
 			case R.id.id_mediapool_skbar_scale:
 				if(subVideoSprite!=null){
-					subVideoSprite.setScale(progress);
+					float scale=(float)progress/100;
+					subVideoSprite.setScale(scale);
 				}
 			break;		
 			case R.id.id_mediapool_skbar_red:

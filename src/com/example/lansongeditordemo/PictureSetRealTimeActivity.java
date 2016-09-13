@@ -74,7 +74,6 @@ public class PictureSetRealTimeActivity extends Activity{
     
     private ArrayList<SlideEffect>  slideEffectArray;
     
-    private String editTmpPath=null;
     private String dstPath=null;
     
     
@@ -106,8 +105,8 @@ public class PictureSetRealTimeActivity extends Activity{
 			}
 		});
         findViewById(R.id.id_mediapool_saveplay).setVisibility(View.GONE);
-        
-        editTmpPath=SDKFileUtils.newMp4PathInBox();
+
+        //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
         dstPath=SDKFileUtils.newMp4PathInBox();
         
         mContext=getApplicationContext();
@@ -130,7 +129,7 @@ public class PictureSetRealTimeActivity extends Activity{
 		//设置为自动刷新模式, 帧率为25
     	mPlayView.setUpdateMode(MediaPoolUpdateMode.AUTO_FLUSH,25);
     	//使能实时录制,并设置录制后视频的宽度和高度, 码率, 帧率,保存路径.
-    	mPlayView.setRealEncodeEnable(480,480,1000000,(int)25,editTmpPath);
+    	mPlayView.setRealEncodeEnable(480,480,1000000,(int)25,dstPath);
     	
     	//设置MediaPool的宽高, 这里设置为480x480,如果您已经在xml中固定大小,则不需要再次设置,
     	//可以直接调用startMediaPool来开始录制.
@@ -210,13 +209,13 @@ public class PictureSetRealTimeActivity extends Activity{
 		@Override
 		public void onCompleted(MediaPool v) {
 			// TODO Auto-generated method stub
-			Log.i(TAG,"MediaPoolCompleted: !!!!!!!!!:");
 			
-			if(SDKFileUtils.fileExist(editTmpPath)){
-				VideoEditor.executeH264WrapperMp4(editTmpPath,dstPath);
-		    	findViewById(R.id.id_mediapool_saveplay).setVisibility(View.VISIBLE);
+			if(isDestorying==false){
+				if(SDKFileUtils.fileExist(dstPath)){
+			    	findViewById(R.id.id_mediapool_saveplay).setVisibility(View.VISIBLE);
+				}
+				toastStop();
 			}
-			toastStop();
 		}
     }
     //MediaPool进度回调.
@@ -246,15 +245,16 @@ public class PictureSetRealTimeActivity extends Activity{
     {
     	Toast.makeText(getApplicationContext(), "录制已停止!!", Toast.LENGTH_SHORT).show();
     }
+    
+    boolean isDestorying=false;  //是否正在销毁, 因为销毁会停止MediaPool
     @Override
     protected void onDestroy() {
     	// TODO Auto-generated method stub
     	super.onDestroy();
     	
+    	
+    	isDestorying=true;
     	if(slideEffectArray!=null){
-	   		 for(SlideEffect item: slideEffectArray){
-	   			mPlayView.removeSprite(item.getSprite());
-	   		 }
 	   		 slideEffectArray.clear();
 	   		 slideEffectArray=null;
     	}
@@ -267,9 +267,5 @@ public class PictureSetRealTimeActivity extends Activity{
     	if(SDKFileUtils.fileExist(dstPath)){
     		SDKFileUtils.deleteFile(dstPath);
         }
-        if(SDKFileUtils.fileExist(editTmpPath)){
-        	SDKFileUtils.deleteFile(editTmpPath);
-        } 
     }
-  
 }

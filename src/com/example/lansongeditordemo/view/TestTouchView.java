@@ -55,6 +55,7 @@ public class TestTouchView extends MediaPoolView{
 	    	   	if(bitmap!=null){
 	    	   		bitmap.release();
 	    	   	}
+	    	   	//继承自MediaPoolView, 在按下时获取一个BitmapSprite
 	    	   	bitmap=obtainBitmapSprite(BitmapFactory.decodeResource(getResources(), R.drawable.arrow_red));
 	    	   	if(bitmap!=null){
 	    	   		bitmap.setVisibility(ISprite.INVISIBLE);
@@ -72,7 +73,7 @@ public class TestTouchView extends MediaPoolView{
 	       case MotionEvent.ACTION_UP:  
 	           // Seek  
 //	    		Log.i("test","ACTION_UP:"+event.getX()+" Y:"+event.getY());
-	    		
+	    		//当抬起时, 删除这个Sprite
 	    		if(bitmap!=null){
 	    			bitmap.setVisibility(ISprite.INVISIBLE);
 	    			removeSprite(bitmap);

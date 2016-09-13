@@ -146,6 +146,8 @@ public class VideoPlayerActivity extends Activity {
     	
         mediaPlayer = new MediaPlayer();  
         mediaPlayer.reset();  
+        
+        
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);  
         mediaPlayer.setOnCompletionListener(new OnCompletionListener() {
 			

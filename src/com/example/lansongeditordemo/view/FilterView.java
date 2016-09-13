@@ -172,9 +172,12 @@ public class FilterView extends FrameLayout {
     }
 	
 	/**
-	 * 设置使能 实时录制
+	 * 设置使能 实时保存
+	 * 视频的宽高是 在setFilterRenderSize方法的glwidth和glheight, 如果设置的宽高和原视频的不同,则会把原视频自动缩放到设置的宽高.
+	 * 如果实时保存的宽高和原视频的宽高不成比例,则会先等比例缩放原视频,然后在多出的部分出增加黑边的形式呈现,比如原视频是16:9,设置的宽高是480x480,则会先把原视频按照宽度进行16:9的比例缩放.
+	 * 在缩放后,在视频的上下增加黑边的形式来实现480x480, 从而不会让视频变形.
 	 * 
-	 * @param bitrate  录制视频的码率
+	 * @param bitrate  视频保存时编码的码率
 	 * @param framerate  帧率
 	 * @param outPath  保存的路径
 	 */
@@ -223,11 +226,13 @@ public class FilterView extends FrameLayout {
 	    * 
 	    * 比如设置的宽度和高度是480,480, 而父view的宽度是等于手机分辨率是1080x1920,则mediaPool默认对齐到手机宽度1080,然后把高度也按照比例缩放到1080.
 	    * 
-	    * @param width  预设值的宽度
+	    * 如果使能了视频实时保存功能, 则会把源视频缩放到设置的 glwidth,glheight这个宽高比,然后码率按照{@link #setRealEncodeEnable(int, int, String)}的来进行实时保存.
+	    * 
+	    * @param width  预设值的宽度  
 	    * @param height 预设值的高度 
 	    * @param cb   设置好后的回调, 注意:如果预设值的宽度和高度经过调整后 已经和父view的宽度和高度一致,则不会触发此回调(当然如果已经是希望的宽高,您也不需要调用此方法).
-	    * @param glwidth  渲染线程opengl的预设宽度
-	    * @param glheight 渲染线程opengl的预设高度.
+	    * @param glwidth  渲染线程opengl的预设宽度 ,如果使能了实时保存功能,则认为是视频缩放到的宽度,
+	    * @param glheight 渲染线程opengl的预设高度,如果使能了实时保存功能,则认为是视频缩放到的高度.
 	    * @param videoW   需要渲染视频的画面宽度
 	    * @param videoH   需要渲染视频的画面高度
 	    * @param cb     filter的自适应屏幕的宽度调整后的回调.

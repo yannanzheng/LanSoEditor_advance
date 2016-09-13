@@ -97,7 +97,6 @@ public class VViewDrawImageDemoActivity extends Activity{
         mGLRelativeLayout=(GLRelativeLayout)findViewById(R.id.id_vview_realtime_gllayout);
         
         
-        
         findViewById(R.id.id_vview_realtime_saveplay).setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -115,6 +114,7 @@ public class VViewDrawImageDemoActivity extends Activity{
     	findViewById(R.id.id_vview_realtime_saveplay).setVisibility(View.GONE);
     	
 
+        //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
         editTmpPath=SDKFileUtils.newMp4PathInBox();
         dstPath=SDKFileUtils.newMp4PathInBox();
 	    

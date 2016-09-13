@@ -48,7 +48,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
  */
 
 public class VideoPictureRealTimeActivity extends Activity implements OnSeekBarChangeListener {
-    private static final String TAG = "VideoActivity";
+    private static final String TAG = "VideoPictureRealTimeActivity";
 
     private String mVideoPath;
 
@@ -98,7 +98,8 @@ public class VideoPictureRealTimeActivity extends Activity implements OnSeekBarC
 			}
 		});
         findViewById(R.id.id_mediapool_saveplay).setVisibility(View.GONE);
-        
+
+        //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
         editTmpPath=SDKFileUtils.newMp4PathInBox();
         dstPath=SDKFileUtils.newMp4PathInBox();
     }
@@ -154,6 +155,7 @@ public class VideoPictureRealTimeActivity extends Activity implements OnSeekBarC
 					//completion不确定会在什么时候停，故需要判断是否为null
 					if(mPlayView!=null && mPlayView.isRunning()){
 						
+						mPlayView.stopMediaPool();
 						
 						toastStop();
 						
@@ -169,6 +171,7 @@ public class VideoPictureRealTimeActivity extends Activity implements OnSeekBarC
 						}else{
 							Log.e(TAG," player completion, but file:"+editTmpPath+" is not exist!!!");
 						}
+						
 					}
 				}
 			});
@@ -286,7 +289,8 @@ protected void onDestroy() {
 				break;				
 			case R.id.id_mediapool_skbar_scale:
 				if(mBitmapSprite!=null){
-					mBitmapSprite.setScale(progress);
+					float scale=(float)progress/100;
+					mBitmapSprite.setScale(scale);
 				}
 			break;		
 			case R.id.id_mediapool_skbar_red:

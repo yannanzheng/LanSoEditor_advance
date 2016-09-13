@@ -44,7 +44,6 @@ public class PictureSetExecuteActivity extends Activity{
 	 TextView tvHint;
 	 
 	 
-	    private String editTmpPath=null;
 	    private String dstPath=null;
 	    
 	    private String picBackGround=null;
@@ -101,8 +100,8 @@ public class PictureSetExecuteActivity extends Activity{
       else{
     	  CopyFileFromAssets.copy(getApplicationContext(), "pic720x720.jpg", SDKDir.TMP_DIR, "picname.jpg");
       }
-      
-       editTmpPath=SDKFileUtils.newMp4PathInBox();
+
+      //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
        dstPath=SDKFileUtils.newMp4PathInBox();
 	}
    @Override
@@ -117,9 +116,6 @@ public class PictureSetExecuteActivity extends Activity{
     	 if(SDKFileUtils.fileExist(dstPath)){
     		 SDKFileUtils.deleteFile(dstPath);
          }
-         if(SDKFileUtils.fileExist(editTmpPath)){
-        	 SDKFileUtils.deleteFile(editTmpPath);
-         } 
     }
 	   
    
@@ -155,13 +151,12 @@ public class PictureSetExecuteActivity extends Activity{
 		  * @param bitrate   编码视频所希望的码率,比特率,设置的越大,则文件越大, 设置小一些会起到视频压缩的效果.
 		  * @param dstPath   编码视频保存的路径.
 		  */
-		 vMediaPool=new MediaPoolPictureExecute(getApplicationContext(), 480, 480, 26*1000, 25, 1000000, editTmpPath);
+		 vMediaPool=new MediaPoolPictureExecute(getApplicationContext(), 480, 480, 26*1000, 25, 1000000, dstPath);
 		
 		 //设置MediaPool的处理进度监听, 您可以在每一帧的过程中对ISprite做各种变化,比如平移,缩放,旋转,颜色变化,增删一个Sprite等,来实现各种动画画面.
 		vMediaPool.setMediaPoolProgressListener(new onMediaPoolProgressListener() {
 			
 			//currentTimeUs是当前时间戳,单位是微妙,可以根据时间戳/(MediaInfo.vDuration*1000000)来得到当前进度百分比.
-			
 			@Override
 			public void onProgress(MediaPool v, long currentTimeUs) {
 				// TODO Auto-generated method stub
@@ -192,14 +187,13 @@ public class PictureSetExecuteActivity extends Activity{
 			   		 slideEffectArray=null;
 		    	}
 
-				if(SDKFileUtils.fileExist(editTmpPath)){
-					VideoEditor.executeH264WrapperMp4(editTmpPath,dstPath);
+				if(SDKFileUtils.fileExist(dstPath)){
 					findViewById(R.id.id_video_edit_btn2).setEnabled(true);
 				}
 			}
 		});
 		
-			vMediaPool.start();
+			vMediaPool.startMediaPool();
 			//可以在后台处理过程中,暂停画面的走动.比如想一次性获取多个Sprite对象后,在让MediaPool执行,这样比在画面走动中获取更精确一些.
 			vMediaPool.pauseUpdateMediaPool(); 
 		

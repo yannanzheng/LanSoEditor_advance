@@ -72,7 +72,7 @@ public class FilterExecuteActivity extends Activity{
 				if(mMediaInfo.vDuration>60*1000){//大于60秒
 					showHintDialog();
 				}else{
-					testFilterExecute(videoPath,editTmpPath);
+					testFilterExecute();
 				}
 			}
 		});
@@ -92,6 +92,7 @@ public class FilterExecuteActivity extends Activity{
 			}
 		});
        
+       //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
        editTmpPath=SDKFileUtils.newMp4PathInBox();
        dstPath=SDKFileUtils.newMp4PathInBox();
 	}
@@ -107,7 +108,7 @@ public class FilterExecuteActivity extends Activity{
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
-				testFilterExecute(videoPath,editTmpPath);
+				testFilterExecute();
 			}
 		})
 		.setNegativeButton("取消", null)
@@ -115,24 +116,40 @@ public class FilterExecuteActivity extends Activity{
 	}
 
 	private boolean isExecuting=false;
-	private void testFilterExecute(String srcVideo,String dstVideo)
+	/**
+	 * 举例滤镜后台处理
+	 */
+	private void testFilterExecute()
 	{
 		if(isExecuting)
 			return ;
 		
 		isExecuting=true;
 		
-		FilterExecute vEdit=new FilterExecute(FilterExecuteActivity.this,srcVideo,480,480,1000000,dstVideo);
+		 /**
+	     * 创建一个视频后台处理对象 
+	     * @param ctx
+	     * @param path 需要做滤镜处理的视频路径
+	     * @param glW 设置渲染线程opengl的宽度  这里设置为统一高度和宽度, FilterExecute检测到和源视频宽高不一致时,会自动的缩放视频,并在多余的地方增加黑边,来达到设置的视频宽高.
+	     * @param glH  设置渲染线程opengl的高度.
+	     * @param encBr  渲染线程后保存文件的码率.
+	     * @param dstPath  渲染线程后保存文件路径
+	     */
+		FilterExecute vEdit=new FilterExecute(FilterExecuteActivity.this,videoPath,480,480,1000000,editTmpPath);
+		
+		//填入要处理的滤镜对象
 		vEdit.switchFilterTo(new IFRiseFilter(getBaseContext()));
 		
+		//设置处理进度监听
 		vEdit.setOnProgessListener(new onFilterExecuteProssListener() {
 			
 			@Override
-			public void onProgress(FilterExecute v, long currentTimeUS) {
+			public void onProgress(FilterExecute v, long currentTimeUS) {  //每处理完一帧后的时间戳.单位微秒.
 				// TODO Auto-generated method stub
 				tvProgressHint.setText(String.valueOf(currentTimeUS));
 			}
 		});
+		//设置处理完成后的监听
 		vEdit.setOnCompletedListener(new onFilterExecuteCompletedListener() {
 			
 			@Override
@@ -141,6 +158,7 @@ public class FilterExecuteActivity extends Activity{
 				tvProgressHint.setText("Completed!!!FilterExecute");
 				isExecuting=false;
 				if(SDKFileUtils.fileExist(editTmpPath)){
+					//增加音频信息.
 					boolean ret=VideoEditor.encoderAddAudio(videoPath, editTmpPath,SDKDir.TMP_DIR, dstPath);
 					if(!ret){
 						dstPath=editTmpPath;
@@ -149,6 +167,7 @@ public class FilterExecuteActivity extends Activity{
 				findViewById(R.id.id_video_edit_btn2).setEnabled(true);
 			}
 		});
+		//开始处理.
 		vEdit.start();
 	}
 	@Override

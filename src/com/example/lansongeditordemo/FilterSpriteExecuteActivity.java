@@ -115,6 +115,8 @@ public class FilterSpriteExecuteActivity extends Activity{
 				}
 			}
 		});
+       
+       //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
        editTmpPath=SDKFileUtils.newMp4PathInBox();
        dstPath=SDKFileUtils.newMp4PathInBox();
 	}
@@ -162,8 +164,19 @@ public class FilterSpriteExecuteActivity extends Activity{
 			return ;
 		
 		isExecuting=true;
-		 vMediaPool=new MediaPoolVideoFilterExecute(FilterSpriteExecuteActivity.this,videoPath,480,480,25,1000000,editTmpPath,new GPUImageSepiaFilter());
+		 /**
+		  * 
+		  * @param ctx   语境,android的Context
+		  * @param srcPath   主视频的路径
+		  * @param mpoolW   MediaPool的宽度.
+		  * @param mpoolH  MediaPool的高度.
+		  * @param bitrate  编码视频所希望的码率,比特率.
+		  * @param dstPath  编码视频保存的路径.
+		  * @param filter   需要的滤镜效果对象
+		  */
+		 vMediaPool=new MediaPoolVideoFilterExecute(FilterSpriteExecuteActivity.this,videoPath,480,480,1000000,editTmpPath,new GPUImageSepiaFilter());
 		
+		 //设置MediaPool处理的进度监听, 回传的currentTimeUs单位是微秒.
 		vMediaPool.setMediaPoolProgressListener(new onMediaPoolProgressListener() {
 			
 			@Override
@@ -177,9 +190,10 @@ public class FilterSpriteExecuteActivity extends Activity{
 				
 				//3秒的时候,放大一倍.
 				if(currentTimeUs>3000000 && bitmapSprite!=null)  
-					bitmapSprite.setScale(50);
+					bitmapSprite.setScale(2.0f);
 			}
 		});
+		//设置MediaPool处理完成后的监听.
 		vMediaPool.setMediaPoolCompletedListener(new onMediaPoolCompletedListener() {
 			
 			@Override
@@ -190,6 +204,7 @@ public class FilterSpriteExecuteActivity extends Activity{
 				isExecuting=false;
 				
 				if(SDKFileUtils.fileExist(editTmpPath)){
+					//合并音频文件.
 					boolean ret=VideoEditor.encoderAddAudio(videoPath, editTmpPath,SDKDir.TMP_DIR,dstPath);
 					if(!ret){
 						dstPath=editTmpPath;
@@ -198,7 +213,7 @@ public class FilterSpriteExecuteActivity extends Activity{
 				  findViewById(R.id.id_video_edit_btn2).setEnabled(true);
 			}
 		});
-		vMediaPool.start();
+		vMediaPool.startMediaPool();
 		
 		bitmapSprite=vMediaPool.obtainBitmapSprite(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
 		

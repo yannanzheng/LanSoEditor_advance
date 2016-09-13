@@ -2,6 +2,7 @@
 android  video editor  advance sdk . filter, overlay,remark,mixer and so on安卓平台视频编辑高级版本，可以滤镜，叠加，标记等操作
 ####工程为Eclipse,修改为Android Studio的步骤
 *  选择AS中的file--->import project ,选择项目的路径名，（注意，一定要是当前项目的根文件夹），点击Ok，会弹出对话框，让您选择需要保存的路径， 选择后点击Next,会弹出3个按钮都选中的对话框，直接点击Finish，导入完成。
+*  可联系我们,为您转换成Android Studio版本工程, 并提供技术支持(联系方式见下面). 
 
 ###当前版本是LanSoEditor_advance1.8.0 视频编辑的高级版本
 *  基本覆盖了秒拍,美拍,快手等视频编辑的大部分功能.

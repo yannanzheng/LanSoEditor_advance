@@ -101,6 +101,7 @@ public class VideoEditDemoActivity extends Activity{
 					tvProgressHint.setText(String.valueOf(percent)+"%");
 				}
 			});
+	        //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
 	        dstPath=SDKFileUtils.newMp4PathInBox();
 	  } 
 	  
@@ -149,6 +150,7 @@ public class VideoEditDemoActivity extends Activity{
       	    	float dstBr=(float)mMediaInfo.vBitRate;
       	    	dstBr*=0.7f;
       	    	int dstBr2=(int)dstBr;
+      	    	//使用视频画面裁剪命令.
       	    	mMediaEditor.executeVideoFrameCrop(videoPath, mMediaInfo.vWidth, mMediaInfo.vHeight/2, 0, 0, dstPath, mMediaInfo.vCodecName,dstBr2);
       	    	return null;
       	    }
