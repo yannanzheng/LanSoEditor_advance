@@ -42,8 +42,7 @@ public class IntroductionActivity extends Activity {
 	private ImageView mPage3;
 	private ImageView mPage4;
 	private ImageView mPage5;
-	
-	
+	private ImageView mPage_pdf;
 	
 	
     @Override
@@ -61,6 +60,7 @@ public class IntroductionActivity extends Activity {
         mPage2 = (ImageView)findViewById(R.id.page2);
         mPage3 = (ImageView)findViewById(R.id.page3);
         mPage4 = (ImageView)findViewById(R.id.page4);
+        mPage_pdf = (ImageView)findViewById(R.id.page_pdf);
         mPage5 = (ImageView)findViewById(R.id.page5);
         
         
@@ -72,6 +72,7 @@ public class IntroductionActivity extends Activity {
         View view4 = mLi.inflate(R.layout.view4, null);
         View view5 = mLi.inflate(R.layout.view5, null);
         View view6 = mLi.inflate(R.layout.view6, null);
+        View view_pdf = mLi.inflate(R.layout.view_pdf, null);
         	    
         //每个页面的view数据
         final ArrayList<View> views = new ArrayList<View>();
@@ -80,6 +81,7 @@ public class IntroductionActivity extends Activity {
         views.add(view3);
         views.add(view4);
         views.add(view5);
+        views.add(view_pdf);
         views.add(view6);
         
         final ArrayList<String> titles = new ArrayList<String>();
@@ -89,6 +91,7 @@ public class IntroductionActivity extends Activity {
         titles.add("④");
         titles.add("⑤");
         titles.add("⑥");
+        titles.add("7");
         
         PagerAdapter mPagerAdapter = new PagerAdapter() {
 			
@@ -172,7 +175,7 @@ public class IntroductionActivity extends Activity {
 			case 4:
 				mPage4.setImageDrawable(getResources().getDrawable(R.drawable.page_now));
 				mPage3.setImageDrawable(getResources().getDrawable(R.drawable.page));
-				mPage5.setImageDrawable(getResources().getDrawable(R.drawable.page));
+				mPage_pdf.setImageDrawable(getResources().getDrawable(R.drawable.page));
 				if (currIndex == arg0-1) {
 					animation = new TranslateAnimation(20*(arg0-1), 20*arg0, 0, 0);
 				} else if (currIndex == arg0+1) {
@@ -180,8 +183,18 @@ public class IntroductionActivity extends Activity {
 				}
 				break;
 			case 5:
-				mPage5.setImageDrawable(getResources().getDrawable(R.drawable.page_now));
+				mPage_pdf.setImageDrawable(getResources().getDrawable(R.drawable.page_now));
 				mPage4.setImageDrawable(getResources().getDrawable(R.drawable.page));
+				mPage5.setImageDrawable(getResources().getDrawable(R.drawable.page));
+				if (currIndex == arg0-1) {
+					animation = new TranslateAnimation(20*(arg0-1), 20*arg0, 0, 0);
+				} else if (currIndex == arg0+1) {
+					animation = new TranslateAnimation(20*(arg0+1), 20*arg0, 0, 0);
+				}
+				break;
+			case 6:
+				mPage5.setImageDrawable(getResources().getDrawable(R.drawable.page_now));
+				mPage_pdf.setImageDrawable(getResources().getDrawable(R.drawable.page));
 				mPage0.setImageDrawable(getResources().getDrawable(R.drawable.page));
 				if (currIndex == arg0-1) {
 					animation = new TranslateAnimation(20*(arg0-1), 20*arg0, 0, 0);

@@ -54,8 +54,10 @@
 	<string name="sdk_hint3">丰富的滤镜效果\n实时切换/混合使用,完全任您个性发挥</string>
 	<string name="sdk_hint4">您可以把UI增加到视频里\n也可以直接把UI生成视频\n\n来呈现动画文字/视频涂鸦/炫酷视频/浪漫情诗等</string>
 	<string name="sdk_hint5">多种处理方法\n\n您可以在UI线程中实时编辑,也可以放到后台统一处理</string>
+	<string name="sdk_hint_pdf">更多详细的文档说明, 请联系我们获取\n\n也可直接提供技术支持指导.</string>
 	
 	
+	<string name="scale480_hint">当前设置MediaPool宽高是480x480, 如果源视频不是1:1, 则会等比例缩放, 并在空白处增加黑边, 请知悉!!\n实际需求您可以任意设置</string>
 	<string name="gaobai_hint">\n场合:让用户输入一些文字,生成浪漫的视频,分享出去,让您的APP更加有趣一些\n原理:\n把UI界面投递到MediaPool中,来生成视频,可以另外增加视频,图片,声音等元素,让您的功能更好玩一些,这里仅演示文字部分.</string>
 	   <string name="gaobai_1">认识你</string>
 <string name="gaobai_2">一定是命运的安排</string>

@@ -122,6 +122,9 @@ public class VViewImageDragDemoActivity extends Activity{
 	    //演示例子用到的.
 		PaintConstants.SELECTOR.COLORING = false;
 		PaintConstants.SELECTOR.KEEP_IMAGE = false;
+		
+		   //增加提示缩放到480的文字.
+        DemoUtils.showScale480HintDialog(VViewImageDragDemoActivity.this);
     }
     
     @Override

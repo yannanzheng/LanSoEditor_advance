@@ -125,6 +125,8 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
         editTmpPath=SDKFileUtils.newMp4PathInBox();
         dstPath=SDKFileUtils.newMp4PathInBox();
         
+        //增加提示缩放到480的文字.
+        DemoUtils.showScale480HintDialog(VideoVideoRealTimeActivity.this);
     }
     private void initSeekBar(int resId,int maxvalue)
     {

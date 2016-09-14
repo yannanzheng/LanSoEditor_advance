@@ -268,7 +268,7 @@ public class MediaPoolView extends FrameLayout {
     }
 		/**
 		 * 
-		 * 设置使能 实时录制, 即把正在MediaPool中呈现的画面实时的保存下来,实现所见即所得的模式
+		 * 设置使能 实时保存, 即把正在MediaPool中呈现的画面实时的保存下来,实现所见即所得的模式
 		 * 
 		 *  如果实时保存的宽高和原视频的宽高不成比例,则会先等比例缩放原视频,然后在多出的部分出增加黑边的形式呈现,比如原视频是16:9,设置的宽高是480x480,则会先把原视频按照宽度进行16:9的比例缩放.
 		 *  在缩放后,在视频的上下增加黑边的形式来实现480x480, 从而不会让视频变形.
@@ -341,7 +341,9 @@ public class MediaPoolView extends FrameLayout {
          {
  			renderer=new MediaPoolViewRender(getContext(), viewWidth, viewHeight);  //<----从这里去建立MediaPool线程.
  			if(renderer!=null){
+ 				//因为要预览,这里设置显示的Surface,当然如果您有特殊情况需求,也可以不用设置,但displayersurface和EncoderEnable要设置一个,MediaPoolRender才可以工作.
  				renderer.setDisplaySurface(new Surface(mSurfaceTexture));
+ 				
  				renderer.setEncoderEnable(encWidth,encHeight,encBitRate,encFrameRate,encodeOutput);
  				
  				renderer.setUpdateMode(mUpdateMode,mAutoFlushFps);

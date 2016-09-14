@@ -2,6 +2,7 @@ package com.example.lansongeditordemo;
 
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Locale;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
@@ -12,6 +13,7 @@ import com.example.lansongeditordemo.GPUImageFilterTools.OnGpuImageFilterChosenL
 import com.example.lansongeditordemo.view.MediaPoolView;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.AudioEncodeDecode;
+import com.lansosdk.box.LanSongBoxVersion;
 import com.lansosdk.box.MediaPool;
 import com.lansosdk.box.MediaPoolUpdateMode;
 import com.lansosdk.box.AudioMixManager;
@@ -22,6 +24,7 @@ import com.lansosdk.box.ISprite;
 import com.lansosdk.box.onMediaPoolCompletedListener;
 import com.lansosdk.box.onMediaPoolProgressListener;
 import com.lansosdk.box.onMediaPoolSizeChangedListener;
+import com.lansosdk.videoeditor.CopyFileFromAssets;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
@@ -31,7 +34,9 @@ import com.lansosdk.videoeditor.player.IMediaPlayer.OnPlayerPreparedListener;
 import com.lansosdk.videoeditor.player.VPlayer;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -44,6 +49,7 @@ import android.media.MediaPlayer.OnPreparedListener;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Surface;
 import android.view.View;
@@ -117,6 +123,8 @@ public class FilterSpriteRealTimeActivity extends Activity {
 			        }
 			}
 		});
+        
+        
         skbarFilterAdjuster.setMax(100);
         
         findViewById(R.id.id_filtersprite_demo_selectbtn).setOnClickListener(new OnClickListener() {
@@ -146,6 +154,9 @@ public class FilterSpriteRealTimeActivity extends Activity {
         //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
         editTmpPath=SDKFileUtils.newMp4PathInBox();
         dstPath=SDKFileUtils.newMp4PathInBox();
+        
+        //增加提示缩放到480的文字.
+        DemoUtils.showScale480HintDialog(FilterSpriteRealTimeActivity.this);
     }
     @Override
     protected void onResume() {
@@ -161,8 +172,9 @@ public class FilterSpriteRealTimeActivity extends Activity {
 		}, 100);
     }
     private FilterAdjuster mFilterAdjuster;
+    
     /**
-     * 选择滤镜效果, 当前SDK支持44中滤镜.
+     * 选择滤镜效果, 
      */
     private void selectFilter()
     {
@@ -227,6 +239,7 @@ public class FilterSpriteRealTimeActivity extends Activity {
     	mMediaPoolView.setUpdateMode(MediaPoolUpdateMode.ALL_VIDEO_READY,25);
     	
     	if(DemoCfg.ENCODE){
+//    		设置使能 实时保存, 即把正在MediaPool中呈现的画面实时的保存下来,实现所见即所得的模式
     		mMediaPoolView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
     	}
     	
@@ -237,11 +250,13 @@ public class FilterSpriteRealTimeActivity extends Activity {
 			public void onSizeChanged(int viewWidth, int viewHeight) {
 				// TODO Auto-generated method stub
 				mMediaPoolView.startMediaPool(new MediaPoolProgressListener(),new MediaPoolCompleted());
+				
+				//先增加一个背景
+//				addBackgroundBitmap();
+			      
 				/**
 				 * 这里获取一个FilterSprite, 并把设置滤镜效果为GPUImageSepiaFilter滤镜.
 				 */
-//				filterSprite=mMediaPoolView.obtainFilterSprite(mplayer.getVideoWidth(),mplayer.getVideoHeight(),new GPUImageSepiaFilter());
-				
 				filterSprite=mMediaPoolView.obtainFilterSprite(mplayer.getVideoWidth(),mplayer.getVideoHeight(),new GPUImageFilter());
 				
 				if(filterSprite!=null){
@@ -250,6 +265,23 @@ public class FilterSpriteRealTimeActivity extends Activity {
 				mplayer.start();
 			}
 		});
+    }
+    private void addBackgroundBitmap()
+    {
+    	  DisplayMetrics dm = new DisplayMetrics();// 获取屏幕密度（方法2）
+	       dm = getResources().getDisplayMetrics();
+	        
+	           
+	      int screenWidth  = dm.widthPixels;	
+	      String picPath=SDKDir.TMP_DIR+"/"+"picname.jpg";   
+	      if(screenWidth>=1080){
+	    	  CopyFileFromAssets.copy(getApplicationContext(), "pic1080x1080u2.jpg", SDKDir.TMP_DIR, "picname.jpg");
+	      }  
+	      else{
+	    	  CopyFileFromAssets.copy(getApplicationContext(), "pic720x720.jpg", SDKDir.TMP_DIR, "picname.jpg");
+	      }
+	      //先 获取第一张Bitmap的Sprite, 因为是第一张,放在MediaPool中维护的数组的最下面, 认为是背景图片.
+	      mMediaPoolView.obtainBitmapSprite(BitmapFactory.decodeFile(picPath));
     }
     //MediaPool完成后的回调.
     private class MediaPoolCompleted implements onMediaPoolCompletedListener

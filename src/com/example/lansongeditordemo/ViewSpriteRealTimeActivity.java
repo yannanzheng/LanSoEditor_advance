@@ -116,6 +116,7 @@ public class ViewSpriteRealTimeActivity extends Activity implements IEndListener
 //        dstPath="/sdcard/text2.mp4";
         
         mContext=getApplicationContext();
+        
     }
     @Override
     protected void onResume() {

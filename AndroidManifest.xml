@@ -25,18 +25,18 @@
         
         <activity android:name="com.example.lansongeditordemo.StartActivity">
               
-      
+        <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
          </activity>
          
         <activity
             android:name="com.example.lansongeditordemo.MainActivity">
             <!-- 因为要加载.so库, 这里一定要用MainActivity来启动 -->
             
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+          
             
              
         </activity>

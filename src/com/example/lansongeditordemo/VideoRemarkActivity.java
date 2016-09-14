@@ -101,9 +101,12 @@ public class VideoRemarkActivity extends Activity{
 		});
         findViewById(R.id.id_mediapool_saveplay).setVisibility(View.GONE);
         
+        //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
         editTmpPath=SDKFileUtils.createFile(SDKDir.TMP_DIR, ".mp4");
         dstPath=SDKFileUtils.newFilePath(SDKDir.TMP_DIR, ".mp4");
         
+        //增加提示缩放到480的文字.
+        DemoUtils.showScale480HintDialog(VideoRemarkActivity.this);
     }
     @Override
     protected void onResume() {

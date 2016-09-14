@@ -193,10 +193,11 @@ public class FilterRealTimeActivity extends Activity {
     	info.prepare();
     	
     	if(DemoCfg.ENCODE){
-    		mFilterView.setRealEncodeEnable(1000000,(int)info.vFrameRate,editTmpPath);
+    		mFilterView.setRealEncodeEnable(info.vBitRate,(int)info.vFrameRate,editTmpPath);
     	}
     	
-    	mFilterView.setFilterRenderSize(480,480,mp.getVideoWidth(),mp.getVideoHeight(),new onFilterViewSizeChangedListener() {
+    	//这里设置为等比例滤镜,实际int glwidth,int glheight的值可任意设置, 短视频一般是480x480的居多.
+    	mFilterView.setFilterRenderSize(mp.getVideoWidth(),mp.getVideoHeight(),mp.getVideoWidth(),mp.getVideoHeight(),new onFilterViewSizeChangedListener() {
 			
 			@Override
 			public void onSizeChanged(int viewWidth, int viewHeight) {

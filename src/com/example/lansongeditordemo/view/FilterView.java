@@ -228,8 +228,8 @@ public class FilterView extends FrameLayout {
 	    * 
 	    * 如果使能了视频实时保存功能, 则会把源视频缩放到设置的 glwidth,glheight这个宽高比,然后码率按照{@link #setRealEncodeEnable(int, int, String)}的来进行实时保存.
 	    * 
-	    * @param width  预设值的宽度  
-	    * @param height 预设值的高度 
+	    * @param width  OpenGL预设值的宽度  
+	    * @param height OpenGL预设值的高度 
 	    * @param cb   设置好后的回调, 注意:如果预设值的宽度和高度经过调整后 已经和父view的宽度和高度一致,则不会触发此回调(当然如果已经是希望的宽高,您也不需要调用此方法).
 	    * @param glwidth  渲染线程opengl的预设宽度 ,如果使能了实时保存功能,则认为是视频缩放到的宽度,
 	    * @param glheight 渲染线程opengl的预设高度,如果使能了实时保存功能,则认为是视频缩放到的高度.

@@ -121,6 +121,10 @@ public class VViewDrawImageDemoActivity extends Activity{
 	    //演示例子用到的.
 		PaintConstants.SELECTOR.COLORING = true;
 		PaintConstants.SELECTOR.KEEP_IMAGE = true;
+		
+		
+		   //增加提示缩放到480的文字.
+        DemoUtils.showScale480HintDialog(VViewDrawImageDemoActivity.this);
     }
     
     @Override

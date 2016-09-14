@@ -168,6 +168,9 @@ public class VViewCommonWidgetActivity extends Activity{
 			}
 		});
         startNumberBar();
+        
+        //增加提示缩放到480的文字.
+        DemoUtils.showScale480HintDialog(VViewCommonWidgetActivity.this);
     }
     private void startNumberBar()
     {

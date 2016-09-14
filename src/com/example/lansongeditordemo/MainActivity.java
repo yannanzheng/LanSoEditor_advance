@@ -217,7 +217,7 @@ public class MainActivity extends Activity implements OnClickListener{
    			public void onClick(DialogInterface dialog, int which) {
    				// TODO Auto-generated method stub
    				
-   				showHintDialog("注意:当前已是发行商用版本.\n\n后期会依次增加各种场景的举例,核心功能基本不变,不影响您的使用.请知悉~~");
+   				showHintDialog("注意:当前已是发行商用版本.\n\n后期会依次增加各种场景的举例, 核心功能基本不变,不影响您的使用.请知悉~~");
    			}
    		})
            .show();

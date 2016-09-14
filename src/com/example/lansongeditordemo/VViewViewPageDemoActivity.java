@@ -118,8 +118,9 @@ public class VViewViewPageDemoActivity extends Activity implements OnSeekBarChan
         editTmpPath=SDKFileUtils.newMp4PathInBox();
         dstPath=SDKFileUtils.newMp4PathInBox();
             
-	
 	    initViewPager();
+	    //增加提示缩放到480的文字.
+        DemoUtils.showScale480HintDialog(VViewViewPageDemoActivity.this);
 	}
     private void startNumberBar()
     {

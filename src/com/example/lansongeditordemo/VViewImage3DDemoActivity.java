@@ -116,6 +116,9 @@ public class VViewImage3DDemoActivity extends Activity {
         //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
         editTmpPath=SDKFileUtils.newMp4PathInBox();
             dstPath=SDKFileUtils.newMp4PathInBox();
+            
+            //增加提示缩放到480的文字.
+            DemoUtils.showScale480HintDialog(VViewImage3DDemoActivity.this);
 	}
   
     @Override
