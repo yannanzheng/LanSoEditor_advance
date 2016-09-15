@@ -118,7 +118,9 @@ public class FilterRealTimeActivity extends Activity {
         //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
         editTmpPath=SDKFileUtils.newMp4PathInBox();
         dstPath=SDKFileUtils.newMp4PathInBox();
-        
+     
+        //增加提示缩放到480的文字.
+        DemoUtils.showScale480HintDialog(FilterRealTimeActivity.this);
     }
     boolean isStart;
     @Override
@@ -193,11 +195,11 @@ public class FilterRealTimeActivity extends Activity {
     	info.prepare();
     	
     	if(DemoCfg.ENCODE){
-    		mFilterView.setRealEncodeEnable(info.vBitRate,(int)info.vFrameRate,editTmpPath);
+    		mFilterView.setRealEncodeEnable(1000*1000,(int)info.vFrameRate,editTmpPath);
     	}
     	
     	//这里设置为等比例滤镜,实际int glwidth,int glheight的值可任意设置, 短视频一般是480x480的居多.
-    	mFilterView.setFilterRenderSize(mp.getVideoWidth(),mp.getVideoHeight(),mp.getVideoWidth(),mp.getVideoHeight(),new onFilterViewSizeChangedListener() {
+    	mFilterView.setFilterRenderSize(480,480,mp.getVideoWidth(),mp.getVideoHeight(),new onFilterViewSizeChangedListener() {
 			
 			@Override
 			public void onSizeChanged(int viewWidth, int viewHeight) {
