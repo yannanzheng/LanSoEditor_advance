@@ -133,7 +133,7 @@ public class TestAudioMixManagerActivity extends Activity{
 		{
 			VideoEditor mMediaEditor = new VideoEditor();
 			String ret="/sdcard/audio_amix.aac";
-			mMediaEditor.executeAudioMix("/sdcard/hongdou10s.mp3","/sdcard/wuya.aac",5000,5000,ret);
+			mMediaEditor.executeAudioDelayMix("/sdcard/hongdou10s.mp3","/sdcard/wuya.aac",5000,5000,ret);
 			return ret;
 		}
 		return null;

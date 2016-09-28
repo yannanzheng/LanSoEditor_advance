@@ -38,7 +38,7 @@ public class ScaleExecuteActivity extends Activity{
 	ProgressDialog  mProgressDialog;
 	int videoDuration;
 	boolean isRuned=false;
-	MediaInfo   mMediaInfo;
+	MediaInfo   mInfo;
 	TextView tvProgressHint;
 	
 	private String editTmpPath=null;
@@ -55,10 +55,10 @@ public class ScaleExecuteActivity extends Activity{
 		 
 		 videoPath=getIntent().getStringExtra("videopath");
 		 
-		 mMediaInfo=new MediaInfo(videoPath,false);
-		 mMediaInfo.prepare();
+		 mInfo=new MediaInfo(videoPath,false);
+		 mInfo.prepare();
 		 
-		 Log.i(TAG,mMediaInfo.toString());
+		 Log.i(TAG,mInfo.toString());
 		 
 		 setContentView(R.layout.video_edit_demo_layout);
 		 tvHint=(TextView)findViewById(R.id.id_video_editor_hint);
@@ -72,7 +72,7 @@ public class ScaleExecuteActivity extends Activity{
 			@Override
 			public void onClick(View v) {
 				
-				if(mMediaInfo.vDuration>=60*1000){//大于60秒
+				if(mInfo.vDuration>=60*1000){//大于60秒
 					showHintDialog();
 				}else{
 					testScaleEdit();
@@ -135,12 +135,20 @@ public class ScaleExecuteActivity extends Activity{
 		
 		
 		//计算等比例缩放的压缩码率.
-		 int scaleWidth=mMediaInfo.vCodecWidth/2;  //这里是把视频的宽度和高度压缩一半.
-		 int scaleHeight=mMediaInfo.vCodecHeight/2;
+		 int scaleWidth=mInfo.vCodecWidth/2;  //这里是把视频的宽度和高度压缩一半.
+		 int scaleHeight=mInfo.vCodecHeight/2;
 		 
-	  	 int max=Math.max(mMediaInfo.vCodecWidth,mMediaInfo.vCodecHeight);  
+		 if(mInfo.vRotateAngle==90 || mInfo.vRotateAngle==270)  //如果垂直,则更换宽高.
+		 {
+			 int tmp=scaleWidth;
+			 scaleWidth=scaleHeight;
+			 scaleHeight=tmp;
+		 }
+		 
+		 
+	  	 int max=Math.max(mInfo.vCodecWidth,mInfo.vCodecHeight);  
 	  	 int scaleMax=Math.max(scaleWidth, scaleHeight);
-	  	 float scaleBitRate=(float)mMediaInfo.vBitRate*1.3f;
+	  	 float scaleBitRate=(float)mInfo.vBitRate*1.3f;
 	  	 
 	  	 float ratio= (float)scaleMax / (float)max;  //得到比例.
 	  	 scaleBitRate*=ratio;  //得到恒定码率的等比例值.

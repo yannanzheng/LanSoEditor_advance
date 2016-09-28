@@ -145,6 +145,12 @@ public class MainActivity extends Activity implements OnClickListener{
 		});
 //        showHintDialog();
         
+        MediaInfo info=new MediaInfo("/sdcard/test_xiaocheng1.mp4");
+        if(info.prepare()){
+        	Log.i(TAG,"info ="+info.toString());
+        }else{
+        	Log.i(TAG,"info 测试失败");
+        }
         
 //        checkPath();
         

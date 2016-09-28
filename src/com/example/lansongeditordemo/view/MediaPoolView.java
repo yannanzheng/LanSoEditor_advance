@@ -45,10 +45,6 @@ import com.lansosdk.box.ViewSprite;
 import com.lansosdk.box.onMediaPoolCompletedListener;
 import com.lansosdk.box.onMediaPoolProgressListener;
 import com.lansosdk.box.onMediaPoolSizeChangedListener;
-import com.lansosdk.videoeditor.MediaInfo;
-import com.lansosdk.videoeditor.SDKDir;
-import com.lansosdk.videoeditor.SDKFileUtils;
-import com.lansosdk.videoeditor.VideoEditor;
 
 
 /**
