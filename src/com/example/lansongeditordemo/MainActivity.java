@@ -66,7 +66,6 @@ public class MainActivity extends Activity implements OnClickListener{
         setContentView(R.layout.activity_main);
         
         LoadLanSongSdk.loadLibraries();  //拿出来单独加载库文件.
-        
         LanSoEditor.initSo(getApplicationContext(),null);
         
         PermissionsManager.getInstance().requestAllManifestPermissionsIfNecessary(this, new PermissionsResultAction() {
@@ -145,12 +144,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		});
 //        showHintDialog();
         
-        MediaInfo info=new MediaInfo("/sdcard/test_xiaocheng1.mp4");
-        if(info.prepare()){
-        	Log.i(TAG,"info ="+info.toString());
-        }else{
-        	Log.i(TAG,"info 测试失败");
-        }
+ 
         
 //        checkPath();
         
@@ -204,28 +198,28 @@ public class MainActivity extends Activity implements OnClickListener{
     private void showHintDialog()
    	{
       	 	Calendar c = Calendar.getInstance();
-   		int year=c.get(Calendar.YEAR);
-   		int month=c.get(Calendar.MONTH)+1;
-   		
-   		int lyear=VideoEditor.getLimitYear();
-   		int lmonth=VideoEditor.getLimitMonth();
-   		
-   		Log.i(TAG,"current year is:"+year+" month is:"+month +" limit year:"+lyear+" limit month:"+lmonth);
-   		String timeHint=getResources().getString(R.string.sdk_limit);
-   		timeHint=String.format(timeHint,LanSongBoxVersion.version, lyear,lmonth);
-   		
-   		new AlertDialog.Builder(this)
-   		.setTitle("提示")
-   		.setMessage(timeHint)
-           .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-   			
-   			@Override
-   			public void onClick(DialogInterface dialog, int which) {
-   				// TODO Auto-generated method stub
-   				
-   				showHintDialog("注意:当前已是发行商用版本.\n\n后期会依次增加各种场景的举例, 核心功能基本不变,不影响您的使用.请知悉~~");
-   			}
-   		})
+	   		int year=c.get(Calendar.YEAR);
+	   		int month=c.get(Calendar.MONTH)+1;
+	   		
+	   		int lyear=VideoEditor.getLimitYear();
+	   		int lmonth=VideoEditor.getLimitMonth();
+	   		
+	   		Log.i(TAG,"current year is:"+year+" month is:"+month +" limit year:"+lyear+" limit month:"+lmonth);
+	   		String timeHint=getResources().getString(R.string.sdk_limit);
+	   		timeHint=String.format(timeHint,LanSongBoxVersion.version, lyear,lmonth);
+	   		
+	   		new AlertDialog.Builder(this)
+	   		.setTitle("提示")
+	   		.setMessage(timeHint)
+	           .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+	   			
+	   			@Override
+	   			public void onClick(DialogInterface dialog, int which) {
+	   				// TODO Auto-generated method stub
+	   				
+	   				showHintDialog("注意:当前已是发行商用版本.各种文档可以在工程的doc文件夹下得到\n\n后期会依次增加各种场景的举例, 核心功能基本不变,不影响您的使用.请知悉~~");
+	   			}
+	   		})
            .show();
    	}
 
