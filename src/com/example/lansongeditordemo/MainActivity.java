@@ -206,7 +206,7 @@ public class MainActivity extends Activity implements OnClickListener{
 	   		
 	   		Log.i(TAG,"current year is:"+year+" month is:"+month +" limit year:"+lyear+" limit month:"+lmonth);
 	   		String timeHint=getResources().getString(R.string.sdk_limit);
-	   		timeHint=String.format(timeHint,LanSongBoxVersion.version, lyear,lmonth);
+	   		timeHint=String.format(timeHint,VideoEditor.getSDKVersion(), lyear,lmonth);
 	   		
 	   		new AlertDialog.Builder(this)
 	   		.setTitle("提示")
