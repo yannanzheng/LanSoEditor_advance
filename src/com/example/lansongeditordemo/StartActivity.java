@@ -34,9 +34,6 @@ public class StartActivity extends Activity {
 	private ImageView mPage8;
 	private ImageView mPage9;
 	
-	
-	
-	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -117,8 +117,8 @@ public class VideoPlayerActivity extends Activity {
 					int height) {
 				// TODO Auto-generated method stub
 				if(isSupport){
-					play(new Surface(surface));
-//					startVPlayer(new Surface(surface));
+//					play(new Surface(surface));
+					startVPlayer(new Surface(surface));
 				}
 			}
 		});
@@ -181,6 +181,8 @@ public class VideoPlayerActivity extends Activity {
 		        	tvSizeHint.setText(R.string.fix_width);
 		        	textureView.setDispalyRatio(IRenderView.AR_ASPECT_FIT_PARENT);
 		        }
+		        
+		        
 		        textureView.setVideoSize(mediaPlayer.getVideoWidth(), mediaPlayer.getVideoHeight());
 		        textureView.requestLayout();
 		        mediaPlayer.start();  

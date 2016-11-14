@@ -15,7 +15,8 @@
   	
   	<string name="select_video">请选择视频</string>
 		
-    
+    <string name="videoplay_hint">视频小知识:\n当前是等比例的显示到屏幕上, 目的是保持视频的宽高比一致,视频不变形;\n\n 或许会导致分辨率小的画面被放大了,画面质量下降,这是正常情况,只是播放的界面事情,不影响视频本身</string>
+	
 	<string name="drawpadexecute_demo_hint">此功能演示:后台视频编辑\n\n 流程:打开视频播放,向里面增加两个图片和一个UI,其中给一个图片移动位置,并在3秒处放大一倍,在6秒处消失,处理中实时的形成视频,可以用来预览和传输等</string>
     
     <string name="pictureset_execute_demo_hint">此功能演示:后台图片合成\n\n 流程:同时向DrawPad获取多个BitmapPen,然后根据DrawPad的时间进度,依次操作多个BitmapPen,从而实现图片动画效果,这里仅演示平移效果, 实际使用可以平移,缩放,旋转,闪烁混合使用.也可以增加ViewPen,来呈现花样的动画.</string>
