@@ -1,5 +1,5 @@
 <RelativeLayout
-    android:id="@+id/id_mediapool_layout"
+    android:id="@+id/id_DrawPad_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,37 +10,29 @@
     android:orientation="vertical">
     
     
-        <com.example.lansongeditordemo.view.GLRelativeLayout
+        <com.lansosdk.box.ViewPenRelativeLayout
 	        android:id="@+id/id_vview_realtime_gllayout"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:background="@android:color/transparent" >
-        
-	  	<com.example.lansong.animview.MatchTextView
-	        android:id="@+id/mMatchTextView"
-	        match:text="Direct by LanSong"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_centerInParent="true"
-            match:textColor="@color/red"
-	        android:background="@android:color/holo_orange_dark" />
 	  
-	  	  <com.example.lansong.animview.ImageTouchView
-	        android:id="@+id/switcher"
-	        android:layout_width="match_parent"
-	        android:layout_height="match_parent"
-	        android:layout_centerInParent="true"
-	        android:layout_gravity="center"
-	        android:scaleType="matrix" />
-    </com.example.lansongeditordemo.view.GLRelativeLayout>
+		  	  <com.example.lansong.animview.ImageTouchView
+		        android:id="@+id/switcher"
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		        android:layout_centerInParent="true"
+		        android:layout_gravity="center"
+		        android:scaleType="matrix" />
+   	 </com.lansosdk.box.ViewPenRelativeLayout>
    
-      <com.example.lansongeditordemo.view.MediaPoolView
-            android:id="@+id/id_vview_realtime_mediapool_view"
+      <com.example.lansongeditordemo.view.DrawPadView
+            android:id="@+id/id_vview_realtime_DrawPad_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"/>
       
-      	   <LinearLayout 
+      	   
+     <LinearLayout 
           android:id="@+id/id_vview_realtime_saveplay"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
@@ -48,24 +40,44 @@
           android:layout_centerHorizontal="true"
           android:layout_marginTop="50dip"
           android:orientation="vertical">
-          
+		  	  
+           <TextView 
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="视频已经为您实时生成, 请点击预览"
+              android:layout_margin="5dip"
+              android:textColor="@color/red"
+              />
           <ImageView 
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_gravity="center"
               android:src="@drawable/play2"/>
-          <TextView 
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-            	android:text="查看实时保存画面"
-            android:layout_margin="5dip"
-              />
-      </LinearLayout>   
-    	<TextView 
-    	    android:layout_below="@id/id_vview_realtime_mediapool_view"
+      </LinearLayout>
+         
+     
+       <LinearLayout 
+           android:layout_below="@id/id_vview_realtime_DrawPad_view"
     	    android:layout_width="match_parent"
     	    android:layout_height="wrap_content"
-    	    android:text="@string/drawimage_hint"
+    	    android:orientation="vertical">
+          
+           <TextView
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content" 
+    	    android:text="@string/drawimage_hint1"
+    	    android:textColor="@color/blue"
+    	    android:textSize="18sp"/>
+           
+           <TextView
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content" 
+    	    android:text="@string/drawimage_hint2"
+    		android:layout_gravity="center"
     	    android:textColor="@color/red"
     	    android:textSize="18sp"/>
+       </LinearLayout>
+    	
+    	
+    	
 </RelativeLayout>

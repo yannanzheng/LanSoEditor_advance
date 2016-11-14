@@ -1,5 +1,5 @@
 <RelativeLayout
-    android:id="@+id/id_mediapool_layout"
+    android:id="@+id/id_DrawPad_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,38 +7,40 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
    
-      <com.example.lansongeditordemo.view.MediaPoolView
-            android:id="@+id/mediapool_view"
+      <com.example.lansongeditordemo.view.DrawPadView
+            android:id="@+id/DrawPad_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             />
       
       <LinearLayout 
-          android:id="@+id/id_mediapool_saveplay"
-          android:layout_width="wrap_content"
+          android:id="@+id/id_DrawPad_saveplay"
+         android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:background="@drawable/corners_btn_orange_bg"
           android:layout_centerHorizontal="true"
           android:layout_marginTop="50dip"
           android:orientation="vertical">
-          
+		  	  
+           <TextView 
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="视频已经为您实时生成, 请点击预览"
+              android:layout_margin="5dip"
+              android:textColor="@color/red"
+              />
           <ImageView 
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_gravity="center"
               android:src="@drawable/play2"/>
-          <TextView 
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-            	android:text="查看实时保存画面"
-            android:layout_margin="5dip"
-              />
       </LinearLayout>
+      
       <TextView 
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_margin="20dip"
           android:layout_alignParentBottom="true"
           android:textColor="@color/red"
-          android:text="演示把assert中的多张图片组合成视频,这里仅举例移动属性,您可以自动配置旋转,缩放,闪烁等效果"/>
+          android:text="@string/picture_set_realtime_hint"/>
 </RelativeLayout>

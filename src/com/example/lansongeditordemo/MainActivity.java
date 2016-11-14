@@ -10,8 +10,8 @@ import com.anthonycr.grant.PermissionsManager;
 import com.anthonycr.grant.PermissionsResultAction;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.AudioEncodeDecode;
-import com.lansosdk.box.AudioSprite;
-import com.lansosdk.box.LanSongBoxVersion;
+import com.lansosdk.box.AudioPen;
+import com.lansosdk.commonDemo.CommonDemoActivity;
 import com.lansosdk.videoeditor.CopyFileFromAssets;
 import com.lansosdk.videoeditor.LanSoEditor;
 import com.lansosdk.videoeditor.LoadLanSongSdk;
@@ -82,48 +82,31 @@ public class MainActivity extends Activity implements OnClickListener{
                 Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
             }
         });
-       
-        
-        DisplayMetrics dm = new DisplayMetrics();
-        dm = getResources().getDisplayMetrics();
-        
-           
-          int screenWidth  = dm.widthPixels;	
-          int  screenHeight = dm.heightPixels;		
-           
-        Log.i(TAG,"当前视频分辨率是:"+screenWidth+"x"+screenHeight);
-        
         
         tvVideoPath=(TextView)findViewById(R.id.id_main_tvvideo);
-        
         
         //以下固定视频仅测试使用.
 //        tvVideoPath.setText("/sdcard/VIDEO_90du.mp4");
 //        tvVideoPath.setText("/sdcard/VIDEO_270du.mp4");
         
+        findViewById(R.id.id_main_viewpendemo1).setOnClickListener(this);
+        findViewById(R.id.id_main_viewremark).setOnClickListener(this);
+        findViewById(R.id.id_main_viewpendemo2).setOnClickListener(this);
+        findViewById(R.id.id_main_canvaspendemo).setOnClickListener(this);
+        findViewById(R.id.id_main_videofilterdemo).setOnClickListener(this);  //画笔滤镜. 用videoPen来演示.
         
-        findViewById(R.id.id_main_demofilter).setOnClickListener(this);
-        findViewById(R.id.id_main_demofiltersprite).setOnClickListener(this);
+        findViewById(R.id.id_main_mvpendemo).setOnClickListener(this);  //画笔滤镜. 用videoPen来演示.
         
-        findViewById(R.id.id_main_demoedit).setOnClickListener(this);
+        findViewById(R.id.id_main_pictures).setOnClickListener(this);
+        
+        findViewById(R.id.id_main_commonversion).setOnClickListener(this);
         
         findViewById(R.id.id_main_twovideooverlay).setOnClickListener(this);
         findViewById(R.id.id_main_videobitmapoverlay).setOnClickListener(this);
-        findViewById(R.id.id_main_viewspritedemo).setOnClickListener(this);
-        findViewById(R.id.id_main_pictures).setOnClickListener(this);
-        findViewById(R.id.id_main_viewsprite).setOnClickListener(this);
         
-        
-        findViewById(R.id.id_main_scaleexecute).setOnClickListener(this);
-        findViewById(R.id.id_main_filterexecute).setOnClickListener(this);
-        findViewById(R.id.id_main_mediapoolexecute).setOnClickListener(this);
-        findViewById(R.id.id_main_mediapoolpictureexecute).setOnClickListener(this);
-        
+        findViewById(R.id.id_main_drawpadpictureexecute).setOnClickListener(this);
+        findViewById(R.id.id_main_drawpadexecute_filter).setOnClickListener(this);
         findViewById(R.id.id_main_testvideoplay).setOnClickListener(this);
-        findViewById(R.id.id_main_viewremark).setOnClickListener(this);
-
-        findViewById(R.id.id_main_mediapoolexecute_filter).setOnClickListener(this);
-        
         
         
         findViewById(R.id.id_main_select_video).setOnClickListener(new OnClickListener() {
@@ -134,20 +117,17 @@ public class MainActivity extends Activity implements OnClickListener{
 				startSelectVideoActivity();
 			}
 		});
+        
         findViewById(R.id.id_main_use_default_videobtn).setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				new CopyDefaultVideoAsyncTask().execute();
+				new com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask(MainActivity.this, tvVideoPath, "ping20s.mp4").execute();
 			}
 		});
-//        showHintDialog();
         
- 
-        
-//        checkPath();
-        
+    	showHintDialog();
     }
     private boolean isStarted=false;
     @Override
@@ -163,8 +143,9 @@ public class MainActivity extends Activity implements OnClickListener{
  			public void run() {
  				// TODO Auto-generated method stub
  				isStarted=true;
- 				showHintDialog();
  				
+ 				
+ 				//below is test demo.
 // 				startVideoFilterDemo(); 
 // 				startFilterExecuteActivity();
  			 
@@ -176,50 +157,35 @@ public class MainActivity extends Activity implements OnClickListener{
 // 		    	startActivity(intent);
  		    	
 // 				String path=etVideoPath.getText().toString();
-// 				MediaPoolDemoActivity.intentTo(MainActivity.this, path);
- 				
-// 				startExecuteDemo(MediaPoolExecuteActivity.class);
+// 				DrawPadDemoActivity.intentTo(MainActivity.this, path);
+// 				startExecuteDemo(DrawPadExecuteActivity.class);
  			}
  		}, 1000);
     }
-    private void showHintDialog(String hint){
-    	new AlertDialog.Builder(this)
-		.setTitle("提示")
-		.setMessage(hint)
-        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-			}
-		})
-        .show();
-    }
     private void showHintDialog()
    	{
-      	 	Calendar c = Calendar.getInstance();
-	   		int year=c.get(Calendar.YEAR);
-	   		int month=c.get(Calendar.MONTH)+1;
-	   		
-	   		int lyear=VideoEditor.getLimitYear();
-	   		int lmonth=VideoEditor.getLimitMonth();
-	   		
-	   		Log.i(TAG,"current year is:"+year+" month is:"+month +" limit year:"+lyear+" limit month:"+lmonth);
-	   		String timeHint=getResources().getString(R.string.sdk_limit);
-	   		timeHint=String.format(timeHint,VideoEditor.getSDKVersion(), lyear,lmonth);
-	   		
-	   		new AlertDialog.Builder(this)
-	   		.setTitle("提示")
-	   		.setMessage(timeHint)
-	           .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-	   			
-	   			@Override
-	   			public void onClick(DialogInterface dialog, int which) {
-	   				// TODO Auto-generated method stub
-	   				
-	   				showHintDialog("注意:当前已是发行商用版本.各种文档可以在工程的doc文件夹下得到\n\n后期会依次增加各种场景的举例, 核心功能基本不变,不影响您的使用.请知悉~~");
-	   			}
-	   		})
+      	 	
+    	Calendar c = Calendar.getInstance();
+   		int year=c.get(Calendar.YEAR);
+   		int month=c.get(Calendar.MONTH)+1;
+   		
+   		int lyear=VideoEditor.getLimitYear();
+   		int lmonth=VideoEditor.getLimitMonth();
+   		
+   		Log.i(TAG,"current year is:"+year+" month is:"+month +" limit year:"+lyear+" limit month:"+lmonth);
+   		String timeHint=getResources().getString(R.string.sdk_limit);
+   		timeHint=String.format(timeHint,VideoEditor.getSDKVersion(), lyear,lmonth);
+   		
+   		new AlertDialog.Builder(this)
+   		.setTitle("提示")
+   		.setMessage(timeHint)
+           .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+   			
+   			@Override
+   			public void onClick(DialogInterface dialog, int which) {
+   				// TODO Auto-generated method stub
+   			}
+   		})
            .show();
    	}
 
@@ -260,53 +226,44 @@ public class MainActivity extends Activity implements OnClickListener{
 			if(checkPath()==false)
 				return;
 			switch (v.getId()) {
-				case R.id.id_main_demofilter:
-					startExecuteDemo(FilterRealTimeActivity.class);
-					break;
-				case R.id.id_main_demofiltersprite:
-					startExecuteDemo(FilterSpriteRealTimeActivity.class);
-					break;
-				case R.id.id_main_demoedit:
-					startExecuteDemo(VideoEditDemoActivity.class);
-					break;
-				case R.id.id_main_twovideooverlay:
-					startExecuteDemo(VideoVideoRealTimeActivity.class);
-					break;
-				case R.id.id_main_videobitmapoverlay:
-					startExecuteDemo(VideoPictureRealTimeActivity.class);
-					break;
-				case R.id.id_main_pictures:
-					startExecuteDemo(PictureSetRealTimeActivity.class);
-					break;
-				case R.id.id_main_viewsprite:
-					startExecuteDemo(ViewSpriteRealTimeActivity.class);
-					break;
-				case R.id.id_main_viewspritedemo:
-					startExecuteDemo(VideoViewDemoListActivity.class);
-					break;
-				case R.id.id_main_scaleexecute:
-					startExecuteDemo(ScaleExecuteActivity.class);
-					break;
-				case R.id.id_main_filterexecute:
-					startExecuteDemo(FilterExecuteActivity.class);
-					break;
-				case R.id.id_main_mediapoolexecute_filter:
-					startExecuteDemo(FilterSpriteExecuteActivity.class);
-					break;
-				case R.id.id_main_mediapoolexecute:
-					startExecuteDemo(VideoPictuerExecuteActivity.class);
-					break;
-				case R.id.id_main_mediapoolpictureexecute:
-					startExecuteDemo(PictureSetExecuteActivity.class);
-					break;
-			//	case R.id.id_main_testaudiomix:
-			//		startExecuteDemo(TestAudioMixManagerActivity.class);
-			//		break;
-				case R.id.id_main_testvideoplay:
-					startExecuteDemo(VideoPlayerActivity.class);
+				case R.id.id_main_viewpendemo1:
+					startDemoActivity(VViewDrawImageDemoActivity.class);
 					break;
 				case R.id.id_main_viewremark:
-					startExecuteDemo(VideoRemarkActivity.class);
+					startDemoActivity(VideoRemarkActivity.class);
+					break;
+				case R.id.id_main_viewpendemo2:
+					startDemoActivity(ViewPenRealTimeActivity.class);
+					break;
+				case R.id.id_main_canvaspendemo:
+					startDemoActivity(CanvasPenDemoActivity.class);
+					break;
+				case R.id.id_main_videofilterdemo:
+					startDemoActivity(FilterPenRealTimeActivity.class);
+					break;
+				case R.id.id_main_mvpendemo:
+					startDemoActivity(MVPenDemoActivity.class);
+					break;
+				case R.id.id_main_pictures:
+					startDemoActivity(PictureSetRealTimeActivity.class);
+					break;
+				case R.id.id_main_twovideooverlay:
+					startDemoActivity(VideoVideoRealTimeActivity.class);
+					break;
+				case R.id.id_main_videobitmapoverlay:
+					startDemoActivity(VideoPictureRealTimeActivity.class);
+					break;
+				case R.id.id_main_drawpadexecute_filter:
+					startDemoActivity(FilterPenExecuteActivity.class);
+					break;
+				case R.id.id_main_drawpadpictureexecute:
+					startDemoActivity(VideoPictuerExecuteActivity.class);
+					break;
+				case R.id.id_main_commonversion:
+					startDemoActivity(CommonDemoActivity.class);
+					break;
+				case R.id.id_main_testvideoplay:
+					startDemoActivity(VideoPlayerActivity.class);
 					break;
 				default:
 					break;
@@ -340,13 +297,15 @@ public class MainActivity extends Activity implements OnClickListener{
 				break;
 			}
 	    }
-	   	private void startExecuteDemo(Class<?> cls)
+	   	private void startDemoActivity(Class<?> cls)
 	   	{
 	   		String path=tvVideoPath.getText().toString();
 	    	Intent intent=new Intent(MainActivity.this,cls);
 	    	intent.putExtra("videopath", path);
 	    	startActivity(intent);
 	   	}
+	   	
+	   	//------------------------------------------------------------
 	   @SuppressLint("NewApi") 
 		  public static boolean selfPermissionGranted(Context context,String permission) {
 		        // For Android < Android M, self permissions are always granted.
@@ -375,46 +334,4 @@ public class MainActivity extends Activity implements OnClickListener{
 		        }
 		        return result;
 		    }
-	   //--------------------------------------------
-		private ProgressDialog  mProgressDialog;
-	   public class CopyDefaultVideoAsyncTask extends AsyncTask<Object, Object, Boolean>{
-			  @Override
-			protected void onPreExecute() {
-			// TODO Auto-generated method stub
-				  mProgressDialog = new ProgressDialog(MainActivity.this);
-		          mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-		          mProgressDialog.setMessage("正在拷贝...");
-		          mProgressDialog.setCancelable(false);
-		          mProgressDialog.show();
-		          super.onPreExecute();
-			}
-   	    @Override
-   	    protected synchronized Boolean doInBackground(Object... params) {
-   	    	// TODO Auto-generated method stub
-   	    	
-   	    	
-          String str=SDKDir.TMP_DIR+"ping20s.mp4";
-          if(SDKFileUtils.fileExist(str)==false){
-          	CopyFileFromAssets.copy(getApplicationContext(), "ping20s.mp4", SDKDir.TMP_DIR, "ping20s.mp4");
-          }
-   	     return null;
-   	    }
- 	@Override
- 	protected void onPostExecute(Boolean result) { 
- 		// TODO Auto-generated method stub
- 		super.onPostExecute(result);
- 		if( mProgressDialog!=null){
-	       		 mProgressDialog.cancel();
-	       		 mProgressDialog=null;
- 		}
- 		 String str=SDKDir.TMP_DIR+"ping20s.mp4";
- 		 if(SDKFileUtils.fileExist(str)){
- 			 Toast.makeText(getApplicationContext(), "默认视频文件拷贝完成.路径是:"+str, Toast.LENGTH_SHORT).show();
- 			 if(tvVideoPath!=null)
- 				tvVideoPath.setText(str);
- 		 }else{
- 			Toast.makeText(getApplicationContext(), "抱歉! 默认视频文件拷贝失败,请联系我们 "+str, Toast.LENGTH_SHORT).show();
- 		 }
- 	}
- }
 }

@@ -101,13 +101,15 @@ public class ImageTouchView extends ImageView{
 		this.setOnTouchListener(new OnTouchListener() {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
+				
 				Matrix matrixTemp = new Matrix();
 				matrixTemp.set(matrix);
 				//view的触摸坐标的转换
 				matrixTemp.invert(matrixTemp);
 //				Log.i(TAG, "Touch screen.");
 
-				switch (event.getAction() & MotionEvent.ACTION_MASK) {
+				switch (event.getAction() & MotionEvent.ACTION_MASK) 
+				{
 				// 主点按下
 				case MotionEvent.ACTION_DOWN:
 					savedMatrix.set(matrix);

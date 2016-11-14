@@ -6,17 +6,17 @@ import java.util.Locale;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 
-import com.example.lansongeditordemo.view.MediaPoolView;
-import com.example.lansongeditordemo.view.MediaPoolView.onViewAvailable;
+import com.example.lansongeditordemo.view.DrawPadView;
+import com.example.lansongeditordemo.view.DrawPadView.onViewAvailable;
 import com.lansoeditor.demo.R;
-import com.lansosdk.box.MediaPool;
-import com.lansosdk.box.MediaPoolUpdateMode;
-import com.lansosdk.box.VideoSprite;
-import com.lansosdk.box.ViewSprite;
-import com.lansosdk.box.ISprite;
-import com.lansosdk.box.onMediaPoolCompletedListener;
-import com.lansosdk.box.onMediaPoolProgressListener;
-import com.lansosdk.box.onMediaPoolSizeChangedListener;
+import com.lansosdk.box.DrawPad;
+import com.lansosdk.box.DrawPadUpdateMode;
+import com.lansosdk.box.VideoPen;
+import com.lansosdk.box.ViewPen;
+import com.lansosdk.box.Pen;
+import com.lansosdk.box.onDrawPadCompletedListener;
+import com.lansosdk.box.onDrawPadProgressListener;
+import com.lansosdk.box.onDrawPadSizeChangedListener;
 import com.lansosdk.videoeditor.CopyFileFromAssets;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
@@ -53,23 +53,23 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 
 /**
  *  演示:  图片合成视频的同时保存成文件.
- *  流程: 把MediaPoolView设置为自动刷新模式, 然后一次性获取多个BitmapSprite,根据画面走动的时间戳来
- *  操作每个BitmapSprite是否移动,是否显示.
+ *  流程: 把DrawPadView设置为自动刷新模式, 然后一次性获取多个BitmapPen,根据画面走动的时间戳来
+ *  操作每个BitmapPen是否移动,是否显示.
  *  
- *  这里仅仅演示移动的属性, 您实际中可以移动,缩放,旋转,RGBA值调节来混合使用,因为BitmapSprite继承自ISprite,故有这些特性.
+ *  这里仅仅演示移动的属性, 您实际中可以移动,缩放,旋转,RGBA值调节来混合使用,因为BitmapPen继承自IPen,故有这些特性.
  *  
  *  比如你根据时间戳来调节图片的RGBA中的A值(alpha透明度),则实现图片的淡入淡出效果.
  *  
  *  使用移动+缩放+RGBA调节,则实现一些缓慢照片变化的效果,浪漫文艺范的效果.
  *  
- *  视频标记就是一个典型的BitmapSprite的使用场景.
+ *  视频标记就是一个典型的BitmapPen的使用场景.
  *  
  */
 public class PictureSetRealTimeActivity extends Activity{
     private static final String TAG = "VideoActivity";
 
 
-    private MediaPoolView mPlayView;
+    private DrawPadView mPlayView;
     
     
     private ArrayList<SlideEffect>  slideEffectArray;
@@ -87,10 +87,10 @@ public class PictureSetRealTimeActivity extends Activity{
         setContentView(R.layout.picture_set_layout);
         
         
-        mPlayView = (MediaPoolView) findViewById(R.id.mediapool_view);
+        mPlayView = (DrawPadView) findViewById(R.id.DrawPad_view);
         
         
-        findViewById(R.id.id_mediapool_saveplay).setOnClickListener(new OnClickListener() {
+        findViewById(R.id.id_DrawPad_saveplay).setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -104,11 +104,10 @@ public class PictureSetRealTimeActivity extends Activity{
 		   		 }
 			}
 		});
-        findViewById(R.id.id_mediapool_saveplay).setVisibility(View.GONE);
+        findViewById(R.id.id_DrawPad_saveplay).setVisibility(View.GONE);
 
         //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
         dstPath=SDKFileUtils.newMp4PathInBox();
-        
         mContext=getApplicationContext();
     }
     @Override
@@ -127,18 +126,18 @@ public class PictureSetRealTimeActivity extends Activity{
     private void start()
     {
 		//设置为自动刷新模式, 帧率为25
-    	mPlayView.setUpdateMode(MediaPoolUpdateMode.AUTO_FLUSH,25);
+    	mPlayView.setUpdateMode(DrawPadUpdateMode.AUTO_FLUSH,25);
     	//使能实时录制,并设置录制后视频的宽度和高度, 码率, 帧率,保存路径.
     	mPlayView.setRealEncodeEnable(480,480,1000000,(int)25,dstPath);
     	
-    	//设置MediaPool的宽高, 这里设置为480x480,如果您已经在xml中固定大小,则不需要再次设置,
-    	//可以直接调用startMediaPool来开始录制.
-    	mPlayView.setMediaPoolSize(480,480,new onMediaPoolSizeChangedListener() {
+    	//设置DrawPad的宽高, 这里设置为480x480,如果您已经在xml中固定大小,则不需要再次设置,
+    	//可以直接调用startDrawPad来开始录制.
+    	mPlayView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
 			
 			@Override
 			public void onSizeChanged(int viewWidth, int viewHeight) {
 				// TODO Auto-generated method stub
-				mPlayView.startMediaPool(new MediaPoolProgressListener(),new MediaPoolCompleted());
+				mPlayView.startDrawPad(new DrawPadProgressListener(),new DrawPadCompleted());
 				
 					isStarted=true;
 				
@@ -154,82 +153,81 @@ public class PictureSetRealTimeActivity extends Activity{
 			      else{
 			    	  CopyFileFromAssets.copy(mContext, "pic720x720.jpg", SDKDir.TMP_DIR, "picname.jpg");
 			      }
-			      //先 获取第一张Bitmap的Sprite, 因为是第一张,放在MediaPool中维护的数组的最下面, 认为是背景图片.
-			      mPlayView.obtainBitmapSprite(BitmapFactory.decodeFile(picPath));
+			      //先 获取第一张Bitmap的Pen, 因为是第一张,放在DrawPad中维护的数组的最下面, 认为是背景图片.
+			      mPlayView.addBitmapPen(BitmapFactory.decodeFile(picPath));
 			      
 			      slideEffectArray=new ArrayList<SlideEffect>();
 			      
 					//这里同时获取多个,只是不显示出来.
-			      getFifthSprite(R.drawable.pic1,0,5000);  		//1--5秒.
-			      getFifthSprite(R.drawable.pic2,5000,10000);  //5--10秒.
-			      getFifthSprite(R.drawable.pic3,10000,15000);	//10---15秒 
-			      getFifthSprite(R.drawable.pic4,15000,20000);  //15---20秒
-			      getFifthSprite(R.drawable.pic5,20000,25000);  //20---25秒
+			      getFifthPen(R.drawable.pic1,0,5000);  		//1--5秒.
+			      getFifthPen(R.drawable.pic2,5000,10000);  //5--10秒.
+			      getFifthPen(R.drawable.pic3,10000,15000);	//10---15秒 
+			      getFifthPen(R.drawable.pic4,15000,20000);  //15---20秒
+			      getFifthPen(R.drawable.pic5,20000,25000);  //20---25秒
 			}
 		});
     	
-    	//这里仅仅是举例,当界面再次返回的时候,依旧显示图片更新的动画效果,即重新开始MediaPool
+    	//这里仅仅是举例,当界面再次返回的时候,依旧显示图片更新的动画效果,即重新开始DrawPad
     	mPlayView.setOnViewAvailable(new onViewAvailable() {
 			
 			@Override
-			public void viewAvailable(MediaPoolView v) {
+			public void viewAvailable(DrawPadView v) {
 				// TODO Auto-generated method stub
-				Log.i(TAG,"is started==============>"+isStarted);
 				if(isStarted){
 				    
 				      String picPath=SDKDir.TMP_DIR+"/"+"picname.jpg";   
-				      mPlayView.startMediaPool(new MediaPoolProgressListener(),new MediaPoolCompleted());
-					  mPlayView.obtainBitmapSprite(BitmapFactory.decodeFile(picPath));
+				      mPlayView.startDrawPad(new DrawPadProgressListener(),new DrawPadCompleted());
+					  mPlayView.addBitmapPen(BitmapFactory.decodeFile(picPath));
 				      
 				      slideEffectArray=new ArrayList<SlideEffect>();
 				      
 						//这里同时获取多个,只是不显示出来.
-				      getFifthSprite(R.drawable.pic1,0,5000);  		//1--5秒.
-				      getFifthSprite(R.drawable.pic2,5000,10000);  //5--10秒.
-				      getFifthSprite(R.drawable.pic3,10000,15000);	//10---15秒 
-				      getFifthSprite(R.drawable.pic4,15000,20000);  //15---20秒
-				      getFifthSprite(R.drawable.pic5,20000,25000);  //20---25秒
+				      getFifthPen(R.drawable.pic1,0,5000);  		//1--5秒.
+				      getFifthPen(R.drawable.pic2,5000,10000);  //5--10秒.
+				      getFifthPen(R.drawable.pic3,10000,15000);	//10---15秒 
+				      getFifthPen(R.drawable.pic4,15000,20000);  //15---20秒
+				      getFifthPen(R.drawable.pic5,20000,25000);  //20---25秒
 				}
 			}
 		});
 		
     }
     private boolean isStarted=false; //是否已经播放过了.
-    private void getFifthSprite(int resId,long startMS,long endMS)
+    private void getFifthPen(int resId,long startMS,long endMS)
     {
-    	ISprite item=mPlayView.obtainBitmapSprite(BitmapFactory.decodeResource(getResources(), resId));
+    	Pen item=mPlayView.addBitmapPen(BitmapFactory.decodeResource(getResources(), resId));
 		SlideEffect  slide=new SlideEffect(item, 25, startMS, endMS, true);
 		slideEffectArray.add(slide);
 		
     }
-    //MediaPool完成时的回调.
-    private class MediaPoolCompleted implements onMediaPoolCompletedListener
+    //DrawPad完成时的回调.
+    private class DrawPadCompleted implements onDrawPadCompletedListener
     {
 
 		@Override
-		public void onCompleted(MediaPool v) {
+		public void onCompleted(DrawPad v) {
 			// TODO Auto-generated method stub
 			
 			if(isDestorying==false){
 				if(SDKFileUtils.fileExist(dstPath)){
-			    	findViewById(R.id.id_mediapool_saveplay).setVisibility(View.VISIBLE);
+			    	findViewById(R.id.id_DrawPad_saveplay).setVisibility(View.VISIBLE);
 				}
 				toastStop();
 			}
 		}
     }
-    //MediaPool进度回调.
-    private class MediaPoolProgressListener implements onMediaPoolProgressListener
+    //DrawPad进度回调.
+    private class DrawPadProgressListener implements onDrawPadProgressListener
     {
 
 		@Override
-		public void onProgress(MediaPool v, long currentTimeUs) {  //单位是微妙
+		public void onProgress(DrawPad v, long currentTimeUs) {  //单位是微妙
 			// TODO Auto-generated method stub
-//			  Log.i(TAG,"MediaPoolProgressListener: us:"+currentTimeUs);
+//			  Log.i(TAG,"DrawPadProgressListener: us:"+currentTimeUs);
 			
 			  if(currentTimeUs>=26*1000*1000)  //26秒.多出一秒,让图片走完.
 			  {
-				  mPlayView.stopMediaPool();
+				  mPlayView.stopDrawPad();
 			  }
 			  
 //			  Log.i(TAG,"current time Us "+currentTimeUs);
@@ -246,7 +244,7 @@ public class PictureSetRealTimeActivity extends Activity{
     	Toast.makeText(getApplicationContext(), "录制已停止!!", Toast.LENGTH_SHORT).show();
     }
     
-    boolean isDestorying=false;  //是否正在销毁, 因为销毁会停止MediaPool
+    boolean isDestorying=false;  //是否正在销毁, 因为销毁会停止DrawPad
     @Override
     protected void onDestroy() {
     	// TODO Auto-generated method stub
@@ -260,7 +258,7 @@ public class PictureSetRealTimeActivity extends Activity{
     	}
     	
     	if(mPlayView!=null){
-    		mPlayView.stopMediaPool();
+    		mPlayView.stopDrawPad();
     		mPlayView=null;        		   
     	}
     	

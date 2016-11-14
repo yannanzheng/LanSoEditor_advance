@@ -2,36 +2,36 @@ package com.example.lansongeditordemo;
 
 import android.util.Log;
 
-import com.lansosdk.box.ISprite;
+import com.lansosdk.box.Pen;
 
 public class SlideEffect {
 
-	private ISprite mSprite;
+	private Pen mPen;
 	private final long mStartMS,mEndMS;
 	private final int viewWidth,viewHeight;
 	
 	private final int stepPerFrame;
-	//sprite的中心坐标.
+	//Pen的中心坐标.
 	private int currentX=0,currentY=0;
-	private final boolean needReleaseSprite;
+	private final boolean needReleasePen;
 	////第一秒滑入到中间, 第2,3,4秒显示,第5秒消失.
 	/**
 	 *  注意:这里没有检查endMS是否大于startMS,但实际一定要大于.
-	 * @param sprite
+	 * @param Pen
 	 * @param fps
 	 * @param startMS
 	 * @param endMS
 	 * @param glwidth
 	 * @param glheight
 	 */
-	public SlideEffect(ISprite sprite,int fps,long startMS,long endMS,boolean needRelease)
+	public SlideEffect(Pen Pen,int fps,long startMS,long endMS,boolean needRelease)
 	{
-		mSprite=sprite;
+		mPen=Pen;
 		mStartMS=startMS;
 		mEndMS=endMS;
-		viewWidth=mSprite.getWidth();
-		viewHeight=mSprite.getHeight();
-		needReleaseSprite=needRelease;
+		viewWidth=mPen.getWidth();
+		viewHeight=mPen.getHeight();
+		needReleasePen=needRelease;
 		
 		//一秒钟划入,则需要走 viewWidth/2的距离. 则一帧step,需要走 viewWidth/(2*fps);
 		
@@ -43,7 +43,7 @@ public class SlideEffect {
 		
 		
 		currentY=viewHeight/2;
-		mSprite.setVisibility(ISprite.INVISIBLE);  //刚开始是不显示的.
+		mPen.setVisibility(Pen.INVISIBLE);  //刚开始是不显示的.
 	}
 	
 	public void run(long currentTimeMS)
@@ -53,10 +53,10 @@ public class SlideEffect {
 		
 		if(currentTimeMS>(mEndMS+1000) || currentTimeMS<mStartMS){  //不在这个范围,则不显示,mEndMS+1000多出一秒是让右侧滑动的走完.
 //		if(currentX>viewHeight || currentTimeMS<mStartMS){
-			mSprite.setVisibility(ISprite.INVISIBLE);
+			mPen.setVisibility(Pen.INVISIBLE);
 			return ;
 		}
-		mSprite.setVisibility(ISprite.VISIBLE);
+		mPen.setVisibility(Pen.VISIBLE);
 
 		if(currentTimeMS<(firstSecond)){
 			currentX+=stepPerFrame;
@@ -66,18 +66,18 @@ public class SlideEffect {
 		}
 //		Log.i("sno","current:"+currentX+" y "+currentY);
 		
-		mSprite.setPosition(currentX, currentY);
+		mPen.setPosition(currentX, currentY);
 		
 	}
-	public ISprite getSprite()
+	public Pen getPen()
 	{
-		return mSprite;
+		return mPen;
 	}
 //	public void release()
 //	{
-//		if(needReleaseSprite){
-//			mSprite.release();
-//			mSprite=null;
+//		if(needReleasePen){
+//			mPen.release();
+//			mPen=null;
 //		}
 //	}
 	

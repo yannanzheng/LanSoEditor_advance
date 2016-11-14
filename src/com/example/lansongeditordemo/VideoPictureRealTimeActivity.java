@@ -5,12 +5,18 @@ import java.util.Locale;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 
-import com.example.lansongeditordemo.view.MediaPoolView;
-import com.example.lansongeditordemo.view.MediaPoolView.onViewAvailable;
+import com.example.lansong.animview.BitmapCache;
+import com.example.lansong.animview.ShowHeart;
+import com.example.lansongeditordemo.view.DrawPadView;
+import com.example.lansongeditordemo.view.DrawPadView.onViewAvailable;
 import com.lansoeditor.demo.R;
-import com.lansosdk.box.BitmapSprite;
-import com.lansosdk.box.ISprite;
-import com.lansosdk.box.onMediaPoolSizeChangedListener;
+import com.lansosdk.box.BitmapPen;
+import com.lansosdk.box.CanvasRunnable;
+import com.lansosdk.box.CanvasPen;
+import com.lansosdk.box.Pen;
+import com.lansosdk.box.DrawPad;
+import com.lansosdk.box.onDrawPadProgressListener;
+import com.lansosdk.box.onDrawPadSizeChangedListener;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
@@ -21,7 +27,11 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnPreparedListener;
@@ -37,10 +47,10 @@ import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
 /**
- * 演示: 使用MediaPool来实现 视频和图片的实时叠加. 
+ * 演示: 使用DrawPad来实现 视频和图片的实时叠加. 
  * 
  * 流程是: 
- * 先创建一个MediaPool,然后在视频播放过程中,从MediaPool中获取一个BitmapSprite,然后可以调节SeekBar来对Sprite的每个
+ * 先创建一个DrawPad,然后在视频播放过程中,从DrawPad中获取一个BitmapPen,然后可以调节SeekBar来对Pen的每个
  * 参数进行调节.
  * 
  * 可以调节的有:平移,旋转,缩放,RGBA值,显示/不显示(闪烁)效果.
@@ -52,12 +62,13 @@ public class VideoPictureRealTimeActivity extends Activity implements OnSeekBarC
 
     private String mVideoPath;
 
-    private MediaPoolView mPlayView;
+    private DrawPadView mPlayView;
     
     private MediaPlayer mplayer=null;
     private MediaPlayer mplayer2=null;
-    private ISprite  mSpriteMain=null;
-    private BitmapSprite mBitmapSprite=null;
+    private Pen  mPenMain=null;
+    private BitmapPen mBitmapPen=null;
+    
     
     private String editTmpPath=null;
     private String dstPath=null;
@@ -68,22 +79,22 @@ public class VideoPictureRealTimeActivity extends Activity implements OnSeekBarC
     {
         super.onCreate(savedInstanceState);
 		 Thread.setDefaultUncaughtExceptionHandler(new snoCrashHandler());
-        setContentView(R.layout.mediapool_layout);
+        setContentView(R.layout.drawpad_layout);
         
         mVideoPath = getIntent().getStringExtra("videopath");
-        mPlayView = (MediaPoolView) findViewById(R.id.mediapool_view);
+        mPlayView = (DrawPadView) findViewById(R.id.DrawPad_view);
         
-        initSeekBar(R.id.id_mediapool_skbar_rotate,360); //角度是旋转360度,如果值大于360,则取360度内剩余的角度值.
-        initSeekBar(R.id.id_mediapool_skbar_move,100);   
-        initSeekBar(R.id.id_mediapool_skbar_scale,800);   //这里设置最大可放大8倍
+        initSeekBar(R.id.id_DrawPad_skbar_rotate,360); //角度是旋转360度,如果值大于360,则取360度内剩余的角度值.
+        initSeekBar(R.id.id_DrawPad_skbar_move,100);   
+        initSeekBar(R.id.id_DrawPad_skbar_scale,800);   //这里设置最大可放大8倍
         
-        initSeekBar(R.id.id_mediapool_skbar_red,100);  //red最大为100
-        initSeekBar(R.id.id_mediapool_skbar_green,100);
-        initSeekBar(R.id.id_mediapool_skbar_blue,100);
-        initSeekBar(R.id.id_mediapool_skbar_alpha,100);
+        initSeekBar(R.id.id_DrawPad_skbar_red,100);  //red最大为100
+        initSeekBar(R.id.id_DrawPad_skbar_green,100);
+        initSeekBar(R.id.id_DrawPad_skbar_blue,100);
+        initSeekBar(R.id.id_DrawPad_skbar_alpha,100);
         
         
-        findViewById(R.id.id_mediapool_saveplay).setOnClickListener(new OnClickListener() {
+        findViewById(R.id.id_DrawPad_saveplay).setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -97,7 +108,7 @@ public class VideoPictureRealTimeActivity extends Activity implements OnSeekBarC
 		   		 }
 			}
 		});
-        findViewById(R.id.id_mediapool_saveplay).setVisibility(View.GONE);
+        findViewById(R.id.id_DrawPad_saveplay).setVisibility(View.GONE);
 
         //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
         editTmpPath=SDKFileUtils.newMp4PathInBox();
@@ -127,7 +138,7 @@ public class VideoPictureRealTimeActivity extends Activity implements OnSeekBarC
 		}, 100);
     }
     /**
-     * VideoSprite是外部提供画面来源, 您可以用你们自己的播放器作为画面输入源,也可以用原生的MediaPlayer,只需要视频播放器可以设置surface即可.
+     * VideoPen是外部提供画面来源, 您可以用你们自己的播放器作为画面输入源,也可以用原生的MediaPlayer,只需要视频播放器可以设置surface即可.
      * 一下举例是采用MediaPlayer作为视频输入源.
      */
     private void startPlayVideo()
@@ -158,7 +169,7 @@ public class VideoPictureRealTimeActivity extends Activity implements OnSeekBarC
 					//completion不确定会在什么时候停，故需要判断是否为null
 					if(mPlayView!=null && mPlayView.isRunning()){
 						
-						mPlayView.stopMediaPool();
+						mPlayView.stopDrawPad();
 						
 						toastStop();
 						
@@ -170,11 +181,10 @@ public class VideoPictureRealTimeActivity extends Activity implements OnSeekBarC
 								SDKFileUtils.deleteFile(editTmpPath);	
 							}
 							
-							findViewById(R.id.id_mediapool_saveplay).setVisibility(View.VISIBLE);
+							findViewById(R.id.id_DrawPad_saveplay).setVisibility(View.VISIBLE);
 						}else{
 							Log.e(TAG," player completion, but file:"+editTmpPath+" is not exist!!!");
 						}
-						
 					}
 				}
 			});
@@ -200,36 +210,44 @@ public class VideoPictureRealTimeActivity extends Activity implements OnSeekBarC
         	info.prepare();
         	
         	if(DemoCfg.ENCODE){
-        		//设置使能 实时录制, 即把正在MediaPool中呈现的画面实时的保存下来,实现所见即所得的模式
+        		//设置使能 实时录制, 即把正在DrawPad中呈现的画面实时的保存下来,实现所见即所得的模式
         		mPlayView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
         	}
-        	//设置当前MediaPool的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
-    		mPlayView.setMediaPoolSize(480,480,new onMediaPoolSizeChangedListener() {
+        	//设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
+    		mPlayView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
 			
 			@Override
 			public void onSizeChanged(int viewWidth, int viewHeight) {
 				// TODO Auto-generated method stub
-				// 开始mediaPool的渲染线程. 
-				mPlayView.startMediaPool(null,null);
-				//获取一个主视频的 VideoSprite
-				mSpriteMain=mPlayView.obtainMainVideoSprite(mplayer.getVideoWidth(),mplayer.getVideoHeight());
-				if(mSpriteMain!=null){
-					mplayer.setSurface(new Surface(mSpriteMain.getVideoTexture()));
+				// 开始DrawPad的渲染线程. 
+					mPlayView.startDrawPad(new onDrawPadProgressListener() {
+					
+					@Override
+					public void onProgress(DrawPad v, long currentTimeUs) {
+						// TODO Auto-generated method stub
+					}
+				},null);
+					
+				//获取一个主视频的 VideoPen
+				mPenMain=mPlayView.addMainVideoPen(mplayer.getVideoWidth(),mplayer.getVideoHeight());
+				if(mPenMain!=null){
+					mplayer.setSurface(new Surface(mPenMain.getVideoTexture()));
 				}
+				
 				mplayer.start();
-				addBitmapSprite();
+				
+				addBitmapPen();
 			}
 		});
-    		
-    		
     }
+	BitmapCache bitmapcache=BitmapCache.getInstance();
     /**
-     * 从MediaPool中得到一个BitmapSprite,填入要显示的图片,您实际可以是资源图片,也可以是png或jpg,或网络上的图片等,最后解码转换为统一的
+     * 从DrawPad中得到一个BitmapPen,填入要显示的图片,您实际可以是资源图片,也可以是png或jpg,或网络上的图片等,最后解码转换为统一的
      * Bitmap格式即可.
      */
-    private void addBitmapSprite()
+    private void addBitmapPen()
     {
-    	mBitmapSprite=mPlayView.obtainBitmapSprite(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
+    	mBitmapPen=mPlayView.addBitmapPen(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
     }
     @Override
     protected void onPause() {
@@ -247,7 +265,7 @@ public class VideoPictureRealTimeActivity extends Activity implements OnSeekBarC
     		mplayer2=null;
     	}
     	if(mPlayView!=null){
-    		mPlayView.stopMediaPool();
+    		mPlayView.stopDrawPad();
     	}
     }
    @Override
@@ -265,7 +283,7 @@ protected void onDestroy() {
     private float xpos=0,ypos=0;
 	
     /**
-     * 提示:实际使用中没有主次之分, 只要是继承自ISprite的对象(FilterSprite除外),都可以调节,这里仅仅是举例
+     * 提示:实际使用中没有主次之分, 只要是继承自IPen的对象(FilterPen除外),都可以调节,这里仅仅是举例
      * 可以调节的有:平移,旋转,缩放,RGBA值,显示/不显示(闪烁)效果.
      */
 	@Override
@@ -273,13 +291,13 @@ protected void onDestroy() {
 			boolean fromUser) {
 		// TODO Auto-generated method stub
 		switch (seekBar.getId()) {
-			case R.id.id_mediapool_skbar_rotate:
-				if(mBitmapSprite!=null){
-					mBitmapSprite.setRotate(progress);
+			case R.id.id_DrawPad_skbar_rotate:
+				if(mBitmapPen!=null){
+					mBitmapPen.setRotate(progress);
 				}
 				break;
-			case R.id.id_mediapool_skbar_move:
-					if(mBitmapSprite!=null){
+			case R.id.id_DrawPad_skbar_move:
+					if(mBitmapPen!=null){
 						 xpos+=10;
 						 ypos+=10;
 						 
@@ -287,36 +305,36 @@ protected void onDestroy() {
 							 xpos=0;
 						 if(ypos>mPlayView.getViewWidth())
 							 ypos=0;
-						 mBitmapSprite.setPosition(xpos, ypos);
+						 mBitmapPen.setPosition(xpos, ypos);
 					}
 				break;				
-			case R.id.id_mediapool_skbar_scale:
-				if(mBitmapSprite!=null){
+			case R.id.id_DrawPad_skbar_scale:
+				if(mBitmapPen!=null){
 					float scale=(float)progress/100;
-					mBitmapSprite.setScale(scale);
+					mBitmapPen.setScale(scale);
 				}
 			break;		
-			case R.id.id_mediapool_skbar_red:
-					if(mBitmapSprite!=null){
-						mBitmapSprite.setRedPercent(progress);  //设置每个RGBA的比例,默认是1
+			case R.id.id_DrawPad_skbar_red:
+					if(mBitmapPen!=null){
+						mBitmapPen.setRedPercent(progress);  //设置每个RGBA的比例,默认是1
 					}
 				break;
 
-			case R.id.id_mediapool_skbar_green:
-					if(mBitmapSprite!=null){
-						mBitmapSprite.setGreenPercent(progress);
+			case R.id.id_DrawPad_skbar_green:
+					if(mBitmapPen!=null){
+						mBitmapPen.setGreenPercent(progress);
 					}
 				break;
 
-			case R.id.id_mediapool_skbar_blue:
-					if(mBitmapSprite!=null){
-						mBitmapSprite.setBluePercent(progress);
+			case R.id.id_DrawPad_skbar_blue:
+					if(mBitmapPen!=null){
+						mBitmapPen.setBluePercent(progress);
 					}
 				break;
 
-			case R.id.id_mediapool_skbar_alpha:
-					if(mBitmapSprite!=null){
-						mBitmapSprite.setAlphaPercent(progress);
+			case R.id.id_DrawPad_skbar_alpha:
+					if(mBitmapPen!=null){
+						mBitmapPen.setAlphaPercent(progress);
 					}
 				break;
 				

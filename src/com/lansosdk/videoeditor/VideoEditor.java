@@ -144,42 +144,52 @@ public class VideoEditor {
 	     */
 	    private native int execute(Object cmdArray);
 	
-	/**
-	 * 把一张图片转换为视频,并有淡入淡出的效果.
-	 * 适用于视频转场的场合,比如两个视频AB之间需要转场,中间需要"五分钟过去了..."这样的文字,可以用这个命令来生成一个提示的视频,然后把这个转场和两个视频拼接起来即可.
-	 * 注意:这里图片生成的视频的宽高等于图片的宽高,如果用在转场的场合,需要前后两个视频的宽高一直,比如都是480x480等.
-	 * 
-	 * @param srcPath  输入的图片文件路径
-	 * @param totalTime  转换为视频的时长,一般3--5秒为易,生成的图片每秒钟是25帧.
-	 * @param fadeinstart 从第几帧开始有淡入的效果 
-	 * @param fadeinCnt   淡入的效果持续多少帧
-	 * @param fadeoutstart 淡出开始的帧数.
-	 * @param fadeoutCnt  淡出效果持续多少帧
-	 * @param dstPath  视频保存的路径.
-	 * @return
-	 */
-	public native int  pictureFadeInOut( String srcPath,int totalTime,int fadeinstart,int fadeinCnt,int fadeoutstart,int fadeoutCnt,
-		   String dstPath);
-	/**
-	 * 把一张图片转换为视频，视频在刚显示时，会有缓慢显示出来的动画效果。适用在视频转场的场合。
-	 * @param srcPath　　原png或jpg图片
-	 * @param totalTime　　转换为视频的总时长
-	 * @param fadeinstart　　从第几帧开始缓慢显示出来，建议从0
-	 * @param fadeinCnt  缓慢显示出来的帧数，比如效果持续２秒钟，则这里是2x25
-	 * @param dstPath　　视频保存的路径，后缀需要是.mp4格式
-	 * @return
-	 */
-	public native int  pictureFadeIn( String srcPath,int totalTime,int fadeinstart,int fadeinCnt,String dstPath);
-	/**
-	 * 把一张图片转换为视频，图片在显示结束的时候，有慢慢变暗下去的效果。如果png视频有透明部分，则透明部分转换为黑色
-	 * @param srcPath　　图片的路径，可以是ｐｎｇ或ｊｐｇ，
-	 * @param totalTime　　图片转换成视频的总时间
-	 * @param fadeoutstart　　慢慢变暗下的开始帧，比如从５０帧的地方开始变暗，总帧数等于总时间x25（视频每秒钟25帧）
-	 * @param fadeoutCnt　　　慢慢变暗效果的帧数，比如效果持续２秒钟，则这里是2x25
-	 * @param dstPath    　　视频保存的路径，后缀需要是.mp4格式
-	 * @return
-	 */
-	public native int  pictureFadeOut( String srcPath,int totalTime,int fadeoutstart,int fadeoutCnt,String dstPath);
+//	/**
+//	 * 把一张图片转换为视频,并有淡入淡出的效果.
+//	 * 适用于视频转场的场合,比如两个视频AB之间需要转场,中间需要"五分钟过去了..."这样的文字,可以用这个命令来生成一个提示的视频,然后把这个转场和两个视频拼接起来即可.
+//	 * 注意:这里图片生成的视频的宽高等于图片的宽高,如果用在转场的场合,需要前后两个视频的宽高一直,比如都是480x480等.
+//	 * 
+//	 * @param srcPath  输入的图片文件路径
+//	 * @param totalTime  转换为视频的时长,一般3--5秒为易,生成的图片每秒钟是25帧.
+//	 * @param fadeinstart 从第几帧开始有淡入的效果 
+//	 * @param fadeinCnt   淡入的效果持续多少帧
+//	 * @param fadeoutstart 淡出开始的帧数.
+//	 * @param fadeoutCnt  淡出效果持续多少帧
+//	 * @param dstPath  视频保存的路径.
+//	 * @return
+//	 */
+//	public  int  pictureFadeInOut( String srcPath,int totalTime,int fadeinstart,int fadeinCnt,int fadeoutstart,int fadeoutCnt,
+//		   String dstPath)
+//	{
+//		
+//		
+//	}
+//	/**
+//	 * 把一张图片转换为视频，视频在刚显示时，会有缓慢显示出来的动画效果。适用在视频转场的场合。
+//	 * @param srcPath　　原png或jpg图片
+//	 * @param totalTime　　转换为视频的总时长
+//	 * @param fadeinstart　　从第几帧开始缓慢显示出来，建议从0
+//	 * @param fadeinCnt  缓慢显示出来的帧数，比如效果持续２秒钟，则这里是2x25
+//	 * @param dstPath　　视频保存的路径，后缀需要是.mp4格式
+//	 * @return
+//	 */
+//	public int  pictureFadeIn( String srcPath,int totalTime,int fadeinstart,int fadeinCnt,String dstPath)
+//	{
+//		
+//	}
+//	/**
+//	 * 把一张图片转换为视频，图片在显示结束的时候，有慢慢变暗下去的效果。如果png视频有透明部分，则透明部分转换为黑色
+//	 * @param srcPath　　图片的路径，可以是ｐｎｇ或ｊｐｇ，
+//	 * @param totalTime　　图片转换成视频的总时间
+//	 * @param fadeoutstart　　慢慢变暗下的开始帧，比如从５０帧的地方开始变暗，总帧数等于总时间x25（视频每秒钟25帧）
+//	 * @param fadeoutCnt　　　慢慢变暗效果的帧数，比如效果持续２秒钟，则这里是2x25
+//	 * @param dstPath    　　视频保存的路径，后缀需要是.mp4格式
+//	 * @return
+//	 */
+//	public  int  pictureFadeOut( String srcPath,int totalTime,int fadeoutstart,int fadeoutCnt,String dstPath)
+//	{
+//		
+//	}
 	/**
 	 * 截取一段pcm数据.
 	 * 
@@ -592,7 +602,7 @@ public class VideoEditor {
 			{
 				if(info.aCodecName.equalsIgnoreCase("aac")){
 					audioPath=SDKFileUtils.createFile(tmpDir, ".aac");
-				}else if(info.aCodecName.equalsIgnoreCase("mp4"))
+				}else if(info.aCodecName.equalsIgnoreCase("mp3"))
 					audioPath=SDKFileUtils.createFile(tmpDir, ".mp3");	
 				
 				if(audioPath!=null){
@@ -1012,7 +1022,7 @@ public class VideoEditor {
 				
 					List<String> cmdList=new ArrayList<String>();
 //					
-//					cmdList.add("-vcodec");
+//					cmdList.add("-vcodec");  //获取一张图片, 不需要采用硬件编码.
 //					cmdList.add(decodeName);
 					
 			    	cmdList.add("-i");
@@ -1372,6 +1382,21 @@ public class VideoEditor {
 			     }  
 			    return  executeVideoEditor(command);
 			  
+		  }
+		  
+		  public int executeVideoCutOverlay(String videoFile,String decCodec, String pngPath,float startTimeS,float duationS,int overX,int overY,String dstFile,int bitrate)
+		  {
+			  if(fileExist(videoFile))
+			  {
+					String filter=String.format(Locale.getDefault(),"overlay=%d:%d",overX,overY);
+					int ret=videoCutCropOverlay(videoFile, decCodec, pngPath, startTimeS, duationS, filter, dstFile, bitrate);
+					if(ret!=0){
+						ret= videoCutCropOverlay(videoFile, "h264", pngPath, startTimeS, duationS, filter, dstFile, bitrate);
+					}
+					return ret;
+			  }else{
+				  return VIDEO_EDITOR_EXECUTE_FAILED;
+			  }
 		  }
 		  
 		  /**
@@ -2135,7 +2160,7 @@ public class VideoEditor {
 			//ffmpeg -i 2x.mp4 -vf "crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right] hstack" -acodec copy 2x_hmirror.mp4
 			 if(fileExist(srcPath)){
 					
-				  String filter=String.format(Locale.getDefault(),"crop=iw:ih/2:0:0,split[top][tmp];[tmp]hflip[bottom];[top][bottom] hstack");
+				  String filter=String.format(Locale.getDefault(),"crop=iw:ih/2:0:0,split[top][tmp];[tmp]vflip[bottom];[top][bottom] vstack");
 				  
 					List<String> cmdList=new ArrayList<String>();
 					
@@ -2312,7 +2337,7 @@ public class VideoEditor {
 		}
 		/**
 		 * 
-		 * 视频逆时针旋转９０度
+		 * 视频逆时针旋转９０度,也即使顺时针旋转270度.
 		 * @param srcPath1　原视频
 		 * @param decoder　　视频的解码器名字
 		 * @param dstPath　　目标视频，需要是mp4格式
@@ -2504,6 +2529,59 @@ public class VideoEditor {
 		}
 		
 		/**
+		 * TODO  没有验证, 只是在PC端测试OK
+		 * 
+		 * 把yuv420p格式的yuv视频文件, 编码成MP4
+		 * @param srcPath  原文件
+		 * @param width  yuv视频的宽度
+		 * @param height 高度
+		 * @param bitrate 码率
+		 * @param dstPath 目标文件
+		 * @return
+		 */
+		public int executeEncodeYUV2MP4( String srcPath,int width,int height,int bitrate,String dstPath) 
+		{
+			//ffmpeg -f rawvideo -video_size 1920x1080 -i xs.yuv -vcodec libx264 xs1.mp4
+			 if(fileExist(srcPath)){
+					
+					List<String> cmdList=new ArrayList<String>();
+					
+					String size=String.valueOf(width);
+					size+="x";
+					size+=String.valueOf(height);
+					
+					cmdList.add("-f");
+					cmdList.add("rawvideo");
+					
+					cmdList.add("-video_size");
+					cmdList.add(size);
+					
+					cmdList.add("-i");
+					cmdList.add(srcPath);
+					
+					
+					cmdList.add("-c:v");
+					cmdList.add("lansoh264_enc");
+					cmdList.add("-pix_fmt");
+					cmdList.add("yuv420p");
+					cmdList.add("-b:v");
+					cmdList.add(checkBitRate(bitrate)); 
+					
+					cmdList.add("-y");
+					cmdList.add(dstPath);
+					 
+					String[] command=new String[cmdList.size()];  
+				     for(int i=0;i<cmdList.size();i++){  
+				    	 command[i]=(String)cmdList.get(i);  
+				     }  
+				    return  executeVideoEditor(command);
+				  
+			  }else{
+				  return VIDEO_EDITOR_EXECUTE_FAILED;
+			  }
+		}
+		
+		/**
 		 * 此方法仅仅是为了客户的需求,而临时性测试, 不建议使用, 仅供客户参考..请注意.
 		 * 
 		 * @param videoPath  视频路径
@@ -2631,4 +2709,6 @@ public class VideoEditor {
 			
 	    	return String.valueOf(bitrate);	
 		}
+		
+		
 }

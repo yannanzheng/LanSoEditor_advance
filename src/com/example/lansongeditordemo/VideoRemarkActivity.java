@@ -6,15 +6,15 @@ import java.util.Locale;
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
 
-import com.example.lansongeditordemo.view.TestTouchView;
+import com.example.lansongeditordemo.view.MarkArrowView;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.AudioEncodeDecode;
-import com.lansosdk.box.MediaPoolUpdateMode;
+import com.lansosdk.box.DrawPadUpdateMode;
 import com.lansosdk.box.AudioMixManager;
-import com.lansosdk.box.VideoSprite;
-import com.lansosdk.box.ViewSprite;
-import com.lansosdk.box.ISprite;
-import com.lansosdk.box.onMediaPoolSizeChangedListener;
+import com.lansosdk.box.VideoPen;
+import com.lansosdk.box.ViewPen;
+import com.lansosdk.box.Pen;
+import com.lansosdk.box.onDrawPadSizeChangedListener;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
@@ -48,11 +48,11 @@ import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
 /**
- *  演示: 使用MediaPool完成 视频的实时标记.
+ *  演示: 使用DrawPad完成 视频的实时标记.
  *  
- *  在视频处理的过程中, 提供 重写MediaPool中的onTouchEvent方法的类TestTouchView,
- *  当点击这个View时,获取到点击位置, 并获取一个BitmapSprite, 并再次位置显示叠加图片.move时,移动图片.
- *  在手指抬起后, 释放BitmapSprite,从而实时滑动画面实时标记的效果.
+ *  在视频处理的过程中, 提供 重写DrawPad中的onTouchEvent方法的类MarkArrowView,
+ *  当点击这个View时,获取到点击位置, 并获取一个BitmapPen, 并再次位置显示叠加图片.move时,移动图片.
+ *  在手指抬起后, 释放BitmapPen,从而实时滑动画面实时标记的效果.
  *
  */
 public class VideoRemarkActivity extends Activity{
@@ -60,32 +60,30 @@ public class VideoRemarkActivity extends Activity{
 
     private String mVideoPath;
 
-    private TestTouchView mPlayView;
+    private MarkArrowView mPlayView;
     
     private MediaPlayer mplayer=null;
     
-    private ISprite  mSpriteMain=null;
+    private Pen  mPenMain=null;
     
     private String editTmpPath=null;
     private String dstPath=null;
-
-    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
 		 Thread.setDefaultUncaughtExceptionHandler(new snoCrashHandler());
-		 setContentView(R.layout.mediapool_touch_layout);
+		 setContentView(R.layout.drawpad_touch_layout);
         
         
         mVideoPath = getIntent().getStringExtra("videopath");
         
         Log.i(TAG,"videopath:"+mVideoPath);
         
-        mPlayView = (TestTouchView) findViewById(R.id.mediapool_view);
+        mPlayView = (MarkArrowView) findViewById(R.id.markarrow_view);
         
-        findViewById(R.id.id_mediapool_saveplay).setOnClickListener(new OnClickListener() {
+        findViewById(R.id.id_markarrow_saveplay).setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -99,7 +97,7 @@ public class VideoRemarkActivity extends Activity{
 		   		 }
 			}
 		});
-        findViewById(R.id.id_mediapool_saveplay).setVisibility(View.GONE);
+        findViewById(R.id.id_markarrow_saveplay).setVisibility(View.GONE);
         
         //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
         editTmpPath=SDKFileUtils.createFile(SDKDir.TMP_DIR, ".mp4");
@@ -137,7 +135,7 @@ public class VideoRemarkActivity extends Activity{
 				@Override
 				public void onPrepared(MediaPlayer mp) {
 					// TODO Auto-generated method stub
-					start(mp);
+					startDrawPad();
 				}
 			});
         	  mplayer.setOnCompletionListener(new OnCompletionListener() {
@@ -145,21 +143,7 @@ public class VideoRemarkActivity extends Activity{
 				@Override
 				public void onCompletion(MediaPlayer mp) {
 					// TODO Auto-generated method stub
-					if(mPlayView!=null && mPlayView.isRunning()){
-						mPlayView.stopMediaPool();
-						
-						toastStop();
-						
-						if(SDKFileUtils.fileExist(editTmpPath)){
-							boolean ret=VideoEditor.encoderAddAudio(mVideoPath,editTmpPath,SDKDir.TMP_DIR,dstPath);
-							if(!ret){
-								dstPath=editTmpPath;
-							}else
-								SDKFileUtils.deleteFile(editTmpPath);
-							
-							findViewById(R.id.id_mediapool_saveplay).setVisibility(View.VISIBLE);
-						}
-					}
+					stopDrawPad();
 				}
 			});
         	  mplayer.prepareAsync();
@@ -170,28 +154,51 @@ public class VideoRemarkActivity extends Activity{
               return;
           }
     }
-    private void start(MediaPlayer mp)
+    //Step1: 开始运行 DrawPad 画板
+    private void startDrawPad()
     {
     	MediaInfo info=new MediaInfo(mVideoPath);
-    	info.prepare();
-		
-    	mPlayView.setUpdateMode(MediaPoolUpdateMode.ALL_VIDEO_READY,25);
-    	
-    	mPlayView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
-    	mPlayView.setMediaPoolSize(480,480,new onMediaPoolSizeChangedListener() {
+    	if(info.prepare())
+    	{
+    		mPlayView.setUpdateMode(DrawPadUpdateMode.ALL_VIDEO_READY,25);
+        	
+        	mPlayView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
+        	mPlayView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
+    			
+    			@Override
+    			public void onSizeChanged(int viewWidth, int viewHeight) {
+    				// TODO Auto-generated method stub
+    				mPlayView.startDrawPad(null,null);
+    				
+    				mPenMain=mPlayView.addMainVideoPen(mplayer.getVideoWidth(),mplayer.getVideoHeight());
+    				if(mPenMain!=null){
+    					mplayer.setSurface(new Surface(mPenMain.getVideoTexture()));
+    				}
+    				mplayer.start();
+    			}
+    		});
+    	}
+    }
+    //Step2:增加一个BitmapPen到画板上.已经在MarkArrowView中实现了.
+    
+    //Step3: 增加完成后, 停止画板DrawPad
+    private void stopDrawPad()
+    {
+    	if(mPlayView!=null && mPlayView.isRunning()){
+			mPlayView.stopDrawPad();
 			
-			@Override
-			public void onSizeChanged(int viewWidth, int viewHeight) {
-				// TODO Auto-generated method stub
-				mPlayView.startMediaPool(null,null);
+			toastStop();
+			
+			if(SDKFileUtils.fileExist(editTmpPath)){
+				boolean ret=VideoEditor.encoderAddAudio(mVideoPath,editTmpPath,SDKDir.TMP_DIR,dstPath);
+				if(!ret){
+					dstPath=editTmpPath;
+				}else
+					SDKFileUtils.deleteFile(editTmpPath);
 				
-				mSpriteMain=mPlayView.obtainMainVideoSprite(mplayer.getVideoWidth(),mplayer.getVideoHeight());
-				if(mSpriteMain!=null){
-					mplayer.setSurface(new Surface(mSpriteMain.getVideoTexture()));
-				}
-				mplayer.start();
+				findViewById(R.id.id_markarrow_saveplay).setVisibility(View.VISIBLE);
 			}
-		});
+		}
     }
     private void toastStop()
     {
@@ -207,7 +214,7 @@ public class VideoRemarkActivity extends Activity{
 			mplayer=null;
 		}
 		if(mPlayView!=null){
-			mPlayView.stopMediaPool();
+			mPlayView.stopDrawPad();
 			mPlayView=null;        		   
 		}
 		if(SDKFileUtils.fileExist(editTmpPath)){

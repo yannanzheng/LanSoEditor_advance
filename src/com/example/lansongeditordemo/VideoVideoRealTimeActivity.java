@@ -7,18 +7,18 @@ import java.util.Locale;
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
 
-import com.example.lansongeditordemo.view.MediaPoolView;
+import com.example.lansongeditordemo.view.DrawPadView;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.AudioEncodeDecode;
-import com.lansosdk.box.MediaPool;
-import com.lansosdk.box.MediaPoolUpdateMode;
+import com.lansosdk.box.DrawPad;
+import com.lansosdk.box.DrawPadUpdateMode;
 import com.lansosdk.box.AudioMixManager;
-import com.lansosdk.box.VideoSprite;
-import com.lansosdk.box.ViewSprite;
-import com.lansosdk.box.ISprite;
-import com.lansosdk.box.onMediaPoolCompletedListener;
-import com.lansosdk.box.onMediaPoolProgressListener;
-import com.lansosdk.box.onMediaPoolSizeChangedListener;
+import com.lansosdk.box.VideoPen;
+import com.lansosdk.box.ViewPen;
+import com.lansosdk.box.Pen;
+import com.lansosdk.box.onDrawPadCompletedListener;
+import com.lansosdk.box.onDrawPadProgressListener;
+import com.lansosdk.box.onDrawPadSizeChangedListener;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
@@ -52,11 +52,11 @@ import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
 /**
- * 演示: 使用MediaPool来实现 视频和视频的实时叠加.
+ * 演示: 使用DrawPad来实现 视频和视频的实时叠加.
  * 
  * 流程是: 
- * 先创建一个MediaPool,获取主VideoSprite,在播放过程中,再次获取一个VideoSprite然后可以调节SeekBar来对
- * Sprite的每个参数进行调节.
+ * 先创建一个DrawPad,获取主VideoPen,在播放过程中,再次获取一个VideoPen然后可以调节SeekBar来对
+ * Pen的每个参数进行调节.
  * 
  * 可以调节的有:平移,旋转,缩放,RGBA值,显示/不显示(闪烁)效果.
  * 实际使用中, 可用这些属性来扩展一些功能.
@@ -71,15 +71,15 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
 
     private String mVideoPath;
 
-    private MediaPoolView mPlayView;
+    private DrawPadView mPlayView;
     
     private MediaPlayer mplayer=null;
     private VPlayer  vplayer=null;
     
     private MediaPlayer mplayer2=null;
     
-    private VideoSprite subVideoSprite=null;
-    private ISprite  mSpriteMain=null;
+    private VideoPen subVideoPen=null;
+    private Pen  mPenMain=null;
     
     private String editTmpPath=null;
     private String dstPath=null;
@@ -89,22 +89,22 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
     {
         super.onCreate(savedInstanceState);
 		 Thread.setDefaultUncaughtExceptionHandler(new snoCrashHandler());
-        setContentView(R.layout.mediapool_layout);
+        setContentView(R.layout.drawpad_layout);
         
         
         mVideoPath = getIntent().getStringExtra("videopath");
-        mPlayView = (MediaPoolView) findViewById(R.id.mediapool_view);
+        mPlayView = (DrawPadView) findViewById(R.id.DrawPad_view);
         
-        initSeekBar(R.id.id_mediapool_skbar_rotate,360); //角度是旋转360度.
-        initSeekBar(R.id.id_mediapool_skbar_move,100);   //move的百分比暂时没有用到,举例而已.
-        initSeekBar(R.id.id_mediapool_skbar_scale,800);   //这里设置最大可放大8倍
+        initSeekBar(R.id.id_DrawPad_skbar_rotate,360); //角度是旋转360度.
+        initSeekBar(R.id.id_DrawPad_skbar_move,100);   //move的百分比暂时没有用到,举例而已.
+        initSeekBar(R.id.id_DrawPad_skbar_scale,800);   //这里设置最大可放大8倍
         
-        initSeekBar(R.id.id_mediapool_skbar_red,100);  //red最大为100
-        initSeekBar(R.id.id_mediapool_skbar_green,100);
-        initSeekBar(R.id.id_mediapool_skbar_blue,100);
-        initSeekBar(R.id.id_mediapool_skbar_alpha,100);
+        initSeekBar(R.id.id_DrawPad_skbar_red,100);  //red最大为100
+        initSeekBar(R.id.id_DrawPad_skbar_green,100);
+        initSeekBar(R.id.id_DrawPad_skbar_blue,100);
+        initSeekBar(R.id.id_DrawPad_skbar_alpha,100);
         
-        findViewById(R.id.id_mediapool_saveplay).setOnClickListener(new OnClickListener() {
+        findViewById(R.id.id_DrawPad_saveplay).setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -119,7 +119,7 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
 			}
 		});
         
-    	findViewById(R.id.id_mediapool_saveplay).setVisibility(View.GONE);
+    	findViewById(R.id.id_DrawPad_saveplay).setVisibility(View.GONE);
 
         //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
         editTmpPath=SDKFileUtils.newMp4PathInBox();
@@ -174,7 +174,7 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
 				public void onCompletion(MediaPlayer mp) {
 					// TODO Auto-generated method stub
 					if(mPlayView!=null && mPlayView.isRunning()){
-						mPlayView.stopMediaPool();
+						mPlayView.stopDrawPad();
 						
 						toastStop();
 						
@@ -185,7 +185,7 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
 							}else
 								SDKFileUtils.deleteFile(editTmpPath);
 							
-							findViewById(R.id.id_mediapool_saveplay).setVisibility(View.VISIBLE);
+							findViewById(R.id.id_DrawPad_saveplay).setVisibility(View.VISIBLE);
 						}
 					}
 				}
@@ -203,42 +203,43 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
     	MediaInfo info=new MediaInfo(mVideoPath,false);
     	info.prepare();
 		
-    	// 设置MediaPool的刷新模式,默认 {@link MediaPool.UpdateMode#ALL_VIDEO_READY};
-    	mPlayView.setUpdateMode(MediaPoolUpdateMode.ALL_VIDEO_READY,25);
-//    	mPlayView.setUpdateMode(MediaPoolUpdateMode.FIRST_VIDEO_READY, 25);
+    	// 设置DrawPad的刷新模式,默认 {@link DrawPad.UpdateMode#ALL_VIDEO_READY};
+    	mPlayView.setUpdateMode(DrawPadUpdateMode.ALL_VIDEO_READY,25);
     	
     	
     	if(DemoCfg.ENCODE){
-    		//设置使能 实时录制, 即把正在MediaPool中呈现的画面实时的保存下来,起到所见即所得的模式
+    		//设置使能 实时录制, 即把正在DrawPad中呈现的画面实时的保存下来,起到所见即所得的模式
     		mPlayView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
     	}
-    	//设置当前MediaPool的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
-    	mPlayView.setMediaPoolSize(480,480,new onMediaPoolSizeChangedListener() {
+    	//设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
+    	mPlayView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
 			
 			@Override
 			public void onSizeChanged(int viewWidth, int viewHeight) {
 				// TODO Auto-generated method stub
 				
-				// 开始mediaPool的渲染线程. 
-//				mPlayView.startMediaPool(new MediaPoolProgressListener(),new MediaPoolCompleted());
-				mPlayView.startMediaPool(null,null); //这里为了演示方便, 设置为null,当然你也可以使用上面这句,然后把当前行屏蔽, 这样会调用两个回调,在回调中实现可以根据时间戳的关系来设计各种效果.
+				// 开始DrawPad的渲染线程. 
+//				mPlayView.startDrawPad(new DrawPadProgressListener(),new DrawPadCompleted());
+				mPlayView.startDrawPad(null,null); //这里为了演示方便, 设置为null,当然你也可以使用上面这句,然后把当前行屏蔽, 这样会调用两个回调,在回调中实现可以根据时间戳的关系来设计各种效果.
 				
-				//获取一个主视频的 VideoSprite
-				mSpriteMain=mPlayView.obtainMainVideoSprite(mplayer.getVideoWidth(),mplayer.getVideoHeight());
-				if(mSpriteMain!=null){
-					mplayer.setSurface(new Surface(mSpriteMain.getVideoTexture()));
+				//获取一个主视频的 VideoPen
+				mPenMain=mPlayView.addMainVideoPen(mplayer.getVideoWidth(),mplayer.getVideoHeight());
+				if(mPenMain!=null){
+					mplayer.setSurface(new Surface(mPenMain.getVideoTexture()));
 				}
 				mplayer.start();
+				
+				
 //				startVPlayer();
 				startPlayer2();
 			}
 		});
     }
-    private class MediaPoolCompleted implements onMediaPoolCompletedListener
+    private class DrawPadCompleted implements onDrawPadCompletedListener
     {
 
 		@Override
-		public void onCompleted(MediaPool v) {
+		public void onCompleted(DrawPad v) {
 			// TODO Auto-generated method stub
 			if(isDestorying==false){
 				
@@ -246,20 +247,20 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
 		}
     }
     boolean isFirstRemove=false;
-    private class MediaPoolProgressListener implements onMediaPoolProgressListener
+    private class DrawPadProgressListener implements onDrawPadProgressListener
     {
 
 		@Override
-		public void onProgress(MediaPool v, long currentTimeUs) {
+		public void onProgress(DrawPad v, long currentTimeUs) {
 			// TODO Auto-generated method stub
-//			  Log.i(TAG,"MediaPoolProgressListener: us:"+currentTimeUs);
+//			  Log.i(TAG,"DrawPadProgressListener: us:"+currentTimeUs);
 			
 			//这里根据每帧的效果,设置当大于10秒时, 删除第二个视频画面.
-			  if(currentTimeUs>=3*1000*1000 && subVideoSprite!=null && isFirstRemove==false)  
+			  if(currentTimeUs>=3*1000*1000 && subVideoPen!=null && isFirstRemove==false)  
 			  {
 					  if(mPlayView!=null){
-						  mPlayView.removeSprite(subVideoSprite);
-						  subVideoSprite=null;
+						  mPlayView.removePen(subVideoPen);
+						  subVideoPen=null;
 							
 							if(mplayer2!=null){
 								mplayer2.stop();
@@ -268,14 +269,14 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
 							}
 					  }
 					  isFirstRemove=true;
-					  Log.i(TAG,"subVideoSprite removed: !!!!!!!!!:");
+					  Log.i(TAG,"subVideoPen removed: !!!!!!!!!:");
 			  }
 			  
 			  if(currentTimeUs>=6*1000*1000&& mplayer2==null)  
 			  {
 					  if(mPlayView!=null){
 						  startPlayer2();
-						  Log.i(TAG,"subVideoSprite restart!!!!!!!!:");
+						  Log.i(TAG,"subVideoPen restart!!!!!!!!:");
 					  }
 			  }
 			  
@@ -297,12 +298,12 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
 			public void onPrepared(MediaPlayer mp) {
 				// TODO Auto-generated method stub
 				
-				// 获取一个VideoSprite
-				subVideoSprite=mPlayView.obtainSubVideoSprite(mp.getVideoWidth(),mp.getVideoHeight());
-				Log.i(TAG,"sub video sprite ....obtain..");
-				if(subVideoSprite!=null){
-					mplayer2.setSurface(new Surface(subVideoSprite.getVideoTexture()));	
-					subVideoSprite.setScale(0.5f);  //这里先缩小一半
+				// 获取一个VideoPen
+				subVideoPen=mPlayView.addSubVideoPen(mp.getVideoWidth(),mp.getVideoHeight());
+				Log.i(TAG,"sub video Pen ....obtain..");
+				if(subVideoPen!=null){
+					mplayer2.setSurface(new Surface(subVideoPen.getVideoTexture()));	
+					subVideoPen.setScale(0.5f);  //这里先缩小一半
 				}
 				mplayer2.start();
 			}
@@ -336,10 +337,10 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
 				// TODO Auto-generated method stub
 				
 				
-				subVideoSprite=mPlayView.obtainSubVideoSprite(mp.getVideoWidth(),mp.getVideoHeight());
-				if(subVideoSprite!=null){
-					vplayer.setSurface(new Surface(subVideoSprite.getVideoTexture()));	
-					subVideoSprite.setScale(0.5f);
+				subVideoPen=mPlayView.addSubVideoPen(mp.getVideoWidth(),mp.getVideoHeight());
+				if(subVideoPen!=null){
+					vplayer.setSurface(new Surface(subVideoPen.getVideoTexture()));	
+					subVideoPen.setScale(0.5f);
 				}
 				vplayer.start();
 			}
@@ -351,7 +352,7 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
     	Toast.makeText(getApplicationContext(), "录制已停止!!", Toast.LENGTH_SHORT).show();
     }
 
-    boolean isDestorying=false;  //是否正在销毁, 因为销毁会停止MediaPool
+    boolean isDestorying=false;  //是否正在销毁, 因为销毁会停止DrawPad
     
     @Override
     protected void onDestroy() {
@@ -379,7 +380,7 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
 			}
 			
 			if(mPlayView!=null){
-				mPlayView.stopMediaPool();
+				mPlayView.stopDrawPad();
 				mPlayView=null;        		   
 			}
 			if(SDKFileUtils.fileExist(dstPath)){
@@ -392,20 +393,20 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
     private float xpos=0,ypos=0;
     
     /**
-     * 提示:实际使用中没有主次之分, 只要是继承自ISprite的对象(FilterSprite除外),都可以调节,这里仅仅是举例
+     * 提示:实际使用中没有主次之分, 只要是继承自IPen的对象(FilterPen除外),都可以调节,这里仅仅是举例
      */
 	@Override
 	public void onProgressChanged(SeekBar seekBar, int progress,
 			boolean fromUser) {
 		// TODO Auto-generated method stub
 		switch (seekBar.getId()) {
-			case R.id.id_mediapool_skbar_rotate:
-				if(subVideoSprite!=null){
-					subVideoSprite.setRotate(progress);
+			case R.id.id_DrawPad_skbar_rotate:
+				if(subVideoPen!=null){
+					subVideoPen.setRotate(progress);
 				}
 				break;
-			case R.id.id_mediapool_skbar_move:
-					if(subVideoSprite!=null){
+			case R.id.id_DrawPad_skbar_move:
+					if(subVideoPen!=null){
 						 xpos+=10;
 						 ypos+=10;
 						 
@@ -413,36 +414,36 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
 							 xpos=0;
 						 if(ypos>mPlayView.getViewWidth())
 							 ypos=0;
-						 subVideoSprite.setPosition(xpos, ypos);
+						 subVideoPen.setPosition(xpos, ypos);
 					}
 				break;				
-			case R.id.id_mediapool_skbar_scale:
-				if(subVideoSprite!=null){
+			case R.id.id_DrawPad_skbar_scale:
+				if(subVideoPen!=null){
 					float scale=(float)progress/100;
-					subVideoSprite.setScale(scale);
+					subVideoPen.setScale(scale);
 				}
 			break;		
-			case R.id.id_mediapool_skbar_red:
-					if(subVideoSprite!=null){
-						subVideoSprite.setRedPercent(progress);  //设置每个RGBA的比例,默认是1
+			case R.id.id_DrawPad_skbar_red:
+					if(subVideoPen!=null){
+						subVideoPen.setRedPercent(progress);  //设置每个RGBA的比例,默认是1
 					}
 				break;
 
-			case R.id.id_mediapool_skbar_green:
-					if(subVideoSprite!=null){
-						subVideoSprite.setGreenPercent(progress);
+			case R.id.id_DrawPad_skbar_green:
+					if(subVideoPen!=null){
+						subVideoPen.setGreenPercent(progress);
 					}
 				break;
 
-			case R.id.id_mediapool_skbar_blue:
-					if(subVideoSprite!=null){
-						subVideoSprite.setBluePercent(progress);
+			case R.id.id_DrawPad_skbar_blue:
+					if(subVideoPen!=null){
+						subVideoPen.setBluePercent(progress);
 					}
 				break;
 
-			case R.id.id_mediapool_skbar_alpha:
-					if(subVideoSprite!=null){
-						subVideoSprite.setAlphaPercent(progress);
+			case R.id.id_DrawPad_skbar_alpha:
+					if(subVideoPen!=null){
+						subVideoPen.setAlphaPercent(progress);
 					}
 				break;
 				

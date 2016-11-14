@@ -144,6 +144,12 @@ public class VideoPlayerActivity extends Activity {
     	if(videoPath==null)
     		return ;
     	
+    	MediaInfo info=new MediaInfo(videoPath);
+    	if(info.prepare()==false){
+    		return ;
+    	}
+    	Log.i(TAG,"info:"+info.toString());
+    	
         mediaPlayer = new MediaPlayer();  
         mediaPlayer.reset();  
         
