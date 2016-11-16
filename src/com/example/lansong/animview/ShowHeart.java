@@ -71,7 +71,7 @@ public class ShowHeart {
 		 old_yy = 0;
 		 bitmapcache = BitmapCache.getInstance();
 		 drawCount=0;
-		  bb = bitmapcache.getBitmap(R.drawable.a1, mContext);
+		  bb = bitmapcache.getBitmap(R.drawable.heart, mContext);
 	}
 	public boolean isDrawEnd()
 	{

@@ -81,11 +81,17 @@
         <activity android:name="com.example.lansongeditordemo.MVPenDemoActivity"></activity>
         <activity android:name="com.example.lansongeditordemo.TestMVPenExecuteActivity"></activity>
         
+              
+         <activity android:name="com.example.lansongeditordemo.VideoPenAutoUpdateDemoActivity"/>
+         
+         
+        <!-- ==========common version demo=============== -->
             <activity android:name="com.lansosdk.commonDemo.CommonDemoActivity"></activity>
          <activity android:name="com.lansosdk.commonDemo.MediaInfoActivity"></activity>
          <activity android:name="com.lansosdk.commonDemo.AVEditorDemoActivity"/>
          <activity android:name="com.lansosdk.commonDemo.ScaleExecuteDemoActivity"/>
-        
+  
+         
     </application>
 
 </manifest>

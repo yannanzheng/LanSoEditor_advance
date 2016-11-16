@@ -85,7 +85,7 @@ public class MainActivity extends Activity implements OnClickListener{
         
         tvVideoPath=(TextView)findViewById(R.id.id_main_tvvideo);
         
-        //以下固定视频仅测试使用.
+        //others videos test. 以下固定视频仅测试使用, 
 //        tvVideoPath.setText("/sdcard/VIDEO_90du.mp4");
 //        tvVideoPath.setText("/sdcard/VIDEO_270du.mp4");
         
@@ -227,7 +227,8 @@ public class MainActivity extends Activity implements OnClickListener{
 				return;
 			switch (v.getId()) {
 				case R.id.id_main_viewpendemo1:
-					startDemoActivity(VViewDrawImageDemoActivity.class);
+				//	startDemoActivity(VViewDrawImageDemoActivity.class);
+					startDemoActivity(VideoPenAutoUpdateDemoActivity.class);
 					break;
 				case R.id.id_main_viewremark:
 					startDemoActivity(VideoRemarkActivity.class);
