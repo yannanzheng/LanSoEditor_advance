@@ -227,8 +227,8 @@ public class MainActivity extends Activity implements OnClickListener{
 				return;
 			switch (v.getId()) {
 				case R.id.id_main_viewpendemo1:
-				//	startDemoActivity(VViewDrawImageDemoActivity.class);
-					startDemoActivity(VideoPenAutoUpdateDemoActivity.class);
+					startDemoActivity(VViewDrawImageDemoActivity.class);
+//					startDemoActivity(VideoPenAutoUpdateDemoActivity.class);
 					break;
 				case R.id.id_main_viewremark:
 					startDemoActivity(VideoRemarkActivity.class);
