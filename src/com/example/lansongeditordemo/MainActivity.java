@@ -85,7 +85,8 @@ public class MainActivity extends Activity implements OnClickListener{
         
         tvVideoPath=(TextView)findViewById(R.id.id_main_tvvideo);
         
-        //others videos test. 以下固定视频仅测试使用, 
+        //others videos test. 以下固定视频仅测试使用,
+//        tvVideoPath.setText("/sdcard/VIDEO_36minute.mp4");
 //        tvVideoPath.setText("/sdcard/VIDEO_90du.mp4");
 //        tvVideoPath.setText("/sdcard/VIDEO_270du.mp4");
         
