@@ -23,12 +23,20 @@
         android:layout_margin="10dip"
         android:orientation="vertical">
           <TextView 
+            android:id="@+id/id_palyer_videosizehint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+        	android:textColor="@color/red"
+        	android:textSize="20sp"
+            />
+          
+      <!--    <TextView 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/videoplay_hint"
         	android:textColor="@color/red"
             />
-        
+         --> 
         <TextView 
             android:id="@+id/id_palyer_screenhinit"
             android:layout_width="match_parent"
@@ -47,13 +55,7 @@
             android:layout_height="wrap_content"
         	android:textColor="@color/blue"
             />
-           <TextView 
-            android:id="@+id/id_palyer_videosizehint"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-        	android:textColor="@color/red"
-        	android:textSize="20sp"
-            />
+         
            
     </LinearLayout>
 

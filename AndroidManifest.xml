@@ -1,20 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lansoeditor.demo"
-    android:versionCode="1090"
-    android:versionName="1.9.0" >
+    android:versionCode="1095"
+    android:versionName="1.9.5" >
 
     <uses-sdk
         android:minSdkVersion="18"
         android:targetSdkVersion="23" />
 
       
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.autofocus" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    
+    
+    <permission
+        android:name="android.permission.FLASHLIGHT"
+        android:permissionGroup="android.permission-group.HARDWARE_CONTROLS"
+        android:protectionLevel="normal" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature
+        android:name="android.hardware.camera.front"
+        android:required="false" />
+    
+    
+    
+    
     
     
     <application
@@ -26,19 +45,21 @@
         <activity android:name="com.example.lansongeditordemo.StartActivity"
             android:theme="@style/AppTheme2">
               
-          <intent-filter>
+         <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             
+         
          </activity>
          
         <activity
             android:name="com.example.lansongeditordemo.MainActivity">
             <!-- 因为要加载.so库, 这里一定要用MainActivity来启动 -->
             
-              
+               
+            
         </activity>
         
         
@@ -46,7 +67,7 @@
         <activity android:name="com.example.lansongeditordemo.VideoVideoRealTimeActivity"></activity>
         
         
-        <activity android:name="com.example.lansongeditordemo.FilterPenRealTimeActivity"></activity>
+        <activity android:name="com.example.lansongeditordemo.VideoFilterDemoRealTimeActivity"></activity>
         
         <activity android:name="com.example.lansongeditordemo.VideoRemarkActivity"></activity>
         
@@ -58,7 +79,7 @@
                    
             
         <activity android:name="com.example.lansongeditordemo.VideoPictuerExecuteActivity"></activity>
-        <activity android:name="com.example.lansongeditordemo.FilterPenExecuteActivity"></activity>
+        <activity android:name="com.example.lansongeditordemo.FilterDemoExecuteActivity"></activity>
         
         
         
@@ -73,25 +94,31 @@
         
         
         <activity android:name="com.example.lansongeditordemo.PictureSetExecuteActivity"></activity>
-        <activity android:name="com.example.lansongeditordemo.VViewDrawImageDemoActivity"></activity>
+        <activity android:name="com.example.lansongeditordemo.VideoViewPenDemoActivity"></activity>
         
-        <activity android:name="com.example.lansongeditordemo.ViewPenRealTimeActivity"></activity>
+        <activity android:name="com.example.lansongeditordemo.ViewPenOnlyRealTimeActivity"></activity>
         
         
         <activity android:name="com.example.lansongeditordemo.MVPenDemoActivity"></activity>
         <activity android:name="com.example.lansongeditordemo.TestMVPenExecuteActivity"></activity>
+          <activity android:name="com.example.lansongeditordemo.VideoPenAutoUpdateDemoActivity"></activity>
         
+          <activity android:name="com.example.lansongeditordemo.CameraPenDemoActivity"
+               android:theme="@style/AppTheme2">
               
-         <activity android:name="com.example.lansongeditordemo.VideoPenAutoUpdateDemoActivity"/>
-         
-         
-        <!-- ==========common version demo=============== -->
+          </activity>
+          
+          <activity android:name="com.example.lansongeditordemo.SegmentRecorderActivity"
+                  android:theme="@style/AppTheme2">
+              
+          </activity>
+          
+        <!--    common version -->
             <activity android:name="com.lansosdk.commonDemo.CommonDemoActivity"></activity>
          <activity android:name="com.lansosdk.commonDemo.MediaInfoActivity"></activity>
          <activity android:name="com.lansosdk.commonDemo.AVEditorDemoActivity"/>
          <activity android:name="com.lansosdk.commonDemo.ScaleExecuteDemoActivity"/>
-  
-         
+        
     </application>
 
 </manifest>

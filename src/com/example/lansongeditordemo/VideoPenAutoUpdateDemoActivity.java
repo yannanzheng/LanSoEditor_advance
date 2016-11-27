@@ -12,8 +12,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 
-import com.example.lansong.animview.PaintConstants;
 import com.example.lansongeditordemo.view.DrawPadView;
+import com.example.lansongeditordemo.view.PaintConstants;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.DrawPadUpdateMode;
 import com.lansosdk.box.ViewPen;
@@ -102,7 +102,6 @@ public class VideoPenAutoUpdateDemoActivity extends Activity{
 		   		 }
 			}
 		});
-        
     	findViewById(R.id.id_vauto_demo_saveplay).setVisibility(View.GONE);
     	
     	
@@ -216,7 +215,7 @@ public class VideoPenAutoUpdateDemoActivity extends Activity{
     {
     	mDrawPad.startDrawPad(null,null);
 		
-		mPenMain=mDrawPad.addMainVideoPen(mplayer.getVideoWidth(),mplayer.getVideoHeight());
+		mPenMain=mDrawPad.addMainVideoPen(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
 		if(mPenMain!=null){
 			mplayer.setSurface(new Surface(mPenMain.getVideoTexture()));
 		}
@@ -242,7 +241,7 @@ public class VideoPenAutoUpdateDemoActivity extends Activity{
     {
     	if(mDrawPad!=null && mDrawPad.isRunning()){
     		mViewPen=mDrawPad.addViewPen();
-            mPenRelativeLayout.setViewPen(mViewPen);
+            mPenRelativeLayout.bindViewPen(mViewPen);
             mPenRelativeLayout.invalidate();
             
             ViewGroup.LayoutParams  params=mPenRelativeLayout.getLayoutParams();

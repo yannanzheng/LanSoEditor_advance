@@ -8,7 +8,6 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-import com.lansosdk.videoeditor.player.CodecInfoKnowed;
 
 
 

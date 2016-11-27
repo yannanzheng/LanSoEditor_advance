@@ -56,6 +56,27 @@ public class GPUImageFilterTools {
         
         //共44种滤镜.
         filters.addFilter("(NONE)无", FilterType.NONE);  //PASS
+        
+        filters.addFilter("Beautiful美颜", FilterType.BEAUTIFUL);  //PASS
+        
+        filters.addFilter("AMARO", FilterType.AMARO);   //PASS
+        filters.addFilter("RISE", FilterType.RISE);   //PASS
+        filters.addFilter("HUDSON", FilterType.HUDSON);   //PASS
+        filters.addFilter("XPROII", FilterType.XPROII);   //PASS
+        filters.addFilter("SIERRA", FilterType.SIERRA);   //PASS
+        filters.addFilter("LOMOFI", FilterType.LOMOFI);   //PASS
+        filters.addFilter("EARLYBIRD", FilterType.EARLYBIRD);   //PASS
+        filters.addFilter("SUTRO", FilterType.SUTRO);   //PASS
+        filters.addFilter("TOASTER", FilterType.TOASTER);   //PASS
+        filters.addFilter("BRANNAN", FilterType.BRANNAN);   //PASS
+        filters.addFilter("INKWELL", FilterType.INKWELL);   //PASS
+        filters.addFilter("WALDEN", FilterType.WALDEN);   //PASS
+        filters.addFilter("HEFE", FilterType.HEFE);   //PASS
+        filters.addFilter("VALENCIA", FilterType.VALENCIA); //PASS  
+        filters.addFilter("NASHVILLE", FilterType.NASHVILLE);   //PASS
+        filters.addFilter("if1977", FilterType.IF1977);     //PASS
+        filters.addFilter("LORDKELVIN", FilterType.LORDKELVIN);  //PASS	
+        
         filters.addFilter("Contrast对比度", FilterType.CONTRAST);  //PASS
         filters.addFilter("Invert负片", FilterType.INVERT);  //PASS
         
@@ -82,7 +103,6 @@ public class GPUImageFilterTools {
         filters.addFilter("White Balance白平衡", FilterType.WHITE_BALANCE);  //PASS
         
         filters.addFilter("Vignette加轮廓", FilterType.VIGNETTE);  //PASS
-        filters.addFilter("ToneCurve色调曲线", FilterType.TONE_CURVE);  //PASS 色调曲线
 
 //        filters.addFilter("Blend (Difference)", FilterType.BLEND_DIFFERENCE);
 //        filters.addFilter("Blend (Source Over)", FilterType.BLEND_SOURCE_OVER);
@@ -127,30 +147,9 @@ public class GPUImageFilterTools {
 
         filters.addFilter("Levels Min (Mid Adjust)", FilterType.LEVELS_FILTER_MIN);  //PASS
 
-        //新增
-        filters.addFilter("AMARO", FilterType.AMARO);   //PASS
-        filters.addFilter("RISE", FilterType.RISE);   //PASS
-        filters.addFilter("HUDSON", FilterType.HUDSON);   //PASS
-        filters.addFilter("XPROII", FilterType.XPROII);   //PASS
-        filters.addFilter("SIERRA", FilterType.SIERRA);   //PASS
-        filters.addFilter("LOMOFI", FilterType.LOMOFI);   //PASS
-        filters.addFilter("EARLYBIRD", FilterType.EARLYBIRD);   //PASS
-        filters.addFilter("SUTRO", FilterType.SUTRO);   //PASS
-        filters.addFilter("TOASTER", FilterType.TOASTER);   //PASS
-        filters.addFilter("BRANNAN", FilterType.BRANNAN);   //PASS
-        filters.addFilter("INKWELL", FilterType.INKWELL);   //PASS
-        filters.addFilter("WALDEN", FilterType.WALDEN);   //PASS
-        filters.addFilter("HEFE", FilterType.HEFE);   //PASS
-        filters.addFilter("VALENCIA", FilterType.VALENCIA); //PASS  
-        filters.addFilter("NASHVILLE", FilterType.NASHVILLE);   //PASS
-        filters.addFilter("if1977", FilterType.IF1977);     //PASS
-        filters.addFilter("LORDKELVIN", FilterType.LORDKELVIN);  //PASS		
+     	
           		
           		
-          		
-          		
-        
-
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Choose a filter(total:"+filters.names.size()+" )");
         builder.setItems(filters.names.toArray(new String[filters.names.size()]),
@@ -168,6 +167,8 @@ public class GPUImageFilterTools {
         switch (type) {
         	case NONE:
         		return new GPUImageFilter();
+        	case BEAUTIFUL:
+        		return  new LanSongBeautyFilter(context);
             case CONTRAST:
                 return new GPUImageContrastFilter(2.0f);
             case GAMMA:
@@ -179,7 +180,7 @@ public class GPUImageFilterTools {
             case HUE:
                 return new GPUImageHueFilter(90.0f);
             case BRIGHTNESS:
-                return new GPUImageBrightnessFilter(1.5f);
+                return new GPUImageBrightnessFilter(0.5f);
             case GRAYSCALE:
                 return new GPUImageGrayscaleFilter();
             case SEPIA:
@@ -205,11 +206,6 @@ public class GPUImageFilterTools {
                 centerPoint.x = 0.5f;
                 centerPoint.y = 0.5f;
                 return new GPUImageVignetteFilter(centerPoint, new float[] {0.0f, 0.0f, 0.0f}, 0.3f, 0.75f);
-            case TONE_CURVE:
-                GPUImageToneCurveFilter toneCurveFilter = new GPUImageToneCurveFilter();
-                toneCurveFilter.setFromCurveFileInputStream(
-                        context.getResources().openRawResource(R.raw.tone_cuver_sample));
-                return toneCurveFilter;
             case BLEND_DIFFERENCE:
                 return createBlendFilter(context, GPUImageDifferenceBlendFilter.class);
             case BLEND_SOURCE_OVER:
@@ -348,8 +344,8 @@ public class GPUImageFilterTools {
     }
 
     private enum FilterType {
-        NONE,CONTRAST, GRAYSCALE,  SEPIA,  POSTERIZE, GAMMA, BRIGHTNESS, INVERT, HUE, PIXELATION,
-        SATURATION, EXPOSURE, HIGHLIGHT_SHADOW, MONOCHROME, OPACITY, RGB, WHITE_BALANCE, VIGNETTE, TONE_CURVE, BLEND_COLOR_BURN, BLEND_COLOR_DODGE, BLEND_DARKEN, BLEND_DIFFERENCE,
+        NONE,BEAUTIFUL,CONTRAST, GRAYSCALE,  SEPIA,  POSTERIZE, GAMMA, BRIGHTNESS, INVERT, HUE, PIXELATION,
+        SATURATION, EXPOSURE, HIGHLIGHT_SHADOW, MONOCHROME, OPACITY, RGB, WHITE_BALANCE, VIGNETTE,  BLEND_COLOR_BURN, BLEND_COLOR_DODGE, BLEND_DARKEN, BLEND_DIFFERENCE,
         BLEND_DISSOLVE, BLEND_EXCLUSION, BLEND_SOURCE_OVER, BLEND_HARD_LIGHT, BLEND_LIGHTEN, BLEND_ADD, BLEND_DIVIDE, BLEND_MULTIPLY, BLEND_OVERLAY, BLEND_SCREEN, BLEND_ALPHA,
         BLEND_COLOR, BLEND_HUE, BLEND_SATURATION, BLEND_LUMINOSITY, BLEND_LINEAR_BURN, BLEND_SOFT_LIGHT, BLEND_SUBTRACT, BLEND_CHROMA_KEY, BLEND_NORMAL, LOOKUP_AMATORKA,
         CROSSHATCH, CGA_COLORSPACE, KUWAHARA,  BULGE_DISTORTION, GLASS_SPHERE, HAZE, SPHERE_REFRACTION, SWIRL, FALSE_COLOR, COLOR_BALANCE, LEVELS_FILTER_MIN, HALFTONE,

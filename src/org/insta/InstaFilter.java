@@ -15,7 +15,7 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
-import jp.co.cyberagent.lansongsdk.gpuimage.OpenGlUtils;
+import jp.co.cyberagent.lansongsdk.gpuimage.OpenGLUtils;
 import jp.co.cyberagent.lansongsdk.gpuimage.Rotation;
 import jp.co.cyberagent.lansongsdk.gpuimage.util.TextureRotationUtil;
 
@@ -56,7 +56,7 @@ public abstract class InstaFilter extends GPUImageFilter {
         inputTextureUniforms = new int[textureNum];
         sourceTextures = new int[textureNum];
         for (int i = 0; i < textureNum; i++) {
-            sourceTextures[i] = OpenGlUtils.NO_TEXTURE;
+            sourceTextures[i] = OpenGLUtils.NO_TEXTURE;
         }
         coordinatesBuffers = new ByteBuffer[textureNum];
         bitmaps = new Bitmap[textureNum];
@@ -103,7 +103,7 @@ public abstract class InstaFilter extends GPUImageFilter {
                 GLES20.glDeleteTextures(1, sourceTextures, 0);
 
                 for (int i = 0; i < textureNum; i++) {
-                    sourceTextures[i] = OpenGlUtils.NO_TEXTURE;
+                    sourceTextures[i] = OpenGLUtils.NO_TEXTURE;
                     if (bitmaps[i] != null && !bitmaps[i].isRecycled()) {
                         bitmaps[i].recycle();
                         bitmaps[i] = null;
@@ -138,9 +138,9 @@ public abstract class InstaFilter extends GPUImageFilter {
                 if (bitmap == null || bitmap.isRecycled()) {
                     return;
                 }
-                if (sourceTextures[index] == OpenGlUtils.NO_TEXTURE) {
+                if (sourceTextures[index] == OpenGLUtils.NO_TEXTURE) {
                     GLES20.glActiveTexture(GL_TEXTURES[index]);
-                    sourceTextures[index] = OpenGlUtils.loadTexture(bitmap, OpenGlUtils.NO_TEXTURE, false);
+                    sourceTextures[index] = OpenGLUtils.loadTexture(bitmap, OpenGLUtils.NO_TEXTURE, false);
                 }
             }
         });

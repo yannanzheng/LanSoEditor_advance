@@ -16,17 +16,31 @@
 	        android:layout_height="wrap_content"
 	        android:background="@android:color/transparent" >
 	  
-		  	  <com.example.lansong.animview.ImageTouchView
+		  	  <com.example.lansongeditordemo.view.ImageTouchView
 		        android:id="@+id/switcher"
 		        android:layout_width="match_parent"
 		        android:layout_height="match_parent"
 		        android:layout_centerInParent="true"
 		        android:layout_gravity="center"
 		        android:scaleType="matrix" />
+		  	  
+		  	    <TextView
+		  	       android:id="@+id/id_vview_tvtest"
+		  	       android:layout_width="wrap_content"
+		  	       android:layout_height="wrap_content"
+		  	       android:layout_centerVertical="true"
+		  	       android:layout_alignParentLeft="true"
+		  	       android:background="@color/red"
+		  	       android:text="您还可以增加演示文字"
+		  	       android:textColor="@color/white"
+		  	       android:visibility="gone"
+		  	       android:textSize="28sp"
+	  	       		/>
+		  	    
    	 </com.lansosdk.box.ViewPenRelativeLayout>
    
       <com.example.lansongeditordemo.view.DrawPadView
-            android:id="@+id/id_vview_realtime_DrawPad_view"
+            android:id="@+id/id_vview_realtime_drawpadview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"/>
@@ -57,7 +71,7 @@
          
      
        <LinearLayout 
-           android:layout_below="@id/id_vview_realtime_DrawPad_view"
+           android:layout_below="@id/id_vview_realtime_drawpadview"
     	    android:layout_width="match_parent"
     	    android:layout_height="wrap_content"
     	    android:orientation="vertical">

@@ -6,10 +6,10 @@ import com.example.lansongeditordemo.view.IRenderView;
 import com.example.lansongeditordemo.view.TextureRenderView;
 import com.lansoeditor.demo.R;
 import com.lansosdk.videoeditor.MediaInfo;
-import com.lansosdk.videoeditor.player.IMediaPlayer;
-import com.lansosdk.videoeditor.player.IMediaPlayer.OnPlayerCompletionListener;
-import com.lansosdk.videoeditor.player.VPlayer;
-import com.lansosdk.videoeditor.player.IMediaPlayer.OnPlayerPreparedListener;
+import com.lansosdk.videoplayer.VPlayer;
+import com.lansosdk.videoplayer.VideoPlayer;
+import com.lansosdk.videoplayer.VideoPlayer.OnPlayerCompletionListener;
+import com.lansosdk.videoplayer.VideoPlayer.OnPlayerPreparedListener;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -74,7 +74,10 @@ public class VideoPlayerActivity extends Activity {
          tvScreen.setText(str);
 
          mInfo=new MediaInfo(videoPath,false);
+     	
          if(mInfo.prepare()==false){
+        	 
+        	 Log.i(TAG,"info:"+mInfo.toString());
         	 showHintDialog();
         	 isSupport=false;
          }else{
@@ -144,11 +147,7 @@ public class VideoPlayerActivity extends Activity {
     	if(videoPath==null)
     		return ;
     	
-    	MediaInfo info=new MediaInfo(videoPath);
-    	if(info.prepare()==false){
-    		return ;
-    	}
-    	Log.i(TAG,"info:"+info.toString());
+    
     	
         mediaPlayer = new MediaPlayer();  
         mediaPlayer.reset();  
@@ -169,8 +168,6 @@ public class VideoPlayerActivity extends Activity {
 				mediaPlayer.setSurface(surface);  
 		        mediaPlayer.prepare();  
 		        
-		        Log.i("sno","mediaPlayer.getVideoWidth(), mediaPlayer.getVideoHeight()"+mediaPlayer.getVideoWidth()+mediaPlayer.getVideoHeight());
-		       
 		        
 		      //因为是竖屏.宽度小于高度.
 		        if(screenWidth>mInfo.vWidth){
@@ -199,20 +196,30 @@ public class VideoPlayerActivity extends Activity {
     	vplayer.setOnPreparedListener(new OnPlayerPreparedListener() {
     			
     			@Override
-    			public void onPrepared(IMediaPlayer mp) {
+    			public void onPrepared(VideoPlayer mp) {
     				// TODO Auto-generated method stub
     						vplayer.setSurface(surface);
-    						 Log.i("sno","mediaPlayer.getVideoWidth(), mediaPlayer.getVideoHeight()"+mp.getVideoWidth()+mp.getVideoHeight());
+    					      
+    						  //因为是竖屏.宽度小于高度.
+    					        if(screenWidth>mInfo.vWidth){
+    					        	tvSizeHint.setText(R.string.origal_width);
+    					        	textureView.setDispalyRatio(IRenderView.AR_ASPECT_WRAP_CONTENT);
+    					        	
+    					        }else{  //大于屏幕的宽度
+    					        	tvSizeHint.setText(R.string.fix_width);
+    					        	textureView.setDispalyRatio(IRenderView.AR_ASPECT_FIT_PARENT);
+    					        }
     					        
-    					    textureView.setVideoSize(mp.getVideoWidth(), mp.getVideoHeight());
-    				        textureView.requestLayout();
+    					        textureView.setVideoSize(mp.getVideoWidth(), mp.getVideoHeight());
+    					        textureView.requestLayout();
+    					        
     				        vplayer.start();
     					}
     			});
     	vplayer.setOnCompletionListener(new OnPlayerCompletionListener() {
 			
 			@Override
-			public void onCompletion(IMediaPlayer mp) {
+			public void onCompletion(VideoPlayer mp) {
 				// TODO Auto-generated method stub
 				Log.i(TAG,"vplayer --------------oncompletion-----!");
 			}

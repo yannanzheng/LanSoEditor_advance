@@ -8,9 +8,7 @@ import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
 
 import com.example.lansongeditordemo.view.MarkArrowView;
 import com.lansoeditor.demo.R;
-import com.lansosdk.box.AudioEncodeDecode;
 import com.lansosdk.box.DrawPadUpdateMode;
-import com.lansosdk.box.AudioMixManager;
 import com.lansosdk.box.VideoPen;
 import com.lansosdk.box.ViewPen;
 import com.lansosdk.box.Pen;
@@ -19,9 +17,6 @@ import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
-import com.lansosdk.videoeditor.player.IMediaPlayer;
-import com.lansosdk.videoeditor.player.IMediaPlayer.OnPlayerPreparedListener;
-import com.lansosdk.videoeditor.player.VPlayer;
 
 import android.app.Activity;
 import android.content.Context;
@@ -60,7 +55,7 @@ public class VideoRemarkActivity extends Activity{
 
     private String mVideoPath;
 
-    private MarkArrowView mPlayView;
+    private MarkArrowView mDrawPadView;
     
     private MediaPlayer mplayer=null;
     
@@ -81,7 +76,7 @@ public class VideoRemarkActivity extends Activity{
         
         Log.i(TAG,"videopath:"+mVideoPath);
         
-        mPlayView = (MarkArrowView) findViewById(R.id.markarrow_view);
+        mDrawPadView = (MarkArrowView) findViewById(R.id.markarrow_view);
         
         findViewById(R.id.id_markarrow_saveplay).setOnClickListener(new OnClickListener() {
 			
@@ -102,6 +97,7 @@ public class VideoRemarkActivity extends Activity{
         //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
         editTmpPath=SDKFileUtils.createFile(SDKDir.TMP_DIR, ".mp4");
         dstPath=SDKFileUtils.newFilePath(SDKDir.TMP_DIR, ".mp4");
+        
         
         //增加提示缩放到480的文字.
         DemoUtils.showScale480HintDialog(VideoRemarkActivity.this);
@@ -160,17 +156,17 @@ public class VideoRemarkActivity extends Activity{
     	MediaInfo info=new MediaInfo(mVideoPath);
     	if(info.prepare())
     	{
-    		mPlayView.setUpdateMode(DrawPadUpdateMode.ALL_VIDEO_READY,25);
-        	
-        	mPlayView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
-        	mPlayView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
+    		
+    		mDrawPadView.setUseMainVideoPts(true);
+        	mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
+        	mDrawPadView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
     			
     			@Override
     			public void onSizeChanged(int viewWidth, int viewHeight) {
     				// TODO Auto-generated method stub
-    				mPlayView.startDrawPad(null,null);
+    				mDrawPadView.startDrawPad(null,null);
     				
-    				mPenMain=mPlayView.addMainVideoPen(mplayer.getVideoWidth(),mplayer.getVideoHeight());
+    				mPenMain=mDrawPadView.addMainVideoPen(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
     				if(mPenMain!=null){
     					mplayer.setSurface(new Surface(mPenMain.getVideoTexture()));
     				}
@@ -184,8 +180,8 @@ public class VideoRemarkActivity extends Activity{
     //Step3: 增加完成后, 停止画板DrawPad
     private void stopDrawPad()
     {
-    	if(mPlayView!=null && mPlayView.isRunning()){
-			mPlayView.stopDrawPad();
+    	if(mDrawPadView!=null && mDrawPadView.isRunning()){
+			mDrawPadView.stopDrawPad();
 			
 			toastStop();
 			
@@ -213,9 +209,9 @@ public class VideoRemarkActivity extends Activity{
 			mplayer.release();
 			mplayer=null;
 		}
-		if(mPlayView!=null){
-			mPlayView.stopDrawPad();
-			mPlayView=null;        		   
+		if(mDrawPadView!=null){
+			mDrawPadView.stopDrawPad();
+			mDrawPadView=null;        		   
 		}
 		if(SDKFileUtils.fileExist(editTmpPath)){
 			SDKFileUtils.deleteFile(editTmpPath);

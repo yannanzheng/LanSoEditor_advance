@@ -16,7 +16,7 @@
 	        android:layout_height="wrap_content"
 	        android:background="@android:color/transparent" >
 	  
-		  	  <com.example.lansong.animview.ImageTouchView
+		  	  <com.example.lansongeditordemo.view.ImageTouchView
 		        android:id="@+id/id_vauto_demo_touchview"
 		        android:layout_width="match_parent"
 		        android:layout_height="match_parent"

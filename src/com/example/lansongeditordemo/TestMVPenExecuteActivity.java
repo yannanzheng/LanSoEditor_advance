@@ -19,7 +19,7 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.lansong.animview.ShowHeart;
+import com.example.lansongeditordemo.view.ShowHeart;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.BitmapPen;
 import com.lansosdk.box.CanvasRunnable;
@@ -29,7 +29,6 @@ import com.lansosdk.box.DrawPadVideoExecute;
 import com.lansosdk.box.MVPenDrawPadExecute;
 import com.lansosdk.box.VideoPen;
 import com.lansosdk.box.ViewPen;
-import com.lansosdk.box.FilterExecute;
 import com.lansosdk.box.onDrawPadCompletedListener;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.videoeditor.LanSoEditor;
@@ -164,7 +163,7 @@ public class TestMVPenExecuteActivity extends Activity{
 		
 		isExecuting=true;
 		//创建在后台调用DrawPad来处理视频的构造方法.
-		 vDrawPad=new MVPenDrawPadExecute(TestMVPenExecuteActivity.this,videoPath,480,480,25,1000000,editTmpPath);
+		 vDrawPad=new MVPenDrawPadExecute(TestMVPenExecuteActivity.this,videoPath,480,480,25,1000000,null,editTmpPath);
 		
 		 
 		 vDrawPad.setUseMainVideoPts(true); //使用主视频的pts作为目标视频的pts

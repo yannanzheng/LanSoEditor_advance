@@ -36,9 +36,9 @@ import java.util.Map;
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 
 import com.lansosdk.box.BitmapPen;
+import com.lansosdk.box.CameraPen;
 import com.lansosdk.box.CanvasPen;
 import com.lansosdk.box.MVPen;
-import com.lansosdk.box.VideoFilterPen;
 import com.lansosdk.box.Pen;
 import com.lansosdk.box.DrawPadUpdateMode;
 import com.lansosdk.box.DrawPadViewRender;
@@ -328,6 +328,14 @@ public class DrawPadView extends FrameLayout {
             requestLayout();
         }
 	}
+	private onDrawPadProgressListener drawpadProgressListener=null;
+	public void setDrawPadProgressListener(onDrawPadProgressListener listener){
+		drawpadProgressListener=listener;
+	}
+	private onDrawPadCompletedListener drawpadCompletedListener=null;
+	public void setDrawPadCompletedListener(onDrawPadCompletedListener listener){
+		drawpadCompletedListener=listener;
+	}
 
 	/**
 	 * 开始DrawPad的渲染线程. 
@@ -337,12 +345,14 @@ public class DrawPadView extends FrameLayout {
 	 * @param progresslistener
 	 * @param completedListener
 	 */
-	public void startDrawPad(onDrawPadProgressListener progresslistener,onDrawPadCompletedListener completedListener)
+	public void startDrawPad(onDrawPadProgressListener progressListener,onDrawPadCompletedListener completedListener)
 	{
 		 if( mSurfaceTexture!=null)
          {
- 			renderer=new DrawPadViewRender(getContext(), viewWidth, viewHeight);  //<----从这里去建立DrawPad线程.
+			 renderer=new DrawPadViewRender(getContext(), viewWidth, viewHeight);  //<----从这里去建立DrawPad线程.
  			if(renderer!=null){
+ 				
+ 				renderer.setUseMainVideoPts(isUseMainPts);
  				//因为要预览,这里设置显示的Surface,当然如果您有特殊情况需求,也可以不用设置,但displayersurface和EncoderEnable要设置一个,DrawPadRender才可以工作.
  				renderer.setDisplaySurface(new Surface(mSurfaceTexture));
  				
@@ -351,11 +361,56 @@ public class DrawPadView extends FrameLayout {
  				renderer.setUpdateMode(mUpdateMode,mAutoFlushFps);
  				
  				 //设置DrawPad处理的进度监听, 回传的currentTimeUs单位是微秒.
- 				renderer.setDrawPadProgressListener(progresslistener);
+ 				renderer.setDrawPadProgressListener(progressListener);
  				renderer.setDrawPadCompletedListener(completedListener);
  				
  				renderer.startDrawPad();
+ 			}
+         }
+	}
+	public void startDrawPad(boolean pauseRecord)
+	{
+		 if( mSurfaceTexture!=null)
+         {
+			 renderer=new DrawPadViewRender(getContext(), viewWidth, viewHeight);  //<----从这里去建立DrawPad线程.
+ 			if(renderer!=null){
  				
+ 				renderer.setUseMainVideoPts(isUseMainPts);
+ 				//因为要预览,这里设置显示的Surface,当然如果您有特殊情况需求,也可以不用设置,但displayersurface和EncoderEnable要设置一个,DrawPadRender才可以工作.
+ 				renderer.setDisplaySurface(new Surface(mSurfaceTexture));
+ 				
+ 				renderer.setEncoderEnable(encWidth,encHeight,encBitRate,encFrameRate,encodeOutput);
+ 				
+ 				renderer.setUpdateMode(mUpdateMode,mAutoFlushFps);
+ 				
+ 				 //设置DrawPad处理的进度监听, 回传的currentTimeUs单位是微秒.
+ 				renderer.setDrawPadProgressListener(drawpadProgressListener);
+ 				renderer.setDrawPadCompletedListener(drawpadCompletedListener);
+ 				
+ 				renderer.startDrawPad();
+ 			}
+         }
+	}
+	public void startDrawPad()
+	{
+		 if( mSurfaceTexture!=null)
+         {
+			 renderer=new DrawPadViewRender(getContext(), viewWidth, viewHeight);  //<----从这里去建立DrawPad线程.
+ 			if(renderer!=null){
+ 				
+ 				renderer.setUseMainVideoPts(isUseMainPts);
+ 				//因为要预览,这里设置显示的Surface,当然如果您有特殊情况需求,也可以不用设置,但displayersurface和EncoderEnable要设置一个,DrawPadRender才可以工作.
+ 				renderer.setDisplaySurface(new Surface(mSurfaceTexture));
+ 				
+ 				renderer.setEncoderEnable(encWidth,encHeight,encBitRate,encFrameRate,encodeOutput);
+ 				
+ 				renderer.setUpdateMode(mUpdateMode,mAutoFlushFps);
+ 				
+ 				 //设置DrawPad处理的进度监听, 回传的currentTimeUs单位是微秒.
+ 				renderer.setDrawPadProgressListener(drawpadProgressListener);
+ 				renderer.setDrawPadCompletedListener(drawpadCompletedListener);
+ 				
+ 				renderer.startDrawPad();
  			}
          }
 	}
@@ -367,7 +422,7 @@ public class DrawPadView extends FrameLayout {
 	public void pauseDrawPad()
 	{
 		if(renderer!=null){
-			renderer.pauseUpdateDrawPad();
+			renderer.pauseRefreshDrawPad();
 		}
 	}
 	/**
@@ -376,7 +431,19 @@ public class DrawPadView extends FrameLayout {
 	public void resumeDrawPad()
 	{
 		if(renderer!=null){
-			renderer.resumeUpdateDrawPad();
+			renderer.resumeRefreshDrawPad();
+		}
+	}
+	public void pauseDrawPadRecord()
+	{
+		if(renderer!=null){
+			renderer.pauseRecordDrawPad();
+		}
+	}
+	public void resumeDrawPadRecord()
+	{
+		if(renderer!=null){
+			renderer.resumeRecordDrawPad();
 		}
 	}
 	/**
@@ -386,11 +453,10 @@ public class DrawPadView extends FrameLayout {
     * 
     * 注意:需要在DrawPad开始前使用.
     */
+	private boolean isUseMainPts=false;
     public void setUseMainVideoPts(boolean use)
     {
-    	if(renderer!=null){
-    		renderer.setUseMainVideoPts(use);
-    	}
+    	isUseMainPts=use;
     }
 	/**
 	 * 当前DrawPad是否在工作.
@@ -440,35 +506,14 @@ public class DrawPadView extends FrameLayout {
 	 * @param height  主视频的画面高度 
 	 * @return
 	 */
-	public VideoPen addMainVideoPen(int width, int height)
+	public VideoPen addMainVideoPen(int width, int height,GPUImageFilter filter)
     {
 		VideoPen ret=null;
 	    
 		if(renderer!=null)
-			ret=renderer.addMainVideoPen(width, height);
+			ret=renderer.addMainVideoPen(width, height,filter);
 		else{
 			Log.e(TAG,"setMainVideoPen error render is not avalid");
-		}
-		return ret;
-    }
-	/**
-	 * 为视频获取一个滤镜效果的Pen(FilterPen), 这样可以投递到DrawPad中的视频做滤镜处理,比如美颜,小清新等.
-	 * 
-	 * 注意:此方法一定在 startDrawPad之后,在stopDrawPad之前调用.
-	 * 
-	 * @param width  视频的宽度.
-	 * @param height 视频的高度
-	 * @param filter  滤镜对象.如果您需要在DrawPad中切换滤镜, 可以通过{@link #switchFilterTo(FilterPen, GPUImageFilter)}来完成.
-	 * @return  返回创建好的FilterPen对象.
-	 */
-	public VideoFilterPen addFilterPen(int width, int height,GPUImageFilter filter)
-    {
-		VideoFilterPen ret=null;
-	    
-		if(renderer!=null)
-			ret=renderer.addVideoFilterPen(width, height,filter);
-		else{
-			Log.e(TAG,"obtainFilterPen error render is not avalid");
 		}
 		return ret;
     }
@@ -482,14 +527,31 @@ public class DrawPadView extends FrameLayout {
 	 * @param height 视频的高度
 	 * @return  VideoPen对象
 	 */
-	public VideoPen addSubVideoPen(int width, int height)
+	public VideoPen addVideoPen(int width, int height,GPUImageFilter filter)
 	{
 		if(renderer!=null)
-			return renderer.addVideoPen(width,  height);
+			return renderer.addVideoPen(width,  height,filter);
 		else{
 			Log.e(TAG,"obtainSubVideoPen error render is not avalid");
 			return null;
 		}
+	}
+	/**
+	 * 
+	 * @param degree  当前窗口Activity的角度, 可用我们的BoxUtils中的方法获取.
+	 * @param filter  当前使用到的滤镜 ,如果不用, 则可以设置为null
+	 * @return
+	 */
+	public CameraPen addCameraPen(int degree,GPUImageFilter filter)
+	{
+			CameraPen ret=null;
+		    
+			if(renderer!=null)
+				ret=renderer.addCameraPen(degree,filter);
+			else{
+				Log.e(TAG,"setMainVideoPen error render is not avalid");
+			}
+			return ret;
 	}
 	/**
 	 * 获取一个BitmapPen
@@ -557,12 +619,12 @@ public class DrawPadView extends FrameLayout {
 	  * 注意:此方法一定在 startDrawPad之后,在stopDrawPad之前调用.
 	  * @param Pen
 	  */
-	public void removePen(Pen Pen)
+	public void removePen(Pen pen)
 	{
-		if(Pen!=null)
+		if(pen!=null)
 		{
 			if(renderer!=null)
-				renderer.removePen(Pen);
+				renderer.removePen(pen);
 			else{
 				Log.w(TAG,"removePen error render is not avalid");
 			}
@@ -574,9 +636,9 @@ public class DrawPadView extends FrameLayout {
 	 * @param filter  要切换到的滤镜对象.
 	 * @return 切换成功,返回true; 失败返回false
 	 */
-	   public boolean  switchFilterTo(VideoFilterPen Pen, GPUImageFilter filter) {
+	   public boolean  switchFilterTo(Pen pen, GPUImageFilter filter) {
 	    	if(renderer!=null){
-	    		return renderer.switchFilterTo(Pen, filter);
+	    		return renderer.switchFilter(pen, filter);
 	    	}
     		return false;
 	    }

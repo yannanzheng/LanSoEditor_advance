@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">LanSongEditorDEMO</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name">视频编辑高级版本DEMO</string>
 
     <string name="message_granted">All permissions have been granted.</string>
     <string name="message_denied">Permission \"%1$s\" has been denied.</string>
+    <string name="permission_hint">您没有打开Demo所需要的权限,请退出后重新启动.或在系统设置里打开权限!.</string>
     
      <string name="lansong_hint">杭州蓝松科技有限公司\n   专业的视频处理SDK开发团队.</string>
     <string name="sdk_limit">SDK版本号是\"%1$s\" [商用版本]\n\nSDK底层做了授权限制,仅可在此demo中运行,并有效时间到 \"%2$d\"年 \"%3$d\"月之前,请注意.</string>
@@ -43,7 +42,7 @@
 	
 	<string name="gaobai_hint">\n增加一个 ViewPen(UI画笔)到画板上.</string>
 		<string name="mvpen_hint">\n增加一个 VideoPen和 MVPen画笔 到  DrawPad 画板上.</string>
-		
+		<string name="camerapen_hint">\n增加一个 CameraPen到  DrawPad 画板上[临时演示用, 后续会增加滤镜等].</string>
 		
 	   <string name="gaobai_1">认识你</string>
 <string name="gaobai_2">一定是命运的安排</string>
@@ -135,7 +134,7 @@
 	<string name="demo_more_videoscale_hard">演示宽高缩小一半,采用硬缩放的形式来做\n流程是硬解码  软件缩放  硬编码</string>
 	<string name="demo_more_videowatermark">增加水印,增加一张demo自动的logo图片到视频中</string>
 	<string name="demo_more_videocropwatermark">裁剪和加水印,裁剪画面的同时增加一张logo图片</string>
-	<string name="demo_more_videogetframes">获取所有帧图片,保存在/sdcard下面</string>
+	<string name="demo_more_videogetframes">获取所有帧图片,保存在/sdcard/lansongBox/下面</string>
 	<string name="demo_more_videogetoneframe">获取一帧图片,保存在/sdcard/lansongbox/下面</string>
 	<string name="demo_more_videozeroangle">视频矫正角度,把原来已经有的视频角度矫正过来.</string>
 	<string name="demo_more_videoclockwise90">视频旋转90度</string>

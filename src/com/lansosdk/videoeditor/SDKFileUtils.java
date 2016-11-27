@@ -35,6 +35,7 @@ public class SDKFileUtils {
 			int second=c.get(Calendar.SECOND);
 			int millisecond=c.get(Calendar.MILLISECOND);
 			year=year-2000;
+			month+=1;  //month是从0开始的,这里加1
 			String name=dir;
 			File d = new File(name);
 			

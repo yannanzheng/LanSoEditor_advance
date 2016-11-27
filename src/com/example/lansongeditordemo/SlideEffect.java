@@ -24,9 +24,9 @@ public class SlideEffect {
 	 * @param glwidth
 	 * @param glheight
 	 */
-	public SlideEffect(Pen Pen,int fps,long startMS,long endMS,boolean needRelease)
+	public SlideEffect(Pen pen,int fps,long startMS,long endMS,boolean needRelease)
 	{
-		mPen=Pen;
+		mPen=pen;
 		mStartMS=startMS;
 		mEndMS=endMS;
 		viewWidth=mPen.getWidth();

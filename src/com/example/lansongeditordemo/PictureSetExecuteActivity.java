@@ -195,7 +195,7 @@ public class PictureSetExecuteActivity extends Activity{
 		
 			vDrawPad.startDrawPad();
 			//可以在后台处理过程中,暂停画面的走动.比如想一次性获取多个Pen对象后,在让DrawPad执行,这样比在画面走动中获取更精确一些.
-			vDrawPad.pauseUpdateDrawPad(); 
+			vDrawPad.pauseRefreshDrawPad(); 
 		
 			//设置一个背景,
 			vDrawPad.addBitmapPen(BitmapFactory.decodeFile(picBackGround));
@@ -209,7 +209,7 @@ public class PictureSetExecuteActivity extends Activity{
 	      getPenToArray(R.drawable.pic4,15000,20000);  //15---20秒
 	      getPenToArray(R.drawable.pic5,20000,25000);  //20---25秒
 	      //获取完Pen后,再次恢复DrawPad,让其工作.
-	      vDrawPad.resumeUpdateDrawPad();
+	      vDrawPad.resumeRefreshDrawPad();
 	}
 	  private void getPenToArray(int resId,long startMS,long endMS)
 	    {

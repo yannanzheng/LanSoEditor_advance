@@ -9,8 +9,7 @@ import java.util.Locale;
 import com.anthonycr.grant.PermissionsManager;
 import com.anthonycr.grant.PermissionsResultAction;
 import com.lansoeditor.demo.R;
-import com.lansosdk.box.AudioEncodeDecode;
-import com.lansosdk.box.AudioPen;
+import com.lansosdk.box.LanSoEditorBox;
 import com.lansosdk.commonDemo.CommonDemoActivity;
 import com.lansosdk.videoeditor.CopyFileFromAssets;
 import com.lansosdk.videoeditor.LanSoEditor;
@@ -68,6 +67,10 @@ public class MainActivity extends Activity implements OnClickListener{
         LoadLanSongSdk.loadLibraries();  //拿出来单独加载库文件.
         LanSoEditor.initSo(getApplicationContext(),null);
         
+        
+//        LanSoEditorBox.setTempFileDir(tmpDir);
+    	//因为从android6.0系统有各种权限的限制, 这里开始先检查是否有读写的权限,PermissionsManager采用github上开源库,不属于我们sdk的一部分.
+		 //下载地址是:https://github.com/anthonycr/Grant,您也可以使用别的方式来检查app所需权限.
         PermissionsManager.getInstance().requestAllManifestPermissionsIfNecessary(this, new PermissionsResultAction() {
             @Override
             public void onGranted() {
@@ -85,10 +88,15 @@ public class MainActivity extends Activity implements OnClickListener{
         
         tvVideoPath=(TextView)findViewById(R.id.id_main_tvvideo);
         
-        //others videos test. 以下固定视频仅测试使用,
+        //以下固定视频仅测试使用.
 //        tvVideoPath.setText("/sdcard/VIDEO_36minute.mp4");
 //        tvVideoPath.setText("/sdcard/VIDEO_90du.mp4");
 //        tvVideoPath.setText("/sdcard/VIDEO_270du.mp4");
+        
+        
+        findViewById(R.id.id_main_segmentrecorder).setOnClickListener(this);
+        findViewById(R.id.id_main_camerapen).setOnClickListener(this);
+        
         
         findViewById(R.id.id_main_viewpendemo1).setOnClickListener(this);
         findViewById(R.id.id_main_viewremark).setOnClickListener(this);
@@ -130,39 +138,6 @@ public class MainActivity extends Activity implements OnClickListener{
         
     	showHintDialog();
     }
-    private boolean isStarted=false;
-    @Override
-    protected void onResume() {
-    	// TODO Auto-generated method stub
-    	super.onResume();
-    	if(isStarted)
-    		return;
-    	
-    	 new Handler().postDelayed(new Runnable() {
- 			
- 			@Override
- 			public void run() {
- 				// TODO Auto-generated method stub
- 				isStarted=true;
- 				
- 				
- 				//below is test demo.
-// 				startVideoFilterDemo(); 
-// 				startFilterExecuteActivity();
- 			 
-// 				startVideoEditDemo();
- 			
-// 				String path=etVideoPath.getText().toString();
-// 		    	Intent intent=new Intent(MainActivity.this,ScaleExecuteActivity.class);
-// 		    	intent.putExtra("videopath", path);
-// 		    	startActivity(intent);
- 		    	
-// 				String path=etVideoPath.getText().toString();
-// 				DrawPadDemoActivity.intentTo(MainActivity.this, path);
-// 				startExecuteDemo(DrawPadExecuteActivity.class);
- 			}
- 		}, 1000);
-    }
     private void showHintDialog()
    	{
       	 	
@@ -189,8 +164,20 @@ public class MainActivity extends Activity implements OnClickListener{
    		})
            .show();
    	}
-
-    
+    private void showHintDialog(int stringId)
+   	{
+      new AlertDialog.Builder(this)
+   		.setTitle("提示")
+   		.setMessage(stringId)
+           .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+   			
+   			@Override
+   			public void onClick(DialogInterface dialog, int which) {
+   				// TODO Auto-generated method stub
+   			}
+   		})
+           .show();
+   	}
     @Override
     protected void onDestroy() {
     	// TODO Auto-generated method stub
@@ -198,7 +185,6 @@ public class MainActivity extends Activity implements OnClickListener{
     	LanSoEditor.unInitSo();
     	SDKFileUtils.deleteDir(new File(SDKDir.TMP_DIR));
     }
-    
     
     private boolean checkPath(){
     	if(tvVideoPath.getText()!=null && tvVideoPath.getText().toString().isEmpty()){
@@ -227,21 +213,27 @@ public class MainActivity extends Activity implements OnClickListener{
 			if(checkPath()==false)
 				return;
 			switch (v.getId()) {
+				case R.id.id_main_segmentrecorder:
+					startDemoActivity(SegmentRecorderActivity.class);
+					break;
+				case R.id.id_main_camerapen:
+					startDemoActivity(CameraPenDemoActivity.class);
+					break;
 				case R.id.id_main_viewpendemo1:
-					startDemoActivity(VViewDrawImageDemoActivity.class);
+					startDemoActivity(VideoViewPenDemoActivity.class);
 //					startDemoActivity(VideoPenAutoUpdateDemoActivity.class);
 					break;
 				case R.id.id_main_viewremark:
 					startDemoActivity(VideoRemarkActivity.class);
 					break;
 				case R.id.id_main_viewpendemo2:
-					startDemoActivity(ViewPenRealTimeActivity.class);
+					startDemoActivity(ViewPenOnlyRealTimeActivity.class);
 					break;
 				case R.id.id_main_canvaspendemo:
 					startDemoActivity(CanvasPenDemoActivity.class);
-					break;
+					break; 
 				case R.id.id_main_videofilterdemo:
-					startDemoActivity(FilterPenRealTimeActivity.class);
+					startDemoActivity(VideoFilterDemoRealTimeActivity.class);
 					break;
 				case R.id.id_main_mvpendemo:
 					startDemoActivity(MVPenDemoActivity.class);
@@ -256,7 +248,7 @@ public class MainActivity extends Activity implements OnClickListener{
 					startDemoActivity(VideoPictureRealTimeActivity.class);
 					break;
 				case R.id.id_main_drawpadexecute_filter:
-					startDemoActivity(FilterPenExecuteActivity.class);
+					startDemoActivity(FilterDemoExecuteActivity.class);
 					break;
 				case R.id.id_main_drawpadpictureexecute:
 					startDemoActivity(VideoPictuerExecuteActivity.class);
@@ -270,9 +262,10 @@ public class MainActivity extends Activity implements OnClickListener{
 				default:
 					break;
 			}
+		}else{
+			showHintDialog(R.string.permission_hint);
 		}
 	}
-
 	//-----------------------------
 	 private final static int SELECT_FILE_REQUEST_CODE=10;
 	  	private void startSelectVideoActivity()

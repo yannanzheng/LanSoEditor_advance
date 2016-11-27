@@ -214,7 +214,7 @@ public class DemoFunctions {
 		MediaInfo   info=new MediaInfo(srcVideo);
     	if(info.prepare())
     	{
-    		return editor.executeGetAllFrames(srcVideo,info.vCodecName,"/sdcard/","img");
+    		return editor.executeGetAllFrames(srcVideo,info.vCodecName,SDKDir.TMP_DIR,"img");
     	}else{
     		return -1;
     	}

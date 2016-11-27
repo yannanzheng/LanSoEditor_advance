@@ -22,9 +22,6 @@ import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
-import com.lansosdk.videoeditor.player.IMediaPlayer;
-import com.lansosdk.videoeditor.player.IMediaPlayer.OnPlayerPreparedListener;
-import com.lansosdk.videoeditor.player.VPlayer;
 
 import android.app.Activity;
 import android.content.Context;
@@ -69,7 +66,7 @@ public class PictureSetRealTimeActivity extends Activity{
     private static final String TAG = "VideoActivity";
 
 
-    private DrawPadView mPlayView;
+    private DrawPadView mDrawPadView;
     
     
     private ArrayList<SlideEffect>  slideEffectArray;
@@ -87,7 +84,7 @@ public class PictureSetRealTimeActivity extends Activity{
         setContentView(R.layout.picture_set_layout);
         
         
-        mPlayView = (DrawPadView) findViewById(R.id.DrawPad_view);
+        mDrawPadView = (DrawPadView) findViewById(R.id.DrawPad_view);
         
         
         findViewById(R.id.id_DrawPad_saveplay).setOnClickListener(new OnClickListener() {
@@ -126,18 +123,18 @@ public class PictureSetRealTimeActivity extends Activity{
     private void start()
     {
 		//设置为自动刷新模式, 帧率为25
-    	mPlayView.setUpdateMode(DrawPadUpdateMode.AUTO_FLUSH,25);
+    	mDrawPadView.setUpdateMode(DrawPadUpdateMode.AUTO_FLUSH,25);
     	//使能实时录制,并设置录制后视频的宽度和高度, 码率, 帧率,保存路径.
-    	mPlayView.setRealEncodeEnable(480,480,1000000,(int)25,dstPath);
+    	mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)25,dstPath);
     	
     	//设置DrawPad的宽高, 这里设置为480x480,如果您已经在xml中固定大小,则不需要再次设置,
     	//可以直接调用startDrawPad来开始录制.
-    	mPlayView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
+    	mDrawPadView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
 			
 			@Override
 			public void onSizeChanged(int viewWidth, int viewHeight) {
 				// TODO Auto-generated method stub
-				mPlayView.startDrawPad(new DrawPadProgressListener(),new DrawPadCompleted());
+				mDrawPadView.startDrawPad(new DrawPadProgressListener(),new DrawPadCompleted());
 				
 					isStarted=true;
 				
@@ -154,7 +151,7 @@ public class PictureSetRealTimeActivity extends Activity{
 			    	  CopyFileFromAssets.copy(mContext, "pic720x720.jpg", SDKDir.TMP_DIR, "picname.jpg");
 			      }
 			      //先 获取第一张Bitmap的Pen, 因为是第一张,放在DrawPad中维护的数组的最下面, 认为是背景图片.
-			      mPlayView.addBitmapPen(BitmapFactory.decodeFile(picPath));
+			      mDrawPadView.addBitmapPen(BitmapFactory.decodeFile(picPath));
 			      
 			      slideEffectArray=new ArrayList<SlideEffect>();
 			      
@@ -168,7 +165,7 @@ public class PictureSetRealTimeActivity extends Activity{
 		});
     	
     	//这里仅仅是举例,当界面再次返回的时候,依旧显示图片更新的动画效果,即重新开始DrawPad
-    	mPlayView.setOnViewAvailable(new onViewAvailable() {
+    	mDrawPadView.setOnViewAvailable(new onViewAvailable() {
 			
 			@Override
 			public void viewAvailable(DrawPadView v) {
@@ -176,8 +173,8 @@ public class PictureSetRealTimeActivity extends Activity{
 				if(isStarted){
 				    
 				      String picPath=SDKDir.TMP_DIR+"/"+"picname.jpg";   
-				      mPlayView.startDrawPad(new DrawPadProgressListener(),new DrawPadCompleted());
-					  mPlayView.addBitmapPen(BitmapFactory.decodeFile(picPath));
+				      mDrawPadView.startDrawPad(new DrawPadProgressListener(),new DrawPadCompleted());
+					  mDrawPadView.addBitmapPen(BitmapFactory.decodeFile(picPath));
 				      
 				      slideEffectArray=new ArrayList<SlideEffect>();
 				      
@@ -195,7 +192,7 @@ public class PictureSetRealTimeActivity extends Activity{
     private boolean isStarted=false; //是否已经播放过了.
     private void getFifthPen(int resId,long startMS,long endMS)
     {
-    	Pen item=mPlayView.addBitmapPen(BitmapFactory.decodeResource(getResources(), resId));
+    	Pen item=mDrawPadView.addBitmapPen(BitmapFactory.decodeResource(getResources(), resId));
 		SlideEffect  slide=new SlideEffect(item, 25, startMS, endMS, true);
 		slideEffectArray.add(slide);
 		
@@ -227,7 +224,7 @@ public class PictureSetRealTimeActivity extends Activity{
 			
 			  if(currentTimeUs>=26*1000*1000)  //26秒.多出一秒,让图片走完.
 			  {
-				  mPlayView.stopDrawPad();
+				  mDrawPadView.stopDrawPad();
 			  }
 			  
 //			  Log.i(TAG,"current time Us "+currentTimeUs);
@@ -257,9 +254,9 @@ public class PictureSetRealTimeActivity extends Activity{
 	   		 slideEffectArray=null;
     	}
     	
-    	if(mPlayView!=null){
-    		mPlayView.stopDrawPad();
-    		mPlayView=null;        		   
+    	if(mDrawPadView!=null){
+    		mDrawPadView.stopDrawPad();
+    		mDrawPadView=null;        		   
     	}
     	
     	if(SDKFileUtils.fileExist(dstPath)){

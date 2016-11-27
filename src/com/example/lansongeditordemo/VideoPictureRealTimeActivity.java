@@ -5,9 +5,9 @@ import java.util.Locale;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 
-import com.example.lansong.animview.BitmapCache;
-import com.example.lansong.animview.ShowHeart;
+import com.example.lansongeditordemo.view.BitmapCache;
 import com.example.lansongeditordemo.view.DrawPadView;
+import com.example.lansongeditordemo.view.ShowHeart;
 import com.example.lansongeditordemo.view.DrawPadView.onViewAvailable;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.BitmapPen;
@@ -62,7 +62,7 @@ public class VideoPictureRealTimeActivity extends Activity implements OnSeekBarC
 
     private String mVideoPath;
 
-    private DrawPadView mPlayView;
+    private DrawPadView mDrawPadView;
     
     private MediaPlayer mplayer=null;
     private MediaPlayer mplayer2=null;
@@ -82,7 +82,7 @@ public class VideoPictureRealTimeActivity extends Activity implements OnSeekBarC
         setContentView(R.layout.drawpad_layout);
         
         mVideoPath = getIntent().getStringExtra("videopath");
-        mPlayView = (DrawPadView) findViewById(R.id.DrawPad_view);
+        mDrawPadView = (DrawPadView) findViewById(R.id.DrawPad_view);
         
         initSeekBar(R.id.id_DrawPad_skbar_rotate,360); //角度是旋转360度,如果值大于360,则取360度内剩余的角度值.
         initSeekBar(R.id.id_DrawPad_skbar_move,100);   
@@ -167,9 +167,9 @@ public class VideoPictureRealTimeActivity extends Activity implements OnSeekBarC
 					// TODO Auto-generated method stub
 					
 					//completion不确定会在什么时候停，故需要判断是否为null
-					if(mPlayView!=null && mPlayView.isRunning()){
+					if(mDrawPadView!=null && mDrawPadView.isRunning()){
 						
-						mPlayView.stopDrawPad();
+						mDrawPadView.stopDrawPad();
 						
 						toastStop();
 						
@@ -209,18 +209,17 @@ public class VideoPictureRealTimeActivity extends Activity implements OnSeekBarC
     		MediaInfo info=new MediaInfo(mVideoPath,false);
         	info.prepare();
         	
-        	if(DemoCfg.ENCODE){
         		//设置使能 实时录制, 即把正在DrawPad中呈现的画面实时的保存下来,实现所见即所得的模式
-        		mPlayView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
-        	}
-        	//设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
-    		mPlayView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
+        		mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
+
+        		//设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
+    		mDrawPadView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
 			
 			@Override
 			public void onSizeChanged(int viewWidth, int viewHeight) {
 				// TODO Auto-generated method stub
 				// 开始DrawPad的渲染线程. 
-					mPlayView.startDrawPad(new onDrawPadProgressListener() {
+					mDrawPadView.startDrawPad(new onDrawPadProgressListener() {
 					
 					@Override
 					public void onProgress(DrawPad v, long currentTimeUs) {
@@ -229,7 +228,7 @@ public class VideoPictureRealTimeActivity extends Activity implements OnSeekBarC
 				},null);
 					
 				//获取一个主视频的 VideoPen
-				mPenMain=mPlayView.addMainVideoPen(mplayer.getVideoWidth(),mplayer.getVideoHeight());
+				mPenMain=mDrawPadView.addMainVideoPen(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
 				if(mPenMain!=null){
 					mplayer.setSurface(new Surface(mPenMain.getVideoTexture()));
 				}
@@ -247,7 +246,7 @@ public class VideoPictureRealTimeActivity extends Activity implements OnSeekBarC
      */
     private void addBitmapPen()
     {
-    	mBitmapPen=mPlayView.addBitmapPen(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
+    	mBitmapPen=mDrawPadView.addBitmapPen(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
     }
     @Override
     protected void onPause() {
@@ -264,8 +263,8 @@ public class VideoPictureRealTimeActivity extends Activity implements OnSeekBarC
     		mplayer2.release();
     		mplayer2=null;
     	}
-    	if(mPlayView!=null){
-    		mPlayView.stopDrawPad();
+    	if(mDrawPadView!=null){
+    		mDrawPadView.stopDrawPad();
     	}
     }
    @Override
@@ -301,9 +300,9 @@ protected void onDestroy() {
 						 xpos+=10;
 						 ypos+=10;
 						 
-						 if(xpos>mPlayView.getViewWidth())
+						 if(xpos>mDrawPadView.getViewWidth())
 							 xpos=0;
-						 if(ypos>mPlayView.getViewWidth())
+						 if(ypos>mDrawPadView.getViewWidth())
 							 ypos=0;
 						 mBitmapPen.setPosition(xpos, ypos);
 					}
@@ -316,25 +315,29 @@ protected void onDestroy() {
 			break;		
 			case R.id.id_DrawPad_skbar_red:
 					if(mBitmapPen!=null){
-						mBitmapPen.setRedPercent(progress);  //设置每个RGBA的比例,默认是1
+						float value=(float)progress/100;
+						mBitmapPen.setRedPercent(value);  //设置每个RGBA的比例,默认是1
 					}
 				break;
 
 			case R.id.id_DrawPad_skbar_green:
 					if(mBitmapPen!=null){
-						mBitmapPen.setGreenPercent(progress);
+						float value=(float)progress/100;
+						mBitmapPen.setGreenPercent(value);
 					}
 				break;
 
 			case R.id.id_DrawPad_skbar_blue:
 					if(mBitmapPen!=null){
-						mBitmapPen.setBluePercent(progress);
+						float value=(float)progress/100;
+						mBitmapPen.setBluePercent(value);
 					}
 				break;
 
 			case R.id.id_DrawPad_skbar_alpha:
 					if(mBitmapPen!=null){
-						mBitmapPen.setAlphaPercent(progress);
+						float value=(float)progress/100;
+						mBitmapPen.setAlphaPercent(value);
 					}
 				break;
 				

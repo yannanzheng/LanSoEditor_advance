@@ -5,9 +5,9 @@ import java.util.Locale;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 
-import com.example.lansong.animview.BitmapCache;
-import com.example.lansong.animview.ShowHeart;
+import com.example.lansongeditordemo.view.BitmapCache;
 import com.example.lansongeditordemo.view.DrawPadView;
+import com.example.lansongeditordemo.view.ShowHeart;
 import com.example.lansongeditordemo.view.DrawPadView.onViewAvailable;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.BitmapPen;
@@ -52,7 +52,7 @@ public class MVPenDemoActivity extends Activity {
 
     private String mVideoPath;
 
-    private DrawPadView mPlayView;
+    private DrawPadView mDrawPadView;
     
     private MediaPlayer mplayer=null;
     private MediaPlayer mplayer2=null;
@@ -73,7 +73,7 @@ public class MVPenDemoActivity extends Activity {
         setContentView(R.layout.mvpen_demo_layout);
         
         mVideoPath = getIntent().getStringExtra("videopath");
-        mPlayView = (DrawPadView) findViewById(R.id.id_mvpen_padview);
+        mDrawPadView = (DrawPadView) findViewById(R.id.id_mvpen_padview);
         
        
         
@@ -174,23 +174,23 @@ public class MVPenDemoActivity extends Activity {
         	if(info.prepare())
         	{
 	            		//设置使能 实时录制, 即把正在DrawPad中呈现的画面实时的保存下来,实现所见即所得的模式
-	            		mPlayView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
+	            		mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
 	            	//设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
-	        		mPlayView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
+	        		mDrawPadView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
 	    			
 	    			@Override
 	    			public void onSizeChanged(int viewWidth, int viewHeight) {
 	    				// TODO Auto-generated method stub
 	    				// 开始DrawPad的渲染线程. 
-	    					mPlayView.startDrawPad(null,null);
+	    					mDrawPadView.startDrawPad(null,null);
 	    					
 	    				//获取一个主视频的 VideoPen
-	    				mPenMain=mPlayView.addMainVideoPen(mplayer.getVideoWidth(),mplayer.getVideoHeight());
+	    				mPenMain=mDrawPadView.addMainVideoPen(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
 	    				if(mPenMain!=null){
 	    					mplayer.setSurface(new Surface(mPenMain.getVideoTexture()));
 	    				}
 	    				mplayer.start();
-	    				mBitmapPen=mPlayView.addMVPen(colorMVPath, maskMVPath);  //<-----增加MVPen
+	    				mBitmapPen=mDrawPadView.addMVPen(colorMVPath, maskMVPath);  //<-----增加MVPen
 	    			}
 	        		});	
         	}
@@ -199,9 +199,9 @@ public class MVPenDemoActivity extends Activity {
     //Step2: 停止画板
     private void stopDrawPad()
     {
-    	if(mPlayView!=null && mPlayView.isRunning()){
+    	if(mDrawPadView!=null && mDrawPadView.isRunning()){
 			
-			mPlayView.stopDrawPad();
+			mDrawPadView.stopDrawPad();
 			
 			toastStop();
 			
@@ -235,8 +235,8 @@ public class MVPenDemoActivity extends Activity {
     		mplayer2.release();
     		mplayer2=null;
     	}
-    	if(mPlayView!=null){
-    		mPlayView.stopDrawPad();
+    	if(mDrawPadView!=null){
+    		mDrawPadView.stopDrawPad();
     	}
     }
    @Override
