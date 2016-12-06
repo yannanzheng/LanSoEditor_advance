@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lansoeditor.demo"
-    android:versionCode="1095"
-    android:versionName="1.9.5" >
+    android:versionCode="1096"
+    android:versionName="1.9.6" >
 
     <uses-sdk
         android:minSdkVersion="18"
@@ -44,21 +44,18 @@
         
         <activity android:name="com.example.lansongeditordemo.StartActivity"
             android:theme="@style/AppTheme2">
-              
-         <intent-filter>
+            
+              <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            
+            </intent-filter> 
          
          </activity>
          
         <activity
             android:name="com.example.lansongeditordemo.MainActivity">
             <!-- 因为要加载.so库, 这里一定要用MainActivity来启动 -->
-            
-               
             
         </activity>
         
@@ -71,7 +68,7 @@
         
         <activity android:name="com.example.lansongeditordemo.VideoRemarkActivity"></activity>
         
-        <activity android:name="com.example.lansongeditordemo.FilterRealTimeActivity"></activity>
+        <activity android:name="com.example.lansongeditordemo.FilterDemoRealTimeActivity"></activity>
         <activity android:name="com.example.lansongeditordemo.DrawPadHintActivity"></activity>
         <activity android:name="com.example.lansongeditordemo.VideoPictureRealTimeActivity"></activity>
         <activity android:name="com.example.lansongeditordemo.PictureSetRealTimeActivity"></activity>

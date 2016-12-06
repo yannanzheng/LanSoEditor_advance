@@ -68,6 +68,7 @@ public class MainActivity extends Activity implements OnClickListener{
         LanSoEditor.initSo(getApplicationContext(),null);
         
         
+           
 //        LanSoEditorBox.setTempFileDir(tmpDir);
     	//因为从android6.0系统有各种权限的限制, 这里开始先检查是否有读写的权限,PermissionsManager采用github上开源库,不属于我们sdk的一部分.
 		 //下载地址是:https://github.com/anthonycr/Grant,您也可以使用别的方式来检查app所需权限.
@@ -233,7 +234,7 @@ public class MainActivity extends Activity implements OnClickListener{
 					startDemoActivity(CanvasPenDemoActivity.class);
 					break; 
 				case R.id.id_main_videofilterdemo:
-					startDemoActivity(VideoFilterDemoRealTimeActivity.class);
+					startDemoActivity(FilterDemoRealTimeActivity.class);
 					break;
 				case R.id.id_main_mvpendemo:
 					startDemoActivity(MVPenDemoActivity.class);

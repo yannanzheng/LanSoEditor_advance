@@ -87,6 +87,7 @@ public abstract class InstaFilter extends GPUImageFilter {
         int k;
         for (int i = 0; i < textureNum; i++) {
             k = i + 2;
+            //k= 2,3,4;
             coordinateAttributes[i] = GLES20.glGetAttribLocation(getProgram(), String.format("inputTextureCoordinate%d", k));
             inputTextureUniforms[i] = GLES20.glGetUniformLocation(getProgram(), String.format("inputImageTexture%d", k));
             GLES20.glEnableVertexAttribArray(coordinateAttributes[i]);

@@ -56,6 +56,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.PowerManager;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.Surface;
@@ -129,12 +130,20 @@ public class CameraPenDemoActivity extends Activity implements OnClickListener{
     private void startDrawPad()
     {
     	//设置使能 实时录制, 即把正在DrawPad中呈现的画面实时的保存下来,实现所见即所得的模式
-    	mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)25,dstPath);
+    	 DisplayMetrics dm = new DisplayMetrics();
+    	 dm = getResources().getDisplayMetrics();
+    	 
+    	 Log.i(TAG,"分辨率是:"+dm.widthPixels+"x"+dm.heightPixels);
+    	 
+    	 int padWidth=480;
+    	 int padHeight=480;
+    	 
+    	mDrawPadView.setRealEncodeEnable(padWidth,padHeight,1000000,(int)25,dstPath);
     	
     	mDrawPadView.setUpdateMode(DrawPadUpdateMode.AUTO_FLUSH, 25);
 
     	//设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
-    	mDrawPadView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
+    	mDrawPadView.setDrawPadSize(padWidth,padHeight,new onDrawPadSizeChangedListener() {
 	    			
 	    			@Override
 	    			public void onSizeChanged(int viewWidth, int viewHeight) {

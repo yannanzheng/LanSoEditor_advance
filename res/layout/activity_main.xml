@@ -48,7 +48,7 @@
     
     <LinearLayout 
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dip"
         android:orientation="horizontal"
         android:background="@drawable/bg_info">
         <TextView 
@@ -60,6 +60,7 @@
             android:textColor="@color/gold"
             android:layout_gravity="center"
             android:gravity="center"/>
+        
         <LinearLayout 
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -69,33 +70,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="画板可前台处理,也可以后台处理"
+                android:text="画板可前台处理,也可以后台处理,为演示直观，大部分用 [前台画板]，最后有[后台画板]的举例."
             android:textColor="@color/gold"
                 android:gravity="center_vertical"/>
-              <TextView 
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:text="为演示直观，大部分用 [前台画板]，最后有[后台画板]的举例."
-            android:textColor="@color/gold"/>
                    <TextView 
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:text="截取/分离/合成/拼接/等操作在最后的基本版本中."
-            android:textColor="@color/gold"/>
+            android:textColor="@color/blue"/>
         </LinearLayout>
         
     </LinearLayout>
      
  
      <RelativeLayout  android:id="@+id/id_main_segmentrecorder" style="@style/main_item_reletivelayout">
-           	 <TextView   android:text="分段录像[new]" android:textColor="@color/blue" style="@style/main_item_textview"/>
+           	 <TextView   android:text="分段录像" style="@style/main_item_textview"/>
 			<TextView  style="@style/main_item_arrow"/> 
 	</RelativeLayout>
 	
      <RelativeLayout  android:id="@+id/id_main_camerapen" style="@style/main_item_reletivelayout">
-           	 <TextView   android:text="摄像头画笔[new]" android:textColor="@color/blue" style="@style/main_item_textview"/>
+           	 <TextView   android:text="摄像头画笔" style="@style/main_item_textview"/>
 			<TextView  style="@style/main_item_arrow"/> 
 	</RelativeLayout>
 	

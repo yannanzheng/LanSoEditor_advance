@@ -12,11 +12,10 @@ import android.graphics.BitmapFactory;
 public class IFBrannanFilter extends InstaFilter {
 
     public static final String SHADER = 
-    		 "#extension GL_OES_EGL_image_external : require\n" +	
     		"precision lowp float;\n" +
             " varying highp vec2 textureCoordinate;\n" +
             " \n" +
-            " uniform samplerExternalOES inputImageTexture;\n" +
+            " uniform sampler2D inputImageTexture;\n" +
             " uniform sampler2D inputImageTexture2;  //process\n" +
             " uniform sampler2D inputImageTexture3;  //blowout\n" +
             " uniform sampler2D inputImageTexture4;  //contrast\n" +

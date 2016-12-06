@@ -11,10 +11,9 @@ import android.graphics.BitmapFactory;
 public class IFLordKelvinFilter extends InstaFilter {
 
     public static final String SHADER = 
-    		 "#extension GL_OES_EGL_image_external : require\n" +	
     		"precision lowp float;\n" +
             " varying highp vec2 textureCoordinate;\n" +
-            " uniform samplerExternalOES inputImageTexture;\n" +
+            " uniform sampler2D inputImageTexture;\n" +
             " uniform sampler2D inputImageTexture2;\n" +
             " void main()\n" +
             " {\n" +

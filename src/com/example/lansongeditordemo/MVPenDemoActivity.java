@@ -13,6 +13,7 @@ import com.lansoeditor.demo.R;
 import com.lansosdk.box.BitmapPen;
 import com.lansosdk.box.CanvasRunnable;
 import com.lansosdk.box.CanvasPen;
+import com.lansosdk.box.MVPenENDMode;
 import com.lansosdk.box.Pen;
 import com.lansosdk.box.DrawPad;
 import com.lansosdk.box.MVPen;
@@ -57,7 +58,7 @@ public class MVPenDemoActivity extends Activity {
     private MediaPlayer mplayer=null;
     private MediaPlayer mplayer2=null;
     private Pen  mPenMain=null;
-    private MVPen mBitmapPen=null;
+    private MVPen mMVPen=null;
     
     private String editTmpPath=null;
     private String dstPath=null;
@@ -173,10 +174,12 @@ public class MVPenDemoActivity extends Activity {
     		MediaInfo info=new MediaInfo(mVideoPath,false);
         	if(info.prepare())
         	{
-	            		//设置使能 实时录制, 即把正在DrawPad中呈现的画面实时的保存下来,实现所见即所得的模式
-	            		mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
-	            	//设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
-	        		mDrawPadView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
+
+        		//设置使能 实时录制, 即把正在DrawPad中呈现的画面实时的保存下来,实现所见即所得的模式
+        		mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
+	            
+        		//设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
+        		mDrawPadView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
 	    			
 	    			@Override
 	    			public void onSizeChanged(int viewWidth, int viewHeight) {
@@ -190,7 +193,11 @@ public class MVPenDemoActivity extends Activity {
 	    					mplayer.setSurface(new Surface(mPenMain.getVideoTexture()));
 	    				}
 	    				mplayer.start();
-	    				mBitmapPen=mDrawPadView.addMVPen(colorMVPath, maskMVPath);  //<-----增加MVPen
+	    				
+	    				mMVPen=mDrawPadView.addMVPen(colorMVPath, maskMVPath);  //<-----增加MVPen
+	    				if(mMVPen!=null){
+	    					mMVPen.setEndMode(MVPenENDMode.LOOP);
+	    				}
 	    			}
 	        		});	
         	}

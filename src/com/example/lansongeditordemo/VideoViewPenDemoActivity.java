@@ -183,7 +183,7 @@ public class VideoViewPenDemoActivity extends Activity{
     		});
     	}
     }
-    //Step2: Drawpad设置好后, 开始画板线程运行,并增加一个ViewPen画笔
+    //Step2: Drawpad设置好后, 开始画板线程运行,并增加一个视频画笔和 view画笔.
     private void startDrawPad()
     {
     	mDrawPadView.startDrawPad(new DrawPadProgressListener(),null);
@@ -194,6 +194,21 @@ public class VideoViewPenDemoActivity extends Activity{
 		}
 		mplayer.start();
 		addViewPen();
+    }
+    private void addViewPen()
+    {
+    	if(mDrawPadView!=null && mDrawPadView.isRunning()){
+    		mViewPen=mDrawPadView.addViewPen();
+            
+    		mPenRelativeLayout.bindViewPen(mViewPen);
+            
+            mPenRelativeLayout.invalidate();
+            
+            ViewGroup.LayoutParams  params=mPenRelativeLayout.getLayoutParams();
+            params.height=mViewPen.getHeight();  //因为布局时, 宽度一致, 这里调整高度,让他们一致.
+            
+            mPenRelativeLayout.setLayoutParams(params);
+    	}
     }
 	  private class DrawPadProgressListener implements onDrawPadProgressListener
 	  {
@@ -227,21 +242,6 @@ public class VideoViewPenDemoActivity extends Activity{
 			}
 		}
     }
-   
-    private void addViewPen()
-    {
-    	if(mDrawPadView!=null && mDrawPadView.isRunning()){
-    		mViewPen=mDrawPadView.addViewPen();
-            mPenRelativeLayout.bindViewPen(mViewPen);
-            mPenRelativeLayout.invalidate();
-            
-            ViewGroup.LayoutParams  params=mPenRelativeLayout.getLayoutParams();
-            params.height=mViewPen.getHeight();  //因为布局时, 宽度一致, 这里调整高度,让他们一致.
-            
-            mPenRelativeLayout.setLayoutParams(params);
-    	}
-    }
-    
     private void toastStop()
     {
     	Toast.makeText(getApplicationContext(), "录制已停止!!", Toast.LENGTH_SHORT).show();

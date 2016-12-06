@@ -5,8 +5,13 @@ import java.io.IOException;
 import java.util.Locale;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageScreenBlendFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageTwoInputFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBlackMaskBlendFilter;
 
+import com.example.lansongeditordemo.GPUImageFilterTools.FilterAdjuster;
+import com.example.lansongeditordemo.GPUImageFilterTools.OnGpuImageFilterChosenListener;
 import com.example.lansongeditordemo.view.DrawPadView;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.DrawPad;
@@ -28,6 +33,7 @@ import com.lansosdk.videoplayer.VideoPlayer.OnPlayerPreparedListener;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -116,6 +122,7 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
 		   		 }
 			}
 		});
+        
         
     	findViewById(R.id.id_DrawPad_saveplay).setVisibility(View.GONE);
 
@@ -223,6 +230,7 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
 				if(mPenMain!=null){
 					mplayer.setSurface(new Surface(mPenMain.getVideoTexture()));
 				}
+				mplayer.setLooping(true);
 				mplayer.start();
 				
 				
@@ -295,12 +303,14 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
 				// TODO Auto-generated method stub
 				
 				// 获取一个VideoPen
+		            
 				subVideoPen=mDrawPadView.addVideoPen(mp.getVideoWidth(),mp.getVideoHeight(),null);
-				Log.i(TAG,"sub video Pen ....obtain..");
 				if(subVideoPen!=null){
+					Log.i(TAG,"sub video Pen ....obtain..");
 					mplayer2.setSurface(new Surface(subVideoPen.getVideoTexture()));	
 					subVideoPen.setScale(0.5f);  //这里先缩小一半
 				}
+				mplayer2.setLooping(true);
 				mplayer2.start();
 			}
 		});
@@ -322,32 +332,13 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
 		});
 		mplayer2.prepareAsync();
     }
-    private void startVPlayer()
-    {
-    	vplayer=new VPlayer(this);
-    	vplayer.setVideoPath(mVideoPath);
-    	vplayer.setOnPreparedListener(new OnPlayerPreparedListener() {
-			
-			@Override
-			public void onPrepared(VideoPlayer mp) {
-				// TODO Auto-generated method stub
-				
-				
-				subVideoPen=mDrawPadView.addVideoPen(mp.getVideoWidth(),mp.getVideoHeight(),null);
-				if(subVideoPen!=null){
-					vplayer.setSurface(new Surface(subVideoPen.getVideoTexture()));	
-					subVideoPen.setScale(0.5f);
-				}
-				vplayer.start();
-			}
-		});
-    	vplayer.prepareAsync();
-    }
+    
     private void toastStop()
     {
     	Toast.makeText(getApplicationContext(), "录制已停止!!", Toast.LENGTH_SHORT).show();
     }
 
+    
     boolean isDestorying=false;  //是否正在销毁, 因为销毁会停止DrawPad
     
     @Override

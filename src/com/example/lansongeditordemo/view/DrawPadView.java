@@ -38,6 +38,7 @@ import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 import com.lansosdk.box.BitmapPen;
 import com.lansosdk.box.CameraPen;
 import com.lansosdk.box.CanvasPen;
+import com.lansosdk.box.DataPen;
 import com.lansosdk.box.MVPen;
 import com.lansosdk.box.Pen;
 import com.lansosdk.box.DrawPadUpdateMode;
@@ -573,6 +574,22 @@ public class DrawPadView extends FrameLayout {
 			}
 		}else{
 			Log.e(TAG,"obtainBitmapPen error, bitmap is null");
+			return null;
+		}
+	}
+	
+	public DataPen  addDataPen(int dataWidth,int dataHeight)
+	{
+		if(dataWidth>0 && dataHeight>0)
+		{
+			if(renderer!=null)
+				return renderer.addDataPen(dataWidth, dataHeight);
+			else{
+				Log.e(TAG,"addDataPen error render is not avalid");
+				return null;
+			}
+		}else{
+			Log.e(TAG,"addDataPen error, data size is error");
 			return null;
 		}
 	}

@@ -19,6 +19,7 @@ package com.example.lansongeditordemo;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PointF;
 import android.opengl.Matrix;
@@ -54,9 +55,7 @@ public class GPUImageFilterTools {
             final OnGpuImageFilterChosenListener listener) {
         final FilterList filters = new FilterList();
         
-        //共44种滤镜.
         filters.addFilter("(NONE)无", FilterType.NONE);  //PASS
-        
         filters.addFilter("Beautiful美颜", FilterType.BEAUTIFUL);  //PASS
         
         filters.addFilter("AMARO", FilterType.AMARO);   //PASS
@@ -77,10 +76,14 @@ public class GPUImageFilterTools {
         filters.addFilter("if1977", FilterType.IF1977);     //PASS
         filters.addFilter("LORDKELVIN", FilterType.LORDKELVIN);  //PASS	
         
+        
+        filters.addFilter("黑色mask", FilterType.LanSongBLACKMASK);  
+        
+        
         filters.addFilter("Contrast对比度", FilterType.CONTRAST);  //PASS
         filters.addFilter("Invert负片", FilterType.INVERT);  //PASS
         
-//        filters.addFilter("Pixelation", FilterType.PIXELATION);   静止图片像素的大小.
+        filters.addFilter("Pixelation", FilterType.PIXELATION);   //静止图片像素的大小.
         filters.addFilter("Hue色调", FilterType.HUE);  //PASS
         filters.addFilter("Gamma伽玛", FilterType.GAMMA);  //PASS
         
@@ -104,40 +107,40 @@ public class GPUImageFilterTools {
         
         filters.addFilter("Vignette加轮廓", FilterType.VIGNETTE);  //PASS
 
-//        filters.addFilter("Blend (Difference)", FilterType.BLEND_DIFFERENCE);
-//        filters.addFilter("Blend (Source Over)", FilterType.BLEND_SOURCE_OVER);
-//        filters.addFilter("Blend (Color Burn)", FilterType.BLEND_COLOR_BURN);
-//        filters.addFilter("Blend (Color Dodge)", FilterType.BLEND_COLOR_DODGE);
-//        filters.addFilter("Blend (Darken)", FilterType.BLEND_DARKEN);
-//        filters.addFilter("Blend (Dissolve)", FilterType.BLEND_DISSOLVE);
-//        filters.addFilter("Blend (Exclusion)", FilterType.BLEND_EXCLUSION);
-//        filters.addFilter("Blend (Hard Light)", FilterType.BLEND_HARD_LIGHT);
-//        filters.addFilter("Blend (Lighten)", FilterType.BLEND_LIGHTEN);
-//        filters.addFilter("Blend (Add)", FilterType.BLEND_ADD);
-//        filters.addFilter("Blend (Divide)", FilterType.BLEND_DIVIDE);
-//        filters.addFilter("Blend (Multiply)", FilterType.BLEND_MULTIPLY);
-//        filters.addFilter("Blend (Overlay)", FilterType.BLEND_OVERLAY);
-//        filters.addFilter("Blend (Screen)", FilterType.BLEND_SCREEN);
-//        filters.addFilter("Blend (Alpha)", FilterType.BLEND_ALPHA);
-//        filters.addFilter("Blend (Color)", FilterType.BLEND_COLOR);
-//        filters.addFilter("Blend (Hue)", FilterType.BLEND_HUE);
-//        filters.addFilter("Blend (Saturation)", FilterType.BLEND_SATURATION);
-//        filters.addFilter("Blend (Luminosity)", FilterType.BLEND_LUMINOSITY);
-//        filters.addFilter("Blend (Linear Burn)", FilterType.BLEND_LINEAR_BURN);
-//        filters.addFilter("Blend (Soft Light)", FilterType.BLEND_SOFT_LIGHT);
-//        filters.addFilter("Blend (Subtract)", FilterType.BLEND_SUBTRACT);
-//        filters.addFilter("Blend (Chroma Key)", FilterType.BLEND_CHROMA_KEY);
-//        filters.addFilter("Blend (Normal)", FilterType.BLEND_NORMAL);
+        filters.addFilter("Blend (Difference)", FilterType.BLEND_DIFFERENCE);
+        filters.addFilter("Blend (Source Over)", FilterType.BLEND_SOURCE_OVER);
+        filters.addFilter("Blend (Color Burn)", FilterType.BLEND_COLOR_BURN);
+        filters.addFilter("Blend (Color Dodge)", FilterType.BLEND_COLOR_DODGE);
+        filters.addFilter("Blend (Darken)", FilterType.BLEND_DARKEN);
+        filters.addFilter("Blend (Dissolve)", FilterType.BLEND_DISSOLVE);
+        filters.addFilter("Blend (Exclusion)", FilterType.BLEND_EXCLUSION);
+        filters.addFilter("Blend (Hard Light)", FilterType.BLEND_HARD_LIGHT);
+        filters.addFilter("Blend (Lighten)", FilterType.BLEND_LIGHTEN);
+        filters.addFilter("Blend (Add)", FilterType.BLEND_ADD);
+        filters.addFilter("Blend (Divide)", FilterType.BLEND_DIVIDE);
+        filters.addFilter("Blend (Multiply)", FilterType.BLEND_MULTIPLY);
+        filters.addFilter("Blend (Overlay)", FilterType.BLEND_OVERLAY);
+        filters.addFilter("Blend (Screen)", FilterType.BLEND_SCREEN);
+        filters.addFilter("Blend (Alpha)", FilterType.BLEND_ALPHA);
+        filters.addFilter("Blend (Color)", FilterType.BLEND_COLOR);
+        filters.addFilter("Blend (Hue)", FilterType.BLEND_HUE);
+        filters.addFilter("Blend (Saturation)", FilterType.BLEND_SATURATION);
+        filters.addFilter("Blend (Luminosity)", FilterType.BLEND_LUMINOSITY);
+        filters.addFilter("Blend (Linear Burn)", FilterType.BLEND_LINEAR_BURN);
+        filters.addFilter("Blend (Soft Light)", FilterType.BLEND_SOFT_LIGHT);
+        filters.addFilter("Blend (Subtract)", FilterType.BLEND_SUBTRACT);
+        filters.addFilter("Blend (Chroma Key)", FilterType.BLEND_CHROMA_KEY);
+        filters.addFilter("Blend (Normal)", FilterType.BLEND_NORMAL);
 
         filters.addFilter("Lookup (Amatorka)", FilterType.LOOKUP_AMATORKA); 
         filters.addFilter("Crosshatch网格", FilterType.CROSSHATCH);  //PASS
 
         filters.addFilter("CGA Color Space", FilterType.CGA_COLORSPACE);  //PASS
         filters.addFilter("Kuwahara", FilterType.KUWAHARA);  //PASS
-//        filters.addFilter("Halftone", FilterType.HALFTONE);
+        filters.addFilter("Halftone", FilterType.HALFTONE);
 
         filters.addFilter("Bulge Distortion", FilterType.BULGE_DISTORTION);  //PASS
-//        filters.addFilter("Glass Sphere", FilterType.GLASS_SPHERE); 
+        filters.addFilter("Glass Sphere", FilterType.GLASS_SPHERE); 
         filters.addFilter("Haze", FilterType.HAZE);  //PASS
         filters.addFilter("Sphere Refraction", FilterType.SPHERE_REFRACTION); //PASS
         filters.addFilter("Swirl", FilterType.SWIRL);  //PASS
@@ -206,6 +209,8 @@ public class GPUImageFilterTools {
                 centerPoint.x = 0.5f;
                 centerPoint.y = 0.5f;
                 return new GPUImageVignetteFilter(centerPoint, new float[] {0.0f, 0.0f, 0.0f}, 0.3f, 0.75f);
+            case LanSongBLACKMASK:
+            	  return createBlendFilter(context, LanSongBlackMaskBlendFilter.class);
             case BLEND_DIFFERENCE:
                 return createBlendFilter(context, GPUImageDifferenceBlendFilter.class);
             case BLEND_SOURCE_OVER:
@@ -286,7 +291,6 @@ public class GPUImageFilterTools {
             case HALFTONE:
                 return new GPUImageHalftoneFilter();
             
-                //一下是新增的
             case AMARO:
             	 return new IFAmaroFilter(context);
             case RISE:
@@ -344,12 +348,11 @@ public class GPUImageFilterTools {
     }
 
     private enum FilterType {
-        NONE,BEAUTIFUL,CONTRAST, GRAYSCALE,  SEPIA,  POSTERIZE, GAMMA, BRIGHTNESS, INVERT, HUE, PIXELATION,
+        NONE,BEAUTIFUL,LanSongBLACKMASK,CONTRAST, GRAYSCALE,  SEPIA,  POSTERIZE, GAMMA, BRIGHTNESS, INVERT, HUE, PIXELATION,
         SATURATION, EXPOSURE, HIGHLIGHT_SHADOW, MONOCHROME, OPACITY, RGB, WHITE_BALANCE, VIGNETTE,  BLEND_COLOR_BURN, BLEND_COLOR_DODGE, BLEND_DARKEN, BLEND_DIFFERENCE,
         BLEND_DISSOLVE, BLEND_EXCLUSION, BLEND_SOURCE_OVER, BLEND_HARD_LIGHT, BLEND_LIGHTEN, BLEND_ADD, BLEND_DIVIDE, BLEND_MULTIPLY, BLEND_OVERLAY, BLEND_SCREEN, BLEND_ALPHA,
         BLEND_COLOR, BLEND_HUE, BLEND_SATURATION, BLEND_LUMINOSITY, BLEND_LINEAR_BURN, BLEND_SOFT_LIGHT, BLEND_SUBTRACT, BLEND_CHROMA_KEY, BLEND_NORMAL, LOOKUP_AMATORKA,
         CROSSHATCH, CGA_COLORSPACE, KUWAHARA,  BULGE_DISTORTION, GLASS_SPHERE, HAZE, SPHERE_REFRACTION, SWIRL, FALSE_COLOR, COLOR_BALANCE, LEVELS_FILTER_MIN, HALFTONE,
-        //以下是新增的(共16个) . 来自https://github.com/beartung/insta-filter
         AMARO,RISE,HUDSON,XPROII,SIERRA,LOMOFI,EARLYBIRD,SUTRO,TOASTER,BRANNAN,INKWELL,WALDEN,HEFE,VALENCIA,NASHVILLE,IF1977,LORDKELVIN}
 
     private static class FilterList {

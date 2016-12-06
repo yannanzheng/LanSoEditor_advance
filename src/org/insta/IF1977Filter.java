@@ -12,11 +12,10 @@ import android.graphics.BitmapFactory;
 public class IF1977Filter extends InstaFilter {
 
     public static final String SHADER = 
-   		"#extension GL_OES_EGL_image_external : require\n" +	
    		"precision mediump float;\n" +
         " varying vec2 textureCoordinate;\n" +
         " \n" +
-        " uniform samplerExternalOES inputImageTexture;\n" +
+        " uniform sampler2D inputImageTexture;\n" +
         " uniform sampler2D inputImageTexture2;\n" +
         " \n" +
         " void main()\n" +

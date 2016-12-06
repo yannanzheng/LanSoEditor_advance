@@ -205,6 +205,6 @@ public class TestMVPenExecuteActivity extends Activity{
 		
 //		vDrawPad.obtainTiePen("/sdcard/honey.ts");
 		
-		vDrawPad.obtainMVPen("/sdcard/honey.ts", "/sdcard/honeya.ts");
+		vDrawPad.addMVPen("/sdcard/honey.ts", "/sdcard/honeya.ts");
 	}
 }	
