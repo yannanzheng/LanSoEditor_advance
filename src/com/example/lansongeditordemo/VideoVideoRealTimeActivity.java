@@ -230,7 +230,6 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
 				if(mPenMain!=null){
 					mplayer.setSurface(new Surface(mPenMain.getVideoTexture()));
 				}
-				mplayer.setLooping(true);
 				mplayer.start();
 				
 				
@@ -303,14 +302,12 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
 				// TODO Auto-generated method stub
 				
 				// 获取一个VideoPen
-		            
 				subVideoPen=mDrawPadView.addVideoPen(mp.getVideoWidth(),mp.getVideoHeight(),null);
 				if(subVideoPen!=null){
 					Log.i(TAG,"sub video Pen ....obtain..");
 					mplayer2.setSurface(new Surface(subVideoPen.getVideoTexture()));	
 					subVideoPen.setScale(0.5f);  //这里先缩小一半
 				}
-				mplayer2.setLooping(true);
 				mplayer2.start();
 			}
 		});
