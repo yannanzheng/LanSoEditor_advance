@@ -1737,8 +1737,8 @@ public class VideoEditor {
 		   * @param decCodec  视频用到的解码器, 通过MediaInfo得到.
 		   * @param padWidth  填充成的目标宽度 , 参数需要是16的倍数
 		   * @param padHeight 填充成的目标高度 , 参数需要是16的倍数
-		   * @param padX  原视频的在填充宽高度的X坐标开始位置
-		   * @param padY  原视频的在填充宽宽度的Y坐标开始位置
+		   * @param padX  把视频画面放到填充区时的开始X坐标
+		   * @param padY  把视频画面放到填充区时的开始Y坐标
 		   * @param dstFile  目标文件
 		   * @param bitrate  目标文件的码率, 可以用原视频的MediaInfo.vBitRate的1.2f倍表示即可.
 		   * @return

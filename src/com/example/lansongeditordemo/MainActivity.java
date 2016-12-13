@@ -8,9 +8,10 @@ import java.util.Locale;
 
 import com.anthonycr.grant.PermissionsManager;
 import com.anthonycr.grant.PermissionsResultAction;
+import com.example.commonDemo.CommonDemoActivity;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.LanSoEditorBox;
-import com.lansosdk.commonDemo.CommonDemoActivity;
+import com.lansosdk.box.MicLine;
 import com.lansosdk.videoeditor.CopyFileFromAssets;
 import com.lansosdk.videoeditor.LanSoEditor;
 import com.lansosdk.videoeditor.LoadLanSongSdk;

@@ -71,7 +71,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 
 public class CameraPenDemoActivity extends Activity implements OnClickListener{
    
-	private static final long RECORD_CAMERA_TIME=20*1000*1000; //定义录制的时间为20s
+	private static final long RECORD_CAMERA_TIME=3*1000*1000; //定义录制的时间为20s
 	
 	private static final String TAG = "CameraPenDemoActivity";
 
@@ -89,10 +89,11 @@ public class CameraPenDemoActivity extends Activity implements OnClickListener{
 		 Thread.setDefaultUncaughtExceptionHandler(new snoCrashHandler());
         setContentView(R.layout.camerapen_demo_layout);
         
-        if(LanSoEditorBox.checkPermission(getBaseContext())==false){
+        if(LanSoEditorBox.checkCameraPermission(getBaseContext())==false){
      	   Toast.makeText(getApplicationContext(), "请打开权限后,重试!!!", Toast.LENGTH_LONG).show();
      	   finish();
         }
+     
         
         mDrawPadView = (DrawPadView) findViewById(R.id.id_camerapen_padview);
         
@@ -153,7 +154,7 @@ public class CameraPenDemoActivity extends Activity implements OnClickListener{
 	    					mDrawPadView.startDrawPad(drawPadProgressListener,null);
 	    					mDrawPadView.pauseDrawPadRecord();
 	    					
-	    				//获取一个主视频的 VideoPen
+	    				//增加一个 CameraPen
 	    					int degree=LanSoEditorBox.getActivityRotationAngle(CameraPenDemoActivity.this);
 	    					mCameraPen=	mDrawPadView.addCameraPen(degree,null);
 	    					if(mCameraPen!=null){
@@ -170,7 +171,7 @@ public class CameraPenDemoActivity extends Activity implements OnClickListener{
 		public void onProgress(DrawPad v, long currentTimeUs) {
 			// TODO Auto-generated method stub
 			if(currentTimeUs>=RECORD_CAMERA_TIME){  
-				stopDrawPad();
+				stopDrawPad();	
 			}
 			if(tvTime!=null){
 				long left=RECORD_CAMERA_TIME-currentTimeUs;

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lansoeditor.demo"
-    android:versionCode="1096"
-    android:versionName="1.9.6" >
+    android:versionCode="1097"
+    android:versionName="1.9.7" >
 
     <uses-sdk
         android:minSdkVersion="18"
@@ -111,10 +111,10 @@
           </activity>
           
         <!--    common version -->
-            <activity android:name="com.lansosdk.commonDemo.CommonDemoActivity"></activity>
-         <activity android:name="com.lansosdk.commonDemo.MediaInfoActivity"></activity>
-         <activity android:name="com.lansosdk.commonDemo.AVEditorDemoActivity"/>
-         <activity android:name="com.lansosdk.commonDemo.ScaleExecuteDemoActivity"/>
+            <activity android:name="com.example.commonDemo.CommonDemoActivity"></activity>
+         <activity android:name="com.example.commonDemo.MediaInfoActivity"></activity>
+         <activity android:name="com.example.commonDemo.AVEditorDemoActivity"/>
+         <activity android:name="com.example.commonDemo.ScaleExecuteDemoActivity"/>
         
     </application>
 
