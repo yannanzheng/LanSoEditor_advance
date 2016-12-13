@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.lansongeditordemo.VideoPlayerActivity;
+import com.example.advanceDemo.VideoPlayerActivity;
 import com.lansoeditor.demo.R;
 import com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask;
 import com.lansosdk.videoeditor.MediaInfo;

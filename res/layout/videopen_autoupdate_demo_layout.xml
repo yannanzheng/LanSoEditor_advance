@@ -16,7 +16,7 @@
 	        android:layout_height="wrap_content"
 	        android:background="@android:color/transparent" >
 	  
-		  	  <com.example.lansongeditordemo.view.ImageTouchView
+		  	  <com.example.advanceDemo.view.ImageTouchView
 		        android:id="@+id/id_vauto_demo_touchview"
 		        android:layout_width="match_parent"
 		        android:layout_height="match_parent"
@@ -25,7 +25,7 @@
 		        android:scaleType="matrix" />
    	 </com.lansosdk.box.ViewPenRelativeLayout>
    
-      <com.example.lansongeditordemo.view.DrawPadView
+      <com.example.advanceDemo.view.DrawPadView
             android:id="@+id/id_vauto_demo_drawpad_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
    
-      <com.example.lansongeditordemo.view.DrawPadView
+      <com.example.advanceDemo.view.DrawPadView
             android:id="@+id/DrawPad_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

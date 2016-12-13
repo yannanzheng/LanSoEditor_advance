@@ -29,7 +29,7 @@
     </com.lansosdk.box.ViewPenRelativeLayout>
    
         <!-- DrawPad -->
-      <com.example.lansongeditordemo.view.DrawPadView
+      <com.example.advanceDemo.view.DrawPadView
             android:id="@+id/id_viewPen_DrawPad_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

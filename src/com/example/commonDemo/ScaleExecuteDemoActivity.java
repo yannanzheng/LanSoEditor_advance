@@ -13,7 +13,7 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.lansongeditordemo.VideoPlayerActivity;
+import com.example.advanceDemo.VideoPlayerActivity;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.ScaleExecute;
 import com.lansosdk.box.onScaleCompletedListener;
