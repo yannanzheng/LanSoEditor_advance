@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 
 import com.lansosdk.box.BitmapPen;
@@ -48,6 +49,7 @@ import com.lansosdk.box.ViewPen;
 import com.lansosdk.box.onDrawPadCompletedListener;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
+import com.lansosdk.box.onDrawPadThreadProgressListener;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
@@ -76,6 +78,7 @@ public class DrawPadView extends FrameLayout {
 
  	
  	private int encWidth,encHeight,encBitRate,encFrameRate;
+ 	
  	/**
  	 *  经过宽度对齐到手机的边缘后, 缩放后的宽高,作为opengl的宽高. 
  	 */
@@ -329,10 +332,27 @@ public class DrawPadView extends FrameLayout {
             requestLayout();
         }
 	}
+	/**
+	 * DrawPad每执行完一帧画面,会调用这个Listener,返回的timeUs是当前画面的时间戳(微妙),
+	 *  可以利用这个时间戳来做一些变化,比如在几秒处缩放, 在几秒处平移等等.从而实现一些动画效果.
+	 * @param currentTimeUs  当前DrawPad处理画面的时间戳.,单位微秒.
+	 */
 	private onDrawPadProgressListener drawpadProgressListener=null;
+	
 	public void setDrawPadProgressListener(onDrawPadProgressListener listener){
 		drawpadProgressListener=listener;
 	}
+	/**
+	 * 方法与   onDrawPadProgressListener不同的地方在于:
+	 * 此回调是在DrawPad渲染完一帧后,立即执行这个回调中的代码,不通过Handler传递出去,你可以精确的执行一些下一帧的如何操作.
+	 * 故不能在回调 内增加各种UI相关的代码.
+	 */
+	private onDrawPadThreadProgressListener drawPadThreadProgressListener=null;
+	
+	public void setDrawPadThreadProgressListener(onDrawPadThreadProgressListener listener){
+		drawPadThreadProgressListener=listener;
+	}
+	
 	private onDrawPadCompletedListener drawpadCompletedListener=null;
 	public void setDrawPadCompletedListener(onDrawPadCompletedListener listener){
 		drawpadCompletedListener=listener;
@@ -348,26 +368,14 @@ public class DrawPadView extends FrameLayout {
 	 */
 	public void startDrawPad(onDrawPadProgressListener progressListener,onDrawPadCompletedListener completedListener)
 	{
-		 if( mSurfaceTexture!=null)
-         {
-			 renderer=new DrawPadViewRender(getContext(), viewWidth, viewHeight);  //<----从这里去建立DrawPad线程.
- 			if(renderer!=null){
- 				
- 				renderer.setUseMainVideoPts(isUseMainPts);
- 				//因为要预览,这里设置显示的Surface,当然如果您有特殊情况需求,也可以不用设置,但displayersurface和EncoderEnable要设置一个,DrawPadRender才可以工作.
- 				renderer.setDisplaySurface(new Surface(mSurfaceTexture));
- 				
- 				renderer.setEncoderEnable(encWidth,encHeight,encBitRate,encFrameRate,encodeOutput);
- 				
- 				renderer.setUpdateMode(mUpdateMode,mAutoFlushFps);
- 				
- 				 //设置DrawPad处理的进度监听, 回传的currentTimeUs单位是微秒.
- 				renderer.setDrawPadProgressListener(progressListener);
- 				renderer.setDrawPadCompletedListener(completedListener);
- 				
- 				renderer.startDrawPad();
- 			}
-         }
+		drawpadProgressListener=progressListener;
+		drawpadCompletedListener=completedListener;
+		
+		startDrawPad(mPauseRecordDrawPad);
+	}
+	public void startDrawPad()
+	{
+		startDrawPad(mPauseRecordDrawPad);
 	}
 	public void startDrawPad(boolean pauseRecord)
 	{
@@ -387,30 +395,11 @@ public class DrawPadView extends FrameLayout {
  				 //设置DrawPad处理的进度监听, 回传的currentTimeUs单位是微秒.
  				renderer.setDrawPadProgressListener(drawpadProgressListener);
  				renderer.setDrawPadCompletedListener(drawpadCompletedListener);
+ 				renderer.setDrawPadThreadProgressListener(drawPadThreadProgressListener);
  				
- 				renderer.startDrawPad();
- 			}
-         }
-	}
-	public void startDrawPad()
-	{
-		 if( mSurfaceTexture!=null)
-         {
-			 renderer=new DrawPadViewRender(getContext(), viewWidth, viewHeight);  //<----从这里去建立DrawPad线程.
- 			if(renderer!=null){
- 				
- 				renderer.setUseMainVideoPts(isUseMainPts);
- 				//因为要预览,这里设置显示的Surface,当然如果您有特殊情况需求,也可以不用设置,但displayersurface和EncoderEnable要设置一个,DrawPadRender才可以工作.
- 				renderer.setDisplaySurface(new Surface(mSurfaceTexture));
- 				
- 				renderer.setEncoderEnable(encWidth,encHeight,encBitRate,encFrameRate,encodeOutput);
- 				
- 				renderer.setUpdateMode(mUpdateMode,mAutoFlushFps);
- 				
- 				 //设置DrawPad处理的进度监听, 回传的currentTimeUs单位是微秒.
- 				renderer.setDrawPadProgressListener(drawpadProgressListener);
- 				renderer.setDrawPadCompletedListener(drawpadCompletedListener);
- 				
+ 				if(pauseRecord){
+ 					renderer.pauseRecordDrawPad();	
+ 				}
  				renderer.startDrawPad();
  			}
          }
@@ -435,16 +424,21 @@ public class DrawPadView extends FrameLayout {
 			renderer.resumeRefreshDrawPad();
 		}
 	}
+	private boolean mPauseRecordDrawPad=false;
 	public void pauseDrawPadRecord()
 	{
 		if(renderer!=null){
 			renderer.pauseRecordDrawPad();
+		}else{
+			mPauseRecordDrawPad=true;
 		}
 	}
 	public void resumeDrawPadRecord()
 	{
 		if(renderer!=null){
 			renderer.resumeRecordDrawPad();
+		}else{
+			mPauseRecordDrawPad=false;
 		}
 	}
 	/**
@@ -501,6 +495,40 @@ public class DrawPadView extends FrameLayout {
             requestLayout();
         }
 	}
+	 /**
+     * 把当前画笔放到最里层, 里面有 一个handler-loop机制, 将会在下一次刷新后执行.
+     * @param pen
+     */
+	public void bringPenToBack(Pen pen)
+	{
+			if(renderer!=null){
+				renderer.bringPenToBack(pen);
+			}
+	}
+	  /**
+     * 把当前画笔放到最外层, 里面有 一个handler-loop机制, 将会在下一次刷新后执行.
+     * @param pen
+     */
+	public void bringPenToFront(Pen pen)
+	{
+			if(renderer!=null){
+				renderer.bringPenToFront(pen);
+			}
+	}
+	public void changePenLayPosition(Pen pen,int position)
+    {
+		if(renderer!=null){
+			renderer.changePenLayPosition(pen, position);
+		}
+    }
+    public void swapTwoPenPosition(Pen first,Pen second)
+    {
+    	if(renderer!=null){
+			renderer.swapTwoPenPosition(first, second);
+		}
+    }
+	
+	
 	/**
 	 * 获取一个主视频的 VideoPen
 	 * @param width 主视频的画面宽度  建议用 {@link MediaInfo#vWidth}来赋值
@@ -511,6 +539,9 @@ public class DrawPadView extends FrameLayout {
     {
 		VideoPen ret=null;
 	    
+		
+		
+		
 		if(renderer!=null)
 			ret=renderer.addMainVideoPen(width, height,filter);
 		else{
@@ -554,6 +585,7 @@ public class DrawPadView extends FrameLayout {
 			}
 			return ret;
 	}
+	
 	/**
 	 * 获取一个BitmapPen
 	 * 注意:此方法一定在 startDrawPad之后,在stopDrawPad之前调用.

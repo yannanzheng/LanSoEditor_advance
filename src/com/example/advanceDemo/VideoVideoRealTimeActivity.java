@@ -59,7 +59,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
  * 演示: 使用DrawPad来实现 视频和视频的实时叠加.
  * 
  * 流程是: 
- * 先创建一个DrawPad,获取主VideoPen,在播放过程中,再次获取一个VideoPen然后可以调节SeekBar来对
+ * 先创建一个DrawPad,增加主VideoPen,在播放过程中,再次增加一个VideoPen然后可以调节SeekBar来对
  * Pen的每个参数进行调节.
  * 
  * 可以调节的有:平移,旋转,缩放,RGBA值,显示/不显示(闪烁)效果.
@@ -101,7 +101,8 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
         
         initSeekBar(R.id.id_DrawPad_skbar_rotate,360); //角度是旋转360度.
         initSeekBar(R.id.id_DrawPad_skbar_move,100);   //move的百分比暂时没有用到,举例而已.
-        initSeekBar(R.id.id_DrawPad_skbar_scale,800);   //这里设置最大可放大8倍
+        
+        initSeekBar(R.id.id_DrawPad_skbar_scale,300);   //这里设置最大可放大8倍
         
         initSeekBar(R.id.id_DrawPad_skbar_red,100);  //red最大为100
         initSeekBar(R.id.id_DrawPad_skbar_green,100);
@@ -225,13 +226,12 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
 //				mDrawPadView.startDrawPad(new DrawPadProgressListener(),new DrawPadCompleted());
 				mDrawPadView.startDrawPad(null,null); //这里为了演示方便, 设置为null,当然你也可以使用上面这句,然后把当前行屏蔽, 这样会调用两个回调,在回调中实现可以根据时间戳的关系来设计各种效果.
 				
-				//获取一个主视频的 VideoPen
+				//增加一个主视频的 VideoPen
 				mPenMain=mDrawPadView.addMainVideoPen(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
 				if(mPenMain!=null){
 					mplayer.setSurface(new Surface(mPenMain.getVideoTexture()));
 				}
 				mplayer.start();
-				
 				
 //				startVPlayer();
 				startPlayer2();
@@ -301,7 +301,8 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
 			public void onPrepared(MediaPlayer mp) {
 				// TODO Auto-generated method stub
 				
-				// 获取一个VideoPen
+				// 增加一个VideoPen
+				//这里有白色, 目标是把白色去掉.
 				subVideoPen=mDrawPadView.addVideoPen(mp.getVideoWidth(),mp.getVideoHeight(),null);
 				if(subVideoPen!=null){
 					Log.i(TAG,"sub video Pen ....obtain..");
@@ -374,10 +375,10 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
 		    	SDKFileUtils.deleteFile(editTmpPath);
 		    } 
 	}
-    private float xpos=0,ypos=0;
     
+    private int RotateCnt=0;
     /**
-     * 提示:实际使用中没有主次之分, 只要是继承自IPen的对象(FilterPen除外),都可以调节,这里仅仅是举例
+     * 提示:实际使用中没有主次之分, 只要是继承自Pen的对象,都可以调节,这里仅仅是举例
      */
 	@Override
 	public void onProgressChanged(SeekBar seekBar, int progress,
@@ -387,18 +388,30 @@ public class VideoVideoRealTimeActivity extends Activity implements OnSeekBarCha
 			case R.id.id_DrawPad_skbar_rotate:
 				if(subVideoPen!=null){
 					subVideoPen.setRotate(progress);
+//					RotateCnt++;  //因当前视频画笔旋转任意角度时,会有画面拉伸的效果, 我们提供了4个方法来旋转90/180/270/0来供您使用.
+//					if(RotateCnt>3){
+//						RotateCnt=0;
+//					}
+//					if(RotateCnt==0)
+//						subVideoPen.setRotate0();
+//					else if(RotateCnt==1)
+//						subVideoPen.setRotate90();
+//					else if(RotateCnt==2)
+//						subVideoPen.setRotate180();
+//					else if(RotateCnt==3)
+//						subVideoPen.setRotate270();
+//					else
+//						subVideoPen.setRotate0();
 				}
 				break;
 			case R.id.id_DrawPad_skbar_move:
 					if(subVideoPen!=null){
-						 xpos+=10;
-						 ypos+=10;
+						float ypos=subVideoPen.getPositionY()+10;
 						 
-						 if(xpos>mDrawPadView.getViewWidth())
-							 xpos=0;
-						 if(ypos>mDrawPadView.getViewWidth())
+						 if(ypos>mDrawPadView.getViewWidth()){
 							 ypos=0;
-						 subVideoPen.setPosition(xpos, ypos);
+						 }
+						 subVideoPen.setPosition(subVideoPen.getPositionX(),ypos);
 					}
 				break;				
 			case R.id.id_DrawPad_skbar_scale:

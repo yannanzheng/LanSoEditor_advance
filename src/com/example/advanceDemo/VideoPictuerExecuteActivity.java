@@ -44,7 +44,7 @@ import com.lansosdk.videoeditor.onVideoEditorProgressListener;
  * 记录下用户的操作信息,但需要统一处理时,通过此类来在后台执行.
  * 
  * 流程:通过DrawPadVideoExecute来实现视频的编辑处理,
- * 效果:建立一个DrawPad后,获取VideoPen让其播放,在播放过程中,向里面增加两个图片和一个UI,
+ * 效果:建立一个DrawPad后,增加VideoPen让其播放,在播放过程中,向里面增加两个图片和一个UI,
  * 其中给一个图片移动位置,并在3秒处放大一倍,在6秒处消失,处理中实时的形成视频等
  * 
  *
@@ -234,7 +234,7 @@ public class VideoPictuerExecuteActivity extends Activity{
 				if(mCanvasPen!=null){
 					
 					mCanvasPen.setClearCanvas(false);
-					mShowHeart=new ShowHeart(VideoPictuerExecuteActivity.this,mCanvasPen.getWidth(),mCanvasPen.getHeight());
+					mShowHeart=new ShowHeart(VideoPictuerExecuteActivity.this,mCanvasPen.getPadWidth(),mCanvasPen.getPadHeight());
 					mCanvasPen.addCanvasRunnable(new CanvasRunnable() {
 						
 						@Override

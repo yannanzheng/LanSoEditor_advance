@@ -43,7 +43,7 @@ import com.lansosdk.videoeditor.onVideoEditorProgressListener;
  * 比如你想设计的:在滤镜的过程中,让用户手动拖动增加一些图片,文字等, 增加完成后,记录下用户的操作信息,
  * 但需要统一处理时,通过此类来在后台执行.
  * 
- *  流程是:使用DrawPadVideoExecute, 创建一个DrawPad,从中获取VideoPen,向内部增加各种滤镜,然后设置到视频播放器中,在画面播放过程中,可以随时增加另外的一些
+ *  流程是:使用DrawPadVideoExecute, 创建一个DrawPad,从中增加VideoPen,向内部增加各种滤镜,然后设置到视频播放器中,在画面播放过程中,可以随时增加另外的一些
  *  Pen,比如BitmapPen,CanvasPen等等.
  *  
  *

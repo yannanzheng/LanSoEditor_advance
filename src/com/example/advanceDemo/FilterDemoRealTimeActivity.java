@@ -59,7 +59,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
  * 演示滤镜模块的 FilterPen的使用, 可以在播放过程中切换滤镜,
  * 在滤镜处理过程中, 增加其他的Pen,比如增加一个BitmapPen和 ViewPen等等.
  * 
- * 流程: 从layout中得到DrawPadView,并从DrawPadView中获取多个Pen,
+ * 流程: 从layout中得到DrawPadView,并从DrawPadView中增加多个Pen,
  * 并对Pen进行滤镜, 缩放等操作.
  *
  *
@@ -248,8 +248,7 @@ public class FilterDemoRealTimeActivity extends Activity {
     			public void onSizeChanged(int viewWidth, int viewHeight) {
     				// TODO Auto-generated method stub
     				mDrawPadView.startDrawPad(new DrawPadProgressListener(),new DrawPadCompleted());
-    				//先增加一个背景
-    				addFilterPen();
+    				addVideoPen();
     			}
     		});
     	}
@@ -257,10 +256,10 @@ public class FilterDemoRealTimeActivity extends Activity {
    
     
     //Step2: 增加一个FilterPen, 滤镜.
-    private void addFilterPen()
+    private void addVideoPen()
     {
     	/**
-		 * 这里获取一个FilterPen, 并把设置滤镜效果为GPUImageSepiaFilter滤镜.
+		 * 这里增加一个FilterPen, 并把设置滤镜效果为GPUImageSepiaFilter滤镜.
 		 */
 		filterPen=mDrawPadView.addMainVideoPen(mplayer.getVideoWidth(),mplayer.getVideoHeight(),
 				new IF1977Filter(getBaseContext()));
@@ -287,7 +286,7 @@ public class FilterDemoRealTimeActivity extends Activity {
 	      else{
 	    	  CopyFileFromAssets.copy(getApplicationContext(), "pic720x720.jpg", SDKDir.TMP_DIR, "picname.jpg");
 	      }
-	      //先 获取第一张Bitmap的Pen, 因为是第一张,放在DrawPad中维护的数组的最下面, 认为是背景图片.
+	      //先 增加第一张Bitmap的Pen, 因为是第一张,放在DrawPad中维护的数组的最下面, 认为是背景图片.
 	      mDrawPadView.addBitmapPen(BitmapFactory.decodeFile(picPath));
     }
     //DrawPad完成后的回调.

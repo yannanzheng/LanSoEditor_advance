@@ -101,10 +101,11 @@
           <activity android:name="com.example.advanceDemo.VideoPenAutoUpdateDemoActivity"></activity>
         
           <activity android:name="com.example.advanceDemo.CameraPenDemoActivity"
-               android:theme="@style/AppTheme2">
-              
-          </activity>
-          
+               android:theme="@style/AppTheme2"></activity>
+            <activity android:name="com.example.advanceDemo.CameraMaskPenDemoActivity"
+            android:configChanges="orientation|screenSize"></activity>
+            
+            
           <activity android:name="com.example.advanceDemo.SegmentRecorderActivity"
                   android:theme="@style/AppTheme2">
               

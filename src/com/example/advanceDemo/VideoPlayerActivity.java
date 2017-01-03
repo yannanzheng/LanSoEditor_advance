@@ -120,8 +120,8 @@ public class VideoPlayerActivity extends Activity {
 					int height) {
 				// TODO Auto-generated method stub
 				if(isSupport){
-//					play(new Surface(surface));
-					startVPlayer(new Surface(surface));
+					play(new Surface(surface));
+//					startVPlayer(new Surface(surface));
 				}
 			}
 		});

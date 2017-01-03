@@ -165,7 +165,7 @@ public class ViewPenOnlyRealTimeActivity extends Activity implements IEndListene
         mGLRelativeLayout.invalidate();
         
         ViewGroup.LayoutParams  params=mGLRelativeLayout.getLayoutParams();
-        params.height=mViewPen.getHeight();  //因为布局时, 宽度一致, 这里调整高度,让他们一致.
+        params.height=mViewPen.getPadHeight();  //因为布局时, 宽度一致, 这里调整高度,让他们一致.
         
         mGLRelativeLayout.setLayoutParams(params);
     }

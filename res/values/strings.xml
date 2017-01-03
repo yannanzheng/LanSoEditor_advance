@@ -154,4 +154,12 @@
 	<string name="demo_more_avreverse">音视频倒序</string>
 	
 	
+		<string name="filter_normal">普通</string>
+    <string name="filter_blend">叠加</string>
+    <string name="filter_soft_light">柔和叠加</string>
+    <string name="filter_stack_blur">模糊</string>
+    <string name="filter_tone_curve">色调曲线</string>
+      <string name="record_start">开始录制</string>
+    <string name="record_stop">停止录制</string>
+	
 </resources>

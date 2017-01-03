@@ -50,7 +50,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
  * 演示: 使用DrawPad来实现 视频和图片的实时叠加. 
  * 
  * 流程是: 
- * 先创建一个DrawPad,然后在视频播放过程中,从DrawPad中获取一个CanvasPen,然后可以调节SeekBar来对Pen的每个
+ * 先创建一个DrawPad,然后在视频播放过程中,从DrawPad中增加一个CanvasPen,然后可以调节SeekBar来对Pen的每个
  * 参数进行调节.
  * 
  */
@@ -186,7 +186,7 @@ public class CanvasPenDemoActivity extends Activity {
 				// TODO Auto-generated method stub
 				// 开始DrawPad的渲染线程. 
 				mDrawPadView.startDrawPad(null,null);
-				//获取一个主视频的 VideoPen
+				//增加一个主视频的 VideoPen
 				mPenMain=mDrawPadView.addMainVideoPen(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
 				if(mPenMain!=null){
 					mplayer.setSurface(new Surface(mPenMain.getVideoTexture()));
@@ -209,7 +209,7 @@ public class CanvasPenDemoActivity extends Activity {
 		{
 				mCanvasPen.setClearCanvas(false);
 				
-				mShowHeart=new ShowHeart(CanvasPenDemoActivity.this,mCanvasPen.getWidth(),mCanvasPen.getHeight());
+				mShowHeart=new ShowHeart(CanvasPenDemoActivity.this,mCanvasPen.getPadWidth(),mCanvasPen.getPadHeight());
 				//这里增加两个CanvasRunnable
 				mCanvasPen.addCanvasRunnable(new CanvasRunnable() {
 					
@@ -223,7 +223,7 @@ public class CanvasPenDemoActivity extends Activity {
 		         			paint.setAntiAlias(true);
 		         			paint.setTextSize(80);
 	
-		         		canvas.drawText("蓝松短视频演示之<任意绘制>",20,mCanvasPen.getHeight()-200, paint);
+		         		canvas.drawText("蓝松短视频演示之<任意绘制>",20,mCanvasPen.getPadHeight()-200, paint);
 					}
 				});
 				

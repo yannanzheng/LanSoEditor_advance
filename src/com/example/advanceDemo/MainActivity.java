@@ -58,6 +58,8 @@ public class MainActivity extends Activity implements OnClickListener{
 	 
 	private TextView tvVideoPath;
 	private boolean isPermissionOk=false;
+	
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,10 +70,11 @@ public class MainActivity extends Activity implements OnClickListener{
         LoadLanSongSdk.loadLibraries();  //拿出来单独加载库文件.
         LanSoEditor.initSo(getApplicationContext(),null);
         
-        
            
-//        LanSoEditorBox.setTempFileDir(tmpDir);
-    	//因为从android6.0系统有各种权限的限制, 这里开始先检查是否有读写的权限,PermissionsManager采用github上开源库,不属于我们sdk的一部分.
+        //这个仅仅用来修改box里面的临时路径,如要修改VideoEidtor产生的路径,则可以在SDKDir中直接修改,不调用, 则默认是/sdcard/lansongBox/文件夹下.
+       // LanSoEditorBox.setTempFileDir("/sdcard/testTmp/");
+        
+    	//因为从android6.0系统有各种权限的限制,这里先检查是否有读写的权限,PermissionsManager采用github上开源库,不属于我们sdk的一部分.
 		 //下载地址是:https://github.com/anthonycr/Grant,您也可以使用别的方式来检查app所需权限.
         PermissionsManager.getInstance().requestAllManifestPermissionsIfNecessary(this, new PermissionsResultAction() {
             @Override
@@ -137,12 +140,12 @@ public class MainActivity extends Activity implements OnClickListener{
 				new com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask(MainActivity.this, tvVideoPath, "ping20s.mp4").execute();
 			}
 		});
+        showHintDialog();
         
-    	showHintDialog();
+       
     }
     private void showHintDialog()
    	{
-      	 	
     	Calendar c = Calendar.getInstance();
    		int year=c.get(Calendar.YEAR);
    		int month=c.get(Calendar.MONTH)+1;
@@ -223,7 +226,7 @@ public class MainActivity extends Activity implements OnClickListener{
 					break;
 				case R.id.id_main_viewpendemo1:
 					startDemoActivity(VideoViewPenDemoActivity.class);
-//					startDemoActivity(VideoPenAutoUpdateDemoActivity.class);
+//					startDemoActivity(VideoPenAutoUpdateDemoActivity.class);  //
 					break;
 				case R.id.id_main_viewremark:
 					startDemoActivity(VideoRemarkActivity.class);

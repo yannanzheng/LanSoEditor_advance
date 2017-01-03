@@ -245,7 +245,7 @@ public class VideoPenAutoUpdateDemoActivity extends Activity{
             mPenRelativeLayout.invalidate();
             
             ViewGroup.LayoutParams  params=mPenRelativeLayout.getLayoutParams();
-            params.height=mViewPen.getHeight();  //因为布局时, 宽度一致, 这里调整高度,让他们一致.
+            params.height=mViewPen.getPadHeight();  //因为布局时, 宽度一致, 这里调整高度,让他们一致.
             
             mPenRelativeLayout.setLayoutParams(params);
     	}

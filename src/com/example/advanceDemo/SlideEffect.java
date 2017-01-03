@@ -4,6 +4,13 @@ import android.util.Log;
 
 import com.lansosdk.box.Pen;
 
+/**
+ *  此代码仅仅是用来演示多张图片的移动效果的, 实际你可以根据自己的需求而定.  
+ *  
+ *  此代码不属于sdk的一部分, 仅仅用作演示demo使用.
+ *  
+ *  您可以在仿照这个来做各种图片的动作.
+ */
 public class SlideEffect {
 
 	private Pen mPen;
@@ -29,8 +36,8 @@ public class SlideEffect {
 		mPen=pen;
 		mStartMS=startMS;
 		mEndMS=endMS;
-		viewWidth=mPen.getWidth();
-		viewHeight=mPen.getHeight();
+		viewWidth=mPen.getPadWidth();
+		viewHeight=mPen.getPadHeight();
 		needReleasePen=needRelease;
 		
 		//一秒钟划入,则需要走 viewWidth/2的距离. 则一帧step,需要走 viewWidth/(2*fps);

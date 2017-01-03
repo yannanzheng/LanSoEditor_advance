@@ -24,7 +24,7 @@ public class FileExplorerActivity extends ListActivity {
 	private TextView 		mTextViewLocation;
 	private File[]			mFiles;
 	private static final String[] exts = new String[] 	{   
-		".mp4",".flv",".h264"
+		".mp4",".flv",".h264",".mov"
 		};
 	
 	@Override

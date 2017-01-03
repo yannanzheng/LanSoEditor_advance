@@ -210,6 +210,11 @@ public class GPUImageFilterTools {
                 centerPoint.y = 0.5f;
                 return new GPUImageVignetteFilter(centerPoint, new float[] {0.0f, 0.0f, 0.0f}, 0.3f, 0.75f);
             case LanSongBLACKMASK:
+					/**
+					 * 这个滤镜的效果是: 把传递进来的Bitmap图片, 从中心叠加到输入源上, 并判断Bitmap中黑色像素RGB中R的值，
+					 *如果等于0, 则设置输入源对应的像素为透明，
+					 *如果不等于0，则把R替换输入源像素中的RGBA中A，从而实现半透明等效果。
+					 */
             	  return createBlendFilter(context, LanSongBlackMaskBlendFilter.class);
             case BLEND_DIFFERENCE:
                 return createBlendFilter(context, GPUImageDifferenceBlendFilter.class);

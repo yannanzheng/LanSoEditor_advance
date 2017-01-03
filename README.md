@@ -4,7 +4,7 @@ android  video editor  advance sdk . filter, overlay,remark,mixer and so on安�
 *  选择AS中的file--->import project ,选择项目的路径名，（注意，一定要是当前项目的根文件夹），点击Ok，会弹出对话框，让您选择需要保存的路径， 选择后点击Next,会弹出3个按钮都选中的对话框，直接点击Finish，导入完成。
 *  可联系我们,为您转换成Android Studio版本工程, 并提供技术支持(联系方式见下面). 
 
-###当前版本是LanSoEditor_advance1.9.6 视频编辑的高级版本
+###当前版本是LanSoEditor_advance1.9.9 视频编辑的高级版本
 *  基本覆盖了秒拍,美拍,快手等视频编辑的大部分功能.
 *  采用全新的[画板]+ [画笔] 的编程思想.
 *  新增短点录像功能,支持回删操作.

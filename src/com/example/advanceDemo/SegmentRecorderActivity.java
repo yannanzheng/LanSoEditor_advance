@@ -87,27 +87,29 @@ public class SegmentRecorderActivity extends Activity implements Handler.Callbac
 		setContentView(R.layout.video_record_activity);
 		 
 		 
-		 //加载so库,并初始化.
-		 LoadLanSongSdk.loadLibraries();
-		 LanSoEditor.initSo(getApplicationContext(),null);
-		 
 	
 		initView();
 		
 		handler = new Handler(this);
-		//第一步:初始化 断点录制.
-		segmentRecorder = new SegmentsRecorder(this, cameraTextureView.getHolder());
+		//第一步:初始化 断点录制. 
+		//最后三个参数是:视频编码宽度,视频编码高度,视频编码码率,因为是竖屏拍照, 录制的视频宽度和高度对调了,故这里设置480和640等.
+		segmentRecorder = new SegmentsRecorder(this, cameraTextureView.getHolder(),480,480,1000*1000); //建议采用这个
+//		segmentRecorder = new SegmentsRecorder(this, cameraTextureView.getHolder(),480,640,1200*1000);
+		//segmentRecorder = new SegmentsRecorder(this, cameraTextureView.getHolder(),720,1280,1500*1000);
+//		segmentRecorder = new SegmentsRecorder(this, cameraTextureView.getHolder(),1088,1920,2000*1000);
 		
 		//第二步:设置断点回调的各种方法.
 		segmentRecorder.setSegmentsRecordListener(new SegmentsRecordListener() {
-			
-			@Override
+
+			@Override  //当前段开始录制  在每次开始前调用.
 			public void segmentRecordStart() {
 				// TODO Auto-generated method stub
 				progressView.setCurrentState(VideoProgressView.State.START);
 			}
 			
-			@Override
+			
+			 // 当前段录制停止了, timeMS  当前在暂停时的, 录制总时间. segmentIdx segmnet的总数也是当前文件的索引, 等于 getSegmentSize();
+			@Override  
 			public void segmentRecordPause(int timeMS, int segmentIdx) {
 				// TODO Auto-generated method stub
 				handler.obtainMessage(MSG_SEGMENT_PAUSE, segmentIdx, 0).sendToTarget();
@@ -115,13 +117,13 @@ public class SegmentRecorderActivity extends Activity implements Handler.Callbac
 				progressView.putTimeList(timeMS);
 			}
 			
-			@Override
+			@Override  // 当前录制的总进度.  包括之前已经存在的视频段  加上正在录制的视频段.
 			public void segmentProgress(long totalTime) {
 				// TODO Auto-generated method stub
 				handler.obtainMessage(MSG_SEGMENT_PROGRESS, (int) totalTime, 0).sendToTarget();
 			}
 			
-			@Override
+			@Override  //相机准备好, 返回的预览大小
 			public void segmentCameraReady(int[] previewSize) {
 				// TODO Auto-generated method stub
 				cameraTextureView.setAspectRatio(previewSize[1], previewSize[0]);

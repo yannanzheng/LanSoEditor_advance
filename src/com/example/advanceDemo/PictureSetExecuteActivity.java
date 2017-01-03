@@ -194,7 +194,7 @@ public class PictureSetExecuteActivity extends Activity{
 		});
 		
 			vDrawPad.startDrawPad();
-			//可以在后台处理过程中,暂停画面的走动.比如想一次性获取多个Pen对象后,在让DrawPad执行,这样比在画面走动中获取更精确一些.
+			//可以在后台处理过程中,暂停画面的走动.比如想一次性增加多个Pen对象后,在让DrawPad执行,这样比在画面走动中获取更精确一些.
 			vDrawPad.pauseRefreshDrawPad(); 
 		
 			//设置一个背景,
@@ -202,13 +202,13 @@ public class PictureSetExecuteActivity extends Activity{
 	      
 	       slideEffectArray=new ArrayList<SlideEffect>();
 	      
-			//这里同时获取多个,只是不显示出来.
+			//这里同时增加多个,只是不显示出来.
 	      getPenToArray(R.drawable.pic1,0,5000);  		//1--5秒.
 	      getPenToArray(R.drawable.pic2,5000,10000);  //5--10秒.
 	      getPenToArray(R.drawable.pic3,10000,15000);	//10---15秒 
 	      getPenToArray(R.drawable.pic4,15000,20000);  //15---20秒
 	      getPenToArray(R.drawable.pic5,20000,25000);  //20---25秒
-	      //获取完Pen后,再次恢复DrawPad,让其工作.
+	      //增加完Pen后,再次恢复DrawPad,让其工作.
 	      vDrawPad.resumeRefreshDrawPad();
 	}
 	  private void getPenToArray(int resId,long startMS,long endMS)

@@ -50,7 +50,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 
 /**
  *  演示:  图片合成视频的同时保存成文件.
- *  流程: 把DrawPadView设置为自动刷新模式, 然后一次性获取多个BitmapPen,根据画面走动的时间戳来
+ *  流程: 把DrawPadView设置为自动刷新模式, 然后一次性增加多个BitmapPen,根据画面走动的时间戳来
  *  操作每个BitmapPen是否移动,是否显示.
  *  
  *  这里仅仅演示移动的属性, 您实际中可以移动,缩放,旋转,RGBA值调节来混合使用,因为BitmapPen继承自IPen,故有这些特性.
@@ -150,21 +150,21 @@ public class PictureSetRealTimeActivity extends Activity{
 			      else{
 			    	  CopyFileFromAssets.copy(mContext, "pic720x720.jpg", SDKDir.TMP_DIR, "picname.jpg");
 			      }
-			      //先 获取第一张Bitmap的Pen, 因为是第一张,放在DrawPad中维护的数组的最下面, 认为是背景图片.
+			      //先 增加第一张Bitmap的Pen, 因为是第一张,放在DrawPad中维护的数组的最下面, 认为是背景图片.
 			      mDrawPadView.addBitmapPen(BitmapFactory.decodeFile(picPath));
 			      
 			      slideEffectArray=new ArrayList<SlideEffect>();
 			      
-					//这里同时获取多个,只是不显示出来.
-			      getFifthPen(R.drawable.pic1,0,5000);  		//1--5秒.
-			      getFifthPen(R.drawable.pic2,5000,10000);  //5--10秒.
+					//这里同时增加多个,只是不显示出来.
+			      getFifthPen(R.drawable.tt,0,5000);  		//1--5秒.
+			      getFifthPen(R.drawable.tt3,5000,10000);  //5--10秒.
 			      getFifthPen(R.drawable.pic3,10000,15000);	//10---15秒 
 			      getFifthPen(R.drawable.pic4,15000,20000);  //15---20秒
 			      getFifthPen(R.drawable.pic5,20000,25000);  //20---25秒
 			}
 		});
     	
-    	//这里仅仅是举例,当界面再次返回的时候,依旧显示图片更新的动画效果,即重新开始DrawPad
+    	//这里仅仅是举例,当界面再次返回的时候,依旧显示图片更新的动画效果,即重新开始DrawPad, 很多时候是不需要这样的场景, 这里仅仅是举例
     	mDrawPadView.setOnViewAvailable(new onViewAvailable() {
 			
 			@Override
@@ -179,8 +179,8 @@ public class PictureSetRealTimeActivity extends Activity{
 				      slideEffectArray=new ArrayList<SlideEffect>();
 				      
 						//这里同时获取多个,只是不显示出来.
-				      getFifthPen(R.drawable.pic1,0,5000);  		//1--5秒.
-				      getFifthPen(R.drawable.pic2,5000,10000);  //5--10秒.
+				      getFifthPen(R.drawable.tt,0,5000);  		//1--5秒.
+				      getFifthPen(R.drawable.tt3,5000,10000);  //5--10秒.
 				      getFifthPen(R.drawable.pic3,10000,15000);	//10---15秒 
 				      getFifthPen(R.drawable.pic4,15000,20000);  //15---20秒
 				      getFifthPen(R.drawable.pic5,20000,25000);  //20---25秒
@@ -193,9 +193,9 @@ public class PictureSetRealTimeActivity extends Activity{
     private void getFifthPen(int resId,long startMS,long endMS)
     {
     	Pen item=mDrawPadView.addBitmapPen(BitmapFactory.decodeResource(getResources(), resId));
+    	
 		SlideEffect  slide=new SlideEffect(item, 25, startMS, endMS, true);
 		slideEffectArray.add(slide);
-		
     }
     //DrawPad完成时的回调.
     private class DrawPadCompleted implements onDrawPadCompletedListener

@@ -187,7 +187,7 @@ public class MVPenDemoActivity extends Activity {
 	    				// 开始DrawPad的渲染线程. 
 	    					mDrawPadView.startDrawPad(null,null);
 	    					
-	    				//获取一个主视频的 VideoPen
+	    				//增加一个主视频的 VideoPen
 	    				mPenMain=mDrawPadView.addMainVideoPen(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
 	    				if(mPenMain!=null){
 	    					mplayer.setSurface(new Surface(mPenMain.getVideoTexture()));
@@ -195,9 +195,10 @@ public class MVPenDemoActivity extends Activity {
 	    				mplayer.start();
 	    				
 	    				mMVPen=mDrawPadView.addMVPen(colorMVPath, maskMVPath);  //<-----增加MVPen
-	    				if(mMVPen!=null){
-	    					mMVPen.setEndMode(MVPenENDMode.LOOP);
-	    				}
+	    				Log.i(TAG,"增加一个mp");
+//	    				if(mMVPen!=null){
+//	    					mMVPen.setEndMode(MVPenENDMode.LOOP);
+//	    				}
 	    			}
 	        		});	
         	}

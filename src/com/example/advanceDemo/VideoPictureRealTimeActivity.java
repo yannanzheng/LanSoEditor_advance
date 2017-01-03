@@ -50,7 +50,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
  * 演示: 使用DrawPad来实现 视频和图片的实时叠加. 
  * 
  * 流程是: 
- * 先创建一个DrawPad,然后在视频播放过程中,从DrawPad中获取一个BitmapPen,然后可以调节SeekBar来对Pen的每个
+ * 先创建一个DrawPad,然后在视频播放过程中,从DrawPad中增加一个BitmapPen,然后可以调节SeekBar来对Pen的每个
  * 参数进行调节.
  * 
  * 可以调节的有:平移,旋转,缩放,RGBA值,显示/不显示(闪烁)效果.
@@ -92,7 +92,6 @@ public class VideoPictureRealTimeActivity extends Activity implements OnSeekBarC
         initSeekBar(R.id.id_DrawPad_skbar_green,100);
         initSeekBar(R.id.id_DrawPad_skbar_blue,100);
         initSeekBar(R.id.id_DrawPad_skbar_alpha,100);
-        
         
         findViewById(R.id.id_DrawPad_saveplay).setOnClickListener(new OnClickListener() {
 			
@@ -224,13 +223,24 @@ public class VideoPictureRealTimeActivity extends Activity implements OnSeekBarC
 					@Override
 					public void onProgress(DrawPad v, long currentTimeUs) {
 						// TODO Auto-generated method stub
+						//用来测试把一个图层放到底层或外层.
+						if(currentTimeUs>5*1000*1000 && mBitmapPen!=null){
+							mDrawPadView.bringPenToFront(mBitmapPen);
+						
+						}else if(currentTimeUs>3*1000*1000){
+							mDrawPadView.bringPenToBack(mBitmapPen);
+						}
 					}
 				},null);
 					
-				//获取一个主视频的 VideoPen
+					//如果视频太单调了, 可以给视频增加一个背景图片, 显得艺术一些.^^
+					mDrawPadView.addBitmapPen(BitmapFactory.decodeResource(getResources(), R.drawable.videobg));
+					
+				//增加一个主视频的 VideoPen
 				mPenMain=mDrawPadView.addMainVideoPen(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
 				if(mPenMain!=null){
 					mplayer.setSurface(new Surface(mPenMain.getVideoTexture()));
+					mPenMain.setScale(0.8f);  //把视频缩小一些, 因为外面有背景.
 				}
 				
 				mplayer.start();
@@ -239,7 +249,6 @@ public class VideoPictureRealTimeActivity extends Activity implements OnSeekBarC
 			}
 		});
     }
-	BitmapCache bitmapcache=BitmapCache.getInstance();
     /**
      * 从DrawPad中得到一个BitmapPen,填入要显示的图片,您实际可以是资源图片,也可以是png或jpg,或网络上的图片等,最后解码转换为统一的
      * Bitmap格式即可.
@@ -247,6 +256,8 @@ public class VideoPictureRealTimeActivity extends Activity implements OnSeekBarC
     private void addBitmapPen()
     {
     	mBitmapPen=mDrawPadView.addBitmapPen(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
+
+//    	mBitmapPen=mDrawPadView.addBitmapPen(BitmapFactory.decodeResource(getResources(), R.drawable.tt3));
     }
     @Override
     protected void onPause() {
