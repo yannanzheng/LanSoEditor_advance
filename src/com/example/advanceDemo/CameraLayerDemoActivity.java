@@ -124,7 +124,6 @@ public class CameraLayerDemoActivity extends Activity implements OnClickListener
 			mWakeLock.acquire();
 		}
     }
-    
     /**
      * Step1: 开始运行 DrawPad 画板
      */
@@ -162,8 +161,6 @@ public class CameraLayerDemoActivity extends Activity implements OnClickListener
 			if(currentTimeUs>=RECORD_CAMERA_TIME){  
 				stopDrawPad();
 			}
-//			Log.i(TAG,"drawpad -----------"+currentTimeUs);
-			
 			if(tvTime!=null){
 				long left=RECORD_CAMERA_TIME-currentTimeUs;
 				
