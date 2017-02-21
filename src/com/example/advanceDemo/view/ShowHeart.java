@@ -97,7 +97,7 @@ public class ShowHeart {
 					float xx = (float) a;
 					float yy = (float) d;
 					
-					Paint p = new Paint(); // 创建画笔
+					Paint p = new Paint(); // 创建图层
 					p.setColor(Color.RED);
 					if (old_num != -1) {
 						cas.drawBitmap(bb, startx + old_xx, starty + old_yy,

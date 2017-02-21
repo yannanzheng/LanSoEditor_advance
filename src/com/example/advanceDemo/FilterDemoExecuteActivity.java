@@ -20,12 +20,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lansoeditor.demo.R;
-import com.lansosdk.box.BitmapPen;
+import com.lansosdk.box.BitmapLayer;
 import com.lansosdk.box.DrawPad;
 import com.lansosdk.box.DrawPadVideoExecute;
-import com.lansosdk.box.VideoPen;
-import com.lansosdk.box.ViewPen;
-import com.lansosdk.box.ScaleExecute;
+import com.lansosdk.box.VideoLayer;
+import com.lansosdk.box.ViewLayer;
 import com.lansosdk.box.onDrawPadCompletedListener;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onScaleCompletedListener;
@@ -38,13 +37,14 @@ import com.lansosdk.videoeditor.VideoEditor;
 import com.lansosdk.videoeditor.onVideoEditorProgressListener;
 
 /**
- * 演示滤镜在后台工作的场合, 
+ * 演示Layer中的滤镜属性在后台工作的场合, 
+ * 
  * 
  * 比如你想设计的:在滤镜的过程中,让用户手动拖动增加一些图片,文字等, 增加完成后,记录下用户的操作信息,
  * 但需要统一处理时,通过此类来在后台执行.
  * 
- *  流程是:使用DrawPadVideoExecute, 创建一个DrawPad,从中增加VideoPen,向内部增加各种滤镜,然后设置到视频播放器中,在画面播放过程中,可以随时增加另外的一些
- *  Pen,比如BitmapPen,CanvasPen等等.
+ *  流程是:使用DrawPadVideoExecute, 创建一个DrawPad,从中增加VideoLayer,向内部增加各种滤镜,然后设置到视频播放器中,在画面播放过程中,可以随时增加另外的一些
+ *  Layer,比如BitmapLayer,CanvasLayer等等.
  *  
  *
  */
@@ -58,11 +58,15 @@ public class FilterDemoExecuteActivity extends Activity{
 	TextView tvProgressHint;
 	 TextView tvHint;
 	 
-	    private String editTmpPath=null;
-	    private String dstPath=null;
-	    
-	    
-	private static final String TAG="FilterPenExecuteActivity";
+	private String editTmpPath=null;
+	private String dstPath=null;
+	
+	private BitmapLayer bitmapLayer=null;
+	private DrawPadVideoExecute  vDrawPad=null;
+	private boolean isExecuting=false;
+		
+	private static final String TAG="FilterDemoExecuteActivity";
+	
    	private static final boolean VERBOSE = false; 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -75,40 +79,8 @@ public class FilterDemoExecuteActivity extends Activity{
 		 mMediaInfo.prepare();
 		 
 		 setContentView(R.layout.video_edit_demo_layout);
-		 tvHint=(TextView)findViewById(R.id.id_video_editor_hint);
+		 initView();
 		 
-		 tvHint.setText(R.string.filterPen_execute_hint);
-   
-		 tvProgressHint=(TextView)findViewById(R.id.id_video_edit_progress_hint);
-		 
-       findViewById(R.id.id_video_edit_btn).setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				
-				if(mMediaInfo.vDuration>60*1000){//大于60秒
-					showHintDialog();
-				}else{
-					testDrawPadExecute();
-				}
-			}
-		});
-       
-       findViewById(R.id.id_video_edit_btn2).setEnabled(false);
-       findViewById(R.id.id_video_edit_btn2).setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				if(SDKFileUtils.fileExist(dstPath)){
-					Intent intent=new Intent(FilterDemoExecuteActivity.this,VideoPlayerActivity.class);
-	    	    	intent.putExtra("videopath", dstPath);
-	    	    	startActivity(intent);
-				}else{
-					 Toast.makeText(FilterDemoExecuteActivity.this, "目标文件不存在", Toast.LENGTH_SHORT).show();
-				}
-			}
-		});
-       
        //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
        editTmpPath=SDKFileUtils.newMp4PathInBox();
        dstPath=SDKFileUtils.newMp4PathInBox();
@@ -129,28 +101,9 @@ public class FilterDemoExecuteActivity extends Activity{
         	   SDKFileUtils.deleteFile(editTmpPath);
            } 
     }
-	   
-	VideoEditor mVideoEditer;
-	BitmapPen bitmapPen=null;
-	DrawPadVideoExecute  vDrawPad=null;
-	private boolean isExecuting=false;
-	private void showHintDialog()
-	{
-		new AlertDialog.Builder(this)
-		.setTitle("提示")
-		.setMessage("视频过大,可能会需要一段时间,您确定要处理吗?")
-        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				testDrawPadExecute();
-			}
-		})
-		.setNegativeButton("取消", null)
-        .show();
-	}
-	
+	/**
+	 * 
+	 */
 	private void testDrawPadExecute()
 	{
 		if(isExecuting)
@@ -158,14 +111,17 @@ public class FilterDemoExecuteActivity extends Activity{
 		
 		isExecuting=true;
 		 /**
+		  * 创建在后台调用DrawPad来处理视频的构造方法.
 		  * 
-		  * @param ctx   语境,android的Context
-		  * @param srcPath   主视频的路径
-		  * @param mpoolW   DrawPad的宽度.
-		  * @param mpoolH  DrawPad的高度.
-		  * @param bitrate  编码视频所希望的码率,比特率.
+		  * (类似photoshop的工作区)
+		  * 
+		  * @param ctx 语境,android的Context
+		  * @param srcPath 主视频的路径
+		  * @param padwidth DrawPad的的宽度
+		  * @param padheight DrawPad的的高度
+		  * @param bitrate   编码视频所希望的码率,比特率.
+		  * @param filter   为视频增加一个滤镜
 		  * @param dstPath  编码视频保存的路径.
-		  * @param filter   需要的滤镜效果对象
 		  */
 		 vDrawPad=new DrawPadVideoExecute(FilterDemoExecuteActivity.this,videoPath,480,480,1000000,new GPUImageSepiaFilter(),editTmpPath);
 		
@@ -178,12 +134,12 @@ public class FilterDemoExecuteActivity extends Activity{
 				tvProgressHint.setText(String.valueOf(currentTimeUs));
 			
 				//6秒后消失
-				if(currentTimeUs>6000000 && bitmapPen!=null)  
-					v.removePen(bitmapPen);
+				if(currentTimeUs>6000000 && bitmapLayer!=null)  
+					v.removeLayer(bitmapLayer);
 				
 				//3秒的时候,放大一倍.
-				if(currentTimeUs>3000000 && bitmapPen!=null)  
-					bitmapPen.setScale(2.0f);
+				if(currentTimeUs>3000000 && bitmapLayer!=null)  
+					bitmapLayer.setScale(2.0f);
 			}
 		});
 		//设置DrawPad处理完成后的监听.
@@ -208,10 +164,59 @@ public class FilterDemoExecuteActivity extends Activity{
 		});
 		vDrawPad.startDrawPad();
 		
-		bitmapPen=vDrawPad.addBitmapPen(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
+		bitmapLayer=vDrawPad.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
 		
-		bitmapPen.setPosition(300, 200);
-		vDrawPad.addBitmapPen(BitmapFactory.decodeResource(getResources(), R.drawable.xiaolian));	
-		
+		bitmapLayer.setPosition(300, 200);
+		vDrawPad.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.xiaolian));	
+	}
+	private void showHintDialog()
+	{
+		new AlertDialog.Builder(this)
+		.setTitle("提示")
+		.setMessage("视频过大,可能会需要一段时间,您确定要处理吗?")
+        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				testDrawPadExecute();
+			}
+		})
+		.setNegativeButton("取消", null)
+        .show();
+	}
+	private void initView()
+	{
+		 
+		 tvHint=(TextView)findViewById(R.id.id_video_editor_hint);
+		 tvHint.setText(R.string.filterLayer_execute_hint);
+		 tvProgressHint=(TextView)findViewById(R.id.id_video_edit_progress_hint);
+	      findViewById(R.id.id_video_edit_btn).setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					
+					if(mMediaInfo.vDuration>60*1000){//大于60秒
+						showHintDialog();
+					}else{
+						testDrawPadExecute();
+					}
+				}
+			});
+      
+	      findViewById(R.id.id_video_edit_btn2).setEnabled(false);
+	      findViewById(R.id.id_video_edit_btn2).setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					if(SDKFileUtils.fileExist(dstPath)){
+						Intent intent=new Intent(FilterDemoExecuteActivity.this,VideoPlayerActivity.class);
+		    	    	intent.putExtra("videopath", dstPath);
+		    	    	startActivity(intent);
+					}else{
+						 Toast.makeText(FilterDemoExecuteActivity.this, "目标文件不存在", Toast.LENGTH_SHORT).show();
+					}
+				}
+			});
 	}
 }	

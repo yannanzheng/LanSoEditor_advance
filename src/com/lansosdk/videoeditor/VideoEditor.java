@@ -1186,7 +1186,39 @@ public class VideoEditor {
 				  return VIDEO_EDITOR_EXECUTE_FAILED;
 			  }
 		  }
-		  
+		  /**
+		   * 把多段mp4文件拼接 在一起. 
+		   * 注意:这里的多段mp4文件, 需要是同一段代码录制而成,分辨率,码率一致的情况下, 如果多段mp4文件中的视频来源不同, 则合成是可以的,但有些播放器不支持播放(VLC可以播放)
+		   * 如果您视频分辨率在720P一下, 每段比较小,建议您不用采用录制后合并的方法, 可采用先保存原始YUV数据,再需要拼接的时候,再次拼接在一起.
+		   * @param mp4Array 多段mp4文件
+		   * 
+		   * @param dstVideo  合成后的文件路径
+		   */
+		  public void executeConcatMP4(String[] mp4Array,String dstVideo)
+			{
+				
+				//第一步,先把所有的mp4转换为ts流
+				ArrayList<String>  tsPathArray=new ArrayList<String>();
+				for(int i=0;i<mp4Array.length;i++)
+				{
+					String segTs1=SDKFileUtils.createFileInBox("ts");
+					executeConvertMp4toTs(mp4Array[i], segTs1);
+					tsPathArray.add(segTs1);
+				}
+				
+				//第二步: 把ts流拼接成mp4
+				String[] tsPaths=new String[tsPathArray.size()];  
+			     for(int i=0;i<tsPathArray.size();i++){  
+			    	 tsPaths[i]=(String)tsPathArray.get(i);  
+			     }  
+			     executeConvertTsToMp4(tsPaths , dstVideo);
+			     
+				  //第三步:删除临时生成的ts文件.
+			     for(int i=0;i<tsPathArray.size();i++)
+					{
+			    	 	SDKFileUtils.deleteFile(tsPathArray.get(i));
+					}
+			}
 		  /**
 		   * 裁剪一个mp4分辨率，把视频画面的某一部分裁剪下来，
 		   * 

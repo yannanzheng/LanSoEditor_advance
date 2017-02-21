@@ -36,24 +36,24 @@ import java.util.Map;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 
-import com.lansosdk.box.BitmapPen;
-import com.lansosdk.box.CameraPen;
-import com.lansosdk.box.CanvasPen;
-import com.lansosdk.box.DataPen;
-import com.lansosdk.box.MVPen;
-import com.lansosdk.box.Pen;
+import com.lansosdk.box.AudioLine;
+import com.lansosdk.box.BitmapLayer;
+import com.lansosdk.box.CameraLayer;
+import com.lansosdk.box.CameraLayer;
+import com.lansosdk.box.CanvasLayer;
+import com.lansosdk.box.DataLayer;
+import com.lansosdk.box.MVLayer;
+import com.lansosdk.box.Layer;
 import com.lansosdk.box.DrawPadUpdateMode;
 import com.lansosdk.box.DrawPadViewRender;
-import com.lansosdk.box.VideoPen;
-import com.lansosdk.box.ViewPen;
+import com.lansosdk.box.VideoLayer;
+import com.lansosdk.box.ViewLayer;
 import com.lansosdk.box.onDrawPadCompletedListener;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
 import com.lansosdk.box.onDrawPadThreadProgressListener;
 import com.lansosdk.videoeditor.MediaInfo;
-import com.lansosdk.videoeditor.SDKDir;
-import com.lansosdk.videoeditor.SDKFileUtils;
-import com.lansosdk.videoeditor.VideoEditor;
+
 
 
 /**
@@ -75,7 +75,7 @@ public class DrawPadView extends FrameLayout {
  	
  	private SurfaceTexture mSurfaceTexture=null;
  	
-
+	private boolean isUseMainPts=false;
  	
  	private int encWidth,encHeight,encBitRate,encFrameRate;
  	
@@ -146,6 +146,9 @@ public class DrawPadView extends FrameLayout {
     	mTextureRenderView = new TextureRenderView(getContext());
     	mTextureRenderView.setSurfaceTextureListener(new SurfaceCallback());
     	
+       /**
+        * 注意： 此
+        */
     	mTextureRenderView.setDispalyRatio(AR_ASPECT_FIT_PARENT);
         
     	View renderUIView = mTextureRenderView.getView();
@@ -292,15 +295,14 @@ public class DrawPadView extends FrameLayout {
 		 */
 	   public void setRealEncodeEnable(int encW,int encH,int encBr,int encFr,String outPath)
 	    {
-	    	if(outPath!=null && encW>0 && encH>0 && encBr>0 && encFr>0){
+	    	if(encW>0 && encH>0 && encBr>0 && encFr>0){
 	    			encWidth=encW;
 			        encHeight=encH;
 			        encBitRate=encBr;
 			        encFrameRate=encFr;
 			        encodeOutput=outPath;
 	    	}else{
-	    		Log.w(TAG,"enable real encode is error,may be outpath is null");
-	    		encodeOutput=null;
+	    		Log.w(TAG,"enable real encode is error");
 	    	}
 	    }
 	
@@ -323,7 +325,15 @@ public class DrawPadView extends FrameLayout {
 	public void setDrawPadSize(int width,int height,onDrawPadSizeChangedListener cb){
 		
 		if (width != 0 && height != 0 && cb!=null) {
-            if (mTextureRenderView != null) {
+			float setAcpect=(float)width/(float)height;
+			float setViewacpect=(float)viewWidth/(float)viewHeight;
+			
+		    if(setAcpect==setViewacpect){  //如果比例已经相等,不需要再调整,则直接显示.
+		    	
+		    	if(mSizeChangedCB!=null)
+    				mSizeChangedCB.onSizeChanged(width, height);
+		    	
+		    }else if (mTextureRenderView != null) {
             	
                 mTextureRenderView.setVideoSize(width, height);
                 mTextureRenderView.setVideoSampleAspectRatio(1,1);
@@ -359,7 +369,8 @@ public class DrawPadView extends FrameLayout {
 	}
 
 	/**
-	 * 开始DrawPad的渲染线程. 
+	 * 开始DrawPad的渲染线程, 阻塞执行, 直到DrawPad真正开始执行后才退出当前方法.
+	 * 
 	 * 此方法可以在 {@link onDrawPadSizeChangedListener} 完成后调用.
 	 * 可以先通过 {@link #setDrawPadSize(int, int, onDrawPadSizeChangedListener)}来设置宽高,然后在回调中执行此方法.
 	 * 如果您已经在xml中固定了view的宽高,则可以直接调用这里, 无需再设置DrawPadSize
@@ -371,11 +382,26 @@ public class DrawPadView extends FrameLayout {
 		drawpadProgressListener=progressListener;
 		drawpadCompletedListener=completedListener;
 		
-		startDrawPad(mPauseRecordDrawPad);
+		startDrawPad(pauseRecord);
 	}
+	
+	/**
+	 * 此方法仅仅使用在录制视频的同时,您也设置了录制音频
+	 * 
+	 * @return  在录制结束后, 返回录制mic的音频文件路径, 
+	 */
+	public String getMicPath()
+	{
+		if(renderer!=null){
+			return renderer.getAudioRecordPath();
+		}else{
+			return null;
+		}
+	}
+	
 	public void startDrawPad()
 	{
-		startDrawPad(mPauseRecordDrawPad);
+		startDrawPad(pauseRecord);
 	}
 	public void startDrawPad(boolean pauseRecord)
 	{
@@ -397,6 +423,12 @@ public class DrawPadView extends FrameLayout {
  				renderer.setDrawPadCompletedListener(drawpadCompletedListener);
  				renderer.setDrawPadThreadProgressListener(drawPadThreadProgressListener);
  				
+ 				if(isRecordMic){
+ 					renderer.setRecordMic(isRecordMic);	
+ 				}else if(isRecordExtPcm){
+ 					renderer.setRecordExtraPcm(isRecordExtPcm, pcmChannels,pcmSampleRate,pcmBitRate);
+ 				}
+ 				
  				if(pauseRecord){
  					renderer.pauseRecordDrawPad();	
  				}
@@ -406,7 +438,7 @@ public class DrawPadView extends FrameLayout {
 	}
 	/**
 	 * 暂停DrawPad的画面更新.
-	 * 在一些场景里,您需要开启DrawPad后,暂停下, 然后obtain各种Pen后,安排好各种事宜后,再让其画面更新,
+	 * 在一些场景里,您需要开启DrawPad后,暂停下, 然后obtain各种Layer后,安排好各种事宜后,再让其画面更新,
 	 * 则用到这个方法.
 	 */
 	public void pauseDrawPad()
@@ -424,31 +456,132 @@ public class DrawPadView extends FrameLayout {
 			renderer.resumeRefreshDrawPad();
 		}
 	}
-	private boolean mPauseRecordDrawPad=false;
+	private boolean pauseRecord=false;
+	/**
+	 * 是否也录制mic的声音.
+	 */
+	private boolean isRecordMic=false;
+
+	 private boolean  isRecordExtPcm=false;  //是否使用外面的pcm输入.
+	 private int pcmSampleRate=44100;
+	 private int pcmBitRate=64000;
+	 private int pcmChannels=2; //音频格式. 音频默认是双通道.
+	 
+	/**
+	 * 暂停drawpad的录制,这个方法使用在暂停录制后, 在当前画面做其他的一些操作,
+	 * 不可用来暂停后跳入到别的Activity中.
+	 */
 	public void pauseDrawPadRecord()
 	{
 		if(renderer!=null){
 			renderer.pauseRecordDrawPad();
 		}else{
-			mPauseRecordDrawPad=true;
+			pauseRecord=true;
 		}
 	}
+	
 	public void resumeDrawPadRecord()
 	{
 		if(renderer!=null){
 			renderer.resumeRecordDrawPad();
 		}else{
-			mPauseRecordDrawPad=false;
+			pauseRecord=false;
 		}
 	}
 	/**
-    * 设置是否使用主视频的时间戳为录制视频的时间戳, 默认第一次获取到的VideoPen或FilterPen为主视频.
+	 * 是否在CameraLayer录制的同时, 录制mic的声音. 
+	 * 此方法仅仅使用在录像的时候, 同时录制Mic的场合.录制的采样默认是44100, 码率64000, 编码为aac格式.
+	 * 录制的同时, 视频编码以音频的时间戳为参考.
+	 * 可通过 {@link #stopDrawPad2()}停止,停止后返回mic录制的音频文件 m4a格式的文件, 
+	 * @param record
+	 */
+	public void setRecordMic(boolean record)
+	{
+		if(renderer!=null){
+			renderer.setRecordMic(record);
+		}else{
+			isRecordMic=record;
+		}
+	}
+	/**
+	 * 是否在录制画面的同时,录制外面的push进去的音频数据.
+	 * 注意:当设置了录制外部的pcm数据后, 当前画板上录制的视频帧,就以音频的帧率为参考时间戳,从而保证音视频同步进行. 
+	 * 故您在投递音频的时候, 需要严格按照音频播放的速度投递. 
+	 * 
+	 * 如采用外面的pcm数据,则视频在录制过程中,会参考音频时间戳,来计算得出视频的时间戳,
+	 * 如外界音频播放完毕,无数据push,应及时stopDrawPad2
+	 * 
+	 * 可以通过 AudioLine 的getFrameSize()方法获取到每次应该投递多少个字节,此大小为固定大小, 每次投递必须push这么大小字节的数据, 后期会
+	 * 
+	 * 可通过 {@link #stopDrawPad2()}停止,停止后返回mic录制的音频文件 m4a格式的文件,
+	 * 
+	 * @param isrecord  是否录制
+	 * @param channels  声音通道个数, 如是mp3或aac文件,可根据MediaInfo获得
+	 * @param samplerate 采样率 如是mp3或aac文件,可根据MediaInfo获得
+	 * @param bitrate  码率 如是mp3或aac文件,可根据MediaInfo获得
+	 */
+	public void setRecordExtraPcm(boolean isrecord,int channels,int samplerate,int bitrate)
+	{
+		if(renderer!=null){
+			renderer.setRecordExtraPcm(isrecord, channels,samplerate, bitrate);
+		}else{
+			isRecordExtPcm=isrecord;
+			pcmSampleRate=samplerate;
+			pcmBitRate=bitrate;
+			pcmChannels=channels;
+		}
+	}
+	/**
+	 * 获取一个音频输入对象, 向内部投递数据, 
+	 * 只有当开启画板录制,并设置了录制外面数据的情况下,才有效.
+	 * @return
+	 */
+	public AudioLine getAudioLine()
+	{
+		if(renderer!=null){
+			return renderer.getAudioLine();
+		}else{
+			return null;
+		}
+	}
+	/**
+	 * 此代码只是用在分段录制的Camera的过程中, 其他地方不建议使用.
+	 */
+	public void segmentStart(String videoPath)
+	{
+		if(renderer!=null){
+			renderer.segmentStart(videoPath);
+		}else{
+			pauseRecord=false;
+		}
+	}
+	/**
+	 * 此代码只是用在分段录制的Camera的过程中, 其他地方不建议使用.
+	 */
+	public void segmentStop()
+	{
+		if(renderer!=null){
+			renderer.segmentStop();
+		}else{
+			pauseRecord=false;
+		}
+	}
+	
+	
+	public boolean isRecording()
+	{
+		if(renderer!=null)
+			return renderer.isRecording();
+		else
+			return false;
+	}
+	/**
+    * 设置是否使用主视频的时间戳为录制视频的时间戳, 
     * 如果您传递过来的是一个完整的视频, 只是需要在此视频上做一些操作, 操作完成后,时长等于源视频的时长, 则建议使用主视频的时间戳, 如果视频是从中间截取一般开始的
     * 则不建议使用, 默认是这里为false;
     * 
     * 注意:需要在DrawPad开始前使用.
     */
-	private boolean isUseMainPts=false;
     public void setUseMainVideoPts(boolean use)
     {
     	isUseMainPts=use;
@@ -466,14 +599,29 @@ public class DrawPadView extends FrameLayout {
 	}
 	/**
 	 * 停止DrawPad的渲染线程
-	 * 因为视频的来源是外接驱动的, DrawPadViewRender不会自动停止, 故需要外部在视频播放外的时候, 调用此方法来停止DrawPad渲染线程.
 	 */
 	public void stopDrawPad()
-	{
+	{	
 			if (renderer != null){
 	        	renderer.release();
 	        	renderer=null;
 	        }
+			
+	}
+	/**
+	 * 停止DrawPad的渲染线程 
+	 * 如果设置了在录制的时候,设置了录制mic或extPcm, 则返回录制音频的文件路径. 
+	 * @return
+	 */
+	public String stopDrawPad2()
+	{	
+			String ret=null;
+			if (renderer != null){
+	        	renderer.release();
+	        	ret=renderer.getAudioRecordPath();
+	        	renderer=null;
+	        }
+			return ret;
 	}
 	/**
 	 * 作用同 {@link #setDrawPadSize(int, int, onDrawPadSizeChangedListener)}, 只是有采样宽高比, 如用我们的VideoPlayer则使用此方法,
@@ -496,75 +644,70 @@ public class DrawPadView extends FrameLayout {
         }
 	}
 	 /**
-     * 把当前画笔放到最里层, 里面有 一个handler-loop机制, 将会在下一次刷新后执行.
-     * @param pen
+     * 把当前图层放到最里层, 里面有 一个handler-loop机制, 将会在下一次刷新后执行.
+     * @param layer
      */
-	public void bringPenToBack(Pen pen)
+	public void bringLayerToBack(Layer layer)
 	{
 			if(renderer!=null){
-				renderer.bringPenToBack(pen);
+				renderer.bringLayerToBack(layer);
 			}
 	}
 	  /**
-     * 把当前画笔放到最外层, 里面有 一个handler-loop机制, 将会在下一次刷新后执行.
-     * @param pen
+     * 把当前图层放到最外层, 里面有 一个handler-loop机制, 将会在下一次刷新后执行.
+     * @param layer
      */
-	public void bringPenToFront(Pen pen)
+	public void bringLayerToFront(Layer layer)
 	{
 			if(renderer!=null){
-				renderer.bringPenToFront(pen);
+				renderer.bringLayerToFront(layer);
 			}
 	}
-	public void changePenLayPosition(Pen pen,int position)
+	public void changeLayerLayPosition(Layer layer,int position)
     {
 		if(renderer!=null){
-			renderer.changePenLayPosition(pen, position);
+			renderer.changeLayerLayPosition(layer, position);
 		}
     }
-    public void swapTwoPenPosition(Pen first,Pen second)
+    public void swapTwoLayerPosition(Layer first,Layer second)
     {
     	if(renderer!=null){
-			renderer.swapTwoPenPosition(first, second);
+			renderer.swapTwoLayerPosition(first, second);
 		}
     }
-	
-	
 	/**
-	 * 获取一个主视频的 VideoPen
+	 * 获取一个主视频的 VideoLayer
 	 * @param width 主视频的画面宽度  建议用 {@link MediaInfo#vWidth}来赋值
 	 * @param height  主视频的画面高度 
 	 * @return
 	 */
-	public VideoPen addMainVideoPen(int width, int height,GPUImageFilter filter)
+	public VideoLayer addMainVideoLayer(int width, int height,GPUImageFilter filter)
     {
-		VideoPen ret=null;
+		VideoLayer ret=null;
 	    
-		
-		
-		
 		if(renderer!=null)
-			ret=renderer.addMainVideoPen(width, height,filter);
+			ret=renderer.addMainVideoLayer(width, height,filter);
 		else{
-			Log.e(TAG,"setMainVideoPen error render is not avalid");
+			Log.e(TAG,"setMainVideoLayer error render is not avalid");
 		}
 		return ret;
     }
 	/**
-	 * 获取一个VideoPen,从中获取surface {@link VideoPen#getSurface()}来设置到视频播放器中,
+	 * 获取一个VideoLayer,从中获取surface {@link VideoLayer#getSurface()}来设置到视频播放器中,
 	 * 用视频播放器提供的画面,来作为DrawPad的画面输入源.
 	 * 
 	 * 注意:此方法一定在 startDrawPad之后,在stopDrawPad之前调用.
 	 * 
 	 * @param width  视频的宽度
 	 * @param height 视频的高度
-	 * @return  VideoPen对象
+	 * @return  VideoLayer对象
 	 */
-	public VideoPen addVideoPen(int width, int height,GPUImageFilter filter)
+	public VideoLayer addVideoLayer(int width, int height,GPUImageFilter filter)
 	{
 		if(renderer!=null)
-			return renderer.addVideoPen(width,  height,filter);
+			return renderer.addVideoLayer(width,  height,filter);
 		else{
-			Log.e(TAG,"obtainSubVideoPen error render is not avalid");
+			Log.e(TAG,"obtainSubVideoLayer error render is not avalid");
 			return null;
 		}
 	}
@@ -574,120 +717,149 @@ public class DrawPadView extends FrameLayout {
 	 * @param filter  当前使用到的滤镜 ,如果不用, 则可以设置为null
 	 * @return
 	 */
-	public CameraPen addCameraPen(int degree,GPUImageFilter filter)
+	public CameraLayer addCameraLayer(int degree,GPUImageFilter filter)
 	{
-			CameraPen ret=null;
+			CameraLayer ret=null;
 		    
 			if(renderer!=null)
-				ret=renderer.addCameraPen(degree,filter);
+				ret=renderer.addCameraLayer(degree,filter);
 			else{
-				Log.e(TAG,"setMainVideoPen error render is not avalid");
+				Log.e(TAG,"setMainVideoLayer error render is not avalid");
+			}
+			return ret;
+	}
+	/**
+	 * 增加 摄像头图层. 
+	 * 
+	 * 注意: 在增加前,需先检查当前是否有Camera权限.
+	 * @return
+	 */
+	public CameraLayer addCameraLayer()
+	{
+			CameraLayer ret=null;
+			if(renderer!=null){
+				ret =new CameraLayer(getContext(),viewWidth,viewHeight,null,mUpdateMode);
+				renderer.addCustemLayer(ret);
+			}else{
+				Log.e(TAG,"CameraMaskLayer error render is not avalid");
 			}
 			return ret;
 	}
 	
 	/**
-	 * 获取一个BitmapPen
+	 * 获取一个BitmapLayer
 	 * 注意:此方法一定在 startDrawPad之后,在stopDrawPad之前调用.
 	 * @param bmp  图片的bitmap对象,可以来自png或jpg等类型,这里是通过BitmapFactory.decodeXXX的方法转换后的bitmap对象.
-	 * @return 一个BitmapPen对象
+	 * @return 一个BitmapLayer对象
 	 */
-	public BitmapPen addBitmapPen(Bitmap bmp)
+	public BitmapLayer addBitmapLayer(Bitmap bmp)
 	{
 		if(bmp!=null)
 		{
-			Log.i(TAG,"imgBitmapPen:"+bmp.getWidth()+" height:"+bmp.getHeight());
+			Log.i(TAG,"imgBitmapLayer:"+bmp.getWidth()+" height:"+bmp.getHeight());
 	    	
 			if(renderer!=null)
-				return renderer.addBitmapPen(bmp);
+				return renderer.addBitmapLayer(bmp);
 			else{
-				Log.e(TAG,"obtainBitmapPen error render is not avalid");
+				Log.e(TAG,"obtainBitmapLayer error render is not avalid");
 				return null;
 			}
 		}else{
-			Log.e(TAG,"obtainBitmapPen error, bitmap is null");
+			Log.e(TAG,"obtainBitmapLayer error, bitmap is null");
 			return null;
 		}
 	}
-	
-	public DataPen  addDataPen(int dataWidth,int dataHeight)
+	/**
+	 * 获取一个DataLayer的图层, 
+	 * 数据图层, 是一个RGBA格式的数据, 内部是一个RGBA格式的图像.
+	 * 
+	 * @param dataWidth 图像的宽度
+	 * @param dataHeight 图像的高度.
+	 * @return
+	 */
+	public DataLayer  addDataLayer(int dataWidth,int dataHeight)
 	{
 		if(dataWidth>0 && dataHeight>0)
 		{
 			if(renderer!=null)
-				return renderer.addDataPen(dataWidth, dataHeight);
+				return renderer.addDataLayer(dataWidth, dataHeight);
 			else{
-				Log.e(TAG,"addDataPen error render is not avalid");
+				Log.e(TAG,"addDataLayer error render is not avalid");
 				return null;
 			}
 		}else{
-			Log.e(TAG,"addDataPen error, data size is error");
+			Log.e(TAG,"addDataLayer error, data size is error");
 			return null;
 		}
 	}
-	
-	public MVPen addMVPen(String srcPath,String maskPath)
+	/**
+	 * 增加一个mv图层, mv图层分为两个视频文件, 一个是彩色的视频, 一个黑白视频
+	 * @param srcPath
+	 * @param maskPath
+	 * @return
+	 */
+	public MVLayer addMVLayer(String srcPath,String maskPath)
 	{
 			if(renderer!=null)
-				return renderer.addMVPen( srcPath,maskPath);
+				return renderer.addMVLayer(srcPath,maskPath);
 			else{
-				Log.e(TAG,"obtainBitmapPen error render is not avalid");
+				Log.e(TAG,"obtainBitmapLayer error render is not avalid");
 				return null;
 			}
 	}
 	/**
-	 * 获得一个 ViewPen,您可以在获取后,仿照我们的例子,来为视频增加各种UI空间.
+	 * 获得一个 ViewLayer,您可以在获取后,仿照我们的例子,来为视频增加各种UI空间.
 	 * 注意:此方法一定在 startDrawPad之后,在stopDrawPad之前调用.
-	 * @return 返回ViewPen对象.
+	 * @return 返回ViewLayer对象.
 	 */
-	 public ViewPen addViewPen()
+	 public ViewLayer addViewLayer()
 	 {
 			if(renderer!=null)
-				return renderer.addViewPen();
+				return renderer.addViewLayer();
 			else{
-				Log.e(TAG,"obtainViewPen error render is not avalid");
+				Log.e(TAG,"obtainViewLayer error render is not avalid");
 				return null;
 			}
 	 }
 	 /**
-	  *  获得一个 CanvasPen
+	  *  获得一个 CanvasLayer
 	  * 注意:此方法一定在 startDrawPad之后,在stopDrawPad之前调用.
 	  * @return
 	  */
-	 public CanvasPen addCanvasPen()
+	 public CanvasLayer addCanvasLayer()
 	 {
 			if(renderer!=null)
-				return renderer.addCanvasPen();
+				return renderer.addCanvasLayer();
 			else{
-				Log.e(TAG,"obtainViewPen error render is not avalid");
+				Log.e(TAG,"obtainViewLayer error render is not avalid");
 				return null;
 			}
 	 }
 	 /**
-	  * 从渲染线程列表中移除并销毁这个Pen;
+	  * 从渲染线程列表中移除并销毁这个Layer;
 	  * 注意:此方法一定在 startDrawPad之后,在stopDrawPad之前调用.
-	  * @param Pen
+	  * @param Layer
 	  */
-	public void removePen(Pen pen)
+	public void removeLayer(Layer layer)
 	{
-		if(pen!=null)
+		if(layer!=null)
 		{
 			if(renderer!=null)
-				renderer.removePen(pen);
+				renderer.removeLayer(layer);
 			else{
-				Log.w(TAG,"removePen error render is not avalid");
+				Log.w(TAG,"removeLayer error render is not avalid");
 			}
 		}
 	}
 	/**
-	 * 为已经创建好的FilterPen对象切换滤镜效果
-	 * @param Pen  已经创建好的FilterPen对象
+	 * 为已经创建好的图层对象切换滤镜效果
+	 * @param Layer  已经创建好的Layer对象
 	 * @param filter  要切换到的滤镜对象.
 	 * @return 切换成功,返回true; 失败返回false
 	 */
-	   public boolean  switchFilterTo(Pen pen, GPUImageFilter filter) {
+	   public boolean  switchFilterTo(Layer layer, GPUImageFilter filter) {
 	    	if(renderer!=null){
-	    		return renderer.switchFilter(pen, filter);
+	    		return renderer.switchFilter(layer, filter);
 	    	}
     		return false;
 	    }

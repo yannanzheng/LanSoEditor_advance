@@ -9,15 +9,15 @@ import android.util.Log;
 import android.view.MotionEvent;
 
 import com.lansoeditor.demo.R;
-import com.lansosdk.box.Pen;
+import com.lansosdk.box.Layer;
 
 /**
  * 继承自DrawPadView, 用来演示在视频中做标记的功能.
  * 
  *  原理是: 根据onTouch事件,
- *  按下时,从DrawPad中获取一个BitmapPen,
- *  移动时,把获取到BitmapPen实时的移动坐标.
- *  抬起时,从DrawPad中删除BitmapPen
+ *  按下时,从DrawPad中获取一个BitmapLayer,
+ *  移动时,把获取到BitmapLayer实时的移动坐标.
+ *  抬起时,从DrawPad中删除BitmapLayer
  *
  */
 public class MarkArrowView extends DrawPadView{
@@ -40,7 +40,7 @@ public class MarkArrowView extends DrawPadView{
         super(context, attrs, defStyleAttr, defStyleRes);
     }
   
-    Pen bitmap=null;
+    Layer bitmap=null;
     
     @Override
   public boolean onTouchEvent(MotionEvent event) {
@@ -53,25 +53,25 @@ public class MarkArrowView extends DrawPadView{
 	    	   	if(bitmap!=null){
 	    	   		bitmap.release();
 	    	   	}
-	    	   	//继承自DrawPadView, 在按下时获取一个BitmapPen
-	    	   	bitmap=addBitmapPen(BitmapFactory.decodeResource(getResources(), R.drawable.arrow_red));
+	    	   	//继承自DrawPadView, 在按下时获取一个BitmapLayer
+	    	   	bitmap=addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.arrow_red));
 	    	   	if(bitmap!=null){
-	    	   		bitmap.setVisibility(Pen.INVISIBLE);
+	    	   		bitmap.setVisibility(Layer.INVISIBLE);
 	    	   	}	
 	          return true; 
 	       case MotionEvent.ACTION_MOVE:  
 	    		if(bitmap!=null){
 	    			bitmap.setPosition(event.getX(),event.getY());
-	    			bitmap.setVisibility(Pen.VISIBLE);
+	    			bitmap.setVisibility(Layer.VISIBLE);
 	    		}
 	    		  return true;   
 	 
 	       case MotionEvent.ACTION_UP:  
 //	    		Log.i("test","ACTION_UP:"+event.getX()+" Y:"+event.getY());
-	    		//当抬起时, 删除这个Pen
+	    		//当抬起时, 删除这个Layer
 	    		if(bitmap!=null){
-	    			bitmap.setVisibility(Pen.INVISIBLE);
-	    			removePen(bitmap);
+	    			bitmap.setVisibility(Layer.INVISIBLE);
+	    			removeLayer(bitmap);
 	    		}
 	    		break;
 	    }  

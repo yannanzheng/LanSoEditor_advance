@@ -7,12 +7,12 @@ varying vec2 vTextureCoord;
 varying vec2 vExtraTextureCoord;
 varying vec2 vExtraVideoTextureCoord;
 
-uniform samplerExternalOES uTexture;
+uniform sampler2D uTexture;
 uniform samplerExternalOES uExtraVideoTexture;
 uniform sampler2D uExtraTexture;
 
 void main() {
-    vec4 base = texture2D(uTexture, vec2(vTextureCoord.x, vTextureCoord.y));
+    vec4 base = texture2D(uTexture, vec2(vTextureCoord.x, vTextureCoord.y * uTexelWidthOffset));
     vec4 overlay = texture2D(uExtraTexture, vExtraTextureCoord);
     vec4 video = texture2D(uExtraVideoTexture,vExtraVideoTextureCoord);
 

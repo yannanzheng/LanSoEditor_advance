@@ -10,7 +10,7 @@
     android:orientation="vertical">
     
     
-        <com.lansosdk.box.ViewPenRelativeLayout
+        <com.lansosdk.box.ViewLayerRelativeLayout
 	        android:id="@+id/id_vauto_demo_viewpenayout"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
 		        android:layout_centerInParent="true"
 		        android:layout_gravity="center"
 		        android:scaleType="matrix" />
-   	 </com.lansosdk.box.ViewPenRelativeLayout>
+   	 </com.lansosdk.box.ViewLayerRelativeLayout>
    
       <com.example.advanceDemo.view.DrawPadView
             android:id="@+id/id_vauto_demo_drawpad_view"

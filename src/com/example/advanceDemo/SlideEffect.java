@@ -2,7 +2,7 @@ package com.example.advanceDemo;
 
 import android.util.Log;
 
-import com.lansosdk.box.Pen;
+import com.lansosdk.box.Layer;
 
 /**
  *  此代码仅仅是用来演示多张图片的移动效果的, 实际你可以根据自己的需求而定.  
@@ -13,32 +13,32 @@ import com.lansosdk.box.Pen;
  */
 public class SlideEffect {
 
-	private Pen mPen;
+	private Layer mLayer;
 	private final long mStartMS,mEndMS;
 	private final int viewWidth,viewHeight;
 	
 	private final int stepPerFrame;
-	//Pen的中心坐标.
+	//Layer的中心坐标.
 	private int currentX=0,currentY=0;
-	private final boolean needReleasePen;
+	private final boolean needReleaseLayer;
 	////第一秒滑入到中间, 第2,3,4秒显示,第5秒消失.
 	/**
 	 *  注意:这里没有检查endMS是否大于startMS,但实际一定要大于.
-	 * @param Pen
+	 * @param Layer
 	 * @param fps
 	 * @param startMS
 	 * @param endMS
 	 * @param glwidth
 	 * @param glheight
 	 */
-	public SlideEffect(Pen pen,int fps,long startMS,long endMS,boolean needRelease)
+	public SlideEffect(Layer pen,int fps,long startMS,long endMS,boolean needRelease)
 	{
-		mPen=pen;
+		mLayer=pen;
 		mStartMS=startMS;
 		mEndMS=endMS;
-		viewWidth=mPen.getPadWidth();
-		viewHeight=mPen.getPadHeight();
-		needReleasePen=needRelease;
+		viewWidth=mLayer.getPadWidth();
+		viewHeight=mLayer.getPadHeight();
+		needReleaseLayer=needRelease;
 		
 		//一秒钟划入,则需要走 viewWidth/2的距离. 则一帧step,需要走 viewWidth/(2*fps);
 		
@@ -50,7 +50,7 @@ public class SlideEffect {
 		
 		
 		currentY=viewHeight/2;
-		mPen.setVisibility(Pen.INVISIBLE);  //刚开始是不显示的.
+		mLayer.setVisibility(Layer.INVISIBLE);  //刚开始是不显示的.
 	}
 	
 	public void run(long currentTimeMS)
@@ -60,10 +60,10 @@ public class SlideEffect {
 		
 		if(currentTimeMS>(mEndMS+1000) || currentTimeMS<mStartMS){  //不在这个范围,则不显示,mEndMS+1000多出一秒是让右侧滑动的走完.
 //		if(currentX>viewHeight || currentTimeMS<mStartMS){
-			mPen.setVisibility(Pen.INVISIBLE);
+			mLayer.setVisibility(Layer.INVISIBLE);
 			return ;
 		}
-		mPen.setVisibility(Pen.VISIBLE);
+		mLayer.setVisibility(Layer.VISIBLE);
 
 		if(currentTimeMS<(firstSecond)){
 			currentX+=stepPerFrame;
@@ -73,18 +73,18 @@ public class SlideEffect {
 		}
 //		Log.i("sno","current:"+currentX+" y "+currentY);
 		
-		mPen.setPosition(currentX, currentY);
+		mLayer.setPosition(currentX, currentY);
 		
 	}
-	public Pen getPen()
+	public Layer getLayer()
 	{
-		return mPen;
+		return mLayer;
 	}
 //	public void release()
 //	{
-//		if(needReleasePen){
-//			mPen.release();
-//			mPen=null;
+//		if(needReleaseLayer){
+//			mLayer.release();
+//			mLayer=null;
 //		}
 //	}
 	

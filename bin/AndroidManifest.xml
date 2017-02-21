@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lansoeditor.demo"
-    android:versionCode="1097"
-    android:versionName="1.9.7" >
+    android:versionCode="2000"
+    android:versionName="2.0.0" >
 
+    <!-- 这里的意思是：我们的sdk最低是Android4.3， 最高支持Andriod7.0 -->
     <uses-sdk
         android:minSdkVersion="18"
         android:targetSdkVersion="23" />
@@ -32,10 +33,6 @@
         android:required="false" />
     
     
-    
-    
-    
-    
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -44,12 +41,11 @@
         
         <activity android:name="com.example.advanceDemo.StartActivity"
             android:theme="@style/AppTheme2">
-            
               <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter> 
+            </intent-filter>
          
          </activity>
          
@@ -57,31 +53,49 @@
             android:name="com.example.advanceDemo.MainActivity">
             <!-- 因为要加载.so库, 这里一定要用MainActivity来启动 -->
             
+               
         </activity>
         
         
         
-        <activity android:name="com.example.advanceDemo.VideoVideoRealTimeActivity"></activity>
+        <activity android:name="com.example.advanceDemo.VideoLayerTwoRealTimeActivity"></activity>
         
-        
-        <activity android:name="com.example.advanceDemo.VideoFilterDemoRealTimeActivity"></activity>
-        
-        <activity android:name="com.example.advanceDemo.VideoRemarkActivity"></activity>
         
         <activity android:name="com.example.advanceDemo.FilterDemoRealTimeActivity"></activity>
+        
+        <activity android:name="com.example.advanceDemo.BitmapLayerDemoActivity"></activity>
+        
+        <activity android:name="com.example.advanceDemo.FilterRealTimeActivity"></activity>
         <activity android:name="com.example.advanceDemo.DrawPadHintActivity"></activity>
-        <activity android:name="com.example.advanceDemo.VideoPictureRealTimeActivity"></activity>
+        <activity android:name="com.example.advanceDemo.VideoLayerRealTimeActivity"></activity>
         <activity android:name="com.example.advanceDemo.PictureSetRealTimeActivity"></activity>
         <activity android:name="com.example.advanceDemo.VideoPlayerActivity"></activity>
                    
             
-        <activity android:name="com.example.advanceDemo.VideoPictuerExecuteActivity"></activity>
+        <activity android:name="com.example.advanceDemo.BitmapLayer2ExecuteActivity"></activity>
         <activity android:name="com.example.advanceDemo.FilterDemoExecuteActivity"></activity>
         
         
         
-          <activity android:name="com.example.advanceDemo.CanvasPenDemoActivity"></activity>
-        
+          <activity android:name="com.example.advanceDemo.CanvasLayerDemoActivity"></activity>
+       <activity android:name="com.example.advanceDemo.CameraMaskLayerDemoActivity"
+           android:screenOrientation="portrait">
+       </activity>
+       
+       
+        <activity android:name="com.example.advanceDemo.CameraLayerDemoActivity"
+           android:screenOrientation="portrait">
+       </activity>
+       
+       
+       
+       
+       
+        <activity android:name="com.example.advanceDemo.TestRecordCamMaskLayerActivity"
+           android:screenOrientation="portrait">
+       </activity>
+       
+       
         
         
         <activity android:name="com.example.advanceDemo.FilterExecuteActivity"></activity>
@@ -90,22 +104,27 @@
         android:label="@string/select_video"></activity>
         
         
-        <activity android:name="com.example.advanceDemo.PictureSetExecuteActivity"></activity>
-        <activity android:name="com.example.advanceDemo.VideoViewPenDemoActivity"></activity>
+        <activity android:name="com.example.advanceDemo.BitmapLayerDemoExecuteActivity"></activity>
+        <activity android:name="com.example.advanceDemo.ViewLayerDemoActivity"></activity>
         
-        <activity android:name="com.example.advanceDemo.ViewPenOnlyRealTimeActivity"></activity>
+        <activity android:name="com.example.advanceDemo.ViewLayerOnlyRealTimeActivity"></activity>
         
         
-        <activity android:name="com.example.advanceDemo.MVPenDemoActivity"></activity>
-        <activity android:name="com.example.advanceDemo.TestMVPenExecuteActivity"></activity>
-          <activity android:name="com.example.advanceDemo.VideoPenAutoUpdateDemoActivity"></activity>
+        <activity android:name="com.example.advanceDemo.MVLayerDemoActivity"></activity>
+        <activity android:name="com.example.advanceDemo.TestMVLayerExecuteActivity"></activity>
+          <activity android:name="com.example.advanceDemo.VideoLayerAutoUpdateDemoActivity"></activity>
         
-          <activity android:name="com.example.advanceDemo.CameraPenDemoActivity"
-               android:theme="@style/AppTheme2"></activity>
-            <activity android:name="com.example.advanceDemo.CameraMaskPenDemoActivity"
-            android:configChanges="orientation|screenSize"></activity>
-            
-            
+          
+          <activity android:name="com.example.advanceDemo.TestCameraLayerDemoActivity"></activity>
+          
+          <activity android:name="com.example.advanceDemo.CameraRecordDemoActivity"></activity>
+          
+         <activity android:name="com.example.advanceDemo.CameraLayerSegmentDemoActivity"
+               android:theme="@style/AppTheme2">
+          </activity>
+          
+       
+          
           <activity android:name="com.example.advanceDemo.SegmentRecorderActivity"
                   android:theme="@style/AppTheme2">
               

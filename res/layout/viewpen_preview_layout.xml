@@ -10,8 +10,8 @@
     android:orientation="vertical">
     
     
-        <com.lansosdk.box.ViewPenRelativeLayout
-	        android:id="@+id/id_viewPen_gllayout"
+        <com.lansosdk.box.ViewLayerRelativeLayout
+	        android:id="@+id/id_viewLayer_gllayout"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:background="@android:color/transparent" >
@@ -26,18 +26,18 @@
 	        android:background="@color/black" />
 	  	   
 	  	
-    </com.lansosdk.box.ViewPenRelativeLayout>
+    </com.lansosdk.box.ViewLayerRelativeLayout>
    
         <!-- DrawPad -->
       <com.example.advanceDemo.view.DrawPadView
-            android:id="@+id/id_viewPen_DrawPad_view"
+            android:id="@+id/id_viewLayer_DrawPad_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"/>
       
       <!-- 播放按钮 -->
       	   <LinearLayout 
-          android:id="@+id/id_viewPen_saveplay"
+          android:id="@+id/id_viewLayer_saveplay"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:background="@drawable/corners_btn_orange_bg"
@@ -62,7 +62,7 @@
       	   
      <!-- 提示 --> 	   
     	<TextView 
-    	    android:layout_below="@id/id_viewPen_DrawPad_view"
+    	    android:layout_below="@id/id_viewLayer_DrawPad_view"
     	    android:layout_width="match_parent"
     	    android:layout_height="wrap_content"
     	    android:textColor="@color/red"

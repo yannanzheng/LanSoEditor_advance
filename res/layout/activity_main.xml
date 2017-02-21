@@ -48,7 +48,7 @@
     
     <LinearLayout 
         android:layout_width="match_parent"
-        android:layout_height="100dip"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@drawable/bg_info">
         <TextView 
@@ -61,6 +61,7 @@
             android:layout_gravity="center"
             android:gravity="center"/>
         
+        
         <LinearLayout 
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -69,16 +70,18 @@
             <TextView 
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
-                android:text="画板可前台处理,也可以后台处理,为演示直观，大部分用 [前台画板]，最后有[后台画板]的举例."
-            android:textColor="@color/gold"
+                android:layout_weight="2"
+                android:text="SDK可[前台]处理,也可后台处理"
+            	android:textColor="@color/blue"
+            	android:textSize="25sp"
                 android:gravity="center_vertical"/>
-                   <TextView 
+            
+              <TextView 
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="截取/分离/合成/拼接/等操作在最后的基本版本中."
-            android:textColor="@color/blue"/>
+                android:text="为演示直观，大部分用 [前台画板]，最后有[后台画板]的举例."
+            android:textColor="@color/red"/>
         </LinearLayout>
         
     </LinearLayout>
@@ -89,73 +92,68 @@
 			<TextView  style="@style/main_item_arrow"/> 
 	</RelativeLayout>
 	
-     <RelativeLayout  android:id="@+id/id_main_camerapen" style="@style/main_item_reletivelayout">
-           	 <TextView   android:text="摄像头画笔" style="@style/main_item_textview"/>
+     <RelativeLayout  android:id="@+id/id_main_cameralayer" style="@style/main_item_reletivelayout">
+           	 <TextView   android:text="摄像头图层" style="@style/main_item_textview"/>
 			<TextView  style="@style/main_item_arrow"/> 
 	</RelativeLayout>
 	
      
-	  <RelativeLayout  android:id="@+id/id_main_viewpendemo1" style="@style/main_item_reletivelayout">
-           	 <TextView   android:text="视频涂鸦" style="@style/main_item_textview"/>
+	  <RelativeLayout  android:id="@+id/id_main_viewlayerdemo1" style="@style/main_item_reletivelayout">
+           	 <TextView   android:text="UI图层演示(涂鸦)" style="@style/main_item_textview"/>
 			<TextView  style="@style/main_item_arrow"/> 
 	</RelativeLayout>
 	
-	  
-	 <RelativeLayout  android:id="@+id/id_main_viewremark" style="@style/main_item_reletivelayout">
-           	 <TextView   android:text="视频标记" 				style="@style/main_item_textview"/>
+    <RelativeLayout  android:id="@+id/id_main_viewlayerdemo2" style="@style/main_item_reletivelayout">
+           	    <TextView   android:text="UI图层演示(情诗)" style="@style/main_item_textview"/>
 			<TextView  style="@style/main_item_arrow"/> 
 	</RelativeLayout>
 	
-    <RelativeLayout  android:id="@+id/id_main_viewpendemo2" style="@style/main_item_reletivelayout">
-           	    <TextView   android:text="告白情诗" style="@style/main_item_textview"/>
-			<TextView  style="@style/main_item_arrow"/> 
-	</RelativeLayout>
-	
-    <RelativeLayout  android:id="@+id/id_main_canvaspendemo" style="@style/main_item_reletivelayout">
-           	    <TextView   android:text="绘制心形" style="@style/main_item_textview"/>
+    <RelativeLayout  android:id="@+id/id_main_canvaslayerdemo" style="@style/main_item_reletivelayout">
+           	    <TextView   android:text="Canvas图层演示" style="@style/main_item_textview"/>
 			<TextView  style="@style/main_item_arrow"/> 
 	</RelativeLayout>
     
-	     <RelativeLayout  android:id="@+id/id_main_mvpendemo" style="@style/main_item_reletivelayout">
-           	    <TextView   android:text="视频MV" 				style="@style/main_item_textview"/>
+	     <RelativeLayout  android:id="@+id/id_main_mvlayerdemo" style="@style/main_item_reletivelayout">
+           	    <TextView   android:text="视频MV图层演示" 				style="@style/main_item_textview"/>
 			<TextView  style="@style/main_item_arrow"/> 
 		</RelativeLayout>
 		
 	     
 		   <RelativeLayout  android:id="@+id/id_main_videofilterdemo" style="@style/main_item_reletivelayout">
-           	    <TextView   android:text="画笔滤镜" 				style="@style/main_item_textview"/>
+           	    <TextView   android:text="图层滤镜属性 演示" 				style="@style/main_item_textview"/>
 			<TextView  style="@style/main_item_arrow"/> 
 		</RelativeLayout>
 		
-		   
+		 <RelativeLayout  android:id="@+id/id_main_viewremark" style="@style/main_item_reletivelayout">
+           	 <TextView   android:text="图片图层演示(标记)" 				style="@style/main_item_textview"/>
+			<TextView  style="@style/main_item_arrow"/> 
+	</RelativeLayout>   
 	
        <RelativeLayout  android:id="@+id/id_main_pictures" style="@style/main_item_reletivelayout">
-           	<TextView   android:text="图像影集" 				style="@style/main_item_textview"/>
+           	<TextView   android:text="图片图层演示(影集)" 				style="@style/main_item_textview"/>
 			<TextView  style="@style/main_item_arrow"/> 
 		</RelativeLayout>
-		
-		
       
         <RelativeLayout  android:id="@+id/id_main_twovideooverlay" style="@style/main_item_reletivelayout">
-           	    <TextView   android:text="视频和视频的叠加" 				style="@style/main_item_textview"/>
+           	    <TextView   android:text="两个视频图层演示(叠加)" 				style="@style/main_item_textview"/>
 			<TextView  style="@style/main_item_arrow"/> 
 		</RelativeLayout>
 	
        <RelativeLayout  android:id="@+id/id_main_videobitmapoverlay" style="@style/main_item_reletivelayout">
           
-           	    <TextView   android:text="视频和图片叠加" 				style="@style/main_item_textview"/>
+           	    <TextView   android:text="视频和图片图层演示" 				style="@style/main_item_textview"/>
 			<TextView  style="@style/main_item_arrow"/> 
 	  </RelativeLayout>
 	
 	<RelativeLayout  android:id="@+id/id_main_drawpadexecute_filter" style="@style/main_item_reletivelayout">
           
-           	    <TextView   android:text="后台画板 [滤镜]" 		 android:textColor="@color/blue" 		style="@style/main_item_textview"/>
+           	    <TextView   android:text="后台画板 (图层滤镜)" 		 android:textColor="@color/blue" 		style="@style/main_item_textview"/>
 			<TextView  style="@style/main_item_arrow"/> 
 	</RelativeLayout>
 	
 	<RelativeLayout  android:id="@+id/id_main_drawpadpictureexecute" style="@style/main_item_reletivelayout">
           
-           	    <TextView   android:text="后台画板  [多种Pen混合使用] " 	 android:textColor="@color/blue" 			style="@style/main_item_textview"/>
+           	    <TextView   android:text="后台画板  (多种图层混合使用) " 	 android:textColor="@color/blue" 			style="@style/main_item_textview"/>
 			<TextView  style="@style/main_item_arrow"/> 
 	</RelativeLayout>
 	

@@ -10,7 +10,15 @@
     android:orientation="vertical">
     
     
-        <com.lansosdk.box.ViewPenRelativeLayout
+   
+      <com.example.advanceDemo.view.DrawPadView
+            android:id="@+id/id_vview_realtime_drawpadview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+      
+      
+       <com.lansosdk.box.ViewLayerRelativeLayout
 	        android:id="@+id/id_vview_realtime_gllayout"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
@@ -36,15 +44,7 @@
 		  	       android:visibility="gone"
 		  	       android:textSize="28sp"
 	  	       		/>
-		  	    
-   	 </com.lansosdk.box.ViewPenRelativeLayout>
-   
-      <com.example.advanceDemo.view.DrawPadView
-            android:id="@+id/id_vview_realtime_drawpadview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
-      
+   	 </com.lansosdk.box.ViewLayerRelativeLayout>
       	   
      <LinearLayout 
           android:id="@+id/id_vview_realtime_saveplay"

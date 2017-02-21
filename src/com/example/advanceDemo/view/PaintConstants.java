@@ -85,7 +85,7 @@ public class PaintConstants {
 	}
 
 	/**
-     * 默认画笔的颜色和背景色
+     * 默认图层的颜色和背景色
      */
 	public static final class DEFAULT{
 		public static final int PEN_COLOR = Color.BLACK;

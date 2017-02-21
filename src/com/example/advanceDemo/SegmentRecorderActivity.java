@@ -108,7 +108,8 @@ public class SegmentRecorderActivity extends Activity implements Handler.Callbac
 			}
 			
 			
-			 // 当前段录制停止了, timeMS  当前在暂停时的, 录制总时间. segmentIdx segmnet的总数也是当前文件的索引, 等于 getSegmentSize();
+			 // 当前段录制停止了, timeMS  当前在暂停时的录制总时间. 
+			//  segmentIdx segmnet的总数也是当前文件的索引, 等于 getSegmentSize();
 			@Override  
 			public void segmentRecordPause(int timeMS, int segmentIdx) {
 				// TODO Auto-generated method stub
@@ -185,11 +186,8 @@ public class SegmentRecorderActivity extends Activity implements Handler.Callbac
 				if (tm < MIN_RECORD_TIME) 
 				{
 					nextBtn.setVisibility(View.INVISIBLE);
-					
 				} else if (tm >= MIN_RECORD_TIME && tm < MAX_RECORD_TIME) {
-					
 					nextBtn.setVisibility(View.VISIBLE);
-					
 				} else if (tm >= MAX_RECORD_TIME) {
 					segmentRecorder.pauseRecord();
 					recordEnd();
@@ -277,11 +275,9 @@ public class SegmentRecorderActivity extends Activity implements Handler.Callbac
 				
 				switch (event.getAction()) {
 					case MotionEvent.ACTION_DOWN:
-						Log.i(TAG,"ACTION_DOWNnnnnnnnnnnnnnnnnnnn");
 						handler.sendEmptyMessage(MSG_STARTRECORD);
 						break;
 					case MotionEvent.ACTION_UP:
-						Log.i(TAG,"upppppppppppppppppppppp");
 						handler.sendEmptyMessage(MSG_PAUSERECORD);
 						break;
 					}

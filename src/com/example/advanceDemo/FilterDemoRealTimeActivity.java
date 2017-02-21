@@ -16,9 +16,9 @@ import com.example.advanceDemo.view.DrawPadView;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.DrawPad;
 import com.lansosdk.box.DrawPadUpdateMode;
-import com.lansosdk.box.VideoPen;
-import com.lansosdk.box.ViewPen;
-import com.lansosdk.box.Pen;
+import com.lansosdk.box.VideoLayer;
+import com.lansosdk.box.ViewLayer;
+import com.lansosdk.box.Layer;
 import com.lansosdk.box.onDrawPadCompletedListener;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
@@ -56,11 +56,11 @@ import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
 /**
- * 演示滤镜模块的 FilterPen的使用, 可以在播放过程中切换滤镜,
- * 在滤镜处理过程中, 增加其他的Pen,比如增加一个BitmapPen和 ViewPen等等.
+ * 演示滤镜模块的 VideoLayer的使用, 可以在播放过程中切换滤镜,
+ * 在滤镜处理过程中, 增加其他的Layer,比如增加一个BitmapLayer和 ViewLayer等等.
  * 
- * 流程: 从layout中得到DrawPadView,并从DrawPadView中增加多个Pen,
- * 并对Pen进行滤镜, 缩放等操作.
+ * 流程: 从layout中得到DrawPadView,并从DrawPadView中增加多个Layer,
+ * 并对Layer进行滤镜, 缩放等操作.
  *
  *
  */
@@ -73,11 +73,16 @@ public class FilterDemoRealTimeActivity extends Activity {
     
     private MediaPlayer mplayer=null;
     
-    private VideoPen  filterPen=null;
+    private VideoLayer  filterLayer=null;
     
     private SeekBar skbarFilterAdjuster;
-    
+    /**
+     * 在进行视频滤镜的过程中, 实时保存的视频画面文件的临时路径.
+     */
     private String editTmpPath=null;
+    /**
+     * 滤镜处理后, 增加上原来音频文件的最终路径.
+     */
     private String dstPath=null;
 
     
@@ -85,15 +90,12 @@ public class FilterDemoRealTimeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-		 Thread.setDefaultUncaughtExceptionHandler(new snoCrashHandler());
-        setContentView(R.layout.filter_pen_demo_layout);
+        setContentView(R.layout.filter_layer_demo_layout);
         
         
         mVideoPath = getIntent().getStringExtra("videopath");
-        mDrawPadView = (DrawPadView) findViewById(R.id.id_filterPen_demo_view);
-        
-        skbarFilterAdjuster=(SeekBar)findViewById(R.id.id_filterPen_demo_seek1);
-        
+        mDrawPadView = (DrawPadView) findViewById(R.id.id_filterLayer_demo_view);
+        skbarFilterAdjuster=(SeekBar)findViewById(R.id.id_filterLayer_demo_seek1);
         skbarFilterAdjuster.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 			
 			@Override
@@ -120,8 +122,7 @@ public class FilterDemoRealTimeActivity extends Activity {
         
         
         skbarFilterAdjuster.setMax(100);
-        
-        findViewById(R.id.id_filterPen_demo_selectbtn).setOnClickListener(new OnClickListener() {
+        findViewById(R.id.id_filterLayer_demo_selectbtn).setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -136,10 +137,10 @@ public class FilterDemoRealTimeActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				 if(SDKFileUtils.fileExist(dstPath)){
-		   			 		Intent intent=new Intent(FilterDemoRealTimeActivity.this,VideoPlayerActivity.class);
-			    	    	intent.putExtra("videopath", dstPath);
-			    	    	startActivity(intent);
+				if(SDKFileUtils.fileExist(dstPath)){
+					Intent intent=new Intent(FilterDemoRealTimeActivity.this,VideoPlayerActivity.class);
+		    	    intent.putExtra("videopath", dstPath);
+		    	    startActivity(intent);
 		   		 }else{
 		   			 Toast.makeText(FilterDemoRealTimeActivity.this, "目标文件不存在", Toast.LENGTH_SHORT).show();
 		   		 }
@@ -155,19 +156,30 @@ public class FilterDemoRealTimeActivity extends Activity {
         
         //增加提示缩放到480的文字.
         DemoUtils.showScale480HintDialog(FilterDemoRealTimeActivity.this);
-    }
-    @Override
-    protected void onResume() {
-    	// TODO Auto-generated method stub
-    	super.onResume();
-    	new Handler().postDelayed(new Runnable() {
+        new Handler().postDelayed(new Runnable() {
 			
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
 				 startPlayVideo();
 			}
-		}, 100);
+		}, 500);
+    }
+    @Override
+    protected void onResume() {
+    	// TODO Auto-generated method stub
+    	super.onResume();
+    	
+    }
+    @Override
+    protected void onPause() {
+    	// TODO Auto-generated method stub
+    	super.onPause();
+    	if(mplayer!=null){
+			mplayer.stop();
+			mplayer.release();
+			mplayer=null;
+		}
     }
     private FilterAdjuster mFilterAdjuster;
     
@@ -181,12 +193,12 @@ public class FilterDemoRealTimeActivity extends Activity {
             @Override
             public void onGpuImageFilterChosenListener(final GPUImageFilter filter) {
             	
-            	//在这里通过DrawPad线程去切换 filterPen的滤镜
-	         	   if(mDrawPadView.switchFilterTo(filterPen,filter)){
+            	//在这里通过DrawPad线程去切换 filterLayer的滤镜
+	         	   if(mDrawPadView.switchFilterTo(filterLayer,filter)){  //<-----在这里切换滤镜.
 	         		   mFilterAdjuster = new FilterAdjuster(filter);
 	
 	         		   //如果这个滤镜 可调, 显示可调节进度条.
-	         		    findViewById(R.id.id_filterPen_demo_seek1).setVisibility(
+	         		    findViewById(R.id.id_filterLayer_demo_seek1).setVisibility(
 	         		            mFilterAdjuster.canAdjust() ? View.VISIBLE : View.GONE);
 	         	   }
             }
@@ -194,6 +206,8 @@ public class FilterDemoRealTimeActivity extends Activity {
     }
     private void startPlayVideo()
     {
+    	   Log.i(TAG,"start Play Video");
+    	   
           if (mVideoPath != null){
         	  mplayer=new MediaPlayer();
         	  try {
@@ -239,7 +253,7 @@ public class FilterDemoRealTimeActivity extends Activity {
     			mDrawPadView.setUpdateMode(DrawPadUpdateMode.ALL_VIDEO_READY,25);
         	
 //        		设置使能 实时保存, 即把正在DrawPad中呈现的画面实时的保存下来,实现所见即所得的模式
-        		mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
+        	mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
         	
         	//设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
         	mDrawPadView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
@@ -248,30 +262,34 @@ public class FilterDemoRealTimeActivity extends Activity {
     			public void onSizeChanged(int viewWidth, int viewHeight) {
     				// TODO Auto-generated method stub
     				mDrawPadView.startDrawPad(new DrawPadProgressListener(),new DrawPadCompleted());
-    				addVideoPen();
+    				addVideoLayer();
     			}
     		});
     	}
     }
    
     
-    //Step2: 增加一个FilterPen, 滤镜.
-    private void addVideoPen()
+    /**
+     * Step2: 增加一个VideoLayer, 滤镜.
+     */
+    private void addVideoLayer()
     {
     	/**
-		 * 这里增加一个FilterPen, 并把设置滤镜效果为GPUImageSepiaFilter滤镜.
+		 * 这里增加一个addVideoLayer, 并把设置滤镜效果为GPUImageSepiaFilter滤镜.
 		 */
-		filterPen=mDrawPadView.addMainVideoPen(mplayer.getVideoWidth(),mplayer.getVideoHeight(),
+		filterLayer=mDrawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),
 				new IF1977Filter(getBaseContext()));
     			
-		if(filterPen!=null){
-			mplayer.setSurface(new Surface(filterPen.getVideoTexture()));
+		if(filterLayer!=null){
+			mplayer.setSurface(new Surface(filterLayer.getVideoTexture()));
 			mplayer.start();
 		}
     }
     
     
-    //您可以增加一个背景图片.
+    /**
+     * 您可以增加一个背景图片.
+     */
     private void addBackgroundBitmap()
     {
     	  DisplayMetrics dm = new DisplayMetrics();// 获取屏幕密度（方法2）
@@ -286,10 +304,13 @@ public class FilterDemoRealTimeActivity extends Activity {
 	      else{
 	    	  CopyFileFromAssets.copy(getApplicationContext(), "pic720x720.jpg", SDKDir.TMP_DIR, "picname.jpg");
 	      }
-	      //先 增加第一张Bitmap的Pen, 因为是第一张,放在DrawPad中维护的数组的最下面, 认为是背景图片.
-	      mDrawPadView.addBitmapPen(BitmapFactory.decodeFile(picPath));
+	      //先 增加第一张Bitmap的Layer, 因为是第一张,放在DrawPad中维护的数组的最下面, 认为是背景图片.
+	      mDrawPadView.addBitmapLayer(BitmapFactory.decodeFile(picPath));
     }
-    //DrawPad完成后的回调.
+    /**
+     * DrawPad完成后的回调.
+     * @author Administrator
+     */
     private class DrawPadCompleted implements onDrawPadCompletedListener
     {
 
@@ -334,11 +355,6 @@ public class FilterDemoRealTimeActivity extends Activity {
     	super.onDestroy();
     	
     	isDestorying=true;
-		if(mplayer!=null){
-			mplayer.stop();
-			mplayer.release();
-			mplayer=null;
-		}
 		if(mDrawPadView!=null){
 			mDrawPadView.stopDrawPad();
 			mDrawPadView=null;        		   

@@ -100,15 +100,7 @@
         	android:layout_marginLeft="10dp"
         	android:scaleType="matrix"
         	android:src="@drawable/page" />
-            <ImageView
-            android:id="@+id/page9"
-        	android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-        	android:layout_gravity="bottom"
-        	android:layout_marginBottom="20dp"        	
-        	android:layout_marginLeft="10dp"
-        	android:scaleType="matrix"
-        	android:src="@drawable/page" />
+           
     </LinearLayout>
     
 </FrameLayout>

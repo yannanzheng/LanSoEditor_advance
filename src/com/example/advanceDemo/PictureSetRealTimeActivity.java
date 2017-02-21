@@ -7,13 +7,16 @@ import java.util.Locale;
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 
 import com.example.advanceDemo.view.DrawPadView;
+import com.example.advanceDemo.view.ShowHeart;
 import com.example.advanceDemo.view.DrawPadView.onViewAvailable;
 import com.lansoeditor.demo.R;
+import com.lansosdk.box.CanvasLayer;
+import com.lansosdk.box.CanvasRunnable;
 import com.lansosdk.box.DrawPad;
 import com.lansosdk.box.DrawPadUpdateMode;
-import com.lansosdk.box.VideoPen;
-import com.lansosdk.box.ViewPen;
-import com.lansosdk.box.Pen;
+import com.lansosdk.box.VideoLayer;
+import com.lansosdk.box.ViewLayer;
+import com.lansosdk.box.Layer;
 import com.lansosdk.box.onDrawPadCompletedListener;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
@@ -28,6 +31,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
@@ -50,75 +54,48 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 
 /**
  *  演示:  图片合成视频的同时保存成文件.
- *  流程: 把DrawPadView设置为自动刷新模式, 然后一次性增加多个BitmapPen,根据画面走动的时间戳来
- *  操作每个BitmapPen是否移动,是否显示.
+ *  流程: 把DrawPadView设置为自动刷新模式, 然后一次性增加多个BitmapLayer,根据画面走动的时间戳来
+ *  操作每个BitmapLayer是否移动,是否显示.
  *  
- *  这里仅仅演示移动的属性, 您实际中可以移动,缩放,旋转,RGBA值调节来混合使用,因为BitmapPen继承自IPen,故有这些特性.
+ *  这里仅仅演示移动的属性, 您实际中可以移动,缩放,旋转,RGBA值调节来混合使用,因为BitmapLayer继承自ILayer,故有这些特性.
  *  
  *  比如你根据时间戳来调节图片的RGBA中的A值(alpha透明度),则实现图片的淡入淡出效果.
  *  
  *  使用移动+缩放+RGBA调节,则实现一些缓慢照片变化的效果,浪漫文艺范的效果.
  *  
- *  视频标记就是一个典型的BitmapPen的使用场景.
+ *  视频标记就是一个典型的BitmapLayer的使用场景.
  *  
  */
 public class PictureSetRealTimeActivity extends Activity{
-    private static final String TAG = "VideoActivity";
-
+    private static final String TAG = "PictureSetRealTimeActivity";
 
     private DrawPadView mDrawPadView;
-    
     
     private ArrayList<SlideEffect>  slideEffectArray;
     
     private String dstPath=null;
     
-    
-
     private Context mContext=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-		 Thread.setDefaultUncaughtExceptionHandler(new snoCrashHandler());
         setContentView(R.layout.picture_set_layout);
-        
+        initView();
         
         mDrawPadView = (DrawPadView) findViewById(R.id.DrawPad_view);
-        
-        
-        findViewById(R.id.id_DrawPad_saveplay).setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				 if(SDKFileUtils.fileExist(dstPath)){
-		   			 	Intent intent=new Intent(PictureSetRealTimeActivity.this,VideoPlayerActivity.class);
-			    	    	intent.putExtra("videopath", dstPath);
-			    	    	startActivity(intent);
-		   		 }else{
-		   			 Toast.makeText(PictureSetRealTimeActivity.this, "目标文件不存在", Toast.LENGTH_SHORT).show();
-		   		 }
-			}
-		});
-        findViewById(R.id.id_DrawPad_saveplay).setVisibility(View.GONE);
 
         //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
         dstPath=SDKFileUtils.newMp4PathInBox();
         mContext=getApplicationContext();
-    }
-    @Override
-    protected void onResume() {
-    	// TODO Auto-generated method stub
-    	super.onResume();
-    	new Handler().postDelayed(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				start();
-			}
-		}, 100);
+	 	new Handler().postDelayed(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					start();
+				}
+			}, 500);
     }
     private void start()
     {
@@ -134,8 +111,10 @@ public class PictureSetRealTimeActivity extends Activity{
 			@Override
 			public void onSizeChanged(int viewWidth, int viewHeight) {
 				// TODO Auto-generated method stub
-				mDrawPadView.startDrawPad(new DrawPadProgressListener(),new DrawPadCompleted());
 				
+				mDrawPadView.setDrawPadCompletedListener(new DrawPadCompleted());
+				mDrawPadView.setDrawPadProgressListener(new DrawPadProgressListener());
+				mDrawPadView.startDrawPad();
 					isStarted=true;
 				
 				   DisplayMetrics dm = new DisplayMetrics();// 获取屏幕密度（方法2）
@@ -150,17 +129,17 @@ public class PictureSetRealTimeActivity extends Activity{
 			      else{
 			    	  CopyFileFromAssets.copy(mContext, "pic720x720.jpg", SDKDir.TMP_DIR, "picname.jpg");
 			      }
-			      //先 增加第一张Bitmap的Pen, 因为是第一张,放在DrawPad中维护的数组的最下面, 认为是背景图片.
-			      mDrawPadView.addBitmapPen(BitmapFactory.decodeFile(picPath));
+			      //先 增加第一张Bitmap的Layer, 因为是第一张,放在DrawPad中维护的数组的最下面, 认为是背景图片.
+			      mDrawPadView.addBitmapLayer(BitmapFactory.decodeFile(picPath));
 			      
 			      slideEffectArray=new ArrayList<SlideEffect>();
 			      
 					//这里同时增加多个,只是不显示出来.
-			      getFifthPen(R.drawable.tt,0,5000);  		//1--5秒.
-			      getFifthPen(R.drawable.tt3,5000,10000);  //5--10秒.
-			      getFifthPen(R.drawable.pic3,10000,15000);	//10---15秒 
-			      getFifthPen(R.drawable.pic4,15000,20000);  //15---20秒
-			      getFifthPen(R.drawable.pic5,20000,25000);  //20---25秒
+			      getFifthLayer(R.drawable.tt,0,5000);  		//1--5秒.
+			      getFifthLayer(R.drawable.tt3,5000,10000);  //5--10秒.
+			      getFifthLayer(R.drawable.pic3,10000,15000);	//10---15秒 
+			      getFifthLayer(R.drawable.pic4,15000,20000);  //15---20秒
+			      getFifthLayer(R.drawable.pic5,20000,25000);  //20---25秒
 			}
 		});
     	
@@ -174,25 +153,27 @@ public class PictureSetRealTimeActivity extends Activity{
 				    
 				      String picPath=SDKDir.TMP_DIR+"/"+"picname.jpg";   
 				      mDrawPadView.startDrawPad(new DrawPadProgressListener(),new DrawPadCompleted());
-					  mDrawPadView.addBitmapPen(BitmapFactory.decodeFile(picPath));
+					  mDrawPadView.addBitmapLayer(BitmapFactory.decodeFile(picPath));
 				      
 				      slideEffectArray=new ArrayList<SlideEffect>();
 				      
 						//这里同时获取多个,只是不显示出来.
-				      getFifthPen(R.drawable.tt,0,5000);  		//1--5秒.
-				      getFifthPen(R.drawable.tt3,5000,10000);  //5--10秒.
-				      getFifthPen(R.drawable.pic3,10000,15000);	//10---15秒 
-				      getFifthPen(R.drawable.pic4,15000,20000);  //15---20秒
-				      getFifthPen(R.drawable.pic5,20000,25000);  //20---25秒
+				      getFifthLayer(R.drawable.tt,0,5000);  		//1--5秒.
+				      getFifthLayer(R.drawable.tt3,5000,10000);  //5--10秒.
+				      getFifthLayer(R.drawable.pic3,10000,15000);	//10---15秒 
+				      getFifthLayer(R.drawable.pic4,15000,20000);  //15---20秒
+				      getFifthLayer(R.drawable.pic5,20000,25000);  //20---25秒
+				      
+				    
 				}
 			}
 		});
 		
     }
     private boolean isStarted=false; //是否已经播放过了.
-    private void getFifthPen(int resId,long startMS,long endMS)
+    private void getFifthLayer(int resId,long startMS,long endMS)
     {
-    	Pen item=mDrawPadView.addBitmapPen(BitmapFactory.decodeResource(getResources(), resId));
+    	Layer item=mDrawPadView.addBitmapLayer(BitmapFactory.decodeResource(getResources(), resId));
     	
 		SlideEffect  slide=new SlideEffect(item, 25, startMS, endMS, true);
 		slideEffectArray.add(slide);
@@ -236,11 +217,29 @@ public class PictureSetRealTimeActivity extends Activity{
 			  }
 		}
     }
+    private void initView()
+    {
+
+        findViewById(R.id.id_DrawPad_saveplay).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				 if(SDKFileUtils.fileExist(dstPath)){
+		   			 	Intent intent=new Intent(PictureSetRealTimeActivity.this,VideoPlayerActivity.class);
+			    	    	intent.putExtra("videopath", dstPath);
+			    	    	startActivity(intent);
+		   		 }else{
+		   			 Toast.makeText(PictureSetRealTimeActivity.this, "目标文件不存在", Toast.LENGTH_SHORT).show();
+		   		 }
+			}
+		});
+        findViewById(R.id.id_DrawPad_saveplay).setVisibility(View.GONE);
+    }
     private void toastStop()
     {
     	Toast.makeText(getApplicationContext(), "录制已停止!!", Toast.LENGTH_SHORT).show();
     }
-    
     boolean isDestorying=false;  //是否正在销毁, 因为销毁会停止DrawPad
     @Override
     protected void onDestroy() {

@@ -32,7 +32,6 @@ public class StartActivity extends Activity {
 	private ImageView mPage6;
 	private ImageView mPage7;
 	private ImageView mPage8;
-	private ImageView mPage9;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,7 +48,6 @@ public class StartActivity extends Activity {
         mPage6 = (ImageView)findViewById(R.id.page6);
         mPage7 = (ImageView)findViewById(R.id.page7);
         mPage8 = (ImageView)findViewById(R.id.page8);
-        mPage9 = (ImageView)findViewById(R.id.page9);
         
         //将要分页显示的View装入数组中
         LayoutInflater mLi = LayoutInflater.from(this);
@@ -61,7 +59,6 @@ public class StartActivity extends Activity {
         View view6 = mLi.inflate(R.layout.view6, null);
         View view7 = mLi.inflate(R.layout.view7, null);
         View view8 = mLi.inflate(R.layout.view8, null);
-        View view9 = mLi.inflate(R.layout.view9, null);
         	    
         //每个页面的view数据
         final ArrayList<View> views = new ArrayList<View>();
@@ -73,7 +70,6 @@ public class StartActivity extends Activity {
         views.add(view6);
         views.add(view7);
         views.add(view8);
-        views.add(view9);
 
         PagerAdapter mPagerAdapter = new PagerAdapter() {
 			
@@ -179,16 +175,6 @@ public class StartActivity extends Activity {
 			case 7:
 				mPage8.setImageDrawable(getResources().getDrawable(R.drawable.page_now));
 				mPage7.setImageDrawable(getResources().getDrawable(R.drawable.page));
-				mPage9.setImageDrawable(getResources().getDrawable(R.drawable.page));
-				if (currIndex == arg0-1) {
-					animation = new TranslateAnimation(20*(arg0-1), 20*arg0, 0, 0);
-				} else if (currIndex == arg0+1) {
-					animation = new TranslateAnimation(20*(arg0+1), 20*arg0, 0, 0);
-				}
-				break;
-			case 8:
-				mPage9.setImageDrawable(getResources().getDrawable(R.drawable.page_now));
-				mPage8.setImageDrawable(getResources().getDrawable(R.drawable.page));
 				mPage1.setImageDrawable(getResources().getDrawable(R.drawable.page));
 				if (currIndex == arg0-1) {
 					animation = new TranslateAnimation(20*(arg0-1), 20*arg0, 0, 0);

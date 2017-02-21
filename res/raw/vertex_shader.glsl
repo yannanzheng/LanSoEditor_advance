@@ -4,9 +4,10 @@ uniform mat4 uTexMatrix;  // Texture 的变换矩阵 （只对texture变形）
 attribute vec4 aPosition;
 attribute vec4 aTextureCoord;
 
-varying vec2 vTextureCoord;
+varying vec2 textureCoordinate;
 
 void main() {
     gl_Position = uMVPMatrix * aPosition;
-    vTextureCoord = (uTexMatrix * aTextureCoord).xy;
+  //  vTextureCoord = (uTexMatrix * aTextureCoord).xy;
+  textureCoordinate= (uTexMatrix * aTextureCoord).xy;
 }

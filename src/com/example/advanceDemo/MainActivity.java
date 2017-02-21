@@ -2,6 +2,8 @@ package com.example.advanceDemo;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.Buffer;
+import java.nio.ShortBuffer;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -11,7 +13,6 @@ import com.anthonycr.grant.PermissionsResultAction;
 import com.example.commonDemo.CommonDemoActivity;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.LanSoEditorBox;
-import com.lansosdk.box.MicLine;
 import com.lansosdk.videoeditor.CopyFileFromAssets;
 import com.lansosdk.videoeditor.LanSoEditor;
 import com.lansosdk.videoeditor.LoadLanSongSdk;
@@ -30,6 +31,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.media.AudioFormat;
+import android.media.AudioRecord;
+import android.media.MediaRecorder;
 import android.media.MediaRecorder.AudioSource;
 import android.opengl.Matrix;
 import android.os.AsyncTask;
@@ -55,24 +59,26 @@ public class MainActivity extends Activity implements OnClickListener{
 	 private static final String TAG="MainActivity";
 	 private static final boolean VERBOSE = false;   
 	 
-	 
 	private TextView tvVideoPath;
 	private boolean isPermissionOk=false;
-	
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-		Thread.setDefaultUncaughtExceptionHandler(new snoCrashHandler());
+		Thread.setDefaultUncaughtExceptionHandler(new LanSoSdkCrashHandler());
         setContentView(R.layout.activity_main);
         
         LoadLanSongSdk.loadLibraries();  //拿出来单独加载库文件.
         LanSoEditor.initSo(getApplicationContext(),null);
+        Log.i(TAG,"LanSoEditorBox version:"+LanSoEditorBox.VERSION_BOX);
         
            
-        //这个仅仅用来修改box里面的临时路径,如要修改VideoEidtor产生的路径,则可以在SDKDir中直接修改,不调用, 则默认是/sdcard/lansongBox/文件夹下.
-       // LanSoEditorBox.setTempFileDir("/sdcard/testTmp/");
+        /**
+         * 这个仅仅用来修改box里面的临时路径,如要修改VideoEidtor产生的路径,则在SDKDir.java中直接修改;
+         * 如不调用, 则默认是/sdcard/lansongBox/文件夹下.
+         */
+//        LanSoEditorBox.setTempFileDir("/sdcard/testTmp/");
         
     	//因为从android6.0系统有各种权限的限制,这里先检查是否有读写的权限,PermissionsManager采用github上开源库,不属于我们sdk的一部分.
 		 //下载地址是:https://github.com/anthonycr/Grant,您也可以使用别的方式来检查app所需权限.
@@ -93,23 +99,22 @@ public class MainActivity extends Activity implements OnClickListener{
         
         tvVideoPath=(TextView)findViewById(R.id.id_main_tvvideo);
         
-        //以下固定视频仅测试使用.
+        //以下为测试不同类型的视频使用.
 //        tvVideoPath.setText("/sdcard/VIDEO_36minute.mp4");
 //        tvVideoPath.setText("/sdcard/VIDEO_90du.mp4");
 //        tvVideoPath.setText("/sdcard/VIDEO_270du.mp4");
         
-        
         findViewById(R.id.id_main_segmentrecorder).setOnClickListener(this);
-        findViewById(R.id.id_main_camerapen).setOnClickListener(this);
+        findViewById(R.id.id_main_cameralayer).setOnClickListener(this);
         
         
-        findViewById(R.id.id_main_viewpendemo1).setOnClickListener(this);
+        findViewById(R.id.id_main_viewlayerdemo1).setOnClickListener(this);
         findViewById(R.id.id_main_viewremark).setOnClickListener(this);
-        findViewById(R.id.id_main_viewpendemo2).setOnClickListener(this);
-        findViewById(R.id.id_main_canvaspendemo).setOnClickListener(this);
-        findViewById(R.id.id_main_videofilterdemo).setOnClickListener(this);  //画笔滤镜. 用videoPen来演示.
+        findViewById(R.id.id_main_viewlayerdemo2).setOnClickListener(this);
+        findViewById(R.id.id_main_canvaslayerdemo).setOnClickListener(this);
+        findViewById(R.id.id_main_videofilterdemo).setOnClickListener(this);  //图层滤镜. 用videoLayer来演示.
         
-        findViewById(R.id.id_main_mvpendemo).setOnClickListener(this);  //画笔滤镜. 用videoPen来演示.
+        findViewById(R.id.id_main_mvlayerdemo).setOnClickListener(this);  //图层滤镜. 用videoLayer来演示.
         
         findViewById(R.id.id_main_pictures).setOnClickListener(this);
         
@@ -141,8 +146,6 @@ public class MainActivity extends Activity implements OnClickListener{
 			}
 		});
         showHintDialog();
-        
-       
     }
     private void showHintDialog()
    	{
@@ -221,42 +224,43 @@ public class MainActivity extends Activity implements OnClickListener{
 				case R.id.id_main_segmentrecorder:
 					startDemoActivity(SegmentRecorderActivity.class);
 					break;
-				case R.id.id_main_camerapen:
-					startDemoActivity(CameraPenDemoActivity.class);
+				case R.id.id_main_cameralayer:
+//					startDemoActivity(CameraRecordDemoActivity.class);
+					startDemoActivity(CameraLayerDemoActivity.class);
 					break;
-				case R.id.id_main_viewpendemo1:
-					startDemoActivity(VideoViewPenDemoActivity.class);
-//					startDemoActivity(VideoPenAutoUpdateDemoActivity.class);  //
+				case R.id.id_main_viewlayerdemo1:
+					startDemoActivity(ViewLayerDemoActivity.class);
+//					startDemoActivity(VideoLayerAutoUpdateDemoActivity.class);  //
 					break;
 				case R.id.id_main_viewremark:
-					startDemoActivity(VideoRemarkActivity.class);
+					startDemoActivity(BitmapLayerDemoActivity.class);
 					break;
-				case R.id.id_main_viewpendemo2:
-					startDemoActivity(ViewPenOnlyRealTimeActivity.class);
+				case R.id.id_main_viewlayerdemo2:
+					startDemoActivity(ViewLayerOnlyRealTimeActivity.class);
 					break;
-				case R.id.id_main_canvaspendemo:
-					startDemoActivity(CanvasPenDemoActivity.class);
+				case R.id.id_main_canvaslayerdemo:  //绘制一个心形.
+					startDemoActivity(CanvasLayerDemoActivity.class);
 					break; 
 				case R.id.id_main_videofilterdemo:
 					startDemoActivity(FilterDemoRealTimeActivity.class);
 					break;
-				case R.id.id_main_mvpendemo:
-					startDemoActivity(MVPenDemoActivity.class);
+				case R.id.id_main_mvlayerdemo:
+					startDemoActivity(MVLayerDemoActivity.class);
 					break;
 				case R.id.id_main_pictures:
 					startDemoActivity(PictureSetRealTimeActivity.class);
 					break;
 				case R.id.id_main_twovideooverlay:
-					startDemoActivity(VideoVideoRealTimeActivity.class);
+					startDemoActivity(VideoLayerTwoRealTimeActivity.class);
 					break;
 				case R.id.id_main_videobitmapoverlay:
-					startDemoActivity(VideoPictureRealTimeActivity.class);
+					startDemoActivity(VideoLayerRealTimeActivity.class);
 					break;
 				case R.id.id_main_drawpadexecute_filter:
 					startDemoActivity(FilterDemoExecuteActivity.class);
 					break;
 				case R.id.id_main_drawpadpictureexecute:
-					startDemoActivity(VideoPictuerExecuteActivity.class);
+					startDemoActivity(BitmapLayer2ExecuteActivity.class);
 					break;
 				case R.id.id_main_commonversion:
 					startDemoActivity(CommonDemoActivity.class);
@@ -334,4 +338,72 @@ public class MainActivity extends Activity implements OnClickListener{
 		        }
 		        return result;
 		    }
+	   //--------------------------------------------test---------------------------------------------------------
+		//录制音频的线程
+		private AudioRecordRunnable audioRecordRunnable;
+		private Thread audioThread;
+	   private void startMicRecord()
+	   {
+			audioRecordRunnable = new AudioRecordRunnable();
+			audioThread = new Thread(audioRecordRunnable);
+			audioThread.start();
+	   }
+	 //音频的采样率，recorderParameters中会有默认值
+		private int sampleRate = 44100;
+	   class AudioRecordRunnable implements Runnable {
+			
+			int bufferSize;
+			short[] audioData;
+			int bufferReadResult;
+			private final AudioRecord audioRecord;
+			public volatile boolean isInitialized;
+			private int mCount =0;
+			private AudioRecordRunnable()
+			{
+				bufferSize = AudioRecord.getMinBufferSize(sampleRate, 
+						AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT);
+				
+				audioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC, sampleRate, 
+						AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT,bufferSize);
+				
+				audioData = new short[bufferSize];
+			}
+
+			public void run()
+			{
+				android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_URGENT_AUDIO);
+				this.isInitialized = false;
+				if(audioRecord != null)
+				{
+					//判断音频录制是否被初始化
+					while (this.audioRecord.getState() == 0)
+					{
+						try
+						{
+							Thread.sleep(100L);
+						}
+						catch (InterruptedException localInterruptedException)
+						{
+						}
+					}
+					this.isInitialized = true;
+					this.audioRecord.startRecording();
+					while (true)
+					{
+						//读取数据.
+						bufferReadResult = this.audioRecord.read(audioData, 0, 2048);
+						if (bufferReadResult > 0){
+							Log.i(TAG,"read audio data bufferReadResult:"+bufferReadResult +" NO."+ mCount++);
+						}else{
+							Log.i(TAG,"read audio data<0; "+ mCount++);
+						}
+						if(mCount>=100){
+							break;
+						}
+					}
+					this.audioRecord.stop();
+					this.audioRecord.release();
+				}
+			}
+		}
 }

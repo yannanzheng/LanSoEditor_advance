@@ -76,11 +76,10 @@ public class VideoPlayerActivity extends Activity {
          mInfo=new MediaInfo(videoPath,false);
      	
          if(mInfo.prepare()==false){
-        	 
-        	 Log.i(TAG,"info:"+mInfo.toString());
         	 showHintDialog();
         	 isSupport=false;
          }else{
+        	 Log.i(TAG,"info:"+mInfo.toString());
         	 isSupport=true;
         	  str="当前视频分辨率：";
              str+=String.valueOf(mInfo.vWidth);
@@ -222,6 +221,7 @@ public class VideoPlayerActivity extends Activity {
 			public void onCompletion(VideoPlayer mp) {
 				// TODO Auto-generated method stub
 				Log.i(TAG,"vplayer --------------oncompletion-----!");
+				 Toast.makeText(VideoPlayerActivity.this,"视频播放完成", Toast.LENGTH_SHORT).show();
 			}
 		});
     	

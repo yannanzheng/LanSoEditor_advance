@@ -199,7 +199,7 @@ public class ImageTouchView extends ImageView{
 							paint.reset();
 							paint = new Paint(Paint.DITHER_FLAG);
 							paint.setColor(Color.RED);
-							//设置画笔风格
+							//设置图层风格
 							paint.setStyle(Paint.Style.STROKE);
 							paint.setStrokeWidth(1);
 							//反锯齿
@@ -338,16 +338,16 @@ public class ImageTouchView extends ImageView{
 		path = new Path();
 		tempPath = new Path();
 
-		//设置画笔的颜色
+		//设置图层的颜色
 		cachePaint = new Paint();
-		//设置画笔风格
+		//设置图层风格
 		cachePaint.setStyle(Paint.Style.STROKE);
 		//反锯齿
 		cachePaint.setAntiAlias(true);
 		cachePaint.setStrokeJoin(Paint.Join.ROUND);
 		cachePaint.setStrokeCap(Paint.Cap.ROUND);
 		cachePaint.setXfermode(new PorterDuffXfermode(Mode.SRC_ATOP));
-		//设置画笔模糊效果
+		//设置图层模糊效果
 		cachePaint.setMaskFilter(new BlurMaskFilter(5, PaintConstants.BLUR_TYPE));
 
 	} 
