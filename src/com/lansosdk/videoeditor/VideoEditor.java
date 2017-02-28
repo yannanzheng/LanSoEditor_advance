@@ -1205,7 +1205,6 @@ public class VideoEditor {
 					executeConvertMp4toTs(mp4Array[i], segTs1);
 					tsPathArray.add(segTs1);
 				}
-				
 				//第二步: 把ts流拼接成mp4
 				String[] tsPaths=new String[tsPathArray.size()];  
 			     for(int i=0;i<tsPathArray.size();i++){  
@@ -1215,9 +1214,9 @@ public class VideoEditor {
 			     
 				  //第三步:删除临时生成的ts文件.
 			     for(int i=0;i<tsPathArray.size();i++)
-					{
+			     {
 			    	 	SDKFileUtils.deleteFile(tsPathArray.get(i));
-					}
+				}
 			}
 		  /**
 		   * 裁剪一个mp4分辨率，把视频画面的某一部分裁剪下来，

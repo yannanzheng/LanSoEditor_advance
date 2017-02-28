@@ -203,7 +203,7 @@ public class DemoFunctions {
 			if(info.prepare())
 			{
 				String imagePath="/sdcard/videoimage.png";
-				CopyFileFromAssets.copy(ctx, "ic_launcher.png", "/sdcard", "videoimage.png");
+				CopyFileFromAssets.copy(ctx, "watermark.png", "/sdcard", "videoimage.png");
 				return editor.executeAddWaterMark(srcVideo, imagePath, 0, 0, dstVideo, (int)(info.vBitRate*1.2f));
 			}else{
 				return -1;
@@ -248,7 +248,7 @@ public class DemoFunctions {
 		{
 			String imagePath="/sdcard/videoimage.png";
 			if(SDKFileUtils.fileExist(imagePath)==false){
-				CopyFileFromAssets.copy(ctx, "ic_launcher.png", "/sdcard", "videoimage.png");	
+				CopyFileFromAssets.copy(ctx, "watermark.png", "/sdcard", "videoimage.png");	
 			}
 			 int cropW=240;
 	    	 int cropH=240;
