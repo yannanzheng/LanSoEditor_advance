@@ -1,6 +1,10 @@
 package com.lansosdk.videoeditor;
 
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import android.util.Log;
 
 
@@ -8,11 +12,13 @@ public class AVEncoder {
 
 	private static final String TAG ="AVEncoder";
 	
+//	private long audioCnt=0;
 	private long  mHandler=0;
 	
 	private int dataWidth,dataHeight;
 
 	/**
+	 * 使用在段录制的场合
 	 * 
 	 * @param fileName 
 	 * @param encW   用户设置的宽度
@@ -25,7 +31,7 @@ public class AVEncoder {
 	 */
 	public boolean init(String fileName,int degree,int encW,int encH,int vfps,int bitrate,int asampleRate,int abitrate)  //一定是ts的后缀
 	{
-		mHandler=encoderInit(fileName,encW,encH, vfps, bitrate, asampleRate, abitrate);
+		mHandler=encoderInit(fileName,encW,encH, vfps, bitrate,1, asampleRate, abitrate);
 		
 		if(degree==90 || degree==270){  //竖屏,用户设置的是宽高对调了,但图像没有对调,故这里还原到图像没有对调的宽高.
 			dataWidth=encH;
@@ -33,12 +39,32 @@ public class AVEncoder {
 		}else{
 			dataWidth=encW;
 			dataHeight=encH;
-		}
+		} 
 		return mHandler!=0 ? true: false;
 	}
+	/**
+	 * 使用在 音频编码的场合。
+	 * @param fileName
+	 * @param sameleRate
+	 * @param bitrate
+	 * @return
+	 */
 	public boolean init(String fileName,int sameleRate,int bitrate)  //音频编解码.
 	{
-		mHandler=encoderInit(fileName,0, 0, 0, 0, sameleRate, bitrate);
+		mHandler=encoderInit(fileName,0, 0, 0, 0,1, sameleRate, bitrate);  //mic是单通道.
+		return mHandler!=0 ? true: false;
+	}
+	/**
+	 * 使用在音频录制的场合,包括MicLine和 立体声录制成aac
+	 * @param fileName
+	 * @param channel
+	 * @param sameleRate
+	 * @param bitrate
+	 * @return
+	 */
+	public boolean init(String fileName,int channel,int sameleRate,int bitrate)  //音频编解码.
+	{
+		mHandler=encoderInit(fileName,0, 0, 0, 0,channel, sameleRate, bitrate);
 		return mHandler!=0 ? true: false;
 	}
 	/**
@@ -70,19 +96,50 @@ public class AVEncoder {
 			
 			if(	degree==90)  //不是后置,就是前置.
 			{
+//				Log.i(TAG,"当前preview: rotateYUV420Degree90");
 				byteArray=rotateYUV420Degree90(bb,dataWidth,dataHeight);  //应该在这里实时的检测当前是后置还是前置,后置,应旋转90, 前置270;
 			}else{
+//				Log.i(TAG,"当前preview: rotateYUV420Degree270");
 				byteArray=rotateYUV420Degree270(bb,dataWidth,dataHeight);
 			}
+				
+			
+//			byte[]  byte3=convertNV21ToYUV420P(byte2,480,480,480,480);  //放到底层实现了.
+			
+//			int number=(int)Math.round(ptsMS * 25 / 1000L);
+//			Log.i(TAG,"得到的number 是:"+number+" ptsMS is:"+ ptsMS);
 			encoderWriteVideoFrame(mHandler, byteArray, ptsMS); 
 		}
 	}
-
+	private     FileInputStream stream=null;
 	
 	public void pushAudioData(byte[] data,long ptsMs)
 	{
 		if(mHandler!=0){
 			encoderWriteAudioFrame(mHandler, data, ptsMs); 
+			
+			//一下是测试.
+//			if(stream==null){
+//				 try {
+//					stream=new FileInputStream("/sdcard/niu_44100_2.pcm");
+//					
+//				} catch (FileNotFoundException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//			}
+//			
+//			 byte buffer[] = new byte[1024*2*2];
+//			 try {
+//				stream.read(buffer);
+//				encoderWriteAudioFrame(mHandler, buffer, ptsMs); 
+//				Log.i(TAG,"写入到audio frame "+buffer.length);
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+			
+			
 		}
 	}
 	
@@ -90,6 +147,14 @@ public class AVEncoder {
 	{
 		if(mHandler!=0){
 			encoderRelease(mHandler);	
+		}
+		if(stream!=null){
+			try {
+				stream.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		mHandler=0;
 	}
@@ -120,6 +185,7 @@ public class AVEncoder {
 		return yuv;
 	}
 	/**
+	 * 只能对NV12或   NV21来做,并且 宽高一致.
 	 * @param data
 	 * @param imageWidth
 	 * @param imageHeight
@@ -158,7 +224,41 @@ public class AVEncoder {
 		}
 		return rotateYUV420Degree180(yuv,imageWidth,imageHeight);
 	}
-	
+	/**
+	 * 只能对NV12或   NV21来做,并且 宽高一致.
+	 * @param data
+	 * @param imageWidth
+	 * @param imageHeight
+	 * @return
+	 */
+	private byte[] rotateYUV420Degree90_YUAN(byte[] data, int imageWidth, int imageHeight)
+	{
+
+		final byte [] yuv = new byte[imageWidth*imageHeight*3/2];
+		// Rotate the Y luma
+		int i = 0;
+		for(int x = 0;x < imageWidth;x++)
+		{
+			for(int y = imageHeight-1;y >= 0;y--)
+			{
+				yuv[i] = data[y*imageWidth+x];
+				i++;
+			}
+		}
+		// Rotate the U and V color components
+		i = imageWidth*imageHeight*3/2-1;
+		for(int x = imageWidth-1;x > 0;x=x-2)
+		{
+			for(int y = 0;y < imageHeight/2;y++)
+			{
+				yuv[i] = data[(imageWidth*imageHeight)+(y*imageWidth)+x];
+				i--;
+				yuv[i] = data[(imageWidth*imageHeight)+(y*imageWidth)+(x-1)];
+				i--;
+			}
+		}
+		return yuv;
+	}
 	private byte[] rotateYUV420Degree90(byte[] data, int imageWidth, int imageHeight) 
 	{
 	    byte [] yuv = new byte[imageWidth*imageHeight*3/2];
@@ -224,18 +324,81 @@ public class AVEncoder {
 		return retBytes;
 	}
 	
-	
-	protected native long encoderInit(String saveFile,int width,int height,int vfps,int vbitrate,int asamplerate,int abitrate);
-	protected  native long encoderRelease(long handle);
 	/**
 	 * 
-	 * @param handle
-	 * @param yuv420sp  * NV12格式是:YYYY UV UV UV UV
-	 * @param pts
+	 * 已经在底层完成了, 这里屏蔽掉.
+	 * 把NV21格式的YUV数据, 转换为YUV420P, 并在转换中对视频裁剪.
+	 * (调整里面的拷贝顺序, 变成NV12)
+	 * 
+	 * NV21格式是:YYYY VU VU VU VU
+	 * 
+	 * NV12格式是:YYYY UV UV UV UV
+	 * 
+	 * 
+	 * @param bytes
+	 * @param srcWidth
+	 * @param srcHeight
+	 * @param dstWidth
+	 * @param dstHeight
 	 * @return
 	 */
-	protected  native int  encoderWriteVideoFrame(long handle,byte[] yuv420sp,long pts);
+//	byte[] convertNV21ToYUV420P(byte[] bytes,int srcWidth,int srcHeight,int dstWidth,int dstHeight)
+//	{
+//		byte[] retBytes=new byte[dstWidth*dstHeight*3/2];
+//		
+//		byte[] UBytes=new byte[dstWidth*dstHeight/4];
+//		byte[] VBytes=new byte[dstWidth*dstHeight/4];
+//		
+//		
+//		int srcPos=0;
+//		int dstPos=0;
+//		
+//		//拷贝Y;
+//		for(int x = 0;x < dstHeight;x++)  //高度一致.
+//		{
+//			System.arraycopy(bytes, srcPos, retBytes, dstPos, dstWidth);
+//			srcPos+=srcWidth; // 开始下一行.
+//			dstPos+=dstWidth;
+//		}
+//		//copy UV
+//		for(int x = 0;x < dstHeight/2;x++)  //高度一致.
+//		{
+//			for(int i=0;i<dstWidth/2;i++){
+//				
+//				VBytes[x*dstWidth/2 +i]=bytes[srcPos];  //V
+//				
+//				UBytes[x*dstWidth/2 +i]=bytes[srcPos+1]; //U
+//				
+//				srcPos+=2;
+//			}
+//			srcPos+=srcWidth-dstWidth;
+//		}
+//		
+//		System.arraycopy(UBytes,0, retBytes,dstWidth*dstHeight, dstWidth*dstHeight/4);	
+//		System.arraycopy(VBytes,0, retBytes,(dstWidth*dstHeight+ dstWidth*dstHeight/4), dstWidth*dstHeight/4);
+//		
+//		return retBytes;
+//	}
 	
+	/**
+	 * 
+	 * @param saveFile
+	 * @param width
+	 * @param height
+	 * @param vfps
+	 * @param vbitrate
+	 * @param achannel   为1表示单通道, 为2表示立体声, 如果其他,则默认是1,
+	 * @param asamplerate
+	 * @param abitrate
+	 * @return
+	 */
+	private  native long encoderInit(String saveFile,int width,int height,int vfps,int vbitrate,int achannel,int asamplerate,int abitrate);
+	
+	private  native long encoderRelease(long handle);
+	
+	private  native int  encoderWriteVideoFrame(long handle,byte[] yuv420sp,long pts);
+	
+	//每次读取的数据.
 	/**
 	 * 
 	 * 这里暂时没有返回长度, 实际注意, audiodata的长度要等于 采样点 *通道数 *2
@@ -245,6 +408,6 @@ public class AVEncoder {
 	 * @param pts
 	 * @return
 	 */
-	protected  native int  encoderWriteAudioFrame(long handle,byte[] audiodata,long pts);
+	private  native int  encoderWriteAudioFrame(long handle,byte[] audiodata,long pts);
 	
 }

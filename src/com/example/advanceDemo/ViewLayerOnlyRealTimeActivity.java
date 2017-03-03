@@ -108,7 +108,10 @@ public class ViewLayerOnlyRealTimeActivity extends Activity implements IEndListe
         textSurface = (TextSurface) findViewById(R.id.text_surface);
 
 
-        //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
+        /**
+         * 在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,
+         * (在onDestroy中删除)
+         */
         dstPath=SDKFileUtils.newMp4PathInBox();
         
         new Handler().postDelayed(new Runnable() {
@@ -116,18 +119,22 @@ public class ViewLayerOnlyRealTimeActivity extends Activity implements IEndListe
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				startDrawPad();
+				initDrawPad();
 			}
 		}, 500);
         
     }
-    //Step1:开始运行 DrawPad 画板
-    private void startDrawPad()
+    /**
+     * Step1: 初始化 DrawPad 画板
+     */
+    private void initDrawPad()
     {
 		//设置为自动刷新模式, 帧率为25
     	mDrawPadView.setUpdateMode(DrawPadUpdateMode.AUTO_FLUSH,25);
     	//使能实时录制,并设置录制后视频的宽度和高度, 码率, 帧率,保存路径.//因为视频就是一些文字,没有剧烈的画面运动,这里把码率设置小一些为600k
     	mDrawPadView.setRealEncodeEnable(480,480,1000*1000,(int)25,dstPath);
+    	
+    	mDrawPadView.setOnDrawPadCompletedListener(new DrawPadCompleted());
     	
     	//设置DrawPad的宽高, 这里设置为480x480,如果您已经在xml中固定大小,则不需要再次设置,
     	//可以直接调用startDrawPad来开始录制.
@@ -136,17 +143,22 @@ public class ViewLayerOnlyRealTimeActivity extends Activity implements IEndListe
 			@Override
 			public void onSizeChanged(int viewWidth, int viewHeight) {
 				// TODO Auto-generated method stub
-				mDrawPadView.startDrawPad(null,new DrawPadCompleted());
-				
-				
-				   DisplayMetrics dm = new DisplayMetrics();// 获取屏幕密度（方法2）
-			       dm = getResources().getDisplayMetrics();
-			      addViewLayer();
-			      playGaoBai();
+				 startDrawPad();
 			}
 		});
     }
-    //Step2 增加一个ViewLayer到画板上.
+    /**
+     * Step2: 开始运行 Drawpad线程.
+     * 
+     * (结束,是在playGaoBai()的时间到后, 手动stopDrawPad)
+     */
+    private void startDrawPad()
+    {
+    	mDrawPadView.startDrawPad();
+    	addViewLayer();
+    	playGaoBai();
+    }
+    //增加一个ViewLayer到画板上.
     private void addViewLayer()
     {
     	mViewLayer=mDrawPadView.addViewLayer();
@@ -173,7 +185,6 @@ public class ViewLayerOnlyRealTimeActivity extends Activity implements IEndListe
 //					VideoEditor editor=new VideoEditor();
 					//videoFile源文件(dstPath); audioFile音频文件, dstFile生成的目标文件.
 //					editor.executeVideoMergeAudio(videoFile, audioFile, dstFile);
-					
 			    	findViewById(R.id.id_viewLayer_saveplay).setVisibility(View.VISIBLE);
 				}
 				toastStop();
@@ -192,8 +203,6 @@ public class ViewLayerOnlyRealTimeActivity extends Activity implements IEndListe
     protected void onDestroy() {
     	// TODO Auto-generated method stub
     	super.onDestroy();
-    	
-    	
     	isDestorying=true;
     	if(mDrawPadView!=null){
     		mDrawPadView.stopDrawPad();

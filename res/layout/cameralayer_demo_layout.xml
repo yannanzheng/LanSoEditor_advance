@@ -71,7 +71,8 @@
                     android:layout_height="match_parent" />
             </FrameLayout>
         </FrameLayout>
-
+        
+        
 		   <LinearLayout 
 		          android:id="@+id/id_cameralayer_saveplay"
 		         android:layout_width="wrap_content"

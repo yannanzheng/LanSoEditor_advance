@@ -73,7 +73,7 @@ public class MediaInfo {
       */
      public float vFrameRate;
      /**
-      * 视频旋转角度, 比如android手机拍摄的视频, 后置摄像头270度, 前置摄像头旋转了90度, 这个可以获取到. 如果需要进行画面, 需要测试下,是否需要宽度和高度对换下.
+      * 视频旋转角度, 比如android手机拍摄的竖屏视频, 后置摄像头270度, 前置摄像头旋转了90度, 可以通过这个获取到. 如果需要进行画面处理, 需要测试下,是否需要宽度和高度对换下.
       * 正常的网上视频, 是没有旋转的. 
       */
      public float vRotateAngle;
@@ -174,7 +174,8 @@ public class MediaInfo {
     			 return isSupport();
     		 }else{   
     			 /**
-    			  * 如果返回的值是-13, 请检查您的手机设备是否是Android6.0以上,并确定是否打开读写文件的授权.//很多客户是因为没有授权而失败.我们提供了PermissionsManager类来检测,可参考使用.
+    			  * 如果返回的值是-13, 请检查您的手机设备是否是Android6.0以上,并确定是否打开读写文件的授权.
+    			  * 很多客户是因为没有授权而失败.我们提供了PermissionsManager类来检测,可参考使用.
     			  * 
     			  */
     			 Log.e(TAG,"mediainfo prepare media is failed:"+filePath);
@@ -190,6 +191,7 @@ public class MediaInfo {
     	 //TODO nothing 
     	 getSuccess=false;
      }
+     
      public boolean isHaveAudio()
      {
     	 if(aBitRate>0)  //有音频
@@ -200,8 +202,10 @@ public class MediaInfo {
     		 if(aCodecName==null || aCodecName.isEmpty())
     			 return false;
     		 
-    	 }
     		 return true;
+    	 }else{
+    		 return false;
+    	 }
      }
      public boolean isHaveVideo()
      {
@@ -222,8 +226,10 @@ public class MediaInfo {
     		 
     		 if(vCodecName==null || vCodecName.isEmpty())
     			 return false;
+    		 
+    		 return true;
     	 }
-    	 return true;
+    	 return false;
      }
      /**
       * 传递过来的文件是否支持
@@ -232,30 +238,7 @@ public class MediaInfo {
       */
      public boolean isSupport()
      {
-    	 
-    	 if(vBitRate>0 || vWidth>0 ||vHeight>0)  //有视频,
-    	 {
-    		 if(vHeight==0 || vWidth==0)
-    		 {
-    			 return false;
-    		 }
-    		 
-    		 if(vFrameRate>60) //如果帧率大于60帧, 则不支持.  
-    			 return false;
-    		 
-    		 if(vCodecName==null || vCodecName.isEmpty())
-    			 return false;
-    	 }else if(aBitRate>0)  //有音频
-    	 {
-    		 if(aChannels==0)
-    			 return false;
-    		 
-    		 if(aCodecName==null || aCodecName.isEmpty())
-    			 return false;
-    		 
-    	 }
-   
-    	 return true;
+    	 return isHaveAudio() || isHaveVideo(); 
      }
      @Override
     public String toString() {
@@ -284,10 +267,10 @@ public class MediaInfo {
     	 info+= "aDuration:"+aDuration+"\n";
     	 info+= "aCodecName:"+aCodecName+"\n";
     	 
-    	if(getSuccess)
+    	//if(getSuccess)  //直接返回,更直接, 如果执行错误, 更要返回
     		return info;
-    	else
-    	 return "MediaInfo is not ready.or call failed";
+    	//else
+    	// return "MediaInfo is not ready.or call failed";
     }
      public native int nativePrepare(String filepath,boolean checkCodec);
      
@@ -306,6 +289,11 @@ public class MediaInfo {
      {
     	 this.aCodecName=name;
      }
+     /**
+      * 是否支持.
+      * @param videoPath
+      * @return
+      */
      public static boolean isSupport(String videoPath)
      {
     	 if(fileExist(videoPath))
@@ -316,6 +304,22 @@ public class MediaInfo {
     		 if(VERBOSE)
     			 Log.i(TAG,"video:"+videoPath+" not support");
     		 return false;
+    	 }
+     }
+     /**
+      * 如果在调试中遇到问题了, 首先应该
+      * @param videoPath
+      * @return
+      */
+     public static String checkFile(String videoPath)
+     {
+    	 if(fileExist(videoPath))
+    	 {
+    		 MediaInfo  info=new MediaInfo(videoPath,false);
+    		 info.prepare();  
+        	 return  info.toString();
+    	 }else{
+    		 return "video:"+videoPath+" not support";
     	 }
      }
      //-------------------------------文件操作-------------------------

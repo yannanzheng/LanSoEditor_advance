@@ -17,6 +17,7 @@ import com.lansosdk.box.MVLayerENDMode;
 import com.lansosdk.box.Layer;
 import com.lansosdk.box.DrawPad;
 import com.lansosdk.box.MVLayer;
+import com.lansosdk.box.VideoLayer;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
 import com.lansosdk.videoeditor.MediaInfo;
@@ -57,7 +58,7 @@ public class MVLayerDemoActivity extends Activity {
     
     private MediaPlayer mplayer=null;
     private MediaPlayer mplayer2=null;
-    private Layer  mLayerMain=null;
+    private VideoLayer  mLayerMain=null;
     private MVLayer mMVLayer=null;
     
     private String editTmpPath=null;
@@ -87,8 +88,6 @@ public class MVLayerDemoActivity extends Activity {
         colorMVPath=com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask.copyFile(MVLayerDemoActivity.this,"mei.ts");
         maskMVPath=com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask.copyFile(MVLayerDemoActivity.this,"mei_b.ts");
     	
-        //增加提示缩放到480的文字.
-        DemoUtils.showScale480HintDialog(MVLayerDemoActivity.this);
         new Handler().postDelayed(new Runnable() {
 			
 			@Override
@@ -119,7 +118,7 @@ public class MVLayerDemoActivity extends Activity {
 				@Override
 				public void onPrepared(MediaPlayer mp) {
 					// TODO Auto-generated method stub
-					startDrawPad();
+					initDrawPad();
 				}
 			});
         	  mplayer.setOnCompletionListener(new OnCompletionListener() {
@@ -142,7 +141,7 @@ public class MVLayerDemoActivity extends Activity {
     /**
      * Step1: 开始运行 DrawPad 画板
      */
-    private void startDrawPad()
+    private void initDrawPad()
     {
     	if(colorMVPath!=null && maskMVPath!=null)
     	{
@@ -160,27 +159,33 @@ public class MVLayerDemoActivity extends Activity {
 	    			public void onSizeChanged(int viewWidth, int viewHeight) {
 	    				// TODO Auto-generated method stub
 	    				// 开始DrawPad的渲染线程. 
-	    					mDrawPadView.startDrawPad(null,null);
-	    					
-	    				//增加一个主视频的 VideoLayer
-	    				mLayerMain=mDrawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
-	    				if(mLayerMain!=null){
-	    					mplayer.setSurface(new Surface(mLayerMain.getVideoTexture()));
+	    				startDrawPad();
 	    				}
-	    				mplayer.start();
-	    				
-	    				mMVLayer=mDrawPadView.addMVLayer(colorMVPath, maskMVPath);  //<-----增加MVLayer
-	    				Log.i(TAG,"增加一个mp");
-//	    				if(mMVLayer!=null){
-//	    					mMVLayer.setEndMode(MVLayerENDMode.LOOP);
-//	    				}
-	    			}
 	        		});	
         	}
     	}
     }
     /**
-     * Step2: 停止画板
+     * Step2: 开始运行 Drawpad线程.
+     */
+    private void startDrawPad()
+    {
+    	mDrawPadView.startDrawPad();
+		
+		//增加一个主视频的 VideoLayer
+		mLayerMain=mDrawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
+		if(mLayerMain!=null){
+			mplayer.setSurface(new Surface(mLayerMain.getVideoTexture()));
+		}
+		mplayer.start();
+		
+		mMVLayer=mDrawPadView.addMVLayer(colorMVPath, maskMVPath);  //<-----增加MVLayer
+//		if(mMVLayer!=null){  //可以增加mv在播放结束后的动作, 有停止到最后一帧, 从头循环, 消失.
+//			mMVLayer.setEndMode(MVLayerENDMode.LOOP);
+//		}
+    }
+    /**
+     * Step3: 停止画板
      */
     private void stopDrawPad()
     {

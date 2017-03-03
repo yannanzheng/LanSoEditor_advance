@@ -1,9 +1,5 @@
 package com.example.commonDemo;
-/**
- * 
- *注意, 此代码仅仅是sdk的功能的演示, 不属于sdk的一部分.
- *
- */
+
 public class DemoInfo {
 
 	public final int mHintId;

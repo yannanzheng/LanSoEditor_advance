@@ -49,6 +49,7 @@ import android.util.Log;
 import android.view.Surface;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -83,7 +84,7 @@ public class VideoLayerTwoRealTimeActivity extends Activity implements OnSeekBar
     private MediaPlayer mplayer2=null;
     
     private VideoLayer subVideoLayer=null;
-    private Layer  mLayerMain=null;
+    private VideoLayer  mLayerMain=null;
     
     private String editTmpPath=null;
     private String dstPath=null;
@@ -100,12 +101,13 @@ public class VideoLayerTwoRealTimeActivity extends Activity implements OnSeekBar
         
        
 
-        //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
+        /**
+         * 在手机的/sdcard/lansongBox/路径下创建一个文件名,
+         * 用来保存生成的视频文件,(在onDestroy中删除)
+         */
         editTmpPath=SDKFileUtils.newMp4PathInBox();
         dstPath=SDKFileUtils.newMp4PathInBox();
         
-        //增加提示缩放到480的文字.
-        DemoUtils.showScale480HintDialog(VideoLayerTwoRealTimeActivity.this);
         new Handler().postDelayed(new Runnable() {
 			
 			@Override
@@ -131,7 +133,7 @@ public class VideoLayerTwoRealTimeActivity extends Activity implements OnSeekBar
 				@Override
 				public void onPrepared(MediaPlayer mp) {
 					// TODO Auto-generated method stub
-					start(mp);
+					initDrawPad(mp);
 				}
 			});
         	  mplayer.setOnCompletionListener(new OnCompletionListener() {
@@ -139,32 +141,22 @@ public class VideoLayerTwoRealTimeActivity extends Activity implements OnSeekBar
 				@Override
 				public void onCompletion(MediaPlayer mp) {
 					// TODO Auto-generated method stub
-					if(mDrawPadView!=null && mDrawPadView.isRunning()){
-						mDrawPadView.stopDrawPad();
-						
-						toastStop();
-						
-						if(SDKFileUtils.fileExist(editTmpPath)){
-							boolean ret=VideoEditor.encoderAddAudio(mVideoPath,editTmpPath,SDKDir.TMP_DIR,dstPath);
-							if(!ret){
-								dstPath=editTmpPath;
-							}else
-								SDKFileUtils.deleteFile(editTmpPath);
-							
-							findViewById(R.id.id_DrawPad_saveplay).setVisibility(View.VISIBLE);
-						}
-					}
+					stopDrawPad();
 				}
 			});
         	  mplayer.prepareAsync();
           }
           else {
-              Log.e(TAG, "Null Data Source\n");
               finish();
               return;
           }
     }
-    private void start(MediaPlayer mp)
+    /**
+     * Step1:  init Drawpad  初始化DrawPad
+     * 
+     * @param mp
+     */
+    private void initDrawPad(MediaPlayer mp)
     {
     	MediaInfo info=new MediaInfo(mVideoPath,false);
     	info.prepare();
@@ -172,31 +164,51 @@ public class VideoLayerTwoRealTimeActivity extends Activity implements OnSeekBar
     	// 设置DrawPad的刷新模式,默认 {@link DrawPad.UpdateMode#ALL_VIDEO_READY};
     	mDrawPadView.setUpdateMode(DrawPadUpdateMode.ALL_VIDEO_READY,25);
     	
+    		
+    	//设置使能 实时录制, 即把正在DrawPad中呈现的画面实时的保存下来,起到所见即所得的模式
+    	mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
     	
-    		//设置使能 实时录制, 即把正在DrawPad中呈现的画面实时的保存下来,起到所见即所得的模式
-    		mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
     	//设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
     	mDrawPadView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
 			
 			@Override
 			public void onSizeChanged(int viewWidth, int viewHeight) {
 				// TODO Auto-generated method stub
-				
-				// 开始DrawPad的渲染线程. 
-//				mDrawPadView.startDrawPad(new DrawPadProgressListener(),new DrawPadCompleted());
-				mDrawPadView.startDrawPad(null,null); //这里为了演示方便, 设置为null,当然你也可以使用上面这句,然后把当前行屏蔽, 这样会调用两个回调,在回调中实现可以根据时间戳的关系来设计各种效果.
-				
-				//增加一个主视频的 VideoLayer
-				mLayerMain=mDrawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
-				if(mLayerMain!=null){
-					mplayer.setSurface(new Surface(mLayerMain.getVideoTexture()));
-				}
-				mplayer.start();
-				
-//				startVPlayer();
-				startPlayer2();
+				startDrawPad();
 			}
 		});
+    }
+    /**
+     * Step2:  start DrawPad 开始运行
+     */
+    private void startDrawPad()
+    {
+    	// 开始DrawPad的渲染线程. 
+		mDrawPadView.startDrawPad();
+		//增加一个主视频的 VideoLayer
+		mLayerMain=mDrawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
+		if(mLayerMain!=null){
+			mplayer.setSurface(new Surface(mLayerMain.getVideoTexture()));
+		}
+		mplayer.start();
+		
+		startPlayer2();
+    }
+    private void stopDrawPad()
+    {
+    	if(mDrawPadView!=null && mDrawPadView.isRunning()){
+			mDrawPadView.stopDrawPad();
+			toastStop();
+			if(SDKFileUtils.fileExist(editTmpPath)){
+				boolean ret=VideoEditor.encoderAddAudio(mVideoPath,editTmpPath,SDKDir.TMP_DIR,dstPath);
+				if(!ret){
+					dstPath=editTmpPath;
+				}else{
+					SDKFileUtils.deleteFile(editTmpPath);
+				}	
+				playVideo.setVisibility(View.VISIBLE);
+			}
+		}
     }
     boolean isFirstRemove=false;
     
@@ -214,12 +226,9 @@ public class VideoLayerTwoRealTimeActivity extends Activity implements OnSeekBar
 			@Override
 			public void onPrepared(MediaPlayer mp) {
 				// TODO Auto-generated method stub
-				
-				// 增加一个VideoLayer
 				//这里有白色, 目标是把白色去掉.
 				subVideoLayer=mDrawPadView.addVideoLayer(mp.getVideoWidth(),mp.getVideoHeight(),null);
 				if(subVideoLayer!=null){
-					Log.i(TAG,"sub video Layer ....obtain..");
 					mplayer2.setSurface(new Surface(subVideoLayer.getVideoTexture()));	
 					subVideoLayer.setScale(0.5f);  //这里先缩小一半
 				}
@@ -249,8 +258,6 @@ public class VideoLayerTwoRealTimeActivity extends Activity implements OnSeekBar
     {
     	Toast.makeText(getApplicationContext(), "录制已停止!!", Toast.LENGTH_SHORT).show();
     }
-
-    
     boolean isDestorying=false;  //是否正在销毁, 因为销毁会停止DrawPad
     @Override
     protected void onDestroy() {
@@ -290,6 +297,7 @@ public class VideoLayerTwoRealTimeActivity extends Activity implements OnSeekBar
 	}
     
     private int RotateCnt=0;
+    private LinearLayout  playVideo;
     private void initView()
     {
     	 initSeekBar(R.id.id_DrawPad_skbar_rotate,360); //角度是旋转360度.
@@ -301,22 +309,22 @@ public class VideoLayerTwoRealTimeActivity extends Activity implements OnSeekBar
          initSeekBar(R.id.id_DrawPad_skbar_green,100);
          initSeekBar(R.id.id_DrawPad_skbar_blue,100);
          initSeekBar(R.id.id_DrawPad_skbar_alpha,100);
-         
-         findViewById(R.id.id_DrawPad_saveplay).setOnClickListener(new OnClickListener() {
+         playVideo=(LinearLayout)findViewById(R.id.id_DrawPad_saveplay);
+         playVideo.setOnClickListener(new OnClickListener() {
  			
  			@Override
  			public void onClick(View v) {
  				// TODO Auto-generated method stub
  				 if(SDKFileUtils.fileExist(dstPath)){
  		   			 	Intent intent=new Intent(VideoLayerTwoRealTimeActivity.this,VideoPlayerActivity.class);
- 			    	    	intent.putExtra("videopath", dstPath);
- 			    	    	startActivity(intent);
+ 		   			 	intent.putExtra("videopath", dstPath);
+ 		   			 	startActivity(intent);
  		   		 }else{
  		   			 Toast.makeText(VideoLayerTwoRealTimeActivity.this, "目标文件不存在", Toast.LENGTH_SHORT).show();
  		   		 }
  			}
  		});
-     	findViewById(R.id.id_DrawPad_saveplay).setVisibility(View.GONE);
+         playVideo.setVisibility(View.GONE);
     }
     private void initSeekBar(int resId,int maxvalue)
     {

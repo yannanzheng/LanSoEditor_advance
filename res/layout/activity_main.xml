@@ -97,6 +97,11 @@
 			<TextView  style="@style/main_item_arrow"/> 
 	</RelativeLayout>
 	
+     	
+     <RelativeLayout  android:id="@+id/id_main_camerafulllayer" style="@style/main_item_reletivelayout">
+           	 <TextView   android:text="摄像头图层(全屏)" style="@style/main_item_textview"/>
+			<TextView  style="@style/main_item_arrow"/> 
+	</RelativeLayout>
      
 	  <RelativeLayout  android:id="@+id/id_main_viewlayerdemo1" style="@style/main_item_reletivelayout">
            	 <TextView   android:text="UI图层演示(涂鸦)" style="@style/main_item_textview"/>

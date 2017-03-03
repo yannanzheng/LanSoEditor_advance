@@ -78,7 +78,7 @@ public class GPUImageFilterTools {
         
         
         filters.addFilter("黑色mask", FilterType.LanSongBLACKMASK);  
-        
+        filters.addFilter("区域透明", FilterType.LanSongMASK);  
         
         filters.addFilter("Contrast对比度", FilterType.CONTRAST);  //PASS
         filters.addFilter("Invert负片", FilterType.INVERT);  //PASS
@@ -211,11 +211,21 @@ public class GPUImageFilterTools {
                 return new GPUImageVignetteFilter(centerPoint, new float[] {0.0f, 0.0f, 0.0f}, 0.3f, 0.75f);
             case LanSongBLACKMASK:
 					/**
-					 * 这个滤镜的效果是: 把传递进来的Bitmap图片, 从中心叠加到输入源上, 并判断Bitmap中黑色像素RGB中R的值，
+					 * 这个滤镜的效果是: 把输入源的某区域 处理成透明(如果bitmap有灰色的毛刺,则可能扣除的不规则,一般使用在用代码生成的bitmap图片中,
+					 * 不适用用photoshop等做成的图片).
+					 * 
+					 * 这个滤镜的效果是: 把传递进来的bitmap图片, 从中心叠加到输入源上, 并判断Bitmap中黑色像素RGB中R的值，
 					 *如果等于0, 则设置输入源对应的像素为透明，
 					 *如果不等于0，则把R替换输入源像素中的RGBA中A，从而实现半透明等效果。
 					 */
             	  return createBlendFilter(context, LanSongBlackMaskBlendFilter.class);
+            case LanSongMASK:
+				/**
+				 * 这个滤镜的效果是: 把输入源的某区域 处理成透明.
+				 * 
+				 * 详情是: 把一张有透明区域的图片, 叠加到 输入源的中心位置上, 图片中有透明的地方,则把输入源的对应的地方,透明处理. 等于是把输入源中的一部分抠去.
+				 */
+        	  return createBlendFilter(context, LanSongMaskBlendFilter.class);
             case BLEND_DIFFERENCE:
                 return createBlendFilter(context, GPUImageDifferenceBlendFilter.class);
             case BLEND_SOURCE_OVER:
@@ -353,7 +363,7 @@ public class GPUImageFilterTools {
     }
 
     private enum FilterType {
-        NONE,BEAUTIFUL,LanSongBLACKMASK,CONTRAST, GRAYSCALE,  SEPIA,  POSTERIZE, GAMMA, BRIGHTNESS, INVERT, HUE, PIXELATION,
+        NONE,BEAUTIFUL,LanSongBLACKMASK,LanSongMASK,CONTRAST, GRAYSCALE,  SEPIA,  POSTERIZE, GAMMA, BRIGHTNESS, INVERT, HUE, PIXELATION,
         SATURATION, EXPOSURE, HIGHLIGHT_SHADOW, MONOCHROME, OPACITY, RGB, WHITE_BALANCE, VIGNETTE,  BLEND_COLOR_BURN, BLEND_COLOR_DODGE, BLEND_DARKEN, BLEND_DIFFERENCE,
         BLEND_DISSOLVE, BLEND_EXCLUSION, BLEND_SOURCE_OVER, BLEND_HARD_LIGHT, BLEND_LIGHTEN, BLEND_ADD, BLEND_DIVIDE, BLEND_MULTIPLY, BLEND_OVERLAY, BLEND_SCREEN, BLEND_ALPHA,
         BLEND_COLOR, BLEND_HUE, BLEND_SATURATION, BLEND_LUMINOSITY, BLEND_LINEAR_BURN, BLEND_SOFT_LIGHT, BLEND_SUBTRACT, BLEND_CHROMA_KEY, BLEND_NORMAL, LOOKUP_AMATORKA,

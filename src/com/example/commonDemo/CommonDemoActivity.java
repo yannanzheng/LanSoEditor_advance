@@ -40,11 +40,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-/**
- * 
- *注意, 此代码仅仅是sdk的功能的演示, 不属于sdk的一部分.
- *
- */
+
 public class CommonDemoActivity extends Activity{
 
 	private DemoInfo[] mTestCmdArray={ 
@@ -67,7 +63,7 @@ public class CommonDemoActivity extends Activity{
 			 new DemoInfo(R.string.demo_id_videoclockwise90,R.string.demo_more_videoclockwise90,true,false),
 			 new DemoInfo(R.string.demo_id_videocounterClockwise90,R.string.demo_more_videocounterClockwise90,true,false),
 			 new DemoInfo(R.string.demo_id_videoaddanglemeta,R.string.demo_more_videoaddanglemeta,true,false),
-//			 new DemoInfo(R.string.demo_id_ontpicturevideo,R.string.demo_more_ontpicturevideo,true,false),
+			 new DemoInfo(R.string.demo_id_ontpicturevideo,R.string.demo_more_ontpicturevideo,true,false),
 			 new DemoInfo(R.string.demo_id_morepicturevideo,R.string.demo_more_morepicturevideo,true,false),
 			 new DemoInfo(R.string.demo_id_audiodelaymix,R.string.demo_more_audiodelaymix,false,true),
 			 new DemoInfo(R.string.demo_id_audiovolumemix,R.string.demo_more_audiovolumemix,false,true),
@@ -83,17 +79,20 @@ public class CommonDemoActivity extends Activity{
 			 
 	};
 	private ListView  mListView=null;
-	private String mVideoPath;
+	private boolean isPermissionOk=false;
 	 private static final String TAG="MainActivity";
+	 private String mVideoPath;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		
 		 setContentView(R.layout.demo_layout);
-		 
-		 mVideoPath = getIntent().getStringExtra("videopath");
+		  mVideoPath = getIntent().getStringExtra("videopath"); 
 		
+		 
+		 
+	        
 		 mListView=(ListView)findViewById(R.id.id_demo_list);
 		 mListView.setAdapter(new SoftApAdapter(CommonDemoActivity.this));
 		 
@@ -111,6 +110,7 @@ public class CommonDemoActivity extends Activity{
 			}
 		});
 	}
+	
 	private void startActivity(int position)
 	{
 			DemoInfo demo = mTestCmdArray[position];
@@ -122,19 +122,18 @@ public class CommonDemoActivity extends Activity{
 			}else{
 				Intent intent=new Intent(CommonDemoActivity.this,AVEditorDemoActivity.class);
 				
-				intent.putExtra("videopath1",mVideoPath);
+				intent.putExtra("videopath1",mVideoPath.toString());
 				intent.putExtra("outvideo", demo.isOutVideo);
 				intent.putExtra("outaudio", demo.isOutAudio);
 				intent.putExtra("demoID", demo.mHintId);
 				intent.putExtra("textID", demo.mTextId);
-				
 				startActivity(intent);
 			}
 	}
 	private void startMediaInfoActivity()
 	{
 		Intent intent=new Intent(CommonDemoActivity.this,MediaInfoActivity.class);
-		intent.putExtra("videopath", mVideoPath);
+		intent.putExtra("videopath",mVideoPath.toString());
 		startActivity(intent);
 	}
 
@@ -142,7 +141,7 @@ public class CommonDemoActivity extends Activity{
 	  private void startScaleActivity()  //开启硬件缩放
 	  {
 		  Intent intent=new Intent(CommonDemoActivity.this,ScaleExecuteDemoActivity.class);
-	    	intent.putExtra("videopath", mVideoPath);
+	    	intent.putExtra("videopath", mVideoPath.toString());
 	    	startActivity(intent);
 	  }
 	//------------------------------------------

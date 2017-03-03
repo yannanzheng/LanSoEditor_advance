@@ -1,5 +1,7 @@
 package com.example.commonDemo;
 
+import java.io.File;
+
 import android.content.Context;
 import android.util.Log;
 
@@ -9,11 +11,10 @@ import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
-
 /**
  * 
- *注意, 此代码仅仅是sdk的功能的演示, 不属于sdk的一部分.
- *
+ * 注意: 此代码仅作为视频处理的演示使用, 不属于sdk的一部分. 
+ * 
  */
 public class DemoFunctions {
 	
@@ -71,10 +72,11 @@ public class DemoFunctions {
 			MediaInfo   info=new MediaInfo(srcVideo);
 	    	if(info.prepare())
 	    	{
-	    		if(info.vDuration>20)
-	    		 return	editor.executeVideoCutOut(srcVideo,dstVideo,0,20);
-				else
-					return	editor.executeVideoCutOut(srcVideo,dstVideo,0,info.aDuration/2);
+//	    		if(info.vDuration>20)
+//	    		 return	editor.executeVideoCutOut(srcVideo,dstVideo,0,20);
+//				else
+					return editor.executeVideoCutExact(srcVideo, info.vCodecName, dstVideo, 0.6f, 1.0f, (int)((float)info.vBitRate*1.2f));
+//					return	editor.executeVideoCutOut(srcVideo,dstVideo,0,info.vDuration/2);
 	    	}
 	    	return -1;
 	}
@@ -140,7 +142,7 @@ public class DemoFunctions {
 	/**
 	 *  演示视频压缩, 硬件实现 
 	 *  
-	 *  视频压缩转码:\n调整视频的码率,让视频文件大小变小一些,方便传输.注意:如调整的小太多,则会导致画面下降.这里演示把码率降低为70%\n
+	 *  视频压缩转码:\n调整视频的码率,让视频文件大小变小一些,方便传输.注意:如调整的小太多,则会导致画面下降.这里演示把码率)降低为70%\n
 	 */
 	public static int demoVideoCompress(VideoEditor editor,String srcVideo,String dstVideo)
 	{
@@ -202,9 +204,18 @@ public class DemoFunctions {
 			MediaInfo info=new MediaInfo(srcVideo);
 			if(info.prepare())
 			{
-				String imagePath="/sdcard/videoimage.png";
-				CopyFileFromAssets.copy(ctx, "watermark.png", "/sdcard", "videoimage.png");
+				String imagePath="/sdcard/lansongBox/watermark.png";
+				String dir="/sdcard/lansongBox/";
+				File dirFile=new File(dir);
+				
+				if (!dirFile.exists())
+					dirFile.mkdir();
+				
+				CopyFileFromAssets.copy(ctx, "watermark.png", dir, "watermark.png");
 				return editor.executeAddWaterMark(srcVideo, imagePath, 0, 0, dstVideo, (int)(info.vBitRate*1.2f));
+				
+//				return editor.executeAddMarkAdjustSpeed2(srcVideo,info.vCodecName,imagePath,0,0,0.5f,(int)(info.vBitRate*1.2f),dstVideo);
+				
 			}else{
 				return -1;
 			}
@@ -219,25 +230,23 @@ public class DemoFunctions {
 		MediaInfo   info=new MediaInfo(srcVideo);
     	if(info.prepare())
     	{
-    		return editor.executeGetAllFrames(srcVideo,info.vCodecName,SDKDir.TMP_DIR,"img");
+    		return editor.executeGetAllFrames(srcVideo,info.vCodecName,"/sdcard/","img");
     	}else{
     		return -1;
     	}
 	}
-//	/**
-//	 *  演示把一张图片转换为视频
-//	 */
-//	public static int demoOnePicture2Video(Context ctx,VideoEditor editor,String dstVideo)
-//	{
-//		String imagePath=SDKDir.TMP_DIR+"/threeword.png";
-//		
-//		CopyFileFromAssets.copy(ctx, "threeword.png", SDKDir.TMP_DIR, "threeword.png");
-//		
-//		Log.i(TAG,"demoOne picture to video :"+imagePath);
-//		return editor.pictureFadeInOut(imagePath,5,0,40,50,75,dstVideo);
-//	}
-
-	
+	/**
+	 *  演示把一张图片转换为视频
+	 */
+	public static int demoOnePicture2Video(Context ctx,VideoEditor editor,String dstVideo)
+	{
+		String imagePath=SDKDir.TMP_DIR+"/threeword.png";
+		
+		CopyFileFromAssets.copy(ctx, "threeword.png", SDKDir.TMP_DIR, "threeword.png");
+		
+		Log.i(TAG,"demoOne picture to video :"+imagePath);
+		return editor.executePicture2Video(imagePath,dstVideo,5,2000);
+	}
 	/**
 	 * 演示 先剪切, 再画面裁剪,再图片叠加. 
 	 */
@@ -248,7 +257,7 @@ public class DemoFunctions {
 		{
 			String imagePath="/sdcard/videoimage.png";
 			if(SDKFileUtils.fileExist(imagePath)==false){
-				CopyFileFromAssets.copy(ctx, "watermark.png", "/sdcard", "videoimage.png");	
+				CopyFileFromAssets.copy(ctx, "ic_launcher.png", "/sdcard", "videoimage.png");	
 			}
 			 int cropW=240;
 	    	 int cropH=240;

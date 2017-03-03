@@ -48,6 +48,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.hardware.Camera;
 import android.hardware.Camera.Area;
@@ -60,20 +61,23 @@ import android.os.Message;
 import android.os.PowerManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
-public class CameraLayerDemoActivity extends Activity implements OnClickListener{
+public class CameraLayerDemoActivity extends Activity implements Handler.Callback,OnClickListener{
    
-	private static final long RECORD_CAMERA_TIME=10*1000*1000; //定义录制的时间为10s  实际您可以任意的设置。
+	private static final long RECORD_CAMERA_TIME=20*1000*1000; //定义录制的时间为20s
 	
 	private static final String TAG = "CameraLayerDemoActivity";
 
@@ -81,7 +85,6 @@ public class CameraLayerDemoActivity extends Activity implements OnClickListener
     
     private CameraLayer  mCameraLayer=null;
     private String dstPath=null;
-	VideoFocusView focusView;
 	private PowerManager.WakeLock mWakeLock;
 	
     @Override
@@ -97,22 +100,19 @@ public class CameraLayerDemoActivity extends Activity implements OnClickListener
         
         mDrawPadView = (DrawPadView) findViewById(R.id.id_cameralayer_padview);
         
-       
         initView();
-
-        //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
+        /**
+         * 在手机的/sdcard/lansongBox/路径下创建一个文件名,
+         * 用来保存生成的视频文件,(在onDestroy中删除)
+         */
         dstPath=SDKFileUtils.newMp4PathInBox();
         
-        //增加提示缩放到480的文字.
-        DemoUtils.showScale480HintDialog(CameraLayerDemoActivity.this);
 		new Handler().postDelayed(new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						startDrawPad();  //开始录制.
-					}
-				}, 500);
+			@Override
+			public void run() {
+				initDrawPad();  //开始录制.
+			}
+		}, 500);
     }
     @Override
     protected void onResume() {
@@ -124,33 +124,42 @@ public class CameraLayerDemoActivity extends Activity implements OnClickListener
 			mWakeLock.acquire();
 		}
     }
+    
     /**
      * Step1: 开始运行 DrawPad 画板
      */
-    private void startDrawPad()
+    private void initDrawPad()
     {
     	//设置使能 实时录制, 即把正在DrawPad中呈现的画面实时的保存下来,实现所见即所得的模式
-    	 
+    	/**
+    	 * 当前CameraLayer 只支持全屏和 正方形的宽高比,
+    	 */
     	 int padWidth=480;
     	 int padHeight=480;
     	 
     	mDrawPadView.setRealEncodeEnable(padWidth,padHeight,1000000,(int)25,dstPath);
     	
     	mDrawPadView.setUpdateMode(DrawPadUpdateMode.AUTO_FLUSH, 25);
+    	mDrawPadView.setOnDrawPadProgressListener(drawPadProgressListener);
 
     	//设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
     	mDrawPadView.setDrawPadSize(padWidth,padHeight,new onDrawPadSizeChangedListener() {
-	    			
-	    			@Override
-	    			public void onSizeChanged(int viewWidth, int viewHeight) {
-	    				// TODO Auto-generated method stub
-	    				
-	    				// 开始DrawPad的渲染线程. 
-	    					mDrawPadView.startDrawPad(drawPadProgressListener,null);
-	    				//	mDrawPadView.pauseDrawPadRecord();
-	    					mCameraLayer=	mDrawPadView.addCameraLayer();
-	    			}
+    			@Override
+    			public void onSizeChanged(int viewWidth, int viewHeight) {
+    				// TODO Auto-generated method stub
+    				// 开始DrawPad的渲染线程. 
+    				startDrawPad();
+    			}
 	    });	
+    }
+    /**
+     * Step2: 开始录制
+     */
+    private void startDrawPad()
+    {
+    	mDrawPadView.startDrawPad();
+//		mDrawPadView.pauseDrawPadRecord();
+		mCameraLayer=	mDrawPadView.addCameraLayer(false, null);
     }
     private onDrawPadProgressListener drawPadProgressListener=new onDrawPadProgressListener() {
 		
@@ -171,15 +180,16 @@ public class CameraLayerDemoActivity extends Activity implements OnClickListener
 			}
 		}
 	};
-    //Step2: 停止画板
+    /**
+     * Step3: 停止画板
+     */
     private void stopDrawPad()
     {
     	if(mDrawPadView!=null && mDrawPadView.isRunning())
     	{
 				mDrawPadView.stopDrawPad();
 				mCameraLayer=null;
-				
-				findViewById(R.id.id_cameralayer_saveplay).setVisibility(View.VISIBLE);
+				playVideo.setVisibility(View.VISIBLE);
 		}
     }
     
@@ -232,30 +242,37 @@ public class CameraLayerDemoActivity extends Activity implements OnClickListener
 	}
    
    //-------------------------------------------一下是UI界面和控制部分.---------------------------------------------------
-   private SeekBar skbarFilterAdjuster;
+   private SeekBar AdjusterFilter;
    private TextView tvTime;
+   private LinearLayout  playVideo;
    private void initView()
    {
 	   tvTime=(TextView)findViewById(R.id.id_cameralayer_timetv);
+	   playVideo=(LinearLayout)findViewById(R.id.id_cameralayer_saveplay);
 	   
-	   findViewById(R.id.id_cameralayer_saveplay).setOnClickListener(new OnClickListener() {
+	   playVideo.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				 if(SDKFileUtils.fileExist(dstPath)){
 		   			 	Intent intent=new Intent(CameraLayerDemoActivity.this,VideoPlayerActivity.class);
-			    	    	intent.putExtra("videopath", dstPath);
-			    	    	startActivity(intent);
+		   			 	intent.putExtra("videopath", dstPath);
+		   			 	startActivity(intent);
 		   		 }else{
 		   			 Toast.makeText(CameraLayerDemoActivity.this, "目标文件不存在", Toast.LENGTH_SHORT).show();
 		   		 }
 			}
 		});
-       findViewById(R.id.id_cameralayer_saveplay).setVisibility(View.GONE);
-
-   	focusView=(VideoFocusView)findViewById(R.id.id_cameralayer_focus_view);
-   	focusView.setOnTouchListener(new OnTouchListener() {
+	   playVideo.setVisibility(View.GONE);
+   		findViewById(R.id.id_cameralayer_flashlight).setOnClickListener(this);
+		findViewById(R.id.id_cameralayer_frontcamera).setOnClickListener(this);
+		findViewById(R.id.id_camerape_demo_selectbtn).setOnClickListener(this);
+		
+		handler = new Handler(this);
+		
+		focusView=(VideoFocusView)findViewById(R.id.id_cameralayer_focus_view);
+		focusView.setOnTouchListener(new OnTouchListener() {
 			
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
@@ -263,28 +280,18 @@ public class CameraLayerDemoActivity extends Activity implements OnClickListener
 				return onSquareFocusViewTouch(v,event);
 			}
 		});
-   	
-   	
-   		findViewById(R.id.id_cameralayer_flashlight).setOnClickListener(this);
-		findViewById(R.id.id_cameralayer_frontcamera).setOnClickListener(this);
-		findViewById(R.id.id_camerape_demo_selectbtn).setOnClickListener(this);
 		
-	   skbarFilterAdjuster=(SeekBar)findViewById(R.id.id_cameralayer_demo_seek1);
-       
-       skbarFilterAdjuster.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+	   AdjusterFilter=(SeekBar)findViewById(R.id.id_cameralayer_demo_seek1);
+       AdjusterFilter.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 			
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
 				// TODO Auto-generated method stub
-				
 			}
-			
 			@Override
 			public void onStartTrackingTouch(SeekBar seekBar) {
 				// TODO Auto-generated method stub
-				
 			}
-			
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress,
 					boolean fromUser) {
@@ -295,15 +302,20 @@ public class CameraLayerDemoActivity extends Activity implements OnClickListener
 			}
 		});
    }
-	private boolean mAllowTouchFocus = true;
+
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 			case R.id.id_cameralayer_frontcamera:
-				doAutoFocus(); //摄像头打开后
+				if (mCameraLayer!=null && mCameraLayer.supportChangeCamera()) {
+					handler.sendEmptyMessage(MSG_CHANGE_CAMERA);
+				}
 				break;
 			case R.id.id_cameralayer_flashlight:
+				if (mCameraLayer!=null) {
+					mCameraLayer.changeFlash();
+				}
 				break;
 			case R.id.id_camerape_demo_selectbtn:
 				selectFilter();
@@ -312,41 +324,56 @@ public class CameraLayerDemoActivity extends Activity implements OnClickListener
 			break;
 		}
 	}
-	
-	private boolean onSquareFocusViewTouch(View v, MotionEvent event) {
-		switch (event.getAction()) {
-			case MotionEvent.ACTION_DOWN:
-				if(mCameraLayer!=null){
-					focusView.setDownY(event.getY());
-				
-				}	
+	//-----------------------------------------------------------------------
+	private Handler handler;
+	VideoFocusView focusView;
+	private boolean mAllowTouchFocus = true;
+	private static final int MSG_CHANGE_FLASH = 66;
+	private static final int MSG_CHANGE_CAMERA = 8;
+	private static final int MSG_AUTO_FOCUS = 9;
+	private static final int MSG_FOCUS_FINISH = 10;
+
+	public static final int REQUEST_VIDEOPROCESS = 5;
+	@Override
+	public boolean handleMessage(Message msg) {
+		switch (msg.what) {
+			case MSG_CHANGE_CAMERA:
+				mCameraLayer.changeCamera();
+				handler.sendEmptyMessageDelayed(MSG_AUTO_FOCUS, 300);
 				break;
-			case MotionEvent.ACTION_UP:
-				float upY = event.getY();
-				float dis = upY - focusView.getDownY();
-//				if (Math.abs(dis) >= 100) {
-//					if (mCameraLayer.cameraChangeEnable()) {
-//						handler.sendEmptyMessage(MSG_CHANGE_CAMERA);
-//					}
-//				}
+			case MSG_CHANGE_FLASH:
+				mCameraLayer.changeFlash();
+				break;
+			case MSG_AUTO_FOCUS:
+				doAutoFocus();
+				handler.sendEmptyMessageDelayed(MSG_FOCUS_FINISH, 1000);
+				break;
+			case MSG_FOCUS_FINISH:
+				if (focusView != null) {
+					focusView.setHaveTouch(false, new Rect(0, 0, 0, 0));
+					mAllowTouchFocus = true;
+				}
 				break;
 		}
-		return true;
+		return false;
 	}
 	private void doAutoFocus() {
-//		boolean con = mCameraLayer.supportFocus() && mCameraLayer.isPreviewing();
-//		if (con) {
-//			if (mAllowTouchFocus && focusView != null && focusView.getWidth() > 0) {
-//				mAllowTouchFocus = false;
-//				int w = focusView.getWidth();
-//				Rect rect = doTouchFocus(w / 2, w / 2);
-//				if (rect != null) {
-//					focusView.setHaveTouch(true, rect);
-//					focusFinishTime(1000);  //1秒后关闭聚焦动画
-//				}
-//			}
-//		}
+		if(mCameraLayer!=null)
+		{
+			boolean con = mCameraLayer.supportFocus() && mCameraLayer.isPreviewing();
+			if (con) {
+				if (mAllowTouchFocus && focusView != null && focusView.getWidth() > 0) {
+					mAllowTouchFocus = false;
+					int w = focusView.getWidth();
+					Rect rect = doTouchFocus(w / 2, w / 2);
+					if (rect != null) {
+						focusView.setHaveTouch(true, rect);
+					}
+				}
+			}
+		}
 	}
+
 	private Rect doTouchFocus(float x, float y) {
 		int w = mDrawPadView.getWidth();
 		int h = mDrawPadView.getHeight();
@@ -373,6 +400,7 @@ public class CameraLayerDemoActivity extends Activity implements OnClickListener
 			List<Camera.Area> focusList = new ArrayList<Camera.Area>();
 			Area focusA = new Area(targetFocusRect, 1000);
 			focusList.add(focusA);
+			mCameraLayer.doFocus(focusList);
 			return rect;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -380,20 +408,35 @@ public class CameraLayerDemoActivity extends Activity implements OnClickListener
 		
 		return null;
 	}
-	
-	private void focusFinishTime(int delayMS)
-	{
-		new Handler().postDelayed(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				if (focusView != null) {
-					focusView.setHaveTouch(false, new Rect(0, 0, 0, 0));
-					mAllowTouchFocus = true;
+	private boolean onSquareFocusViewTouch(View v, MotionEvent event) {
+		switch (event.getAction()) {
+			case MotionEvent.ACTION_DOWN:
+				focusView.setDownY(event.getY());
+				if(mCameraLayer!=null)
+				{
+					boolean con = mCameraLayer.supportFocus() && mCameraLayer.isPreviewing();
+					if (con) {// 对焦
+						if (mAllowTouchFocus) {
+							mAllowTouchFocus = false;
+							Rect rect = doTouchFocus(event.getX(), event.getY());
+							if (rect != null) {
+								focusView.setHaveTouch(true, rect);
+							}
+							handler.sendEmptyMessageDelayed(MSG_FOCUS_FINISH, 1000);
+						}
+					}
 				}
-			}
-		}, delayMS);
-		
+				break;
+			case MotionEvent.ACTION_UP:
+				float upY = event.getY();
+				float dis = upY - focusView.getDownY();
+				if (Math.abs(dis) >= 100) {
+//					if (mCameraLayer.supportChangeCamera()) {
+//						handler.sendEmptyMessage(MSG_CHANGE_CAMERA);
+//					}
+				}
+				break;
+		}
+		return true;
 	}
 }

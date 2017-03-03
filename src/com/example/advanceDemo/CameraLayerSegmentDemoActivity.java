@@ -49,6 +49,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -82,17 +83,15 @@ public class CameraLayerSegmentDemoActivity extends Activity implements OnClickL
         initView();
 
         dstPath=SDKFileUtils.createMp4FileInBox();
-        //增加提示缩放到480的文字.
-        DemoUtils.showScale480HintDialog(CameraLayerSegmentDemoActivity.this);
 		new Handler().postDelayed(new Runnable() {
 					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						//showHintDialog();
-						startDrawPad();
-					}
-				}, 500);
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				//showHintDialog();
+				createDrawPad();
+			}
+		}, 500);
     }
     @Override
     protected void onResume() {
@@ -106,8 +105,10 @@ public class CameraLayerSegmentDemoActivity extends Activity implements OnClickL
     	
     }
     
-    //Step1: 开始运行 DrawPad 画板
-    private void startDrawPad()
+    /**
+     * Step1: 创建画板.
+     */
+    private void createDrawPad()
     {
     	 int padWidth=480;
     	 int padHeight=480;
@@ -116,26 +117,55 @@ public class CameraLayerSegmentDemoActivity extends Activity implements OnClickL
     	
     	mDrawPadView.setUpdateMode(DrawPadUpdateMode.AUTO_FLUSH, 25);
 
+    	//设置进度监听
+    	mDrawPadView.setOnDrawPadProgressListener(drawPadProgressListener);
     	//设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
     	mDrawPadView.setDrawPadSize(padWidth,padHeight,new onDrawPadSizeChangedListener() {
 	    			
 	    			@Override
 	    			public void onSizeChanged(int viewWidth, int viewHeight) {
 	    				// TODO Auto-generated method stub
-	    				
-	    					mDrawPadView.pauseDrawPadRecord();
-	    					mDrawPadView.startDrawPad(drawPadProgressListener,null);
-	    					
-	    					
-	    				//增加一个CameraLayer
-	    					int degree=LanSoEditorBox.getActivityRotationAngle(CameraLayerSegmentDemoActivity.this);
-	    					mCameraLayer=	mDrawPadView.addCameraLayer(degree,null);
-	    					if(mCameraLayer!=null){
-	    						mCameraLayer.startPreview();
-	    						doAutoFocus(); //摄像头打开后,开始自动聚焦.
-	    					}
+	    				startDrawPad();
 	    			}
 	    });	
+    }
+    /**
+     * step2: 开始画板
+     */
+    private void startDrawPad()
+    {
+    	mDrawPadView.pauseDrawPadRecord();
+		mDrawPadView.startDrawPad();
+		//增加一个CameraLayer
+		mCameraLayer=	mDrawPadView.addCameraLayer(false,null);
+		if(mCameraLayer!=null){
+			mCameraLayer.startPreview();
+			doAutoFocus(); //摄像头打开后,开始自动聚焦.
+		}
+    }
+    /**
+     * Step3: 停止画板
+     */
+    private void stopDrawPad()
+    {
+    	if(mDrawPadView!=null && mDrawPadView.isRunning())
+    	{
+				mDrawPadView.stopDrawPad();
+				mCameraLayer=null;
+				
+				/**
+				 * 停止后, 得到多段视频, 这里拼接,
+				 */
+				if(segmentArray.size()>0){
+					VideoEditor editor=new VideoEditor();
+					String[] segments=new String[segmentArray.size()];  
+				     for(int i=0;i<segmentArray.size();i++){  
+				    	 segments[i]=(String)segmentArray.get(i);  
+				     }  
+					editor.executeConcatMP4(segments, dstPath);
+				}
+				playVideo.setVisibility(View.VISIBLE);
+		}
     }
     private onDrawPadProgressListener drawPadProgressListener=new onDrawPadProgressListener() {
 		
@@ -153,28 +183,7 @@ public class CameraLayerSegmentDemoActivity extends Activity implements OnClickL
 			}
 		}
 	};
-    //Step2: 停止画板
-    private void stopDrawPad()
-    {
-    	if(mDrawPadView!=null && mDrawPadView.isRunning())
-    	{
-				mDrawPadView.stopDrawPad();
-				mCameraLayer=null;
-				
-				//拼接视频.
-				if(segmentArray.size()>0){
-					VideoEditor editor=new VideoEditor();
-					String[] segments=new String[segmentArray.size()];  
-				     for(int i=0;i<segmentArray.size();i++){  
-				    	 segments[i]=(String)segmentArray.get(i);  
-				     }  
-					editor.executeConcatMP4(segments, dstPath);
-				}
-				
-				
-				findViewById(R.id.id_cameralayer_saveplay).setVisibility(View.VISIBLE);
-		}
-    }
+   
     
     /**
      * 选择滤镜效果, 
@@ -222,11 +231,13 @@ public class CameraLayerSegmentDemoActivity extends Activity implements OnClickL
    
    //-------------------------------------------一下是UI界面和控制部分.---------------------------------------------------
    private TextView tvTime;
+   private LinearLayout  playVideo;
    private void initView()
    {
 	   tvTime=(TextView)findViewById(R.id.id_cameralayer_timetv);
+	   playVideo=(LinearLayout)findViewById(R.id.id_cameralayer_saveplay);
 	   
-	   findViewById(R.id.id_cameralayer_saveplay).setOnClickListener(new OnClickListener() {
+	   playVideo.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -240,7 +251,7 @@ public class CameraLayerSegmentDemoActivity extends Activity implements OnClickL
 		   		 }
 			}
 		});
-       findViewById(R.id.id_cameralayer_saveplay).setVisibility(View.GONE);
+	   playVideo.setVisibility(View.GONE);
 
    	focusView=(VideoFocusView)findViewById(R.id.id_cameralayer_focus_view);
    	focusView.setOnTouchListener(new OnTouchListener() {
@@ -304,20 +315,21 @@ public class CameraLayerSegmentDemoActivity extends Activity implements OnClickL
 	private boolean onSquareFocusViewTouch(View v, MotionEvent event) {
 		switch (event.getAction()) {
 			case MotionEvent.ACTION_DOWN:
-//				if(mCameraLayer!=null){
-//					focusView.setDownY(event.getY());
-//					boolean con = mCameraLayer.supportFocus() && mCameraLayer.isPreviewing();
-//					if (con) {// 对焦
-//						if (mAllowTouchFocus) {
-//							mAllowTouchFocus = false;
-//							Rect rect = doTouchFocus(event.getX(), event.getY());
-//							if (rect != null) {
-//								focusView.setHaveTouch(true, rect);
-//							}
-//							focusFinishTime(1000);  //1秒后关闭聚焦动画.
-//						}
-//					}
-//				}	
+				if(mCameraLayer!=null)
+				{
+					focusView.setDownY(event.getY());
+					boolean con = mCameraLayer.supportFocus() && mCameraLayer.isPreviewing();
+					if (con) {// 对焦
+						if (mAllowTouchFocus) {
+							mAllowTouchFocus = false;
+							Rect rect = doTouchFocus(event.getX(), event.getY());
+							if (rect != null) {
+								focusView.setHaveTouch(true, rect);
+							}
+							focusFinishTime(1000);  //1秒后关闭聚焦动画.
+						}
+					}
+				}	
 				break;
 			case MotionEvent.ACTION_UP:
 				float upY = event.getY();
@@ -332,18 +344,18 @@ public class CameraLayerSegmentDemoActivity extends Activity implements OnClickL
 		return true;
 	}
 	private void doAutoFocus() {
-//		boolean con = mCameraLayer.supportFocus() && mCameraLayer.isPreviewing();
-//		if (con) {
-//			if (mAllowTouchFocus && focusView != null && focusView.getWidth() > 0) {
-//				mAllowTouchFocus = false;
-//				int w = focusView.getWidth();
-//				Rect rect = doTouchFocus(w / 2, w / 2);
-//				if (rect != null) {
-//					focusView.setHaveTouch(true, rect);
-//					focusFinishTime(1000);  //1秒后关闭聚焦动画
-//				}
-//			}
-//		}
+		boolean con = mCameraLayer.supportFocus() && mCameraLayer.isPreviewing();
+		if (con) {
+			if (mAllowTouchFocus && focusView != null && focusView.getWidth() > 0) {
+				mAllowTouchFocus = false;
+				int w = focusView.getWidth();
+				Rect rect = doTouchFocus(w / 2, w / 2);
+				if (rect != null) {
+					focusView.setHaveTouch(true, rect);
+					focusFinishTime(1000);  //1秒后关闭聚焦动画
+				}
+			}
+		}
 	}
 	private Rect doTouchFocus(float x, float y) {
 		int w = mDrawPadView.getWidth();
@@ -371,7 +383,7 @@ public class CameraLayerSegmentDemoActivity extends Activity implements OnClickL
 			List<Camera.Area> focusList = new ArrayList<Camera.Area>();
 			Area focusA = new Area(targetFocusRect, 1000);
 			focusList.add(focusA);
-			//mCameraLayer.doFocus(focusList);
+			mCameraLayer.doFocus(focusList);
 			return rect;
 		} catch (Exception e) {
 			e.printStackTrace();

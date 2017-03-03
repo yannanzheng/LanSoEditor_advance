@@ -102,18 +102,15 @@ public class CameraRecordDemoActivity extends Activity implements OnClickListene
         //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
         videoPath=SDKFileUtils.newMp4PathInBox();
         
-        //增加提示缩放到480的文字.
-        DemoUtils.showScale480HintDialog(CameraRecordDemoActivity.this);
-        
 		new Handler().postDelayed(new Runnable() {
 					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						//showHintDialog();
-						startDrawPad();
-					}
-				}, 500);
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				//showHintDialog();
+				initDrawPad();
+			}
+		}, 500);
 
     }
     @Override
@@ -128,14 +125,9 @@ public class CameraRecordDemoActivity extends Activity implements OnClickListene
     }
     
     //Step1: 开始运行 DrawPad 画板
-    private void startDrawPad()
+    private void initDrawPad()
     {
     	//设置使能 实时录制, 即把正在DrawPad中呈现的画面实时的保存下来,实现所见即所得的模式
-    	 DisplayMetrics dm = new DisplayMetrics();
-    	 dm = getResources().getDisplayMetrics();
-    	 
-    	 Log.i(TAG,"分辨率是:"+dm.widthPixels+"x"+dm.heightPixels);
-    	 
     	 int padWidth=480;
     	 int padHeight=480;
     	 
@@ -143,37 +135,55 @@ public class CameraRecordDemoActivity extends Activity implements OnClickListene
     	
     	mDrawPadView.setUpdateMode(DrawPadUpdateMode.AUTO_FLUSH, 25);
 
+    	/**
+    	 * 设置进度监听
+    	 */
+    	mDrawPadView.setOnDrawPadProgressListener(drawPadProgressListener);
     	//设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
     	mDrawPadView.setDrawPadSize(padWidth,padHeight,new onDrawPadSizeChangedListener() {
 	    			
 	    			@Override
 	    			public void onSizeChanged(int viewWidth, int viewHeight) {
 	    				// TODO Auto-generated method stub
-	    				
-	    					mDrawPadView.pauseDrawPadRecord();
-	    					/**
-	    					 * 如采用外面的pcm数据,则视频在录制过程中,会参考音频时间戳,来计算得出视频的时间戳,
-	    					 * 如外界音频播放完毕,无数据push,应及时stopDrawPad 
-	    					 */
-//	    					mDrawPadView.setRecordExtraPcm(true,2,44100,64000);
-	    					mDrawPadView.startDrawPad(drawPadProgressListener,null);
-	    					
-	    					//画板开始后, 获取一个AudioLine对象, 向里面投递数据.这里开始播放声音.获取声音的数据,投递进去.
-	    					AudioLine line=mDrawPadView.getAudioLine();
-	    					
-//	    					mPcmPlayer=new PcmPlayer("/sdcard/niu_44100_2.pcm",2,44100, line);
-//	    					mPcmPlayer.prepare();
-	    					
-	    					//增加一个CameraLayer
-	    					int degree=LanSoEditorBox.getActivityRotationAngle(CameraRecordDemoActivity.this);
-	    					mCameraLayer=	mDrawPadView.addCameraLayer(degree,null);
-	    					if(mCameraLayer!=null){
-	    						mCameraLayer.startPreview();
-	    						doAutoFocus(); //摄像头打开后,开始自动聚焦.
-	    					}
+	    				startDrawPad();
 	    			}
 	    });	
     }
+    //step2:  start drawpad
+    private void startDrawPad()
+    {
+    	mDrawPadView.pauseDrawPadRecord();
+		/**
+		 * 如采用外面的pcm数据,则视频在录制过程中,会参考音频时间戳,来计算得出视频的时间戳,
+		 * 如外界音频播放完毕,无数据push,应及时stopDrawPad 
+		 */
+//		mDrawPadView.setRecordExtraPcm(true,2,44100,64000);
+		mDrawPadView.startDrawPad();
+		
+		//画板开始后, 获取一个AudioLine对象, 向里面投递数据.这里开始播放声音.获取声音的数据,投递进去.
+		AudioLine line=mDrawPadView.getAudioLine();
+		
+//		mPcmPlayer=new PcmPlayer("/sdcard/niu_44100_2.pcm",2,44100, line);
+//		mPcmPlayer.prepare();
+		
+		//增加一个CameraLayer
+		mCameraLayer=	mDrawPadView.addCameraLayer(false,null);
+		if(mCameraLayer!=null){
+			mCameraLayer.startPreview();
+			doAutoFocus(); //摄像头打开后,开始自动聚焦.
+		}
+    }
+  //Step3: 停止画板
+    private void stopDrawPad()
+    {
+    	if(mDrawPadView!=null && mDrawPadView.isRunning())
+    	{
+    			audioPath=mDrawPadView.stopDrawPad2();
+				mCameraLayer=null;
+				playVideo.setVisibility(View.VISIBLE);
+		}
+    }
+    
     private onDrawPadProgressListener drawPadProgressListener=new onDrawPadProgressListener() {
 		
 		@Override
@@ -187,16 +197,6 @@ public class CameraRecordDemoActivity extends Activity implements OnClickListene
 			}
 		}
 	};
-    //Step2: 停止画板
-    private void stopDrawPad()
-    {
-    	if(mDrawPadView!=null && mDrawPadView.isRunning())
-    	{
-    			audioPath=mDrawPadView.stopDrawPad2();
-				mCameraLayer=null;
-				findViewById(R.id.id_cameralayer_saveplay).setVisibility(View.VISIBLE);
-		}
-    }
     @Override
     protected void onPause() {
     	// TODO Auto-generated method stub
@@ -224,18 +224,18 @@ public class CameraRecordDemoActivity extends Activity implements OnClickListene
 	}
    //-------------------------------------------一下是UI界面和控制部分.---------------------------------------------------
    private TextView tvTime;
+   private Button playVideo;
    private void initView()
    {
 	   tvTime=(TextView)findViewById(R.id.id_cameralayer_timetv);
-	   
-	   findViewById(R.id.id_cameralayer_saveplay).setOnClickListener(new OnClickListener() {
+	   playVideo=(Button)findViewById(R.id.id_cameralayer_saveplay);
+	   playVideo.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				 if(SDKFileUtils.fileExist(videoPath))
 				 {
-					 
 					  if(mDrawPadView!=null){
 						   
 						   VideoEditor editor=new VideoEditor();
@@ -251,7 +251,7 @@ public class CameraRecordDemoActivity extends Activity implements OnClickListene
 		   		 }
 			}
 		});
-       findViewById(R.id.id_cameralayer_saveplay).setVisibility(View.GONE);
+	   playVideo.setVisibility(View.GONE);
 
    		findViewById(R.id.id_cameralayer_flashlight).setOnClickListener(this);
 		findViewById(R.id.id_cameralayer_frontcamera).setOnClickListener(this);

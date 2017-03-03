@@ -154,8 +154,6 @@ public class FilterDemoRealTimeActivity extends Activity {
         editTmpPath=SDKFileUtils.newMp4PathInBox();
         dstPath=SDKFileUtils.newMp4PathInBox();
         
-        //增加提示缩放到480的文字.
-        DemoUtils.showScale480HintDialog(FilterDemoRealTimeActivity.this);
         new Handler().postDelayed(new Runnable() {
 			
 			@Override
@@ -164,12 +162,6 @@ public class FilterDemoRealTimeActivity extends Activity {
 				 startPlayVideo();
 			}
 		}, 500);
-    }
-    @Override
-    protected void onResume() {
-    	// TODO Auto-generated method stub
-    	super.onResume();
-    	
     }
     @Override
     protected void onPause() {
@@ -206,8 +198,6 @@ public class FilterDemoRealTimeActivity extends Activity {
     }
     private void startPlayVideo()
     {
-    	   Log.i(TAG,"start Play Video");
-    	   
           if (mVideoPath != null){
         	  mplayer=new MediaPlayer();
         	  try {
@@ -222,7 +212,7 @@ public class FilterDemoRealTimeActivity extends Activity {
 				@Override
 				public void onPrepared(MediaPlayer mp) {
 					// TODO Auto-generated method stub
-					startDrawPad();
+					initDrawPad();
 				}
 			});
         	  mplayer.setOnCompletionListener(new OnCompletionListener() {
@@ -245,7 +235,7 @@ public class FilterDemoRealTimeActivity extends Activity {
           }
     }
     //Step1:开始 DrawPad 画板
-    private void startDrawPad()
+    private void initDrawPad()
     {
     	MediaInfo info=new MediaInfo(mVideoPath);
     	if(info.prepare())
@@ -255,23 +245,28 @@ public class FilterDemoRealTimeActivity extends Activity {
 //        		设置使能 实时保存, 即把正在DrawPad中呈现的画面实时的保存下来,实现所见即所得的模式
         	mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
         	
+        	mDrawPadView.setOnDrawPadProgressListener(new DrawPadProgressListener());
+        	mDrawPadView.setOnDrawPadCompletedListener(new DrawPadCompleted());
         	//设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
         	mDrawPadView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
     			
     			@Override
     			public void onSizeChanged(int viewWidth, int viewHeight) {
     				// TODO Auto-generated method stub
-    				mDrawPadView.startDrawPad(new DrawPadProgressListener(),new DrawPadCompleted());
-    				addVideoLayer();
+    				startDrawPad();
     			}
     		});
     	}
     }
-   
-    
     /**
-     * Step2: 增加一个VideoLayer, 滤镜.
+     * Step2: startDrawPad
      */
+    private void startDrawPad()
+    {
+    	mDrawPadView.startDrawPad();
+		addVideoLayer();
+    }
+   
     private void addVideoLayer()
     {
     	/**

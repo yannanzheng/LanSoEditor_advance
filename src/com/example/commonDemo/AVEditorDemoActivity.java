@@ -32,8 +32,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 /**
  * 
- *注意, 此代码仅仅是sdk的功能的演示, 不属于sdk的一部分.
- *
+ * 杭州蓝松科技, 专业的视频开发团队.
+ * 
+ * 基本版本中视频编辑演示.
+ * 此代码不属于sdk的一部分， 仅作为演示使用。
+ * 
  */
 public class AVEditorDemoActivity extends Activity implements OnClickListener{
 
@@ -237,10 +240,11 @@ public class AVEditorDemoActivity extends Activity implements OnClickListener{
 				case R.string.demo_id_videoaddanglemeta:
 					DemoFunctions.demoSetVideoMetaAngle(mEditor, srcVideo, dstVideo);
 					break;
-//				case R.string.demo_id_ontpicturevideo:
-//					DemoFunctions.demoOnePicture2Video(AVEditorDemoActivity.this, mEditor, dstVideo);
-//					break;
-				case R.string.demo_id_morepicturevideo:  //此方法演示需要多张图片,并放在同一个文件夹内,并有一定的命令规则,暂时不演示, VideoEditor.java中的方法是完全正常的.
+				case R.string.demo_id_ontpicturevideo:
+					DemoFunctions.demoOnePicture2Video(AVEditorDemoActivity.this, mEditor, dstVideo);
+					break;
+				case R.string.demo_id_morepicturevideo: 
+					//此方法演示需要多张图片,并放在同一个文件夹内,并有一定的命令规则,暂时不演示, VideoEditor.java中的方法是完全正常的.
 					break;
 				case R.string.demo_id_audiodelaymix:
 					DemoFunctions.demoAudioDelayMix(AVEditorDemoActivity.this, mEditor, dstAudio);
@@ -286,7 +290,7 @@ public class AVEditorDemoActivity extends Activity implements OnClickListener{
 		    	intent.putExtra("videopath", dstVideo);
 		    	startActivity(intent);
 			}else{
-				Toast.makeText(AVEditorDemoActivity.this, "文件不存在",Toast.LENGTH_SHORT).show();
+				Toast.makeText(AVEditorDemoActivity.this, R.string.file_not_exist,Toast.LENGTH_SHORT).show();
 			}
 	  }
 	  MediaPlayer audioPlayer=null;

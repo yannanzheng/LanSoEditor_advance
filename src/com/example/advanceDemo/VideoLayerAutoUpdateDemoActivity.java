@@ -16,6 +16,7 @@ import com.example.advanceDemo.view.DrawPadView;
 import com.example.advanceDemo.view.PaintConstants;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.DrawPadUpdateMode;
+import com.lansosdk.box.VideoLayer;
 import com.lansosdk.box.ViewLayer;
 import com.lansosdk.box.Layer;
 import com.lansosdk.box.ViewLayerRelativeLayout;
@@ -51,6 +52,7 @@ import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -70,10 +72,10 @@ public class VideoLayerAutoUpdateDemoActivity extends Activity{
     
     private MediaPlayer mplayer=null;
     
-    private Layer  mLayerMain=null;
+    private VideoLayer  mLayerMain=null;
     private ViewLayer mViewLayer=null;
     
-//    
+    private LinearLayout  playVideo;
     private String dstPath=null;
 
     private ViewLayerRelativeLayout mLayerRelativeLayout;
@@ -96,8 +98,6 @@ public class VideoLayerAutoUpdateDemoActivity extends Activity{
 		PaintConstants.SELECTOR.COLORING = true;
 		PaintConstants.SELECTOR.KEEP_IMAGE = true;
 		
-		   //增加提示缩放到480的文字.
-        DemoUtils.showScale480HintDialog(VideoLayerAutoUpdateDemoActivity.this);
         new Handler().postDelayed(new Runnable() {
 			
 			@Override
@@ -164,10 +164,12 @@ public class VideoLayerAutoUpdateDemoActivity extends Activity{
     		});
     	}
     }
-    //Step2: Drawpad设置好后, 开始画板线程运行,并增加一个ViewLayer图层
+    /**
+     * Step2: Drawpad设置好后, 开始画板线程运行,并增加一个ViewLayer图层
+     */
     private void startDrawPad()
     {
-    	mDrawPad.startDrawPad(null,null);
+    	mDrawPad.startDrawPad();
 		
 		mLayerMain=mDrawPad.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
 		if(mLayerMain!=null){
@@ -178,7 +180,9 @@ public class VideoLayerAutoUpdateDemoActivity extends Activity{
 		addViewLayer();
     }
     
-    //Step3: 做好后, 停止画板, 因为画板里没有声音, 这里增加上原来的声音.
+    /**
+     * Step3: 做好后, 停止画板, 因为画板里没有声音, 这里增加上原来的声音.
+     */
     private void stopDrawPad()
     {
     	if(mDrawPad!=null && mDrawPad.isRunning()){
@@ -186,7 +190,7 @@ public class VideoLayerAutoUpdateDemoActivity extends Activity{
 			toastStop();
 			
 			if(SDKFileUtils.fileExist(dstPath)){
-		    	findViewById(R.id.id_vauto_demo_saveplay).setVisibility(View.VISIBLE);
+				playVideo.setVisibility(View.VISIBLE);
 			}
 		}
     }
@@ -207,8 +211,8 @@ public class VideoLayerAutoUpdateDemoActivity extends Activity{
     private void initView()
     {
     	  mLayerRelativeLayout=(ViewLayerRelativeLayout)findViewById(R.id.id_vauto_demo_viewpenayout);
-          
-          findViewById(R.id.id_vauto_demo_saveplay).setOnClickListener(new OnClickListener() {
+    	  playVideo=(LinearLayout)findViewById(R.id.id_vauto_demo_saveplay);
+    	  playVideo.setOnClickListener(new OnClickListener() {
   			
   			@Override
   			public void onClick(View v) {
@@ -222,7 +226,8 @@ public class VideoLayerAutoUpdateDemoActivity extends Activity{
   		   		 }
   			}
   		});
-      	findViewById(R.id.id_vauto_demo_saveplay).setVisibility(View.GONE);
+    	  
+    	  playVideo.setVisibility(View.GONE);
       	
       	
       	findViewById(R.id.id_vauto_demo_pausevideo).setOnClickListener(new OnClickListener() {

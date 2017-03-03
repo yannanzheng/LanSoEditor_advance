@@ -15,6 +15,7 @@ import com.lansosdk.box.CanvasRunnable;
 import com.lansosdk.box.CanvasLayer;
 import com.lansosdk.box.Layer;
 import com.lansosdk.box.DrawPad;
+import com.lansosdk.box.VideoLayer;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
 import com.lansosdk.videoeditor.MediaInfo;
@@ -41,6 +42,8 @@ import android.util.Log;
 import android.view.Surface;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -63,14 +66,14 @@ public class CanvasLayerDemoActivity extends Activity {
     private DrawPadView mDrawPadView;
     
     private MediaPlayer mplayer=null;
-    private Layer  mLayerMain=null;
+    private VideoLayer  mLayerMain=null;
     
     private CanvasLayer mCanvasLayer=null;
     ShowHeart mShowHeart;
     
     private String editTmpPath=null;
     private String dstPath=null;
-    
+    private LinearLayout  playVideo;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) 
@@ -81,7 +84,8 @@ public class CanvasLayerDemoActivity extends Activity {
         mVideoPath = getIntent().getStringExtra("videopath");
         mDrawPadView = (DrawPadView) findViewById(R.id.id_canvaslayer_drawpadview);
         
-        findViewById(R.id.id_canvasLayer_saveplay).setOnClickListener(new OnClickListener() {
+        playVideo=(LinearLayout)findViewById(R.id.id_canvasLayer_saveplay);
+        playVideo.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -95,30 +99,20 @@ public class CanvasLayerDemoActivity extends Activity {
 		   		 }
 			}
 		});
-        findViewById(R.id.id_canvasLayer_saveplay).setVisibility(View.GONE);
+        playVideo.setVisibility(View.GONE);
 
         //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
         editTmpPath=SDKFileUtils.newMp4PathInBox();
         dstPath=SDKFileUtils.newMp4PathInBox();
         
-        //增加提示缩放到480的文字.
-        DemoUtils.showScale480HintDialog(CanvasLayerDemoActivity.this);
 		new Handler().postDelayed(new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						//showHintDialog();
-						startPlayVideo();
-					}
-				}, 500);
-    }
-   
-    @Override
-    protected void onResume() {
-    	// TODO Auto-generated method stub
-    	super.onResume();
-    	
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				//showHintDialog();
+				startPlayVideo();
+			}
+		}, 500);
     }
     /**
      * VideoLayer是外部提供画面来源, 您可以用你们自己的播放器作为画面输入源,也可以用原生的MediaPlayer,只需要视频播放器可以设置surface即可.
@@ -140,7 +134,7 @@ public class CanvasLayerDemoActivity extends Activity {
 				@Override
 				public void onPrepared(MediaPlayer mp) {
 					// TODO Auto-generated method stub
-					startDrawPad();
+					initDrawPad();
 				}
 			});
         	  mplayer.setOnCompletionListener(new OnCompletionListener() {
@@ -151,7 +145,6 @@ public class CanvasLayerDemoActivity extends Activity {
 					stopDrawPad();
 				}
 			});
-        	  
         	  mplayer.prepareAsync();
           }
           else {
@@ -167,9 +160,9 @@ public class CanvasLayerDemoActivity extends Activity {
     	
     }
     /**
-     * Step1: 开始运行 DrawPad 画板
+     * Step1: 初始化 DrawPad 画板
      */
-    private void startDrawPad()
+    private void initDrawPad()
     {
     		MediaInfo info=new MediaInfo(mVideoPath,false);
         	info.prepare();
@@ -184,22 +177,51 @@ public class CanvasLayerDemoActivity extends Activity {
 			public void onSizeChanged(int viewWidth, int viewHeight) {
 				// TODO Auto-generated method stub
 				// 开始DrawPad的渲染线程. 
-				mDrawPadView.startDrawPad(true);
-				/**
-				 * 增加一个主视频的 VideoLayer
-				 */
-				mLayerMain=mDrawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
-				if(mLayerMain!=null){
-					mplayer.setSurface(new Surface(mLayerMain.getVideoTexture()));
-				}
-				mplayer.start();
-				addCanvasLayer();  //增加一个CanvasLayer
+				startDrawPad();
 			}
 		});
     }
     /**
-     * Step2:增加一个CanvasLayer到画板上
+     * Step2: 开始运行画板
      */
+    private void startDrawPad()
+    {
+    	mDrawPadView.startDrawPad(true);
+		/**
+		 * 增加一个主视频的 VideoLayer
+		 */
+		mLayerMain=mDrawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
+		if(mLayerMain!=null){
+			mplayer.setSurface(new Surface(mLayerMain.getVideoTexture()));
+		}
+		
+		mplayer.start();
+		addCanvasLayer();  //增加一个CanvasLayer
+    }
+    /**
+     * Step3: 停止画板
+     */
+    private void stopDrawPad()
+    {
+    	if(mDrawPadView!=null && mDrawPadView.isRunning()){
+			
+			mDrawPadView.stopDrawPad();
+			
+			toastStop();
+			
+			if(SDKFileUtils.fileExist(editTmpPath)){
+				boolean ret=VideoEditor.encoderAddAudio(mVideoPath,editTmpPath,SDKDir.TMP_DIR,dstPath);
+				if(!ret){
+					dstPath=editTmpPath;
+				}else{
+					SDKFileUtils.deleteFile(editTmpPath);	
+				}
+				playVideo.setVisibility(View.VISIBLE);
+			}else{
+				Log.e(TAG," player completion, but file:"+editTmpPath+" is not exist!!!");
+			}
+		}
+    }
     private void addCanvasLayer()
     {
     	if(mDrawPadView==null)
@@ -224,7 +246,6 @@ public class CanvasLayerDemoActivity extends Activity {
 					public void onDrawCanvas(CanvasLayer layer, Canvas canvas,
 							long currentTimeUs) {
 						// TODO Auto-generated method stub
-						
 							 Paint paint = new Paint();
 			                 paint.setColor(Color.RED);
 		         			paint.setAntiAlias(true);
@@ -249,32 +270,6 @@ public class CanvasLayerDemoActivity extends Activity {
 				});
 		}
     }
-    /**
-     * Step3: 停止画板
-     */
-    private void stopDrawPad()
-    {
-    	if(mDrawPadView!=null && mDrawPadView.isRunning()){
-			
-			mDrawPadView.stopDrawPad();
-			
-			toastStop();
-			
-			if(SDKFileUtils.fileExist(editTmpPath)){
-				boolean ret=VideoEditor.encoderAddAudio(mVideoPath,editTmpPath,SDKDir.TMP_DIR,dstPath);
-				if(!ret){
-					dstPath=editTmpPath;
-				}else{
-					SDKFileUtils.deleteFile(editTmpPath);	
-				}
-				findViewById(R.id.id_canvasLayer_saveplay).setVisibility(View.VISIBLE);
-			}else{
-				Log.e(TAG," player completion, but file:"+editTmpPath+" is not exist!!!");
-			}
-		}
-    }
-    
-    
     @Override
     protected void onPause() {
     	// TODO Auto-generated method stub

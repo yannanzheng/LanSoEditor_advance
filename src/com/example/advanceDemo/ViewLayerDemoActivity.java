@@ -17,6 +17,7 @@ import com.example.advanceDemo.view.PaintConstants;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.DrawPad;
 import com.lansosdk.box.DrawPadUpdateMode;
+import com.lansosdk.box.VideoLayer;
 import com.lansosdk.box.ViewLayer;
 import com.lansosdk.box.Layer;
 import com.lansosdk.box.ViewLayerRelativeLayout;
@@ -75,7 +76,7 @@ public class ViewLayerDemoActivity extends Activity{
     private MediaPlayer mplayer=null;
     private MediaPlayer mplayer2=null;
     
-    private Layer  mLayerMain=null;
+    private VideoLayer  mLayerMain=null;
     private ViewLayer mViewLayer=null;
     
 //    
@@ -109,8 +110,6 @@ public class ViewLayerDemoActivity extends Activity{
 		PaintConstants.SELECTOR.COLORING = true;
 		PaintConstants.SELECTOR.KEEP_IMAGE = true;
 		
-		//增加提示缩放到480的文字.
-        DemoUtils.showScale480HintDialog(ViewLayerDemoActivity.this);
         new Handler().postDelayed(new Runnable() {
 			
 			@Override
@@ -156,7 +155,10 @@ public class ViewLayerDemoActivity extends Activity{
               return;
           }
     }
-    //Step1: 设置DrawPad 画板的尺寸.并设置是否实时录制画板上的内容.
+    /**
+     * Step1: 设置DrawPad 画板的尺寸.
+     * 并设置是否实时录制画板上的内容.
+     */
     private void initDrawPad()
     {
     	MediaInfo info=new MediaInfo(mVideoPath,false);
@@ -164,6 +166,8 @@ public class ViewLayerDemoActivity extends Activity{
     	{
         	
     		mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
+    		
+    		mDrawPadView.setOnDrawPadProgressListener(new DrawPadProgressListener());
     		
         	mDrawPadView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
     			
@@ -175,10 +179,13 @@ public class ViewLayerDemoActivity extends Activity{
     		});
     	}
     }
-    //Step2: Drawpad设置好后, 开始画板线程运行,并增加一个视频图层和 view图层.
+    /**
+     * Step2: Drawpad设置好后, 开始画板线程运行,
+     * 并增加一个视频图层和 view图层.
+     */
     private void startDrawPad()
     {
-    	mDrawPadView.startDrawPad(new DrawPadProgressListener(),null);
+    	mDrawPadView.startDrawPad();
 		
 		mLayerMain=mDrawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
 		if(mLayerMain!=null){
@@ -187,18 +194,41 @@ public class ViewLayerDemoActivity extends Activity{
 		mplayer.start();
 		addViewLayer();
     }
-    private void addViewLayer()
+    /**
+     * Step3: 做好后, 停止画板, 因为画板里没有声音, 这里增加上原来的声音.
+     */
+    private void stopDrawPad()
     {
     	if(mDrawPadView!=null && mDrawPadView.isRunning()){
+			mDrawPadView.stopDrawPad();
+			
+			toastStop();
+			if(SDKFileUtils.fileExist(editTmpPath)){
+				boolean ret=VideoEditor.encoderAddAudio(mVideoPath,editTmpPath,SDKDir.TMP_DIR, dstPath);
+				if(!ret){
+					dstPath=editTmpPath;
+				}else
+					SDKFileUtils.deleteFile(editTmpPath);
+		    	findViewById(R.id.id_vview_realtime_saveplay).setVisibility(View.VISIBLE);
+			}
+		}
+    }
+    /**
+     * 增加一个UI图层: ViewLayer 
+     */
+    private void addViewLayer()
+    {
+    	if(mDrawPadView!=null && mDrawPadView.isRunning())
+    	{
     		mViewLayer=mDrawPadView.addViewLayer();
             
+    		//把这个图层绑定到LayerRelativeLayout中.从而LayerRelativeLayout中的各种UI界面会被绘制到Drawpad上.
     		mLayerRelativeLayout.bindViewLayer(mViewLayer);
     		
-            mLayerRelativeLayout.invalidate();
+            mLayerRelativeLayout.invalidate();//刷新一下.
             
             ViewGroup.LayoutParams  params=mLayerRelativeLayout.getLayoutParams();
             params.height=mViewLayer.getPadHeight();  //因为布局时, 宽度一致, 这里调整高度,让他们一致.
-            
             mLayerRelativeLayout.setLayoutParams(params);
     	}
     }
@@ -216,24 +246,6 @@ public class ViewLayerDemoActivity extends Activity{
 		  			}
 		  	}
 	  }
-    
-    //Step3: 做好后, 停止画板, 因为画板里没有声音, 这里增加上原来的声音.
-    private void stopDrawPad()
-    {
-    	if(mDrawPadView!=null && mDrawPadView.isRunning()){
-			mDrawPadView.stopDrawPad();
-			
-			toastStop();
-			if(SDKFileUtils.fileExist(editTmpPath)){
-				boolean ret=VideoEditor.encoderAddAudio(mVideoPath,editTmpPath,SDKDir.TMP_DIR, dstPath);
-				if(!ret){
-					dstPath=editTmpPath;
-				}else
-					SDKFileUtils.deleteFile(editTmpPath);
-		    	findViewById(R.id.id_vview_realtime_saveplay).setVisibility(View.VISIBLE);
-			}
-		}
-    }
     private void toastStop()
     {
     	Toast.makeText(getApplicationContext(), "录制已停止!!", Toast.LENGTH_SHORT).show();

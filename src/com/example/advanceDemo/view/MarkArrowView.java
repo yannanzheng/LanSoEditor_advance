@@ -51,7 +51,7 @@ public class MarkArrowView extends DrawPadView{
        {  
 	       case MotionEvent.ACTION_DOWN:  
 	    	   	if(bitmap!=null){
-	    	   		bitmap.release();
+	    	   		removeLayer(bitmap);
 	    	   	}
 	    	   	//继承自DrawPadView, 在按下时获取一个BitmapLayer
 	    	   	bitmap=addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.arrow_red));

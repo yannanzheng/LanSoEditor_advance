@@ -93,17 +93,22 @@ public class PictureSetRealTimeActivity extends Activity{
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
-					start();
+					initDrawPad();
 				}
 			}, 500);
     }
-    private void start()
+    /**
+     * Step1: 初始化DrawPad
+     */
+    private void initDrawPad()
     {
 		//设置为自动刷新模式, 帧率为25
     	mDrawPadView.setUpdateMode(DrawPadUpdateMode.AUTO_FLUSH,25);
     	//使能实时录制,并设置录制后视频的宽度和高度, 码率, 帧率,保存路径.
     	mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)25,dstPath);
     	
+    	mDrawPadView.setOnDrawPadCompletedListener(new DrawPadCompleted());
+		mDrawPadView.setOnDrawPadProgressListener(new DrawPadProgressListener());
     	//设置DrawPad的宽高, 这里设置为480x480,如果您已经在xml中固定大小,则不需要再次设置,
     	//可以直接调用startDrawPad来开始录制.
     	mDrawPadView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
@@ -111,66 +116,67 @@ public class PictureSetRealTimeActivity extends Activity{
 			@Override
 			public void onSizeChanged(int viewWidth, int viewHeight) {
 				// TODO Auto-generated method stub
-				
-				mDrawPadView.setDrawPadCompletedListener(new DrawPadCompleted());
-				mDrawPadView.setDrawPadProgressListener(new DrawPadProgressListener());
-				mDrawPadView.startDrawPad();
-					isStarted=true;
-				
-				   DisplayMetrics dm = new DisplayMetrics();// 获取屏幕密度（方法2）
-			       dm = getResources().getDisplayMetrics();
-			        
-			           
-			      int screenWidth  = dm.widthPixels;	
-			      String picPath=SDKDir.TMP_DIR+"/"+"picname.jpg";   
-			      if(screenWidth>=1080){
-			    	  CopyFileFromAssets.copy(mContext, "pic1080x1080u2.jpg", SDKDir.TMP_DIR, "picname.jpg");
-			      }  
-			      else{
-			    	  CopyFileFromAssets.copy(mContext, "pic720x720.jpg", SDKDir.TMP_DIR, "picname.jpg");
-			      }
-			      //先 增加第一张Bitmap的Layer, 因为是第一张,放在DrawPad中维护的数组的最下面, 认为是背景图片.
-			      mDrawPadView.addBitmapLayer(BitmapFactory.decodeFile(picPath));
-			      
-			      slideEffectArray=new ArrayList<SlideEffect>();
-			      
-					//这里同时增加多个,只是不显示出来.
-			      getFifthLayer(R.drawable.tt,0,5000);  		//1--5秒.
-			      getFifthLayer(R.drawable.tt3,5000,10000);  //5--10秒.
-			      getFifthLayer(R.drawable.pic3,10000,15000);	//10---15秒 
-			      getFifthLayer(R.drawable.pic4,15000,20000);  //15---20秒
-			      getFifthLayer(R.drawable.pic5,20000,25000);  //20---25秒
+					startDrawPad();
 			}
 		});
     	
     	//这里仅仅是举例,当界面再次返回的时候,依旧显示图片更新的动画效果,即重新开始DrawPad, 很多时候是不需要这样的场景, 这里仅仅是举例
-    	mDrawPadView.setOnViewAvailable(new onViewAvailable() {
-			
-			@Override
-			public void viewAvailable(DrawPadView v) {
-				// TODO Auto-generated method stub
-				if(isStarted){
-				    
-				      String picPath=SDKDir.TMP_DIR+"/"+"picname.jpg";   
-				      mDrawPadView.startDrawPad(new DrawPadProgressListener(),new DrawPadCompleted());
-					  mDrawPadView.addBitmapLayer(BitmapFactory.decodeFile(picPath));
-				      
-				      slideEffectArray=new ArrayList<SlideEffect>();
-				      
-						//这里同时获取多个,只是不显示出来.
-				      getFifthLayer(R.drawable.tt,0,5000);  		//1--5秒.
-				      getFifthLayer(R.drawable.tt3,5000,10000);  //5--10秒.
-				      getFifthLayer(R.drawable.pic3,10000,15000);	//10---15秒 
-				      getFifthLayer(R.drawable.pic4,15000,20000);  //15---20秒
-				      getFifthLayer(R.drawable.pic5,20000,25000);  //20---25秒
-				      
-				    
-				}
-			}
-		});
-		
+//    	mDrawPadView.setOnViewAvailable(new onViewAvailable() {
+//			
+//			@Override
+//			public void viewAvailable(DrawPadView v) {
+//				// TODO Auto-generated method stub
+//				if(isStarted){
+//				    
+//				      String picPath=SDKDir.TMP_DIR+"/"+"picname.jpg";   
+//					  mDrawPadView.addBitmapLayer(BitmapFactory.decodeFile(picPath));
+//				      
+//				      slideEffectArray=new ArrayList<SlideEffect>();
+//				      
+//						//这里同时获取多个,只是不显示出来.
+//				      getFifthLayer(R.drawable.tt,0,5000);  		//1--5秒.
+//				      getFifthLayer(R.drawable.tt3,5000,10000);  //5--10秒.
+//				      getFifthLayer(R.drawable.pic3,10000,15000);	//10---15秒 
+//				      getFifthLayer(R.drawable.pic4,15000,20000);  //15---20秒
+//				      getFifthLayer(R.drawable.pic5,20000,25000);  //20---25秒
+//				      
+//				    
+//				}
+//			}
+//		});
     }
-    private boolean isStarted=false; //是否已经播放过了.
+    /**
+     * Step2: 开始运行 Drawpad线程. (停止是在进度监听中, 根据时间来停止的.)
+     */
+    private void startDrawPad()
+    {
+    		mDrawPadView.startDrawPad();
+			   
+    		DisplayMetrics dm = new DisplayMetrics();// 获取屏幕密度（方法2）
+		    dm = getResources().getDisplayMetrics();
+		     
+		        
+		   int screenWidth  = dm.widthPixels;	
+		   String picPath=SDKDir.TMP_DIR+"/"+"picname.jpg";   
+		   if(screenWidth>=1080){
+		 	  CopyFileFromAssets.copy(mContext, "pic1080x1080u2.jpg", SDKDir.TMP_DIR, "picname.jpg");
+		   }  
+		   else{
+		 	  CopyFileFromAssets.copy(mContext, "pic720x720.jpg", SDKDir.TMP_DIR, "picname.jpg");
+		   }
+		   //先 增加第一张Bitmap的Layer, 因为是第一张,放在DrawPad中维护的数组的最下面, 认为是背景图片.
+		   mDrawPadView.addBitmapLayer(BitmapFactory.decodeFile(picPath));
+		   
+		   slideEffectArray=new ArrayList<SlideEffect>();
+		   
+				//这里同时增加多个,只是不显示出来.
+		   getFifthLayer(R.drawable.tt,0,5000);  		//1--5秒.
+		   getFifthLayer(R.drawable.tt3,5000,10000);  //5--10秒.
+		   getFifthLayer(R.drawable.pic3,10000,15000);	//10---15秒 
+		   getFifthLayer(R.drawable.pic4,15000,20000);  //15---20秒
+		   getFifthLayer(R.drawable.pic5,20000,25000);  //20---25秒
+    }
+    
     private void getFifthLayer(int resId,long startMS,long endMS)
     {
     	Layer item=mDrawPadView.addBitmapLayer(BitmapFactory.decodeResource(getResources(), resId));
@@ -201,15 +207,10 @@ public class PictureSetRealTimeActivity extends Activity{
 		@Override
 		public void onProgress(DrawPad v, long currentTimeUs) {  //单位是微妙
 			// TODO Auto-generated method stub
-//			  Log.i(TAG,"DrawPadProgressListener: us:"+currentTimeUs);
-			
 			  if(currentTimeUs>=26*1000*1000)  //26秒.多出一秒,让图片走完.
 			  {
 				  mDrawPadView.stopDrawPad();
 			  }
-			  
-//			  Log.i(TAG,"current time Us "+currentTimeUs);
-			  
 			  if(slideEffectArray!=null && slideEffectArray.size()>0){
 				  for(SlideEffect item: slideEffectArray){
 					  item.run(currentTimeUs/1000);
@@ -245,8 +246,6 @@ public class PictureSetRealTimeActivity extends Activity{
     protected void onDestroy() {
     	// TODO Auto-generated method stub
     	super.onDestroy();
-    	
-    	
     	isDestorying=true;
     	if(slideEffectArray!=null){
 	   		 slideEffectArray.clear();

@@ -15,6 +15,7 @@ import com.lansosdk.box.CanvasRunnable;
 import com.lansosdk.box.CanvasLayer;
 import com.lansosdk.box.Layer;
 import com.lansosdk.box.DrawPad;
+import com.lansosdk.box.VideoLayer;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
 import com.lansosdk.videoeditor.MediaInfo;
@@ -41,6 +42,8 @@ import android.util.Log;
 import android.view.Surface;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -66,13 +69,13 @@ public class VideoLayerRealTimeActivity extends Activity implements OnSeekBarCha
     
     private MediaPlayer mplayer=null;
     private MediaPlayer mplayer2=null;
-    private Layer  mLayerMain=null;
+    private VideoLayer  mLayerMain=null;
     private BitmapLayer mBitmapLayer=null;
     
     
     private String editTmpPath=null;
     private String dstPath=null;
-    
+    private LinearLayout  playVideo;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) 
@@ -92,7 +95,8 @@ public class VideoLayerRealTimeActivity extends Activity implements OnSeekBarCha
         initSeekBar(R.id.id_DrawPad_skbar_blue,100);
         initSeekBar(R.id.id_DrawPad_skbar_alpha,100);
         
-        findViewById(R.id.id_DrawPad_saveplay).setOnClickListener(new OnClickListener() {
+        playVideo=(LinearLayout)findViewById(R.id.id_DrawPad_saveplay);
+        playVideo.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -106,14 +110,12 @@ public class VideoLayerRealTimeActivity extends Activity implements OnSeekBarCha
 		   		 }
 			}
 		});
-        findViewById(R.id.id_DrawPad_saveplay).setVisibility(View.GONE);
+        playVideo.setVisibility(View.GONE);
 
         //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
         editTmpPath=SDKFileUtils.newMp4PathInBox();
         dstPath=SDKFileUtils.newMp4PathInBox();
         
-        //增加提示缩放到480的文字.
-        DemoUtils.showScale480HintDialog(VideoLayerRealTimeActivity.this);
         new Handler().postDelayed(new Runnable() {
 			
 			@Override
@@ -156,7 +158,7 @@ public class VideoLayerRealTimeActivity extends Activity implements OnSeekBarCha
 				@Override
 				public void onPrepared(MediaPlayer mp) {
 					// TODO Auto-generated method stub
-					start(mp);
+					initDrawPad(mp);
 				}
 			});
         	  mplayer.setOnCompletionListener(new OnCompletionListener() {
@@ -164,34 +166,12 @@ public class VideoLayerRealTimeActivity extends Activity implements OnSeekBarCha
 				@Override
 				public void onCompletion(MediaPlayer mp) {
 					// TODO Auto-generated method stub
-					
-					//completion不确定会在什么时候停，故需要判断是否为null
-					if(mDrawPadView!=null && mDrawPadView.isRunning()){
-						
-						mDrawPadView.stopDrawPad();
-						
-						toastStop();
-						
-						if(SDKFileUtils.fileExist(editTmpPath)){
-							boolean ret=VideoEditor.encoderAddAudio(mVideoPath,editTmpPath,SDKDir.TMP_DIR,dstPath);
-							if(!ret){
-								dstPath=editTmpPath;
-							}else{
-								SDKFileUtils.deleteFile(editTmpPath);	
-							}
-							
-							findViewById(R.id.id_DrawPad_saveplay).setVisibility(View.VISIBLE);
-						}else{
-							Log.e(TAG," player completion, but file:"+editTmpPath+" is not exist!!!");
-						}
-					}
+					stopDrawPad();
 				}
 			});
-        	  
         	  mplayer.prepareAsync();
           }
           else {
-              Log.e(TAG, "Null Data Source\n");
               finish();
               return;
           }
@@ -200,54 +180,87 @@ public class VideoLayerRealTimeActivity extends Activity implements OnSeekBarCha
     {
     	Toast.makeText(getApplicationContext(), "录制已停止!!", Toast.LENGTH_SHORT).show();
     	Log.i(TAG,"录制已停止!!");
-    	
     }
-    private void start(MediaPlayer mp)
+    /**
+     * Step1:  init DrawPad 初始化
+     * @param mp
+     */
+    private void initDrawPad(MediaPlayer mp)
     {
     	
     		MediaInfo info=new MediaInfo(mVideoPath,false);
         	info.prepare();
         	
-        		//设置使能 实时录制, 即把正在DrawPad中呈现的画面实时的保存下来,实现所见即所得的模式
-        		mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
+        	//设置使能 实时录制, 即把正在DrawPad中呈现的画面实时的保存下来,实现所见即所得的模式
+        	mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
 
+        	mDrawPadView.setOnDrawPadProgressListener(new onDrawPadProgressListener() {
+				
+				@Override
+				public void onProgress(DrawPad v, long currentTimeUs) {
+					// TODO Auto-generated method stub
+					//用来测试把一个图层放到底层或外层.
+					if(currentTimeUs>5*1000*1000 && mBitmapLayer!=null){
+						mDrawPadView.bringLayerToFront(mBitmapLayer);
+					
+					}else if(currentTimeUs>3*1000*1000){
+						mDrawPadView.bringLayerToBack(mBitmapLayer);
+					}
+				}
+			});
         		//设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
     		mDrawPadView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
-			
 			@Override
 			public void onSizeChanged(int viewWidth, int viewHeight) {
 				// TODO Auto-generated method stub
-				// 开始DrawPad的渲染线程. 
-					mDrawPadView.startDrawPad(new onDrawPadProgressListener() {
-					
-					@Override
-					public void onProgress(DrawPad v, long currentTimeUs) {
-						// TODO Auto-generated method stub
-						//用来测试把一个图层放到底层或外层.
-						if(currentTimeUs>5*1000*1000 && mBitmapLayer!=null){
-							mDrawPadView.bringLayerToFront(mBitmapLayer);
-						
-						}else if(currentTimeUs>3*1000*1000){
-							mDrawPadView.bringLayerToBack(mBitmapLayer);
-						}
-					}
-				},null);
-					
-					//如果视频太单调了, 可以给视频增加一个背景图片, 显得艺术一些.^^
-					mDrawPadView.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.videobg));
-					
-				//增加一个主视频的 VideoLayer
-				mLayerMain=mDrawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
-				if(mLayerMain!=null){
-					mplayer.setSurface(new Surface(mLayerMain.getVideoTexture()));
-					mLayerMain.setScale(0.8f);  //把视频缩小一些, 因为外面有背景.
-				}
-				
-				mplayer.start();
-				
-				addBitmapLayer();
+				startDrawPad();
 			}
 		});
+    }
+    /**
+     * Step2: 开始运行 Drawpad
+     */
+    private void startDrawPad()
+    {
+    	// 开始DrawPad的渲染线程. 
+		mDrawPadView.startDrawPad();
+		
+		//如果视频太单调了, 可以给视频增加一个背景图片, 显得艺术一些.^^
+		mDrawPadView.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.videobg));
+		
+		//增加一个主视频的 VideoLayer
+		mLayerMain=mDrawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
+		if(mLayerMain!=null){
+			mplayer.setSurface(new Surface(mLayerMain.getVideoTexture()));
+			mLayerMain.setScale(0.8f);  //把视频缩小一些, 因为外面有背景.
+		}
+	
+		mplayer.start();
+	
+		addBitmapLayer();
+    }
+    /**
+     * Step3: stop DrawPad
+     */
+    private void stopDrawPad()
+    {
+    	if(mDrawPadView!=null && mDrawPadView.isRunning()){
+			
+			mDrawPadView.stopDrawPad();
+			toastStop();
+			
+			if(SDKFileUtils.fileExist(editTmpPath)){
+				boolean ret=VideoEditor.encoderAddAudio(mVideoPath,editTmpPath,SDKDir.TMP_DIR,dstPath);
+				if(!ret){
+					dstPath=editTmpPath;
+				}else{
+					SDKFileUtils.deleteFile(editTmpPath);	
+				}
+				playVideo.setVisibility(View.VISIBLE);
+			}else{
+				Log.e(TAG," player completion, but file:"+editTmpPath+" is not exist!!!");
+			}
+		}
     }
     /**
      * 从DrawPad中得到一个BitmapLayer,填入要显示的图片,您实际可以是资源图片,也可以是png或jpg,或网络上的图片等,最后解码转换为统一的
@@ -256,8 +269,6 @@ public class VideoLayerRealTimeActivity extends Activity implements OnSeekBarCha
     private void addBitmapLayer()
     {
     	mBitmapLayer=mDrawPadView.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
-
-//    	mBitmapLayer=mDrawPadView.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.tt3));
     }
     @Override
     protected void onPause() {

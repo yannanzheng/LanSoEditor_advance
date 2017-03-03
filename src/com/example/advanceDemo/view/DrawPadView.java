@@ -53,6 +53,7 @@ import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
 import com.lansosdk.box.onDrawPadThreadProgressListener;
 import com.lansosdk.videoeditor.MediaInfo;
+import com.lansosdk.videoeditor.VideoEditor;
 
 
 
@@ -246,6 +247,8 @@ public class DrawPadView extends FrameLayout {
     	            mSurfaceTexture = surface;
     	            viewHeight=height;
     	            viewWidth=width;
+    	            
+    	            
 	        			if(mSizeChangedCB!=null)
 	        				mSizeChangedCB.onSizeChanged(width, height);
     	        }
@@ -261,6 +264,9 @@ public class DrawPadView extends FrameLayout {
     	            mSurfaceTexture = null;
     	            viewHeight=0;
     	            viewWidth=0;
+    	            
+    	            stopDrawPad();  //可以在这里增加以下. 这样当Texture销毁的时候, 停止DrawPad
+    	            
     	            return false;
     	        }
     	
@@ -326,12 +332,15 @@ public class DrawPadView extends FrameLayout {
 		
 		if (width != 0 && height != 0 && cb!=null) {
 			float setAcpect=(float)width/(float)height;
+			
 			float setViewacpect=(float)viewWidth/(float)viewHeight;
 			
+			
+			Log.i(TAG,"setAcpect="+setAcpect+" setViewacpect:"+setViewacpect);
+			
 		    if(setAcpect==setViewacpect){  //如果比例已经相等,不需要再调整,则直接显示.
-		    	
-		    	if(mSizeChangedCB!=null)
-    				mSizeChangedCB.onSizeChanged(width, height);
+		    	if(cb!=null)
+		    		cb.onSizeChanged(width, height);
 		    	
 		    }else if (mTextureRenderView != null) {
             	
@@ -349,7 +358,7 @@ public class DrawPadView extends FrameLayout {
 	 */
 	private onDrawPadProgressListener drawpadProgressListener=null;
 	
-	public void setDrawPadProgressListener(onDrawPadProgressListener listener){
+	public void setOnDrawPadProgressListener(onDrawPadProgressListener listener){
 		drawpadProgressListener=listener;
 	}
 	/**
@@ -359,32 +368,15 @@ public class DrawPadView extends FrameLayout {
 	 */
 	private onDrawPadThreadProgressListener drawPadThreadProgressListener=null;
 	
-	public void setDrawPadThreadProgressListener(onDrawPadThreadProgressListener listener){
+	public void setOnDrawPadThreadProgressListener(onDrawPadThreadProgressListener listener){
 		drawPadThreadProgressListener=listener;
 	}
 	
 	private onDrawPadCompletedListener drawpadCompletedListener=null;
-	public void setDrawPadCompletedListener(onDrawPadCompletedListener listener){
+	public void setOnDrawPadCompletedListener(onDrawPadCompletedListener listener){
 		drawpadCompletedListener=listener;
 	}
 
-	/**
-	 * 开始DrawPad的渲染线程, 阻塞执行, 直到DrawPad真正开始执行后才退出当前方法.
-	 * 
-	 * 此方法可以在 {@link onDrawPadSizeChangedListener} 完成后调用.
-	 * 可以先通过 {@link #setDrawPadSize(int, int, onDrawPadSizeChangedListener)}来设置宽高,然后在回调中执行此方法.
-	 * 如果您已经在xml中固定了view的宽高,则可以直接调用这里, 无需再设置DrawPadSize
-	 * @param progresslistener
-	 * @param completedListener
-	 */
-	public void startDrawPad(onDrawPadProgressListener progressListener,onDrawPadCompletedListener completedListener)
-	{
-		drawpadProgressListener=progressListener;
-		drawpadCompletedListener=completedListener;
-		
-		startDrawPad(pauseRecord);
-	}
-	
 	/**
 	 * 此方法仅仅使用在录制视频的同时,您也设置了录制音频
 	 * 
@@ -398,43 +390,67 @@ public class DrawPadView extends FrameLayout {
 			return null;
 		}
 	}
-	
-	public void startDrawPad()
+	/**
+	 * 开始DrawPad的渲染线程, 阻塞执行, 直到DrawPad真正开始执行后才退出当前方法.
+	 * 
+	 * 可以先通过 {@link #setDrawPadSize(int, int, onDrawPadSizeChangedListener)}来设置宽高,然后在回调中执行此方法.
+	 * 如果您已经在xml中固定了view的宽高,则可以直接调用这里, 无需再设置DrawPadSize
+	 * @return
+	 */
+	public boolean startDrawPad()
 	{
-		startDrawPad(pauseRecord);
+		return startDrawPad(pauseRecord);
 	}
-	public void startDrawPad(boolean pauseRecord)
+	/**
+	 * 开始DrawPad的渲染线程, 阻塞执行, 直到DrawPad真正开始执行后才退出当前方法.
+	 * 如果DrawPad设置了录制功能, 这里可以在开启后暂停录制. 适用在当您开启录制后, 需要先增加一个图层的场合后,在让它开始录制的场合, 可用resume
+	 * 	 * {@link #resumeDrawPadRecord()} 来回复录制.
+	 * 
+	 * @param pauseRecord  如果DrawPad设置了录制功能, 这里可以在开启后暂停录制. 适用在当您开启录制后, 需要先增加一个图层的场合后,在让它开始录制的场合, 可用resume
+	 * 	  {@link #resumeDrawPadRecord()} 来回复录制.
+	 * @return
+	 */
+	public boolean startDrawPad(boolean pauseRecord)
 	{
-		 if( mSurfaceTexture!=null)
+		boolean ret=false;
+		 if( mSurfaceTexture!=null && viewWidth>0 &&viewHeight>0)
          {
-			 renderer=new DrawPadViewRender(getContext(), viewWidth, viewHeight);  //<----从这里去建立DrawPad线程.
- 			if(renderer!=null){
- 				
- 				renderer.setUseMainVideoPts(isUseMainPts);
- 				//因为要预览,这里设置显示的Surface,当然如果您有特殊情况需求,也可以不用设置,但displayersurface和EncoderEnable要设置一个,DrawPadRender才可以工作.
- 				renderer.setDisplaySurface(new Surface(mSurfaceTexture));
- 				
- 				renderer.setEncoderEnable(encWidth,encHeight,encBitRate,encFrameRate,encodeOutput);
- 				
- 				renderer.setUpdateMode(mUpdateMode,mAutoFlushFps);
- 				
- 				 //设置DrawPad处理的进度监听, 回传的currentTimeUs单位是微秒.
- 				renderer.setDrawPadProgressListener(drawpadProgressListener);
- 				renderer.setDrawPadCompletedListener(drawpadCompletedListener);
- 				renderer.setDrawPadThreadProgressListener(drawPadThreadProgressListener);
- 				
- 				if(isRecordMic){
- 					renderer.setRecordMic(isRecordMic);	
- 				}else if(isRecordExtPcm){
- 					renderer.setRecordExtraPcm(isRecordExtPcm, pcmChannels,pcmSampleRate,pcmBitRate);
- 				}
- 				
- 				if(pauseRecord){
- 					renderer.pauseRecordDrawPad();	
- 				}
- 				renderer.startDrawPad();
- 			}
+			 	renderer=new DrawPadViewRender(getContext(), viewWidth, viewHeight);  //<----从这里去建立DrawPad线程.
+	 			if(renderer!=null){
+	 				
+	 				renderer.setUseMainVideoPts(isUseMainPts);
+	 				//因为要预览,这里设置显示的Surface,当然如果您有特殊情况需求,也可以不用设置,但displayersurface和EncoderEnable要设置一个,DrawPadRender才可以工作.
+	 				renderer.setDisplaySurface(new Surface(mSurfaceTexture));
+	 				
+	 				renderer.setEncoderEnable(encWidth,encHeight,encBitRate,encFrameRate,encodeOutput);
+	 				
+	 				renderer.setUpdateMode(mUpdateMode,mAutoFlushFps);
+	 				
+	 				 //设置DrawPad处理的进度监听, 回传的currentTimeUs单位是微秒.
+	 				renderer.setDrawPadProgressListener(drawpadProgressListener);
+	 				renderer.setDrawPadCompletedListener(drawpadCompletedListener);
+	 				renderer.setDrawPadThreadProgressListener(drawPadThreadProgressListener);
+	 				
+	 				if(isRecordMic){
+	 					renderer.setRecordMic(isRecordMic);	
+	 				}else if(isRecordExtPcm){
+	 					renderer.setRecordExtraPcm(isRecordExtPcm, pcmChannels,pcmSampleRate,pcmBitRate);
+	 				}
+	 				
+	 				if(pauseRecord){
+	 					renderer.pauseRecordDrawPad();	
+	 				}
+	 				ret=renderer.startDrawPad();
+	 				
+	 				if(ret==false){  //用中文注释.
+	 					Log.e(TAG,"开启 DrawPad 失败, 或许是您之前的DrawPad没有Stop, 或者传递进去的surface对象已经被系统Destory!!," +
+	 							"请检测您 的代码或参考本文件中的SurfaceCallback 这个类中的注释.");
+	 				}
+	 			}
+         }else{
+        	 Log.e(TAG,"开启 DrawPad 失败, 您设置的宽度和高度是:"+viewWidth+" x "+viewHeight);
          }
+		 return ret;
 	}
 	/**
 	 * 暂停DrawPad的画面更新.
@@ -504,7 +520,11 @@ public class DrawPadView extends FrameLayout {
 		}
 	}
 	/**
-	 * 是否在录制画面的同时,录制外面的push进去的音频数据.
+	 * 是否在录制画面的同时,录制外面的push进去的音频数据 .
+	 * 
+	 * 适用在需要实时录制的视频, 如果您仅仅是对视频增加背景音乐等, 可以使用 {@link VideoEditor#executeVideoMergeAudio(String, String, String)}
+	 * 来做处理.
+	 * 
 	 * 注意:当设置了录制外部的pcm数据后, 当前画板上录制的视频帧,就以音频的帧率为参考时间戳,从而保证音视频同步进行. 
 	 * 故您在投递音频的时候, 需要严格按照音频播放的速度投递. 
 	 * 
@@ -707,44 +727,41 @@ public class DrawPadView extends FrameLayout {
 		if(renderer!=null)
 			return renderer.addVideoLayer(width,  height,filter);
 		else{
-			Log.e(TAG,"obtainSubVideoLayer error render is not avalid");
+			Log.e(TAG,"addVideoLayer error render is not avalid");
 			return null;
 		}
 	}
 	/**
-	 * 
-	 * @param degree  当前窗口Activity的角度, 可用我们的BoxUtils中的方法获取.
-	 * @param filter  当前使用到的滤镜 ,如果不用, 则可以设置为null
+	 * 增加一个相机图层.
+	 * @param isFaceFront   是否使用前置镜头
+	 * @param filter 当前使用到的滤镜 ,如果不用, 则可以设置为null
 	 * @return
 	 */
-	public CameraLayer addCameraLayer(int degree,GPUImageFilter filter)
+	public CameraLayer addCameraLayer(boolean isFaceFront,GPUImageFilter filter)
 	{
 			CameraLayer ret=null;
 		    
 			if(renderer!=null)
-				ret=renderer.addCameraLayer(degree,filter);
+				ret=renderer.addCameraLayer(isFaceFront,filter);
 			else{
 				Log.e(TAG,"setMainVideoLayer error render is not avalid");
 			}
 			return ret;
 	}
 	/**
-	 * 增加 摄像头图层. 
-	 * 
-	 * 注意: 在增加前,需先检查当前是否有Camera权限.
-	 * @return
+	 * 因之前有客户自定义一个Camera图层, 我们的Drawpad可以接受外部客户自定义图层.这里填入.
 	 */
-	public CameraLayer addCameraLayer()
-	{
-			CameraLayer ret=null;
-			if(renderer!=null){
-				ret =new CameraLayer(getContext(),viewWidth,viewHeight,null,mUpdateMode);
-				renderer.addCustemLayer(ret);
-			}else{
-				Log.e(TAG,"CameraMaskLayer error render is not avalid");
-			}
-			return ret;
-	}
+//	public Layer addCustemLayer()
+//	{
+//			CameraLayer ret=null;
+//			if(renderer!=null){
+//				ret =new CameraLayer(getContext(),false,viewWidth,viewHeight,null,mUpdateMode);
+//				renderer.addCustemLayer(ret);
+//			}else{
+//				Log.e(TAG,"CameraMaskLayer error render is not avalid");
+//			}
+//			return ret;
+//	}
 	
 	/**
 	 * 获取一个BitmapLayer
@@ -761,11 +778,11 @@ public class DrawPadView extends FrameLayout {
 			if(renderer!=null)
 				return renderer.addBitmapLayer(bmp);
 			else{
-				Log.e(TAG,"obtainBitmapLayer error render is not avalid");
+				Log.e(TAG,"addBitmapLayer error render is not avalid");
 				return null;
 			}
 		}else{
-			Log.e(TAG,"obtainBitmapLayer error, bitmap is null");
+			Log.e(TAG,"addBitmapLayer error, bitmap is null");
 			return null;
 		}
 	}
@@ -803,7 +820,7 @@ public class DrawPadView extends FrameLayout {
 			if(renderer!=null)
 				return renderer.addMVLayer(srcPath,maskPath);
 			else{
-				Log.e(TAG,"obtainBitmapLayer error render is not avalid");
+				Log.e(TAG,"addMVLayer error render is not avalid");
 				return null;
 			}
 	}
@@ -817,7 +834,7 @@ public class DrawPadView extends FrameLayout {
 			if(renderer!=null)
 				return renderer.addViewLayer();
 			else{
-				Log.e(TAG,"obtainViewLayer error render is not avalid");
+				Log.e(TAG,"addViewLayer error render is not avalid");
 				return null;
 			}
 	 }
@@ -831,7 +848,7 @@ public class DrawPadView extends FrameLayout {
 			if(renderer!=null)
 				return renderer.addCanvasLayer();
 			else{
-				Log.e(TAG,"obtainViewLayer error render is not avalid");
+				Log.e(TAG,"addCanvasLayer error render is not avalid");
 				return null;
 			}
 	 }

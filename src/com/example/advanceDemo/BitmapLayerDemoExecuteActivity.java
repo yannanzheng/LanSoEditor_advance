@@ -49,7 +49,7 @@ public class BitmapLayerDemoExecuteActivity extends Activity{
 	    private String picBackGround=null;
 	    
 	    private ArrayList<SlideEffect>  slideEffectArray;
-	private static final String TAG="PictureSetExecuteActivity";
+	private static final String TAG="BitmapLayerDemoExecuteActivity";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub

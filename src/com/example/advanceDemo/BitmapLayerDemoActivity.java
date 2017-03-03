@@ -36,6 +36,7 @@ import android.util.Log;
 import android.view.Surface;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -59,11 +60,11 @@ public class BitmapLayerDemoActivity extends Activity{
     
     private MediaPlayer mplayer=null;
     
-    private Layer  mLayerMain=null;
+    private VideoLayer  mLayerMain=null;
     
     private String editTmpPath=null;
     private String dstPath=null;
-
+    private LinearLayout  playVideo=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) 
     {
@@ -74,7 +75,8 @@ public class BitmapLayerDemoActivity extends Activity{
         mVideoPath = getIntent().getStringExtra("videopath");
         mDrawPadView = (MarkArrowView) findViewById(R.id.markarrow_view);
         
-        findViewById(R.id.id_markarrow_saveplay).setOnClickListener(new OnClickListener() {
+        playVideo=(LinearLayout)findViewById(R.id.id_markarrow_saveplay);
+        playVideo.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -88,15 +90,16 @@ public class BitmapLayerDemoActivity extends Activity{
 		   		 }
 			}
 		});
-        findViewById(R.id.id_markarrow_saveplay).setVisibility(View.GONE);
+        playVideo.setVisibility(View.GONE);
         
-        //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
+        /**
+         * 在手机的/sdcard/lansongBox/路径下创建一个文件名,
+         * 用来保存生成的视频文件,(在onDestroy中删除)
+         */
         editTmpPath=SDKFileUtils.createFile(SDKDir.TMP_DIR, ".mp4");
         dstPath=SDKFileUtils.newFilePath(SDKDir.TMP_DIR, ".mp4");
         
         
-        //增加提示缩放到480的文字.
-        DemoUtils.showScale480HintDialog(BitmapLayerDemoActivity.this);
         new Handler().postDelayed(new Runnable() {
 			
 			@Override
@@ -105,12 +108,6 @@ public class BitmapLayerDemoActivity extends Activity{
 				 startPlayVideo();
 			}
 		}, 500);
-    }
-    @Override
-    protected void onResume() {
-    	// TODO Auto-generated method stub
-    	super.onResume();
-    	
     }
     private void startPlayVideo()
     {
@@ -128,7 +125,7 @@ public class BitmapLayerDemoActivity extends Activity{
 				@Override
 				public void onPrepared(MediaPlayer mp) {
 					// TODO Auto-generated method stub
-					startDrawPad();
+					initDrawPad();
 				}
 			});
         	  mplayer.setOnCompletionListener(new OnCompletionListener() {
@@ -147,8 +144,8 @@ public class BitmapLayerDemoActivity extends Activity{
               return;
           }
     }
-    //Step1: 开始运行 DrawPad 画板
-    private void startDrawPad()
+    //Step1: 初始化 DrawPad 画板
+    private void initDrawPad()
     {
     	MediaInfo info=new MediaInfo(mVideoPath);
     	if(info.prepare())
@@ -161,19 +158,22 @@ public class BitmapLayerDemoActivity extends Activity{
     			@Override
     			public void onSizeChanged(int viewWidth, int viewHeight) {
     				// TODO Auto-generated method stub
-    				mDrawPadView.startDrawPad(null,null);
-    				
-    				mLayerMain=mDrawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
-    				if(mLayerMain!=null){
-    					mplayer.setSurface(new Surface(mLayerMain.getVideoTexture()));
-    				}
-    				mplayer.start();
+    				 startDrawPad();
     			}
     		});
     	}
     }
-    //Step2:增加一个BitmapLayer到画板上.已经在MarkArrowView中实现了.
-    
+  //Step2:增加一个BitmapLayer到画板上.已经在MarkArrowView中实现了.
+    private void startDrawPad()
+    {
+    	mDrawPadView.startDrawPad();
+		
+		mLayerMain=mDrawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
+		if(mLayerMain!=null){
+			mplayer.setSurface(new Surface(mLayerMain.getVideoTexture()));
+		}
+		mplayer.start();
+    }
     //Step3: 增加完成后, 停止画板DrawPad
     private void stopDrawPad()
     {
@@ -189,7 +189,7 @@ public class BitmapLayerDemoActivity extends Activity{
 				}else
 					SDKFileUtils.deleteFile(editTmpPath);
 				
-				findViewById(R.id.id_markarrow_saveplay).setVisibility(View.VISIBLE);
+				playVideo.setVisibility(View.VISIBLE);
 			}
 		}
     }

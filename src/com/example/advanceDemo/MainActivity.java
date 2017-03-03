@@ -3,6 +3,7 @@ package com.example.advanceDemo;
 import java.io.File;
 import java.io.IOException;
 import java.nio.Buffer;
+import java.nio.IntBuffer;
 import java.nio.ShortBuffer;
 import java.util.Calendar;
 import java.util.Locale;
@@ -106,6 +107,7 @@ public class MainActivity extends Activity implements OnClickListener{
         
         findViewById(R.id.id_main_segmentrecorder).setOnClickListener(this);
         findViewById(R.id.id_main_cameralayer).setOnClickListener(this);
+        findViewById(R.id.id_main_camerafulllayer).setOnClickListener(this);
         
         
         findViewById(R.id.id_main_viewlayerdemo1).setOnClickListener(this);
@@ -142,11 +144,12 @@ public class MainActivity extends Activity implements OnClickListener{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				new com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask(MainActivity.this, tvVideoPath, "ping20s.mp4").execute();
+				new com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask(MainActivity.this, tvVideoPath, "ping20s_10.mp4").execute();
 			}
 		});
         showHintDialog();
     }
+    //创建一个文件.
     private void showHintDialog()
    	{
     	Calendar c = Calendar.getInstance();
@@ -155,7 +158,6 @@ public class MainActivity extends Activity implements OnClickListener{
    		
    		int lyear=VideoEditor.getLimitYear();
    		int lmonth=VideoEditor.getLimitMonth();
-   		
    		Log.i(TAG,"current year is:"+year+" month is:"+month +" limit year:"+lyear+" limit month:"+lmonth);
    		String timeHint=getResources().getString(R.string.sdk_limit);
    		timeHint=String.format(timeHint,VideoEditor.getSDKVersion(), lyear,lmonth);
@@ -223,10 +225,15 @@ public class MainActivity extends Activity implements OnClickListener{
 			switch (v.getId()) {
 				case R.id.id_main_segmentrecorder:
 					startDemoActivity(SegmentRecorderActivity.class);
+//					startDemoActivity(ExtractVideoFrameDemoActivity.class);
 					break;
 				case R.id.id_main_cameralayer:
 //					startDemoActivity(CameraRecordDemoActivity.class);
 					startDemoActivity(CameraLayerDemoActivity.class);
+					break;
+
+				case R.id.id_main_camerafulllayer:
+					startDemoActivity(CameraLayerFullScreenActivity.class);
 					break;
 				case R.id.id_main_viewlayerdemo1:
 					startDemoActivity(ViewLayerDemoActivity.class);
@@ -257,10 +264,10 @@ public class MainActivity extends Activity implements OnClickListener{
 					startDemoActivity(VideoLayerRealTimeActivity.class);
 					break;
 				case R.id.id_main_drawpadexecute_filter:
-					startDemoActivity(FilterDemoExecuteActivity.class);
+					startDemoActivity(ExecuteFilterDemoActivity.class);
 					break;
 				case R.id.id_main_drawpadpictureexecute:
-					startDemoActivity(BitmapLayer2ExecuteActivity.class);
+					startDemoActivity(ExecuteVideoLayerDemoActivity.class);
 					break;
 				case R.id.id_main_commonversion:
 					startDemoActivity(CommonDemoActivity.class);
@@ -338,72 +345,4 @@ public class MainActivity extends Activity implements OnClickListener{
 		        }
 		        return result;
 		    }
-	   //--------------------------------------------test---------------------------------------------------------
-		//录制音频的线程
-		private AudioRecordRunnable audioRecordRunnable;
-		private Thread audioThread;
-	   private void startMicRecord()
-	   {
-			audioRecordRunnable = new AudioRecordRunnable();
-			audioThread = new Thread(audioRecordRunnable);
-			audioThread.start();
-	   }
-	 //音频的采样率，recorderParameters中会有默认值
-		private int sampleRate = 44100;
-	   class AudioRecordRunnable implements Runnable {
-			
-			int bufferSize;
-			short[] audioData;
-			int bufferReadResult;
-			private final AudioRecord audioRecord;
-			public volatile boolean isInitialized;
-			private int mCount =0;
-			private AudioRecordRunnable()
-			{
-				bufferSize = AudioRecord.getMinBufferSize(sampleRate, 
-						AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT);
-				
-				audioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC, sampleRate, 
-						AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT,bufferSize);
-				
-				audioData = new short[bufferSize];
-			}
-
-			public void run()
-			{
-				android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_URGENT_AUDIO);
-				this.isInitialized = false;
-				if(audioRecord != null)
-				{
-					//判断音频录制是否被初始化
-					while (this.audioRecord.getState() == 0)
-					{
-						try
-						{
-							Thread.sleep(100L);
-						}
-						catch (InterruptedException localInterruptedException)
-						{
-						}
-					}
-					this.isInitialized = true;
-					this.audioRecord.startRecording();
-					while (true)
-					{
-						//读取数据.
-						bufferReadResult = this.audioRecord.read(audioData, 0, 2048);
-						if (bufferReadResult > 0){
-							Log.i(TAG,"read audio data bufferReadResult:"+bufferReadResult +" NO."+ mCount++);
-						}else{
-							Log.i(TAG,"read audio data<0; "+ mCount++);
-						}
-						if(mCount>=100){
-							break;
-						}
-					}
-					this.audioRecord.stop();
-					this.audioRecord.release();
-				}
-			}
-		}
 }

@@ -157,6 +157,7 @@ public class ExecuteRandomDemoActivity extends Activity{
 			}
 		});
 		
+		  Log.i(TAG,"bofore  startDrawPad===>"+MediaInfo.checkFile(videoPath));
 		  
 		/**
 		 * 开始执行这个DrawPad, 是否暂停,为true表示暂停.

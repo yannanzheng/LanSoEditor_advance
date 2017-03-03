@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lansoeditor.demo"
-    android:versionCode="2000"
-    android:versionName="2.0.0" >
+    android:versionCode="2100"
+    android:versionName="2.1.0" >
 
     <!-- 这里的意思是：我们的sdk最低是Android4.3， 最高支持Andriod7.0 -->
     <uses-sdk
@@ -33,6 +33,10 @@
         android:required="false" />
     
     
+    
+    
+    
+    
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -41,7 +45,8 @@
         
         <activity android:name="com.example.advanceDemo.StartActivity"
             android:theme="@style/AppTheme2">
-              <intent-filter>
+            
+                 <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -53,7 +58,6 @@
             android:name="com.example.advanceDemo.MainActivity">
             <!-- 因为要加载.so库, 这里一定要用MainActivity来启动 -->
             
-               
         </activity>
         
         
@@ -72,8 +76,10 @@
         <activity android:name="com.example.advanceDemo.VideoPlayerActivity"></activity>
                    
             
-        <activity android:name="com.example.advanceDemo.BitmapLayer2ExecuteActivity"></activity>
-        <activity android:name="com.example.advanceDemo.FilterDemoExecuteActivity"></activity>
+        <activity android:name="com.example.advanceDemo.ExecuteVideoLayerDemoActivity"></activity>
+        <activity android:name="com.example.advanceDemo.ExecuteFilterDemoActivity"></activity>
+        
+        <activity android:name="com.example.advanceDemo.ExtractVideoFrameDemoActivity"></activity>
         
         
         
@@ -81,6 +87,15 @@
        <activity android:name="com.example.advanceDemo.CameraMaskLayerDemoActivity"
            android:screenOrientation="portrait">
        </activity>
+       
+       <activity android:name="com.example.advanceDemo.CameraLayerFullScreenActivity"
+           android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+           >
+       </activity>
+       
+       
+       
        
        
         <activity android:name="com.example.advanceDemo.CameraLayerDemoActivity"
@@ -123,7 +138,9 @@
                android:theme="@style/AppTheme2">
           </activity>
           
-       
+        <activity android:name="com.example.advanceDemo.ExecuteRandomDemoActivity"></activity>
+          
+          
           
           <activity android:name="com.example.advanceDemo.SegmentRecorderActivity"
                   android:theme="@style/AppTheme2">

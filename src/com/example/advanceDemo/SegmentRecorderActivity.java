@@ -293,15 +293,6 @@ public class SegmentRecorderActivity extends Activity implements Handler.Callbac
 				return onSquareFocusViewTouch(v,event);
 			}
 		});
-		
-		findViewById(R.id.video_focus_view).setOnTouchListener(new OnTouchListener() {
-			
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				// TODO Auto-generated method stub
-				return onSquareFocusViewTouch(v, event);
-			}
-		});
 	}
 	
 	private void doAutoFocus() {
@@ -397,15 +388,18 @@ public class SegmentRecorderActivity extends Activity implements Handler.Callbac
 		switch (event.getAction()) {
 			case MotionEvent.ACTION_DOWN:
 				focusView.setDownY(event.getY());
-				boolean con = segmentRecorder.supportFocus() && segmentRecorder.isPreviewing();
-				if (con) {// 对焦
-					if (mAllowTouchFocus) {
-						mAllowTouchFocus = false;
-						Rect rect = doTouchFocus(event.getX(), event.getY());
-						if (rect != null) {
-							focusView.setHaveTouch(true, rect);
+				if(segmentRecorder!=null)
+				{
+					boolean con = segmentRecorder.supportFocus() && segmentRecorder.isPreviewing();
+					if (con) {// 对焦
+						if (mAllowTouchFocus) {
+							mAllowTouchFocus = false;
+							Rect rect = doTouchFocus(event.getX(), event.getY());
+							if (rect != null) {
+								focusView.setHaveTouch(true, rect);
+							}
+							handler.sendEmptyMessageDelayed(MSG_FOCUS_FINISH, 1000);
 						}
-						handler.sendEmptyMessageDelayed(MSG_FOCUS_FINISH, 1000);
 					}
 				}
 				break;
