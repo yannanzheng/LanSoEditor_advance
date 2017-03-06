@@ -206,6 +206,8 @@ public class CameraLayerDemoActivity extends Activity implements Handler.Callbac
                 public void onGpuImageFilterChosenListener(final GPUImageFilter filter) {
                 	
                 	//在这里通过DrawPad线程去切换 filterLayer的滤镜
+                	
+                	
     	         	   if(mDrawPadView.switchFilterTo(mCameraLayer,filter)){
     	         		   mFilterAdjuster = new FilterAdjuster(filter);
     	         		   //如果这个滤镜 可调, 显示可调节进度条.

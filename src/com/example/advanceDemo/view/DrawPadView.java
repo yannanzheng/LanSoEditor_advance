@@ -391,6 +391,23 @@ public class DrawPadView extends FrameLayout {
 		}
 	}
 	/**
+	 * 这个方法我们演示不再使用, 因此此方法不能达到 见名知意 的效果, 故我们不再使用, 您可以自行决定. 
+	 * 开始DrawPad的渲染线程, 阻塞执行, 直到DrawPad真正开始执行后才退出当前方法.
+	 * 
+	 * 此方法可以在 {@link onDrawPadSizeChangedListener} 完成后调用.
+	 * 可以先通过 {@link #setDrawPadSize(int, int, onDrawPadSizeChangedListener)}来设置宽高,然后在回调中执行此方法.
+	 * 如果您已经在xml中固定了view的宽高,则可以直接调用这里, 无需再设置DrawPadSize
+	 * @param progresslistener
+	 * @param completedListener
+	 */
+	public void startDrawPad(onDrawPadProgressListener progressListener,onDrawPadCompletedListener completedListener)
+	{
+		drawpadProgressListener=progressListener;
+		drawpadCompletedListener=completedListener;
+		
+		startDrawPad(pauseRecord);
+	}
+	/**
 	 * 开始DrawPad的渲染线程, 阻塞执行, 直到DrawPad真正开始执行后才退出当前方法.
 	 * 
 	 * 可以先通过 {@link #setDrawPadSize(int, int, onDrawPadSizeChangedListener)}来设置宽高,然后在回调中执行此方法.

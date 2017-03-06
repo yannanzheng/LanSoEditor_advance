@@ -39,11 +39,12 @@ public class DemoFunctions {
 	  			
 	  			video2=video3;
 	  		}
-	  		String audio=CopyDefaultVideoAsyncTask.copyFile(ctx,"aac20s.aac");
+	  		String audio=CopyDefaultVideoAsyncTask.copyFile(ctx,"honor30s2.m4a");
 	  		ret=editor.executeVideoMergeAudio(video2,audio, dstPath);
 	  		SDKFileUtils.deleteFile(video3);
 		}
 
+		
 		return ret;
 	}
 	/**
@@ -87,7 +88,7 @@ public class DemoFunctions {
 	 */
 	public static int demoAudioCut(Context ctx,VideoEditor editor,String dstAudio)
 	{
-			String srcAudio=CopyDefaultVideoAsyncTask.copyFile(ctx,"niusanjin.mp3");
+			String srcAudio=CopyDefaultVideoAsyncTask.copyFile(ctx,"honor30s2.m4a");
 			MediaInfo   info=new MediaInfo(srcAudio);
 	    	if(info.prepare() && info.aCodecName!=null)
 	    	{
@@ -281,7 +282,7 @@ public class DemoFunctions {
 	 */
 	public static int demoAudioDelayMix(Context ctx,VideoEditor editor,String dstAudio)
 	{
-		String audiostr1=CopyDefaultVideoAsyncTask.copyFile(ctx,"aac20s.aac");
+		String audiostr1=CopyDefaultVideoAsyncTask.copyFile(ctx,"honor30s2.m4a");
 		String audiostr2=CopyDefaultVideoAsyncTask.copyFile(ctx,"niusanjin.mp3");
 		
 		return editor.executeAudioDelayMix(audiostr1, audiostr2, 3000, 3000, dstAudio);
@@ -291,7 +292,7 @@ public class DemoFunctions {
 	 */
 	public static int demoAudioVolumeMix(Context ctx,VideoEditor editor,String dstAudio)
 	{
-		String audiostr1=CopyDefaultVideoAsyncTask.copyFile(ctx,"aac20s.aac");
+		String audiostr1=CopyDefaultVideoAsyncTask.copyFile(ctx,"honor30s2.m4a");
 		String audiostr2=CopyDefaultVideoAsyncTask.copyFile(ctx,"niusanjin.mp3");
 		
 		return editor.executeAudioVolumeMix(audiostr1,audiostr2, 0.5f, 4, dstAudio);

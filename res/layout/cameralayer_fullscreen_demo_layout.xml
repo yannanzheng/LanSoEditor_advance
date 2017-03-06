@@ -24,10 +24,34 @@
 		  	       android:layout_height="wrap_content"
 		  	       android:layout_centerVertical="true"
 		  	       android:layout_alignParentLeft="true"
+		  	       android:visibility="invisible"
 		  	       android:background="@color/red"
-		  	       android:text="实时增加演示文字"
+		  	       android:text="您可以实时增加文字"
 		  	       android:textColor="@color/white"
-		  	       android:visibility="gone"
+		  	       android:textSize="28sp"
+	  	       		/>
+		  	    <TextView
+		  	       android:id="@+id/id_vview_tvtest2"
+		  	       android:layout_width="wrap_content"
+		  	       android:layout_height="wrap_content"
+		  	       android:layout_below="@id/id_vview_tvtest"
+		  	       android:layout_alignParentLeft="true"
+		  	       android:background="@color/darkgreen"
+		  	       android:visibility="invisible"
+		  	       android:text="或者涂鸦"
+		  	       android:textColor="@color/white"
+		  	       android:textSize="28sp"
+	  	       		/>
+		  	    <TextView
+		  	       android:id="@+id/id_vview_tvtest3"
+		  	       android:layout_width="wrap_content"
+		  	       android:layout_height="wrap_content"
+		  	       android:layout_below="@id/id_vview_tvtest2"
+		  	       android:layout_alignParentLeft="true"
+		  	       android:background="@color/orangered"
+		  	       android:visibility="invisible"
+		  	       android:text="或者任意UI界面"
+		  	       android:textColor="@color/white"
 		  	       android:textSize="28sp"
 	  	       		/>
    	 </com.lansosdk.box.ViewLayerRelativeLayout>
@@ -103,5 +127,19 @@
                 android:background="@drawable/video_record_switch_camera"/>
         </LinearLayout>
     </RelativeLayout>
+    
+    
+
+        <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dip"
+        android:background="#77000000"
+            android:textSize="20sp"
+            android:text="提示:为了代码清晰和方便选择滤镜,暂时没有开始按钮, 实际您可以任意增加!,"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white" />
+    
     
 </RelativeLayout>

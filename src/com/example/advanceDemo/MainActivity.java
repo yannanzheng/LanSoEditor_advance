@@ -148,6 +148,8 @@ public class MainActivity extends Activity implements OnClickListener{
 			}
 		});
         showHintDialog();
+        
+        
     }
     //创建一个文件.
     private void showHintDialog()

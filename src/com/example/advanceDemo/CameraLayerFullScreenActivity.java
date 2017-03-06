@@ -1,5 +1,6 @@
 package com.example.advanceDemo;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,24 +13,31 @@ import com.example.advanceDemo.GPUImageFilterTools.OnGpuImageFilterChosenListene
 import com.example.advanceDemo.view.DrawPadView;
 import com.example.advanceDemo.view.VideoFocusView;
 import com.lansoeditor.demo.R;
+import com.lansosdk.box.BitmapLayer;
 import com.lansosdk.box.CameraLayer;
 import com.lansosdk.box.DrawPadUpdateMode;
 import com.lansosdk.box.LanSoEditorBox;
 import com.lansosdk.box.DrawPad;
+import com.lansosdk.box.Layer;
 import com.lansosdk.box.ViewLayer;
 import com.lansosdk.box.ViewLayerRelativeLayout;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
+import com.lansosdk.videoeditor.CopyFileFromAssets;
+import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
+import com.lansosdk.videoeditor.VideoEditor;
 
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
@@ -48,7 +56,10 @@ public class CameraLayerFullScreenActivity extends Activity implements OnClickLi
     private DrawPadView mDrawPadView;
     
     private CameraLayer  mCameraLayer=null;
+    
     private String dstPath=null;
+    private String editTmpPath=null;  //用来存储录制的视频部分,
+    
 	VideoFocusView focusView;
 	private PowerManager.WakeLock mWakeLock;
 	private ViewLayer mViewLayer=null;
@@ -70,6 +81,8 @@ public class CameraLayerFullScreenActivity extends Activity implements OnClickLi
         initView();
 
         dstPath=SDKFileUtils.newMp4PathInBox();
+        editTmpPath=SDKFileUtils.newMp4PathInBox();
+        
         
 		new Handler().postDelayed(new Runnable() {
 			@Override
@@ -99,46 +112,58 @@ public class CameraLayerFullScreenActivity extends Activity implements OnClickLi
     	 DisplayMetrics dm = new DisplayMetrics();
     	 dm = getResources().getDisplayMetrics();
     	 
-    	 //全屏模式,建议分辨率设置为960x544;
+    	 //因手机屏幕是16:9;全屏模式,建议分辨率设置为960x544;
     	 int padWidth=544;  
     	 int padHeight=960;
     	 
-    	mDrawPadView.setRealEncodeEnable(padWidth,padHeight,3000000,(int)25,dstPath);
+    	mDrawPadView.setRealEncodeEnable(padWidth,padHeight,3000000,(int)25,editTmpPath);
     	
     	mDrawPadView.setUpdateMode(DrawPadUpdateMode.AUTO_FLUSH, 25);
 
     	mDrawPadView.setOnDrawPadProgressListener(drawPadProgressListener);
 
     	//设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
-    	mDrawPadView.setDrawPadSize(padWidth,padHeight,new onDrawPadSizeChangedListener() {
-	    			
-	    			@Override
-	    			public void onSizeChanged(int viewWidth, int viewHeight) {
-	    				// TODO Auto-generated method stub
-	    				startDrawPad();
-	    			}
-	    });	
+    	startDrawPad();
     }
     /**
      * Step2: 开始运行 Drawpad线程.
      */
       private void startDrawPad()
       {
+    	  //设置在录制的过程中同时录制声音.
+    	   mDrawPadView.setRecordMic(true);
     	    mDrawPadView.startDrawPad();
+    	    
     		mCameraLayer=	mDrawPadView.addCameraLayer(false,null);  //使用前置相机,暂时不使用滤镜.
+    		//UI
+    		
     		addViewLayer();
+    		
+    		//增加一个图片作为LOGO
+    		addBitmapLayer();
       }
       /**
        * Step3: 停止画板
        */
       private void stopDrawPad()
       {
-      	if(mDrawPadView!=null && mDrawPadView.isRunning())
-      	{
-  				mDrawPadView.stopDrawPad();
-  				mCameraLayer=null;
-  		}
-      	playVideo.setVisibility(View.VISIBLE);
+	      	if(mDrawPadView!=null && mDrawPadView.isRunning())
+	      	{
+	  				String micPath=mDrawPadView.stopDrawPad2();
+	  				Log.i(TAG,"micPath is:"+micPath);
+	  				
+	  				toastStop();
+	  				
+	  				if(SDKFileUtils.fileExist(editTmpPath))
+	  				{
+	  					VideoEditor veditor=new VideoEditor();
+						veditor.executeVideoMergeAudio(editTmpPath, micPath, dstPath);  //合并到新视频文件中.
+	  				}else{
+	  					Log.e(TAG," player completion, but file:"+editTmpPath+" is not exist!!!");
+	  				}
+	  				mCameraLayer=null;
+	  		}
+	      	playVideo.setVisibility(View.VISIBLE);
       }
     private onDrawPadProgressListener drawPadProgressListener=new onDrawPadProgressListener() {
 		
@@ -153,14 +178,15 @@ public class CameraLayerFullScreenActivity extends Activity implements OnClickLi
 				long left=RECORD_CAMERA_TIME-currentTimeUs;
 				
 				float leftF=((float)left/1000000);
-				 float b   =  (float)(Math.round(leftF*10))/10;  //保留一位小数.
-						 
-				tvTime.setText(String.valueOf(b));
+				float b   =  (float)(Math.round(leftF*10))/10;  //保留一位小数.
+				
+				if(b>=0)
+					tvTime.setText(String.valueOf(b));
 			}
-			if(currentTimeUs>7000*1000)  //在第7秒的时候, 不再显示.
+			if(currentTimeUs>8000*1000)  //在第8秒的时候, 不再显示.
   			{
   				hideWord();
-  			}else if(currentTimeUs>3*1000*1000)  //在第三秒的时候, 显示tvWord
+  			}else if(currentTimeUs>2*1000*1000)  //在第2秒的时候, 显示tvWord
   			{
   				showWord();
   			}
@@ -206,12 +232,19 @@ public class CameraLayerFullScreenActivity extends Activity implements OnClickLi
 			super.onDestroy();
 		    if(SDKFileUtils.fileExist(dstPath)){
 		    	SDKFileUtils.deleteFile(dstPath);
+		    	dstPath=null;
+		    }
+		    if(SDKFileUtils.fileExist(editTmpPath)){
+		    	SDKFileUtils.deleteFile(editTmpPath);
+		    	editTmpPath=null;
 		    }
 	}
    /**
     * 增加一个UI图层: ViewLayer 
     */
    private TextView tvWord; 
+   private TextView tvWord2; 
+   private TextView tvWord3; 
    private void addViewLayer()
    {
         mLayerRelativeLayout=(ViewLayerRelativeLayout)findViewById(R.id.id_vview_realtime_gllayout);
@@ -229,19 +262,75 @@ public class CameraLayerFullScreenActivity extends Activity implements OnClickLi
 	           mLayerRelativeLayout.setLayoutParams(params);
 	   	}
 	    tvWord=(TextView)findViewById(R.id.id_vview_tvtest);
+	    tvWord2=(TextView)findViewById(R.id.id_vview_tvtest2);
+	    tvWord3=(TextView)findViewById(R.id.id_vview_tvtest3);
+   }
+   /**
+    * 在增加一个UI图层.
+    */
+   private BitmapLayer  bmpLayer;
+   private void addBitmapLayer()
+   {
+	   	if(mDrawPadView!=null && mDrawPadView.isRunning())
+		{
+			String bitmapPath=CopyFileFromAssets.copy(getApplicationContext(), "small.png", "/sdcard/lansongBox/", "small.png");
+			bmpLayer=mDrawPadView.addBitmapLayer(BitmapFactory.decodeFile(bitmapPath));
+			
+			//把位置放到中间的右侧, setPostion是设置图层的中心点的位置.
+			bmpLayer.setPosition(bmpLayer.getPadWidth()-bmpLayer.getLayerWidth()/2,bmpLayer.getPositionY());
+		}
    }
    private void showWord()
    {
    	 		if(tvWord!=null&& tvWord.getVisibility()!=View.VISIBLE){
 				 tvWord.startAnimation(AnimationUtils.loadAnimation(CameraLayerFullScreenActivity.this, R.anim.slide_right_in));
 				 tvWord.setVisibility(View.VISIBLE); 
+				 new Handler().postDelayed(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						 tvWord2.startAnimation(AnimationUtils.loadAnimation(CameraLayerFullScreenActivity.this, R.anim.slide_right_in));
+						 tvWord2.setVisibility(View.VISIBLE); 
+					}
+				}, 500);
+				 
+				 //1秒后再显示这个.
+				 new Handler().postDelayed(new Runnable() {
+						
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							 tvWord3.startAnimation(AnimationUtils.loadAnimation(CameraLayerFullScreenActivity.this, R.anim.slide_right_in));
+							 tvWord3.setVisibility(View.VISIBLE); 
+						}
+					}, 1000);
 			 }
    }
    private void hideWord()
    {
    	 	if(tvWord!=null&& tvWord.getVisibility()==View.VISIBLE){
-				 tvWord.startAnimation(AnimationUtils.loadAnimation(CameraLayerFullScreenActivity.this, R.anim.slide_right_out));
- 			 tvWord.setVisibility(View.GONE); 
+				 tvWord.startAnimation(AnimationUtils.loadAnimation(CameraLayerFullScreenActivity.this, R.anim.push_up_out));
+				 tvWord.setVisibility(View.INVISIBLE); 
+				 new Handler().postDelayed(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						 tvWord2.startAnimation(AnimationUtils.loadAnimation(CameraLayerFullScreenActivity.this, R.anim.push_up_out));
+						 tvWord2.setVisibility(View.INVISIBLE); 
+					}
+				}, 500);
+				 
+				 new Handler().postDelayed(new Runnable() {
+						
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							 tvWord3.startAnimation(AnimationUtils.loadAnimation(CameraLayerFullScreenActivity.this, R.anim.push_up_out));
+							 tvWord3.setVisibility(View.INVISIBLE); 
+						}
+					}, 1000);
 		 }
    }
    //-------------------------------------------一下是UI界面和控制部分.---------------------------------------------------
@@ -272,7 +361,6 @@ public class CameraLayerFullScreenActivity extends Activity implements OnClickLi
    		findViewById(R.id.id_fullscreen_flashlight).setOnClickListener(this);
 		findViewById(R.id.id_fullscreen_frontcamera).setOnClickListener(this);
 		findViewById(R.id.id_fullscreen_filter).setOnClickListener(this);
-		
    }
 	@Override
 	public void onClick(View v) {
@@ -280,7 +368,6 @@ public class CameraLayerFullScreenActivity extends Activity implements OnClickLi
 		switch (v.getId()) {
 			case R.id.id_fullscreen_frontcamera:
 				if(mCameraLayer!=null){
-					
 					if(mDrawPadView.isRunning())  
 					{
 						//先把DrawPad暂停运行.
@@ -302,5 +389,10 @@ public class CameraLayerFullScreenActivity extends Activity implements OnClickLi
 			break;
 		}
 	}
+	  private void toastStop()
+	    {
+	    	Toast.makeText(getApplicationContext(), "录制已停止!!", Toast.LENGTH_SHORT).show();
+	    	Log.i(TAG,"录制已停止!!");
+	    }
 }
 

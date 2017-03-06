@@ -35,6 +35,7 @@ import com.lansosdk.box.ViewLayer;
 import com.lansosdk.box.onDrawPadCompletedListener;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadThreadProgressListener;
+import com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask;
 import com.lansosdk.videoeditor.LanSoEditor;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
@@ -198,6 +199,7 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
     	// TODO Auto-generated method stub
     	super.onDestroy();
     	
+    	removeGif();
     	if(vDrawPad!=null){
     		vDrawPad.releaseDrawPad();
     		try {
@@ -206,7 +208,6 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-    		
     		vDrawPad=null;
     	}
     	   if(SDKFileUtils.fileExist(dstPath)){
@@ -297,7 +298,10 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 	
 		private MediaInfo gifInfo;
 		private long decoderHandler;
-	   private IntBuffer  mGLRgbBuffer;
+	   
+		private IntBuffer  mGLRgbBuffer;
+	   
+	   
 	   private int gifInterval=0;
 	   private int frameCount=0;
 	   private DataLayer dataLayer;
@@ -322,13 +326,16 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 	    */
 	   private void addDataLayer()
 		{
-			   gifInfo=new MediaInfo("/sdcard/a.gif");
+				String gifPath=CopyDefaultVideoAsyncTask.copyFile(getApplicationContext(),"a.gif");
+			   gifInfo=new MediaInfo(gifPath);
 		       if(gifInfo.prepare())
 		       {
-		    	   decoderHandler=BoxDecoder.decoderInit("/sdcard/a.gif");
+		    	   decoderHandler=BoxDecoder.decoderInit(gifPath);
+		    	   
 		    	   mGLRgbBuffer = IntBuffer.allocate(gifInfo.vWidth * gifInfo.vHeight);
-		    	  
+		    	   
 		    	   gifInterval=(int)(mInfo.vFrameRate/gifInfo.vFrameRate);
+		    	   
 		    	   dataLayer=vDrawPad.addDataLayer(gifInfo.vWidth,gifInfo.vHeight);
 		    	   
 		    	   /**
@@ -351,6 +358,7 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 				    					BoxDecoder.decoderFrame(decoderHandler, seekZero, mGLRgbBuffer.array());
 				    					
 			    						dataLayer.pushFrameToTexture( mGLRgbBuffer);
+			    						
 			    						mGLRgbBuffer.position(0);	
 		    					}
 		    				}
@@ -358,9 +366,10 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 		    		});
 		       }
 		}
+	   
 	   private void removeGif()
 	   {
-		   if(vDrawPad!=null){
+		   if(vDrawPad!=null && decoderHandler!=0){
 			   vDrawPad.removeLayer(dataLayer);
 				dataLayer=null;
 				BoxDecoder.decoderRelease(decoderHandler);

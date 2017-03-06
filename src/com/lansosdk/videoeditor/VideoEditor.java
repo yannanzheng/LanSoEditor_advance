@@ -239,8 +239,11 @@ public class VideoEditor {
 	   * @param srcPach2 pcm格式的次音频
 	   * @param samplerate2  次音频采样率
 	   * @param channel2  次音频通道数
+	   * 
+	   * 
 	   * @param value1    主音频的音量
 	   * @param value2 次音频的音量
+	   * 
 	   * @param dstPath  输出文件.输出也是pcm格式的音频文件.
 	   * @return
 	   */
