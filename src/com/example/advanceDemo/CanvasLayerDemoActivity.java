@@ -3,7 +3,6 @@ package com.example.advanceDemo;
 import java.io.IOException;
 import java.util.Locale;
 
-import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 
 import com.example.advanceDemo.view.BitmapCache;
 import com.example.advanceDemo.view.DrawPadView;
@@ -157,7 +156,6 @@ public class CanvasLayerDemoActivity extends Activity {
     {
     	Toast.makeText(getApplicationContext(), "录制已停止!!", Toast.LENGTH_SHORT).show();
     	Log.i(TAG,"录制已停止!!");
-    	
     }
     /**
      * Step1: 初始化 DrawPad 画板

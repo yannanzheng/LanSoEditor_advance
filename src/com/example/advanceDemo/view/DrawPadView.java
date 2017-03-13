@@ -297,9 +297,9 @@ public class DrawPadView extends FrameLayout {
 		 * @param encH  录制视频的高度
 		 * @param encBr 录制视频的bitrate,
 		 * @param encFr 录制视频的 帧率
-		 * @param outPath  录制视频的保存路径.
+		 * @param outPath  录制视频的保存路径. 注意:这个路径在分段录制功能时,无效.即调用 {@link #segmentStart(String)}时.
 		 */
-	   public void setRealEncodeEnable(int encW,int encH,int encBr,int encFr,String outPath)
+	public void setRealEncodeEnable(int encW,int encH,int encBr,int encFr,String outPath)
 	    {
 	    	if(encW>0 && encH>0 && encBr>0 && encFr>0){
 	    			encWidth=encW;
@@ -391,7 +391,7 @@ public class DrawPadView extends FrameLayout {
 		}
 	}
 	/**
-	 * 这个方法我们演示不再使用, 因此此方法不能达到 见名知意 的效果, 故我们不再使用, 您可以自行决定. 
+	 * 这个方法我们演示不在使用, 因此此方法不能达到 见名知意 的效果, 故我们不在使用, 您可以自行决定. 
 	 * 开始DrawPad的渲染线程, 阻塞执行, 直到DrawPad真正开始执行后才退出当前方法.
 	 * 
 	 * 此方法可以在 {@link onDrawPadSizeChangedListener} 完成后调用.
@@ -584,23 +584,22 @@ public class DrawPadView extends FrameLayout {
 	/**
 	 * 此代码只是用在分段录制的Camera的过程中, 其他地方不建议使用.
 	 */
-	public void segmentStart(String videoPath)
+	public void segmentStart()
 	{
 		if(renderer!=null){
-			renderer.segmentStart(videoPath);
-		}else{
-			pauseRecord=false;
+			renderer.segmentStart();
 		}
 	}
 	/**
 	 * 此代码只是用在分段录制的Camera的过程中, 其他地方不建议使用.
+	 * 录制完成后, 返回当前录制这一段的视频文件完整路径名,
 	 */
-	public void segmentStop()
+	public String segmentStop()
 	{
 		if(renderer!=null){
-			renderer.segmentStop();
+			return renderer.segmentStop();
 		}else{
-			pauseRecord=false;
+			return null;	
 		}
 	}
 	

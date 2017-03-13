@@ -9,6 +9,8 @@ import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
 import com.example.advanceDemo.view.MarkArrowView;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.DrawPadUpdateMode;
+import com.lansosdk.box.MVLayer;
+import com.lansosdk.box.MVLayerENDMode;
 import com.lansosdk.box.VideoLayer;
 import com.lansosdk.box.ViewLayer;
 import com.lansosdk.box.Layer;
@@ -144,7 +146,9 @@ public class BitmapLayerDemoActivity extends Activity{
               return;
           }
     }
-    //Step1: 初始化 DrawPad 画板
+    /**
+     * Step1: 初始化 DrawPad 画板
+     */
     private void initDrawPad()
     {
     	MediaInfo info=new MediaInfo(mVideoPath);
@@ -163,7 +167,9 @@ public class BitmapLayerDemoActivity extends Activity{
     		});
     	}
     }
-  //Step2:增加一个BitmapLayer到画板上.已经在MarkArrowView中实现了.
+    /**
+     * Step2:增加一个BitmapLayer到画板上.已经在MarkArrowView中实现了.
+     */
     private void startDrawPad()
     {
     	mDrawPadView.startDrawPad();
@@ -174,7 +180,10 @@ public class BitmapLayerDemoActivity extends Activity{
 		}
 		mplayer.start();
     }
-    //Step3: 增加完成后, 停止画板DrawPad
+    
+    /**
+     * Step3: 增加完成后, 停止画板DrawPad
+     */
     private void stopDrawPad()
     {
     	if(mDrawPadView!=null && mDrawPadView.isRunning()){

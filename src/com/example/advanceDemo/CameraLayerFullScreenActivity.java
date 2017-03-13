@@ -123,23 +123,25 @@ public class CameraLayerFullScreenActivity extends Activity implements OnClickLi
     	mDrawPadView.setOnDrawPadProgressListener(drawPadProgressListener);
 
     	//设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
-    	startDrawPad();
+    	mDrawPadView.setDrawPadSize(padWidth,padHeight,new onDrawPadSizeChangedListener() {
+	    			
+	    			@Override
+	    			public void onSizeChanged(int viewWidth, int viewHeight) {
+	    				// TODO Auto-generated method stub
+	    				startDrawPad();
+	    			}
+	    });	
     }
     /**
      * Step2: 开始运行 Drawpad线程.
      */
       private void startDrawPad()
       {
-    	  //设置在录制的过程中同时录制声音.
     	   mDrawPadView.setRecordMic(true);
+    	   
     	    mDrawPadView.startDrawPad();
-    	    
     		mCameraLayer=	mDrawPadView.addCameraLayer(false,null);  //使用前置相机,暂时不使用滤镜.
-    		//UI
-    		
     		addViewLayer();
-    		
-    		//增加一个图片作为LOGO
     		addBitmapLayer();
       }
       /**
@@ -183,10 +185,10 @@ public class CameraLayerFullScreenActivity extends Activity implements OnClickLi
 				if(b>=0)
 					tvTime.setText(String.valueOf(b));
 			}
-			if(currentTimeUs>8000*1000)  //在第8秒的时候, 不再显示.
+			if(currentTimeUs>7000*1000)  //在第7秒的时候, 不再显示.
   			{
   				hideWord();
-  			}else if(currentTimeUs>2*1000*1000)  //在第2秒的时候, 显示tvWord
+  			}else if(currentTimeUs>3*1000*1000)  //在第三秒的时候, 显示tvWord
   			{
   				showWord();
   			}
@@ -276,7 +278,7 @@ public class CameraLayerFullScreenActivity extends Activity implements OnClickLi
 			String bitmapPath=CopyFileFromAssets.copy(getApplicationContext(), "small.png", "/sdcard/lansongBox/", "small.png");
 			bmpLayer=mDrawPadView.addBitmapLayer(BitmapFactory.decodeFile(bitmapPath));
 			
-			//把位置放到中间的右侧, setPostion是设置图层的中心点的位置.
+			//把位置放到中间的右侧, 因为获取的高级是中心点的高度.
 			bmpLayer.setPosition(bmpLayer.getPadWidth()-bmpLayer.getLayerWidth()/2,bmpLayer.getPositionY());
 		}
    }

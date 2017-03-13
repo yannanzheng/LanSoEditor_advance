@@ -8,10 +8,10 @@ import com.example.advanceDemo.view.VideoFocusView;
 import com.example.advanceDemo.view.VideoPreviewView;
 import com.example.advanceDemo.view.VideoProgressView;
 import com.lansoeditor.demo.R;
-import com.lansosdk.box.SegmentsRecordListener;
-import com.lansosdk.box.SegmentsRecorder;
 import com.lansosdk.videoeditor.LanSoEditor;
 import com.lansosdk.videoeditor.LoadLanSongSdk;
+import com.lansosdk.videoeditor.OpenSegmentsRecordListener;
+import com.lansosdk.videoeditor.OpenSegmentsRecorder;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -51,7 +51,7 @@ public class SegmentRecorderActivity extends Activity implements Handler.Callbac
 	
 	
 	private PowerManager.WakeLock mWakeLock;
-	private SegmentsRecorder segmentRecorder;
+	private OpenSegmentsRecorder segmentRecorder;
 
 	private Handler handler;
 
@@ -93,13 +93,13 @@ public class SegmentRecorderActivity extends Activity implements Handler.Callbac
 		handler = new Handler(this);
 		//第一步:初始化 断点录制. 
 		//最后三个参数是:视频编码宽度,视频编码高度,视频编码码率,因为是竖屏拍照, 录制的视频宽度和高度对调了,故这里设置480和640等.
-		segmentRecorder = new SegmentsRecorder(this, cameraTextureView.getHolder(),480,480,1000*1000); //建议采用这个
+		segmentRecorder = new OpenSegmentsRecorder(this, cameraTextureView.getHolder(),480,480,1000*1000); //建议采用这个
 //		segmentRecorder = new SegmentsRecorder(this, cameraTextureView.getHolder(),480,640,1200*1000);
 		//segmentRecorder = new SegmentsRecorder(this, cameraTextureView.getHolder(),720,1280,1500*1000);
 //		segmentRecorder = new SegmentsRecorder(this, cameraTextureView.getHolder(),1088,1920,2000*1000);
 		
 		//第二步:设置断点回调的各种方法.
-		segmentRecorder.setSegmentsRecordListener(new SegmentsRecordListener() {
+		segmentRecorder.setSegmentsRecordListener(new OpenSegmentsRecordListener() {
 
 			@Override  //当前段开始录制  在每次开始前调用.
 			public void segmentRecordStart() {

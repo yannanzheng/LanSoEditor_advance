@@ -164,6 +164,7 @@ public class ExecuteFilterDemoActivity extends Activity{
 		});
 		vDrawPad.startDrawPad();
 		
+		
 		bitmapLayer=vDrawPad.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
 		
 		bitmapLayer.setPosition(300, 200);

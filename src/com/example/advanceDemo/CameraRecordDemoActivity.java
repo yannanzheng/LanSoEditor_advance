@@ -23,7 +23,6 @@ import com.lansosdk.box.LanSoEditorBox;
 import com.lansosdk.box.Layer;
 import com.lansosdk.box.DrawPad;
 import com.lansosdk.box.MVLayer;
-import com.lansosdk.box.SegmentsRecorder;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
 import com.lansosdk.videoeditor.MediaInfo;
@@ -74,7 +73,7 @@ public class CameraRecordDemoActivity extends Activity implements OnClickListene
 	private static final String TAG = "CameraRecordDemoActivity";
 
     private DrawPadView mDrawPadView=null;
-//    private PcmPlayer  mPcmPlayer=null;
+    private PcmPlayer  mPcmPlayer=null;
     private CameraLayer  mCameraLayer=null;
     private String videoPath=null;
     private String audioPath=null;
@@ -163,8 +162,8 @@ public class CameraRecordDemoActivity extends Activity implements OnClickListene
 		//画板开始后, 获取一个AudioLine对象, 向里面投递数据.这里开始播放声音.获取声音的数据,投递进去.
 		AudioLine line=mDrawPadView.getAudioLine();
 		
-//		mPcmPlayer=new PcmPlayer("/sdcard/niu_44100_2.pcm",2,44100, line);
-//		mPcmPlayer.prepare();
+		mPcmPlayer=new PcmPlayer("/sdcard/niu_44100_2.pcm",2,44100, line);
+		mPcmPlayer.prepare();
 		
 		//增加一个CameraLayer
 		mCameraLayer=	mDrawPadView.addCameraLayer(false,null);
@@ -208,10 +207,10 @@ public class CameraRecordDemoActivity extends Activity implements OnClickListene
     			mWakeLock.release();
     			mWakeLock = null;
     	}
-//    	 if(mPcmPlayer!=null){
-//    		 mPcmPlayer.release();
-//    		 mPcmPlayer=null;
-//    	 }
+    	 if(mPcmPlayer!=null){
+    		 mPcmPlayer.release();
+    		 mPcmPlayer=null;
+    	 }
     }
    @Override
 	protected void onDestroy() {
@@ -274,9 +273,9 @@ public class CameraRecordDemoActivity extends Activity implements OnClickListene
 						
 						if(mDrawPadView.isRecording()){
 							stopDrawPad();
-//							if(mPcmPlayer!=null){
-//								mPcmPlayer.stop();
-//							}
+							if(mPcmPlayer!=null){
+								mPcmPlayer.stop();
+							}
 							btnRecord.setText("录制已结束");
 						}else{
 							btnRecord.setText("停止录制");

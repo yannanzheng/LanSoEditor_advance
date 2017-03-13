@@ -8,6 +8,9 @@ import com.lansosdk.box.AudioMix;
  */
 public class MiscTools {
 
+	
+	
+	
 	 /**
 	  * 调整音频采样点的音量, 把音量放大一些或 降低一些.
 	  * 
@@ -46,5 +49,55 @@ public class MiscTools {
 	{
 		return AudioMix.audioSampleMix(channelNUmber, sample1, sample2, sample1Volume, sample2Volume, mixResultOut);
 	}
-	
+	/*
+	 * -----------------------------一下是测试.-------------------------------------------------------------------
+	void testAudioMix() {
+		
+	    byte[] sample1 = new byte[44100*4];  //双通道,
+	    byte[] sample2 = new byte[44100*4];  //双通道,
+	    byte[] resultMixBuffer = new byte[44100*4];  //双通道,
+
+	    try {
+	        InputStream inputStream = new FileInputStream(new File("/sdcard/h5.pcm"));
+	        BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
+	        DataInputStream stream1 = new DataInputStream(bufferedInputStream);
+
+	        
+	        
+	        InputStream inputStream1 = new FileInputStream(new File("/sdcard/n3.pcm"));
+	        BufferedInputStream bufferedInputStream1 = new BufferedInputStream(inputStream1);
+	        DataInputStream stream2 = new DataInputStream(bufferedInputStream1);
+
+	        
+	        //目标文件.
+	        OutputStream outputStream = new FileOutputStream(new File("/sdcard/v33.pcm"));
+            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(outputStream);
+            DataOutputStream dataOutputStream = new DataOutputStream(bufferedOutputStream);
+            
+            
+	        while (stream1.available() > 0 && stream2.available() > 0) {
+	        	
+	        	int length=stream1.read(sample1);
+	        	stream2.read(sample2);
+	        	
+	        	//AudioMix.audioSampleMix(2, sample1, sample2, 2.0f, 0.1f, resultMixBuffer);
+	        	AudioMix.adjustSampleVolume(2, sample1, 3.0f, resultMixBuffer);
+	        	
+	        	Log.i(TAG,"开始写入."+length);
+	        	dataOutputStream.write(resultMixBuffer);
+	        }
+	        Log.i("TAG","混合完毕!");
+	        stream1.close();
+	        stream2.close();
+	        dataOutputStream.close();
+	          
+	    } catch (FileNotFoundException e) {
+	        e.printStackTrace();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    } catch (IllegalStateException e) {
+	        e.printStackTrace();
+	    }
+	}
+	 * */
 }

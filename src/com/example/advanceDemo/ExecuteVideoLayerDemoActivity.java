@@ -30,6 +30,7 @@ import com.lansosdk.box.CanvasLayer;
 import com.lansosdk.box.DataLayer;
 import com.lansosdk.box.DrawPad;
 import com.lansosdk.box.DrawPadVideoExecute;
+import com.lansosdk.box.MVLayer;
 import com.lansosdk.box.VideoLayer;
 import com.lansosdk.box.ViewLayer;
 import com.lansosdk.box.onDrawPadCompletedListener;
@@ -192,14 +193,14 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 
 		//增加一个CanvasLayer
 //		addCanvasLayer();
-		addDataLayer();
+//		addDataLayer();
+		 addMVLayer();
 	}
    @Override
     protected void onDestroy() {
     	// TODO Auto-generated method stub
     	super.onDestroy();
     	
-    	removeGif();
     	if(vDrawPad!=null){
     		vDrawPad.releaseDrawPad();
     		try {
@@ -208,6 +209,7 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+    		
     		vDrawPad=null;
     	}
     	   if(SDKFileUtils.fileExist(dstPath)){
@@ -294,14 +296,9 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 						});
 					}
 		}
-	
-	
 		private MediaInfo gifInfo;
 		private long decoderHandler;
-	   
-		private IntBuffer  mGLRgbBuffer;
-	   
-	   
+	   private IntBuffer  mGLRgbBuffer;
 	   private int gifInterval=0;
 	   private int frameCount=0;
 	   private DataLayer dataLayer;
@@ -319,6 +316,18 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 			   return false;
 		   }
 	   }
+	   private void addMVLayer()
+		{
+		   	Log.i(TAG,"增加一个MV");
+			String  colorMVPath=com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask.copyFile(ExecuteVideoLayerDemoActivity.this,"mei.ts");
+		    String maskMVPath=com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask.copyFile(ExecuteVideoLayerDemoActivity.this,"mei_b.ts");
+			MVLayer  layer=vDrawPad.addMVLayer(colorMVPath, maskMVPath);  //<-----增加MVLayer
+			
+			/**
+			 * mv在播放完后, 有3种模式,消失/停留在最后一帧/循环.
+			 * layer.setEndMode(MVLayerENDMode.INVISIBLE); 
+			 */
+		}
 	   /**
 	    * 增加一个DataLayer, 数据图层. 数据图层是可以把外界的数据图片RGBA, 作为一个图层, 传到到DrawPad中. 
 	    * 
@@ -326,16 +335,14 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 	    */
 	   private void addDataLayer()
 		{
-				String gifPath=CopyDefaultVideoAsyncTask.copyFile(getApplicationContext(),"a.gif");
+		   String gifPath=CopyDefaultVideoAsyncTask.copyFile(getApplicationContext(),"a.gif");
 			   gifInfo=new MediaInfo(gifPath);
 		       if(gifInfo.prepare())
 		       {
 		    	   decoderHandler=BoxDecoder.decoderInit(gifPath);
-		    	   
 		    	   mGLRgbBuffer = IntBuffer.allocate(gifInfo.vWidth * gifInfo.vHeight);
-		    	   
+		    	  
 		    	   gifInterval=(int)(mInfo.vFrameRate/gifInfo.vFrameRate);
-		    	   
 		    	   dataLayer=vDrawPad.addDataLayer(gifInfo.vWidth,gifInfo.vHeight);
 		    	   
 		    	   /**
@@ -358,7 +365,6 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 				    					BoxDecoder.decoderFrame(decoderHandler, seekZero, mGLRgbBuffer.array());
 				    					
 			    						dataLayer.pushFrameToTexture( mGLRgbBuffer);
-			    						
 			    						mGLRgbBuffer.position(0);	
 		    					}
 		    				}
@@ -366,10 +372,9 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 		    		});
 		       }
 		}
-	   
 	   private void removeGif()
 	   {
-		   if(vDrawPad!=null && decoderHandler!=0){
+		   if(vDrawPad!=null){
 			   vDrawPad.removeLayer(dataLayer);
 				dataLayer=null;
 				BoxDecoder.decoderRelease(decoderHandler);

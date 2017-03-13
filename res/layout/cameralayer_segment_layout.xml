@@ -119,9 +119,9 @@
 		          <Button
 		            android:id="@+id/id_camerape_demo_recordbtn"
 		            android:layout_width="0dip"
-		            android:layout_weight="1"
+		            android:layout_weight="2"
 		            android:layout_height="wrap_content"
-		            android:text="开始录制."/>
+		            android:text="开始/暂停."/>
 		           <Button
 		            android:id="@+id/id_camerape_demo_completebtn"
 		            android:layout_width="0dip"

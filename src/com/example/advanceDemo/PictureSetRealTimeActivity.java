@@ -14,6 +14,7 @@ import com.lansosdk.box.CanvasLayer;
 import com.lansosdk.box.CanvasRunnable;
 import com.lansosdk.box.DrawPad;
 import com.lansosdk.box.DrawPadUpdateMode;
+import com.lansosdk.box.MVLayer;
 import com.lansosdk.box.VideoLayer;
 import com.lansosdk.box.ViewLayer;
 import com.lansosdk.box.Layer;
@@ -170,14 +171,27 @@ public class PictureSetRealTimeActivity extends Activity{
 		   slideEffectArray=new ArrayList<SlideEffect>();
 		   
 				//这里同时增加多个,只是不显示出来.
-		   getFifthLayer(R.drawable.tt,0,5000);  		//1--5秒.
-		   getFifthLayer(R.drawable.tt3,5000,10000);  //5--10秒.
-		   getFifthLayer(R.drawable.pic3,10000,15000);	//10---15秒 
-		   getFifthLayer(R.drawable.pic4,15000,20000);  //15---20秒
-		   getFifthLayer(R.drawable.pic5,20000,25000);  //20---25秒
+		   getBitmapLayer(R.drawable.tt,0,5000);  		//1--5秒.
+		   getBitmapLayer(R.drawable.tt3,5000,10000);  //5--10秒.
+		   getBitmapLayer(R.drawable.pic3,10000,15000);	//10---15秒 
+		   getBitmapLayer(R.drawable.pic4,15000,20000);  //15---20秒
+		   getBitmapLayer(R.drawable.pic5,20000,25000);  //20---25秒
+		   
+		 //增加一个MV图层  
+		   addMVLayer();
     }
     
-    private void getFifthLayer(int resId,long startMS,long endMS)
+    private void addMVLayer()
+  	{
+  		String  colorMVPath=com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask.copyFile(PictureSetRealTimeActivity.this,"mei.ts");
+  	    String maskMVPath=com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask.copyFile(PictureSetRealTimeActivity.this,"mei_b.ts");
+  		MVLayer  layer=mDrawPadView.addMVLayer(colorMVPath, maskMVPath);  //<-----增加MVLayer
+  		/**
+  		 * mv在播放完后, 有3种模式,消失/停留在最后一帧/循环.
+  		 * layer.setEndMode(MVLayerENDMode.INVISIBLE); 
+  		 */
+  	}
+    private void getBitmapLayer(int resId,long startMS,long endMS)
     {
     	Layer item=mDrawPadView.addBitmapLayer(BitmapFactory.decodeResource(getResources(), resId));
     	

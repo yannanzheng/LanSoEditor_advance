@@ -29,7 +29,6 @@ import com.lansosdk.box.LanSoEditorBox;
 import com.lansosdk.box.Layer;
 import com.lansosdk.box.DrawPad;
 import com.lansosdk.box.MVLayer;
-import com.lansosdk.box.SegmentsRecorder;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
 import com.lansosdk.videoeditor.MediaInfo;
@@ -160,7 +159,20 @@ public class CameraLayerDemoActivity extends Activity implements Handler.Callbac
     	mDrawPadView.startDrawPad();
 //		mDrawPadView.pauseDrawPadRecord();
 		mCameraLayer=	mDrawPadView.addCameraLayer(false, null);
+		addMVLayer();
     }
+    
+    private void addMVLayer()
+	{
+		String  colorMVPath=com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask.copyFile(CameraLayerDemoActivity.this,"mei.ts");
+	    String maskMVPath=com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask.copyFile(CameraLayerDemoActivity.this,"mei_b.ts");
+		MVLayer  layer=mDrawPadView.addMVLayer(colorMVPath, maskMVPath);  //<-----增加MVLayer
+		
+		/**
+		 * mv在播放完后, 有3种模式,消失/停留在最后一帧/循环.
+		 * layer.setEndMode(MVLayerENDMode.INVISIBLE); 
+		 */
+	}
     private onDrawPadProgressListener drawPadProgressListener=new onDrawPadProgressListener() {
 		
 		@Override
@@ -206,8 +218,6 @@ public class CameraLayerDemoActivity extends Activity implements Handler.Callbac
                 public void onGpuImageFilterChosenListener(final GPUImageFilter filter) {
                 	
                 	//在这里通过DrawPad线程去切换 filterLayer的滤镜
-                	
-                	
     	         	   if(mDrawPadView.switchFilterTo(mCameraLayer,filter)){
     	         		   mFilterAdjuster = new FilterAdjuster(filter);
     	         		   //如果这个滤镜 可调, 显示可调节进度条.

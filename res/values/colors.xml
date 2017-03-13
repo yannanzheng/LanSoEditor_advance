@@ -1,6 +1,7 @@
 <resources>
 
     <color name="black_overlay">#66000000</color>
+    
     <color name="esp_actionbar_color">#ff36bfdc</color>
     <color name="esp_actionbar_split_color">#ff46818e</color>
     

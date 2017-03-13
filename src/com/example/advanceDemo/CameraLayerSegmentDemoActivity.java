@@ -53,7 +53,6 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.SeekBar.OnSeekBarChangeListener;
 
 public class CameraLayerSegmentDemoActivity extends Activity implements OnClickListener{
    
@@ -62,7 +61,12 @@ public class CameraLayerSegmentDemoActivity extends Activity implements OnClickL
 
     private DrawPadView mDrawPadView;
     
+    /**
+     * 用来存放当前分段录制的多段视频文件, 
+     * 如果您要回删,或增加一个别的用DrawPad生成的视频文件, 则可以在这个数组里增删,插入或排序.
+     */
     private ArrayList<String>  segmentArray=new ArrayList<String>();
+    
     private CameraLayer  mCameraLayer=null;
 	VideoFocusView focusView;
 	private PowerManager.WakeLock mWakeLock;
@@ -102,7 +106,6 @@ public class CameraLayerSegmentDemoActivity extends Activity implements OnClickL
 			mWakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, TAG);
 			mWakeLock.acquire();
 		}
-    	
     }
     
     /**
@@ -134,7 +137,13 @@ public class CameraLayerSegmentDemoActivity extends Activity implements OnClickL
      */
     private void startDrawPad()
     {
+    	mDrawPadView.setRecordMic(true);
+    	mDrawPadView.setRealEncodeEnable(480, 480, 1000*1000, 25, dstPath);
+    	/**
+    	 * 这里设置先不开始录制.
+    	 */
     	mDrawPadView.pauseDrawPadRecord();
+    	
 		mDrawPadView.startDrawPad();
 		//增加一个CameraLayer
 		mCameraLayer=	mDrawPadView.addCameraLayer(false,null);
@@ -150,13 +159,16 @@ public class CameraLayerSegmentDemoActivity extends Activity implements OnClickL
     {
     	if(mDrawPadView!=null && mDrawPadView.isRunning())
     	{
+    		   /**
+    		    * 注意, 在调用这里之前,一定要先调用segmentStop,不然最后一段录制的可能不会被增加到数组中.
+    		    */
 				mDrawPadView.stopDrawPad();
 				mCameraLayer=null;
-				
 				/**
 				 * 停止后, 得到多段视频, 这里拼接,
 				 */
-				if(segmentArray.size()>0){
+				if(segmentArray.size()>0)
+				{
 					VideoEditor editor=new VideoEditor();
 					String[] segments=new String[segmentArray.size()];  
 				     for(int i=0;i<segmentArray.size();i++){  
@@ -277,11 +289,11 @@ public class CameraLayerSegmentDemoActivity extends Activity implements OnClickL
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 			case R.id.id_cameralayer_frontcamera:
-				//mCameraLayer.changeCamera();
-				doAutoFocus(); //摄像头打开后
+				mCameraLayer.changeCamera();
+				//doAutoFocus(); //摄像头打开后
 				break;
 			case R.id.id_cameralayer_flashlight:
-				//mCameraLayer.changeFlash();
+				mCameraLayer.changeFlash();
 				break;
 			case R.id.id_camerape_demo_selectbtn:
 				selectFilter();
@@ -290,20 +302,20 @@ public class CameraLayerSegmentDemoActivity extends Activity implements OnClickL
 				stopDrawPad();
 				break;
 			case R.id.id_camerape_demo_recordbtn:
-				if(mDrawPadView!=null){
-					if(mDrawPadView.isRecording()){
-						mDrawPadView.segmentStop();
-						((Button )findViewById(R.id.id_camerape_demo_recordbtn)).setText("开始录制");
+				if(mDrawPadView!=null)
+				{
+					if(mDrawPadView.isRecording())
+					{
+						String segmentPath=mDrawPadView.segmentStop();
+						/**
+						 * 把一段录制好的,增加到数组里.
+						 */
+						segmentArray.add(segmentPath); 
+						((Button )findViewById(R.id.id_camerape_demo_recordbtn)).setText("开始");
 					}else{
+						mDrawPadView.segmentStart();
 						
-						String videoPath=SDKFileUtils.createMp4FileInBox();
-						Log.i(TAG,"videoPath :"+videoPath);
-						
-						segmentArray.add(videoPath);  //增加到数组里.
-						
-						mDrawPadView.segmentStart(videoPath);
-						
-						((Button )findViewById(R.id.id_camerape_demo_recordbtn)).setText("停止录制");
+						((Button )findViewById(R.id.id_camerape_demo_recordbtn)).setText("暂停");
 					}
 				}
 				break;

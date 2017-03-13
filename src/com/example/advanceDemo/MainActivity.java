@@ -148,10 +148,7 @@ public class MainActivity extends Activity implements OnClickListener{
 			}
 		});
         showHintDialog();
-        
-        
     }
-    //创建一个文件.
     private void showHintDialog()
    	{
     	Calendar c = Calendar.getInstance();
@@ -227,13 +224,14 @@ public class MainActivity extends Activity implements OnClickListener{
 			switch (v.getId()) {
 				case R.id.id_main_segmentrecorder:
 					startDemoActivity(SegmentRecorderActivity.class);
+//					startDemoActivity(CameraLayerSegmentDemoActivity.class);
+					
 //					startDemoActivity(ExtractVideoFrameDemoActivity.class);
 					break;
 				case R.id.id_main_cameralayer:
 //					startDemoActivity(CameraRecordDemoActivity.class);
 					startDemoActivity(CameraLayerDemoActivity.class);
 					break;
-
 				case R.id.id_main_camerafulllayer:
 					startDemoActivity(CameraLayerFullScreenActivity.class);
 					break;
