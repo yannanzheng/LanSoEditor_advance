@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">视频编辑高级版本DEMO</string>
+    <string name="app_name">蓝松编辑高级版本DEMO</string>
 
     <string name="message_granted">All permissions have been granted.</string>
     <string name="message_denied">Permission \"%1$s\" has been denied.</string>
@@ -23,7 +23,9 @@
     <string name="pictureset_execute_demo_hint">此功能演示:后台图片合成\n\n 流程:同时向DrawPad获取多个BitmapLayer,然后根据DrawPad的时间进度,依次操作多个BitmapLayer,从而实现图片动画效果,这里仅演示平移效果, 实际使用可以平移,缩放,旋转,闪烁混合使用.也可以增加ViewLayer,来呈现花样的动画.</string>
     
 	<string name="filterLayer_execute_hint">此功能演示:后台视频滤镜(DrawPad架构)\n\n. 流程:打开视频,做复古滤镜处理后播放,向里面增加两个图片,其中给一个图片移动位置,并在3秒处放大一倍,在6秒处消失,处理完后,实时的形成视频,可以用来预览和传输等</string>
-    
+    	<string name="insert_audio_demo_hint">给在原有视频中插入一段音频.\n\n原理是: 把视频中的音频部分和另外的音频素材混淆,形成新的音频文件.</string>
+    	
+	
     
     <string name="filterexecute_demo_hint">此功能演示:后台视频滤镜\n\n.适用在当不需要UI界面做滤镜预览的场合.比如不经过滤镜预览或没有预览完毕,就可以做视频滤镜处理,这样的场合使用.</string>
 	<string name="picture_set_realtime_hint">用多个 BitmapLayer图层 绘制到 DrawPad画板中, 并调试他们的各种动画,来实现影集的效果</string>
@@ -41,6 +43,7 @@
 	<string name="video_remark">滑动画面,进行标记\n\n VideoLayer + BitmapLayer 绘制到画板上 </string>
 	<string name="filter">滤镜</string>
 	
+		<string name="sdk_checkerror">检查SDK错误,当前可能不是我们的演示Demo,或SDK已过期.请联系我们!</string>
 	
 	<string name="gaobai_hint">\n增加一个 ViewLayer(UI图层)到画板上.</string>
 		<string name="mvlayer_hint">\n增加一个 VideoLayer和 MVLayer图层 到  DrawPad 画板上.</string>

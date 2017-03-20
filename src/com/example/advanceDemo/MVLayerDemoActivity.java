@@ -88,6 +88,8 @@ public class MVLayerDemoActivity extends Activity {
         colorMVPath=com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask.copyFile(MVLayerDemoActivity.this,"mei.ts");
         maskMVPath=com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask.copyFile(MVLayerDemoActivity.this,"mei_b.ts");
     	
+        
+        
         new Handler().postDelayed(new Runnable() {
 			
 			@Override
@@ -104,7 +106,7 @@ public class MVLayerDemoActivity extends Activity {
      */
     private void startPlayVideo()
     {
-          if (mVideoPath != null){
+          if (mVideoPath != null){	
         	  mplayer=new MediaPlayer();
         	  try {
 				mplayer.setDataSource(mVideoPath);
@@ -151,15 +153,23 @@ public class MVLayerDemoActivity extends Activity {
 
         		//设置使能 实时录制, 即把正在DrawPad中呈现的画面实时的保存下来,实现所见即所得的模式
         		mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
-	            
+        		mDrawPadView.setOnDrawPadProgressListener(new onDrawPadProgressListener() {
+					
+					@Override
+					public void onProgress(DrawPad v, long currentTimeUs) {
+						// TODO Auto-generated method stub
+						Log.i(TAG,"MV当前时间戳是"+currentTimeUs);
+					}
+				});
+        		
         		//设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
-        		mDrawPadView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
+        		mDrawPadView.setDrawPadSize(720,720,new onDrawPadSizeChangedListener() {
 	    			
 	    			@Override
 	    			public void onSizeChanged(int viewWidth, int viewHeight) {
 	    				// TODO Auto-generated method stub
 	    				// 开始DrawPad的渲染线程. 
-	    				startDrawPad();
+	    					startDrawPad();
 	    				}
 	        		});	
         	}
@@ -178,11 +188,13 @@ public class MVLayerDemoActivity extends Activity {
 			mplayer.setSurface(new Surface(mLayerMain.getVideoTexture()));
 		}
 		mplayer.start();
-		
+		/**
+		 * 增加一个MV图层.
+		 */
 		mMVLayer=mDrawPadView.addMVLayer(colorMVPath, maskMVPath);  //<-----增加MVLayer
-//		if(mMVLayer!=null){  //可以增加mv在播放结束后的动作, 有停止到最后一帧, 从头循环, 消失.
-//			mMVLayer.setEndMode(MVLayerENDMode.LOOP);
-//		}
+		if(mMVLayer!=null){  //可以增加mv在播放结束后的三种模式, 停留在最后一帧/循环/消失/
+			mMVLayer.setEndMode(MVLayerENDMode.LOOP);
+		}
     }
     /**
      * Step3: 停止画板
@@ -257,7 +269,6 @@ public class MVLayerDemoActivity extends Activity {
 		   		 }
 			}
 		});
-       
        findViewById(R.id.id_mvlayer_saveplay).setVisibility(View.GONE);
    }
    private void toastStop()

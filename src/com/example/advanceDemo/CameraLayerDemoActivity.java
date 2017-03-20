@@ -159,7 +159,6 @@ public class CameraLayerDemoActivity extends Activity implements Handler.Callbac
     	mDrawPadView.startDrawPad();
 //		mDrawPadView.pauseDrawPadRecord();
 		mCameraLayer=	mDrawPadView.addCameraLayer(false, null);
-		addMVLayer();
     }
     
     private void addMVLayer()

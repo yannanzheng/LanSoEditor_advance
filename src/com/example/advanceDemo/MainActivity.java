@@ -14,6 +14,7 @@ import com.anthonycr.grant.PermissionsResultAction;
 import com.example.commonDemo.CommonDemoActivity;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.LanSoEditorBox;
+import com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask;
 import com.lansosdk.videoeditor.CopyFileFromAssets;
 import com.lansosdk.videoeditor.LanSoEditor;
 import com.lansosdk.videoeditor.LoadLanSongSdk;
@@ -109,7 +110,6 @@ public class MainActivity extends Activity implements OnClickListener{
         findViewById(R.id.id_main_cameralayer).setOnClickListener(this);
         findViewById(R.id.id_main_camerafulllayer).setOnClickListener(this);
         
-        
         findViewById(R.id.id_main_viewlayerdemo1).setOnClickListener(this);
         findViewById(R.id.id_main_viewremark).setOnClickListener(this);
         findViewById(R.id.id_main_viewlayerdemo2).setOnClickListener(this);
@@ -144,7 +144,7 @@ public class MainActivity extends Activity implements OnClickListener{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				new com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask(MainActivity.this, tvVideoPath, "ping20s_10.mp4").execute();
+				new CopyDefaultVideoAsyncTask(MainActivity.this, tvVideoPath, "ping20s_10.mp4").execute();
 			}
 		});
         showHintDialog();
@@ -208,8 +208,10 @@ public class MainActivity extends Activity implements OnClickListener{
     		}else{
     			MediaInfo info=new MediaInfo(path,false);
     			boolean ret=info.prepare();
-    	        Log.i(TAG,"info:"+info.toString());
-    	        
+    	        //Log.i(TAG,"info:"+info.toString());
+    	        if(ret==false){
+    	        	showHintDialog(R.string.sdk_checkerror);
+    	        }
     			return ret;
     		}
     	}

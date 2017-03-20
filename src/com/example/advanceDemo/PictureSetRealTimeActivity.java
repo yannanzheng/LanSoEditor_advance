@@ -177,8 +177,6 @@ public class PictureSetRealTimeActivity extends Activity{
 		   getBitmapLayer(R.drawable.pic4,15000,20000);  //15---20秒
 		   getBitmapLayer(R.drawable.pic5,20000,25000);  //20---25秒
 		   
-		 //增加一个MV图层  
-		   addMVLayer();
     }
     
     private void addMVLayer()

@@ -40,24 +40,25 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
+        android:largeHeap="true"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         
         <activity android:name="com.example.advanceDemo.StartActivity"
             android:theme="@style/AppTheme2">
             
-                 <intent-filter>
+          <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-         
          </activity>
          
         <activity
             android:name="com.example.advanceDemo.MainActivity">
             <!-- 因为要加载.so库, 这里一定要用MainActivity来启动 -->
             
+                
         </activity>
         
         
@@ -132,6 +133,11 @@
           
           <activity android:name="com.example.advanceDemo.TestCameraLayerDemoActivity"></activity>
           
+             <activity android:name="com.example.advanceDemo.InsertAudioDemoActivity"></activity>
+          
+               <activity android:name="com.example.advanceDemo.CopyOfCanvasLayerDemoActivity"></activity>
+             
+             
           <activity android:name="com.example.advanceDemo.CameraRecordDemoActivity"></activity>
           
          <activity android:name="com.example.advanceDemo.CameraLayerSegmentDemoActivity"
@@ -144,7 +150,6 @@
           
           <activity android:name="com.example.advanceDemo.SegmentRecorderActivity"
                   android:theme="@style/AppTheme2">
-              
           </activity>
           
         <!--    common version -->

@@ -239,11 +239,8 @@ public class VideoEditor {
 	   * @param srcPach2 pcm格式的次音频
 	   * @param samplerate2  次音频采样率
 	   * @param channel2  次音频通道数
-	   * 
-	   * 
 	   * @param value1    主音频的音量
 	   * @param value2 次音频的音量
-	   * 
 	   * @param dstPath  输出文件.输出也是pcm格式的音频文件.
 	   * @return
 	   */
@@ -595,7 +592,35 @@ public class VideoEditor {
 		}
 		return false;
 	}
-
+	/**
+	 * 用新的音频文件, 替换掉原来视频文件中的音频轨道.
+	 * 
+	 * @param oldMp4
+	 * @param audioPath
+	 * @param dstMp4
+	 * @return
+	 */
+	public static boolean videoReplaceNewAudio(String oldMp4,String audioPath,String dstMp4)
+	{
+		//
+		MediaInfo  info=new MediaInfo(oldMp4,false);
+		if(info.prepare() && audioPath!=null)
+		{
+					VideoEditor veditor=new VideoEditor();
+					String videoPath=SDKFileUtils.createMp4FileInBox();
+					//先删除原来的音频.
+					veditor.executeDeleteAudio(oldMp4, videoPath);  //获得音频
+					//再增加上新的音频文件.
+					veditor.executeVideoMergeAudio(videoPath, audioPath, dstMp4);  //合并到新视频文件中.
+					
+					SDKFileUtils.deleteFile(videoPath);
+					return true;
+		}else{
+			Log.w(TAG,"old mp4 file prepare error!!,do not add audio");
+		}
+		return false;
+	}
+	
 	 private static boolean fileExist(String absolutePath)
 	 {
 		 if(absolutePath==null)
@@ -1516,9 +1541,6 @@ public class VideoEditor {
 		  
 		  /**
 		   *此视频缩放算法，采用是软缩放来实现，速度特慢, 不建议使用.　
-		   *我们有更快速的视频缩放方法，链接地址是: 
-		   *https://github.com/LanSoSdk/LanSoEditor_advance/blob/master/src/com/example/lansongeditordemo/ScaleExecuteActivity.java
-		   *
 		   * 视频画面缩放, 务必保持视频的缩放后的宽高比,等于原来视频的宽高比.
 		   * 
 		   * @param videoFile

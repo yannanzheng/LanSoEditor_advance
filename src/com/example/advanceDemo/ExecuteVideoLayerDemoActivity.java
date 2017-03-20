@@ -194,7 +194,7 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 		//增加一个CanvasLayer
 //		addCanvasLayer();
 //		addDataLayer();
-		 addMVLayer();
+//		 addMVLayer();
 	}
    @Override
     protected void onDestroy() {
@@ -209,7 +209,6 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-    		
     		vDrawPad=null;
     	}
     	   if(SDKFileUtils.fileExist(dstPath)){
@@ -219,7 +218,6 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
         	   SDKFileUtils.deleteFile(editTmpPath);
            } 
     }
-	 
 	   private void initUI()
 	   {
 			   tvHint=(TextView)findViewById(R.id.id_video_editor_hint);

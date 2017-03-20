@@ -6,7 +6,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.os.Build;
-import android.support.v4.content.PermissionChecker;
 import android.util.Log;
 
 

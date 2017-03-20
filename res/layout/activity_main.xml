@@ -140,13 +140,13 @@
 		</RelativeLayout>
       
         <RelativeLayout  android:id="@+id/id_main_twovideooverlay" style="@style/main_item_reletivelayout">
-           	    <TextView   android:text="两个视频图层演示(叠加)" 				style="@style/main_item_textview"/>
+           	    <TextView   android:text="(移动/旋转/缩放/隐藏/亮暗)属性演示" 				style="@style/main_item_textview"/>
 			<TextView  style="@style/main_item_arrow"/> 
 		</RelativeLayout>
 	
        <RelativeLayout  android:id="@+id/id_main_videobitmapoverlay" style="@style/main_item_reletivelayout">
           
-           	    <TextView   android:text="视频和图片图层演示" 				style="@style/main_item_textview"/>
+           	    <TextView   android:text="(移动/旋转/缩放/隐藏/亮暗)属性演示2" 				style="@style/main_item_textview"/>
 			<TextView  style="@style/main_item_arrow"/> 
 	  </RelativeLayout>
 	
