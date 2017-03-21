@@ -6,7 +6,7 @@ android  video editor  advance sdk . filter, overlay,remark,mixer and so on安�
 
 #####当前版本是2.2.0
 *  在上一版本基础上优化画板后台的处理速度. 大概比之前提升200%.
-*  增加了SDK的限制条件: SDK如果没有授权, 则APP名字一定要是我们demo的名字, 请注意.这在您开发阶段没有影响,仅仅是名字不同而已.
+*  增加了SDK的限制条件: SDK如果没有授权, 则APP名字一定要是我们demo的名字, 请注意.
 
 ###视频编辑的高级版本
 *  基本覆盖了秒拍,美拍,快手等视频编辑的大部分功能.
