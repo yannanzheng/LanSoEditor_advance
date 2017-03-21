@@ -1,14 +1,14 @@
 # LanSoEditor_advance
 android  video editor  advance sdk . filter, overlay,remark,mixer and so on安卓平台视频编辑高级版本，可以滤镜，叠加，标记等操作
-####工程为Eclipse,修改为Android Studio的步骤
+## 工程为Eclipse,修改为Android Studio的步骤
 *  选择AS中的file--->import project ,选择项目的路径名，（注意，一定要是当前项目的根文件夹），点击Ok，会弹出对话框，让您选择需要保存的路径， 选择后点击Next,会弹出3个按钮都选中的对话框，直接点击Finish，导入完成。
 *  可联系我们,为您转换成Android Studio版本工程, 并提供技术支持(联系方式见下面). 
 
-#####当前版本是2.2.0
+## 当前版本是2.2.0
 *  在上一版本基础上优化画板后台的处理速度. 大概比之前提升200%.
 *  增加了SDK的限制条件: SDK如果没有授权, 则APP名字一定要是我们demo的名字, 请注意.
 
-###视频编辑的高级版本
+## 视频编辑的高级版本
 *  基本覆盖了秒拍,美拍,快手等视频编辑的大部分功能.
 *  采用全新的[画板]+ [图层] 的编程思想.
 *  新增短点录像功能,支持回删操作.
@@ -20,7 +20,7 @@ android  video editor  advance sdk . filter, overlay,remark,mixer and so on安�
 *  我们完全以API的形式呈现,稳定可靠,简单易用,您可以根据项目的个性化而任意的发挥.
 
 
-###核心架构
+## 核心架构
 *   一个工程是由多个线程组成, 又由各种类对象组成. 
 *   我们把对视频处理的OpenGLGL技术处理后封装成 线程，命名为DrawPad(画板)
 *   对视频处理用到的各种素材，封装成类，命名为Layer(图层)
@@ -46,7 +46,7 @@ android  video editor  advance sdk . filter, overlay,remark,mixer and so on安�
 											
 *  此SDK采用为收费授权,公司性质的合作,为了您项目更好的进行,欢迎和我们联系.谢谢!
 
-###更仅一步说:
+## 更仅一步说:
 *	1，你用 【视频图层 VideoLayer】在 画板 DrawPad上作画， 就得到 调整后的视频
 
 * 2，你用  【图片图层 BitmapLayer】在画板上作画， 就得到 动态的照片影集。
@@ -61,20 +61,20 @@ android  video editor  advance sdk . filter, overlay,remark,mixer and so on安�
 
 
 
-###下载地址: 
+## 下载地址: 
 *  https://github.com/LanSoSdk/LanSoEditor_advance
 
-###我们有基本视频编辑,以方便您项目中基本需求：
+## 我们有基本视频编辑,以方便您项目中基本需求：
 *	https://github.com/LanSoSdk/LanSoEditor_common
 
-###我们的IOS版本， 欢迎您的使用：
+## 我们的IOS版本， 欢迎您的使用：
 *	https://github.com/LanSoSdk/LanSongEditor_IOS
 
-###直接下载获取APK:
+## 直接下载获取APK:
    下载整个项目后, 在bin文件下有apk, 直接安装后即可演示.
 
 
-###联系方式:
+## 联系方式:
 *   QQ 1852600324 
 *   Email:support@lansongtech.com
 *   网址: www.lansongtech.com
