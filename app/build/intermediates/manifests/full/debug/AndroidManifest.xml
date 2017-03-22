@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.lansoeditor.demo"
+    android:versionCode="2200"
+    android:versionName="2.2.0" > <!-- 这里的意思是：我们的sdk最低是Android4.3， 最高支持Andriod7.0 -->
+    <uses-sdk
+        android:minSdkVersion="18"
+        android:targetSdkVersion="23" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.autofocus" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+
+    <permission
+        android:name="android.permission.FLASHLIGHT"
+        android:permissionGroup="android.permission-group.HARDWARE_CONTROLS"
+        android:protectionLevel="normal" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature
+        android:name="android.hardware.camera.front"
+        android:required="false" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.example.advanceDemo.StartActivity"
+            android:theme="@style/AppTheme2" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.example.advanceDemo.MainActivity" >
+
+            <!-- 因为要加载.so库, 这里一定要用MainActivity来启动 -->
+
+        </activity>
+        <activity android:name="com.example.advanceDemo.VideoLayerTwoRealTimeActivity" />
+        <activity android:name="com.example.advanceDemo.FilterDemoRealTimeActivity" />
+        <activity android:name="com.example.advanceDemo.BitmapLayerDemoActivity" />
+        <activity android:name="com.example.advanceDemo.FilterRealTimeActivity" />
+        <activity android:name="com.example.advanceDemo.DrawPadHintActivity" />
+        <activity android:name="com.example.advanceDemo.VideoLayerRealTimeActivity" />
+        <activity android:name="com.example.advanceDemo.PictureSetRealTimeActivity" />
+        <activity android:name="com.example.advanceDemo.VideoPlayerActivity" />
+        <activity android:name="com.example.advanceDemo.ExecuteVideoLayerDemoActivity" />
+        <activity android:name="com.example.advanceDemo.ExecuteFilterDemoActivity" />
+        <activity android:name="com.example.advanceDemo.ExtractVideoFrameDemoActivity" />
+        <activity android:name="com.example.advanceDemo.CanvasLayerDemoActivity" />
+        <activity
+            android:name="com.example.advanceDemo.CameraMaskLayerDemoActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.example.advanceDemo.CameraLayerFullScreenActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="com.example.advanceDemo.CameraLayerDemoActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.example.advanceDemo.TestRecordCamMaskLayerActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity android:name="com.example.advanceDemo.FilterExecuteActivity" />
+        <activity
+            android:name="com.example.advanceDemo.FileExplorerActivity"
+            android:label="@string/select_video" />
+        <activity android:name="com.example.advanceDemo.BitmapLayerDemoExecuteActivity" />
+        <activity android:name="com.example.advanceDemo.ViewLayerDemoActivity" />
+        <activity android:name="com.example.advanceDemo.ViewLayerOnlyRealTimeActivity" />
+        <activity android:name="com.example.advanceDemo.MVLayerDemoActivity" />
+        <activity android:name="com.example.advanceDemo.TestMVLayerExecuteActivity" />
+        <activity android:name="com.example.advanceDemo.VideoLayerAutoUpdateDemoActivity" />
+        <activity android:name="com.example.advanceDemo.TestCameraLayerDemoActivity" />
+        <activity android:name="com.example.advanceDemo.InsertAudioDemoActivity" />
+        <activity android:name="com.example.advanceDemo.CopyOfCanvasLayerDemoActivity" />
+        <activity android:name="com.example.advanceDemo.CameraRecordDemoActivity" />
+        <activity
+            android:name="com.example.advanceDemo.CameraLayerSegmentDemoActivity"
+            android:theme="@style/AppTheme2" >
+        </activity>
+        <activity android:name="com.example.advanceDemo.ExecuteRandomDemoActivity" />
+        <activity
+            android:name="com.example.advanceDemo.SegmentRecorderActivity"
+            android:theme="@style/AppTheme2" >
+        </activity>
+
+        <!-- common version -->
+        <activity android:name="com.example.commonDemo.CommonDemoActivity" />
+        <activity android:name="com.example.commonDemo.MediaInfoActivity" />
+        <activity android:name="com.example.commonDemo.AVEditorDemoActivity" />
+        <activity android:name="com.example.commonDemo.ScaleExecuteDemoActivity" />
+    </application>
+
+</manifest>

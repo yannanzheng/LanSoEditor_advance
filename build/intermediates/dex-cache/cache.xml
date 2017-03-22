@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\libs\lansongeditor_hx.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="ec212686d72211d6d32fcea74582cafc364b950d">
+        <dex dex="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\build\intermediates\transforms\dex\debug\folders\1000\2\lansongeditor_hx_9cbca620be323895d4caa998343bc5f8ee2795ca\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Administrator\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.4.0\support-annotations-23.4.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
+        <dex dex="C:\Users\Administrator\Desktop\LanSoEditorAS\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.4.0_c9fae43cda2e1c04b2ab0de43a8f148b5b1a92fa\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Administrator\Desktop\LanSoEditorAS\app\libs\textsurface.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="6a60927b917dd2b9476a3d058c369156fbe5a19c">
+        <dex dex="C:\Users\Administrator\Desktop\LanSoEditorAS\app\build\intermediates\transforms\dex\debug\folders\1000\2\textsurface_c14af17cb13bf23b661bf6c72fa1a5aadfc365f4\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Administrator\Desktop\LanSoEditorAS\app\libs\PermissionsManager.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="6a1cc3def4753b22dc2c0ee55fcf533d2f456474">
+        <dex dex="C:\Users\Administrator\Desktop\LanSoEditorAS\app\build\intermediates\transforms\dex\debug\folders\1000\2\PermissionsManager_018d4a326d849ae32d58423a95ecce4d7f6de887\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\libs\PermissionsManager.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="6a1cc3def4753b22dc2c0ee55fcf533d2f456474">
+        <dex dex="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\build\intermediates\transforms\dex\debug\folders\1000\2\PermissionsManager_1d63e50ac8993ff640ccd438dd4467d51f5cd7ca\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Administrator\Desktop\LanSoEditorAS\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
+        <dex dex="C:\Users\Administrator\Desktop\LanSoEditorAS\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.4.0_bc63a42d0807e8acc84569fc234f19ea734c15e5\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Administrator\Desktop\LanSoEditorAS\app\libs\lansongeditor_hx.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="ec212686d72211d6d32fcea74582cafc364b950d">
+        <dex dex="C:\Users\Administrator\Desktop\LanSoEditorAS\app\build\intermediates\transforms\dex\debug\folders\1000\2\lansongeditor_hx_0b00cc06a4ed44886f9a1327663ef413a12cf4f8\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="17699d58009306945f7cdfa0e41ba7c2922c6fc0">
+        <dex dex="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_8c87b6afe24074fff2e02bd5ddb7e69f3ab8cc76\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Administrator\Desktop\LanSoEditorAS\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="19fcf27b28078b01fe6f2edfd5a5bfef7ada818c">
+        <dex dex="C:\Users\Administrator\Desktop\LanSoEditorAS\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_afa7163f5afeee5f4494aabaca67bcd46d2644cd\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.4.0\jars\libs\internal_impl-23.4.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
+        <dex dex="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.4.0_97f34bbb5ef094f054e4f1fa0f29d7f71848efe5\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Administrator\Desktop\LanSoEditorAS\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.4.0\jars\libs\internal_impl-23.4.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
+        <dex dex="C:\Users\Administrator\Desktop\LanSoEditorAS\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.4.0_d4ddd84e4a8be4fbe4cc0376fce2ff2fc89de583\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="72545f8484ba3e82e1d2f16a1bc8cbfbccd6254f">
+        <dex dex="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_5e66d61a65eb7cd94e3540e7b822657abe0e2b8f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
+        <dex dex="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.4.0_110280c95106121a05f7c035019663ce18fa1f6f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\libs\textsurface.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="6a60927b917dd2b9476a3d058c369156fbe5a19c">
+        <dex dex="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\build\intermediates\transforms\dex\debug\folders\1000\2\textsurface_d191a335cfd5138a03650f434238cb2fad70d5ac\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Administrator\Desktop\LanSoEditorAS\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="8d20e59fec1f33da0973aceab4130dd245237a08">
+        <dex dex="C:\Users\Administrator\Desktop\LanSoEditorAS\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_f2f1fef881533ab8e6fc637aa598584c9280feea\classes.dex" />
+    </item>
+
+</items>

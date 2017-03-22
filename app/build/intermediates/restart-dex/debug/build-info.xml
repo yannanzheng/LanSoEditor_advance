@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<instant-run
+    abi="arm64-v8a,armeabi-v7a,armeabi"
+    api-level="23"
+    density="xxxhdpi"
+    format="8"
+    plugin-version="2.2.3"
+    timestamp="28906480918592"
+    token="664059229162487292"
+    verifier="FULL_BUILD_REQUESTED" >
+
+    <task
+        name="javac"
+        duration="745" />
+    <task
+        name="instant-run-dex"
+        duration="0" />
+    <task
+        name="instant-run-transform"
+        duration="579" />
+    <task
+        name="verifier"
+        duration="128" />
+
+    <artifact
+        location="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\build\outputs\apk\app-debug.apk"
+        type="MAIN" />
+
+    <build
+        timestamp="28906480918592"
+        verifier="FULL_BUILD_REQUESTED" >
+        <artifact
+            location="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\build\outputs\apk\app-debug.apk"
+            type="MAIN" />
+    </build>
+
+</instant-run>
