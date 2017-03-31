@@ -1,19 +1,19 @@
 [
     {
-        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\kelvin_map.png",
-        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\drawable-hdpi\\kelvin_map.png"
-    },
-    {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\xpro_map.png",
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\drawable-hdpi\\xpro_map.png"
     },
     {
-        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_menu_block.png",
-        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\drawable-hdpi\\ic_menu_block.png"
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\kelvin_map.png",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\drawable-hdpi\\kelvin_map.png"
     },
     {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\amaro_map.png",
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\drawable-hdpi\\amaro_map.png"
+    },
+    {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_menu_block.png",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\drawable-hdpi\\ic_menu_block.png"
     },
     {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\edge_burn.png",
@@ -204,12 +204,12 @@
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\drawable-hdpi\\xiaolian.png"
     },
     {
-        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\map_1977.png",
-        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\drawable-hdpi\\map_1977.png"
-    },
-    {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\hudson_background.png",
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\drawable-hdpi\\hudson_background.png"
+    },
+    {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\map_1977.png",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\drawable-hdpi\\map_1977.png"
     },
     {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\toaster_color_shift.png",

@@ -52,11 +52,11 @@
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\drawable-xxhdpi\\tt3.png"
     },
     {
-        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\a7.png",
-        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\drawable-xxhdpi\\a7.png"
-    },
-    {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\pic1.png",
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\drawable-xxhdpi\\pic1.png"
+    },
+    {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\a7.png",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\drawable-xxhdpi\\a7.png"
     }
 ]

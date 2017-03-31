@@ -116,12 +116,12 @@
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\vertex_shader_2d_two_input.glsl"
     },
     {
-        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_2d_blend_soft_light.glsl",
-        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\fragment_shader_2d_blend_soft_light.glsl"
-    },
-    {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_ext_three_screen.glsl",
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\fragment_shader_ext_three_screen.glsl"
+    },
+    {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_2d_blend_soft_light.glsl",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\fragment_shader_2d_blend_soft_light.glsl"
     },
     {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_mirror_screen.glsl",
