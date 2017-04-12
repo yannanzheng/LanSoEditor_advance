@@ -1,11 +1,27 @@
 [
     {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\toy_mask2.jpg",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\drawable-hdpi\\toy_mask2.jpg"
+    },
+    {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\rise_mask1.jpg",
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\drawable-hdpi\\rise_mask1.jpg"
     },
     {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\toy_mask1.jpg",
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\drawable-hdpi\\toy_mask1.jpg"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\bluevintage_mask1.jpg",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\drawable-hdpi\\bluevintage_mask1.jpg"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\rise_mask2.jpg",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\drawable-hdpi\\rise_mask2.jpg"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\amaro_mask1.jpg",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\drawable-hdpi\\amaro_mask1.jpg"
     },
     {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\warm_layer1.jpg",
@@ -20,6 +36,14 @@
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\drawable-hdpi\\toy_mask2.jpg"
     },
     {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\toy_mask1.jpg",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\drawable-hdpi\\toy_mask1.jpg"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\rise_mask1.jpg",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\drawable-hdpi\\rise_mask1.jpg"
+    },
+    {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\toy_mask3.jpg",
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\drawable-hdpi\\toy_mask3.jpg"
     },
@@ -32,7 +56,19 @@
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\drawable-hdpi\\bluevintage_mask1.jpg"
     },
     {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\warm_layer1.jpg",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\drawable-hdpi\\warm_layer1.jpg"
+    },
+    {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\amaro_mask1.jpg",
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\drawable-hdpi\\amaro_mask1.jpg"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\toy_mask3.jpg",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\drawable-hdpi\\toy_mask3.jpg"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\amaro_mask2.jpg",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\drawable-hdpi\\amaro_mask2.jpg"
     }
 ]

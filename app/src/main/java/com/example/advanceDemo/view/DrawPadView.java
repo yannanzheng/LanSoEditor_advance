@@ -12,6 +12,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -36,10 +37,12 @@ import java.util.Map;
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 
 import com.lansosdk.box.AudioLine;
+import com.lansosdk.box.AudioInsertManager;
 import com.lansosdk.box.BitmapLayer;
 import com.lansosdk.box.CameraLayer;
 import com.lansosdk.box.CameraLayer;
 import com.lansosdk.box.CanvasLayer;
+import com.lansosdk.box.GifLayer;
 import com.lansosdk.box.DataLayer;
 import com.lansosdk.box.MVLayer;
 import com.lansosdk.box.Layer;
@@ -80,9 +83,9 @@ public class DrawPadView extends FrameLayout {
  	private int encWidth,encHeight,encBitRate,encFrameRate;
  	
  	/**
- 	 *  经过宽度对齐到手机的边缘后, 缩放后的宽高,作为opengl的宽高. 
+ 	 *  经过宽度对齐到手机的边缘后, 缩放后的宽高,作为drawpad(画板)的宽高. 
  	 */
- 	private int viewWidth,viewHeight;  
+ 	private int drawPadWidth,drawPadHeight;  
  	
  	  
     public DrawPadView(Context context) {
@@ -187,16 +190,26 @@ public class DrawPadView extends FrameLayout {
      * @return
      */
     public int getViewWidth(){
-    	return viewWidth;
+    	return drawPadWidth;
     }
     /**
      * 获得当前View的高度.
      * @return
      */
     public int getViewHeight(){
-    	return viewHeight;
+    	return drawPadHeight;
     }
     
+    public int getDrawPadWidth(){
+    	return drawPadWidth;
+    }
+    /**
+     * 获得当前View的高度.
+     * @return
+     */
+    public int getDrawPadHeight(){
+    	return drawPadHeight;
+    }
   
     public interface onViewAvailable {	    
         void viewAvailable(DrawPadView v);
@@ -227,8 +240,8 @@ public class DrawPadView extends FrameLayout {
     	        public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
 
     	            mSurfaceTexture = surface;
-    	            viewHeight=height;
-    	            viewWidth=width;
+    	            drawPadHeight=height;
+    	            drawPadWidth=width;
     	            if(mViewAvailable!=null){
     	            	mViewAvailable.viewAvailable(null);
     	            }	
@@ -244,8 +257,8 @@ public class DrawPadView extends FrameLayout {
     	        @Override
     	        public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
     	            mSurfaceTexture = surface;
-    	            viewHeight=height;
-    	            viewWidth=width;
+    	            drawPadHeight=height;
+    	            drawPadWidth=width;
     	            
     	            
 	        			if(mSizeChangedCB!=null)
@@ -261,8 +274,8 @@ public class DrawPadView extends FrameLayout {
     	        @Override
     	        public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
     	            mSurfaceTexture = null;
-    	            viewHeight=0;
-    	            viewWidth=0;
+    	            drawPadHeight=0;
+    	            drawPadWidth=0;
     	            
     	            stopDrawPad();  //可以在这里增加以下. 这样当Texture销毁的时候, 停止DrawPad
     	            
@@ -332,11 +345,11 @@ public class DrawPadView extends FrameLayout {
 		if (width != 0 && height != 0 && cb!=null) {
 			float setAcpect=(float)width/(float)height;
 			
-			float setViewacpect=(float)viewWidth/(float)viewHeight;
+			float setViewacpect=(float)drawPadWidth/(float)drawPadHeight;
 			
 			
-			Log.i(TAG,"setAcpect="+setAcpect+" setViewacpect:"+setViewacpect);
-			
+			Log.i(TAG,"setAcpect="+setAcpect+" setViewacpect:"+setViewacpect+
+					"set width:"+width+"x"+height+" view width:"+drawPadWidth+"x"+drawPadHeight);
 		    if(setAcpect==setViewacpect){  //如果比例已经相等,不需要再调整,则直接显示.
 		    	if(cb!=null)
 		    		cb.onSizeChanged(width, height);
@@ -358,6 +371,9 @@ public class DrawPadView extends FrameLayout {
 	private onDrawPadProgressListener drawpadProgressListener=null;
 	
 	public void setOnDrawPadProgressListener(onDrawPadProgressListener listener){
+		if(renderer!=null){
+			renderer.setDrawPadProgressListener(listener);
+		}
 		drawpadProgressListener=listener;
 	}
 	/**
@@ -367,12 +383,19 @@ public class DrawPadView extends FrameLayout {
 	 */
 	private onDrawPadThreadProgressListener drawPadThreadProgressListener=null;
 	
-	public void setOnDrawPadThreadProgressListener(onDrawPadThreadProgressListener listener){
+	public void setOnDrawPadThreadProgressListener(onDrawPadThreadProgressListener listener)
+	{
+		if(renderer!=null){
+			renderer.setDrawPadThreadProgressListener(listener);
+		}
 		drawPadThreadProgressListener=listener;
 	}
 	
 	private onDrawPadCompletedListener drawpadCompletedListener=null;
 	public void setOnDrawPadCompletedListener(onDrawPadCompletedListener listener){
+		if(renderer!=null){
+			renderer.setDrawPadCompletedListener(listener);
+		}
 		drawpadCompletedListener=listener;
 	}
 
@@ -399,12 +422,13 @@ public class DrawPadView extends FrameLayout {
 	 * @param progresslistener
 	 * @param completedListener
 	 */
-	public void startDrawPad(onDrawPadProgressListener progressListener,onDrawPadCompletedListener completedListener)
+	@Deprecated
+	public boolean startDrawPad(onDrawPadProgressListener progressListener,onDrawPadCompletedListener completedListener)
 	{
 		drawpadProgressListener=progressListener;
 		drawpadCompletedListener=completedListener;
 		
-		startDrawPad(pauseRecord);
+		return startDrawPad(pauseRecord);
 	}
 	/**
 	 * 开始DrawPad的渲染线程, 阻塞执行, 直到DrawPad真正开始执行后才退出当前方法.
@@ -429,9 +453,9 @@ public class DrawPadView extends FrameLayout {
 	public boolean startDrawPad(boolean pauseRecord)
 	{
 		boolean ret=false;
-		 if( mSurfaceTexture!=null && viewWidth>0 &&viewHeight>0)
+		 if( mSurfaceTexture!=null && drawPadWidth>0 &&drawPadHeight>0)
          {
-			 	renderer=new DrawPadViewRender(getContext(), viewWidth, viewHeight);  //<----从这里去建立DrawPad线程.
+			 	renderer=new DrawPadViewRender(getContext(), drawPadWidth, drawPadHeight);  //<----从这里去建立DrawPad线程.
 	 			if(renderer!=null){
 	 				
 	 				renderer.setUseMainVideoPts(isUseMainPts);
@@ -456,6 +480,9 @@ public class DrawPadView extends FrameLayout {
 	 				if(pauseRecord){
 	 					renderer.pauseRecordDrawPad();	
 	 				}
+	 				
+	 				
+	 				
 	 				ret=renderer.startDrawPad();
 	 				
 	 				if(ret==false){  //用中文注释.
@@ -464,13 +491,13 @@ public class DrawPadView extends FrameLayout {
 	 				}
 	 			}
          }else{
-        	 Log.e(TAG,"开启 DrawPad 失败, 您设置的宽度和高度是:"+viewWidth+" x "+viewHeight);
+        	 Log.e(TAG,"开启 DrawPad 失败, 您设置的宽度和高度是:"+drawPadWidth+" x "+drawPadHeight);
          }
 		 return ret;
 	}
 	/**
 	 * 暂停DrawPad的画面更新.
-	 * 在一些场景里,您需要开启DrawPad后,暂停下, 然后obtain各种Layer后,安排好各种事宜后,再让其画面更新,
+	 * 在一些场景里,您需要开启DrawPad后,暂停下, 然后增加各种Layer后,安排好各种事宜后,再让其画面更新,
 	 * 则用到这个方法.
 	 */
 	public void pauseDrawPad()
@@ -521,7 +548,8 @@ public class DrawPadView extends FrameLayout {
 		}
 	}
 	/**
-	 * 是否在CameraLayer录制的同时, 录制mic的声音. 
+	 * 是否在CameraLayer录制的同时, 录制mic的声音.  在drawpad开始前调用. 
+	 * 
 	 * 此方法仅仅使用在录像的时候, 同时录制Mic的场合.录制的采样默认是44100, 码率64000, 编码为aac格式.
 	 * 录制的同时, 视频编码以音频的时间戳为参考.
 	 * 可通过 {@link #stopDrawPad2()}停止,停止后返回mic录制的音频文件 m4a格式的文件, 
@@ -529,8 +557,8 @@ public class DrawPadView extends FrameLayout {
 	 */
 	public void setRecordMic(boolean record)
 	{
-		if(renderer!=null){
-			renderer.setRecordMic(record);
+		if(renderer!=null && renderer.isRecording()){
+			Log.e(TAG,"DrawPad is running. set Mic Error!");
 		}else{
 			isRecordMic=record;
 		}
@@ -612,7 +640,7 @@ public class DrawPadView extends FrameLayout {
 	}
 	/**
     * 设置是否使用主视频的时间戳为录制视频的时间戳, 
-    * 如果您传递过来的是一个完整的视频, 只是需要在此视频上做一些操作, 操作完成后,时长等于源视频的时长, 则建议使用主视频的时间戳, 如果视频是从中间截取一般开始的
+    * 如果您传递过来的是一个完整的视频, 只是需要在此视频上做一些操作, 操作完成后,时长等于源视频的时长, 则使用主视频的时间戳, 如果视频是从中间截取一般开始的
     * 则不建议使用, 默认是这里为false;
     * 
     * 注意:需要在DrawPad开始前使用.
@@ -698,12 +726,24 @@ public class DrawPadView extends FrameLayout {
 				renderer.bringLayerToFront(layer);
 			}
 	}
+	/**
+	 * 设置当前图层对象layer 在DrawPad中所有图层队列中的位置, 您可以认为内部是一个ArrayList的列表, 先add进去的 的position是0, 后面增加的依次是1,2,3等等
+	 * 可以通过Layer的getIndexLayerInDrawPad属性来获取当前图层的位置.
+	 * 
+	 * @param layer
+	 * @param position
+	 */
 	public void changeLayerLayPosition(Layer layer,int position)
     {
 		if(renderer!=null){
 			renderer.changeLayerLayPosition(layer, position);
 		}
     }
+	/**
+	 * 交换两个图层的位置.
+	 * @param first
+	 * @param second
+	 */
     public void swapTwoLayerPosition(Layer first,Layer second)
     {
     	if(renderer!=null){
@@ -788,8 +828,7 @@ public class DrawPadView extends FrameLayout {
 	{
 		if(bmp!=null)
 		{
-			Log.i(TAG,"imgBitmapLayer:"+bmp.getWidth()+" height:"+bmp.getHeight());
-	    	
+			//Log.i(TAG,"imgBitmapLayer:"+bmp.getWidth()+" height:"+bmp.getHeight());
 			if(renderer!=null)
 				return renderer.addBitmapLayer(bmp);
 			else{
@@ -801,6 +840,7 @@ public class DrawPadView extends FrameLayout {
 			return null;
 		}
 	}
+	
 	/**
 	 * 获取一个DataLayer的图层, 
 	 * 数据图层, 是一个RGBA格式的数据, 内部是一个RGBA格式的图像.
@@ -823,6 +863,40 @@ public class DrawPadView extends FrameLayout {
 			Log.e(TAG,"addDataLayer error, data size is error");
 			return null;
 		}
+	}
+	
+	/**
+	 * 增加一个gif图层.
+	 * @param gifPath  gif的绝对地址,
+	 * @return
+	 */
+	public GifLayer  addGifLayer(String gifPath)
+	{
+			if(renderer!=null)
+				return renderer.addGifLayer(gifPath);
+			else{
+				Log.e(TAG,"addYUVLayer error! render is not avalid");
+				return null;
+			}
+	}
+	
+	/**
+	 * 增加一个gif图层, 
+	 * 
+	 * resId 来自apk中drawable文件夹下的各种资源文件, 我们会在GifLayer中拷贝这个资源到默认文件夹下面, 然后作为一个普通的gif文件来做处理,使用完后, 会在Giflayer
+	 * 图层释放的时候, 删除.
+	 * 
+	 * @param resId 来自apk中drawable文件夹下的各种资源文件.
+	 * @return
+	 */
+	public GifLayer  addGifLayer(int resId)
+	{
+			if(renderer!=null)
+				return renderer.addGifLayer(resId);
+			else{
+				Log.e(TAG,"addGifLayer error! render is not avalid");
+				return null;
+			}
 	}
 	/**
 	 * 增加一个mv图层, mv图层分为两个视频文件, 一个是彩色的视频, 一个黑白视频

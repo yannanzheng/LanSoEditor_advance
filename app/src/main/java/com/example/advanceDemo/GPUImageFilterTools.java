@@ -58,23 +58,23 @@ public class GPUImageFilterTools {
         filters.addFilter("(NONE)无", FilterType.NONE);  //PASS
         filters.addFilter("Beautiful美颜", FilterType.BEAUTIFUL);  //PASS
         
-        filters.addFilter("AMARO", FilterType.AMARO);   //PASS
-        filters.addFilter("RISE", FilterType.RISE);   //PASS
-        filters.addFilter("HUDSON", FilterType.HUDSON);   //PASS
-        filters.addFilter("XPROII", FilterType.XPROII);   //PASS
-        filters.addFilter("SIERRA", FilterType.SIERRA);   //PASS
-        filters.addFilter("LOMOFI", FilterType.LOMOFI);   //PASS
-        filters.addFilter("EARLYBIRD", FilterType.EARLYBIRD);   //PASS
-        filters.addFilter("SUTRO", FilterType.SUTRO);   //PASS
-        filters.addFilter("TOASTER", FilterType.TOASTER);   //PASS
-        filters.addFilter("BRANNAN", FilterType.BRANNAN);   //PASS
-        filters.addFilter("INKWELL", FilterType.INKWELL);   //PASS
-        filters.addFilter("WALDEN", FilterType.WALDEN);   //PASS
-        filters.addFilter("HEFE", FilterType.HEFE);   //PASS
-        filters.addFilter("VALENCIA", FilterType.VALENCIA); //PASS  
-        filters.addFilter("NASHVILLE", FilterType.NASHVILLE);   //PASS
-        filters.addFilter("if1977", FilterType.IF1977);     //PASS
-        filters.addFilter("LORDKELVIN", FilterType.LORDKELVIN);  //PASS	
+        filters.addFilter("1AMARO", FilterType.AMARO);   //PASS
+        filters.addFilter("2RISE", FilterType.RISE);   //PASS
+        filters.addFilter("3HUDSON", FilterType.HUDSON);   //PASS
+        filters.addFilter("4XPROII", FilterType.XPROII);   //PASS
+        filters.addFilter("5SIERRA", FilterType.SIERRA);   //PASS
+        filters.addFilter("6LOMOFI", FilterType.LOMOFI);   //PASS
+        filters.addFilter("7EARLYBIRD", FilterType.EARLYBIRD);   //PASS
+        filters.addFilter("8SUTRO", FilterType.SUTRO);   //PASS
+        filters.addFilter("9TOASTER", FilterType.TOASTER);   //PASS
+        filters.addFilter("10BRANNAN", FilterType.BRANNAN);   //PASS
+        filters.addFilter("11INKWELL", FilterType.INKWELL);   //PASS
+        filters.addFilter("12WALDEN", FilterType.WALDEN);   //PASS
+        filters.addFilter("13HEFE", FilterType.HEFE);   //PASS
+        filters.addFilter("14VALENCIA", FilterType.VALENCIA); //PASS  
+        filters.addFilter("15NASHVILLE", FilterType.NASHVILLE);   //PASS
+        filters.addFilter("16if1977", FilterType.IF1977);     //PASS
+        filters.addFilter("17LORDKELVIN", FilterType.LORDKELVIN);  //PASS	
         
         
         filters.addFilter("黑色mask", FilterType.LanSongBLACKMASK);  
@@ -171,7 +171,10 @@ public class GPUImageFilterTools {
         	case NONE:
         		return new GPUImageFilter();
         	case BEAUTIFUL:
-        		return  new LanSongBeautyFilter(context);
+        		/**
+        		 * 美颜的功能, 就是磨皮.
+        		 */
+        		return  new LanSongBeautyFilter();
             case CONTRAST:
                 return new GPUImageContrastFilter(2.0f);
             case GAMMA:
@@ -367,7 +370,9 @@ public class GPUImageFilterTools {
         SATURATION, EXPOSURE, HIGHLIGHT_SHADOW, MONOCHROME, OPACITY, RGB, WHITE_BALANCE, VIGNETTE,  BLEND_COLOR_BURN, BLEND_COLOR_DODGE, BLEND_DARKEN, BLEND_DIFFERENCE,
         BLEND_DISSOLVE, BLEND_EXCLUSION, BLEND_SOURCE_OVER, BLEND_HARD_LIGHT, BLEND_LIGHTEN, BLEND_ADD, BLEND_DIVIDE, BLEND_MULTIPLY, BLEND_OVERLAY, BLEND_SCREEN, BLEND_ALPHA,
         BLEND_COLOR, BLEND_HUE, BLEND_SATURATION, BLEND_LUMINOSITY, BLEND_LINEAR_BURN, BLEND_SOFT_LIGHT, BLEND_SUBTRACT, BLEND_CHROMA_KEY, BLEND_NORMAL, LOOKUP_AMATORKA,
-        CROSSHATCH, CGA_COLORSPACE, KUWAHARA,  BULGE_DISTORTION, GLASS_SPHERE, HAZE, SPHERE_REFRACTION, SWIRL, FALSE_COLOR, COLOR_BALANCE, LEVELS_FILTER_MIN, HALFTONE,
+        CROSSHATCH, CGA_COLORSPACE, KUWAHARA,  BULGE_DISTORTION, GLASS_SPHERE, HAZE, SPHERE_REFRACTION, SWIRL, FALSE_COLOR,
+        COLOR_BALANCE, LEVELS_FILTER_MIN, HALFTONE,
+        
         AMARO,RISE,HUDSON,XPROII,SIERRA,LOMOFI,EARLYBIRD,SUTRO,TOASTER,BRANNAN,INKWELL,WALDEN,HEFE,VALENCIA,NASHVILLE,IF1977,LORDKELVIN}
 
     private static class FilterList {

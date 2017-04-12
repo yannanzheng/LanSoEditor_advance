@@ -96,7 +96,7 @@ public class ExecuteRandomDemoActivity extends Activity{
 		 
 		 initUI();
 		
-       //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
+       //在手机的默认路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
        dstPath=SDKFileUtils.newMp4PathInBox();
 	}
 	/**
@@ -280,77 +280,77 @@ public class ExecuteRandomDemoActivity extends Activity{
 		}
 	
 	
-		private MediaInfo gifInfo;
-		private long decoderHandler;
-	   private IntBuffer  mGLRgbBuffer;
-	   private int gifInterval=0;
-	   private int frameCount=0;
-	   private DataLayer dataLayer;
-	   /**
-	    * 用来计算, 在视频走动过程中, 几秒钟插入一个gif图片
-	    * @return
-	    */
-	   private boolean canDrawNext()
-	   {
-		   if(frameCount%gifInterval==0){  //能被整除则说明间隔到了.
-			   frameCount++;
-			   return true;
-		   }else{
-			   frameCount++;
-			   return false;
-		   }
-	   }
-	   /**
-	    * 增加一个DataLayer, 数据图层. 数据图层是可以把外界的数据图片RGBA, 作为一个图层, 传到到DrawPad中. 
-	    * 
-	    * 流程是: 把gif作为一个视频文件, 一帧一帧的解码,把解码得到的数据通过DataLayer传递到画板中.
-	    */
-	   private void addDataLayer()
-		{
-			   gifInfo=new MediaInfo("/sdcard/a.gif");
-		       if(gifInfo.prepare())
-		       {
-		    	   decoderHandler=BoxDecoder.decoderInit("/sdcard/a.gif");
-		    	   mGLRgbBuffer = IntBuffer.allocate(gifInfo.vWidth * gifInfo.vHeight);
-		    	  
-		    	   gifInterval=(int)(mInfo.vFrameRate/gifInfo.vFrameRate);
-		    	   dataLayer=vDrawPad.addDataLayer(gifInfo.vWidth,gifInfo.vHeight);
-		    	   
-		    	   /**
-		    	    * 画板中的onDrawPadThreadProgressListener监听,与 onDrawPadProgressListener不同的地方在于:
-		    	    * 此回调是在DrawPad渲染完一帧后,立即执行这个回调中的代码,不通过Handler传递出去.
-		    	    */
-		    		vDrawPad.setDrawPadThreadProgressListener(new onDrawPadThreadProgressListener() {
-		    			
-		    			@Override
-		    			public void onThreadProgress(DrawPad v, long currentTimeUs) {
-		    				// TODO Auto-generated method stub
-		    				if(dataLayer!=null){
-		    					if(canDrawNext())
-		    					{
-			    						int seekZero=-1;
-			    						if(decoderHandler!=0 && BoxDecoder.decoderIsEnd(decoderHandler))
-					    				{
-			    							seekZero=0;
-					    				}
-				    					BoxDecoder.decoderFrame(decoderHandler, seekZero, mGLRgbBuffer.array());
-				    					
-			    						dataLayer.pushFrameToTexture( mGLRgbBuffer);
-			    						mGLRgbBuffer.position(0);	
-		    					}
-		    				}
-		    			}
-		    		});
-		       }
-		}
-	   private void removeGif()
-	   {
-		   if(vDrawPad!=null){
-			   vDrawPad.removeLayer(dataLayer);
-				dataLayer=null;
-				BoxDecoder.decoderRelease(decoderHandler);
-				decoderHandler=0; 
-		   }
-	   }
+//		private MediaInfo gifInfo;
+//		private long decoderHandler;
+//	   private IntBuffer  mGLRgbBuffer;
+//	   private int gifInterval=0;
+//	   private int frameCount=0;
+//	   private DataLayer dataLayer;
+//	   /**
+//	    * 用来计算, 在视频走动过程中, 几秒钟插入一个gif图片
+//	    * @return
+//	    */
+//	   private boolean canDrawNext()
+//	   {
+//		   if(frameCount%gifInterval==0){  //能被整除则说明间隔到了.
+//			   frameCount++;
+//			   return true;
+//		   }else{
+//			   frameCount++;
+//			   return false;
+//		   }
+//	   }
+//	   /**
+//	    * 增加一个DataLayer, 数据图层. 数据图层是可以把外界的数据图片RGBA, 作为一个图层, 传到到DrawPad中. 
+//	    * 
+//	    * 流程是: 把gif作为一个视频文件, 一帧一帧的解码,把解码得到的数据通过DataLayer传递到画板中.
+//	    */
+//	   private void addDataLayer()
+//		{
+//			   gifInfo=new MediaInfo("/sdcard/a.gif");
+//		       if(gifInfo.prepare())
+//		       {
+//		    	   decoderHandler=BoxDecoder.decoderInit("/sdcard/a.gif");
+//		    	   mGLRgbBuffer = IntBuffer.allocate(gifInfo.vWidth * gifInfo.vHeight);
+//		    	  
+//		    	   gifInterval=(int)(mInfo.vFrameRate/gifInfo.vFrameRate);
+//		    	   dataLayer=vDrawPad.addDataLayer(gifInfo.vWidth,gifInfo.vHeight);
+//		    	   
+//		    	   /**
+//		    	    * 画板中的onDrawPadThreadProgressListener监听,与 onDrawPadProgressListener不同的地方在于:
+//		    	    * 此回调是在DrawPad渲染完一帧后,立即执行这个回调中的代码,不通过Handler传递出去.
+//		    	    */
+//		    		vDrawPad.setDrawPadThreadProgressListener(new onDrawPadThreadProgressListener() {
+//		    			
+//		    			@Override
+//		    			public void onThreadProgress(DrawPad v, long currentTimeUs) {
+//		    				// TODO Auto-generated method stub
+//		    				if(dataLayer!=null){
+//		    					if(canDrawNext())
+//		    					{
+//			    						int seekZero=-1;
+//			    						if(decoderHandler!=0 && BoxDecoder.decoderIsEnd(decoderHandler))
+//					    				{
+//			    							seekZero=0;
+//					    				}
+//				    					BoxDecoder.decoderFrame(decoderHandler, seekZero, mGLRgbBuffer.array());
+//				    					
+//			    						dataLayer.pushFrameToTexture( mGLRgbBuffer);
+//			    						mGLRgbBuffer.position(0);	
+//		    					}
+//		    				}
+//		    			}
+//		    		});
+//		       }
+//		}
+//	   private void removeGif()
+//	   {
+//		   if(vDrawPad!=null){
+//			   vDrawPad.removeLayer(dataLayer);
+//				dataLayer=null;
+//				BoxDecoder.decoderRelease(decoderHandler);
+//				decoderHandler=0; 
+//		   }
+//	   }
 	
 }	

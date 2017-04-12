@@ -11,13 +11,16 @@ import com.example.advanceDemo.view.ShowHeart;
 import com.example.advanceDemo.view.DrawPadView.onViewAvailable;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.BitmapLayer;
+import com.lansosdk.box.BoxDecoder;
 import com.lansosdk.box.CanvasRunnable;
 import com.lansosdk.box.CanvasLayer;
 import com.lansosdk.box.Layer;
 import com.lansosdk.box.DrawPad;
 import com.lansosdk.box.VideoLayer;
+import com.lansosdk.box.YUVLayer;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
+import com.lansosdk.box.onDrawPadThreadProgressListener;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
@@ -61,7 +64,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
  */
 
 public class VideoLayerRealTimeActivity extends Activity implements OnSeekBarChangeListener {
-    private static final String TAG = "VideoPictureRealTimeActivity";
+    private static final String TAG = "VideoLayerRealTimeActivity";
 
     private String mVideoPath;
 
@@ -69,8 +72,8 @@ public class VideoLayerRealTimeActivity extends Activity implements OnSeekBarCha
     
     private MediaPlayer mplayer=null;
     private MediaPlayer mplayer2=null;
-    private VideoLayer  mLayerMain=null;
-    private BitmapLayer mBitmapLayer=null;
+    private VideoLayer  videoMainLayer=null;
+    private Layer operationLayer=null;
     
     
     private String editTmpPath=null;
@@ -112,7 +115,7 @@ public class VideoLayerRealTimeActivity extends Activity implements OnSeekBarCha
 		});
         playVideo.setVisibility(View.GONE);
 
-        //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
+        //在手机的默认路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
         editTmpPath=SDKFileUtils.newMp4PathInBox();
         dstPath=SDKFileUtils.newMp4PathInBox();
         
@@ -187,25 +190,25 @@ public class VideoLayerRealTimeActivity extends Activity implements OnSeekBarCha
      */
     private void initDrawPad(MediaPlayer mp)
     {
-    	
     		MediaInfo info=new MediaInfo(mVideoPath,false);
         	info.prepare();
         	
         	//设置使能 实时录制, 即把正在DrawPad中呈现的画面实时的保存下来,实现所见即所得的模式
         	mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
 
+        	
         	mDrawPadView.setOnDrawPadProgressListener(new onDrawPadProgressListener() {
 				
 				@Override
 				public void onProgress(DrawPad v, long currentTimeUs) {
 					// TODO Auto-generated method stub
 					//用来测试把一个图层放到底层或外层.
-					if(currentTimeUs>5*1000*1000 && mBitmapLayer!=null){
-						mDrawPadView.bringLayerToFront(mBitmapLayer);
-					
-					}else if(currentTimeUs>3*1000*1000){
-						mDrawPadView.bringLayerToBack(mBitmapLayer);
-					}
+//					if(currentTimeUs>5*1000*1000 && operationLayer!=null){
+//						mDrawPadView.bringLayerToFront(operationLayer);
+//					
+//					}else if(currentTimeUs>3*1000*1000){
+//						mDrawPadView.bringLayerToBack(operationLayer);
+//					}
 				}
 			});
         		//设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
@@ -229,16 +232,21 @@ public class VideoLayerRealTimeActivity extends Activity implements OnSeekBarCha
 		mDrawPadView.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.videobg));
 		
 		//增加一个主视频的 VideoLayer
-		mLayerMain=mDrawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
-		if(mLayerMain!=null){
-			mplayer.setSurface(new Surface(mLayerMain.getVideoTexture()));
-			mLayerMain.setScale(0.8f);  //把视频缩小一些, 因为外面有背景.
+		operationLayer=videoMainLayer=mDrawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
+		
+		if(videoMainLayer!=null)
+		{
+			mplayer.setSurface(new Surface(videoMainLayer.getVideoTexture()));
+			videoMainLayer.setScale(0.8f);  //把视频缩小一些, 因为外面有背景.
 		}
 	
 		mplayer.start();
 	
 		addBitmapLayer();
+//		addYUVLayer();
+//		addGifLayer();
     }
+    
     /**
      * Step3: stop DrawPad
      */
@@ -262,13 +270,21 @@ public class VideoLayerRealTimeActivity extends Activity implements OnSeekBarCha
 			}
 		}
     }
+    private void addGifLayer()
+    {
+    	if(mDrawPadView!=null && mDrawPadView.isRunning())
+    	{
+//    		operationLayer=mDrawPadView.addGifLayer(R.drawable.g06);
+    		mDrawPadView.addGifLayer(R.drawable.g07);  //增加另一个.
+    	}
+    }
     /**
      * 从DrawPad中得到一个BitmapLayer,填入要显示的图片,您实际可以是资源图片,也可以是png或jpg,或网络上的图片等,最后解码转换为统一的
      * Bitmap格式即可.
      */
     private void addBitmapLayer()
     {
-    	mBitmapLayer=mDrawPadView.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
+    	operationLayer=mDrawPadView.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
     }
     @Override
     protected void onPause() {
@@ -313,12 +329,12 @@ protected void onDestroy() {
 		// TODO Auto-generated method stub
 		switch (seekBar.getId()) {
 			case R.id.id_DrawPad_skbar_rotate:
-				if(mBitmapLayer!=null){
-					mBitmapLayer.setRotate(progress);
+				if(operationLayer!=null){
+					operationLayer.setRotate(progress);
 				}
 				break;
 			case R.id.id_DrawPad_skbar_move:
-					if(mBitmapLayer!=null){
+					if(operationLayer!=null){
 						 xpos+=10;
 						 ypos+=10;
 						 
@@ -326,40 +342,41 @@ protected void onDestroy() {
 							 xpos=0;
 						 if(ypos>mDrawPadView.getViewWidth())
 							 ypos=0;
-						 mBitmapLayer.setPosition(xpos, ypos);
+						 operationLayer.setPosition(xpos, ypos);
+						 
 					}
 				break;				
 			case R.id.id_DrawPad_skbar_scale:
-				if(mBitmapLayer!=null){
+				if(operationLayer!=null){
 					float scale=(float)progress/100;
-					mBitmapLayer.setScale(scale);
+					operationLayer.setScale(scale);
 				}
 			break;		
 			case R.id.id_DrawPad_skbar_red:
-					if(mBitmapLayer!=null){
+					if(operationLayer!=null){
 						float value=(float)progress/100;
-						mBitmapLayer.setRedPercent(value);  //设置每个RGBA的比例,默认是1
+						operationLayer.setRedPercent(value);  //设置每个RGBA的比例,默认是1
 					}
 				break;
 
 			case R.id.id_DrawPad_skbar_green:
-					if(mBitmapLayer!=null){
+					if(operationLayer!=null){
 						float value=(float)progress/100;
-						mBitmapLayer.setGreenPercent(value);
+						operationLayer.setGreenPercent(value);
 					}
 				break;
 
 			case R.id.id_DrawPad_skbar_blue:
-					if(mBitmapLayer!=null){
+					if(operationLayer!=null){
 						float value=(float)progress/100;
-						mBitmapLayer.setBluePercent(value);
+						operationLayer.setBluePercent(value);
 					}
 				break;
 
 			case R.id.id_DrawPad_skbar_alpha:
-					if(mBitmapLayer!=null){
+					if(operationLayer!=null){
 						float value=(float)progress/100;
-						mBitmapLayer.setAlphaPercent(value);
+						operationLayer.setAlphaPercent(value);
 					}
 				break;
 				

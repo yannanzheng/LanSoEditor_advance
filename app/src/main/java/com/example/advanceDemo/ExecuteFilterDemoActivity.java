@@ -54,7 +54,7 @@ public class ExecuteFilterDemoActivity extends Activity{
 	ProgressDialog  mProgressDialog;
 	int videoDuration;
 	boolean isRuned=false;
-	MediaInfo   mMediaInfo;
+	MediaInfo   mInfo;
 	TextView tvProgressHint;
 	 TextView tvHint;
 	 
@@ -75,13 +75,13 @@ public class ExecuteFilterDemoActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		 
 		 videoPath=getIntent().getStringExtra("videopath");
-		 mMediaInfo=new MediaInfo(videoPath);
-		 mMediaInfo.prepare();
+		 mInfo=new MediaInfo(videoPath);
+		 mInfo.prepare();
 		 
 		 setContentView(R.layout.video_edit_demo_layout);
 		 initView();
 		 
-       //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
+       //在手机的默认路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
        editTmpPath=SDKFileUtils.newMp4PathInBox();
        dstPath=SDKFileUtils.newMp4PathInBox();
 	}
@@ -104,7 +104,7 @@ public class ExecuteFilterDemoActivity extends Activity{
 	/**
 	 * 
 	 */
-	private void testDrawPadExecute()
+	private void startDrawPadExecute()
 	{
 		if(isExecuting)
 			return ;
@@ -123,7 +123,9 @@ public class ExecuteFilterDemoActivity extends Activity{
 		  * @param filter   为视频增加一个滤镜
 		  * @param dstPath  编码视频保存的路径.
 		  */
-		 vDrawPad=new DrawPadVideoExecute(ExecuteFilterDemoActivity.this,videoPath,480,480,1000000,new GPUImageSepiaFilter(),editTmpPath);
+		 vDrawPad=new DrawPadVideoExecute(ExecuteFilterDemoActivity.this,videoPath,mInfo.vWidth,mInfo.vHeight,(int)(mInfo.vBitRate*1.5f)
+				 ,new GPUImageSepiaFilter(),editTmpPath);
+		 
 		
 		 //设置DrawPad处理的进度监听, 回传的currentTimeUs单位是微秒.
 		vDrawPad.setDrawPadProgressListener(new onDrawPadProgressListener() {
@@ -162,11 +164,14 @@ public class ExecuteFilterDemoActivity extends Activity{
 				  findViewById(R.id.id_video_edit_btn2).setEnabled(true);
 			}
 		});
+		
+
+		
+		
 		vDrawPad.startDrawPad();
 		
 		
 		bitmapLayer=vDrawPad.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
-		
 		bitmapLayer.setPosition(300, 200);
 		vDrawPad.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.xiaolian));	
 	}
@@ -180,7 +185,7 @@ public class ExecuteFilterDemoActivity extends Activity{
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
-				testDrawPadExecute();
+				startDrawPadExecute();
 			}
 		})
 		.setNegativeButton("取消", null)
@@ -197,10 +202,10 @@ public class ExecuteFilterDemoActivity extends Activity{
 				@Override
 				public void onClick(View v) {
 					
-					if(mMediaInfo.vDuration>60*1000){//大于60秒
+					if(mInfo.vDuration>60*1000){//大于60秒
 						showHintDialog();
 					}else{
-						testDrawPadExecute();
+						startDrawPadExecute();
 					}
 				}
 			});

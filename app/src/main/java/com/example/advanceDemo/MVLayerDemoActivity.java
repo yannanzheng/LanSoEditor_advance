@@ -20,6 +20,7 @@ import com.lansosdk.box.MVLayer;
 import com.lansosdk.box.VideoLayer;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
+import com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
@@ -59,7 +60,7 @@ public class MVLayerDemoActivity extends Activity {
     private MediaPlayer mplayer=null;
     private MediaPlayer mplayer2=null;
     private VideoLayer  mLayerMain=null;
-    private MVLayer mMVLayer=null;
+    private MVLayer mvLayer=null;
     
     private String editTmpPath=null;
     private String dstPath=null;
@@ -78,17 +79,15 @@ public class MVLayerDemoActivity extends Activity {
         mDrawPadView = (DrawPadView) findViewById(R.id.id_mvlayer_padview);
         
 
-        //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
+        //在手机的默认路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
         editTmpPath=SDKFileUtils.newMp4PathInBox();
         dstPath=SDKFileUtils.newMp4PathInBox();
         
         /**
          * 拿到两个文件,来还原出mv的视频.
          */
-        colorMVPath=com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask.copyFile(MVLayerDemoActivity.this,"mei.ts");
-        maskMVPath=com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask.copyFile(MVLayerDemoActivity.this,"mei_b.ts");
-    	
-        
+        colorMVPath=CopyDefaultVideoAsyncTask.copyFile(MVLayerDemoActivity.this,"mei.mp4");
+        maskMVPath=CopyDefaultVideoAsyncTask.copyFile(MVLayerDemoActivity.this,"mei_b.mp4");
         
         new Handler().postDelayed(new Runnable() {
 			
@@ -106,7 +105,7 @@ public class MVLayerDemoActivity extends Activity {
      */
     private void startPlayVideo()
     {
-          if (mVideoPath != null){	
+          if (mVideoPath != null){
         	  mplayer=new MediaPlayer();
         	  try {
 				mplayer.setDataSource(mVideoPath);
@@ -158,7 +157,7 @@ public class MVLayerDemoActivity extends Activity {
 					@Override
 					public void onProgress(DrawPad v, long currentTimeUs) {
 						// TODO Auto-generated method stub
-						Log.i(TAG,"MV当前时间戳是"+currentTimeUs);
+						//Log.i(TAG,"MV当前时间戳是"+currentTimeUs);
 					}
 				});
         		
@@ -191,13 +190,19 @@ public class MVLayerDemoActivity extends Activity {
 		/**
 		 * 增加一个MV图层.
 		 */
-		mMVLayer=mDrawPadView.addMVLayer(colorMVPath, maskMVPath);  //<-----增加MVLayer
-		if(mMVLayer!=null){  //可以增加mv在播放结束后的三种模式, 停留在最后一帧/循环/消失/
-			mMVLayer.setEndMode(MVLayerENDMode.LOOP);
+		mvLayer=mDrawPadView.addMVLayer(colorMVPath, maskMVPath);  //<-----增加MVLayer
+		
+		//设置它为满屏.
+	    float scaleW=(float)mvLayer.getPadWidth()/(float)mvLayer.getLayerWidth();
+	    float scaleH=mvLayer.getPadHeight()/(float)mvLayer.getLayerHeight();
+	    mvLayer.setScale(scaleW, scaleH);
+	    
+		if(mvLayer!=null){  //可以增加mv在播放结束后的三种模式, 停留在最后一帧/循环/消失/
+			mvLayer.setEndMode(MVLayerENDMode.LOOP);
 		}
     }
     /**
-     * Step3: 停止画板
+     * Step3: 停止画板,停止后,为新的视频文件增加上音频部分.
      */
     private void stopDrawPad()
     {
@@ -269,6 +274,7 @@ public class MVLayerDemoActivity extends Activity {
 		   		 }
 			}
 		});
+       
        findViewById(R.id.id_mvlayer_saveplay).setVisibility(View.GONE);
    }
    private void toastStop()

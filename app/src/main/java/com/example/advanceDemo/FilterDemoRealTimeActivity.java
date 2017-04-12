@@ -150,7 +150,7 @@ public class FilterDemoRealTimeActivity extends Activity {
         findViewById(R.id.id_filterdemo_saveplay).setVisibility(View.GONE);
         
         
-        //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
+        //在手机的默认路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
         editTmpPath=SDKFileUtils.newMp4PathInBox();
         dstPath=SDKFileUtils.newMp4PathInBox();
         
@@ -292,12 +292,11 @@ public class FilterDemoRealTimeActivity extends Activity {
 	        
 	           
 	      int screenWidth  = dm.widthPixels;	
-	      String picPath=SDKDir.TMP_DIR+"/"+"picname.jpg";   
+	      String picPath=null;   
 	      if(screenWidth>=1080){
-	    	  CopyFileFromAssets.copy(getApplicationContext(), "pic1080x1080u2.jpg", SDKDir.TMP_DIR, "picname.jpg");
-	      }  
-	      else{
-	    	  CopyFileFromAssets.copy(getApplicationContext(), "pic720x720.jpg", SDKDir.TMP_DIR, "picname.jpg");
+	    	  picPath=CopyFileFromAssets.copyAssets(getApplicationContext(), "pic1080x1080u2.jpg");
+	      }else{
+	    	  picPath=CopyFileFromAssets.copyAssets(getApplicationContext(),"pic720x720.jpg");
 	      }
 	      //先 增加第一张Bitmap的Layer, 因为是第一张,放在DrawPad中维护的数组的最下面, 认为是背景图片.
 	      mDrawPadView.addBitmapLayer(BitmapFactory.decodeFile(picPath));

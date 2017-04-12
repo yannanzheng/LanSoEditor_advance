@@ -1,8 +1,10 @@
 # LanSoEditor_advance
 android  video editor  advance sdk . filter, overlay,remark,mixer and so on安卓平台视频编辑高级版本，可以滤镜，叠加，标记等操作
-## 当前版本是2.2.0
-*  在上一版本基础上优化画板后台的处理速度. 大概比之前提升200%.
-*  增加了SDK的限制条件: SDK如果没有授权, 则APP名字一定要是我们demo的名字, 请注意.
+## 当前版本是2.2.7
+*  增加Gif图层 GifLayer, 您可以增加一些Gif动画.
+*  优化MV图层.
+*  后台可以在处理过程中,插入声音,比如一些搞笑的效果音等.
+*  SDK的限制条件: SDK如果没有授权, 则APP名字一定要是我们demo的名字, 请注意.
 
 ## 视频编辑的高级版本
 *  基本覆盖了秒拍,美拍,快手等视频编辑的大部分功能.
@@ -22,7 +24,7 @@ android  video editor  advance sdk . filter, overlay,remark,mixer and so on安�
 *   对视频处理用到的各种素材，封装成类，命名为Layer(图层)
 *   这样视频处理的OpenGLGL线程中增加的各种类对象，就被抽象成 画板和图层的关系。和日常画画流程一致，方便您的使用。
 *   画板：用来处理各种素材的线程，分为 [画板前台线程] 和 [画板后台线程], 您自由选择使用。
-*   图层：编辑会用到的素材。包括：视频，图片，文字，音乐，麦克风，摄像头，裸数据，MV等。这些经过我们的核心技术处理，变成：视频图层， 		图片图层，UI图层，Canvas图层，音乐图层，麦克风图层，数据图层，摄像头图层，MV图层等。
+*   图层：编辑会用到的素材。包括：视频，图片，文字，音乐，麦克风，摄像头，裸数据，MV等。这些经过我们的核心技术处理，变成：视频图层， 		图片图层，UI图层，Canvas图层，音乐图层，麦克风图层，数据图层，摄像头图层，MV图层,Gif图层等。
 *   抽象类Layer：继承它的有：视频图层， 图片图层，UI图层，数据图层，摄像头图层，MV图层；均有：平移/缩放/旋转/隐藏/显示/RGBA调节的功能。
 		另外他们各自也有独立的方法。
 *   滤镜功能：当前所有的图层均支持滤镜功能。
@@ -74,3 +76,5 @@ android  video editor  advance sdk . filter, overlay,remark,mixer and so on安�
 *   QQ 1852600324 
 *   Email:support@lansongtech.com
 *   网址: www.lansongtech.com
+
+*  如果您下载过慢, 可联系我们, 索取最新的工程包

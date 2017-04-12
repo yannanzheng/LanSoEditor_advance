@@ -66,6 +66,8 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
  * 用来测试录制CameraLayer的同时, 录制声音, 
  * 或者让用户push进声音.
  * @author Administrator
+ * 
+ * 暂时不列到界面上.
  *
  */
 public class CameraRecordDemoActivity extends Activity implements OnClickListener{
@@ -98,7 +100,7 @@ public class CameraRecordDemoActivity extends Activity implements OnClickListene
        
         initView();
 
-        //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
+        //在手机的默认路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
         videoPath=SDKFileUtils.newMp4PathInBox();
         
 		new Handler().postDelayed(new Runnable() {
@@ -162,6 +164,7 @@ public class CameraRecordDemoActivity extends Activity implements OnClickListene
 		//画板开始后, 获取一个AudioLine对象, 向里面投递数据.这里开始播放声音.获取声音的数据,投递进去.
 		AudioLine line=mDrawPadView.getAudioLine();
 		
+		
 		mPcmPlayer=new PcmPlayer("/sdcard/niu_44100_2.pcm",2,44100, line);
 		mPcmPlayer.prepare();
 		
@@ -172,7 +175,7 @@ public class CameraRecordDemoActivity extends Activity implements OnClickListene
 			doAutoFocus(); //摄像头打开后,开始自动聚焦.
 		}
     }
-  //Step3: 停止画板
+  //Step3: 停止画板 ,停止后,为新的视频文件增加上音频部分.
     private void stopDrawPad()
     {
     	if(mDrawPadView!=null && mDrawPadView.isRunning())

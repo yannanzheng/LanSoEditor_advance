@@ -1,11 +1,23 @@
 [
     {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\page_now.png",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\drawable-mdpi\\page_now.png"
+    },
+    {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\page.png",
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\drawable-mdpi\\page.png"
     },
     {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\page.png",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\drawable-mdpi\\page.png"
+    },
+    {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\page_now.png",
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\drawable-mdpi\\page_now.png"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\ic_launcher.png",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\drawable-mdpi\\ic_launcher.png"
     },
     {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\ic_launcher.png",

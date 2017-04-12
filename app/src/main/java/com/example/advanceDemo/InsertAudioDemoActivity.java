@@ -89,15 +89,15 @@ public class InsertAudioDemoActivity extends Activity {
 	   		  et.executeDeleteVideo(mVideoPath, audioPath);
 	   		  
 	   		  AudioInsert audioInsert=new AudioInsert(getApplicationContext());
-			  audioInsert.addMainAudio(audioPath,1.0f, true);
+			  audioInsert.addMainAudio(audioPath);
 			  
 			  String add1=CopyDefaultVideoAsyncTask.copyFile(InsertAudioDemoActivity.this,"hongdou10s.mp3");
 			  //从第4秒出开始增加, 增加3秒的时长,音量为3倍.
-			  audioInsert.addSubAudio(add1,4000,3000,3.0f,true);
+			  audioInsert.addSubAudio(add1,4000,3000,1.0f,3.0f);
 			  
 			  String add2=CopyDefaultVideoAsyncTask.copyFile(InsertAudioDemoActivity.this,"wuya.pcm");
 			  //增加一段pcm的音频文件,从0秒出增加
-			  audioInsert.addSubAudioPCM(add2, 44100, 2, 0,2500,2.0f,true);
+			  audioInsert.addSubAudioPCM(add2, 44100, 2, 0,2500,1.0f,2.0f,true);
 			  
 			  //开始执行...执行结束,返回混合后的文件.
 			   String dstMix= audioInsert.executeAudioMix();

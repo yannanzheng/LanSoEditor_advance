@@ -90,7 +90,7 @@ public class VideoLayerAutoUpdateDemoActivity extends Activity{
         mVideoPath = getIntent().getStringExtra("videopath");
         mDrawPad = (DrawPadView) findViewById(R.id.id_vauto_demo_drawpad_view);
         
-        //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
+        //在手机的默认路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
         dstPath=SDKFileUtils.newMp4PathInBox();
 	    
         

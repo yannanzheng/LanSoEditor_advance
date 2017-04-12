@@ -100,7 +100,7 @@ public class CanvasLayerDemoActivity extends Activity {
 		});
         playVideo.setVisibility(View.GONE);
 
-        //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
+        //在手机的默认路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
         editTmpPath=SDKFileUtils.newMp4PathInBox();
         dstPath=SDKFileUtils.newMp4PathInBox();
         
@@ -165,9 +165,10 @@ public class CanvasLayerDemoActivity extends Activity {
     		MediaInfo info=new MediaInfo(mVideoPath,false);
         	info.prepare();
         	
+        	mDrawPadView.setUseMainVideoPts(true);
+        	
        		//设置使能 实时录制, 即把正在DrawPad中呈现的画面实时的保存下来,实现所见即所得的模式
         	mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
-        	
         	//设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
     		mDrawPadView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
 			
@@ -197,7 +198,7 @@ public class CanvasLayerDemoActivity extends Activity {
 		addCanvasLayer();  //增加一个CanvasLayer
     }
     /**
-     * Step3: 停止画板
+     * Step3: 停止画板,停止后,为新的视频文件增加上音频部分.
      */
     private void stopDrawPad()
     {

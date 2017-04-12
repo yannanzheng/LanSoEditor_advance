@@ -5,6 +5,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.IntBuffer;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -19,12 +20,11 @@ import com.lansoeditor.demo.R;
 import com.lansosdk.box.ExtractVideoFrame;
 import com.lansosdk.box.onExtractVideoFrameCompletedListener;
 import com.lansosdk.box.onExtractVideoFrameProgressListener;
+import com.lansosdk.videoeditor.AVDecoder;
 import com.lansosdk.videoeditor.MediaInfo;
 
 /**
-先放入图片, 然后视频, 然后再图片.
- * 
- *
+ * 快速获取视频的每一帧.
  */
 public class ExtractVideoFrameDemoActivity extends Activity{
 
@@ -34,8 +34,7 @@ public class ExtractVideoFrameDemoActivity extends Activity{
 		boolean isRuned=false;
 		MediaInfo   mInfo;
 		TextView tvProgressHint;
-		 TextView tvHint;
-	  
+		TextView tvHint;
 	    
 	    private boolean isExecuting=false; 
 	    private ExtractVideoFrame mExtractFrame;
@@ -111,7 +110,6 @@ public class ExtractVideoFrameDemoActivity extends Activity{
 					 bmp.recycle();
 					 bmp=null;
 				}
-				
 //				if(ptsUS>15*1000*1000){   你可以在指定的时间段停止.
 //					mExtractFrame.stop();   //这里演示在15秒的时候停止.
 //				}
@@ -145,29 +143,36 @@ public class ExtractVideoFrameDemoActivity extends Activity{
 			 });
 	     findViewById(R.id.id_video_edit_btn2).setVisibility(View.GONE);
    }
-   int bmtcnt=0;
-   /**
-    * 把bmp保存到本地, 因为保存很慢,这里仅仅是演示,不建议保存到本地.
-    * @param bmp
-    */
-	 private void savePng(Bitmap bmp)
-	 {
-		 File dir=new File("/sdcard/testExtract/");
-		 if(dir.exists()==false){
-			 dir.mkdir();
-		 }
-		  try {
-				  BufferedOutputStream  bos;
-				  String name="/sdcard/testExtract/"+ bmtcnt++ +".png";
-				  bos = new BufferedOutputStream(new FileOutputStream(name));
-				  bmp.compress(Bitmap.CompressFormat.PNG, 90, bos);
-				  bos.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	 }
-	
-	
-	
+	 	/**
+		 * 临时为了获取一个bitmap图片,临时测试. 可以用来作为视频的封面.
+		 * @param src
+		 */
+		public static void testGetFirstOnekey(String src)
+		{
+			  	long decoderHandler=0;
+			  	IntBuffer  mGLRgbBuffer;
+			  	MediaInfo  info=new MediaInfo(src);
+			  	if(info.prepare())
+			    {
+			    	   decoderHandler=AVDecoder.decoderInit(src);
+			    	   if(decoderHandler!=0)
+			    	   {
+			    		   mGLRgbBuffer = IntBuffer.allocate(info.vWidth * info.vHeight);
+			    			long  beforeDraw=System.currentTimeMillis();
+			    			mGLRgbBuffer.position(0);
+		    				AVDecoder.decoderFrame(decoderHandler, -1, mGLRgbBuffer.array());
+		    				Log.i("TIME","draw comsume time is :"+ (System.currentTimeMillis() - beforeDraw));
+		    				AVDecoder.decoderRelease(decoderHandler);
+		    				
+		    				//转换为bitmap
+//		    				Bitmap stitchBmp = Bitmap.createBitmap(info.vWidth , info.vHeight, Bitmap.Config.ARGB_8888);
+//		    				 stitchBmp.copyPixelsFromBuffer(mGLRgbBuffer);
+//		    				 saveBitmap(stitchBmp); //您可以修改下, 然后返回bitmap
+		    				//这里得到的图像在mGLRgbBuffer中, 可以用来返回一张图片.
+		    				decoderHandler=0;
+			    	   }
+			 }else{
+				 Log.e("TAG","get first one key error!");
+			 }
+		}
 }	

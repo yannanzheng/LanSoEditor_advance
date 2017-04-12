@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lansoeditor.demo"
-    android:versionCode="2200"
-    android:versionName="2.2.0" >
+    android:versionCode="2207"
+    android:versionName="2.2.7" >
 
     <!-- 这里的意思是：我们的sdk最低是Android4.3， 最高支持Andriod7.0 -->
     <uses-sdk
         android:minSdkVersion="18"
         android:targetSdkVersion="23" />
-
+ <uses-feature android:glEsVersion="0x00020000"></uses-feature>
       
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.autofocus" />
@@ -32,11 +32,6 @@
         android:name="android.hardware.camera.front"
         android:required="false" />
     
-    
-    
-    
-    
-    
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -47,18 +42,19 @@
         <activity android:name="com.example.advanceDemo.StartActivity"
             android:theme="@style/AppTheme2">
             
-          <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            
          </activity>
          
         <activity
             android:name="com.example.advanceDemo.MainActivity">
             <!-- 因为要加载.so库, 这里一定要用MainActivity来启动 -->
             
-                
+                 
         </activity>
         
         
@@ -68,7 +64,7 @@
         
         <activity android:name="com.example.advanceDemo.FilterDemoRealTimeActivity"></activity>
         
-        <activity android:name="com.example.advanceDemo.BitmapLayerDemoActivity"></activity>
+        <activity android:name="com.example.advanceDemo.BitmapLayerMarkActivity"></activity>
         
         <activity android:name="com.example.advanceDemo.FilterRealTimeActivity"></activity>
         <activity android:name="com.example.advanceDemo.DrawPadHintActivity"></activity>
@@ -82,6 +78,8 @@
         
         <activity android:name="com.example.advanceDemo.ExtractVideoFrameDemoActivity"></activity>
         
+          <activity android:name="com.example.advanceDemo.TestDelete"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
         
         
           <activity android:name="com.example.advanceDemo.CanvasLayerDemoActivity"></activity>
@@ -89,14 +87,23 @@
            android:screenOrientation="portrait">
        </activity>
        
-       <activity android:name="com.example.advanceDemo.CameraLayerFullScreenActivity"
-           android:screenOrientation="portrait"
+       <activity android:name="com.example.advanceDemo.CameraLayerFullPortActivity"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
            >
        </activity>
        
+       <activity android:name="com.example.advanceDemo.CameraLayerFullSegment"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+           >
+       </activity>
        
-       
+         <activity android:name="com.example.advanceDemo.CameraLayerFullLandscapeActivity"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+           >
+       </activity>
        
        
         <activity android:name="com.example.advanceDemo.CameraLayerDemoActivity"
@@ -120,7 +127,7 @@
         android:label="@string/select_video"></activity>
         
         
-        <activity android:name="com.example.advanceDemo.BitmapLayerDemoExecuteActivity"></activity>
+        <activity android:name="com.example.advanceDemo.ExecuteBitmapLayerActivity"></activity>
         <activity android:name="com.example.advanceDemo.ViewLayerDemoActivity"></activity>
         
         <activity android:name="com.example.advanceDemo.ViewLayerOnlyRealTimeActivity"></activity>

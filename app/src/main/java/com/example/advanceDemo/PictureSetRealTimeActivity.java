@@ -21,6 +21,7 @@ import com.lansosdk.box.Layer;
 import com.lansosdk.box.onDrawPadCompletedListener;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
+import com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask;
 import com.lansosdk.videoeditor.CopyFileFromAssets;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
@@ -86,7 +87,7 @@ public class PictureSetRealTimeActivity extends Activity{
         
         mDrawPadView = (DrawPadView) findViewById(R.id.DrawPad_view);
 
-        //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
+        //在手机的默认路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
         dstPath=SDKFileUtils.newMp4PathInBox();
         mContext=getApplicationContext();
 	 	new Handler().postDelayed(new Runnable() {
@@ -104,9 +105,9 @@ public class PictureSetRealTimeActivity extends Activity{
     private void initDrawPad()
     {
 		//设置为自动刷新模式, 帧率为25
-    	mDrawPadView.setUpdateMode(DrawPadUpdateMode.AUTO_FLUSH,25);
+    	mDrawPadView.setUpdateMode(DrawPadUpdateMode.AUTO_FLUSH,30);
     	//使能实时录制,并设置录制后视频的宽度和高度, 码率, 帧率,保存路径.
-    	mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)25,dstPath);
+    	mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)30,dstPath);
     	
     	mDrawPadView.setOnDrawPadCompletedListener(new DrawPadCompleted());
 		mDrawPadView.setOnDrawPadProgressListener(new DrawPadProgressListener());
@@ -152,47 +153,56 @@ public class PictureSetRealTimeActivity extends Activity{
     private void startDrawPad()
     {
     		mDrawPadView.startDrawPad();
+    		
+    		mDrawPadView.pauseDrawPad();
+    		
 			   
     		DisplayMetrics dm = new DisplayMetrics();// 获取屏幕密度（方法2）
 		    dm = getResources().getDisplayMetrics();
 		     
-		        
+		      
 		   int screenWidth  = dm.widthPixels;	
-		   String picPath=SDKDir.TMP_DIR+"/"+"picname.jpg";   
+		   String picPath=null;   
 		   if(screenWidth>=1080){
-		 	  CopyFileFromAssets.copy(mContext, "pic1080x1080u2.jpg", SDKDir.TMP_DIR, "picname.jpg");
-		   }  
-		   else{
-		 	  CopyFileFromAssets.copy(mContext, "pic720x720.jpg", SDKDir.TMP_DIR, "picname.jpg");
+			   picPath=CopyFileFromAssets.copyAssets(mContext, "pic1080x1080u2.jpg");
+		   }else{
+			   picPath=CopyFileFromAssets.copyAssets(mContext, "pic720x720.jpg");
 		   }
+		   
 		   //先 增加第一张Bitmap的Layer, 因为是第一张,放在DrawPad中维护的数组的最下面, 认为是背景图片.
 		   mDrawPadView.addBitmapLayer(BitmapFactory.decodeFile(picPath));
 		   
 		   slideEffectArray=new ArrayList<SlideEffect>();
 		   
-				//这里同时增加多个,只是不显示出来.
-		   getBitmapLayer(R.drawable.tt,0,5000);  		//1--5秒.
-		   getBitmapLayer(R.drawable.tt3,5000,10000);  //5--10秒.
-		   getBitmapLayer(R.drawable.pic3,10000,15000);	//10---15秒 
-		   getBitmapLayer(R.drawable.pic4,15000,20000);  //15---20秒
-		   getBitmapLayer(R.drawable.pic5,20000,25000);  //20---25秒
+		   //这里同时增加多个,只是不显示出来.
+		   addBitmapLayer(R.drawable.tt,0,5000);  		//1--5秒.
+		   addBitmapLayer(R.drawable.tt3,5000,10000);  //5--10秒.
+		   addBitmapLayer(R.drawable.pic3,10000,15000);	//10---15秒 
+		   addBitmapLayer(R.drawable.pic4,15000,20000);  //15---20秒
+		   addBitmapLayer(R.drawable.pic5,20000,25000);  //20---25秒
 		   
+		 //增加一个MV图层  
+		   addMVLayer();
+		   
+		   mDrawPadView.resumeDrawPad();
     }
     
     private void addMVLayer()
   	{
-  		String  colorMVPath=com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask.copyFile(PictureSetRealTimeActivity.this,"mei.ts");
-  	    String maskMVPath=com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask.copyFile(PictureSetRealTimeActivity.this,"mei_b.ts");
+  		String  colorMVPath=CopyDefaultVideoAsyncTask.copyFile(PictureSetRealTimeActivity.this,"mei.mp4");
+  	    String maskMVPath=CopyDefaultVideoAsyncTask.copyFile(PictureSetRealTimeActivity.this,"mei_b.mp4");
+  	    
   		MVLayer  layer=mDrawPadView.addMVLayer(colorMVPath, maskMVPath);  //<-----增加MVLayer
+  		layer.setScaledValue(layer.getPadWidth(), layer.getPadHeight());
+  		
   		/**
   		 * mv在播放完后, 有3种模式,消失/停留在最后一帧/循环.
   		 * layer.setEndMode(MVLayerENDMode.INVISIBLE); 
   		 */
   	}
-    private void getBitmapLayer(int resId,long startMS,long endMS)
+    private void addBitmapLayer(int resId,long startMS,long endMS)
     {
     	Layer item=mDrawPadView.addBitmapLayer(BitmapFactory.decodeResource(getResources(), resId));
-    	
 		SlideEffect  slide=new SlideEffect(item, 25, startMS, endMS, true);
 		slideEffectArray.add(slide);
     }
@@ -219,10 +229,15 @@ public class PictureSetRealTimeActivity extends Activity{
 		@Override
 		public void onProgress(DrawPad v, long currentTimeUs) {  //单位是微妙
 			// TODO Auto-generated method stub
-			  if(currentTimeUs>=26*1000*1000)  //26秒.多出一秒,让图片走完.
+			
+		//	Log.i(TAG,"当前时间戳是:"+currentTimeUs);
+			  
+			  if(currentTimeUs>=18*1000*1000)  //26秒.多出一秒,让图片走完.
 			  {
 				  mDrawPadView.stopDrawPad();
 			  }
+			  
+			  
 			  if(slideEffectArray!=null && slideEffectArray.size()>0){
 				  for(SlideEffect item: slideEffectArray){
 					  item.run(currentTimeUs/1000);

@@ -9,6 +9,7 @@ import java.util.Locale;
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImagePixelationFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBeautyFilter;
 
 import com.example.advanceDemo.GPUImageFilterTools.FilterAdjuster;
 import com.example.advanceDemo.GPUImageFilterTools.OnGpuImageFilterChosenListener;
@@ -29,6 +30,7 @@ import com.lansosdk.box.LanSoEditorBox;
 import com.lansosdk.box.Layer;
 import com.lansosdk.box.DrawPad;
 import com.lansosdk.box.MVLayer;
+import com.lansosdk.box.VideoLayer;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
 import com.lansosdk.videoeditor.MediaInfo;
@@ -83,6 +85,7 @@ public class CameraLayerDemoActivity extends Activity implements Handler.Callbac
     private DrawPadView mDrawPadView;
     
     private CameraLayer  mCameraLayer=null;
+    private String dstTmpPath=null;
     private String dstPath=null;
 	private PowerManager.WakeLock mWakeLock;
 	
@@ -101,10 +104,10 @@ public class CameraLayerDemoActivity extends Activity implements Handler.Callbac
         
         initView();
         /**
-         * 在手机的/sdcard/lansongBox/路径下创建一个文件名,
+         * 在手机的默认路径下创建一个文件名,
          * 用来保存生成的视频文件,(在onDestroy中删除)
          */
-        dstPath=SDKFileUtils.newMp4PathInBox();
+        dstTmpPath=SDKFileUtils.newMp4PathInBox();
         
 		new Handler().postDelayed(new Runnable() {
 			@Override
@@ -136,7 +139,8 @@ public class CameraLayerDemoActivity extends Activity implements Handler.Callbac
     	 int padWidth=480;
     	 int padHeight=480;
     	 
-    	mDrawPadView.setRealEncodeEnable(padWidth,padHeight,1000000,(int)25,dstPath);
+    	mDrawPadView.setRecordMic(true);
+    	mDrawPadView.setRealEncodeEnable(padWidth,padHeight,1000000,(int)25,dstTmpPath);
     	
     	mDrawPadView.setUpdateMode(DrawPadUpdateMode.AUTO_FLUSH, 25);
     	mDrawPadView.setOnDrawPadProgressListener(drawPadProgressListener);
@@ -158,17 +162,17 @@ public class CameraLayerDemoActivity extends Activity implements Handler.Callbac
     {
     	mDrawPadView.startDrawPad();
 //		mDrawPadView.pauseDrawPadRecord();
-		mCameraLayer=	mDrawPadView.addCameraLayer(false, null);
+		mCameraLayer=	mDrawPadView.addCameraLayer(false,new LanSongBeautyFilter());
+	//	addMVLayer();
     }
     
     private void addMVLayer()
 	{
-		String  colorMVPath=com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask.copyFile(CameraLayerDemoActivity.this,"mei.ts");
-	    String maskMVPath=com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask.copyFile(CameraLayerDemoActivity.this,"mei_b.ts");
+		String  colorMVPath=com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask.copyFile(CameraLayerDemoActivity.this,"mei.mp4");
+	    String maskMVPath=com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask.copyFile(CameraLayerDemoActivity.this,"mei_b.mp4");
 		MVLayer  layer=mDrawPadView.addMVLayer(colorMVPath, maskMVPath);  //<-----增加MVLayer
-		
 		/**
-		 * mv在播放完后, 有3种模式,消失/停留在最后一帧/循环.
+		 * mv在播放完后, 有3种模式,消失/停留在最后一帧/循环.默认是循环.
 		 * layer.setEndMode(MVLayerENDMode.INVISIBLE); 
 		 */
 	}
@@ -183,7 +187,6 @@ public class CameraLayerDemoActivity extends Activity implements Handler.Callbac
 			}
 			if(tvTime!=null){
 				long left=RECORD_CAMERA_TIME-currentTimeUs;
-				
 				float leftF=((float)left/1000000);
 				 float b   =  (float)(Math.round(leftF*10))/10;  //保留一位小数.
 						 
@@ -192,13 +195,23 @@ public class CameraLayerDemoActivity extends Activity implements Handler.Callbac
 		}
 	};
     /**
-     * Step3: 停止画板
+     * Step3: 停止画板 停止后,为新的视频文件增加上音频部分.
      */
     private void stopDrawPad()
     {
     	if(mDrawPadView!=null && mDrawPadView.isRunning())
     	{
-				mDrawPadView.stopDrawPad();
+    		//录制完成后, 拿到音频文件.
+    			String micPath=mDrawPadView.stopDrawPad2();
+				//Log.i(TAG,"micPath is:"+micPath);
+				if(SDKFileUtils.fileExist(dstTmpPath))
+				{
+					dstPath=SDKFileUtils.newMp4PathInBox();
+					VideoEditor veditor=new VideoEditor();
+					veditor.executeVideoMergeAudio(dstTmpPath, micPath, dstPath);  //合并到新视频文件中.
+				}else{
+					Log.e(TAG," player completion, but file:"+dstTmpPath+" is not exist!!!");
+				}
 				mCameraLayer=null;
 				playVideo.setVisibility(View.VISIBLE);
 		}
@@ -247,11 +260,61 @@ public class CameraLayerDemoActivity extends Activity implements Handler.Callbac
 		// TODO Auto-generated method stub
 			super.onDestroy();
 			
-		    if(SDKFileUtils.fileExist(dstPath)){
-		    	SDKFileUtils.deleteFile(dstPath);
+		    if(SDKFileUtils.fileExist(dstTmpPath)){
+		    	SDKFileUtils.deleteFile(dstTmpPath);
 		    }
 	}
-   
+   //-----------------------------
+//   private MediaPlayer mplayer=null;
+//   private VideoLayer videolayer=null;
+   /**
+    * 增加一个视频图层, 仅仅测试使用.
+    */
+//   private void addVideoLayer()
+//   {
+//	   if(mDrawPadView!=null && mDrawPadView.isRunning() && videolayer==null)
+//	   {
+//		   videolayer=mDrawPadView.addVideoLayer(480, 480, null);
+//		   if(videolayer!=null){
+//				videolayer.setScale(0.5f);
+//				
+//				mplayer=new MediaPlayer();
+//	   			try {
+//					mplayer.setDataSource("/sdcard/480x480.mp4");  //注意, 我们用了默认路径
+//				}  catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//	   			
+//	        	  try {
+//					mplayer.prepare();
+//					//设置到播放器中.
+//					mplayer.setSurface(new Surface(videolayer.getVideoTexture()));
+//					
+//				} catch (IllegalStateException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//	        	  
+//	        	  
+//	        	  mplayer.setOnCompletionListener(new OnCompletionListener() {
+//					
+//					@Override
+//					public void onCompletion(MediaPlayer mp) {
+//						// TODO Auto-generated method stub
+//						//播放完成后, 删除.
+//						if(videolayer!=null && mDrawPadView!=null){
+//							mDrawPadView.removeLayer(videolayer);
+//						}
+//					}
+//				});
+//	        	  mplayer.start();
+//			}
+//	   }
+//   }
    //-------------------------------------------一下是UI界面和控制部分.---------------------------------------------------
    private SeekBar AdjusterFilter;
    private TextView tvTime;
@@ -319,6 +382,13 @@ public class CameraLayerDemoActivity extends Activity implements Handler.Callbac
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 			case R.id.id_cameralayer_frontcamera:
+//				if(mDrawPadView.isRecording())
+//				{
+//					mDrawPadView.pauseDrawPadRecord();	
+//					Log.i(TAG,"drawpad  view  paused!!!!录制暂停了.");
+//				}else{
+//					mDrawPadView.resumeDrawPadRecord();
+//				}
 				if (mCameraLayer!=null && mCameraLayer.supportChangeCamera()) {
 					handler.sendEmptyMessage(MSG_CHANGE_CAMERA);
 				}

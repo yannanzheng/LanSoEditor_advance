@@ -311,9 +311,7 @@ public class OpenSegmentsRecorder implements PreviewCallback, SurfaceHolder.Call
 				}else{
 					currentSegDuration = now - currentSegmentStartTime;
 				}
-				
 				videoFrameQ.add(new OpenFrame(currentSegDuration, dataCopy));
-				
 				segmentRecordListener.segmentProgress((currentSegDuration+lastSegmentsTotalTime));
 				
 			}
@@ -426,7 +424,6 @@ public class OpenSegmentsRecorder implements PreviewCallback, SurfaceHolder.Call
 						
 					}
 				}
-				
 				if (mIsStopRecord.get()) {
 					if (!videoFrameQ.isEmpty()) {
 						

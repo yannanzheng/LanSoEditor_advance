@@ -44,6 +44,9 @@
     	    android:text="@string/canvaslayer_hint1"
     	    android:textColor="@color/red"
     	    android:textSize="18sp"/>
-    	
+
+    	 
+       
+       
     	
 </RelativeLayout>

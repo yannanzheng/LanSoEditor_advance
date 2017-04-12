@@ -45,6 +45,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Parcelable;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.text.Layout;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -99,7 +101,7 @@ public class ViewLayerDemoActivity extends Activity{
     	
         initView();
         
-        //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
+        //在手机的默认路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
         editTmpPath=SDKFileUtils.newMp4PathInBox();
         dstPath=SDKFileUtils.newMp4PathInBox();
 	    
@@ -201,7 +203,9 @@ public class ViewLayerDemoActivity extends Activity{
 			mDrawPadView.stopDrawPad();
 			
 			toastStop();
-			if(SDKFileUtils.fileExist(editTmpPath)){
+			
+			if(SDKFileUtils.fileExist(editTmpPath))
+			{
 				boolean ret=VideoEditor.encoderAddAudio(mVideoPath,editTmpPath,SDKDir.TMP_DIR, dstPath);
 				if(!ret){
 					dstPath=editTmpPath;

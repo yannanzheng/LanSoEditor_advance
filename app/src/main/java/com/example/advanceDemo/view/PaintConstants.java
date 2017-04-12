@@ -72,7 +72,7 @@ public class PaintConstants {
      * 存储图片的默认路径
      */
 	public static final class PATH {
-		public static final String SAVE_PATH = "/sdcard/paintPad";
+		public static final String SAVE_PATH = "/sdcard/lansongBox";
 	}
 
 	/**

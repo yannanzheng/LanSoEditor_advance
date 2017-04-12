@@ -36,9 +36,6 @@
                 android:text="滤镜"
                 android:textColor="@color/white"
                 android:background="@null"/>
-              
-            
-            
             <Button
                 android:id="@+id/id_cameralayer_flashlight"
                 android:layout_width="25dp"
@@ -129,8 +126,6 @@
 		            android:layout_height="wrap_content"
 		            android:text="录制完成"/>
 		   </LinearLayout>
-        
-        
     </LinearLayout>
     
 

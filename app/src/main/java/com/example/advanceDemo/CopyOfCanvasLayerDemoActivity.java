@@ -141,7 +141,7 @@ public class CopyOfCanvasLayerDemoActivity extends Activity {
 		});
         
 
-        //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
+        //在手机的默认路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
         editTmpPath=SDKFileUtils.newMp4PathInBox();
         dstPath=SDKFileUtils.newMp4PathInBox();
         
@@ -234,7 +234,7 @@ public class CopyOfCanvasLayerDemoActivity extends Activity {
 		addCanvasLayer();  //增加一个CanvasLayer
     }
     /**
-     * Step3: 停止画板
+     * Step3: 停止画板,停止后,为新的视频文件增加上音频部分.
      */
     private void stopDrawPad()
     {

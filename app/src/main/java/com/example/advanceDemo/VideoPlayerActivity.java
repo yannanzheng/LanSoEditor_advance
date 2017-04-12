@@ -46,6 +46,8 @@ public class VideoPlayerActivity extends Activity {
     private MediaInfo mInfo;
     
     private TextView tvSizeHint;
+    private TextView tvVideoDuration;
+    private TextView tvPlayWidget;
     @Override  
     protected void onCreate(Bundle savedInstanceState) {  
         super.onCreate(savedInstanceState);  
@@ -56,9 +58,11 @@ public class VideoPlayerActivity extends Activity {
         
         TextView tvScreen=(TextView)findViewById(R.id.id_palyer_screenhinit);
         TextView tvVideoRatio=(TextView)findViewById(R.id.id_palyer_videoRatio);
-        TextView tvVideoDuration=(TextView)findViewById(R.id.id_palyer_videoduration);
+        tvVideoDuration=(TextView)findViewById(R.id.id_palyer_videoduration);
         
         tvSizeHint =(TextView)findViewById(R.id.id_palyer_videosizehint);
+        
+        tvPlayWidget=(TextView)findViewById(R.id.id_palyer_widget);
         
         
         
@@ -119,6 +123,7 @@ public class VideoPlayerActivity extends Activity {
 					int height) {
 				// TODO Auto-generated method stub
 				if(isSupport){
+				//	Log.i(TAG,"开始播放.....");
 					play(new Surface(surface));
 //					startVPlayer(new Surface(surface));
 				}
@@ -147,7 +152,7 @@ public class VideoPlayerActivity extends Activity {
     		return ;
     	
     
-    	
+    	tvPlayWidget.setText("播放控件是: 原生MediaPlayer");
         mediaPlayer = new MediaPlayer();  
         mediaPlayer.reset();  
         
@@ -192,6 +197,7 @@ public class VideoPlayerActivity extends Activity {
     {
     	vplayer=new VPlayer(this);
     	vplayer.setVideoPath(videoPath);
+    	tvPlayWidget.setText("播放控件是: SDK提供的VPlayer");
     	vplayer.setOnPreparedListener(new OnPlayerPreparedListener() {
     			
     			@Override

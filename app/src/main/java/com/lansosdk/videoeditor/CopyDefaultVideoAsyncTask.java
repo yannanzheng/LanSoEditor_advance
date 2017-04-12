@@ -1,6 +1,10 @@
 package com.lansosdk.videoeditor;
 
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -13,11 +17,17 @@ public class CopyDefaultVideoAsyncTask extends AsyncTask<Object, Object, Boolean
 		private TextView tvHint;
 		private String fileName;
 		
+		/**
+		 * 阻塞执行, 拷贝Assert中的文件.
+		 * @param ctx
+		 * @param fileName
+		 * @return
+		 */
 	public static String copyFile(Context ctx,String fileName)
 	{
 		 String str=SDKDir.TMP_DIR+fileName;
 		  if(SDKFileUtils.fileExist(str)==false){
-		  	CopyFileFromAssets.copy(ctx, fileName, SDKDir.TMP_DIR, fileName);
+		  	copy(ctx, fileName, SDKDir.TMP_DIR, fileName);
 		  }
 		  return str;
 	}
@@ -49,10 +59,36 @@ public class CopyDefaultVideoAsyncTask extends AsyncTask<Object, Object, Boolean
    		  //copy ping20s.mp4	
 		  String str=SDKDir.TMP_DIR+fileName;
 		  if(SDKFileUtils.fileExist(str)==false){
-		  	CopyFileFromAssets.copy(mContext, fileName, SDKDir.TMP_DIR, fileName);
+		  	copy(mContext, fileName, SDKDir.TMP_DIR, fileName);
 		  }
 		  return null;
    }
+   private static void copy(Context mContext, String ASSETS_NAME,
+			String savePath, String saveName) {
+		String filename = savePath + "/" + saveName;
+
+		File dir = new File(savePath);
+		// 如果目录不中存在，创建这个目录
+		
+		if (!dir.exists())
+			dir.mkdir();
+		try {
+			if (!(new File(filename)).exists()) {
+				InputStream is = mContext.getResources().getAssets()
+						.open(ASSETS_NAME);
+				FileOutputStream fos = new FileOutputStream(filename);
+				byte[] buffer = new byte[7168];
+				int count = 0;
+				while ((count = is.read(buffer)) > 0) {
+					fos.write(buffer, 0, count);
+				}
+				fos.close();
+				is.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	@Override
 	protected void onPostExecute(Boolean result) { 
 		// TODO Auto-generated method stub

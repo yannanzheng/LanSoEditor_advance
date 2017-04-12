@@ -129,7 +129,7 @@
     </RelativeLayout>
     
     
-
+  
         <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -140,6 +140,5 @@
             android:text="提示:为了代码清晰和方便选择滤镜,暂时没有开始按钮, 实际您可以任意增加!,"
             android:layout_centerVertical="true"
             android:textColor="@color/white" />
-    
     
 </RelativeLayout>

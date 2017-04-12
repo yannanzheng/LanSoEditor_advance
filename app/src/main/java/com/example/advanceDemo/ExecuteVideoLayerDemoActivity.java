@@ -31,6 +31,7 @@ import com.lansosdk.box.DataLayer;
 import com.lansosdk.box.DrawPad;
 import com.lansosdk.box.DrawPadVideoExecute;
 import com.lansosdk.box.MVLayer;
+import com.lansosdk.box.MVLayerENDMode;
 import com.lansosdk.box.VideoLayer;
 import com.lansosdk.box.ViewLayer;
 import com.lansosdk.box.onDrawPadCompletedListener;
@@ -95,6 +96,7 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		 
 		 videoPath=getIntent().getStringExtra("videopath");
+		 
 		 mInfo=new MediaInfo(videoPath);
 		 mInfo.prepare();
 		 
@@ -102,8 +104,11 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 		 
 		 initUI();
 		
-       //在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
+       //在手机的默认路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
        editTmpPath=SDKFileUtils.newMp4PathInBox();
+		 if(SDKFileUtils.fileExist(editTmpPath)){
+			 SDKFileUtils.deleteFile(editTmpPath);
+		 }
        dstPath=SDKFileUtils.newMp4PathInBox();
 	}
 	/**
@@ -133,12 +138,6 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 		
 		 //或者可以用另一个构造方法, 指定主视频的开始时间, 这里举例是3*1000(3秒);
 //		 vDrawPad=new DrawPadVideoExecute(ExecuteVideoLayerDemoActivity.this,videoPath,3*1000,480,480,1000000,null,editTmpPath);
-		
-		 /**
-		  * 使用主视频的pts作为目标视频的pts
-		  */
-		 vDrawPad.setUseMainVideoPts(true);
-		 
 		 /**
 		  * 设置DrawPad处理的进度监听, 回传的currentTimeUs单位是微秒.
 		  */
@@ -148,10 +147,7 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 			public void onProgress(DrawPad v, long currentTimeUs) {
 				// TODO Auto-generated method stub
 				
-			//	Log.i(TAG,"当前时间"+currentTimeUs);
-				
 				tvProgressHint.setText(String.valueOf(currentTimeUs));
-			
 				//6秒后消失
 				if(currentTimeUs>6000000 && bitmapLayer!=null)  
 					v.removeLayer(bitmapLayer);
@@ -170,15 +166,20 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 			public void onCompleted(DrawPad v) {
 				// TODO Auto-generated method stub
 				tvProgressHint.setText("DrawPadExecute Completed!!!");
-				
 				isExecuting=false;
 				
-				if(SDKFileUtils.fileExist(editTmpPath)){
-					boolean ret=VideoEditor.encoderAddAudio(videoPath, editTmpPath,SDKDir.TMP_DIR,dstPath);
-					if(ret==false){
-						dstPath=editTmpPath; //没有声音的时候,临时文件为目标文件.
+				if(isInsertAudio){
+					dstPath=editTmpPath; 
+				}else{
+					if(SDKFileUtils.fileExist(editTmpPath)){
+						boolean ret=VideoEditor.encoderAddAudio(videoPath, editTmpPath,SDKDir.TMP_DIR,dstPath);
+						if(ret==false){
+							dstPath=editTmpPath;
+						}
 					}
 				}
+				Log.i(TAG,"dstPath  is:"+dstPath);
+				
 				findViewById(R.id.id_video_edit_btn2).setEnabled(true);
 			}
 		});
@@ -186,14 +187,14 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 		 * 设置是否使用主视频的时间戳为录制视频的时间戳, 
     * 如果您传递过来的是一个完整的视频, 只是需要在此视频上做一些操作, 操作完成后,时长等于源视频的时长, 则建议使用主视频的时间戳, 如果视频是从中间截取一般开始的则不建议使用
 		 */
-//		vDrawPad.setUseMainVideoPts(use);
+//		vDrawPad.setUseMainVideoPts(true);
 		
-		
+//		testInsertAudio();
 		/**
 		 * 开始执行这个DrawPad
 		 */
-		Log.i(TAG,"开始播放了....");
 		vDrawPad.startDrawPad();
+		vDrawPad.pauseRecordDrawPad();
 		
 		/**
 		 * 一下是在处理过程中, 
@@ -209,6 +210,37 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 //		addCanvasLayer();
 //		addDataLayer();
 //		 addMVLayer();
+		 
+		 vDrawPad.resumeRecordDrawPad();
+	}
+	/**
+	 * 可以插入一段声音.
+	 * 注意, 需要在drawpad开始前调用.
+	 */
+	private boolean isInsertAudio=false;
+	private void testInsertAudio()
+	{
+		/**
+		 * 设置是否在录制的时候,插入声音.
+		 */
+		isInsertAudio=true;
+		/**
+		 * 插入一段声音, 这里拷贝Assets中的资源来做.
+		 */
+		String audio=CopyDefaultVideoAsyncTask.copyFile(getApplicationContext(), "hongdou10s.mp3");
+		 /**
+	     * 在处理中插入一段音频.
+	     * @param srcPath  音频的完整路径
+	     * @param startTimeMs 设置从主视频的哪个时间点开始插入.单位毫秒.
+	     * @param durationMs   把这段声音多长插入进去. 如果设置为-1,则全部插入进去, 如果音频大于主视频的音频时长,则等于主视频的时长.
+	     * 
+	     * @param mainvolume 插入时,主音频音量多大  默认是1.0f, 大于1,0则是放大, 小于则是降低
+	     * @param volume  插入时,当前音频音量多大  默认是1.0f, 大于1,0则是放大, 小于则是降低
+	     * @return  插入成功, 返回true, 失败返回false
+	     */
+		vDrawPad.addSubAudio(audio,0,-1,3.0f,2.0f);
+		//vDrawPad.addSubAudio(audio,5000,-1,3.0f,2.0f);
+		//vDrawPad.addSubAudio(audio,1000,8000,3.0f,2.0f);
 	}
    @Override
     protected void onDestroy() {
@@ -310,6 +342,26 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 						});
 					}
 		}
+		private void addMVLayer()
+		{
+		   	Log.i(TAG,"增加一个MV");
+			String  colorMVPath=CopyDefaultVideoAsyncTask.copyFile(ExecuteVideoLayerDemoActivity.this,"mei.mp4");
+		    String maskMVPath=CopyDefaultVideoAsyncTask.copyFile(ExecuteVideoLayerDemoActivity.this,"mei_b.mp4");
+		    /**
+		     * 当mv在解码的时候, 是否异步执行; 
+		     * 如果异步执行,则MV解码可能没有那么快,从而MV画面会有慢动作的现象.
+		     * 如果同步执行,则视频处理会等待MV解码完成, 从而处理速度会慢一些,但MV在播放时,是正常的. 
+		     *  
+		     * @param srcPath  MV的彩色视频
+		     * @param maskPath  MV的黑白视频.
+		     * @param isAsync   是否异步执行.
+		     * @return
+		     */
+		    MVLayer  layer=vDrawPad.addMVLayer(colorMVPath, maskMVPath,true); 
+			 // mv在播放完后, 有3种模式,消失/停留在最后一帧/循环.默认是循环.
+//			  layer.setEndMode(MVLayerENDMode.INVISIBLE); 
+			 
+		}
 		private MediaInfo gifInfo;
 		private long decoderHandler;
 	   private IntBuffer  mGLRgbBuffer;
@@ -330,19 +382,7 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 			   return false;
 		   }
 	   }
-	   private void addMVLayer()
-		{
-		   	Log.i(TAG,"增加一个MV");
-			String  colorMVPath=com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask.copyFile(ExecuteVideoLayerDemoActivity.this,"mei.ts");
-		    String maskMVPath=com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask.copyFile(ExecuteVideoLayerDemoActivity.this,"mei_b.ts");
-		
-		    MVLayer  layer=vDrawPad.addMVLayer(colorMVPath, maskMVPath);  //<-----增加MVLayer
-		 
-			/**
-			 * mv在播放完后, 有3种模式,消失/停留在最后一帧/循环.默认是循环.
-			 * layer.setEndMode(MVLayerENDMode.INVISIBLE); 
-			 */
-		}
+	   
 	   /**
 	    * 增加一个DataLayer, 数据图层. 数据图层是可以把外界的数据图片RGBA, 作为一个图层, 传到到DrawPad中. 
 	    * 

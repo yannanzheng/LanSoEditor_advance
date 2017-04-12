@@ -84,7 +84,7 @@ public class VideoLayerTwoRealTimeActivity extends Activity implements OnSeekBar
     private MediaPlayer mplayer2=null;
     
     private VideoLayer subVideoLayer=null;
-    private VideoLayer  mLayerMain=null;
+    private VideoLayer  mVideoLayer=null;
     
     private String editTmpPath=null;
     private String dstPath=null;
@@ -98,11 +98,9 @@ public class VideoLayerTwoRealTimeActivity extends Activity implements OnSeekBar
         
         mVideoPath = getIntent().getStringExtra("videopath");
         mDrawPadView = (DrawPadView) findViewById(R.id.DrawPad_view);
-        
-       
 
         /**
-         * 在手机的/sdcard/lansongBox/路径下创建一个文件名,
+         * 在手机的默认路径下创建一个文件名,
          * 用来保存生成的视频文件,(在onDestroy中删除)
          */
         editTmpPath=SDKFileUtils.newMp4PathInBox();
@@ -186,12 +184,11 @@ public class VideoLayerTwoRealTimeActivity extends Activity implements OnSeekBar
     	// 开始DrawPad的渲染线程. 
 		mDrawPadView.startDrawPad();
 		//增加一个主视频的 VideoLayer
-		mLayerMain=mDrawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
-		if(mLayerMain!=null){
-			mplayer.setSurface(new Surface(mLayerMain.getVideoTexture()));
+		mVideoLayer=mDrawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
+		if(mVideoLayer!=null){
+			mplayer.setSurface(new Surface(mVideoLayer.getVideoTexture()));
 		}
 		mplayer.start();
-		
 		startPlayer2();
     }
     private void stopDrawPad()
@@ -296,7 +293,6 @@ public class VideoLayerTwoRealTimeActivity extends Activity implements OnSeekBar
 		    } 
 	}
     
-    private int RotateCnt=0;
     private LinearLayout  playVideo;
     private void initView()
     {

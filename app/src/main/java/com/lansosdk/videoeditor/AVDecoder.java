@@ -10,40 +10,6 @@ import android.graphics.Bitmap;
 import android.util.Log;
 
 public class AVDecoder {
-
-//	
-//	private void saveBitmap(int width,int height) {
-	
-//	 Bitmap stitchBmp = Bitmap.createBitmap(480, 360, Bitmap.Config.ARGB_8888);
-//// stitchBmp.copyPixelsFromBuffer(mGLRgbBuffer);
-//// 
-//// mGLRgbBuffer.position(0);
-//// 
-//// String str=mSuffix+cnt+".png";
-//// cnt++;
-//// saveBitmap(stitchBmp,str);
-	 
-	 
-//		  Log.e(TAG, "保存图片");
-//		  File f = new File("/sdcard/", picName);
-//		  if (f.exists()) {
-//		   f.delete();
-//		  }
-//		  try {
-//		   FileOutputStream out = new FileOutputStream(f);
-//		   bmp.compress(Bitmap.CompressFormat.PNG, 90, out);
-//		   out.flush();
-//		   out.close();
-//		   Log.i(TAG, "已经保存");
-//		  } catch (FileNotFoundException e) {
-//		   // TODO Auto-generated catch block
-//		   e.printStackTrace();
-//		  } catch (IOException e) {
-//		   // TODO Auto-generated catch block
-//		   e.printStackTrace();
-//		  }
-//
-//		 }
 	
 	/**
 	 * 
@@ -66,7 +32,7 @@ public class AVDecoder {
 		 * 
 		 * @param out  输出.
 		 * 
-		 * @return  返回的是当前帧的时间戳.单位是秒.
+		 * @return  返回当前当前帧的时间戳,单位us
 		 */
 		public static native long decoderFrame(long handle,long seekUs,int[] out);
 		
@@ -83,4 +49,52 @@ public class AVDecoder {
 		 * @return
 		 */
 		public static native boolean decoderIsEnd(long handle);
+		
+		/**
+		 * 代码测试.
+		 *
+		 *测试证明, 是可以多个线程同时解码的.
+		 *private void testDecoder()
+		{
+			new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					testDecoder2("/sdcard/480x480.mp4","/sdcard/480x480.yuv");
+				}
+			}).start();
+			
+			new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					testDecoder2("/sdcard/ping20s.mp4","/sdcard/ping20s.yuv");
+				}
+			}).start();
+		}
+		private void testDecoder2(String src,String dst)
+		{
+			   long decoderHandler;
+			   IntBuffer  mGLRgbBuffer;
+			   String gifPath=src;
+			   MediaInfo  gifInfo=new MediaInfo(gifPath);
+			       if(gifInfo.prepare())
+			       {
+			    	   decoderHandler=AVDecoder.decoderInit(gifPath);
+			    	   FileWriteUtls  write=new FileWriteUtls(dst);
+			    	   mGLRgbBuffer = IntBuffer.allocate(gifInfo.vWidth * gifInfo.vHeight);
+			    	   while(AVDecoder.decoderIsEnd(decoderHandler)==false)
+			    	   {
+			    			mGLRgbBuffer.position(0);
+		    				AVDecoder.decoderFrame(decoderHandler, -1, mGLRgbBuffer.array());
+		    				mGLRgbBuffer.position(0);
+		    				write.writeFile(mGLRgbBuffer);
+			    	   }
+			    	   write.closeWriteFile();
+			    	   Log.i(TAG,"write closeEEEE!");
+			       }
+			}
+		 */
 }

@@ -106,10 +106,8 @@ public class ViewLayerOnlyRealTimeActivity extends Activity implements IEndListe
         
         mGLRelativeLayout=(ViewLayerRelativeLayout)findViewById(R.id.id_viewLayer_gllayout);
         textSurface = (TextSurface) findViewById(R.id.text_surface);
-
-
         /**
-         * 在手机的/sdcard/lansongBox/路径下创建一个文件名,用来保存生成的视频文件,
+         * 在手机的默认路径下创建一个文件名,用来保存生成的视频文件,
          * (在onDestroy中删除)
          */
         dstPath=SDKFileUtils.newMp4PathInBox();

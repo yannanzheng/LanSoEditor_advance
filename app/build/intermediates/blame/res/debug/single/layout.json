@@ -4,12 +4,148 @@
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\view8.xml"
     },
     {
-        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\view5.xml",
-        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\view5.xml"
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\cameralayer_fullsegment_layout.xml",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\cameralayer_fullsegment_layout.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\view2.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\view2.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\drawpad_touch_layout.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\drawpad_touch_layout.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\view8.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\view8.xml"
     },
     {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_main.xml",
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\cameralayer_fullsegment_layout.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\cameralayer_fullsegment_layout.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\cameralayer_fullscreen_demo_layout.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\cameralayer_fullscreen_demo_layout.xml"
+    },
+    {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\view2.xml",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\view2.xml"
+    },
+    {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\cameralayer_fullscreen_demo_layout.xml",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\cameralayer_fullscreen_demo_layout.xml"
+    },
+    {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\view3.xml",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\view3.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\cameramasklayer_demo_layout.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\cameramasklayer_demo_layout.xml"
+    },
+    {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\video_scale_layout.xml",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\video_scale_layout.xml"
+    },
+    {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\vview_drawimage_demo_layout.xml",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\vview_drawimage_demo_layout.xml"
+    },
+    {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\filter_player_layout.xml",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\filter_player_layout.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\test_cmd_layout.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\test_cmd_layout.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\video_record_activity.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\video_record_activity.xml"
+    },
+    {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\test_cmd_layout.xml",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\test_cmd_layout.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\filter_layer_demo_layout.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\filter_layer_demo_layout.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\view1.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\view1.xml"
+    },
+    {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\cameralayer_demo_layout.xml",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\cameralayer_demo_layout.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\video_edit_demo_layout.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\video_edit_demo_layout.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\viewpen_preview_layout.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\viewpen_preview_layout.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\view4.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\view4.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\cameralayer_segment_layout.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\cameralayer_segment_layout.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\video_scale_layout.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\video_scale_layout.xml"
+    },
+    {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\file_explore_item.xml",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\file_explore_item.xml"
+    },
+    {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\cameralayer_segment_layout.xml",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\cameralayer_segment_layout.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\view7.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\view7.xml"
+    },
+    {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\mvlayer_demo_layout.xml",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\mvlayer_demo_layout.xml"
+    },
+    {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_test.xml",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\activity_test.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\drawpad_layout.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\drawpad_layout.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\player_layout.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\player_layout.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\viewpager.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\viewpager.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\mvlayer_demo_layout.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\mvlayer_demo_layout.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\view5.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\view5.xml"
+    },
+    {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\view5.xml",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\view5.xml"
     },
     {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\player_layout.xml",
@@ -24,40 +160,32 @@
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\drawpad_touch_layout.xml"
     },
     {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\canvaslayer_demo_layout2.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\canvaslayer_demo_layout2.xml"
+    },
+    {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\viewpen_preview_layout.xml",
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\viewpen_preview_layout.xml"
     },
     {
-        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\view2.xml",
-        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\view2.xml"
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\demo_layout.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\demo_layout.xml"
     },
     {
-        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\cameralayer_fullscreen_demo_layout.xml",
-        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\cameralayer_fullscreen_demo_layout.xml"
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\test_widget.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\test_widget.xml"
     },
     {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\canvaslayer_demo_layout2.xml",
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\canvaslayer_demo_layout2.xml"
     },
     {
-        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\view3.xml",
-        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\view3.xml"
-    },
-    {
-        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\video_scale_layout.xml",
-        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\video_scale_layout.xml"
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_test.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\activity_test.xml"
     },
     {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\canvaslayer_demo_layout.xml",
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\canvaslayer_demo_layout.xml"
-    },
-    {
-        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\vview_drawimage_demo_layout.xml",
-        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\vview_drawimage_demo_layout.xml"
-    },
-    {
-        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\filter_player_layout.xml",
-        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\filter_player_layout.xml"
     },
     {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\drawpad_layout.xml",
@@ -68,40 +196,60 @@
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\video_record_activity.xml"
     },
     {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\test_cmd_item.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\test_cmd_item.xml"
+    },
+    {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\view6.xml",
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\view6.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\videopen_autoupdate_demo_layout.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\videopen_autoupdate_demo_layout.xml"
     },
     {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\mediainfo_layout.xml",
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\mediainfo_layout.xml"
     },
     {
-        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\test_cmd_layout.xml",
-        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\test_cmd_layout.xml"
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\canvaslayer_demo_layout.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\canvaslayer_demo_layout.xml"
     },
     {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\cameramasklayer_demo_layout.xml",
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\cameramasklayer_demo_layout.xml"
     },
     {
-        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\view7.xml",
-        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\view7.xml"
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\mediainfo_layout.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\mediainfo_layout.xml"
     },
     {
-        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\cameralayer_demo_layout.xml",
-        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\cameralayer_demo_layout.xml"
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\picture_set_layout.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\picture_set_layout.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\view6.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\view6.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\file_explore_item.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\file_explore_item.xml"
+    },
+    {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\view7.xml",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\view7.xml"
     },
     {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\demo_layout.xml",
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\demo_layout.xml"
     },
     {
-        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\filter_layer_demo_layout.xml",
-        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\filter_layer_demo_layout.xml"
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\filter_player_layout.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\filter_player_layout.xml"
     },
     {
-        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\file_explore_item.xml",
-        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\file_explore_item.xml"
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\filter_layer_demo_layout.xml",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\filter_layer_demo_layout.xml"
     },
     {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\file_explore_layout.xml",
@@ -112,20 +260,24 @@
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\video_edit_demo_layout.xml"
     },
     {
-        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\cameralayer_segment_layout.xml",
-        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\cameralayer_segment_layout.xml"
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\view3.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\view3.xml"
     },
     {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\picture_set_layout.xml",
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\picture_set_layout.xml"
     },
     {
-        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\mvlayer_demo_layout.xml",
-        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\mvlayer_demo_layout.xml"
-    },
-    {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\viewpager.xml",
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\viewpager.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\file_explore_layout.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\file_explore_layout.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\vview_drawimage_demo_layout.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\vview_drawimage_demo_layout.xml"
     },
     {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\view4.xml",
@@ -142,5 +294,13 @@
     {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\test_cmd_item.xml",
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\test_cmd_item.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_main.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\layout\\cameralayer_demo_layout.xml",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\layout\\cameralayer_demo_layout.xml"
     }
 ]

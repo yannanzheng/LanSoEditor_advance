@@ -107,7 +107,6 @@ public class CameraLayerSegmentDemoActivity extends Activity implements OnClickL
 			mWakeLock.acquire();
 		}
     }
-    
     /**
      * Step1: 创建画板.
      */
@@ -116,8 +115,8 @@ public class CameraLayerSegmentDemoActivity extends Activity implements OnClickL
     	 int padWidth=480;
     	 int padHeight=480;
     	 
+    	 mDrawPadView.setRecordMic(true);
     	mDrawPadView.setRealEncodeEnable(padWidth,padHeight,1000000,(int)25,null);
-    	
     	mDrawPadView.setUpdateMode(DrawPadUpdateMode.AUTO_FLUSH, 25);
 
     	//设置进度监听
@@ -137,8 +136,6 @@ public class CameraLayerSegmentDemoActivity extends Activity implements OnClickL
      */
     private void startDrawPad()
     {
-    	mDrawPadView.setRecordMic(true);
-    	mDrawPadView.setRealEncodeEnable(480, 480, 1000*1000, 25, dstPath);
     	/**
     	 * 这里设置先不开始录制.
     	 */
@@ -153,15 +150,12 @@ public class CameraLayerSegmentDemoActivity extends Activity implements OnClickL
 		}
     }
     /**
-     * Step3: 停止画板
+     * Step3: 停止画板 停止后,为新的视频文件增加上音频部分.
      */
     private void stopDrawPad()
     {
     	if(mDrawPadView!=null && mDrawPadView.isRunning())
     	{
-    		   /**
-    		    * 注意, 在调用这里之前,一定要先调用segmentStop,不然最后一段录制的可能不会被增加到数组中.
-    		    */
 				mDrawPadView.stopDrawPad();
 				mCameraLayer=null;
 				/**
@@ -169,12 +163,18 @@ public class CameraLayerSegmentDemoActivity extends Activity implements OnClickL
 				 */
 				if(segmentArray.size()>0)
 				{
+					
+					long  beforeDraw=System.currentTimeMillis();
+					   
+					 
 					VideoEditor editor=new VideoEditor();
 					String[] segments=new String[segmentArray.size()];  
 				     for(int i=0;i<segmentArray.size();i++){  
 				    	 segments[i]=(String)segmentArray.get(i);  
 				     }  
 					editor.executeConcatMP4(segments, dstPath);
+					
+					  Log.i(TAG,"消耗的时间是 :"+ (System.currentTimeMillis() - beforeDraw));
 				}
 				playVideo.setVisibility(View.VISIBLE);
 		}

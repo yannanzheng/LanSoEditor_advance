@@ -28,29 +28,23 @@ public class AudioInsert {
 	  * String audioPath=SDKFileUtils.createAACFileInBox();
 		et.executeDeleteVideo("/sdcard/2x.mp4", audioPath);
 			  
-			  
 	  * @param audioPath  音频的完整路径
 	  * @param volume  在和别的声音混淆的时候的音量, 比如把音量调小一些, 默认是1.0f, 大于1,0则是放大, 小于则是降低
 	  * @param needrelease  处理完毕后, 是否要删除当前文件.
 	  */
-	 public void addMainAudio(String audioPath,float volume,boolean needrelease) 
+	 public boolean addMainAudio(String audioPath) 
 	 {
-		 if(insertMng!=null){
-			 insertMng.addMainAudio(audioPath, volume, needrelease);
-		 }
+			return insertMng.addMainAudio(audioPath);
 	 }
 	 /**
 	  * 增加一个 从音频文件, 格式是mp3或aac格式.
 	  * @param srcPath   音频的完整路径
 	  * @param startTimeMs  设置从主音频的哪个时间点开始插入.单位毫秒.
 	  * @param volume  在和别的声音混淆的时候的音量, 比如把音量调小一些, 默认是1.0f, 大于1,0则是放大, 小于则是降低
-	  * @param needrelease 
 	  */
-	 public void addSubAudio(String srcPath,long startTimeMs,long durationMs,float volume,boolean needrelease) 
+	 public boolean addSubAudio(String srcPath,long startTimeMs,long durationMs,float mainVolume,float volume) 
 	 {
-		 if(insertMng!=null){
-			 insertMng.addSubAudio(srcPath, startTimeMs, durationMs, volume, needrelease);
-		 }
+			return  insertMng.addSubAudio(srcPath, startTimeMs, durationMs, mainVolume,volume);
 	 }
 	 /**
 	  * 增加主音频文件, 格式是pcm格式, 即原始采样点.
@@ -62,11 +56,9 @@ public class AudioInsert {
 	  * @param volume  在和别的声音混淆的时候的音量, 比如把音量调小一些, 默认是1.0f, 大于1,0则是放大, 小于则是降低
 	  * @param needrelease  处理完毕后, 是否要释放.
 	  */
-   public void addMainAudioPCM(String pcmPath,int sampleRate,int channels,int duration,float volume,boolean needrelease) 
+   public boolean addMainAudioPCM(String pcmPath,int sampleRate,int channels,int duration,float volume,boolean needrelease) 
    {
-	   if(insertMng!=null){
-		   insertMng.addMainAudioPCM(pcmPath, sampleRate, channels, duration, volume, needrelease);
-	   }
+	   return insertMng.addMainAudioPCM(pcmPath, sampleRate, channels, duration, volume, needrelease);
    }
   
    /**
@@ -76,17 +68,17 @@ public class AudioInsert {
     * @param channels  通道号, 当前仅仅支持双通道
     * @param startTimeMs    设置从主音频的哪个时间点开始插入.单位毫秒.
     * @param durationMS   pcm的总长度, 可以通过对原音频文件进行MediaInfo得到
+    * 
     * @param volume   在和别的声音混淆的时候的音量, 比如把音量调小一些, 默认是1.0f, 大于1,0则是放大, 小于则是降低
+    * 
     * @param needrelease
     */
-   public void addSubAudioPCM(String srcPath,int sampleRate,int channels,long startTimeMs,long durationMS,float volume,boolean needrelease) 
+   public boolean addSubAudioPCM(String srcPath,int sampleRate,int channels,long startTimeMs,long durationMS,float mainVolume,float volume,boolean needrelease) 
    {
-	   if(insertMng!=null){
-		   insertMng.addSubAudioPCM(srcPath, sampleRate, channels, startTimeMs, durationMS, volume, needrelease);
-	   }
+		 return  insertMng.addSubAudioPCM(srcPath, sampleRate, channels, startTimeMs, durationMS,mainVolume, volume, needrelease);
    }
    /**
-    * 开始执行. 
+    * 开始执行. 这里是阻塞执行, 一直到执行完毕才退出. 
     * 因为代码中有音频的编码和解码, 如果手机支持 音频硬件加速, 则会执行很快. 
     * 建议异步执行.
     * @return
@@ -105,8 +97,11 @@ public class AudioInsert {
 	 *  VideoEditor et=new VideoEditor();
 			  et.executeDeleteVideo("/sdcard/2x.mp4", "/sdcard/2x_audio.aac");
 			  
+			  
 			  AudioInsertManager mixMng=new AudioInsertManager(getApplicationContext());
 			  mixMng.addMainAudio("/sdcard/2x_audio.aac",1.0f, true);
+			  
+			  
 			  //从第4秒出开始增加, 增加3秒的时长,音量为6倍.
 			  mixMng.addSubAudio("/sdcard/hongdou10s.mp3",4000,3000,6.0f,true);
 			  //增加一段pcm的音频文件,从4秒出增加

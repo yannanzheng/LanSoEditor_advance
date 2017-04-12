@@ -11,9 +11,12 @@ import java.util.Locale;
 
 
 
+import android.graphics.Bitmap;
+import android.media.MediaMetadataRetriever;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 
 
@@ -146,9 +149,15 @@ public class VideoEditor {
 	    /**
 	     * 执行成功,返回0, 失败返回错误码.
 	     * @param cmdArray  ffmpeg命令的字符串数组, 可参考此文件中的各种方法举例来编写.
-	     * @return  执行成功,返回0, 失败返回错误码. (可当执行失败,联系我们,由我们来帮您解决)
+	     * @return  执行成功,返回0, 失败返回错误码. 
 	     */
 	    private native int execute(Object cmdArray);
+	    
+	    /**
+	     * 新增 在执行过程中取消的方法.
+	     * 如果在执行中调用了这个方法, 则会直接终止当前的操作.
+	     */
+	    public native void cancel();
 	
 //	/**
 //	 * 把一张图片转换为视频,并有淡入淡出的效果.
@@ -694,6 +703,8 @@ public class VideoEditor {
 		  }
 		  /**
 		   * 音频和视频合成为多媒体文件，等于给视频增加一个音频。
+		   * 
+		   * 2017年4月5日 增加: 默认以视频的时长为最终目标视频的长度.
 		   * @param videoFile 输入的视频文件,需视频文件中不存储音频部分. 如有音频部分, 建议用 {@link #executeDeleteAudio(String, String)}把音频删除后的目标文件作为当前的输入.
 		   * @param audioFile 输入的音频文件
 		   * @param dstFile  合成后的输出，文件名的后缀是.mp4
@@ -704,17 +715,72 @@ public class VideoEditor {
 		  {
 			  boolean isAAC=false;
 			  
-			  if(fileExist(videoFile) && fileExist(audioFile)){
+			  MediaInfo vInfo=new MediaInfo(videoFile,false);
+			  MediaInfo aInfo=new MediaInfo(audioFile,false);
+			  if(vInfo.prepare() && aInfo.prepare()){
 				  
-					  if(audioFile.endsWith(".aac")){
+					  if(aInfo.aCodecName.equals("aac")){
 						  isAAC=true;
 					  }
-				  
 					List<String> cmdList=new ArrayList<String>();
 			    	cmdList.add("-i");
 					cmdList.add(videoFile);
 					cmdList.add("-i");
 					cmdList.add(audioFile);
+
+					cmdList.add("-t");
+					cmdList.add(String.valueOf(vInfo.vDuration));
+					
+					cmdList.add("-vcodec");
+					cmdList.add("copy");
+					cmdList.add("-acodec");
+					cmdList.add("copy");
+					if(isAAC){
+						cmdList.add("-absf");
+						cmdList.add("aac_adtstoasc");
+					}
+					cmdList.add("-y");
+					cmdList.add(dstFile);
+					String[] command=new String[cmdList.size()];  
+				     for(int i=0;i<cmdList.size();i++){  
+				    	 command[i]=(String)cmdList.get(i);  
+				     }  
+				    return  executeVideoEditor(command);
+				  
+			  }else{
+				  return VIDEO_EDITOR_EXECUTE_FAILED;
+			  }
+		  }
+		  /**
+		   * 音频和视频合成为多媒体文件，等于给视频增加一个音频。
+		   * 
+		   * 2017年4月5日 增加: 默认以视频的时长为最终目标视频的长度.
+		   * @param videoFile 输入的视频文件,需视频文件中不存储音频部分. 如有音频部分, 建议用 {@link #executeDeleteAudio(String, String)}把音频删除后的目标文件作为当前的输入.
+		   * @param audioFile 输入的音频文件
+		   * @param dstFile  合成后的输出，文件名的后缀是.mp4
+		   * @return 返回执行的结果.
+		   * 
+		   */
+		  public int executeVideoMergeAudio2(String videoFile,String audioFile,String dstFile)
+		  {
+			  boolean isAAC=false;
+			  
+			  MediaInfo vInfo=new MediaInfo(videoFile,false);
+			  MediaInfo aInfo=new MediaInfo(audioFile,false);
+			  if(vInfo.prepare() && aInfo.prepare()){
+				  
+					  if(aInfo.aCodecName.equals(".aac")){
+						  isAAC=true;
+					  }
+					List<String> cmdList=new ArrayList<String>();
+			    	cmdList.add("-i");
+					cmdList.add(videoFile);
+					cmdList.add("-i");
+					cmdList.add(audioFile);
+
+					cmdList.add("-t");
+					cmdList.add(String.valueOf(vInfo.vDuration));
+					
 					cmdList.add("-vcodec");
 					cmdList.add("copy");
 					cmdList.add("-acodec");
@@ -1168,7 +1234,50 @@ public class VideoEditor {
 				  return VIDEO_EDITOR_EXECUTE_FAILED;
 			  }
 		  }
-
+		  
+		  /** 
+		     * 来自于网络, 没有全部测试.
+		     * 获取视频的缩略图 
+		     * 提供了一个统一的接口用于从一个输入媒体文件中取得帧和元数据。 
+		     * @param path 视频的路径 
+		     * @param width 缩略图的宽 
+		     * @param height 缩略图的高 
+		     * @return 缩略图 
+		     */  
+		    public static Bitmap createVideoThumbnail(String path, int width, int height) {  
+		        Bitmap bitmap = null;  
+		        MediaMetadataRetriever retriever = new MediaMetadataRetriever();  
+		        if (TextUtils.isEmpty(path)) {  
+		            return null;  
+		        }  
+		          
+		        File file = new File(path);  
+		        if (!file.exists()) {  
+		            return null;  
+		        }  
+		          
+		        try {  
+		            retriever.setDataSource(path);  
+		            bitmap = retriever.getFrameAtTime(-1); //取得指定时间的Bitmap，即可以实现抓图（缩略图）功能  
+		        } catch (IllegalArgumentException ex) {  
+		            // Assume this is a corrupt video file  
+		        } catch (RuntimeException ex) {  
+		            // Assume this is a corrupt video file.  
+		        } finally {  
+		            try {  
+		                retriever.release();  
+		            } catch (RuntimeException ex) {  
+		                // Ignore failures while cleaning up.  
+		            }  
+		        }  
+		          
+		        if (bitmap == null) {  
+		            return null;  
+		        }  
+		  
+		        bitmap = Bitmap.createScaledBitmap(bitmap, width, height, true);  
+		        return bitmap;  
+		    }  
 		  /**
 		   * 从视频的指定位置中获取一帧图片. 因为这个是精确提取视频的一帧, 不建议作为提取缩略图来使用,用mediametadataRetriever最好.
 		   * 
@@ -3127,34 +3236,34 @@ public class VideoEditor {
 			  }
 		  }
 		
-		/**
-		 * 仅仅测试gif的编码。
-		 * @return
-		 */
-		public int executeImage2Gif() 
-		{
-			//ffmpeg -f image2 -framerate 10 -i gif_%03d.jpg neat.gif 参考代码。
-					List<String> cmdList=new ArrayList<String>();
-					
-					cmdList.add("-f");
-					cmdList.add("image2");
-					
-					cmdList.add("-framerate");
-					cmdList.add("10");
-
-					cmdList.add("-i");
-					cmdList.add("/sdcard/test_gif/gif_%03d.jpg");
-					
-					
-					cmdList.add("-y");
-					cmdList.add("/sdcard/test_gif/m7_gif.gif");
-					 
-					String[] command=new String[cmdList.size()];  
-				     for(int i=0;i<cmdList.size();i++){  
-				    	 command[i]=(String)cmdList.get(i);  
-				     }  
-				    return  executeVideoEditor(command);
-		}
+//		/**
+//		 * 仅仅测试gif的编码。
+//		 * @return
+//		 */
+//		public int executeImage2Gif() 
+//		{
+//			//ffmpeg -f image2 -framerate 10 -i gif_%03d.jpg neat.gif 参考代码。
+//					List<String> cmdList=new ArrayList<String>();
+//					
+//					cmdList.add("-f");
+//					cmdList.add("image2");
+//					
+//					cmdList.add("-framerate");
+//					cmdList.add("10");
+//
+//					cmdList.add("-i");
+//					cmdList.add("/sdcard/test_gif/gif_%03d.jpg");
+//					
+//					
+//					cmdList.add("-y");
+//					cmdList.add("/sdcard/test_gif/m7_gif.gif");
+//					 
+//					String[] command=new String[cmdList.size()];  
+//				     for(int i=0;i<cmdList.size();i++){  
+//				    	 command[i]=(String)cmdList.get(i);  
+//				     }  
+//				    return  executeVideoEditor(command);
+//		}
 		
 		/**
 		 * 校对一下 bitrate, 因为一些2013年左右的SoC中的硬件编码器如果码率大于2000*1000(2M)的话, 则会崩溃, 故这里限制在2M范围内.
@@ -3163,14 +3272,14 @@ public class VideoEditor {
 		 */
 		public static String checkBitRate(int srcBitRate)
 		{
-			int bitrate=srcBitRate;
-	    		
-			if(bitrate>2500*1000)
-	    		bitrate=2500*1000; //2.5M
-			else if(bitrate<500)
-				bitrate=500;
-			
-	    	return String.valueOf(bitrate);	
+//			int bitrate=srcBitRate;
+//	    		
+//			if(bitrate>2500*1000)
+//	    		bitrate=2500*1000; //2.5M
+//			else if(bitrate<500)
+//				bitrate=500;
+//			
+	    	return String.valueOf(srcBitRate);	
 		}
 		
 		/**

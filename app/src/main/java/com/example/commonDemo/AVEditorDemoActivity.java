@@ -87,6 +87,8 @@ public class AVEditorDemoActivity extends Activity implements OnClickListener{
 	        if(isOutAudio==false){
 	        	findViewById(R.id.id_test_cmdaudio_play_btn).setVisibility(View.GONE);
 	        }
+			
+	        
 	      /**
 	       * 第一步,创建VideoEditor对象, 并设置进度监听,当然您也可以不设置监听.
 	       */
@@ -171,6 +173,8 @@ public class AVEditorDemoActivity extends Activity implements OnClickListener{
       	    	 * 真正执行的代码,因演示的方法过多, 用每个方法的ID的形式来区分, 您实际使用中, 可直接填入具体方法的代码.
       	    	 */
       	    	startRunDemoFunction(); 
+      	    	
+      	    	
       	    	return null;
       	    }
 	    	@Override

@@ -1,21 +1,36 @@
 package com.example.advanceDemo;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.Buffer;
+import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.nio.ShortBuffer;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
 
 import com.anthonycr.grant.PermissionsManager;
 import com.anthonycr.grant.PermissionsResultAction;
+import com.example.advanceDemo.view.AudioInsert;
 import com.example.commonDemo.CommonDemoActivity;
 import com.lansoeditor.demo.R;
+import com.lansosdk.box.AudioInsertManager;
+import com.lansosdk.box.BoxDecoder;
+import com.lansosdk.box.BoxVideoEditor;
+import com.lansosdk.box.DataLayer;
+import com.lansosdk.box.DrawPad;
 import com.lansosdk.box.LanSoEditorBox;
+import com.lansosdk.box.MVLayer;
+import com.lansosdk.box.MicLine;
+import com.lansosdk.box.onDrawPadThreadProgressListener;
 import com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask;
 import com.lansosdk.videoeditor.CopyFileFromAssets;
+import com.lansosdk.videoeditor.FileWriteUtils;
 import com.lansosdk.videoeditor.LanSoEditor;
 import com.lansosdk.videoeditor.LoadLanSongSdk;
 import com.lansosdk.videoeditor.MediaInfo;
@@ -33,11 +48,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.graphics.Rect;
+import android.graphics.Bitmap.Config;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.media.MediaRecorder.AudioSource;
-import android.opengl.Matrix;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -109,6 +129,8 @@ public class MainActivity extends Activity implements OnClickListener{
         findViewById(R.id.id_main_segmentrecorder).setOnClickListener(this);
         findViewById(R.id.id_main_cameralayer).setOnClickListener(this);
         findViewById(R.id.id_main_camerafulllayer).setOnClickListener(this);
+        findViewById(R.id.id_main_camerafulllayer2).setOnClickListener(this);
+        
         
         findViewById(R.id.id_main_viewlayerdemo1).setOnClickListener(this);
         findViewById(R.id.id_main_viewremark).setOnClickListener(this);
@@ -144,10 +166,10 @@ public class MainActivity extends Activity implements OnClickListener{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				new CopyDefaultVideoAsyncTask(MainActivity.this, tvVideoPath, "ping20s_10.mp4").execute();
+				new CopyDefaultVideoAsyncTask(MainActivity.this, tvVideoPath, "ping20s.mp4").execute();
 			}
 		});
-        showHintDialog();
+//        showHintDialog();
     }
     private void showHintDialog()
    	{
@@ -171,7 +193,7 @@ public class MainActivity extends Activity implements OnClickListener{
    				// TODO Auto-generated method stub
    			}
    		})
-           .show();
+        .show();
    	}
     private void showHintDialog(int stringId)
    	{
@@ -208,13 +230,10 @@ public class MainActivity extends Activity implements OnClickListener{
     		}else{
     			MediaInfo info=new MediaInfo(path,false);
     			boolean ret=info.prepare();
-    	        //Log.i(TAG,"info:"+info.toString());
-    	        if(ret==false){
-    	        	showHintDialog(R.string.sdk_checkerror);
-    	        }
+    	        Log.i(TAG,"info:"+info.toString());
     			return ret;
     		}
-    	}
+    	}	
     }
 	@Override
 	public void onClick(View v) {
@@ -225,9 +244,11 @@ public class MainActivity extends Activity implements OnClickListener{
 				return;
 			switch (v.getId()) {
 				case R.id.id_main_segmentrecorder:
+//					startDemoActivity(CameraLayerFullSegment.class);
+//					startDemoActivity(VideoLayerRealTimeActivity.class);
+					//startDemoActivity(ExecuteBitmapLayerActivity.class);
 					startDemoActivity(SegmentRecorderActivity.class);
-//					startDemoActivity(CameraLayerSegmentDemoActivity.class);
-					
+					//startDemoActivity(CameraLayerSegmentDemoActivity.class);
 //					startDemoActivity(ExtractVideoFrameDemoActivity.class);
 					break;
 				case R.id.id_main_cameralayer:
@@ -235,14 +256,17 @@ public class MainActivity extends Activity implements OnClickListener{
 					startDemoActivity(CameraLayerDemoActivity.class);
 					break;
 				case R.id.id_main_camerafulllayer:
-					startDemoActivity(CameraLayerFullScreenActivity.class);
+					startDemoActivity(CameraLayerFullPortActivity.class);
+					break;
+				case R.id.id_main_camerafulllayer2:
+					startDemoActivity(CameraLayerFullLandscapeActivity.class);
 					break;
 				case R.id.id_main_viewlayerdemo1:
 					startDemoActivity(ViewLayerDemoActivity.class);
 //					startDemoActivity(VideoLayerAutoUpdateDemoActivity.class);  //
 					break;
 				case R.id.id_main_viewremark:
-					startDemoActivity(BitmapLayerDemoActivity.class);
+					startDemoActivity(BitmapLayerMarkActivity.class);
 					break;
 				case R.id.id_main_viewlayerdemo2:
 					startDemoActivity(ViewLayerOnlyRealTimeActivity.class);
@@ -347,4 +371,10 @@ public class MainActivity extends Activity implements OnClickListener{
 		        }
 		        return result;
 		    }
+	   //-------------------------
+	   
+			
+			
+			//-----------------------------------------
+			
 }

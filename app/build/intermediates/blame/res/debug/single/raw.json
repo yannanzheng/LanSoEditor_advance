@@ -1,23 +1,7 @@
 [
     {
-        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_2d.glsl",
-        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\fragment_shader_2d.glsl"
-    },
-    {
-        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_ext_video_blend.glsl",
-        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\fragment_shader_ext_video_blend.glsl"
-    },
-    {
-        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_2d_blur.glsl",
-        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\fragment_shader_2d_blur.glsl"
-    },
-    {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\cross_10.acv",
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\cross_10.acv"
-    },
-    {
-        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_ext_bw.glsl",
-        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\fragment_shader_ext_bw.glsl"
     },
     {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_ext_normal.glsl",
@@ -28,12 +12,24 @@
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\cross_1.acv"
     },
     {
-        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_2d_tone_curve.glsl",
-        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\fragment_shader_2d_tone_curve.glsl"
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\cross_7.acv",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\cross_7.acv"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_ext_bw.glsl",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\fragment_shader_ext_bw.glsl"
     },
     {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\vertex_shader_two_input.glsl",
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\vertex_shader_two_input.glsl"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_2d.glsl",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\fragment_shader_2d.glsl"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\vertex_shader_two_input.glsl",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\vertex_shader_two_input.glsl"
     },
     {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\cross_6.acv",
@@ -44,28 +40,32 @@
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\fragment_shader_2d_blend.glsl"
     },
     {
-        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\cross_3.acv",
-        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\cross_3.acv"
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\cross_1.acv",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\cross_1.acv"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_ext_two_screen.glsl",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\fragment_shader_ext_two_screen.glsl"
     },
     {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_2d_kernel.glsl",
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\fragment_shader_2d_kernel.glsl"
     },
     {
-        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_two_screen.glsl",
-        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\fragment_shader_two_screen.glsl"
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\vertex_shader_blur.glsl",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\vertex_shader_blur.glsl"
     },
     {
-        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\vertex_shader.glsl",
-        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\vertex_shader.glsl"
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_ext_blend_soft_light.glsl",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\fragment_shader_ext_blend_soft_light.glsl"
     },
     {
-        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\cross_4.acv",
-        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\cross_4.acv"
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\cross_8.acv",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\cross_8.acv"
     },
     {
-        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_ext_blur.glsl",
-        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\fragment_shader_ext_blur.glsl"
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\vertex_shader_three_input.glsl",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\vertex_shader_three_input.glsl"
     },
     {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\vertex_shader_blur.glsl",
@@ -84,28 +84,12 @@
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\fragment_shader_ext_night.glsl"
     },
     {
-        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\vertex_shader_three_input.glsl",
-        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\vertex_shader_three_input.glsl"
-    },
-    {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\cross_2.acv",
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\cross_2.acv"
     },
     {
-        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_ext_two_screen.glsl",
-        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\fragment_shader_ext_two_screen.glsl"
-    },
-    {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\cross_8.acv",
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\cross_8.acv"
-    },
-    {
-        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_ext_mirror.glsl",
-        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\fragment_shader_ext_mirror.glsl"
-    },
-    {
-        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_ext.glsl",
-        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\fragment_shader_ext.glsl"
     },
     {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_ext_blend_soft_light.glsl",
@@ -116,8 +100,16 @@
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\vertex_shader_2d_two_input.glsl"
     },
     {
-        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_ext_three_screen.glsl",
-        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\fragment_shader_ext_three_screen.glsl"
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\cross_2.acv",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\cross_2.acv"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_mirror_screen.glsl",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\fragment_shader_mirror_screen.glsl"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_ext_night.glsl",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\fragment_shader_ext_night.glsl"
     },
     {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_2d_blend_soft_light.glsl",
@@ -128,10 +120,6 @@
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\fragment_shader_mirror_screen.glsl"
     },
     {
-        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_three_screen.glsl",
-        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\fragment_shader_three_screen.glsl"
-    },
-    {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_ext_kernel.glsl",
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\fragment_shader_ext_kernel.glsl"
     },
@@ -140,8 +128,176 @@
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\fragment_shader_ext_blend.glsl"
     },
     {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_2d_tone_curve.glsl",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\fragment_shader_2d_tone_curve.glsl"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_ext_blur.glsl",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\fragment_shader_ext_blur.glsl"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_2d_blend_soft_light.glsl",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\fragment_shader_2d_blend_soft_light.glsl"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_ext.glsl",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\fragment_shader_ext.glsl"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\cross_10.acv",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\cross_10.acv"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_ext_mirror.glsl",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\fragment_shader_ext_mirror.glsl"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\vertex_shader.glsl",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\vertex_shader.glsl"
+    },
+    {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\cross_11.acv",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\cross_11.acv"
+    },
+    {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_2d.glsl",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\fragment_shader_2d.glsl"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\vertex_shader_2d_two_input.glsl",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\vertex_shader_2d_two_input.glsl"
+    },
+    {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_ext_video_blend.glsl",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\fragment_shader_ext_video_blend.glsl"
+    },
+    {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_2d_blur.glsl",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\fragment_shader_2d_blur.glsl"
+    },
+    {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_ext_bw.glsl",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\fragment_shader_ext_bw.glsl"
+    },
+    {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_2d_tone_curve.glsl",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\fragment_shader_2d_tone_curve.glsl"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_ext_tone_curve.glsl",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\fragment_shader_ext_tone_curve.glsl"
+    },
+    {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\cross_3.acv",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\cross_3.acv"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\cross_9.acv",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\cross_9.acv"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_two_screen.glsl",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\fragment_shader_two_screen.glsl"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\cross_4.acv",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\cross_4.acv"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_three_screen.glsl",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\fragment_shader_three_screen.glsl"
+    },
+    {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_two_screen.glsl",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\fragment_shader_two_screen.glsl"
+    },
+    {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\vertex_shader.glsl",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\vertex_shader.glsl"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\logo_48.png",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\logo_48.png"
+    },
+    {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\cross_4.acv",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\cross_4.acv"
+    },
+    {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_ext_blur.glsl",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\fragment_shader_ext_blur.glsl"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\cross_5.acv",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\cross_5.acv"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_ext_blend.glsl",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\fragment_shader_ext_blend.glsl"
+    },
+    {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\vertex_shader_three_input.glsl",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\vertex_shader_three_input.glsl"
+    },
+    {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_ext_two_screen.glsl",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\fragment_shader_ext_two_screen.glsl"
+    },
+    {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_ext_mirror.glsl",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\fragment_shader_ext_mirror.glsl"
+    },
+    {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_ext.glsl",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\fragment_shader_ext.glsl"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_2d_blend.glsl",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\fragment_shader_2d_blend.glsl"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_ext_normal.glsl",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\fragment_shader_ext_normal.glsl"
+    },
+    {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_ext_three_screen.glsl",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\fragment_shader_ext_three_screen.glsl"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\cross_11.acv",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\cross_11.acv"
+    },
+    {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_three_screen.glsl",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\fragment_shader_three_screen.glsl"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_2d_blur.glsl",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\fragment_shader_2d_blur.glsl"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\cross_3.acv",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\cross_3.acv"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\cross_6.acv",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\cross_6.acv"
+    },
+    {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\logo_48.png",
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\logo_48.png"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_ext_kernel.glsl",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\fragment_shader_ext_kernel.glsl"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_2d_kernel.glsl",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\fragment_shader_2d_kernel.glsl"
+    },
+    {
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_ext_video_blend.glsl",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\fragment_shader_ext_video_blend.glsl"
     },
     {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\cross_9.acv",
@@ -152,7 +308,7 @@
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\fragment_shader_ext_tone_curve.glsl"
     },
     {
-        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\raw\\cross_11.acv",
-        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\raw\\cross_11.acv"
+        "merged": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\build\\intermediates\\res\\merged\\debug\\raw\\fragment_shader_ext_three_screen.glsl",
+        "source": "C:\\Users\\Administrator\\Desktop\\LanSoEditor_advance_AS\\app\\src\\main\\res\\raw\\fragment_shader_ext_three_screen.glsl"
     }
 ]

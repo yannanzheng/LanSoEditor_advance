@@ -209,7 +209,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <string name="adv_hint5">"此高级版本SDK为收费授权合作的形式,价格可联系我们. 技术支持:单一APP,永久使用, 不限制使用年数, 不限制设备安装量,纯本地处理,无网络服务器访问; 提供一年技术支持;普通问题3个工作日内及时解决;\n 联系方式:\n QQ:1852600324\n 公司电话:0571-89052701\n email:support@lansongtech.com."</string>
-    <string name="app_name">蓝松编辑高级版本DEMO</string>
+    <string name="app_name">蓝松视频编辑高级版本DEMO</string>
     <string name="cameralayer_hint">\n增加一个 CameraLayer到  DrawPad 画板上[临时演示用, 后续会增加滤镜等].</string>
     <string name="canvaslayer_hint1">VideoLayer + CanvasLayer 绘制到画板上</string>
     <string name="demo_id_audiodelaymix">音频延迟混合</string>
@@ -324,8 +324,7 @@
     <string name="record_stop">停止录制</string>
     <string name="scaleexecute_demo_hint">此演示演示: 视频缩放\n\n 利用视频硬件加速来做视频缩放,把视频画面等比例缩小一半,处理完后,形成新视频.
 		    适用在用户自己拍摄了高清的画面,需要缩放后再传输的场合.\n</string>
-    <string name="sdk_checkerror">检查SDK错误,当前可能不是我们的演示Demo,或SDK已过期.请联系我们!</string>
-    <string name="sdk_limit">SDK版本号是\"%1$s\" [商用版本]\n\nSDK底层做了授权限制,仅可在此demo中运行,并有效时间到 \"%2$d\"年 \"%3$d\"月之前,请注意.</string>
+    <string name="sdk_limit">SDK版本号是\"%1$s\" [商用版本]\n\nSDK底层做了授权限制,【仅可在此demo中运行】,并有效时间到 \"%2$d\"年 \"%3$d\"月之前,请注意.</string>
     <string name="select_video">请选择视频</string>
     <string name="video_remark">滑动画面,进行标记\n\n VideoLayer + BitmapLayer 绘制到画板上 </string>
     <string name="videoplay_hint">视频小知识:\n当前是等比例的显示到屏幕上, 目的是保持视频的宽高比一致,视频不变形;\n\n 或许会导致分辨率小的画面被放大了,画面质量下降,这是正常情况,只是播放的界面事情,不影响视频本身</string>
