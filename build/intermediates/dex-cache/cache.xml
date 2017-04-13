@@ -2,85 +2,49 @@
 <items version="2" >
 
     <item
-        is-multidex="false"
-        jar="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\libs\textsurface.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="6a60927b917dd2b9476a3d058c369156fbe5a19c">
-        <dex dex="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\build\intermediates\pre-dexed\debug\textsurface_d191a335cfd5138a03650f434238cb2fad70d5ac.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Administrator\.android\build-cache\fb60baca500a9c9807f2d9113ba779b4bd491493\output\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
-        <dex dex="C:\Users\Administrator\Desktop\LanSoEditor_advance_AS\app\build\intermediates\pre-dexed\debug\classes_5709cc1c7177d290abc11d5a9ab92b80a6cee310.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Administrator\Desktop\LanSoEditor_advance_AS\app\libs\PermissionsManager.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="6a1cc3def4753b22dc2c0ee55fcf533d2f456474">
-        <dex dex="C:\Users\Administrator\Desktop\LanSoEditor_advance_AS\app\build\intermediates\pre-dexed\debug\PermissionsManager_b39f3c1f4580bf905bd9826297e6f40022980f9f.jar" />
-    </item>
-    <item
-        is-multidex="false"
+        is-multidex="true"
         jar="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\libs\PermissionsManager.jar"
-        jumboMode="false"
+        jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="6a1cc3def4753b22dc2c0ee55fcf533d2f456474">
-        <dex dex="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\build\intermediates\pre-dexed\debug\PermissionsManager_1d63e50ac8993ff640ccd438dd4467d51f5cd7ca.jar" />
+        <dex dex="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\build\intermediates\transforms\dex\debug\folders\1000\2\PermissionsManager_1d63e50ac8993ff640ccd438dd4467d51f5cd7ca\classes.dex" />
     </item>
     <item
-        is-multidex="false"
-        jar="C:\Users\Administrator\Desktop\LanSoEditor_advance_AS\app\libs\textsurface.jar"
-        jumboMode="false"
+        is-multidex="true"
+        jar="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b25fc01b6769f2d15de916ee14aed3dd1f41c219">
+        <dex dex="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_8c87b6afe24074fff2e02bd5ddb7e69f3ab8cc76\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\libs\lansongeditor_hx.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="50884bd1429c5b1ef05687de010217995631d8c1">
+        <dex dex="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\build\intermediates\transforms\dex\debug\folders\1000\2\lansongeditor_hx_9cbca620be323895d4caa998343bc5f8ee2795ca\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="510aa6efc159983dfbffa676a0dae37568c0a46f">
+        <dex dex="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_5e66d61a65eb7cd94e3540e7b822657abe0e2b8f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\libs\textsurface.jar"
+        jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="6a60927b917dd2b9476a3d058c369156fbe5a19c">
-        <dex dex="C:\Users\Administrator\Desktop\LanSoEditor_advance_AS\app\build\intermediates\pre-dexed\debug\textsurface_1031745bda1aa32d72e49f02ab0c874e463105a3.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Administrator\.android\build-cache\fb60baca500a9c9807f2d9113ba779b4bd491493\output\jars\libs\internal_impl-23.4.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
-        <dex dex="C:\Users\Administrator\Desktop\LanSoEditor_advance_AS\app\build\intermediates\pre-dexed\debug\internal_impl-23.4.0_d6df253a4b995b986c24ec7c8f9290d550cd8b3e.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\libs\lansongeditor_hx.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="d3b9eec825ae0f1f9e4d144b2404404ca30d5f33">
-        <dex dex="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\build\intermediates\pre-dexed\debug\lansongeditor_hx_9cbca620be323895d4caa998343bc5f8ee2795ca.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Administrator\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.4.0\support-annotations-23.4.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
-        <dex dex="C:\Users\Administrator\Desktop\LanSoEditor_advance_AS\app\build\intermediates\pre-dexed\debug\support-annotations-23.4.0_c9fae43cda2e1c04b2ab0de43a8f148b5b1a92fa.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Administrator\Desktop\LanSoEditor_advance_AS\app\libs\lansongeditor_hx.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="d3b9eec825ae0f1f9e4d144b2404404ca30d5f33">
-        <dex dex="C:\Users\Administrator\Desktop\LanSoEditor_advance_AS\app\build\intermediates\pre-dexed\debug\lansongeditor_hx_c3dece43237912af31b3621a85ac82be2c38ffe3.jar" />
+        <dex dex="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\build\intermediates\transforms\dex\debug\folders\1000\2\textsurface_d191a335cfd5138a03650f434238cb2fad70d5ac\classes.dex" />
     </item>
 
 </items>

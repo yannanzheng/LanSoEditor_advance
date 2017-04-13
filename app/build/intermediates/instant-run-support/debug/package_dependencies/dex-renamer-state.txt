@@ -1,0 +1,19 @@
+#Thu Apr 13 10:24:09 CST 2017
+renamed.5=classes6.dex
+renamed.4=classes4.dex
+renamed.3=classes2.dex
+renamed.2=classes3.dex
+renamed.1=classes.dex
+renamed.0=classes5.dex
+base.5=E\:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\2\\textsurface_d191a335cfd5138a03650f434238cb2fad70d5ac
+base.4=E\:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\2\\lansongeditor_hx_9cbca620be323895d4caa998343bc5f8ee2795ca
+base.3=E\:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\internal_impl-23.4.0_d6df253a4b995b986c24ec7c8f9290d550cd8b3e
+base.2=E\:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\support-annotations-23.4.0_c9fae43cda2e1c04b2ab0de43a8f148b5b1a92fa
+base.1=E\:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\classes_5709cc1c7177d290abc11d5a9ab92b80a6cee310
+base.0=E\:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\2\\PermissionsManager_1d63e50ac8993ff640ccd438dd4467d51f5cd7ca
+file.5=E\:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\2\\textsurface_d191a335cfd5138a03650f434238cb2fad70d5ac\\classes.dex
+file.4=E\:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\2\\lansongeditor_hx_9cbca620be323895d4caa998343bc5f8ee2795ca\\classes.dex
+file.3=E\:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\internal_impl-23.4.0_d6df253a4b995b986c24ec7c8f9290d550cd8b3e\\classes.dex
+file.2=E\:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\support-annotations-23.4.0_c9fae43cda2e1c04b2ab0de43a8f148b5b1a92fa\\classes.dex
+file.1=E\:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\classes_5709cc1c7177d290abc11d5a9ab92b80a6cee310\\classes.dex
+file.0=E\:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\2\\PermissionsManager_1d63e50ac8993ff640ccd438dd4467d51f5cd7ca\\classes.dex
