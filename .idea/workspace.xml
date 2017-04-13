@@ -1,254 +1,191 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="20170412" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="59104114-1e24-4d38-b8dc-37cd703a829d" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v11/values-v11.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v14/values-v14.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-w820dp-v13/values-w820dp-v13.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/pre-dexed/debug/PermissionsManager_1d63e50ac8993ff640ccd438dd4467d51f5cd7ca.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/pre-dexed/debug/classes_5709cc1c7177d290abc11d5a9ab92b80a6cee310.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/pre-dexed/debug/debug_7cd64334377c18b281bcddea324f5531f4993d3d.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/pre-dexed/debug/internal_impl-23.4.0_d6df253a4b995b986c24ec7c8f9290d550cd8b3e.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/pre-dexed/debug/lansongeditor_hx_9cbca620be323895d4caa998343bc5f8ee2795ca.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/pre-dexed/debug/support-annotations-23.4.0_c9fae43cda2e1c04b2ab0de43a8f148b5b1a92fa.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/pre-dexed/debug/textsurface_d191a335cfd5138a03650f434238cb2fad70d5ac.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dex/debug/folders/1000/1f/main/classes.dex" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/A.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/AudioInsertManager.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/AudioLine.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/AudioMix.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/B.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/BitmapLayer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/BoxDecoder.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/BoxEncoder.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/BoxMediaInfo.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/BoxVideoEditor.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/C.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/CameraLayer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/CanvasLayer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/CanvasRunnable.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/D.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/DataLayer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/DrawPad.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/DrawPadAllExecute.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/DrawPadPictureExecute.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/DrawPadUpdateMode.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/DrawPadVideoExecute.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/DrawPadViewRender.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/E.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/ExtractVideoFrame.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/F.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/FBOProgram.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/G.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/GifDecoder.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/GifLayer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/H.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/I.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/J.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/K.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/L.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/LanSoEditorBox.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/Layer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/LayerShader.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/M.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/MVLayer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/MVLayerENDMode.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/MicLine.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/N.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/O.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/P.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/Q.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/R.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/S.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/ScaleExecute.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/T.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/U.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/V.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/VideoLayer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/ViewLayer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/ViewLayerRelativeLayout.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/W.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/X.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/Y.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/YUVLayer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/Z.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/aa.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/ab.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/ac.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/ad.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/ae.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/af.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/ag.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/ah.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/ai.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/onAudioLineStartedListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/onCompressCompletedListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/onCompressProgressListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/onDrawPadCompletedListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/onDrawPadProgressListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/onDrawPadSizeChangedListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/onDrawPadThreadProgressListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/onExtractVideoFrameCompletedListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/onExtractVideoFrameProgressListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/onFilterViewSizeChangedListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/onScaleCompletedListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/com/lansosdk/box/onScaleProgressListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageAddBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageAlphaBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageBrightnessFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageBulgeDistortionFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageCGAColorspaceFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageChromaKeyBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageColorBalanceFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageColorBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageColorBurnBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageColorDodgeBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageColorInvertFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageColorMatrixFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageContrastFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageCrosshatchFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageDarkenBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageDifferenceBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageDissolveBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageDivideBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageExclusionBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageExposureFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageFalseColorFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageFilterGroup.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageGammaFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageGlassSphereFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageGrayscaleFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageHalftoneFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageHardLightBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageHazeFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageHighlightShadowFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageHueBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageHueFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageKuwaharaFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageLevelsFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageLightenBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageLinearBurnBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageLookupFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageLuminosityBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageMixBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageMonochromeFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageMultiplyBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageNativeLibrary.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageNormalBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageOpacityFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageOverlayBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImagePixelationFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImagePosterizeFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageRGBFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageSaturationBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageSaturationFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageScreenBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageSepiaFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageSoftLightBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageSourceOverBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageSphereRefractionFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageSubtractBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageSwirlFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageToneCurveFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageTwoInputFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageVignetteFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageWhiteBalanceFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/LanSongAntiqueFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/LanSongBeautyFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/LanSongBlackMaskBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/LanSongCoolFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/LanSongCrayonFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/LanSongEmeraldFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/LanSongEvergreenFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/LanSongFilterParam.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/LanSongLatteFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/LanSongMaskBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/LanSongRomanceFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/LanSongSakuraFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/LanSongSketchFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/LanSongSkinWhitenFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/OpenGLUtils.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/PixelBuffer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/Rotation.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/a.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/b.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/c.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/d.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/e.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/f.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/g.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/h.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/i.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/j.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/k.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/l.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/m.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/n.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/o.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/p.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/q.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/r.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/s.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/t.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_d4q5kzi7hn6jb3se131hvres/jp/co/cyberagent/lansongsdk/gpuimage/util/TextureRotationUtil.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/Debug.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/SurfaceCamera.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/Text.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/TextBuilder.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/TextSurface$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/TextSurface.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/animations/AbstractSurfaceAnimation.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/animations/Alpha$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/animations/Alpha.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/animations/AnimationsSet$DurationComparator.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/animations/AnimationsSet.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/animations/CamRot$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/animations/CamRot.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/animations/ChangeColor$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/animations/ChangeColor.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/animations/Circle.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/animations/Delay$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/animations/Delay.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/animations/Just.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/animations/Loop$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/animations/Loop.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/animations/Parallel.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/animations/Rotate3D$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/animations/Rotate3D.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/animations/Scale.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/animations/ScaleSurface.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/animations/Sequential.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/animations/ShapeReveal$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/animations/ShapeReveal$IRevealShape.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/animations/ShapeReveal.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/animations/SideCut.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/animations/Slide$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/animations/Slide.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/animations/TransSurface.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/common/Position.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/common/ScaleValue.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/contants/Align.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/contants/Axis.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/contants/Direction.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/contants/Fit.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/contants/Pivot.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/contants/Side.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/contants/TYPE.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/interfaces/ICameraAnimation.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/interfaces/IEndListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/interfaces/ISet.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/interfaces/ISurfaceAnimation.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/interfaces/ITextEffect.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/interfaces/ITextSurfaceAnimation.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/utils/AnimatorEndListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/utils/Utils$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/textsurface.jar_4286as6zh3uyzc8733k10nmlc/su/levenetc/android/textsurface/utils/Utils.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/androidTest/debug/com/lansoeditor/demo/test/BuildConfig.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental-safeguard/androidTest/debug/tag.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/A.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/AudioInsertManager.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/AudioLine.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/AudioMix.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/B.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/BitmapLayer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/BoxDecoder.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/BoxEncoder.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/BoxMediaInfo.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/BoxVideoEditor.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/C.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/CameraLayer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/CanvasLayer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/CanvasRunnable.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/D.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/DataLayer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/DrawPad.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/DrawPadAllExecute.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/DrawPadPictureExecute.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/DrawPadUpdateMode.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/DrawPadVideoExecute.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/DrawPadViewRender.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/E.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/ExtractVideoFrame.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/F.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/FBOProgram.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/G.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/GifDecoder.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/GifLayer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/H.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/I.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/J.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/K.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/L.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/LanSoEditorBox.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/Layer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/LayerShader.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/M.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/MVLayer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/MVLayerENDMode.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/MicLine.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/N.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/O.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/P.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/Q.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/R.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/S.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/ScaleExecute.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/T.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/U.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/V.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/VideoLayer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/ViewLayer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/ViewLayerRelativeLayout.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/W.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/X.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/Y.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/YUVLayer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/Z.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/aa.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/ab.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/ac.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/ad.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/ae.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/af.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/ag.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/ah.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/ai.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/onAudioLineStartedListener.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/onCompressCompletedListener.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/onCompressProgressListener.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/onDrawPadCompletedListener.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/onDrawPadProgressListener.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/onDrawPadSizeChangedListener.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/onDrawPadThreadProgressListener.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/onExtractVideoFrameCompletedListener.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/onExtractVideoFrameProgressListener.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/onFilterViewSizeChangedListener.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/onScaleCompletedListener.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/onScaleProgressListener.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageAddBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageAlphaBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageBrightnessFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageBulgeDistortionFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageCGAColorspaceFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageChromaKeyBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageColorBalanceFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageColorBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageColorBurnBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageColorDodgeBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageColorInvertFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageColorMatrixFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageContrastFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageCrosshatchFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageDarkenBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageDifferenceBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageDissolveBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageDivideBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageExclusionBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageExposureFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageFalseColorFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageFilterGroup.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageGammaFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageGlassSphereFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageGrayscaleFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageHalftoneFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageHardLightBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageHazeFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageHighlightShadowFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageHueBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageHueFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageKuwaharaFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageLevelsFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageLightenBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageLinearBurnBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageLookupFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageLuminosityBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageMixBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageMonochromeFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageMultiplyBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageNativeLibrary.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageNormalBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageOpacityFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageOverlayBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImagePixelationFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImagePosterizeFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageRGBFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageSaturationBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageSaturationFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageScreenBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageSepiaFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageSoftLightBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageSourceOverBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageSphereRefractionFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageSubtractBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageSwirlFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageToneCurveFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageTwoInputFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageVignetteFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageWhiteBalanceFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/LanSongAntiqueFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/LanSongBeautyFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/LanSongBlackMaskBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/LanSongCoolFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/LanSongCrayonFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/LanSongEmeraldFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/LanSongEvergreenFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/LanSongFilterParam.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/LanSongLatteFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/LanSongMaskBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/LanSongRomanceFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/LanSongSakuraFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/LanSongSketchFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/LanSongSkinWhitenFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/OpenGLUtils.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/PixelBuffer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/Rotation.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/a.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/b.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/c.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/d.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/e.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/f.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/g.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/h.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/i.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/j.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/k.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/l.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/m.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/n.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/o.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/p.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/q.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/r.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/s.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/t.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/util/TextureRotationUtil.class" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" />
@@ -256,30 +193,32 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDebug/zip-cache/MwZIQuEioG0JDcEcVHH46MJ60bM=" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDebug/zip-cache/MwZIQuEioG0JDcEcVHH46MJ60bM=" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/resources-debug.ap_" afterPath="$PROJECT_DIR$/app/build/intermediates/res/resources-debug.ap_" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-resources/resources-debug.ir.ap_" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-resources/resources-debug.ir.ap_" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/split-apk/debug/dep/dependencies.apk" afterPath="$PROJECT_DIR$/app/build/intermediates/split-apk/debug/dep/dependencies.apk" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dex/debug/folders/1000/2/lansongeditor_hx_9cbca620be323895d4caa998343bc5f8ee2795ca/classes.dex" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dex/debug/folders/1000/2/lansongeditor_hx_9cbca620be323895d4caa998343bc5f8ee2795ca/classes.dex" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/outputs/apk/app-debug.apk" afterPath="$PROJECT_DIR$/app/build/outputs/apk/app-debug.apk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/libs/lansongeditor_hx.jar" afterPath="$PROJECT_DIR$/app/libs/lansongeditor_hx.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi/values-v11.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi/values-v11.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi/values-v14.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi/values-v14.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi/values-w820dp-v13.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi/values-w820dp-v13.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi/values.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi/values.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/anim.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/anim.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/drawable-hdpi-v4.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/drawable-hdpi-v4.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/drawable-hdpi.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/drawable-hdpi.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/drawable-mdpi.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/drawable-mdpi.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/drawable-nodpi.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/drawable-nodpi.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/drawable-xhdpi.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/drawable-xhdpi.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/drawable-xxhdpi-v4.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/drawable-xxhdpi-v4.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/drawable-xxhdpi.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/drawable-xxhdpi.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/drawable.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/drawable.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/layout.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/layout.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/raw.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/raw.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugAndroidTestResources/compile-file-map.properties" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugAndroidTestResources/compile-file-map.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/compile-file-map.properties" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/compile-file-map.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDebug/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDebug/dex-renamer-state.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDebug/file-input-save-data.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDebug/file-input-save-data.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/packageInstantRunResourcesDebug/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/packageInstantRunResourcesDebug/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/packageInstantRunResourcesDebug/file-input-save-data.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/packageInstantRunResourcesDebug/file-input-save-data.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_dependencies/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_dependencies/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_0/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_0/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_1/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_1/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_2/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_2/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_3/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_3/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_4/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_4/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_5/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_5/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_6/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_6/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_7/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_7/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_8/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_8/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_9/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_9/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/restart-dex/debug/build-info.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/restart-dex/debug/build-info.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" afterPath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" />
     </list>
     <ignored path="LanSoEditor_advance.iws" />
@@ -1997,7 +1936,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -2050,8 +1988,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -2086,11 +2022,14 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
-    <property name="device.picker.selection" value="c36ad690" />
+    <property name="device.picker.selection" value="04157df4cd69d53c" />
     <property name="last_opened_file_path" value="$USER_HOME$/Desktop/LanSoEditor_advance-master13/LanSoEditor_advance-master" />
   </component>
   <component name="RunManager" selected="Android App.app">
@@ -2436,7 +2375,6 @@
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32998884" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -2449,6 +2387,7 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32998884" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">

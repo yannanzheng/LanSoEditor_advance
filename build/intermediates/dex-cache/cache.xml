@@ -16,17 +16,8 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="b25fc01b6769f2d15de916ee14aed3dd1f41c219">
+        sha1="3996c1fad65f4cbeaded53e240c237d86c4abe42">
         <dex dex="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_8c87b6afe24074fff2e02bd5ddb7e69f3ab8cc76\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\libs\lansongeditor_hx.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="50884bd1429c5b1ef05687de010217995631d8c1">
-        <dex dex="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\build\intermediates\transforms\dex\debug\folders\1000\2\lansongeditor_hx_9cbca620be323895d4caa998343bc5f8ee2795ca\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -36,6 +27,15 @@
         revision="25.0.2"
         sha1="510aa6efc159983dfbffa676a0dae37568c0a46f">
         <dex dex="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_5e66d61a65eb7cd94e3540e7b822657abe0e2b8f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\libs\lansongeditor_hx.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="f4a7d9d1caf37bf490162ebf9e2a36dc356e9e45">
+        <dex dex="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\build\intermediates\transforms\dex\debug\folders\1000\2\lansongeditor_hx_9cbca620be323895d4caa998343bc5f8ee2795ca\classes.dex" />
     </item>
     <item
         is-multidex="true"

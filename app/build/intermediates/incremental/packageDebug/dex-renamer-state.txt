@@ -1,4 +1,4 @@
-#Thu Apr 13 10:24:10 CST 2017
+#Thu Apr 13 10:54:46 CST 2017
 base.0=E\:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_5e66d61a65eb7cd94e3540e7b822657abe0e2b8f
 renamed.1=classes.dex
 renamed.0=classes2.dex

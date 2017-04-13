@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Thu Apr 13 10:23:50 CST 2017
+#Thu Apr 13 10:54:31 CST 2017
 210.set=ANDROID_RESOURCE
 14.set=ANDROID_RESOURCE
 180.file=E\:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\raw\\fragment_shader_ext_tone_curve.glsl
