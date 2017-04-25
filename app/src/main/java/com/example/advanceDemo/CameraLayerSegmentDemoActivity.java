@@ -115,7 +115,7 @@ public class CameraLayerSegmentDemoActivity extends Activity implements OnClickL
     	 int padWidth=480;
     	 int padHeight=480;
     	 
-    	 mDrawPadView.setRecordMic(true);
+    	mDrawPadView.setRecordMic(true);
     	mDrawPadView.setRealEncodeEnable(padWidth,padHeight,1000000,(int)25,null);
     	mDrawPadView.setUpdateMode(DrawPadUpdateMode.AUTO_FLUSH, 25);
 

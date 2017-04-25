@@ -113,9 +113,9 @@ public class ExecuteBitmapLayerActivity extends Activity{
     	// TODO Auto-generated method stub
     	super.onDestroy();
     	
-    	if(vDrawPad!=null){
-    		vDrawPad.release();
-    		vDrawPad=null;
+    	if(mDrawPad!=null){
+    		mDrawPad.release();
+    		mDrawPad=null;
     	}
     	 if(SDKFileUtils.fileExist(dstPath)){
     		 SDKFileUtils.deleteFile(dstPath);
@@ -133,7 +133,7 @@ public class ExecuteBitmapLayerActivity extends Activity{
 	/**
 	 * 使用DrawPad中的Picture执行类来做.
 	 */
-	DrawPadPictureExecute  vDrawPad=null;
+	DrawPadPictureExecute  mDrawPad=null;
 	/**
 	 * 当前是否已经在执行, 以免造成多次执行.
 	 */
@@ -157,12 +157,12 @@ public class ExecuteBitmapLayerActivity extends Activity{
 		  * @param bitrate   编码视频所希望的码率,比特率,设置的越大,则文件越大, 设置小一些会起到视频压缩的效果.
 		  * @param dstPath   编码视频保存的路径.
 		  */
-		 vDrawPad=new DrawPadPictureExecute(getApplicationContext(), 480, 480, 10*1000, 25, 1000000, dstPath);
+		 mDrawPad=new DrawPadPictureExecute(getApplicationContext(), 480, 480, 26*1000, 25, 1000000, dstPath);
 		
 		 /**
 		  * 设置DrawPad的处理进度监听, 您可以在每一帧的过程中对ILayer做各种变化,比如平移,缩放,旋转,颜色变化,增删一个Layer等,来实现各种动画画面.
 		  */
-		vDrawPad.setDrawPadProgressListener(new onDrawPadProgressListener() {
+		mDrawPad.setDrawPadProgressListener(new onDrawPadProgressListener() {
 			
 			//currentTimeUs是当前时间戳,单位是微妙,可以根据时间戳/(MediaInfo.vDuration*1000000)来得到当前进度百分比.
 			@Override
@@ -180,7 +180,7 @@ public class ExecuteBitmapLayerActivity extends Activity{
 		/**
 		 * 处理完毕后的监听
 		 */
-		vDrawPad.setDrawPadCompletedListener(new onDrawPadCompletedListener() {
+		mDrawPad.setDrawPadCompletedListener(new onDrawPadCompletedListener() {
 			
 			@Override
 			public void onCompleted(DrawPad v) {
@@ -191,7 +191,7 @@ public class ExecuteBitmapLayerActivity extends Activity{
 				//清空效果数组.
 				if(slideEffectArray!=null){
 			   		 for(SlideEffect item: slideEffectArray){
-			   			vDrawPad.removeLayer(item.getLayer());
+			   			mDrawPad.removeLayer(item.getLayer());
 			   		 }
 			   		 slideEffectArray.clear();
 			   		 slideEffectArray=null;
@@ -205,14 +205,14 @@ public class ExecuteBitmapLayerActivity extends Activity{
 		/**
 		 *开始处理. 
 		 */
-		 vDrawPad.startDrawPad();
+		 mDrawPad.startDrawPad();
 		 /**
 		  * 可以在后台处理过程中,暂停画面的走动.比如想一次性增加多个Layer对象后,在让DrawPad执行,这样比在画面走动中获取更精确一些.
 		  */
-		 vDrawPad.pauseRefreshDrawPad(); 
+		 mDrawPad.pauseRefreshDrawPad(); 
 		
 			//设置一个背景,
-			vDrawPad.addBitmapLayer(BitmapFactory.decodeFile(picBackGround));
+			mDrawPad.addBitmapLayer(BitmapFactory.decodeFile(picBackGround));
 	      
 	       slideEffectArray=new ArrayList<SlideEffect>();
 	      
@@ -222,12 +222,14 @@ public class ExecuteBitmapLayerActivity extends Activity{
 	      addLayerToArray(R.drawable.pic3,10000,15000);	//10---15秒 
 	      addLayerToArray(R.drawable.pic4,15000,20000);  //15---20秒
 	      addLayerToArray(R.drawable.pic5,20000,25000);  //20---25秒
+	      
+//	      mDrawPad.addGifLayer(R.drawable.g06);
 	      //增加完Layer后,再次恢复DrawPad,让其工作.
-	      vDrawPad.resumeRefreshDrawPad();
+	      mDrawPad.resumeRefreshDrawPad();
 	}
 	  private void addLayerToArray(int resId,long startMS,long endMS)
 	    {
-	    	BitmapLayer item=vDrawPad.addBitmapLayer(BitmapFactory.decodeResource(getResources(), resId));
+	    	BitmapLayer item=mDrawPad.addBitmapLayer(BitmapFactory.decodeResource(getResources(), resId));
 			SlideEffect  slide=new SlideEffect(item, 25, startMS, endMS, true);
 			slideEffectArray.add(slide);
 			

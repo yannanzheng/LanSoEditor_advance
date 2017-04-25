@@ -260,13 +260,18 @@ public class CanvasLayerDemoActivity extends Activity {
 				 */
 				mCanvasLayer.addCanvasRunnable(new CanvasRunnable() {
 				
-				@Override
-				public void onDrawCanvas(CanvasLayer layer, Canvas canvas,
-						long currentTimeUs) {
-					// TODO Auto-generated method stub
-					mShowHeart.drawTrack(canvas);
-				}
+					@Override
+					public void onDrawCanvas(CanvasLayer layer, Canvas canvas,
+							long currentTimeUs) {
+						// TODO Auto-generated method stub
+						mShowHeart.drawTrack(canvas);
+					}
 				});
+				
+	            //Canvas图层的移动缩放旋转.
+//				mCanvasLayer.setScale(0.5f);
+//				mCanvasLayer.setRotate(60);
+//				mCanvasLayer.setPosition(mCanvasLayer.getPadWidth()-mCanvasLayer.getLayerWidth()/4,mCanvasLayer.getPositionY()/4);
 		}
     }
     @Override

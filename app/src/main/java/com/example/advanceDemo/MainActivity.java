@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
@@ -19,11 +20,14 @@ import com.anthonycr.grant.PermissionsResultAction;
 import com.example.advanceDemo.view.AudioInsert;
 import com.example.commonDemo.CommonDemoActivity;
 import com.lansoeditor.demo.R;
+import com.lansosdk.box.AudioConcatManager;
 import com.lansosdk.box.AudioInsertManager;
+import com.lansosdk.box.BitmapLoader;
 import com.lansosdk.box.BoxDecoder;
 import com.lansosdk.box.BoxVideoEditor;
 import com.lansosdk.box.DataLayer;
 import com.lansosdk.box.DrawPad;
+import com.lansosdk.box.FrameInfo;
 import com.lansosdk.box.LanSoEditorBox;
 import com.lansosdk.box.MVLayer;
 import com.lansosdk.box.MicLine;
@@ -56,6 +60,9 @@ import android.graphics.Rect;
 import android.graphics.Bitmap.Config;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
+import android.media.MediaCodecInfo;
+import android.media.MediaCodecList;
+import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.media.MediaRecorder.AudioSource;
 import android.os.AsyncTask;
@@ -123,7 +130,7 @@ public class MainActivity extends Activity implements OnClickListener{
         
         //以下为测试不同类型的视频使用.
 //        tvVideoPath.setText("/sdcard/VIDEO_36minute.mp4");
-//        tvVideoPath.setText("/sdcard/VIDEO_90du.mp4");
+//        tvVideoPath.setText("/sdcard/TEST_720P_90DU.mp4");
 //        tvVideoPath.setText("/sdcard/VIDEO_270du.mp4");
         
         findViewById(R.id.id_main_segmentrecorder).setOnClickListener(this);
@@ -169,6 +176,7 @@ public class MainActivity extends Activity implements OnClickListener{
 				new CopyDefaultVideoAsyncTask(MainActivity.this, tvVideoPath, "ping20s.mp4").execute();
 			}
 		});
+        testFile();
 //        showHintDialog();
     }
     private void showHintDialog()
@@ -244,11 +252,11 @@ public class MainActivity extends Activity implements OnClickListener{
 				return;
 			switch (v.getId()) {
 				case R.id.id_main_segmentrecorder:
-//					startDemoActivity(CameraLayerFullSegment.class);
+//					startDemoActivity(CameraLayerFullSegmentActivity.class);  //全屏分段录制.
 //					startDemoActivity(VideoLayerRealTimeActivity.class);
-					//startDemoActivity(ExecuteBitmapLayerActivity.class);
+//					startDemoActivity(ExecuteBitmapLayerActivity.class);
 					startDemoActivity(SegmentRecorderActivity.class);
-					//startDemoActivity(CameraLayerSegmentDemoActivity.class);
+//					startDemoActivity(CameraLayerSegmentDemoActivity.class);
 //					startDemoActivity(ExtractVideoFrameDemoActivity.class);
 					break;
 				case R.id.id_main_cameralayer:
@@ -329,7 +337,6 @@ public class MainActivity extends Activity implements OnClickListener{
 							tvVideoPath.setText(string);
 					}
 				break;
-
 			default:
 				break;
 			}
@@ -341,7 +348,6 @@ public class MainActivity extends Activity implements OnClickListener{
 	    	intent.putExtra("videopath", path);
 	    	startActivity(intent);
 	   	}
-	   	
 	   	//------------------------------------------------------------
 	   @SuppressLint("NewApi") 
 		  public static boolean selfPermissionGranted(Context context,String permission) {
@@ -357,7 +363,6 @@ public class MainActivity extends Activity implements OnClickListener{
 		        }
 
 		        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-
 		            if (targetSdkVersion >= Build.VERSION_CODES.M) {
 		                // targetSdkVersion >= Android M, we can
 		                // use Context#checkSelfPermission
@@ -371,10 +376,8 @@ public class MainActivity extends Activity implements OnClickListener{
 		        }
 		        return result;
 		    }
-	   //-------------------------
-	   
-			
-			
-			//-----------------------------------------
-			
+	   private void testFile()
+	   {
+//
+	   }
 }

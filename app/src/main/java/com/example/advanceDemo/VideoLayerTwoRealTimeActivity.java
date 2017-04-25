@@ -14,6 +14,7 @@ import com.example.advanceDemo.GPUImageFilterTools.FilterAdjuster;
 import com.example.advanceDemo.GPUImageFilterTools.OnGpuImageFilterChosenListener;
 import com.example.advanceDemo.view.DrawPadView;
 import com.lansoeditor.demo.R;
+import com.lansosdk.box.BitmapLayer;
 import com.lansosdk.box.DrawPad;
 import com.lansosdk.box.DrawPadUpdateMode;
 import com.lansosdk.box.VideoLayer;
@@ -161,7 +162,6 @@ public class VideoLayerTwoRealTimeActivity extends Activity implements OnSeekBar
 		
     	// 设置DrawPad的刷新模式,默认 {@link DrawPad.UpdateMode#ALL_VIDEO_READY};
     	mDrawPadView.setUpdateMode(DrawPadUpdateMode.ALL_VIDEO_READY,25);
-    	
     		
     	//设置使能 实时录制, 即把正在DrawPad中呈现的画面实时的保存下来,起到所见即所得的模式
     	mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
@@ -191,6 +191,7 @@ public class VideoLayerTwoRealTimeActivity extends Activity implements OnSeekBar
 		mplayer.start();
 		startPlayer2();
     }
+    private BitmapLayer  bmpLayer;
     private void stopDrawPad()
     {
     	if(mDrawPadView!=null && mDrawPadView.isRunning()){
@@ -297,14 +298,14 @@ public class VideoLayerTwoRealTimeActivity extends Activity implements OnSeekBar
     private void initView()
     {
     	 initSeekBar(R.id.id_DrawPad_skbar_rotate,360); //角度是旋转360度.
-         initSeekBar(R.id.id_DrawPad_skbar_move,100);   //move的百分比暂时没有用到,举例而已.
-         
+         initSeekBar(R.id.id_DrawPad_skbar_moveX,100);   //move的百分比暂时没有用到,举例而已.
+         initSeekBar(R.id.id_DrawPad_skbar_moveY,100);   //move的百分比暂时没有用到,举例而已.
          initSeekBar(R.id.id_DrawPad_skbar_scale,300);   //这里设置最大可放大8倍
          
-         initSeekBar(R.id.id_DrawPad_skbar_red,100);  //red最大为100
-         initSeekBar(R.id.id_DrawPad_skbar_green,100);
-         initSeekBar(R.id.id_DrawPad_skbar_blue,100);
+         initSeekBar(R.id.id_DrawPad_skbar_brightness,100);  //red最大为100
          initSeekBar(R.id.id_DrawPad_skbar_alpha,100);
+         findViewById(R.id.id_DrawPad_skbar_background).setVisibility(View.GONE);
+         
          playVideo=(LinearLayout)findViewById(R.id.id_DrawPad_saveplay);
          playVideo.setOnClickListener(new OnClickListener() {
  			
@@ -355,49 +356,46 @@ public class VideoLayerTwoRealTimeActivity extends Activity implements OnSeekBar
 //						subVideoLayer.setRotate0();
 				}
 				break;
-			case R.id.id_DrawPad_skbar_move:
+			case R.id.id_DrawPad_skbar_moveX:
 					if(subVideoLayer!=null){
-						float ypos=subVideoLayer.getPositionY()+10;
+						float xpos=subVideoLayer.getPositionX()+10;
 						 
-						 if(ypos>mDrawPadView.getViewWidth()){
-							 ypos=0;
+						 if(xpos>mDrawPadView.getViewWidth()){
+							 xpos=0;
 						 }
-						 subVideoLayer.setPosition(subVideoLayer.getPositionX(),ypos);
+						 subVideoLayer.setPosition(xpos,subVideoLayer.getPositionY());
 					}
-				break;				
+				break;	
+			case R.id.id_DrawPad_skbar_moveY:
+				if(subVideoLayer!=null){
+					float ypos=subVideoLayer.getPositionY()+10;
+					 
+					 if(ypos>mDrawPadView.getViewWidth()){
+						 ypos=0;
+					 }
+					 subVideoLayer.setPosition(subVideoLayer.getPositionX(),ypos);
+				}
+			break;
 			case R.id.id_DrawPad_skbar_scale:
 				if(subVideoLayer!=null){
 					float scale=(float)progress/100;
 					subVideoLayer.setScale(scale);
 				}
 			break;		
-			case R.id.id_DrawPad_skbar_red:
+			case R.id.id_DrawPad_skbar_brightness:
 					if(subVideoLayer!=null){
 						float value=(float)progress/100;
-						subVideoLayer.setRedPercent(value);  //设置每个RGBA的比例,默认是1
-					}
-				break;
-
-			case R.id.id_DrawPad_skbar_green:
-					if(subVideoLayer!=null){
-						float value=(float)progress/100;
-						subVideoLayer.setGreenPercent(value);
-					}
-				break;
-
-			case R.id.id_DrawPad_skbar_blue:
-					if(subVideoLayer!=null){
-						float value=(float)progress/100;
-						subVideoLayer.setBluePercent(value);
+						subVideoLayer.setRedPercent(value);  
+						subVideoLayer.setGreenPercent(value);  
+						subVideoLayer.setBluePercent(value);  
 					}
 				break;
 			case R.id.id_DrawPad_skbar_alpha:
-					if(subVideoLayer!=null){
-						float value=(float)progress/100;
-						subVideoLayer.setAlphaPercent(value);
-					}
-				break;
-				
+				if(subVideoLayer!=null){
+					float value=(float)progress/100;
+					subVideoLayer.setAlphaPercent(value);
+				}
+			break;
 			default:
 				break;
 		}

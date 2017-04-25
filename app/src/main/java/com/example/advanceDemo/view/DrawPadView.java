@@ -53,6 +53,7 @@ import com.lansosdk.box.ViewLayer;
 import com.lansosdk.box.onDrawPadCompletedListener;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
+import com.lansosdk.box.onDrawPadSnapShotListener;
 import com.lansosdk.box.onDrawPadThreadProgressListener;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.VideoEditor;
@@ -64,6 +65,8 @@ import com.lansosdk.videoeditor.VideoEditor;
  *  
  *   适用在增加到UI界面中, 一边预览,一边实时保存的场合.
  *
+ * 此代码由我们来维护, 但您可以放到您项目的任意地方. 以方便您的使用.
+ * 
  */
 public class DrawPadView extends FrameLayout {
 	
@@ -391,6 +394,35 @@ public class DrawPadView extends FrameLayout {
 		drawPadThreadProgressListener=listener;
 	}
 	
+	private onDrawPadSnapShotListener drawpadSnapShotListener=null;
+	/**
+	 * 设置 获取当前DrawPad这一帧的画面的监听, 
+	 *  设置截图监听,当截图完成后, 返回当前图片的btimap格式的图片.
+	 *  此方法工作在主线程. 请不要在此方法里做图片的处理,以免造成拥堵;  建议获取到bitmap后,放入到一个链表中,在外面或另开一个线程处理. 
+	 */
+	public void setOnDrawPadSnapShotListener(onDrawPadSnapShotListener listener)
+	{
+		if(renderer!=null){
+			renderer.setDrawpadSnapShotListener(listener);
+		}
+		drawpadSnapShotListener=listener;
+	}
+	/**
+	 * 触发一下截取当前DrawPad中的内容.
+	 * 触发后, 会在DrawPad内部设置一个标志位,DrawPad线程会检测到这标志位后, 截取DrawPad, 并通过onDrawPadSnapShotListener监听反馈给您.
+	 * 请不要多次或每一帧都截取DrawPad, 以免操作DrawPad处理过慢.
+	 * 
+	 * 此方法,仅在前台工作时有效.
+	 * (注意:截取的仅仅是各种图层的内容, 不会截取DrawPad的黑色背景)
+	 */
+	public void toggleSnatShot()
+	{
+		if(drawpadSnapShotListener!=null && renderer!=null && renderer.isRunning()){
+			renderer.toggleSnapShot();
+		}else{
+			Log.e(TAG,"toggle snap shot failed!!!");
+		}
+	}
 	private onDrawPadCompletedListener drawpadCompletedListener=null;
 	public void setOnDrawPadCompletedListener(onDrawPadCompletedListener listener){
 		if(renderer!=null){
@@ -467,6 +499,7 @@ public class DrawPadView extends FrameLayout {
 	 				renderer.setUpdateMode(mUpdateMode,mAutoFlushFps);
 	 				
 	 				 //设置DrawPad处理的进度监听, 回传的currentTimeUs单位是微秒.
+	 				renderer.setDrawpadSnapShotListener(drawpadSnapShotListener);
 	 				renderer.setDrawPadProgressListener(drawpadProgressListener);
 	 				renderer.setDrawPadCompletedListener(drawpadCompletedListener);
 	 				renderer.setDrawPadThreadProgressListener(drawPadThreadProgressListener);
@@ -480,18 +513,16 @@ public class DrawPadView extends FrameLayout {
 	 				if(pauseRecord){
 	 					renderer.pauseRecordDrawPad();	
 	 				}
-	 				
-	 				
-	 				
 	 				ret=renderer.startDrawPad();
 	 				
 	 				if(ret==false){  //用中文注释.
 	 					Log.e(TAG,"开启 DrawPad 失败, 或许是您之前的DrawPad没有Stop, 或者传递进去的surface对象已经被系统Destory!!," +
-	 							"请检测您 的代码或参考本文件中的SurfaceCallback 这个类中的注释.");
+	 							"请检测您 的代码或参考本文件中的SurfaceCallback 这个类中的注释;\n" +
+	 							"如果您是从一个Activity返回到当前Activity,希望再次预览, 可以看下我们setOnViewAvailable, 在PictureSetRealtimeActivity.java代码里有说明.");
 	 				}
 	 			}
          }else{
-        	 Log.e(TAG,"开启 DrawPad 失败, 您设置的宽度和高度是:"+drawPadWidth+" x "+drawPadHeight);
+        	 Log.e(TAG,"开启 DrawPad 失败, 您设置的宽度和高度是:"+drawPadWidth+" x "+drawPadHeight+" 如果您是从一个Activity返回到当前Activity,希望再次预览, 可以看下我们setOnViewAvailable, 在PictureSetRealtimeActivity.java代码里有说明.");
          }
 		 return ret;
 	}
@@ -538,7 +569,6 @@ public class DrawPadView extends FrameLayout {
 			pauseRecord=true;
 		}
 	}
-	
 	public void resumeDrawPadRecord()
 	{
 		if(renderer!=null){
@@ -620,6 +650,8 @@ public class DrawPadView extends FrameLayout {
 	/**
 	 * 此代码只是用在分段录制的Camera的过程中, 其他地方不建议使用.
 	 * 录制完成后, 返回当前录制这一段的视频文件完整路径名,
+	 * 因为这里会等待 编码和音频采集模块处理完毕释放后才返回, 故有一定的阻塞时间(在低端手机上大概100ms),
+	 * 建议用Handler的 HandlerMessage的形式来处理
 	 */
 	public String segmentStop()
 	{
@@ -629,8 +661,6 @@ public class DrawPadView extends FrameLayout {
 			return null;	
 		}
 	}
-	
-	
 	public boolean isRecording()
 	{
 		if(renderer!=null)
@@ -669,7 +699,6 @@ public class DrawPadView extends FrameLayout {
 	        	renderer.release();
 	        	renderer=null;
 	        }
-			
 	}
 	/**
 	 * 停止DrawPad的渲染线程 

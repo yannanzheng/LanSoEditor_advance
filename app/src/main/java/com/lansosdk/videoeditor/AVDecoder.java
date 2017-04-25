@@ -38,7 +38,6 @@ public class AVDecoder {
 		
 		/**
 		 * 释放当前解码器.
-		 * 
 		 * @param handle
 		 * @return
 		 */
@@ -49,7 +48,38 @@ public class AVDecoder {
 		 * @return
 		 */
 		public static native boolean decoderIsEnd(long handle);
-		
+		/**
+		 * 临时为了获取一个bitmap图片,临时测试.
+		 * @param src
+		 */
+		public static void testGetFirstOnekey(String src)
+		{
+			  	long decoderHandler=0;
+			  	IntBuffer  mGLRgbBuffer;
+			  	MediaInfo  info=new MediaInfo(src);
+			  	if(info.prepare())
+			    {
+			    	   decoderHandler=AVDecoder.decoderInit(src);
+			    	   if(decoderHandler!=0)
+			    	   {
+			    		   mGLRgbBuffer = IntBuffer.allocate(info.vWidth * info.vHeight);
+			    			long  beforeDraw=System.currentTimeMillis();
+			    			mGLRgbBuffer.position(0);
+		    				AVDecoder.decoderFrame(decoderHandler, -1, mGLRgbBuffer.array());
+		    			//	Log.i("TIME","draw comsume time is :"+ (System.currentTimeMillis() - beforeDraw));
+		    				AVDecoder.decoderRelease(decoderHandler);
+		    				
+		    				//转换为bitmap
+//		    				Bitmap stitchBmp = Bitmap.createBitmap(info.vWidth , info.vHeight, Bitmap.Config.ARGB_8888);
+//		    				 stitchBmp.copyPixelsFromBuffer(mGLRgbBuffer);
+//		    				 saveBitmap(stitchBmp); //您可以修改下, 然后返回bitmap
+		    				//这里得到的图像在mGLRgbBuffer中, 可以用来返回一张图片.
+		    				decoderHandler=0;
+			    	   }
+			 }else{
+				 Log.e("TAG","get first one key error!");
+			 }
+		}
 		/**
 		 * 代码测试.
 		 *
@@ -82,19 +112,19 @@ public class AVDecoder {
 			   MediaInfo  gifInfo=new MediaInfo(gifPath);
 			       if(gifInfo.prepare())
 			       {
-			    	   decoderHandler=AVDecoder.decoderInit(gifPath);
-			    	   FileWriteUtls  write=new FileWriteUtls(dst);
-			    	   mGLRgbBuffer = IntBuffer.allocate(gifInfo.vWidth * gifInfo.vHeight);
-			    	   while(AVDecoder.decoderIsEnd(decoderHandler)==false)
-			    	   {
-			    			mGLRgbBuffer.position(0);
-		    				AVDecoder.decoderFrame(decoderHandler, -1, mGLRgbBuffer.array());
-		    				mGLRgbBuffer.position(0);
-		    				write.writeFile(mGLRgbBuffer);
-			    	   }
-			    	   write.closeWriteFile();
-			    	   Log.i(TAG,"write closeEEEE!");
-			       }
-			}
+		 decoderHandler=AVDecoder.decoderInit(gifPath);
+		 FileWriteUtls  write=new FileWriteUtls(dst);
+		 mGLRgbBuffer = IntBuffer.allocate(gifInfo.vWidth * gifInfo.vHeight);
+		 while(AVDecoder.decoderIsEnd(decoderHandler)==false)
+		 {
+		 mGLRgbBuffer.position(0);
+		 AVDecoder.decoderFrame(decoderHandler, -1, mGLRgbBuffer.array());
+		 mGLRgbBuffer.position(0);
+		 write.writeFile(mGLRgbBuffer);
+		 }
+		 write.closeWriteFile();
+		 Log.i(TAG,"write closeEEEE!");
+		 }
+		 }
 		 */
 }

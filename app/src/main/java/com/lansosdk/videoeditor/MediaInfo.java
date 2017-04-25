@@ -191,7 +191,26 @@ public class MediaInfo {
     	 //TODO nothing 
     	 getSuccess=false;
      }
-     
+     /**
+      * 是否是竖屏的视频.
+      * @return
+      */
+     public boolean isPortVideo()
+     {
+    	 if(vWidth>0 && vHeight>0)
+    	 {
+    		 //高度大于宽度, 或者旋转角度等于90/270,则是竖屏, 其他认为是横屏.
+    		 if((vHeight>vWidth) && (vRotateAngle==0)){
+    			 return true;
+    		 }else if(vRotateAngle==90 || vRotateAngle==270){
+    			 return true;
+    		 }else{
+    			 return false;
+    		 }
+    	 }else{
+    		 return false;
+    	 }
+     }
      public boolean isHaveAudio()
      {
     	 if(aBitRate>0)  //有音频
@@ -365,7 +384,7 @@ public class MediaInfo {
         			  }
 	        		    ret+=str;
         		 }else{
-        			 ret="文件存在, 但获取文件媒体信息错误,请查看下 文件是否 是音频或视频, 或许是文本或裸数据."+videoPath;
+        			 ret="文件存在, 但MediaInfo.prepare获取媒体信息失败,请查看下 文件是否是音频或视频, 或许演示工程APP名字不是我们demo中的名字:"+videoPath;
         		 }
         		 
     		 }

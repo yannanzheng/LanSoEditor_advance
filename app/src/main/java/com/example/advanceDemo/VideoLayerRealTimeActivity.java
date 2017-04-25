@@ -11,6 +11,7 @@ import com.example.advanceDemo.view.ShowHeart;
 import com.example.advanceDemo.view.DrawPadView.onViewAvailable;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.BitmapLayer;
+import com.lansosdk.box.BitmapLoader;
 import com.lansosdk.box.BoxDecoder;
 import com.lansosdk.box.CanvasRunnable;
 import com.lansosdk.box.CanvasLayer;
@@ -79,7 +80,6 @@ public class VideoLayerRealTimeActivity extends Activity implements OnSeekBarCha
     private String editTmpPath=null;
     private String dstPath=null;
     private LinearLayout  playVideo;
-    
     @Override
     protected void onCreate(Bundle savedInstanceState) 
     {
@@ -90,13 +90,15 @@ public class VideoLayerRealTimeActivity extends Activity implements OnSeekBarCha
         mDrawPadView = (DrawPadView) findViewById(R.id.DrawPad_view);
         
         initSeekBar(R.id.id_DrawPad_skbar_rotate,360); //角度是旋转360度,如果值大于360,则取360度内剩余的角度值.
-        initSeekBar(R.id.id_DrawPad_skbar_move,100);   
+        initSeekBar(R.id.id_DrawPad_skbar_moveX,100);
+        initSeekBar(R.id.id_DrawPad_skbar_moveY,100);
+        
         initSeekBar(R.id.id_DrawPad_skbar_scale,800);   //这里设置最大可放大8倍
         
-        initSeekBar(R.id.id_DrawPad_skbar_red,100);  //red最大为100
-        initSeekBar(R.id.id_DrawPad_skbar_green,100);
-        initSeekBar(R.id.id_DrawPad_skbar_blue,100);
+        initSeekBar(R.id.id_DrawPad_skbar_brightness,100);  //red最大为100
         initSeekBar(R.id.id_DrawPad_skbar_alpha,100);
+        initSeekBar(R.id.id_DrawPad_skbar_background,800);
+        
         
         playVideo=(LinearLayout)findViewById(R.id.id_DrawPad_saveplay);
         playVideo.setOnClickListener(new OnClickListener() {
@@ -229,6 +231,8 @@ public class VideoLayerRealTimeActivity extends Activity implements OnSeekBarCha
 		mDrawPadView.startDrawPad();
 		
 		//如果视频太单调了, 可以给视频增加一个背景图片, 显得艺术一些.^^
+//		
+//		mDrawPadView.addBitmapLayer(BitmapLoader.loadBitmap(getApplicationContext(), var3, 0, 0));
 		mDrawPadView.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.videobg));
 		
 		//增加一个主视频的 VideoLayer
@@ -332,54 +336,67 @@ protected void onDestroy() {
 				if(operationLayer!=null){
 					operationLayer.setRotate(progress);
 				}
+				
 				break;
-			case R.id.id_DrawPad_skbar_move:
+			case R.id.id_DrawPad_skbar_moveX:
 					if(operationLayer!=null){
 						 xpos+=10;
-						 ypos+=10;
-						 
 						 if(xpos>mDrawPadView.getViewWidth())
 							 xpos=0;
-						 if(ypos>mDrawPadView.getViewWidth())
-							 ypos=0;
-						 operationLayer.setPosition(xpos, ypos);
+						 operationLayer.setPosition(xpos, operationLayer.getPositionY());
 						 
 					}
-				break;				
+				break;	
+			case R.id.id_DrawPad_skbar_moveY:
+				if(operationLayer!=null){
+					 ypos+=10;
+					 if(ypos>mDrawPadView.getViewWidth())
+						 ypos=0;
+					 operationLayer.setPosition(operationLayer.getPositionX(), ypos);
+				}
+			break;				
 			case R.id.id_DrawPad_skbar_scale:
 				if(operationLayer!=null){
 					float scale=(float)progress/100;
 					operationLayer.setScale(scale);
 				}
 			break;		
-			case R.id.id_DrawPad_skbar_red:
+			case R.id.id_DrawPad_skbar_brightness:
 					if(operationLayer!=null){
 						float value=(float)progress/100;
-						operationLayer.setRedPercent(value);  //设置每个RGBA的比例,默认是1
+						//同时调节RGB的比例, 让他慢慢亮起来,或暗下去.
+						operationLayer.setRedPercent(value);  
+						operationLayer.setGreenPercent(value); 
+						operationLayer.setBluePercent(value);  
 					}
 				break;
-
-			case R.id.id_DrawPad_skbar_green:
-					if(operationLayer!=null){
-						float value=(float)progress/100;
-						operationLayer.setGreenPercent(value);
-					}
-				break;
-
-			case R.id.id_DrawPad_skbar_blue:
-					if(operationLayer!=null){
-						float value=(float)progress/100;
-						operationLayer.setBluePercent(value);
-					}
-				break;
-
 			case R.id.id_DrawPad_skbar_alpha:
-					if(operationLayer!=null){
-						float value=(float)progress/100;
-						operationLayer.setAlphaPercent(value);
-					}
+				if(operationLayer!=null){
+					float value=(float)progress/100;
+					operationLayer.setAlphaPercent(value);
+				}
+			break;
+			
+			case R.id.id_DrawPad_skbar_background:
+				if(operationLayer!=null){
+					float scale=(float)progress/100;
+					/**
+				     * 20170417
+				     * VideoLayer中, 增加一个设置背景模糊的方法,可以在视频进行的任意时刻设置.
+				     * 设置后, 会给当前视频增加一个背景模糊的画面, 画面铺满整个Drawpad
+				     * 
+				     * 
+				     * 实际是中, 您可能只用来设置一个固定参数就可以了, 这里仅仅用来演示, 我们的背景不但可以显示,还可以调节模糊程度.
+				     * 
+				     *  可以使用videoMainLayer.setBackgroundBlurDisable();来关闭.
+				     *   
+				     * 注意: 如果在视频图层下有另外的图层, 则可能被盖住.
+				     * @param factor 模糊系数, 建议从0--6.0左右, 越小越清晰, 为0则不模糊, 越大则越模糊.
+				     */
+					Log.i(TAG,"set back ground factor:"+scale);
+					videoMainLayer.setBackgroundBlurFactor(scale);
+				}
 				break;
-				
 			default:
 				break;
 		}

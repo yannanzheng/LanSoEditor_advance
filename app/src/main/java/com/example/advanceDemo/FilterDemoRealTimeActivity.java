@@ -1,14 +1,18 @@
 package com.example.advanceDemo;
 
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Locale;
 
-import org.insta.IF1977Filter;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.IF1977Filter;
+import jp.co.cyberagent.lansongsdk.gpuimage.IFAmaroFilter;
 
 import com.example.advanceDemo.GPUImageFilterTools.FilterAdjuster;
 import com.example.advanceDemo.GPUImageFilterTools.OnGpuImageFilterChosenListener;
@@ -16,12 +20,14 @@ import com.example.advanceDemo.view.DrawPadView;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.DrawPad;
 import com.lansosdk.box.DrawPadUpdateMode;
+import com.lansosdk.box.DrawPadVideoExecute;
 import com.lansosdk.box.VideoLayer;
 import com.lansosdk.box.ViewLayer;
 import com.lansosdk.box.Layer;
 import com.lansosdk.box.onDrawPadCompletedListener;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
+import com.lansosdk.box.onDrawPadSnapShotListener;
 import com.lansosdk.videoeditor.CopyFileFromAssets;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
@@ -33,6 +39,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -128,6 +135,20 @@ public class FilterDemoRealTimeActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				selectFilter();
+				
+				mDrawPadView.toggleSnatShot();
+				
+				/**
+				 * 如果您需要演示, 在按下按钮后, 放到后台执行, 则屏蔽上一句,打开这里就可以了. 
+				 if(mplayer!=null){
+					mplayer.stop();
+					mplayer.release();
+					mplayer=null;
+				}
+				mDrawPadView.stopDrawPad();
+				testDrawPadExecute();
+				 */
+				
 			}
 		});
         
@@ -234,6 +255,7 @@ public class FilterDemoRealTimeActivity extends Activity {
               return;
           }
     }
+    private int pngCnt=0;
     //Step1:开始 DrawPad 画板
     private void initDrawPad()
     {
@@ -242,6 +264,37 @@ public class FilterDemoRealTimeActivity extends Activity {
     	{
     			mDrawPadView.setUpdateMode(DrawPadUpdateMode.ALL_VIDEO_READY,25);
         	
+    			
+    			//您可以截图当前DrawPad中的内容. 这里仅仅测试
+    			mDrawPadView.setOnDrawPadSnapShotListener(new onDrawPadSnapShotListener() {
+					
+					@Override
+					public void onSnapShot(DrawPad v, Bitmap bmp) {
+						// TODO Auto-generated method stub
+						
+						
+//						String str="SnapShot"+ pngCnt +".png";
+//				 		 pngCnt++;
+//						  File f = new File("/sdcard/", str);
+//						  if (f.exists()) {
+//							  f.delete();
+//						  }
+//						  try {
+//							   FileOutputStream out = new FileOutputStream(f);
+//							   bmp.compress(Bitmap.CompressFormat.PNG, 90, out);
+//							   out.flush();
+//							   out.close();
+//						   Log.i(TAG, "已经保存到"+f.getPath());
+//						  } catch (FileNotFoundException e) {
+//						   // TODO Auto-generated catch block
+//							  e.printStackTrace();
+//						  } catch (IOException e) {
+//						   // TODO Auto-generated catch block
+//							  e.printStackTrace();
+//						  }
+					}
+				});
+    			
 //        		设置使能 实时保存, 即把正在DrawPad中呈现的画面实时的保存下来,实现所见即所得的模式
         	mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
         	
@@ -280,8 +333,6 @@ public class FilterDemoRealTimeActivity extends Activity {
 			mplayer.start();
 		}
     }
-    
-    
     /**
      * 您可以增加一个背景图片.
      */
@@ -311,10 +362,9 @@ public class FilterDemoRealTimeActivity extends Activity {
 		@Override
 		public void onCompleted(DrawPad v) {
 			// TODO Auto-generated method stub
-			
-			if(isDestorying==false){
+			if(isDestorying==false)
+			{
 					toastStop();
-					
 					if(SDKFileUtils.fileExist(editTmpPath)){
 						boolean ret=VideoEditor.encoderAddAudio(mVideoPath,editTmpPath,SDKDir.TMP_DIR,dstPath);
 						if(!ret){
@@ -360,5 +410,53 @@ public class FilterDemoRealTimeActivity extends Activity {
 	    	 SDKFileUtils.deleteFile(editTmpPath);
 	     } 
     }
+    //----------------------------------------------------------放到后台执行
+    private boolean isExecuting=false; 
+    private DrawPadVideoExecute  vDrawPad=null;
+	private void testDrawPadExecute()
+	{
+		if(isExecuting)
+			return ;
+		
+		isExecuting=true;
+		
+		vDrawPad=new DrawPadVideoExecute(FilterDemoRealTimeActivity.this,mVideoPath,480,480,1000000,
+				new IFAmaroFilter(getApplicationContext()),editTmpPath);
+		
+		vDrawPad.setDrawPadProgressListener(new onDrawPadProgressListener() {
+			
+			@Override
+			public void onProgress(DrawPad v, long currentTimeUs) {
+				// TODO Auto-generated method stub
+				Log.i(TAG,"drawpad  progress is:"+currentTimeUs);
+			}
+		});
+		/**
+		 * 设置DrawPad完成后的监听.
+		 */
+		vDrawPad.setDrawPadCompletedListener(new onDrawPadCompletedListener() {
+			
+			@Override
+			public void onCompleted(DrawPad v) {
+				// TODO Auto-generated method stub
+				Log.i(TAG,"drawpad  Completed:"+ editTmpPath);
+				
+				if(SDKFileUtils.fileExist(editTmpPath)){
+					boolean ret=VideoEditor.encoderAddAudio(mVideoPath,editTmpPath,SDKDir.TMP_DIR,dstPath);
+					if(!ret){
+						dstPath=editTmpPath;
+					}else{
+						SDKFileUtils.deleteFile(editTmpPath);	
+					}
+					findViewById(R.id.id_filterdemo_saveplay).setVisibility(View.VISIBLE);
+				}else{
+					Toast.makeText(getApplicationContext(), "录制文件不存在", Toast.LENGTH_SHORT).show();
+				}
+				
+			}
+		});
+		
+		vDrawPad.startDrawPad();
+	}
 
 }

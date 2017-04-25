@@ -8,10 +8,6 @@ import java.util.Locale;
 
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
-import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageLookupFilter;
-import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
-import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBeautyFilter;
-import jp.co.cyberagent.lansongsdk.gpuimage.LanSongSkinWhitenFilter;
 
 import com.example.advanceDemo.GPUImageFilterTools.OnGpuImageFilterChosenListener;
 import com.example.advanceDemo.view.DrawPadView;
@@ -60,7 +56,7 @@ import android.widget.Toast;
  */
 public class CameraLayerFullPortActivity extends Activity implements OnClickListener{
    
-	private static final long RECORD_CAMERA_TIME=20*1000*1000; //定义录制的时间为20s
+	private static final long RECORD_CAMERA_TIME=50*1000*1000; //定义录制的时间为50s
 	
 	private static final String TAG = "CameraLayerFullScreenActivity";
 
@@ -75,7 +71,7 @@ public class CameraLayerFullPortActivity extends Activity implements OnClickList
 	private PowerManager.WakeLock mWakeLock;
 	private ViewLayer mViewLayer=null;
     private ViewLayerRelativeLayout mLayerRelativeLayout;
-    
+    private Button btnBeautiful;
     @Override
     protected void onCreate(Bundle savedInstanceState) 
     {
@@ -101,7 +97,34 @@ public class CameraLayerFullPortActivity extends Activity implements OnClickList
 				initDrawPad();  //开始录制.
 			}
 		}, 500);
+		btnBeautiful=(Button)findViewById(R.id.id_beautiful_btn);
+				btnBeautiful.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+				if(mCameraLayer!=null){
+					if(isBeaufulEnable==false){
+						mCameraLayer.setBeautifulEnable(true);
+						btnBeautiful.setText("美颜已打开:美颜级别:2");
+						isBeaufulEnable=true;
+					}else{
+						beaufulLevel++;
+						mCameraLayer.setBeautifulLevel(beaufulLevel);
+						btnBeautiful.setText("美颜等级"+String.valueOf(beaufulLevel));
+						if(beaufulLevel>5){
+							btnBeautiful.setText("美颜关闭");
+							mCameraLayer.setBeautifulEnable(false);
+							beaufulLevel=0;
+							isBeaufulEnable=false;
+						}
+					}
+				}
+			}
+		});
     }
+    private boolean isBeaufulEnable=false;
+    private int   beaufulLevel=0;  //从1--5,建议2;
     @Override
     protected void onResume() {
     	// TODO Auto-generated method stub
@@ -142,12 +165,19 @@ public class CameraLayerFullPortActivity extends Activity implements OnClickList
     	  	mDrawPadView.setRecordMic(true);
     	   
     	    mDrawPadView.startDrawPad();
-          	mCameraLayer=	mDrawPadView.addCameraLayer(false,null);
-          	
+            
+    		mCameraLayer=	mDrawPadView.addCameraLayer(false,null);
+    		
+//    		mCameraLayer=	mDrawPadView.addCameraLayer(false,null);
+    		
 //    		addViewLayer();
 //    		addBitmapLayer();
+    		//增加一个giflayer
+//    		GifLayer giflayer= mDrawPadView.addGifLayer( R.drawable.g08);
+//    		giflayer.setScale(0.5f);
+//    		giflayer.setRotate(60);
+//    		giflayer.setPosition(giflayer.getPadWidth()-giflayer.getLayerWidth()/4,giflayer.getPositionY()/4);
       }
-  
       
       /**
        * Step3: 停止画板, 停止后,为新的视频文件增加上音频部分.
@@ -289,9 +319,9 @@ public class CameraLayerFullPortActivity extends Activity implements OnClickList
 	   			mViewLayer=mDrawPadView.addViewLayer();
 	           
 	   		//把这个图层绑定到LayerRelativeLayout中.从而LayerRelativeLayout中的各种UI界面会被绘制到Drawpad上.
+	   			
 	   			mLayerRelativeLayout.bindViewLayer(mViewLayer);
-	   		
-	           mLayerRelativeLayout.invalidate();//刷新一下.
+	   			mLayerRelativeLayout.invalidate();//刷新一下.
 	           
 	           ViewGroup.LayoutParams  params=mLayerRelativeLayout.getLayoutParams();
 	           params.height=mViewLayer.getPadHeight();  //因为布局时, 宽度一致, 这里调整高度,让他们一致.

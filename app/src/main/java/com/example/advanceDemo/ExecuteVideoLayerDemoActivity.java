@@ -2,7 +2,9 @@ package com.example.advanceDemo;
 
 import java.nio.IntBuffer;
 
-import org.insta.IFRiseFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.IFAmaroFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.IFRiseFilter;
+
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -30,6 +32,7 @@ import com.lansosdk.box.CanvasLayer;
 import com.lansosdk.box.DataLayer;
 import com.lansosdk.box.DrawPad;
 import com.lansosdk.box.DrawPadVideoExecute;
+import com.lansosdk.box.GifLayer;
 import com.lansosdk.box.MVLayer;
 import com.lansosdk.box.MVLayerENDMode;
 import com.lansosdk.box.VideoLayer;
@@ -79,7 +82,7 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 	    /**
 	     * DrawPad, 用来执行图像处理的对象.
 	     */
-	    private DrawPadVideoExecute  vDrawPad=null;
+	    private DrawPadVideoExecute  mDrawPad=null;
 	    
 	    /**
 	     * 用来显示一个心形.
@@ -134,14 +137,15 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 		  * @param filter   为视频增加一个滤镜
 		  * @param dstPath  编码视频保存的路径.
 		  */
-		 vDrawPad=new DrawPadVideoExecute(ExecuteVideoLayerDemoActivity.this,videoPath,480,480,1000000,null,editTmpPath);
 		
+		 mDrawPad=new DrawPadVideoExecute(ExecuteVideoLayerDemoActivity.this,videoPath,480,480,1000000,null,editTmpPath);
 		 //或者可以用另一个构造方法, 指定主视频的开始时间, 这里举例是3*1000(3秒);
-//		 vDrawPad=new DrawPadVideoExecute(ExecuteVideoLayerDemoActivity.this,videoPath,3*1000,480,480,1000000,null,editTmpPath);
+//		 mDrawPad=new DrawPadVideoExecute(ExecuteVideoLayerDemoActivity.this,videoPath,3*1000,480,480,1000000,null,editTmpPath);
+		 mDrawPad.setUseMainVideoPts(true);
 		 /**
 		  * 设置DrawPad处理的进度监听, 回传的currentTimeUs单位是微秒.
 		  */
-		vDrawPad.setDrawPadProgressListener(new onDrawPadProgressListener() {
+		mDrawPad.setDrawPadProgressListener(new onDrawPadProgressListener() {
 			
 			@Override
 			public void onProgress(DrawPad v, long currentTimeUs) {
@@ -160,7 +164,7 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 		/**
 		 * 设置DrawPad完成后的监听.
 		 */
-		vDrawPad.setDrawPadCompletedListener(new onDrawPadCompletedListener() {
+		mDrawPad.setDrawPadCompletedListener(new onDrawPadCompletedListener() {
 			
 			@Override
 			public void onCompleted(DrawPad v) {
@@ -169,6 +173,8 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 				isExecuting=false;
 				
 				if(isInsertAudio){
+					Log.i(TAG,"editTmp path is:"+editTmpPath);
+					
 					dstPath=editTmpPath; 
 				}else{
 					if(SDKFileUtils.fileExist(editTmpPath)){
@@ -189,47 +195,52 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 		 */
 //		vDrawPad.setUseMainVideoPts(true);
 		
-//		testInsertAudio();
+	//	addOtherAudio();
+		mDrawPad.pauseRecordDrawPad();
 		/**
 		 * 开始执行这个DrawPad
 		 */
-		vDrawPad.startDrawPad();
-		vDrawPad.pauseRecordDrawPad();
+		mDrawPad.startDrawPad();
+		
+		//给视频增加一个虚化背景.
+//		VideoLayer mainLayer=mDrawPad.getMainVideoLayer();
+//		if(mainLayer!=null){
+//			mainLayer.setBackgroundBlurFactor(3.5f);
+//		}
+		
 		
 		/**
 		 * 一下是在处理过程中, 
 		 * 增加的几个Layer, 来实现视频在播放过程中叠加别的一些媒体, 像图片, 文字等.
 		 */
-		bitmapLayer=vDrawPad.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
+		bitmapLayer=mDrawPad.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
 		bitmapLayer.setPosition(300, 200);
 		
 		//增加一个笑脸, add a bitmap
-		vDrawPad.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.xiaolian));	
+		mDrawPad.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.xiaolian));	
 
 		//增加一个CanvasLayer
 //		addCanvasLayer();
 //		addDataLayer();
 //		 addMVLayer();
 		 
-		 vDrawPad.resumeRecordDrawPad();
+		//addGifLayer();
+		 mDrawPad.resumeRecordDrawPad();
+		 
 	}
 	/**
 	 * 可以插入一段声音.
 	 * 注意, 需要在drawpad开始前调用.
 	 */
 	private boolean isInsertAudio=false;
-	private void testInsertAudio()
+	private void addOtherAudio()
 	{
 		/**
-		 * 设置是否在录制的时候,插入声音.
-		 */
-		isInsertAudio=true;
-		/**
-		 * 插入一段声音, 这里拷贝Assets中的资源来做.
+		 *  插入一段声音, 这里拷贝Assets中的资源来做.
 		 */
 		String audio=CopyDefaultVideoAsyncTask.copyFile(getApplicationContext(), "hongdou10s.mp3");
 		 /**
-	     * 在处理中插入一段音频.
+	     * 在处理中插入一段其他音频,比如笑声,雷声, 各种搞怪声音等.类似 一个主持人在说话, 讲了一笑话, 然后插入一段 大笑的声音一样
 	     * @param srcPath  音频的完整路径
 	     * @param startTimeMs 设置从主视频的哪个时间点开始插入.单位毫秒.
 	     * @param durationMs   把这段声音多长插入进去. 如果设置为-1,则全部插入进去, 如果音频大于主视频的音频时长,则等于主视频的时长.
@@ -238,7 +249,7 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 	     * @param volume  插入时,当前音频音量多大  默认是1.0f, 大于1,0则是放大, 小于则是降低
 	     * @return  插入成功, 返回true, 失败返回false
 	     */
-		vDrawPad.addSubAudio(audio,0,-1,3.0f,2.0f);
+		isInsertAudio=mDrawPad.addSubAudio(audio,1000,2000,3.0f,1.0f);
 		//vDrawPad.addSubAudio(audio,5000,-1,3.0f,2.0f);
 		//vDrawPad.addSubAudio(audio,1000,8000,3.0f,2.0f);
 	}
@@ -248,15 +259,15 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
     	super.onDestroy();
     	
     	 removeGif();
-    	if(vDrawPad!=null){
-    		vDrawPad.releaseDrawPad();
+    	if(mDrawPad!=null){
+    		mDrawPad.releaseDrawPad();
     		try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-    		vDrawPad=null;
+    		mDrawPad=null;
     	}
     	   if(SDKFileUtils.fileExist(dstPath)){
     		   SDKFileUtils.deleteFile(dstPath);
@@ -325,7 +336,7 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 		 */
 		private void addCanvasLayer()
 		{
-					mCanvasLayer=vDrawPad.addCanvasLayer();
+					mCanvasLayer=mDrawPad.addCanvasLayer();
 					
 					if(mCanvasLayer!=null){
 						
@@ -357,10 +368,26 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 		     * @param isAsync   是否异步执行.
 		     * @return
 		     */
-		    MVLayer  layer=vDrawPad.addMVLayer(colorMVPath, maskMVPath,true); 
+		    MVLayer  layer=mDrawPad.addMVLayer(colorMVPath, maskMVPath,true); 
 			 // mv在播放完后, 有3种模式,消失/停留在最后一帧/循环.默认是循环.
 //			  layer.setEndMode(MVLayerENDMode.INVISIBLE); 
 			 
+		}
+		GifLayer gifLayer;
+		private void addGifLayer()
+		{
+			gifLayer=mDrawPad.addGifLayer(R.drawable.g06);
+			
+//			new Handler().postDelayed(new Runnable() {
+//				
+//				@Override
+//				public void run() {
+//					// TODO Auto-generated method stub
+//					gifLayer.setScale(0.5f);
+//					gifLayer.setRotate(60);
+//					gifLayer.setPosition(gifLayer.getPadWidth()-gifLayer.getLayerWidth()/4,giflayer.getPositionY()/4);
+//				}
+//			}, 1000);  //系统时间1秒后,旋转到右上角.
 		}
 		private MediaInfo gifInfo;
 		private long decoderHandler;
@@ -399,13 +426,13 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 		    	   mGLRgbBuffer = IntBuffer.allocate(gifInfo.vWidth * gifInfo.vHeight);
 		    	  
 		    	   gifInterval=(int)(mInfo.vFrameRate/gifInfo.vFrameRate);
-		    	   dataLayer=vDrawPad.addDataLayer(gifInfo.vWidth,gifInfo.vHeight);
+		    	   dataLayer=mDrawPad.addDataLayer(gifInfo.vWidth,gifInfo.vHeight);
 		    	   
 		    	   /**
 		    	    * 画板中的onDrawPadThreadProgressListener监听,与 onDrawPadProgressListener不同的地方在于:
 		    	    * 此回调是在DrawPad渲染完一帧后,立即执行这个回调中的代码,不通过Handler传递出去.
 		    	    */
-		    		vDrawPad.setDrawPadThreadProgressListener(new onDrawPadThreadProgressListener() {
+		    		mDrawPad.setDrawPadThreadProgressListener(new onDrawPadThreadProgressListener() {
 		    			
 		    			@Override
 		    			public void onThreadProgress(DrawPad v, long currentTimeUs) {
@@ -430,8 +457,8 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 		}
 	   private void removeGif()
 	   {
-		   if(vDrawPad!=null && dataLayer!=null){
-			   vDrawPad.removeLayer(dataLayer);
+		   if(mDrawPad!=null && dataLayer!=null){
+			   mDrawPad.removeLayer(dataLayer);
 				dataLayer=null;
 				BoxDecoder.decoderRelease(decoderHandler);
 				decoderHandler=0; 

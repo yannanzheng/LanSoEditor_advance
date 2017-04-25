@@ -918,7 +918,6 @@ public class VideoEditor {
 					cmdList.add("-ss");
 					cmdList.add(String.valueOf(startS));
 					
-					
 			    	cmdList.add("-i");
 					cmdList.add(srcFile);
 
@@ -1061,6 +1060,7 @@ public class VideoEditor {
 		  {
 			  if(fileExist(videoFile)){
 				
+				 
 					List<String> cmdList=new ArrayList<String>();
 					
 			    	cmdList.add("-i");
@@ -1071,6 +1071,69 @@ public class VideoEditor {
 					
 					cmdList.add("-t");
 					cmdList.add(String.valueOf(durationS));
+					
+					cmdList.add("-vcodec");
+					cmdList.add("lansoh264_enc"); 
+					
+					cmdList.add("-b:v");
+					cmdList.add(checkBitRate(bitrate)); 
+					
+					cmdList.add("-pix_fmt");  
+					cmdList.add("yuv420p");
+					
+					cmdList.add("-acodec");
+					if(encodeAudio){
+						cmdList.add("libfaac");
+					}else{
+						cmdList.add("copy");
+					}
+					
+					cmdList.add("-y");
+					cmdList.add(dstFile);
+					
+					String[] command=new String[cmdList.size()];  
+				     for(int i=0;i<cmdList.size();i++){  
+				    	 command[i]=(String)cmdList.get(i);  
+				     }  
+				    return  executeVideoEditor(command);
+				  
+			  }else{
+				  return VIDEO_EDITOR_EXECUTE_FAILED;
+			  }
+		  }
+		  /**
+		   * 对视频时长剪切的同时, 对画面进行裁剪.
+		   * @param videoFile
+		   * @param dstFile
+		   * @param startS
+		   * @param durationS
+		   * @param cropWidth
+		   * @param cropHeight
+		   * @param x
+		   * @param y
+		   * @param bitrate
+		   * @param encodeAudio
+		   * @return
+		   */
+		  public int executeVideoExactCut(String videoFile,String dstFile,float startS,float durationS,int cropWidth,int cropHeight,int x,int y,int bitrate,boolean encodeAudio)
+		  {
+			  if(fileExist(videoFile)){
+				
+				  	String cropcmd=String.format(Locale.getDefault(),"crop=%d:%d:%d:%d",cropWidth,cropHeight,x,y);
+				  
+					List<String> cmdList=new ArrayList<String>();
+					
+			    	cmdList.add("-i");
+					cmdList.add(videoFile);
+
+					cmdList.add("-ss");
+					cmdList.add(String.valueOf(startS));
+					
+					cmdList.add("-t");
+					cmdList.add(String.valueOf(durationS));
+					
+					cmdList.add("-vf");
+					cmdList.add(cropcmd);
 					
 					cmdList.add("-vcodec");
 					cmdList.add("lansoh264_enc"); 
@@ -2163,6 +2226,83 @@ public class VideoEditor {
 					cmdList.add("-i");
 					cmdList.add(videoFile);
 
+					cmdList.add("-vf");
+					cmdList.add(filter);
+					
+					cmdList.add("-acodec");
+					cmdList.add("copy");
+					
+					cmdList.add("-vcodec");
+					cmdList.add("lansoh264_enc"); 
+					
+					cmdList.add("-pix_fmt");   //<========请注意, 使用lansoh264_enc编码器编码的时候,请务必指定格式,因为底层设计只支持yuv420p的输出.
+					cmdList.add("yuv420p");
+					
+					cmdList.add("-b:v");
+					cmdList.add(checkBitRate(bitrate)); 
+					
+					cmdList.add("-y");
+					cmdList.add(dstFile);
+					
+					String[] command=new String[cmdList.size()];  
+				     for(int i=0;i<cmdList.size();i++){  
+				    	 command[i]=(String)cmdList.get(i);  
+				     }  
+				    return  executeVideoEditor(command);
+			  }else{
+				  return VIDEO_EDITOR_EXECUTE_FAILED;
+			  }
+		  }
+		  /**
+		   * 精确裁剪视频, 并填充到指定的宽高, 工作过程参考 {@link #executePadingVideo(String, String, int, int, int, int, String, int)}
+		   * @param videoFile
+		   * @param decCodec
+		   * @param startS
+		   * @param durationS
+		   * @param padWidth
+		   * @param padHeight
+		   * @param padX
+		   * @param padY
+		   * @param dstFile
+		   * @param bitrate
+		   * @return
+		   */
+		  public int executeCutPadingVideo(String videoFile,String decCodec,float startS,float durationS,int padWidth,int padHeight,int padX,int padY,String dstFile,int bitrate)
+		  {
+			  //ffmpeg -i ping20s.mp4 -vf "pad=480:480:50:50:black" -y ping_pad3.mp4
+			  if(fileExist(videoFile))
+			  {
+				  //第一步检测设置填充的高度和宽度是否比原来+坐标的大, 如果小于,则出错.
+				    MediaInfo info=new MediaInfo(videoFile);
+				    if(info.prepare()){
+				    	int minWidth=info.vWidth+padX;
+				    	int minHeight=info.vHeight+padY;
+				    	if( minWidth>padWidth || minHeight>padHeight)
+				    	{
+				    		Log.e(TAG,"pad set position is error. min Width>pading width.or min height > padding height");
+				    		return -1;  //失败.
+				    	}
+				    }else{
+				    	 Log.e(TAG,"media info prepare is error!!!");
+				    	return -1; 
+				    }
+				    
+				    //第二步: 开始padding.
+					String filter=String.format(Locale.getDefault(),"pad=%d:%d:%d:%d:black",padWidth,padHeight,padX,padY);
+				
+					List<String> cmdList=new ArrayList<String>();
+					cmdList.add("-vcodec");
+					cmdList.add(decCodec);
+					
+					cmdList.add("-i");
+					cmdList.add(videoFile);
+
+					cmdList.add("-ss");
+					cmdList.add(String.valueOf(startS));
+					
+					cmdList.add("-t");
+					cmdList.add(String.valueOf(durationS));
+					
 					cmdList.add("-vf");
 					cmdList.add(filter);
 					

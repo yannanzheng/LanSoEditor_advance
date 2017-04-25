@@ -2,7 +2,8 @@ package com.example.advanceDemo;
 
 import java.nio.IntBuffer;
 
-import org.insta.IFRiseFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.IFRiseFilter;
+
 
 import android.app.Activity;
 import android.app.AlertDialog;

@@ -2,8 +2,8 @@ package com.example.advanceDemo;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageToneCurveFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.IFRiseFilter;
 
-import org.insta.IFRiseFilter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -110,6 +110,13 @@ public class ExecuteFilterDemoActivity extends Activity{
 			return ;
 		
 		isExecuting=true;
+		//设置pad的宽度和高度.
+		int padWidth=mInfo.vWidth;
+		int padHeight=mInfo.vHeight;
+		if(mInfo.vRotateAngle==90 || mInfo.vRotateAngle==270){
+			padWidth=mInfo.vHeight;
+			padHeight=mInfo.vWidth;
+		}
 		 /**
 		  * 创建在后台调用DrawPad来处理视频的构造方法.
 		  * 
@@ -123,7 +130,7 @@ public class ExecuteFilterDemoActivity extends Activity{
 		  * @param filter   为视频增加一个滤镜
 		  * @param dstPath  编码视频保存的路径.
 		  */
-		 vDrawPad=new DrawPadVideoExecute(ExecuteFilterDemoActivity.this,videoPath,mInfo.vWidth,mInfo.vHeight,(int)(mInfo.vBitRate*1.5f)
+		 vDrawPad=new DrawPadVideoExecute(ExecuteFilterDemoActivity.this,videoPath,padWidth,padHeight,(int)(mInfo.vBitRate*1.5f)
 				 ,new GPUImageSepiaFilter(),editTmpPath);
 		 
 		

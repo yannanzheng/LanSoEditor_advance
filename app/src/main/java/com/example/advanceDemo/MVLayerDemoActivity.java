@@ -190,6 +190,9 @@ public class MVLayerDemoActivity extends Activity {
 		/**
 		 * 增加一个MV图层.
 		 */
+//		colorMVPath="/sdcard/mv_xuan.mp4";
+//		maskMVPath="/sdcard/mv_xuan_b.mp4";
+		
 		mvLayer=mDrawPadView.addMVLayer(colorMVPath, maskMVPath);  //<-----增加MVLayer
 		
 		//设置它为满屏.

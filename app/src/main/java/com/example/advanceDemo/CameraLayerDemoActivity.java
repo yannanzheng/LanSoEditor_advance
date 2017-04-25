@@ -162,7 +162,7 @@ public class CameraLayerDemoActivity extends Activity implements Handler.Callbac
     {
     	mDrawPadView.startDrawPad();
 //		mDrawPadView.pauseDrawPadRecord();
-		mCameraLayer=	mDrawPadView.addCameraLayer(false,new LanSongBeautyFilter());
+		mCameraLayer=	mDrawPadView.addCameraLayer(false,null);
 	//	addMVLayer();
     }
     

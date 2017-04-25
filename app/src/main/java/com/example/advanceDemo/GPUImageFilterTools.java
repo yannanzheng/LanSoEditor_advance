@@ -29,25 +29,8 @@ import jp.co.cyberagent.lansongsdk.gpuimage.*;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.insta.IF1977Filter;
-import org.insta.IFAmaroFilter;
-import org.insta.IFBrannanFilter;
-import org.insta.IFEarlybirdFilter;
-import org.insta.IFHefeFilter;
-import org.insta.IFHudsonFilter;
-import org.insta.IFInkwellFilter;
-import org.insta.IFLomofiFilter;
-import org.insta.IFLordKelvinFilter;
-import org.insta.IFNashvilleFilter;
-import org.insta.IFRiseFilter;
-import org.insta.IFSierraFilter;
-import org.insta.IFSutroFilter;
-import org.insta.IFToasterFilter;
-import org.insta.IFValenciaFilter;
-import org.insta.IFWaldenFilter;
-import org.insta.IFXproIIFilter;
-
 import com.lansoeditor.demo.R;
+import com.lansosdk.box.BitmapLoader;
 
 
 public class GPUImageFilterTools {
@@ -55,57 +38,65 @@ public class GPUImageFilterTools {
             final OnGpuImageFilterChosenListener listener) {
         final FilterList filters = new FilterList();
         
-        filters.addFilter("(NONE)无", FilterType.NONE);  //PASS
-        filters.addFilter("Beautiful美颜", FilterType.BEAUTIFUL);  //PASS
+        filters.addFilter("(NONE)无", FilterType.NONE);
+        /**
+         * 美颜仅仅在 CameraLayer和 VideoLayer中支持,其他图层暂时不支持美颜滤镜.
+         */
+        filters.addFilter("美颜等级1", FilterType.BEAUTIFUL1);  
+        filters.addFilter("美颜等级2", FilterType.BEAUTIFUL2);  
+        filters.addFilter("美颜等级3", FilterType.BEAUTIFUL3);  
+        filters.addFilter("美颜等级4", FilterType.BEAUTIFUL4);  
+        filters.addFilter("美颜等级5", FilterType.BEAUTIFUL5);   
         
-        filters.addFilter("1AMARO", FilterType.AMARO);   //PASS
-        filters.addFilter("2RISE", FilterType.RISE);   //PASS
-        filters.addFilter("3HUDSON", FilterType.HUDSON);   //PASS
-        filters.addFilter("4XPROII", FilterType.XPROII);   //PASS
-        filters.addFilter("5SIERRA", FilterType.SIERRA);   //PASS
-        filters.addFilter("6LOMOFI", FilterType.LOMOFI);   //PASS
-        filters.addFilter("7EARLYBIRD", FilterType.EARLYBIRD);   //PASS
-        filters.addFilter("8SUTRO", FilterType.SUTRO);   //PASS
-        filters.addFilter("9TOASTER", FilterType.TOASTER);   //PASS
-        filters.addFilter("10BRANNAN", FilterType.BRANNAN);   //PASS
-        filters.addFilter("11INKWELL", FilterType.INKWELL);   //PASS
-        filters.addFilter("12WALDEN", FilterType.WALDEN);   //PASS
-        filters.addFilter("13HEFE", FilterType.HEFE);   //PASS
-        filters.addFilter("14VALENCIA", FilterType.VALENCIA); //PASS  
-        filters.addFilter("15NASHVILLE", FilterType.NASHVILLE);   //PASS
-        filters.addFilter("16if1977", FilterType.IF1977);     //PASS
-        filters.addFilter("17LORDKELVIN", FilterType.LORDKELVIN);  //PASS	
+        
+        filters.addFilter("1AMARO", FilterType.AMARO);   
+        filters.addFilter("2RISE", FilterType.RISE);   
+        filters.addFilter("3HUDSON", FilterType.HUDSON);   
+        filters.addFilter("4XPROII", FilterType.XPROII);   
+        filters.addFilter("5SIERRA", FilterType.SIERRA);   
+        filters.addFilter("6LOMOFI", FilterType.LOMOFI);   
+        filters.addFilter("7EARLYBIRD", FilterType.EARLYBIRD);   
+        filters.addFilter("8SUTRO", FilterType.SUTRO);   
+        filters.addFilter("9TOASTER", FilterType.TOASTER);   
+        filters.addFilter("10BRANNAN", FilterType.BRANNAN);   
+        filters.addFilter("11INKWELL", FilterType.INKWELL);   
+        filters.addFilter("12WALDEN", FilterType.WALDEN);   
+        filters.addFilter("13HEFE", FilterType.HEFE);   
+        filters.addFilter("14VALENCIA", FilterType.VALENCIA);   
+        filters.addFilter("15NASHVILLE", FilterType.NASHVILLE);   
+        filters.addFilter("16if1977", FilterType.IF1977);     
+        filters.addFilter("17LORDKELVIN", FilterType.LORDKELVIN);  	
         
         
         filters.addFilter("黑色mask", FilterType.LanSongBLACKMASK);  
         filters.addFilter("区域透明", FilterType.LanSongMASK);  
         
-        filters.addFilter("Contrast对比度", FilterType.CONTRAST);  //PASS
-        filters.addFilter("Invert负片", FilterType.INVERT);  //PASS
+        filters.addFilter("Contrast对比度", FilterType.CONTRAST);  
+        filters.addFilter("Invert负片", FilterType.INVERT);  
         
         filters.addFilter("Pixelation", FilterType.PIXELATION);   //静止图片像素的大小.
-        filters.addFilter("Hue色调", FilterType.HUE);  //PASS
-        filters.addFilter("Gamma伽玛", FilterType.GAMMA);  //PASS
+        filters.addFilter("Hue色调", FilterType.HUE);  
+        filters.addFilter("Gamma伽玛", FilterType.GAMMA);  
         
-        filters.addFilter("Brightness图像亮度", FilterType.BRIGHTNESS); //PASS
-        filters.addFilter("Sepia复古", FilterType.SEPIA); //PASS
-        filters.addFilter("Grayscale灰度", FilterType.GRAYSCALE);  //PASS
+        filters.addFilter("Brightness图像亮度", FilterType.BRIGHTNESS); 
+        filters.addFilter("Sepia复古", FilterType.SEPIA); 
+        filters.addFilter("Grayscale灰度", FilterType.GRAYSCALE);  
         
         
-        filters.addFilter("Posterize色调分离", FilterType.POSTERIZE);  //PASS
-        filters.addFilter("Saturation饱和度", FilterType.SATURATION); //PASS
+        filters.addFilter("Posterize色调分离", FilterType.POSTERIZE);  
+        filters.addFilter("Saturation饱和度", FilterType.SATURATION); 
         
-        filters.addFilter("Exposure曝光度", FilterType.EXPOSURE);  //PASS
+        filters.addFilter("Exposure曝光度", FilterType.EXPOSURE);  
         
-        filters.addFilter("Highlight Shadow阴影高亮", FilterType.HIGHLIGHT_SHADOW);  //PASS
-        filters.addFilter("Monochrome单色", FilterType.MONOCHROME); //PASS
+        filters.addFilter("Highlight Shadow阴影高亮", FilterType.HIGHLIGHT_SHADOW);  
+        filters.addFilter("Monochrome单色", FilterType.MONOCHROME); 
         
-        filters.addFilter("Opacity透明度", FilterType.OPACITY);    //PASS 设置视频的透明度,一般不需要.
-        filters.addFilter("RGB颜色调整", FilterType.RGB);  //PASS
+        filters.addFilter("Opacity透明度", FilterType.OPACITY);     
+        filters.addFilter("RGB颜色调整", FilterType.RGB);  
         
-        filters.addFilter("White Balance白平衡", FilterType.WHITE_BALANCE);  //PASS
+        filters.addFilter("White Balance白平衡", FilterType.WHITE_BALANCE);  
         
-        filters.addFilter("Vignette加轮廓", FilterType.VIGNETTE);  //PASS
+        filters.addFilter("Vignette加轮廓", FilterType.VIGNETTE);  
 
         filters.addFilter("Blend (Difference)", FilterType.BLEND_DIFFERENCE);
         filters.addFilter("Blend (Source Over)", FilterType.BLEND_SOURCE_OVER);
@@ -133,22 +124,22 @@ public class GPUImageFilterTools {
         filters.addFilter("Blend (Normal)", FilterType.BLEND_NORMAL);
 
         filters.addFilter("Lookup (Amatorka)", FilterType.LOOKUP_AMATORKA); 
-        filters.addFilter("Crosshatch网格", FilterType.CROSSHATCH);  //PASS
+        filters.addFilter("Crosshatch网格", FilterType.CROSSHATCH);  
 
-        filters.addFilter("CGA Color Space", FilterType.CGA_COLORSPACE);  //PASS
-        filters.addFilter("Kuwahara", FilterType.KUWAHARA);  //PASS
+        filters.addFilter("CGA Color Space", FilterType.CGA_COLORSPACE);  
+        filters.addFilter("Kuwahara", FilterType.KUWAHARA);  
         filters.addFilter("Halftone", FilterType.HALFTONE);
 
-        filters.addFilter("Bulge Distortion", FilterType.BULGE_DISTORTION);  //PASS
+        filters.addFilter("Bulge Distortion", FilterType.BULGE_DISTORTION);  
         filters.addFilter("Glass Sphere", FilterType.GLASS_SPHERE); 
-        filters.addFilter("Haze", FilterType.HAZE);  //PASS
-        filters.addFilter("Sphere Refraction", FilterType.SPHERE_REFRACTION); //PASS
-        filters.addFilter("Swirl", FilterType.SWIRL);  //PASS
-        filters.addFilter("False Color", FilterType.FALSE_COLOR);  //PASS
+        filters.addFilter("Haze", FilterType.HAZE);  
+        filters.addFilter("Sphere Refraction", FilterType.SPHERE_REFRACTION); 
+        filters.addFilter("Swirl", FilterType.SWIRL);  
+        filters.addFilter("False Color", FilterType.FALSE_COLOR);  
 
-        filters.addFilter("Color Balance", FilterType.COLOR_BALANCE);  //PASS
+        filters.addFilter("Color Balance", FilterType.COLOR_BALANCE);  
 
-        filters.addFilter("Levels Min (Mid Adjust)", FilterType.LEVELS_FILTER_MIN);  //PASS
+        filters.addFilter("Levels Min (Mid Adjust)", FilterType.LEVELS_FILTER_MIN);  
 
      	
           		
@@ -170,11 +161,21 @@ public class GPUImageFilterTools {
         switch (type) {
         	case NONE:
         		return new GPUImageFilter();
-        	case BEAUTIFUL:
-        		/**
-        		 * 美颜的功能, 就是磨皮.
-        		 */
-        		return  new LanSongBeautyFilter();
+        	//5级美颜效果.	
+        	case BEAUTIFUL1:
+        		return  new LanSongBeautyLevel1();
+         	case BEAUTIFUL2:
+        		return  new LanSongBeautyLevel2();
+        		
+        	case BEAUTIFUL3:
+        		return  new LanSongBeautyLevel3();
+        		
+        	case BEAUTIFUL4:
+        		return  new LanSongBeautyLevel4();
+        		
+        	case BEAUTIFUL5:
+        		return  new LanSongBeautyLevel5();
+        		
             case CONTRAST:
                 return new GPUImageContrastFilter(2.0f);
             case GAMMA:
@@ -280,7 +281,8 @@ public class GPUImageFilterTools {
 
             case LOOKUP_AMATORKA:
                 GPUImageLookupFilter amatorka = new GPUImageLookupFilter();
-                amatorka.setBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.lookup_amatorka));
+                String var3 = "assets://LSResource/lookup_amatorka.png";
+                amatorka.setBitmap(BitmapLoader.load(context, var3, 0, 0));
                 return amatorka;
             case CROSSHATCH:
                 return new GPUImageCrosshatchFilter();
@@ -308,7 +310,6 @@ public class GPUImageFilterTools {
                 return levelsFilter;
             case HALFTONE:
                 return new GPUImageHalftoneFilter();
-            
             case AMARO:
             	 return new IFAmaroFilter(context);
             case RISE:
@@ -366,7 +367,7 @@ public class GPUImageFilterTools {
     }
 
     private enum FilterType {
-        NONE,BEAUTIFUL,LanSongBLACKMASK,LanSongMASK,CONTRAST, GRAYSCALE,  SEPIA,  POSTERIZE, GAMMA, BRIGHTNESS, INVERT, HUE, PIXELATION,
+        NONE,BEAUTIFUL1,BEAUTIFUL2,BEAUTIFUL3,BEAUTIFUL4,BEAUTIFUL5,LanSongBLACKMASK,LanSongMASK,CONTRAST, GRAYSCALE,  SEPIA,  POSTERIZE, GAMMA, BRIGHTNESS, INVERT, HUE, PIXELATION,
         SATURATION, EXPOSURE, HIGHLIGHT_SHADOW, MONOCHROME, OPACITY, RGB, WHITE_BALANCE, VIGNETTE,  BLEND_COLOR_BURN, BLEND_COLOR_DODGE, BLEND_DARKEN, BLEND_DIFFERENCE,
         BLEND_DISSOLVE, BLEND_EXCLUSION, BLEND_SOURCE_OVER, BLEND_HARD_LIGHT, BLEND_LIGHTEN, BLEND_ADD, BLEND_DIVIDE, BLEND_MULTIPLY, BLEND_OVERLAY, BLEND_SCREEN, BLEND_ALPHA,
         BLEND_COLOR, BLEND_HUE, BLEND_SATURATION, BLEND_LUMINOSITY, BLEND_LINEAR_BURN, BLEND_SOFT_LIGHT, BLEND_SUBTRACT, BLEND_CHROMA_KEY, BLEND_NORMAL, LOOKUP_AMATORKA,

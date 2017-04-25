@@ -92,6 +92,10 @@
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\view7.xml"
     },
     {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\bitmaplayer_filter_layout.xml",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\bitmaplayer_filter_layout.xml"
+    },
+    {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\cameralayer_demo_layout.xml",
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\app\\src\\main\\res\\layout\\cameralayer_demo_layout.xml"
     },

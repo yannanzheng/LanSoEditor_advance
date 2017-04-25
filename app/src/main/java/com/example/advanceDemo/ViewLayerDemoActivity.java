@@ -232,6 +232,11 @@ public class ViewLayerDemoActivity extends Activity{
             ViewGroup.LayoutParams  params=mLayerRelativeLayout.getLayoutParams();
             params.height=mViewLayer.getPadHeight();  //因为布局时, 宽度一致, 这里调整高度,让他们一致.
             mLayerRelativeLayout.setLayoutParams(params);
+            
+            //UI图层的移动缩放旋转.
+//            mViewLayer.setScale(0.5f);
+//            mViewLayer.setRotate(60);
+//            mViewLayer.setPosition(mViewLayer.getPadWidth()-mViewLayer.getLayerWidth()/4,mViewLayer.getPositionY()/4);
     	}
     }
 	  private class DrawPadProgressListener implements onDrawPadProgressListener

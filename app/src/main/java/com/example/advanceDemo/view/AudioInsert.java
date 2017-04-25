@@ -29,7 +29,7 @@ public class AudioInsert {
 		et.executeDeleteVideo("/sdcard/2x.mp4", audioPath);
 			  
 	  * @param audioPath  音频的完整路径
-	  * @param volume  在和别的声音混淆的时候的音量, 比如把音量调小一些, 默认是1.0f, 大于1,0则是放大, 小于则是降低
+	  * @param volumeMix  在和别的声音混淆的时候的音量, 比如把音量调小一些, 默认是1.0f, 大于1,0则是放大, 小于则是降低
 	  * @param needrelease  处理完毕后, 是否要删除当前文件.
 	  */
 	 public boolean addMainAudio(String audioPath) 
@@ -86,9 +86,16 @@ public class AudioInsert {
    public String executeAudioMix()
    {
 	   if(insertMng!=null){
-		 return   insertMng.executeAudioMix();
+		 return   insertMng.start();
 	   }else{
 		   return  null;
+	   }
+   }
+   public void release()
+   {
+	   if(insertMng!=null){
+		   insertMng.release();
+		   insertMng=null;
 	   }
    }
    
