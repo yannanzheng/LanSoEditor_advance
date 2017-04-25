@@ -11,8 +11,8 @@ android  video editor  advance sdk . filter, overlay,remark,mixer and so on安�
 *  SDK更改为4部分组成. armeabi-v7a,jar LSResource 和lansosdk文件夹.
 *  SDK的限制条件: SDK如果没有授权, 则APP名字一定要是我们demo的名字, 请注意.
 
-##SDK简介
-* 像Android系统的UI架构设计了各种按钮, 文本框, 图标一样. 我们设计了各种图层，如果您对UI架构的各种Button/TextView/ImageView熟悉, 用同样的思路来使用我们的SDK即可, 架构清晰易懂,及其方便调用.
+## SDK简介
+* 像Android系统的UI架构设计了各种按钮, 文本框, 编辑框等各种控件一样. 我们设计了各种图层，如果您对UI架构的各种Button/TextView/ImageView熟悉, 用同样的思路来使用我们的SDK即可, 架构清晰易懂,及其方便调用.
 *  或者您懂Photoshop的话， 那图层的思想您更明白了， 就是一层一层的处理，和Photoshop一样的图层操作。
 *  采用全新的[画板]+ [图层] 的编程思想.
 *  您可以认为我们是设计了一款视频处理开发软件，类似AE和Photoshop一样，可以让您在我们的基础上自由的去开发各种视频效果。
@@ -35,7 +35,7 @@ android  video editor  advance sdk . filter, overlay,remark,mixer and so on安�
 		另外他们各自也有独立的方法。
 *   滤镜功能：当前所有的图层均支持滤镜功能。
 
-##当前具有的图层种类有(8种):
+## 当前具有的图层种类有(8种):
 *  视频图层    VideoLayer
 *  摄像头图层  CameraLayer
 *  图片图层    BitmapLayer
@@ -45,11 +45,10 @@ android  video editor  advance sdk . filter, overlay,remark,mixer and so on安�
 *  Data图层    DataLayer
 *  Gif图层     GifLayer
 			
-##三步调用（3Step）
-   1，创建一个容器(DrawPad):  
-      设置容器的宽度和高度,刷新率,码率,设置进度监听,结束监听 各种Listener等
-   2, 开启这个容器,开启后,增加各种图层来实现你的处理效果, 并在处理监听中,来调节图层的各种变化,从而有各种效果.
-   3, 结束容器的执行.
+## 三步调用（3Step）
+   *1，创建一个容器(DrawPad):  设置容器的宽度和高度,刷新率,码率,设置进度监听,结束监听 各种Listener等
+   *2, 开启这个容器,开启后,增加各种图层来实现你的处理效果, 并在处理监听中,来调节图层的各种变化,从而有各种效果.
+   *3, 结束容器的执行.
    
 
 ## 更仅一步说:
