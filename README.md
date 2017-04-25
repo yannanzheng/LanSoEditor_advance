@@ -72,13 +72,9 @@ android  video editor  advance sdk . filter, overlay,remark,mixer and so on安�
 ## 我们的IOS版本， 欢迎您的使用：
 *	https://github.com/LanSoSdk/LanSongEditor_IOS
 
-## 直接下载获取APK:
-   下载整个项目后, 在bin文件下有apk, 直接安装后即可演示.
-
-
 ## 联系方式:
 *   QQ 1852600324 
 *   Email:support@lansongtech.com
 *   网址: www.lansongtech.com
 
-*  如果您下载过慢, 可联系我们, 索取最新的工程包
+*  如果您下载过慢, 可联系我们, 索取最新的工程包 或向我们索取演示APK安装包.
