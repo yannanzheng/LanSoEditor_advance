@@ -176,8 +176,7 @@ public class MainActivity extends Activity implements OnClickListener{
 				new CopyDefaultVideoAsyncTask(MainActivity.this, tvVideoPath, "ping20s.mp4").execute();
 			}
 		});
-        testFile();
-//        showHintDialog();
+        showHintDialog();
     }
     private void showHintDialog()
    	{
@@ -376,8 +375,5 @@ public class MainActivity extends Activity implements OnClickListener{
 		        }
 		        return result;
 		    }
-	   private void testFile()
-	   {
-//
-	   }
+	   
 }
