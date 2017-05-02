@@ -58,6 +58,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -91,9 +92,9 @@ public class CameraRecordDemoActivity extends Activity implements OnClickListene
         setContentView(R.layout.cameralayer_demo_layout);
         
         if(LanSoEditorBox.checkCameraPermission(getBaseContext())==false){
-     	   Toast.makeText(getApplicationContext(), "请打开权限后,重试!!!", Toast.LENGTH_LONG).show();
-     	   finish();
-        }
+			Toast.makeText(getApplicationContext(), "请打开权限后,重试!!!", Toast.LENGTH_LONG).show();
+			finish();
+		}
         
         mDrawPadView = (DrawPadView) findViewById(R.id.id_cameralayer_padview);
         
@@ -226,11 +227,11 @@ public class CameraRecordDemoActivity extends Activity implements OnClickListene
 	}
    //-------------------------------------------一下是UI界面和控制部分.---------------------------------------------------
    private TextView tvTime;
-   private Button playVideo;
+   private LinearLayout playVideo;
    private void initView()
    {
 	   tvTime=(TextView)findViewById(R.id.id_cameralayer_timetv);
-	   playVideo=(Button)findViewById(R.id.id_cameralayer_saveplay);
+	   playVideo=(LinearLayout)findViewById(R.id.id_cameralayer_saveplay);
 	   playVideo.setOnClickListener(new OnClickListener() {
 			
 			@Override

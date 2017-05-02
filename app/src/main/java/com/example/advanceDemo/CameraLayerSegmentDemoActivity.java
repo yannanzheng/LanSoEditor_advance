@@ -76,12 +76,17 @@ public class CameraLayerSegmentDemoActivity extends Activity implements OnClickL
     protected void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
+		
         setContentView(R.layout.cameralayer_segment_layout);
-        
-        if(LanSoEditorBox.checkCameraPermission(getBaseContext())==false){
-     	   Toast.makeText(getApplicationContext(), "请打开权限后,重试!!!", Toast.LENGTH_LONG).show();
-     	   finish();
-        }
+	
+		if(LanSoEditorBox.checkCameraPermission(getBaseContext())==false){
+			Toast.makeText(getApplicationContext(), "当前没有摄像机权限,请打开后重试!!!", Toast.LENGTH_LONG).show();
+			finish();
+		}
+		if(LanSoEditorBox.checkMicPermission(getBaseContext())==false){
+			Toast.makeText(getApplicationContext(), "当前没有麦克风权限,请打开后重试!!!", Toast.LENGTH_LONG).show();
+			finish();
+		}
         
         mDrawPadView = (DrawPadView) findViewById(R.id.id_cameralayer_padview);
         initView();

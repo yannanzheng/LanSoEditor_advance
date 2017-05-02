@@ -30,6 +30,7 @@ import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
 import com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask;
 import com.lansosdk.videoeditor.CopyFileFromAssets;
+import com.lansosdk.videoeditor.LanSongUtil;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
@@ -76,12 +77,19 @@ public class CameraLayerFullSegmentActivity extends Activity implements OnClickL
     protected void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
+	
+		LanSongUtil.hideBottomUIMenu(this);
+		
         setContentView(R.layout.cameralayer_fullsegment_layout);
-        
-        if(LanSoEditorBox.checkCameraPermission(getBaseContext())==false){
-     	   Toast.makeText(getApplicationContext(), "请打开权限后,重试!!!", Toast.LENGTH_LONG).show();
-     	   finish();
-        }
+	
+		if(LanSoEditorBox.checkCameraPermission(getBaseContext())==false){
+			Toast.makeText(getApplicationContext(), "当前没有摄像机权限,请打开后重试!!!", Toast.LENGTH_LONG).show();
+			finish();
+		}
+		if(LanSoEditorBox.checkMicPermission(getBaseContext())==false){
+			Toast.makeText(getApplicationContext(), "当前没有麦克风权限,请打开后重试!!!", Toast.LENGTH_LONG).show();
+			finish();
+		}
         
         mDrawPadView = (DrawPadView) findViewById(R.id.id_fullscreen_padview);
         initView();

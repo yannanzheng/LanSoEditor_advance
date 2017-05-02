@@ -8,6 +8,7 @@ import com.example.advanceDemo.view.VideoFocusView;
 import com.example.advanceDemo.view.VideoPreviewView;
 import com.example.advanceDemo.view.VideoProgressView;
 import com.lansoeditor.demo.R;
+import com.lansosdk.box.LanSoEditorBox;
 import com.lansosdk.videoeditor.LanSoEditor;
 import com.lansosdk.videoeditor.LoadLanSongSdk;
 import com.lansosdk.videoeditor.OpenSegmentsRecordListener;
@@ -85,9 +86,17 @@ public class SegmentRecorderActivity extends Activity implements Handler.Callbac
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.video_record_activity);
-		 
-		 
-	
+		
+		if(LanSoEditorBox.checkCameraPermission(getBaseContext())==false){
+			Toast.makeText(getApplicationContext(), "请打开权限后,重试!!!", Toast.LENGTH_LONG).show();
+			finish();
+		}
+		
+		if(LanSoEditorBox.checkMicPermission(getBaseContext())==false){
+			Toast.makeText(getApplicationContext(), "请打开权限后,重试!!!", Toast.LENGTH_LONG).show();
+			finish();
+		}
+		
 		initView();
 		
 		handler = new Handler(this);
