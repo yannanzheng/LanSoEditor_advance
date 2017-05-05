@@ -12,721 +12,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="59104114-1e24-4d38-b8dc-37cd703a829d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/LanSongUtil.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/a0_pink.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/a0_whiten.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/a2_beauty.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/amaro_map.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/amaro_mask1.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/amaro_mask2.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/blackboard_1024.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/blowout_1977.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/bluevintage_mask1.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/brannan_blowout.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/brannan_contrast.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/brannan_luma.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/brannan_process.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/brannan_screen.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/early_bird_curves.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/earlybird_blowout.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/earlybird_map.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/earlybird_overlay_map.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/edge_burn.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/hefe_gradient_map.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/hefe_map.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/hefe_metal.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/hefe_soft_light.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/hudson_background.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/hudson_map.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/inkwell_map.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/kelvin_map.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/lomo_map.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/lookup_amatorka.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/map_1977.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/nashville_map.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/overlay_map.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/rise_map.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/rise_mask1.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/rise_mask2.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/sierra_map.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/sierra_vignette.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/soft_light.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/sutro_curves.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/sutro_edge_burn.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/sutro_metal.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/toaster_color_shift.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/toaster_curves.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/toaster_metal.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/toaster_overlay_map_warm.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/toaster_soft_light.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/toy_mask1.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/toy_mask2.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/toy_mask3.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/valencia_gradient_map.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/valencia_map.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/vignette_map.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/walden_map.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/warm_layer1.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/LSResource/xpro_map.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/a.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/aac20s.aac" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/fonts/Roboto-Black.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/hongdou10s.mp3" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/honor30s2.m4a" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/ic_launcher.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/mask.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/mei.mp4" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/mei_b.mp4" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/pic1080x1080.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/pic1080x1080u2.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/pic720x720.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/ping20s.mp4" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/ping20s_10.mp4" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/small.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/threeword.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/watermark.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/assets/debug/wuya.pcm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi/drawable-hdpi-v4.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi/drawable-hdpi.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/drawable-hdpi-v4.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v4/R.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/AddRemoveGifLayer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/BitmapLayerFilterDemoActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/BitmapLayerFilterDemoActivity$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/BitmapLayerFilterDemoActivity$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/BitmapLayerFilterDemoActivity$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/BitmapLayerFilterDemoActivity$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/BitmapLayerFilterDemoActivity$6.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/BitmapLayerFilterDemoActivity$DrawPadCompleted.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/BitmapLayerFilterDemoActivity$DrawPadProgressListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/BitmapLayerFilterDemoActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/BitmapLayerMarkActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/BitmapLayerMarkActivity$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/BitmapLayerMarkActivity$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/BitmapLayerMarkActivity$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/BitmapLayerMarkActivity$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/BitmapLayerMarkActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerDemoActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerDemoActivity$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerDemoActivity$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerDemoActivity$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerDemoActivity$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerDemoActivity$6.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerDemoActivity$7.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerDemoActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerFullLandscapeActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerFullLandscapeActivity$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerFullLandscapeActivity$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerFullLandscapeActivity$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerFullLandscapeActivity$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerFullLandscapeActivity$6.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerFullLandscapeActivity$7.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerFullLandscapeActivity$8.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerFullLandscapeActivity$9.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerFullLandscapeActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerFullPortActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerFullPortActivity$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerFullPortActivity$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerFullPortActivity$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerFullPortActivity$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerFullPortActivity$6.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerFullPortActivity$7.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerFullPortActivity$8.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerFullPortActivity$9.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerFullPortActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerFullSegmentActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerFullSegmentActivity$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerFullSegmentActivity$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerFullSegmentActivity$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerFullSegmentActivity$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerFullSegmentActivity$6.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerFullSegmentActivity$7.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerFullSegmentActivity$8.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerFullSegmentActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerSegmentDemoActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerSegmentDemoActivity$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerSegmentDemoActivity$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerSegmentDemoActivity$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerSegmentDemoActivity$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerSegmentDemoActivity$6.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerSegmentDemoActivity$7.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraLayerSegmentDemoActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraRecordDemoActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraRecordDemoActivity$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraRecordDemoActivity$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraRecordDemoActivity$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraRecordDemoActivity$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CameraRecordDemoActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CanvasLayerDemoActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CanvasLayerDemoActivity$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CanvasLayerDemoActivity$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CanvasLayerDemoActivity$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CanvasLayerDemoActivity$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CanvasLayerDemoActivity$6.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CanvasLayerDemoActivity$7.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CanvasLayerDemoActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CopyOfCameraLayerDemoActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CopyOfCameraLayerDemoActivity$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CopyOfCameraLayerDemoActivity$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CopyOfCameraLayerDemoActivity$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CopyOfCameraLayerDemoActivity$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CopyOfCameraLayerDemoActivity$6.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CopyOfCameraLayerDemoActivity$7.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CopyOfCameraLayerDemoActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CopyOfCanvasLayerDemoActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CopyOfCanvasLayerDemoActivity$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CopyOfCanvasLayerDemoActivity$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CopyOfCanvasLayerDemoActivity$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CopyOfCanvasLayerDemoActivity$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CopyOfCanvasLayerDemoActivity$6.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CopyOfCanvasLayerDemoActivity$7.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/CopyOfCanvasLayerDemoActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ExecuteBitmapLayerActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ExecuteBitmapLayerActivity$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ExecuteBitmapLayerActivity$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ExecuteBitmapLayerActivity$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ExecuteBitmapLayerActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ExecuteFilterDemoActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ExecuteFilterDemoActivity$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ExecuteFilterDemoActivity$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ExecuteFilterDemoActivity$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ExecuteFilterDemoActivity$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ExecuteFilterDemoActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ExecuteRandomDemoActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ExecuteRandomDemoActivity$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ExecuteRandomDemoActivity$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ExecuteRandomDemoActivity$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ExecuteRandomDemoActivity$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ExecuteRandomDemoActivity$6.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ExecuteRandomDemoActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ExecuteVideoLayerDemoActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ExecuteVideoLayerDemoActivity$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ExecuteVideoLayerDemoActivity$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ExecuteVideoLayerDemoActivity$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ExecuteVideoLayerDemoActivity$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ExecuteVideoLayerDemoActivity$6.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ExecuteVideoLayerDemoActivity$7.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ExecuteVideoLayerDemoActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ExtractVideoFrameDemoActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ExtractVideoFrameDemoActivity$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ExtractVideoFrameDemoActivity$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ExtractVideoFrameDemoActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/FileExplorerActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/FileExplorerActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/FileExplorerAdapter$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/FileExplorerAdapter$ViewHolder.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/FileExplorerAdapter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/FilterDemoRealTimeActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/FilterDemoRealTimeActivity$10.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/FilterDemoRealTimeActivity$11.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/FilterDemoRealTimeActivity$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/FilterDemoRealTimeActivity$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/FilterDemoRealTimeActivity$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/FilterDemoRealTimeActivity$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/FilterDemoRealTimeActivity$6.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/FilterDemoRealTimeActivity$7.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/FilterDemoRealTimeActivity$8.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/FilterDemoRealTimeActivity$9.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/FilterDemoRealTimeActivity$DrawPadCompleted.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/FilterDemoRealTimeActivity$DrawPadProgressListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/FilterDemoRealTimeActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/GPUImageFilterTools$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/GPUImageFilterTools$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/GPUImageFilterTools$FilterAdjuster$Adjuster.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/GPUImageFilterTools$FilterAdjuster$BrightnessAdjuster.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/GPUImageFilterTools$FilterAdjuster$BulgeDistortionAdjuster.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/GPUImageFilterTools$FilterAdjuster$ColorBalanceAdjuster.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/GPUImageFilterTools$FilterAdjuster$ContrastAdjuster.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/GPUImageFilterTools$FilterAdjuster$CrosshatchBlurAdjuster.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/GPUImageFilterTools$FilterAdjuster$DissolveBlendAdjuster.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/GPUImageFilterTools$FilterAdjuster$ExposureAdjuster.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/GPUImageFilterTools$FilterAdjuster$GammaAdjuster.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/GPUImageFilterTools$FilterAdjuster$GlassSphereAdjuster.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/GPUImageFilterTools$FilterAdjuster$HazeAdjuster.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/GPUImageFilterTools$FilterAdjuster$HighlightShadowAdjuster.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/GPUImageFilterTools$FilterAdjuster$HueAdjuster.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/GPUImageFilterTools$FilterAdjuster$LevelsMinMidAdjuster.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/GPUImageFilterTools$FilterAdjuster$MonochromeAdjuster.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/GPUImageFilterTools$FilterAdjuster$OpacityAdjuster.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/GPUImageFilterTools$FilterAdjuster$PixelationAdjuster.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/GPUImageFilterTools$FilterAdjuster$PosterizeAdjuster.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/GPUImageFilterTools$FilterAdjuster$RGBAdjuster.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/GPUImageFilterTools$FilterAdjuster$SaturationAdjuster.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/GPUImageFilterTools$FilterAdjuster$SepiaAdjuster.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/GPUImageFilterTools$FilterAdjuster$SphereRefractionAdjuster.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/GPUImageFilterTools$FilterAdjuster$SwirlAdjuster.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/GPUImageFilterTools$FilterAdjuster$VignetteAdjuster.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/GPUImageFilterTools$FilterAdjuster$WhiteBalanceAdjuster.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/GPUImageFilterTools$FilterAdjuster.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/GPUImageFilterTools$FilterList.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/GPUImageFilterTools$FilterType.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/GPUImageFilterTools$OnGpuImageFilterChosenListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/GPUImageFilterTools.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/InsertAudioDemoActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/InsertAudioDemoActivity$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/InsertAudioDemoActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/LanSoSdkCrashHandler.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/MVLayerDemoActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/MVLayerDemoActivity$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/MVLayerDemoActivity$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/MVLayerDemoActivity$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/MVLayerDemoActivity$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/MVLayerDemoActivity$6.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/MVLayerDemoActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/MainActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/MainActivity$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/MainActivity$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/MainActivity$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/MainActivity$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/MainActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/PcmPlayer$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/PcmPlayer$PlayPCMThread.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/PcmPlayer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/PictureSetRealTimeActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/PictureSetRealTimeActivity$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/PictureSetRealTimeActivity$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/PictureSetRealTimeActivity$DrawPadCompleted.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/PictureSetRealTimeActivity$DrawPadProgressListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/PictureSetRealTimeActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/SegmentRecorderActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/SegmentRecorderActivity$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/SegmentRecorderActivity$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/SegmentRecorderActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/SlideEffect.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/StartActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/StartActivity$MyOnPageChangeListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/StartActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/VideoLayerAutoUpdateDemoActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/VideoLayerAutoUpdateDemoActivity$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/VideoLayerAutoUpdateDemoActivity$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/VideoLayerAutoUpdateDemoActivity$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/VideoLayerAutoUpdateDemoActivity$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/VideoLayerAutoUpdateDemoActivity$6.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/VideoLayerAutoUpdateDemoActivity$7.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/VideoLayerAutoUpdateDemoActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/VideoLayerRealTimeActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/VideoLayerRealTimeActivity$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/VideoLayerRealTimeActivity$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/VideoLayerRealTimeActivity$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/VideoLayerRealTimeActivity$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/VideoLayerRealTimeActivity$6.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/VideoLayerRealTimeActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/VideoLayerTwoRealTimeActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/VideoLayerTwoRealTimeActivity$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/VideoLayerTwoRealTimeActivity$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/VideoLayerTwoRealTimeActivity$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/VideoLayerTwoRealTimeActivity$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/VideoLayerTwoRealTimeActivity$6.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/VideoLayerTwoRealTimeActivity$7.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/VideoLayerTwoRealTimeActivity$8.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/VideoLayerTwoRealTimeActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/VideoPlayerActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/VideoPlayerActivity$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/VideoPlayerActivity$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/VideoPlayerActivity$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/VideoPlayerActivity$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/VideoPlayerActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ViewLayerDemoActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ViewLayerDemoActivity$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ViewLayerDemoActivity$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ViewLayerDemoActivity$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ViewLayerDemoActivity$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ViewLayerDemoActivity$DrawPadProgressListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ViewLayerDemoActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ViewLayerOnlyRealTimeActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ViewLayerOnlyRealTimeActivity$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ViewLayerOnlyRealTimeActivity$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ViewLayerOnlyRealTimeActivity$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ViewLayerOnlyRealTimeActivity$DrawPadCompleted.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/ViewLayerOnlyRealTimeActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/view/AudioConcat.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/view/AudioInsert.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/view/AutoFitTextureView$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/view/AutoFitTextureView$SurfaceCallback.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/view/AutoFitTextureView.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/view/BitmapCache$MySoftRef.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/view/BitmapCache.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/view/BitmapUtils.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/view/DrawPadView$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/view/DrawPadView$SurfaceCallback.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/view/DrawPadView$onViewAvailable.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/view/DrawPadView.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/view/IRenderView.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/view/ImageTouchView$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/view/ImageTouchView.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/view/LanSongLoveText.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/view/MarkArrowView.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/view/MeasureHelper.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/view/PaintConstants$DEFAULT.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/view/PaintConstants$MODE.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/view/PaintConstants$PATH.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/view/PaintConstants$PEN_TYPE.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/view/PaintConstants$SCALE.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/view/PaintConstants$SELECTOR.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/view/PaintConstants.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/view/ShowHeart.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/view/TextureRenderView.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/view/VideoFocusView$GuideStep.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/view/VideoFocusView.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/view/VideoPreviewView.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/view/VideoProgressView$State.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/view/VideoProgressView.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/commonDemo/AVEditorDemoActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/commonDemo/AVEditorDemoActivity$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/commonDemo/AVEditorDemoActivity$SubAsyncTask.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/commonDemo/AVEditorDemoActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/commonDemo/CommonDemoActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/commonDemo/CommonDemoActivity$SoftApAdapter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/commonDemo/CommonDemoActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/commonDemo/DemoFunctions.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/commonDemo/DemoInfo.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/commonDemo/FileExplorerActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/commonDemo/FileExplorerActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/commonDemo/FileExplorerAdapter$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/commonDemo/FileExplorerAdapter$ViewHolder.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/commonDemo/FileExplorerAdapter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/commonDemo/MediaInfoActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/commonDemo/ScaleExecuteDemoActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/commonDemo/ScaleExecuteDemoActivity$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/commonDemo/ScaleExecuteDemoActivity$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/commonDemo/ScaleExecuteDemoActivity$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/commonDemo/ScaleExecuteDemoActivity$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/commonDemo/ScaleExecuteDemoActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/commonDemo/VideoFocusView$GuideStep.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/commonDemo/VideoFocusView.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansoeditor/demo/BuildConfig.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansoeditor/demo/Manifest$permission.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansoeditor/demo/Manifest.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansoeditor/demo/R$anim.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansoeditor/demo/R$attr.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansoeditor/demo/R$color.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansoeditor/demo/R$dimen.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansoeditor/demo/R$drawable.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansoeditor/demo/R$id.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansoeditor/demo/R$layout.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansoeditor/demo/R$raw.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansoeditor/demo/R$string.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansoeditor/demo/R$style.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansoeditor/demo/R$styleable.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansoeditor/demo/R.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/AVDecoder.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/AVEncoder.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/Atom.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/AudioEncodeDecode.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/CopyDefaultVideoAsyncTask.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/CopyFileFromAssets.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/FileWriteUtils.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/LanSoEditor.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/LoadLanSongSdk.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/MP4Header.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/MediaInfo.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/MiscTools.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/OpenCameraManager$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/OpenCameraManager$ResolutionComparator.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/OpenCameraManager.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/OpenFrame.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/OpenSegmentsRecordListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/OpenSegmentsRecorder$AudioEncodeThread.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/OpenSegmentsRecorder$AudioSampleThread.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/OpenSegmentsRecorder$VideoEncodeThread.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/OpenSegmentsRecorder$VideoSegment.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/OpenSegmentsRecorder.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/SDKDir.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/SDKFileUtils.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/VideoEditor$EventHandler.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/VideoEditor.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/onVideoEditorProgressListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoplayer/IMediaDataSource.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoplayer/MeasureHelper.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoplayer/TextureRenderView.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoplayer/VPlayer$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoplayer/VPlayer$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoplayer/VPlayer$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoplayer/VPlayer$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoplayer/VPlayer$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoplayer/VPlayer$6.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoplayer/VPlayer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoplayer/VideoPlayer$EventHandler.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoplayer/VideoPlayer$OnControlMessageListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoplayer/VideoPlayer$OnMediaCodecSelectListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoplayer/VideoPlayer$OnNativeInvokeListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoplayer/VideoPlayer$OnPlayerBufferingUpdateListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoplayer/VideoPlayer$OnPlayerCompletionListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoplayer/VideoPlayer$OnPlayerErrorListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoplayer/VideoPlayer$OnPlayerInfoListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoplayer/VideoPlayer$OnPlayerPreparedListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoplayer/VideoPlayer$OnPlayerSeekCompleteListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoplayer/VideoPlayer$OnPlayerVideoSizeChangedListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoplayer/VideoPlayer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental-safeguard/debug/tag.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugAssets/merger.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugShaders/merger.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDebug/dex-renamer-state.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDebug/file-input-save-data.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDebug/zip-cache/MwZIQuEioG0JDcEcVHH46MJ60bM=" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/jniLibs/debug/armeabi-v7a/libffmpegeditor.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/jniLibs/debug/armeabi-v7a/liblsdisplay.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/jniLibs/debug/armeabi-v7a/liblsplayer.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/pre-dexed/debug/PermissionsManager_1d63e50ac8993ff640ccd438dd4467d51f5cd7ca.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/pre-dexed/debug/classes_5709cc1c7177d290abc11d5a9ab92b80a6cee310.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/pre-dexed/debug/debug_7cd64334377c18b281bcddea324f5531f4993d3d.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/pre-dexed/debug/internal_impl-23.4.0_d6df253a4b995b986c24ec7c8f9290d550cd8b3e.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/pre-dexed/debug/lansongeditor_hx_9cbca620be323895d4caa998343bc5f8ee2795ca.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/pre-dexed/debug/support-annotations-23.4.0_c9fae43cda2e1c04b2ab0de43a8f148b5b1a92fa.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/pre-dexed/debug/textsurface_d191a335cfd5138a03650f434238cb2fad70d5ac.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dex/debug/folders/1000/1f/main/classes.dex" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/mergeJniLibs/debug/folders/2000/1f/main/lib/armeabi-v7a/libffmpegeditor.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/mergeJniLibs/debug/folders/2000/1f/main/lib/armeabi-v7a/liblsdisplay.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/mergeJniLibs/debug/folders/2000/1f/main/lib/armeabi-v7a/liblsplayer.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/outputs/apk/app-debug.apk" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/A.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/AudioConcatManager.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/AudioInsertManager.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/AudioLine.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/AudioMix.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/B.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/BitmapLayer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/BitmapLoader.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/BoxDecoder.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/BoxEncoder.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/BoxMediaInfo.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/BoxVideoEditor.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/C.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/CameraLayer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/CanvasLayer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/CanvasRunnable.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/D.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/DataLayer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/DrawPad.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/DrawPadAllExecute.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/DrawPadPictureExecute.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/DrawPadUpdateMode.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/DrawPadVideoExecute.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/DrawPadViewRender.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/E.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/ExtractVideoFrame.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/F.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/FBOProgram.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/FrameInfo.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/G.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/GifDecoder.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/GifLayer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/H.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/I.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/J.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/K.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/L.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/LanSoEditorBox.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/Layer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/LayerShader.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/M.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/MVLayer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/MVLayerENDMode.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/MicLine.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/N.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/O.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/P.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/Q.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/R.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/S.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/ScaleExecute.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/T.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/U.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/V.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/VideoLayer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/ViewLayer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/ViewLayerRelativeLayout.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/W.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/X.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/Y.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/YUVLayer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/Z.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/aa.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/ab.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/ac.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/ad.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/ae.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/af.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/ag.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/ah.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/ai.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/aj.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/ak.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/al.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/am.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/an.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/ao.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/ap.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/aq.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/ar.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/onAudioLineStartedListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/onCompressCompletedListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/onCompressProgressListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/onDrawPadCompletedListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/onDrawPadProgressListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/onDrawPadSizeChangedListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/onDrawPadSnapShotListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/onDrawPadThreadProgressListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/onExtractVideoFrameCompletedListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/onExtractVideoFrameProgressListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/onFilterViewSizeChangedListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/onScaleCompletedListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/com/lansosdk/box/onScaleProgressListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageAddBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageAlphaBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageBrightnessFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageBulgeDistortionFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageCGAColorspaceFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageChromaKeyBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageColorBalanceFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageColorBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageColorBurnBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageColorDodgeBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageColorInvertFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageColorMatrixFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageContrastFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageCrosshatchFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageDarkenBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageDifferenceBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageDissolveBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageDivideBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageExclusionBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageExposureFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageFalseColorFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageFilterGroup.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageGammaFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageGaussianBlurFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageGlassSphereFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageGrayscaleFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageHalftoneFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageHardLightBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageHazeFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageHighlightShadowFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageHueBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageHueFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageKuwaharaFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageLevelsFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageLightenBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageLinearBurnBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageLookupFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageLuminosityBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageMixBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageMonochromeFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageMultiplyBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageNativeLibrary.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageNormalBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageOpacityFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageOverlayBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImagePixelationFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImagePosterizeFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageRGBFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageSaturationBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageSaturationFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageScreenBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageSepiaFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageSoftLightBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageSourceOverBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageSphereRefractionFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageSubtractBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageSwirlFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageToneCurveFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageTwoInputFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageTwoPassFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageTwoPassTextureSamplingFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageVignetteFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageWhiteBalanceFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/IF1977Filter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/IFAmaroFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/IFBrannanFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/IFEarlybirdFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/IFHefeFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/IFHudsonFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/IFInkwellFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/IFLomofiFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/IFLordKelvinFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/IFNashvilleFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/IFNormalFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/IFRiseFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/IFSierraFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/IFSutroFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/IFToasterFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/IFValenciaFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/IFWaldenFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/IFXproIIFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/InstaFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/LanSongAntiqueFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/LanSongBeautyFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/LanSongBeautyLevel1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/LanSongBeautyLevel2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/LanSongBeautyLevel3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/LanSongBeautyLevel4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/LanSongBeautyLevel5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/LanSongBlackMaskBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/LanSongCoolFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/LanSongCrayonFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/LanSongEmeraldFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/LanSongEvergreenFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/LanSongFilterParam.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/LanSongGaussianBlurFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/LanSongLatteFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/LanSongMaskBlendFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/LanSongRomanceFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/LanSongSakuraFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/LanSongSketchFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/LanSongSkinWhitenFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/OpenGLUtils.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/PixelBuffer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/Rotation.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/a.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/b.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/c.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/d.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/e.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/f.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/g.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/h.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/i.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/j.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/k.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/l.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/m.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/n.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/o.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/p.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/q.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/r.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/s.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/t.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/u.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/util/TextureRotationUtil.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_7qlphbe0rdaj0kyfacph0cx90/jp/co/cyberagent/lansongsdk/gpuimage/v.class" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/resources-debug.ap_" afterPath="$PROJECT_DIR$/app/build/intermediates/res/resources-debug.ap_" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/jniLibs/armeabi-v7a/libffmpegeditor.so" afterPath="$PROJECT_DIR$/app/src/main/jniLibs/armeabi-v7a/libffmpegeditor.so" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/drawable-xxhdpi.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/drawable-xxhdpi.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugAndroidTestResources/compile-file-map.properties" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugAndroidTestResources/compile-file-map.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/compile-file-map.properties" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/compile-file-map.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/merger.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/CameraLayerFullLandscapeActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/CameraLayerFullLandscapeActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/CameraLayerFullPortActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/CameraLayerFullPortActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/CameraLayerFullSegmentActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/CameraLayerFullSegmentActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/CameraLayerSegmentDemoActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/CameraLayerSegmentDemoActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/CameraRecordDemoActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/CameraRecordDemoActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/SegmentRecorderActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/SegmentRecorderActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" afterPath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" />
     </list>
     <ignored path="LanSoEditor_advance.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -781,8 +71,8 @@
       <file leaf-file-name="SegmentRecorderActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/SegmentRecorderActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1040">
-              <caret line="151" column="32" selection-start-line="151" selection-start-column="32" selection-end-line="151" selection-end-column="32" />
+            <state relative-caret-position="236">
+              <caret line="133" column="13" selection-start-line="133" selection-start-column="13" selection-end-line="133" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -850,14 +140,14 @@
       </file>
       <file leaf-file-name="cameralayer_demo_layout.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/cameralayer_demo_layout.xml">
+          <provider editor-type-id="android-designer2">
+            <state />
+          </provider>
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1950">
               <caret line="75" column="24" selection-start-line="75" selection-start-column="12" selection-end-line="75" selection-end-column="24" />
               <folding />
             </state>
-          </provider>
-          <provider editor-type-id="android-designer2">
-            <state />
           </provider>
         </entry>
       </file>
@@ -2567,6 +1857,42 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="AndroidView">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LanSoEditor_advance_AS" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LanSoEditor_advance_AS" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LanSoEditor_advance_AS" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="manifests" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidManifestsGroupNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -2811,42 +2137,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="libs" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
-      <pane id="AndroidView">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LanSoEditor_advance_AS" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LanSoEditor_advance_AS" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LanSoEditor_advance_AS" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="manifests" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidManifestsGroupNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -3457,13 +2747,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/drawpad_layout.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="845">
           <caret line="89" column="0" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/CopyFileFromAssets.java">
@@ -3475,13 +2765,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/view/SlidingLayer.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/bitmaplayer_filter_layout.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="364">
           <caret line="14" column="6" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/VideoLayerRealTimeActivity.java">
@@ -3492,13 +2782,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/cameralayer_fullscreen_demo_layout.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="299">
           <caret line="147" column="37" selection-start-line="147" selection-start-column="37" selection-end-line="147" selection-end-column="37" />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/AppData/Local/Android/sdk/platforms/android-23/android.jar!/android/app/Instrumentation.class">
@@ -3530,13 +2820,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="362">
           <caret line="48" column="18" selection-start-line="48" selection-start-column="18" selection-end-line="48" selection-end-column="18" />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/AppData/Local/Android/sdk/platforms/android-23/android.jar!/android/os/Looper.class">
@@ -3555,14 +2845,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/cameralayer_demo_layout.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1950">
           <caret line="75" column="24" selection-start-line="75" selection-start-column="12" selection-end-line="75" selection-end-column="24" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/MainActivity.java">
@@ -3631,8 +2921,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/SegmentRecorderActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1040">
-          <caret line="151" column="32" selection-start-line="151" selection-start-column="32" selection-end-line="151" selection-end-column="32" />
+        <state relative-caret-position="236">
+          <caret line="133" column="13" selection-start-line="133" selection-start-column="13" selection-end-line="133" selection-end-column="13" />
           <folding />
         </state>
       </provider>
