@@ -36,15 +36,17 @@ android  video editor  advance sdk . filter, overlay,remark,mixer and so on安�
 *   滤镜功能：当前所有的图层均支持滤镜功能。
 
 ## 当前具有的图层种类有(8种):
-*  视频图层    VideoLayer      -------把视频做为一层
-*  摄像头图层  CameraLayer     -------把摄像头画面做为一层		
-*  图片图层    BitmapLayer     -------把图片做为一个图层
-*  MV图层      MVLayer         -------把美工做的MV做为一个图层
-*  UI图层      ViewLayer       -------把您的UI界面做为一个图层
-*  Canvas图层  CanvasLayer     -------后台处理的时候, 用Android自带的Canvas类来绘制文字,动画,线条等,做为一个图层
-*  Data图层    DataLayer       -------把您自定义的数据作为一个图层.
-*  Gif图层     GifLayer        -------把美工做的GIF或网上好玩的Gif动画做为一个图层.
-*   注：可多种图层混合叠加，也可以同时增加多个相同类型的图层。 如VideoLayer+BitmapLayer+ViewLayer或多个BitmapLayer叠加。
+*  视频图层     VideoLayer      -------把视频做为一层
+*  摄像头图层   CameraLayer     -------把摄像头画面做为一层		
+*  图片图层     BitmapLayer     -------把图片做为一个图层
+*  MV图层       MVLayer         -------把美工做的MV做为一个图层
+*  UI图层       ViewLayer       -------把您的UI界面做为一个图层
+*  Canvas图层   CanvasLayer     -------后台处理的时候, 用Android自带的Canvas类来绘制文字,动画,线条等,做为一个图层
+*  Data图层     DataLayer       -------把您自定义的数据作为一个图层.
+*  Gif图层      GifLayer        -------把美工做的GIF或网上好玩的Gif动画做为一个图层.
+
+
+*  注：可多种图层混合叠加，也可以同时增加多个相同类型的图层。 如VideoLayer+BitmapLayer+ViewLayer或多个BitmapLayer叠加。
 
 			
 ## 三步调用（3 Step）
@@ -82,5 +84,5 @@ android  video editor  advance sdk . filter, overlay,remark,mixer and so on安�
 
 ## 使用案例
 *   我们从事的是：商业SDK开发、更新和维护；
-*   当前包括500强大公司在内的大约40多个上线APP在使用，行业涉及 社交、微商、直播、工具、母婴、舞蹈、厨艺、金融、炫酷等多种行业
+*   当前包括500强 大公司在内的大约40多个上线APP在使用，行业涉及 社交、微商、直播、工具、母婴、舞蹈、厨艺、金融、炫酷等多种行业
 *   欢迎联系我们，索取相关案例信息和授权说明
