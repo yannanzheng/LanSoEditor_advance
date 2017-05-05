@@ -44,7 +44,7 @@ android  video editor  advance sdk . filter, overlay,remark,mixer and so on安�
 *  Canvas图层  CanvasLayer     -------后台处理的时候, 用Android自带的Canvas类来绘制文字,动画,线条等,做为一个图层
 *  Data图层    DataLayer       -------把您自定义的数据作为一个图层.
 *  Gif图层     GifLayer        -------把美工做的GIF或网上好玩的Gif动画做为一个图层.
-### 可多种图层混合叠加，也可以同时增加多个相同类型的图层。 如可以 VideoLayer+BitmapLayer+ViewLayer； 也可以多个BitmapLayer叠加。
+*   注：可多种图层混合叠加，也可以同时增加多个相同类型的图层。 如VideoLayer+BitmapLayer+ViewLayer或多个BitmapLayer叠加。
 
 			
 ## 三步调用（3 Step）
@@ -81,6 +81,6 @@ android  video editor  advance sdk . filter, overlay,remark,mixer and so on安�
 *  如果您下载过慢, 可联系我们, 索取最新的工程包 或向我们索取演示APK安装包.
 
 ## 使用案例
-   我们从事的是：商业SDK开发、更新和维护；
-   当前包括500强大公司在内的大约40多个上线APP在使用，行业涉及 社交、微商、直播、工具、母婴、舞蹈、厨艺、金融、炫酷等多种行业
-   欢迎联系我们，索取相关案例信息和授权说明
+*   我们从事的是：商业SDK开发、更新和维护；
+*   当前包括500强大公司在内的大约40多个上线APP在使用，行业涉及 社交、微商、直播、工具、母婴、舞蹈、厨艺、金融、炫酷等多种行业
+*   欢迎联系我们，索取相关案例信息和授权说明
