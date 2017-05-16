@@ -556,7 +556,7 @@ public class DrawPadCameraView extends FrameLayout {
 		if(renderer!=null){
 			renderer.resumeRefreshDrawPad();
 		}
-		isPauseRefreshDrawPad=true;
+		isPauseRefreshDrawPad=false;
 	}
 	/**
 	 * 暂停drawpad的录制,这个方法使用在暂停录制后, 在当前画面做其他的一些操作,
@@ -567,7 +567,7 @@ public class DrawPadCameraView extends FrameLayout {
 		if(renderer!=null){
 			renderer.pauseRecordDrawPad();
 		}
-		isPauseRecordDrawPad=false;
+		isPauseRecordDrawPad=true;
 	}
 	public void resumeDrawPadRecord()
 	{

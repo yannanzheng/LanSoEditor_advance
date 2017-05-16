@@ -1,4 +1,4 @@
-#Tue May 16 10:36:33 CST 2017
+#Tue May 16 11:02:02 CST 2017
 base.0=E\:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\LanSoEditor_advance\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_dda9612bc87791545be48eccade1f1b820f3c5c3
 renamed.1=classes2.dex
 renamed.0=classes.dex
