@@ -3,15 +3,6 @@
 
     <item
         is-multidex="true"
-        jar="E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\libs\PermissionsManager.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="6a1cc3def4753b22dc2c0ee55fcf533d2f456474">
-        <dex dex="E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\build\intermediates\transforms\dex\debug\folders\1000\2\PermissionsManager_f2f36a6293255d3c389a751a9fb082cef6b5e60d\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
@@ -25,7 +16,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="cf481cb96b99d62662440336237e47788659ccd8">
+        sha1="302d618796f23e6335de3b9d999a0bf5fae3c7ac">
         <dex dex="E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\build\intermediates\transforms\dex\debug\folders\1000\2\lansongeditor_hx_37d52bc40adc384c3fffedbe59b8f7160da7a4ea\classes.dex" />
     </item>
     <item
@@ -36,6 +27,15 @@
         revision="25.0.2"
         sha1="6a60927b917dd2b9476a3d058c369156fbe5a19c">
         <dex dex="E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\build\intermediates\transforms\dex\debug\folders\1000\2\textsurface_94d541e68fc6bd73bf800edc9d76285af1758d53\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\libs\PermissionsManager.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="6a1cc3def4753b22dc2c0ee55fcf533d2f456474">
+        <dex dex="E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\build\intermediates\transforms\dex\debug\folders\1000\2\PermissionsManager_f2f36a6293255d3c389a751a9fb082cef6b5e60d\classes.dex" />
     </item>
     <item
         is-multidex="true"
