@@ -1575,7 +1575,6 @@ public class VideoEditor {
 		   * @param tsArray　多段ts流的数组
 		   * @param dstFile　　处理后保存的路径,文件后缀名需要是.mp4
 		   * @return
-		   * ./ffmpeg -i "concat:ts0.ts|ts1.ts|ts2.ts|ts3.ts" -c copy -bsf:a aac_adtstoasc out2.mp4
 		   */
 		  public int executeConvertTsToMp4(String[] tsArray,String dstFile)
 		  {
@@ -1737,6 +1736,63 @@ public class VideoEditor {
 
 					cmdList.add("-vf");
 					cmdList.add(scalecmd);
+					
+					cmdList.add("-acodec");
+					cmdList.add("copy");
+					
+					cmdList.add("-vcodec");
+					cmdList.add("lansoh264_enc"); 
+					
+					cmdList.add("-b:v");
+					cmdList.add(checkBitRate(bitrate)); 
+										
+					cmdList.add("-pix_fmt");   //<========请注意, 使用lansoh264_enc编码器编码的时候,请务必指定格式,因为底层设计只支持yuv420p的输出.
+					cmdList.add("yuv420p");
+					
+					cmdList.add("-y");
+					
+					cmdList.add(dstFile);
+					String[] command=new String[cmdList.size()];  
+				     for(int i=0;i<cmdList.size();i++){  
+				    	 command[i]=(String)cmdList.get(i);  
+				     }  
+				    return  executeVideoEditor(command);
+			  }else{
+				  return VIDEO_EDITOR_EXECUTE_FAILED;
+			  }
+		  }
+		  
+		  /**
+		   * 缩放的同时增加logo水印.
+		   * TODO 暂时没有测试.
+		   * @param videoFile
+		   * @param pngPath
+		   * @param scaleWidth
+		   * @param scaleHeight
+		   * @param overX
+		   * @param overY
+		   * @param dstFile
+		   * @param bitrate
+		   * @return
+		   */
+		  public int executeVideoFrameScale(String videoFile, String pngPath,int scaleWidth,int scaleHeight,int overX,int overY,String dstFile,int bitrate){
+			  if(fileExist(videoFile)){
+					
+					List<String> cmdList=new ArrayList<String>();
+					String filter=String.format(Locale.getDefault(),"[0:v]scale=%d:%d [scale];[scale][1:v] overlay=%d:%d",
+							scaleWidth,scaleHeight,overX,overY);
+					
+					cmdList.add("-vcodec");
+					cmdList.add("lansoh264_dec");
+					
+					cmdList.add("-i");
+					cmdList.add(videoFile);
+
+					cmdList.add("-i");
+					cmdList.add(pngPath);
+					
+					cmdList.add("-filter_complex");
+					cmdList.add(filter);
 					
 					cmdList.add("-acodec");
 					cmdList.add("copy");
@@ -2584,8 +2640,6 @@ public class VideoEditor {
 		 */
 		public int  executeVideoAdjustSpeed( String srcPath,String decoder,float speed,int bitrate,String dstPath)
 		{
-			//./ffmpeg -i 2x.mp4 -filter_complex "[0:v]setpts=0.5*PTS[v];[0:a]atempo=2.0[a]" -map "[v]" -map "[a]" output3.mp4
-			//ffmpeg -i 2x.mp4 -i watermark.png -filter_complex "[0:v][1:v] overlay=0:0[overlay]; [overlay]setpts=0.5*PTS[v];[0:a]atempo=2.0[a]" -map "[v]" -map "[a]" output3.mp4
 			
 			if(fileExist(srcPath)){
 				
@@ -2609,6 +2663,56 @@ public class VideoEditor {
 					
 //					cmdList.add("-acodec");  //音频采用默认编码.
 //					cmdList.add("copy");
+					
+					cmdList.add("-vcodec");
+					cmdList.add("lansoh264_enc");
+					cmdList.add("-b:v");
+					cmdList.add(checkBitRate(bitrate)); 
+					cmdList.add("-pix_fmt");
+					cmdList.add("yuv420p");
+					
+					cmdList.add("-y");
+					cmdList.add(dstPath);
+					 
+					String[] command=new String[cmdList.size()];  
+				     for(int i=0;i<cmdList.size();i++){  
+				    	 command[i]=(String)cmdList.get(i);  
+				     }  
+				    return  executeVideoEditor(command);
+				  
+			  }else{
+				  return VIDEO_EDITOR_EXECUTE_FAILED;
+			  }
+		}
+		/**
+		 * 调整视频的播放速度，　可以把视频加快速度，或放慢速度。适用在希望缩短视频中不重要的部分的场景，比如走路等
+		 * 和#executeVideoAdjustSpeed 不同的是, 这方法仅仅是适用于没有音频的场合, 如果您视频中没有音频,可以用这个来做. 
+		 * (用Mediainfo可以检测出是否有音频部分)
+		 * @param srcPath　　源视频
+		 * @param decoder　　指定视频的解码器名字
+		 * @param speed　　　　源视频中　　画面和音频同时改变的倍数，比如放慢一倍，则这里是0.5;加快一倍，这里是2；建议速度在0.5--2.0之间。
+		 * @param dstPath　　处理后的视频存放路径，后缀需要是.mp4
+		 * @return
+		 */
+		public int  executeVideoAdjustSpeed2( String srcPath,String decoder,float speed,int bitrate,String dstPath)
+		{
+			if(fileExist(srcPath)){
+				
+				  String filter=String.format(Locale.getDefault(),"[0:v]setpts=%f*PTS[v]",1/speed);
+				  
+					List<String> cmdList=new ArrayList<String>();
+					
+					cmdList.add("-vcodec");
+					cmdList.add(decoder);
+					
+					cmdList.add("-i");
+					cmdList.add(srcPath);
+					
+					cmdList.add("-filter_complex");
+					cmdList.add(filter);
+					
+					cmdList.add("-map");
+					cmdList.add("[v]");
 					
 					cmdList.add("-vcodec");
 					cmdList.add("lansoh264_enc");
@@ -3554,6 +3658,91 @@ public class VideoEditor {
 				  }else{
 					  return VIDEO_EDITOR_EXECUTE_FAILED;
 				  }
+			}
+		//------------------------------------------------
+		 private boolean isCheckBitRate=true;
+		   
+		 private boolean isCheckPadSize=true;
+		   /**
+		    * 是否在开始运行DrawPad的时候,检查您设置的码率和分辨率是否正常.
+		    * 
+		    * 默认是检查, 如果您清楚码率大小的设置,请调用此方法,不再检查.
+		    *  
+		    */
+		   public void setNotCheckBitRate()
+		   {
+			   isCheckBitRate=false;
+		   }
+		   /**
+		    * 是否在开始运行DrawPad的时候, 检查您设置的DrawPad宽高是否是16的倍数.
+		    * 默认是检查.
+		    */
+		   public void setNotCheckDrawPadSize()
+		   {
+			   isCheckPadSize=false;
+		   }
+		   /**
+			 * 把采样点处理成4的倍数.
+			 * 小于等于4的, 处理成4;  大于4小于8的处理成8;
+			 * 1234 处理成4, 5678处理成8;
+			 * @param value
+			 * @return
+			 */
+			private int makeQuad(int value)
+			{
+				int  val2= value/4;
+				
+				if(value%4!=0)
+				{
+					val2+=1;
+					
+					val2*=4;
+					return val2;
+				}else{
+					return value;
+				}
+				/**
+				 * 	for(int i=0;i<100;i++)
+				{
+					int  val= i/4;
+					
+					if(i%4!=0)
+						val+=1;
+					
+					val*=4;
+					System.out.println("i="+i+" val:"+val);
+				}
+				 */
+			}
+			/**
+			 *  获取lansosdk的建议码率; 
+			 *  这个码率不是唯一的, 仅仅是我们建议这样设置, 如果您对码率理解很清楚或有一定的压缩要求,则完全可以不用我们的建议,自行设置.
+			 *  
+			 * @param wxh  宽度和高度的乘积;
+			 * @return
+			 */
+			public static int getSuggestBitRate(int wxh)
+			{
+				if(wxh <= 480 * 480){
+					return 1000*1024;
+				}else if(wxh<=640 * 480){
+					return 1500*1024;
+				}else if(wxh <=800 *480){
+					return 1800*1024;
+				}else if(wxh <=960 * 544){
+					return 2000*1024;
+				}else if(wxh <=1280 * 720){
+					return 2500*1024;
+				}else if(wxh<=1920 * 1088){
+					return 3000*1024;
+				}else{
+					return 3500*1024;
+				}
+			}
+			public static int checkSuggestBitRate(int wxh, int bitrate)
+			{
+				int sugg=getSuggestBitRate(wxh);
+				return bitrate < sugg ?  sugg: bitrate;   //如果设置过来的码率小于建议码率,则返回建议码率,不然返回设置码率
 			}
 		 
 }

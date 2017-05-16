@@ -13,11 +13,9 @@ import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
 import com.example.advanceDemo.GPUImageFilterTools.FilterAdjuster;
 import com.example.advanceDemo.GPUImageFilterTools.OnGpuImageFilterChosenListener;
 import com.example.advanceDemo.view.BitmapCache;
-import com.example.advanceDemo.view.DrawPadView;
 import com.example.advanceDemo.view.ShowHeart;
 import com.example.advanceDemo.view.VideoFocusView;
 import com.example.advanceDemo.view.VideoProgressView;
-import com.example.advanceDemo.view.DrawPadView.onViewAvailable;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.BitmapLayer;
 import com.lansosdk.box.CameraLayer;
@@ -31,10 +29,12 @@ import com.lansosdk.box.DrawPad;
 import com.lansosdk.box.MVLayer;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
+import com.lansosdk.videoeditor.DrawPadView;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
+import com.lansosdk.videoeditor.DrawPadView.onViewAvailable;
 
 
 import android.app.Activity;

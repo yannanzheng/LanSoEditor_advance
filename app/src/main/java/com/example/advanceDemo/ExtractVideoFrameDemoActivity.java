@@ -24,7 +24,9 @@ import com.lansosdk.videoeditor.AVDecoder;
 import com.lansosdk.videoeditor.MediaInfo;
 
 /**
- * 快速获取视频的每一帧.
+ * 快速获取视频的每一帧, 
+ * 注意: 在运行此类的时候, 请不要同时运行MediaPlayer或我们的DrawPad类, 因为在高通410,610等低端处理器中, 他们是共用同一个硬件资源,会冲突;但各种旗舰机
+ * 不会出现类似问题.
  */
 public class ExtractVideoFrameDemoActivity extends Activity{
 
@@ -110,9 +112,9 @@ public class ExtractVideoFrameDemoActivity extends Activity{
 					 bmp.recycle();
 					 bmp=null;
 				}
-//				if(ptsUS>15*1000*1000){   你可以在指定的时间段停止.
-//					mExtractFrame.stop();   //这里演示在15秒的时候停止.
-//				}
+				if(ptsUS>15*1000*1000){ //  你可以在指定的时间段停止.
+					mExtractFrame.stop();   //这里演示在15秒的时候停止.
+				}
 			}
 		});
 		/**
@@ -175,4 +177,22 @@ public class ExtractVideoFrameDemoActivity extends Activity{
 				 Log.e("TAG","get first one key error!");
 			 }
 		}
+		 int bmtcnt=0;
+		 private void savePng(Bitmap bmp)
+		 {
+			 File dir=new File("/sdcard/extract/");
+			 if(dir.exists()==false){
+				 dir.mkdirs();
+			 }
+			  try {
+					  BufferedOutputStream  bos;
+					  String name="/sdcard/extract/"+ bmtcnt++ +".png";
+					  bos = new BufferedOutputStream(new FileOutputStream(name));
+					  bmp.compress(Bitmap.CompressFormat.PNG, 90, bos);
+					  bos.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		 }
 }	

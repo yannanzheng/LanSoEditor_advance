@@ -8,9 +8,7 @@ import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 
 import com.example.advanceDemo.GPUImageFilterTools.FilterAdjuster;
 import com.example.advanceDemo.GPUImageFilterTools.OnGpuImageFilterChosenListener;
-import com.example.advanceDemo.view.DrawPadView;
 import com.example.advanceDemo.view.ShowHeart;
-import com.example.advanceDemo.view.DrawPadView.onViewAvailable;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.BitmapLayer;
 import com.lansosdk.box.CanvasLayer;
@@ -26,10 +24,12 @@ import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
 import com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask;
 import com.lansosdk.videoeditor.CopyFileFromAssets;
+import com.lansosdk.videoeditor.DrawPadView;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
+import com.lansosdk.videoeditor.DrawPadView.onViewAvailable;
 
 import android.app.Activity;
 import android.content.Context;
@@ -124,10 +124,32 @@ public class BitmapLayerFilterDemoActivity extends Activity{
 		//设置为自动刷新模式, 帧率为25
     	mDrawPadView.setUpdateMode(DrawPadUpdateMode.AUTO_FLUSH,30);
     	//使能实时录制,并设置录制后视频的宽度和高度, 码率, 帧率,保存路径.
-    	mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)30,dstPath);
+    	mDrawPadView.setRealEncodeEnable(480,480,1200*1000,(int)30,dstPath);
     	
-    	mDrawPadView.setOnDrawPadCompletedListener(new DrawPadCompleted());
-		mDrawPadView.setOnDrawPadProgressListener(new DrawPadProgressListener());
+    	mDrawPadView.setOnDrawPadCompletedListener(new onDrawPadCompletedListener() {
+			
+			@Override
+			public void onCompleted(DrawPad v) {
+				// TODO Auto-generated method stub
+				if(isDestorying==false){
+					if(SDKFileUtils.fileExist(dstPath)){
+				    	findViewById(R.id.id_DrawPad_saveplay).setVisibility(View.VISIBLE);
+					}
+					toastStop();
+				}
+			}
+		});
+		mDrawPadView.setOnDrawPadProgressListener(new onDrawPadProgressListener() {
+			
+			@Override
+			public void onProgress(DrawPad v, long currentTimeUs) {
+				// TODO Auto-generated method stub
+				 if(currentTimeUs>=20*1000*1000)  //26秒.多出一秒,让图片走完.
+				  {
+					  mDrawPadView.stopDrawPad();
+				  }
+			}
+		});
     	//设置DrawPad的宽高, 这里设置为480x480,如果您已经在xml中固定大小,则不需要再次设置,
     	//可以直接调用startDrawPad来开始录制.
     	mDrawPadView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
@@ -138,6 +160,7 @@ public class BitmapLayerFilterDemoActivity extends Activity{
 					startDrawPad();
 			}
 		});
+    	
     }
     /**
      * Step2: 开始运行 Drawpad线程. (停止是在进度监听中, 根据时间来停止的.)
@@ -186,37 +209,6 @@ public class BitmapLayerFilterDemoActivity extends Activity{
                 }
             });
     	}
-    }
-   //DrawPad完成时的回调.
-    private class DrawPadCompleted implements onDrawPadCompletedListener
-    {
-
-		@Override
-		public void onCompleted(DrawPad v) {
-			// TODO Auto-generated method stub
-			
-			if(isDestorying==false){
-				if(SDKFileUtils.fileExist(dstPath)){
-			    	findViewById(R.id.id_DrawPad_saveplay).setVisibility(View.VISIBLE);
-				}
-				toastStop();
-			}
-		}
-    }
-    //DrawPad进度回调.
-    private class DrawPadProgressListener implements onDrawPadProgressListener
-    {
-		@Override
-		public void onProgress(DrawPad v, long currentTimeUs) {  //单位是微妙
-			// TODO Auto-generated method stub
-			
-		//	Log.i(TAG,"当前时间戳是:"+currentTimeUs);
-			  
-			  if(currentTimeUs>=100*1000*1000)  //26秒.多出一秒,让图片走完.
-			  {
-				  mDrawPadView.stopDrawPad();
-			  }
-		}
     }
     private void initView()
     {

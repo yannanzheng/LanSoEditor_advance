@@ -7,7 +7,7 @@
          <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
-          		<com.example.advanceDemo.view.DrawPadView
+          		<com.lansosdk.videoeditor.DrawPadCameraView
             		android:id="@+id/id_fullscreen_padview"
             		android:layout_width="match_parent"
             		android:layout_height="match_parent"/>

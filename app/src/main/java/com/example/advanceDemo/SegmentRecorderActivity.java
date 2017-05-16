@@ -1,5 +1,4 @@
 package com.example.advanceDemo;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +7,6 @@ import com.example.advanceDemo.view.VideoFocusView;
 import com.example.advanceDemo.view.VideoPreviewView;
 import com.example.advanceDemo.view.VideoProgressView;
 import com.lansoeditor.demo.R;
-import com.lansosdk.box.LanSoEditorBox;
 import com.lansosdk.videoeditor.LanSoEditor;
 import com.lansosdk.videoeditor.LoadLanSongSdk;
 import com.lansosdk.videoeditor.OpenSegmentsRecordListener;
@@ -44,12 +42,9 @@ public class SegmentRecorderActivity extends Activity implements Handler.Callbac
 	private final static String TAG = "SegmentRecorderActivity";
 
 	
-	public static final float MAX_RECORD_TIME = 15 * 1000f;  //录制的最大时间.  15秒.
-	
+	public static final float MAX_RECORD_TIME = 30 * 1000f;  //设置录制的最大时间.  15秒.
 	
 	public static final float MIN_RECORD_TIME = 2 * 1000f;   //录制的最小时间
-	
-	
 	
 	private PowerManager.WakeLock mWakeLock;
 	private OpenSegmentsRecorder segmentRecorder;
@@ -86,38 +81,36 @@ public class SegmentRecorderActivity extends Activity implements Handler.Callbac
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.video_record_activity);
-		
-		if(LanSoEditorBox.checkCameraPermission(getBaseContext())==false){
-			Toast.makeText(getApplicationContext(), "请打开权限后,重试!!!", Toast.LENGTH_LONG).show();
-			finish();
-		}
-		
-		if(LanSoEditorBox.checkMicPermission(getBaseContext())==false){
-			Toast.makeText(getApplicationContext(), "请打开权限后,重试!!!", Toast.LENGTH_LONG).show();
-			finish();
-		}
-		
+	
 		initView();
 		
 		handler = new Handler(this);
-		//第一步:初始化 断点录制. 
-		//最后三个参数是:视频编码宽度,视频编码高度,视频编码码率,因为是竖屏拍照, 录制的视频宽度和高度对调了,故这里设置480和640等.
-		segmentRecorder = new OpenSegmentsRecorder(this, cameraTextureView.getHolder(),480,480,1000*1000); //建议采用这个
-//		segmentRecorder = new SegmentsRecorder(this, cameraTextureView.getHolder(),480,640,1200*1000);
-		//segmentRecorder = new SegmentsRecorder(this, cameraTextureView.getHolder(),720,1280,1500*1000);
-//		segmentRecorder = new SegmentsRecorder(this, cameraTextureView.getHolder(),1088,1920,2000*1000);
+		/**
+		 * 第一步:初始化 断点录制. 
+		 * 最后三个参数是:视频编码宽度,视频编码高度,视频编码码率
+		 * 不建议用1080x1920,因为有些手机的分辨率最大是1280x720, 根本达不到您设置的分辨率.
+		 * SegmentRecorderActivity设置为竖屏录制,故这里的分辨率是高度大于宽度的.如果是横屏录制,则应把宽高调过来.
+		 */
+//		segmentRecorder = new OpenSegmentsRecorder(this, cameraTextureView.getHolder(),544,960,2500*1000);//如果是全屏,则建议用这个(需要您修改UI为全屏模式)
+//		segmentRecorder = new OpenSegmentsRecorder(this, cameraTextureView.getHolder(),480,480,1200*1000); //正方形
+		segmentRecorder = new OpenSegmentsRecorder(this, cameraTextureView.getHolder(),480,640,1500*1000);  //推荐采用这个.
+//		segmentRecorder = new OpenSegmentsRecorder(this, cameraTextureView.getHolder(),720,1280,2000*1000);//不建议使用.
+//		segmentRecorder = new OpenSegmentsRecorder(this, cameraTextureView.getHolder(),576,1024,2000*1000);//不建议使用.
+		
+		//使用前置
+	
 		
 		//第二步:设置断点回调的各种方法.
 		segmentRecorder.setSegmentsRecordListener(new OpenSegmentsRecordListener() {
 
-			@Override  //当前段开始录制  在每次开始前调用.
+			@Override  //每一段在开始录制前调用.
 			public void segmentRecordStart() {
 				// TODO Auto-generated method stub
 				progressView.setCurrentState(VideoProgressView.State.START);
 			}
 			
-			
-			 // 当前段录制停止了, timeMS  当前在暂停时的录制总时间. 
+			 // 正在录制的一段视频停止了,
+			//timeMS  当前在暂停时的录制总时间. 
 			//  segmentIdx segmnet的总数也是当前文件的索引, 等于 getSegmentSize();
 			@Override  
 			public void segmentRecordPause(int timeMS, int segmentIdx) {
@@ -133,11 +126,16 @@ public class SegmentRecorderActivity extends Activity implements Handler.Callbac
 				handler.obtainMessage(MSG_SEGMENT_PROGRESS, (int) totalTime, 0).sendToTarget();
 			}
 			
-			@Override  //相机准备好, 返回的预览大小
+			@Override  //相机准备好, 返回的预览大小, 你需要根据这个预览大小,来调整画面的实际显示比例.
 			public void segmentCameraReady(int[] previewSize) {
 				// TODO Auto-generated method stub
 				cameraTextureView.setAspectRatio(previewSize[1], previewSize[0]);
 				handler.obtainMessage(MSG_VIDEOCAMERA_READY).sendToTarget();
+				
+				//如果使用前置的话, 打开这里.
+//				if(segmentRecorder.isFaceFront()==false){
+//					segmentRecorder.changeCamera();
+//				}
 			}
 		});
 		
@@ -145,7 +143,6 @@ public class SegmentRecorderActivity extends Activity implements Handler.Callbac
 			switchCameraIcon.setVisibility(View.VISIBLE);
 		}
 	}
-
 	@Override
 	protected void onResume() {
 		super.onResume();

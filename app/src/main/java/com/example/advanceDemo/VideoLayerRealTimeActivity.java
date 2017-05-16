@@ -4,11 +4,10 @@ import java.io.IOException;
 import java.util.Locale;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
 
 import com.example.advanceDemo.view.BitmapCache;
-import com.example.advanceDemo.view.DrawPadView;
 import com.example.advanceDemo.view.ShowHeart;
-import com.example.advanceDemo.view.DrawPadView.onViewAvailable;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.BitmapLayer;
 import com.lansosdk.box.BitmapLoader;
@@ -22,10 +21,16 @@ import com.lansosdk.box.YUVLayer;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
 import com.lansosdk.box.onDrawPadThreadProgressListener;
+import com.lansosdk.videoeditor.DrawPadView;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
+import com.lansosdk.videoeditor.DrawPadView.onViewAvailable;
+import com.lansosdk.videoplayer.VPlayer;
+import com.lansosdk.videoplayer.VideoPlayer;
+import com.lansosdk.videoplayer.VideoPlayer.OnPlayerCompletionListener;
+import com.lansosdk.videoplayer.VideoPlayer.OnPlayerPreparedListener;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -71,8 +76,7 @@ public class VideoLayerRealTimeActivity extends Activity implements OnSeekBarCha
 
     private DrawPadView mDrawPadView;
     
-    private MediaPlayer mplayer=null;
-    private MediaPlayer mplayer2=null;
+    private VPlayer mplayer=null;
     private VideoLayer  videoMainLayer=null;
     private Layer operationLayer=null;
     
@@ -80,6 +84,7 @@ public class VideoLayerRealTimeActivity extends Activity implements OnSeekBarCha
     private String editTmpPath=null;
     private String dstPath=null;
     private LinearLayout  playVideo;
+    private MediaInfo mInfo=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) 
     {
@@ -87,6 +92,14 @@ public class VideoLayerRealTimeActivity extends Activity implements OnSeekBarCha
         setContentView(R.layout.drawpad_layout);
         
         mVideoPath = getIntent().getStringExtra("videopath");
+        mInfo=new MediaInfo(mVideoPath,false);
+    	if(mInfo.prepare()==false){
+    		 Toast.makeText(this, "传递过来的视频文件错误", Toast.LENGTH_SHORT).show();
+    		 this.finish();
+    	}
+    	
+    	
+    	
         mDrawPadView = (DrawPadView) findViewById(R.id.DrawPad_view);
         
         initSeekBar(R.id.id_DrawPad_skbar_rotate,360); //角度是旋转360度,如果值大于360,则取360度内剩余的角度值.
@@ -99,6 +112,7 @@ public class VideoLayerRealTimeActivity extends Activity implements OnSeekBarCha
         initSeekBar(R.id.id_DrawPad_skbar_alpha,100);
         initSeekBar(R.id.id_DrawPad_skbar_background,800);
         
+        findViewById(R.id.id_DrawPad_skbar_background).setVisibility(View.GONE);
         
         playVideo=(LinearLayout)findViewById(R.id.id_DrawPad_saveplay);
         playVideo.setOnClickListener(new OnClickListener() {
@@ -149,37 +163,32 @@ public class VideoLayerRealTimeActivity extends Activity implements OnSeekBarCha
      */
     private void startPlayVideo()
     {
-          if (mVideoPath != null){
-        	  mplayer=new MediaPlayer();
-        	  try {
-				mplayer.setDataSource(mVideoPath);
-				
-			}  catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-        	  mplayer.setOnPreparedListener(new OnPreparedListener() {
-				
-				@Override
-				public void onPrepared(MediaPlayer mp) {
-					// TODO Auto-generated method stub
-					initDrawPad(mp);
-				}
-			});
-        	  mplayer.setOnCompletionListener(new OnCompletionListener() {
-				
-				@Override
-				public void onCompletion(MediaPlayer mp) {
-					// TODO Auto-generated method stub
-					stopDrawPad();
-				}
-			});
-        	  mplayer.prepareAsync();
-          }
-          else {
-              finish();
-              return;
-          }
+    	 if (mVideoPath != null){
+    		 mplayer=new VPlayer(VideoLayerRealTimeActivity.this);
+						
+    		 		mplayer.setVideoPath(mVideoPath);
+    		 		mplayer.setOnPreparedListener(new OnPlayerPreparedListener() {
+						
+						@Override
+						public void onPrepared(VideoPlayer mp) {
+							// TODO Auto-generated method stub
+							initDrawPad();
+						}
+					});
+    		 		mplayer.setOnCompletionListener(new OnPlayerCompletionListener() {
+						
+						@Override
+						public void onCompletion(VideoPlayer mp) {
+							// TODO Auto-generated method stub
+							stopDrawPad();
+						}
+					});
+		       	  mplayer.prepareAsync();
+         }
+         else {
+             finish();
+             return;
+         }
     }
     private void toastStop()
     {
@@ -190,31 +199,23 @@ public class VideoLayerRealTimeActivity extends Activity implements OnSeekBarCha
      * Step1:  init DrawPad 初始化
      * @param mp
      */
-    private void initDrawPad(MediaPlayer mp)
+    private void initDrawPad()
     {
-    		MediaInfo info=new MediaInfo(mVideoPath,false);
-        	info.prepare();
+        	int padWidth=480;
+        	int padHeight=480;
         	
         	//设置使能 实时录制, 即把正在DrawPad中呈现的画面实时的保存下来,实现所见即所得的模式
-        	mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
-
+        	mDrawPadView.setRealEncodeEnable(padWidth,padHeight,1000000,(int)mInfo.vFrameRate,editTmpPath);
         	
         	mDrawPadView.setOnDrawPadProgressListener(new onDrawPadProgressListener() {
 				
 				@Override
 				public void onProgress(DrawPad v, long currentTimeUs) {
 					// TODO Auto-generated method stub
-					//用来测试把一个图层放到底层或外层.
-//					if(currentTimeUs>5*1000*1000 && operationLayer!=null){
-//						mDrawPadView.bringLayerToFront(operationLayer);
-//					
-//					}else if(currentTimeUs>3*1000*1000){
-//						mDrawPadView.bringLayerToBack(operationLayer);
-//					}
 				}
 			});
-        		//设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
-    		mDrawPadView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
+        	//设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
+    		mDrawPadView.setDrawPadSize(padWidth,padHeight,new onDrawPadSizeChangedListener() {
 			@Override
 			public void onSizeChanged(int viewWidth, int viewHeight) {
 				// TODO Auto-generated method stub
@@ -231,17 +232,17 @@ public class VideoLayerRealTimeActivity extends Activity implements OnSeekBarCha
 		mDrawPadView.startDrawPad();
 		
 		//如果视频太单调了, 可以给视频增加一个背景图片, 显得艺术一些.^^
-//		
-//		mDrawPadView.addBitmapLayer(BitmapLoader.loadBitmap(getApplicationContext(), var3, 0, 0));
 		mDrawPadView.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.videobg));
 		
 		//增加一个主视频的 VideoLayer
-		operationLayer=videoMainLayer=mDrawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
+		videoMainLayer=mDrawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),new GPUImageSepiaFilter());
 		
 		if(videoMainLayer!=null)
 		{
 			mplayer.setSurface(new Surface(videoMainLayer.getVideoTexture()));
 			videoMainLayer.setScale(0.8f);  //把视频缩小一些, 因为外面有背景.
+			//增加一个虚化背景.
+			//videoMainLayer.setBackgroundBlurFactor(3.5f);
 		}
 	
 		mplayer.start();
@@ -278,8 +279,7 @@ public class VideoLayerRealTimeActivity extends Activity implements OnSeekBarCha
     {
     	if(mDrawPadView!=null && mDrawPadView.isRunning())
     	{
-//    		operationLayer=mDrawPadView.addGifLayer(R.drawable.g06);
-    		mDrawPadView.addGifLayer(R.drawable.g07);  //增加另一个.
+    		mDrawPadView.addGifLayer(R.drawable.g07);  
     	}
     }
     /**
@@ -298,12 +298,6 @@ public class VideoLayerRealTimeActivity extends Activity implements OnSeekBarCha
     		mplayer.stop();
     		mplayer.release();
     		mplayer=null;
-    	}
-    	
-    	if(mplayer2!=null){
-    		mplayer2.stop();
-    		mplayer2.release();
-    		mplayer2=null;
     	}
     	if(mDrawPadView!=null){
     		mDrawPadView.stopDrawPad();
@@ -336,7 +330,6 @@ protected void onDestroy() {
 				if(operationLayer!=null){
 					operationLayer.setRotate(progress);
 				}
-				
 				break;
 			case R.id.id_DrawPad_skbar_moveX:
 					if(operationLayer!=null){
@@ -344,7 +337,6 @@ protected void onDestroy() {
 						 if(xpos>mDrawPadView.getViewWidth())
 							 xpos=0;
 						 operationLayer.setPosition(xpos, operationLayer.getPositionY());
-						 
 					}
 				break;	
 			case R.id.id_DrawPad_skbar_moveY:
@@ -358,7 +350,9 @@ protected void onDestroy() {
 			case R.id.id_DrawPad_skbar_scale:
 				if(operationLayer!=null){
 					float scale=(float)progress/100;
-					operationLayer.setScale(scale);
+//					operationLayer.setScale(scale);
+					int width=(int)(operationLayer.getLayerWidth() * scale);
+					operationLayer.setScaledValue(width, operationLayer.getLayerHeight());
 				}
 			break;		
 			case R.id.id_DrawPad_skbar_brightness:
@@ -376,31 +370,9 @@ protected void onDestroy() {
 					operationLayer.setAlphaPercent(value);
 				}
 			break;
-			
-			case R.id.id_DrawPad_skbar_background:
-				if(operationLayer!=null){
-					float scale=(float)progress/100;
-					/**
-				     * 20170417
-				     * VideoLayer中, 增加一个设置背景模糊的方法,可以在视频进行的任意时刻设置.
-				     * 设置后, 会给当前视频增加一个背景模糊的画面, 画面铺满整个Drawpad
-				     * 
-				     * 
-				     * 实际是中, 您可能只用来设置一个固定参数就可以了, 这里仅仅用来演示, 我们的背景不但可以显示,还可以调节模糊程度.
-				     * 
-				     *  可以使用videoMainLayer.setBackgroundBlurDisable();来关闭.
-				     *   
-				     * 注意: 如果在视频图层下有另外的图层, 则可能被盖住.
-				     * @param factor 模糊系数, 建议从0--6.0左右, 越小越清晰, 为0则不模糊, 越大则越模糊.
-				     */
-					Log.i(TAG,"set back ground factor:"+scale);
-					videoMainLayer.setBackgroundBlurFactor(scale);
-				}
-				break;
 			default:
 				break;
 		}
-		
 	}
 	@Override
 	public void onStartTrackingTouch(SeekBar seekBar) {

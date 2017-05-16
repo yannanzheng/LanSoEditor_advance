@@ -112,19 +112,19 @@ public class AVDecoder {
 			   MediaInfo  gifInfo=new MediaInfo(gifPath);
 			       if(gifInfo.prepare())
 			       {
-		 decoderHandler=AVDecoder.decoderInit(gifPath);
-		 FileWriteUtls  write=new FileWriteUtls(dst);
-		 mGLRgbBuffer = IntBuffer.allocate(gifInfo.vWidth * gifInfo.vHeight);
-		 while(AVDecoder.decoderIsEnd(decoderHandler)==false)
-		 {
-		 mGLRgbBuffer.position(0);
-		 AVDecoder.decoderFrame(decoderHandler, -1, mGLRgbBuffer.array());
-		 mGLRgbBuffer.position(0);
-		 write.writeFile(mGLRgbBuffer);
-		 }
-		 write.closeWriteFile();
-		 Log.i(TAG,"write closeEEEE!");
-		 }
-		 }
+			    	   decoderHandler=AVDecoder.decoderInit(gifPath);
+			    	   FileWriteUtls  write=new FileWriteUtls(dst);
+			    	   mGLRgbBuffer = IntBuffer.allocate(gifInfo.vWidth * gifInfo.vHeight);
+			    	   while(AVDecoder.decoderIsEnd(decoderHandler)==false)
+			    	   {
+			    			mGLRgbBuffer.position(0);
+		    				AVDecoder.decoderFrame(decoderHandler, -1, mGLRgbBuffer.array());
+		    				mGLRgbBuffer.position(0);
+		    				write.writeFile(mGLRgbBuffer);
+			    	   }
+			    	   write.closeWriteFile();
+			    	   Log.i(TAG,"write closeEEEE!");
+			       }
+			}
 		 */
 }

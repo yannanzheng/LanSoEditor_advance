@@ -6,9 +6,7 @@ import java.util.Locale;
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 
 import com.example.advanceDemo.view.BitmapCache;
-import com.example.advanceDemo.view.DrawPadView;
 import com.example.advanceDemo.view.ShowHeart;
-import com.example.advanceDemo.view.DrawPadView.onViewAvailable;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.BitmapLayer;
 import com.lansosdk.box.CanvasRunnable;
@@ -20,11 +18,14 @@ import com.lansosdk.box.MVLayer;
 import com.lansosdk.box.VideoLayer;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
+import com.lansosdk.box.onLayerAvailableListener;
 import com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask;
+import com.lansosdk.videoeditor.DrawPadView;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
+import com.lansosdk.videoeditor.DrawPadView.onViewAvailable;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -67,7 +68,7 @@ public class MVLayerDemoActivity extends Activity {
     
     private String colorMVPath=null;
     private String maskMVPath=null;
-    
+    private MediaInfo mInfo=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) 
     {
@@ -77,8 +78,11 @@ public class MVLayerDemoActivity extends Activity {
         
         mVideoPath = getIntent().getStringExtra("videopath");
         mDrawPadView = (DrawPadView) findViewById(R.id.id_mvlayer_padview);
-        
-
+        mInfo=new MediaInfo(mVideoPath,false);
+        if(mInfo.prepare()==false){
+        	 Log.e(TAG,"视频源文件错误!");
+        	 this.finish();
+        }
         //在手机的默认路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
         editTmpPath=SDKFileUtils.newMp4PathInBox();
         dstPath=SDKFileUtils.newMp4PathInBox();
@@ -130,7 +134,6 @@ public class MVLayerDemoActivity extends Activity {
 					stopDrawPad();
 				}
 			});
-        	  
         	  mplayer.prepareAsync();
           }
           else {
@@ -146,12 +149,8 @@ public class MVLayerDemoActivity extends Activity {
     {
     	if(colorMVPath!=null && maskMVPath!=null)
     	{
-    		MediaInfo info=new MediaInfo(mVideoPath,false);
-        	if(info.prepare())
-        	{
-
         		//设置使能 实时录制, 即把正在DrawPad中呈现的画面实时的保存下来,实现所见即所得的模式
-        		mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
+        		mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)mInfo.vFrameRate,editTmpPath);
         		mDrawPadView.setOnDrawPadProgressListener(new onDrawPadProgressListener() {
 					
 					@Override
@@ -162,7 +161,7 @@ public class MVLayerDemoActivity extends Activity {
 				});
         		
         		//设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
-        		mDrawPadView.setDrawPadSize(720,720,new onDrawPadSizeChangedListener() {
+        		mDrawPadView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
 	    			
 	    			@Override
 	    			public void onSizeChanged(int viewWidth, int viewHeight) {
@@ -171,7 +170,14 @@ public class MVLayerDemoActivity extends Activity {
 	    					startDrawPad();
 	    				}
 	        		});	
-        	}
+        		mDrawPadView.setOnViewAvailable(new onViewAvailable() {
+					
+					@Override
+					public void viewAvailable(DrawPadView v) {
+						// TODO Auto-generated method stub
+						startPlayVideo();
+					}
+				});
     	}
     }
     /**
@@ -179,30 +185,27 @@ public class MVLayerDemoActivity extends Activity {
      */
     private void startDrawPad()
     {
-    	mDrawPadView.startDrawPad();
-		
-		//增加一个主视频的 VideoLayer
-		mLayerMain=mDrawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
-		if(mLayerMain!=null){
-			mplayer.setSurface(new Surface(mLayerMain.getVideoTexture()));
-		}
-		mplayer.start();
-		/**
-		 * 增加一个MV图层.
-		 */
-//		colorMVPath="/sdcard/mv_xuan.mp4";
-//		maskMVPath="/sdcard/mv_xuan_b.mp4";
-		
-		mvLayer=mDrawPadView.addMVLayer(colorMVPath, maskMVPath);  //<-----增加MVLayer
-		
-		//设置它为满屏.
-	    float scaleW=(float)mvLayer.getPadWidth()/(float)mvLayer.getLayerWidth();
-	    float scaleH=mvLayer.getPadHeight()/(float)mvLayer.getLayerHeight();
-	    mvLayer.setScale(scaleW, scaleH);
-	    
-		if(mvLayer!=null){  //可以增加mv在播放结束后的三种模式, 停留在最后一帧/循环/消失/
-			mvLayer.setEndMode(MVLayerENDMode.LOOP);
-		}
+    	if(mDrawPadView.startDrawPad())
+    	{
+    		//增加一个主视频的 VideoLayer
+    		mLayerMain=mDrawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
+    		if(mLayerMain!=null){
+    			mplayer.setSurface(new Surface(mLayerMain.getVideoTexture()));
+    		}
+    		mplayer.start();
+    		/**
+    		 * 增加一个MV图层.
+    		 */
+    		mvLayer=mDrawPadView.addMVLayer(colorMVPath, maskMVPath);  //<-----增加MVLayer
+    		//设置它为满屏.
+    	    float scaleW=(float)mvLayer.getPadWidth()/(float)mvLayer.getLayerWidth();
+    	    float scaleH=mvLayer.getPadHeight()/(float)mvLayer.getLayerHeight();
+    	    mvLayer.setScale(scaleW, scaleH);
+    	    
+    		if(mvLayer!=null){  //可以增加mv在播放结束后的三种模式, 停留在最后一帧/循环/消失/
+    			mvLayer.setEndMode(MVLayerENDMode.LOOP);
+    		}
+    	}
     }
     /**
      * Step3: 停止画板,停止后,为新的视频文件增加上音频部分.
@@ -214,7 +217,6 @@ public class MVLayerDemoActivity extends Activity {
 			mDrawPadView.stopDrawPad();
 			
 			toastStop();
-			
 			if(SDKFileUtils.fileExist(editTmpPath)){
 				boolean ret=VideoEditor.encoderAddAudio(mVideoPath,editTmpPath,SDKDir.TMP_DIR,dstPath);
 				if(!ret){
@@ -222,14 +224,18 @@ public class MVLayerDemoActivity extends Activity {
 				}else{
 					SDKFileUtils.deleteFile(editTmpPath);	
 				}
-				
 				findViewById(R.id.id_mvlayer_saveplay).setVisibility(View.VISIBLE);
 			}else{
 				Log.e(TAG," player completion, but file:"+editTmpPath+" is not exist!!!");
 			}
 		}
     }
-    
+    @Override
+    protected void onResume() {
+    	// TODO Auto-generated method stub
+    	super.onResume();
+    	findViewById(R.id.id_mvlayer_saveplay).setVisibility(View.INVISIBLE);
+    }
     @Override
     protected void onPause() {
     	// TODO Auto-generated method stub
@@ -239,8 +245,7 @@ public class MVLayerDemoActivity extends Activity {
     		mplayer.release();
     		mplayer=null;
     	}
-    	
-    	if(mplayer2!=null){
+		if(mplayer2!=null){
     		mplayer2.stop();
     		mplayer2.release();
     		mplayer2=null;
@@ -277,7 +282,6 @@ public class MVLayerDemoActivity extends Activity {
 		   		 }
 			}
 		});
-       
        findViewById(R.id.id_mvlayer_saveplay).setVisibility(View.GONE);
    }
    private void toastStop()

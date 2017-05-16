@@ -1,289 +1,263 @@
 -- Merging decision tree log ---
 manifest
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:2:1-170:12
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:2:1-166:12
 	package
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:3:5-35
-		INJECTED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml
-		INJECTED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:3:11-41
+		INJECTED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml
+		INJECTED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml
 	android:versionName
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:5:5-32
-		INJECTED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml
-		INJECTED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:5:11-38
+		INJECTED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml
+		INJECTED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml
 	android:versionCode
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:4:5-31
-		INJECTED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml
-		INJECTED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:4:11-37
+		INJECTED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml
+		INJECTED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:2:11-69
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:2:11-69
 uses-sdk
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:8:5-10:41
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:8:5-10:41
 MERGED from [com.android.support:support-v4:23.4.0] C:\Users\Administrator\.android\build-cache\fb60baca500a9c9807f2d9113ba779b4bd491493\output\AndroidManifest.xml:20:5-43
 	android:targetSdkVersion
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:10:9-38
-		INJECTED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml
-		INJECTED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:10:9-38
+		INJECTED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml
+		INJECTED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:9:9-35
-		INJECTED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml
-		INJECTED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:9:9-35
+		INJECTED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml
+		INJECTED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml
 uses-feature#0x00020000
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:11:2-64
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:11:5-67
 	android:glEsVersion
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:11:16-48
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:11:19-51
 uses-feature#android.hardware.camera
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:13:5-60
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:13:5-60
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:13:19-57
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:13:19-57
 uses-feature#android.hardware.autofocus
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:14:5-63
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:14:5-63
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:14:19-60
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:14:19-60
 uses-permission#android.permission.CAMERA
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:16:5-65
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:16:5-65
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:16:22-62
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:16:22-62
 uses-permission#android.permission.FLASHLIGHT
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:17:5-69
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:17:5-69
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:17:22-66
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:17:22-66
 uses-permission#android.permission.RECORD_AUDIO
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:18:5-71
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:18:5-71
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:18:22-68
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:18:22-68
 uses-permission#android.permission.WAKE_LOCK
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:19:5-68
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:19:5-68
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:19:22-65
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:19:22-65
 uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:20:5-81
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:20:5-81
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:20:22-78
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:20:22-78
 uses-permission#android.permission.MODIFY_AUDIO_SETTINGS
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:21:5-80
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:21:5-80
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:21:22-77
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:21:22-77
 permission#android.permission.FLASHLIGHT
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:25:5-28:44
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:25:5-28:44
 	android:protectionLevel
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:28:9-41
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:28:9-41
 	android:permissionGroup
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:27:9-77
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:27:9-77
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:26:9-53
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:26:9-53
 uses-feature#android.hardware.camera.front
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:31:5-33:36
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:31:5-33:36
 	android:required
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:33:9-33
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:33:9-33
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:32:9-53
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:32:9-53
 application
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:35:5-168:19
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:35:5-164:19
 MERGED from [com.android.support:support-v4:23.4.0] C:\Users\Administrator\.android\build-cache\fb60baca500a9c9807f2d9113ba779b4bd491493\output\AndroidManifest.xml:22:5-20
 	android:label
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:39:9-41
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:39:9-41
 	android:allowBackup
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:36:9-35
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:36:9-35
 	android:icon
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:37:9-45
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:37:9-45
 	android:largeHeap
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:38:9-33
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:38:9-33
 	android:theme
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:40:9-40
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:40:9-40
 activity#com.example.advanceDemo.StartActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:42:9-51:21
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:42:9-44:20
 	android:theme
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:43:13-45
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:43:19-51
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:42:19-71
-intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:45:13-49:29
-action#android.intent.action.MAIN
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:46:17-69
-	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:46:25-66
-category#android.intent.category.LAUNCHER
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:48:17-77
-	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:48:27-74
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:42:19-71
 activity#com.example.advanceDemo.MainActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:53:9-58:20
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:46:9-55:20
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:54:13-64
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:47:13-64
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:50:13-54:29
+action#android.intent.action.MAIN
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:51:17-69
+	android:name
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:51:25-66
+category#android.intent.category.LAUNCHER
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:53:17-77
+	android:name
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:53:27-74
 activity#com.example.advanceDemo.VideoLayerTwoRealTimeActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:62:9-99
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:59:9-99
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:62:19-87
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:59:19-87
 activity#com.example.advanceDemo.FilterDemoRealTimeActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:65:9-96
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:62:9-96
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:65:19-84
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:62:19-84
 activity#com.example.advanceDemo.BitmapLayerMarkActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:67:9-93
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:64:9-93
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:67:19-81
-activity#com.example.advanceDemo.FilterRealTimeActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:69:9-92
-	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:69:19-80
-activity#com.example.advanceDemo.DrawPadHintActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:70:9-89
-	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:70:19-77
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:64:19-81
 activity#com.example.advanceDemo.VideoLayerRealTimeActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:71:9-96
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:66:9-96
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:71:19-84
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:66:19-84
+activity#com.example.advanceDemo.TwoVideoLayerRealTimeActivity
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:68:9-99
+	android:name
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:68:19-87
+activity#com.example.advanceDemo.ExecuteTwoVideoLayerDemoActivity
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:69:9-102
+	android:name
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:69:19-90
 activity#com.example.advanceDemo.PictureSetRealTimeActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:72:9-96
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:72:9-96
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:72:19-84
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:72:19-84
+activity#com.example.advanceDemo.BitmapLayerFilterDemoActivity
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:74:9-99
+	android:name
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:74:19-87
 activity#com.example.advanceDemo.VideoPlayerActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:73:9-89
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:77:9-89
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:73:19-77
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:77:19-77
 activity#com.example.advanceDemo.ExecuteVideoLayerDemoActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:76:9-99
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:80:9-99
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:76:19-87
-activity#com.example.advanceDemo.ExecuteFilterDemoActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:77:9-95
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:80:19-87
+activity#com.example.advanceDemo.FilterExecuteDemoActivity
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:81:9-95
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:77:19-83
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:81:19-83
 activity#com.example.advanceDemo.ExtractVideoFrameDemoActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:79:9-99
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:83:9-99
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:79:19-87
-activity#com.example.advanceDemo.TestDelete
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:81:11-82:83
-	android:theme
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:82:13-71
-	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:81:21-70
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:83:19-87
 activity#com.example.advanceDemo.CanvasLayerDemoActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:85:11-95
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:86:9-93
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:85:21-83
-activity#com.example.advanceDemo.CameraMaskLayerDemoActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:86:8-88:19
-	android:screenOrientation
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:87:12-48
-	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:86:18-84
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:86:19-81
 activity#com.example.advanceDemo.CameraLayerFullPortActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:90:8-94:19
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:88:9-92:20
 	android:screenOrientation
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:91:13-49
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:89:19-55
 	android:theme
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:92:13-71
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:90:19-77
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:90:18-84
-activity#com.example.advanceDemo.CameraLayerFullSegment
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:96:8-100:19
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:88:19-85
+activity#com.example.advanceDemo.CameraLayerFullSegmentActivity
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:97:9-101:20
 	android:screenOrientation
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:97:13-49
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:98:19-55
 	android:theme
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:98:13-71
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:99:19-77
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:96:18-79
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:97:19-88
 activity#com.example.advanceDemo.CameraLayerFullLandscapeActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:102:10-106:19
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:103:9-107:20
 	android:screenOrientation
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:103:13-50
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:104:19-56
 	android:theme
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:104:13-71
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:105:19-77
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:102:20-91
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:103:19-90
 activity#com.example.advanceDemo.CameraLayerDemoActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:109:9-111:19
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:114:9-116:20
 	android:screenOrientation
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:110:12-48
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:115:19-55
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:109:19-81
-activity#com.example.advanceDemo.TestRecordCamMaskLayerActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:117:9-119:19
-	android:screenOrientation
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:118:12-48
-	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:117:19-88
-activity#com.example.advanceDemo.FilterExecuteActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:124:9-91
-	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:124:19-79
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:114:19-81
 activity#com.example.advanceDemo.FileExplorerActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:126:9-127:57
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:124:9-125:67
 	android:label
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:127:9-45
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:125:19-55
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:126:19-78
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:124:19-78
 activity#com.example.advanceDemo.ExecuteBitmapLayerActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:130:9-96
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:128:9-96
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:130:19-84
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:128:19-84
 activity#com.example.advanceDemo.ViewLayerDemoActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:131:9-91
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:129:9-91
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:131:19-79
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:129:19-79
 activity#com.example.advanceDemo.ViewLayerOnlyRealTimeActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:133:9-99
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:131:9-99
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:133:19-87
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:131:19-87
 activity#com.example.advanceDemo.MVLayerDemoActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:136:9-89
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:134:9-89
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:136:19-77
-activity#com.example.advanceDemo.TestMVLayerExecuteActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:137:9-96
-	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:137:19-84
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:134:19-77
 activity#com.example.advanceDemo.VideoLayerAutoUpdateDemoActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:138:11-104
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:135:9-102
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:138:21-92
-activity#com.example.advanceDemo.TestCameraLayerDemoActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:141:11-99
-	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:141:21-87
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:135:19-90
 activity#com.example.advanceDemo.InsertAudioDemoActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:143:14-98
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:139:9-93
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:143:24-86
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:139:19-81
 activity#com.example.advanceDemo.CopyOfCanvasLayerDemoActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:145:16-106
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:141:9-99
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:145:26-94
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:141:19-87
 activity#com.example.advanceDemo.CameraRecordDemoActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:148:11-96
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:144:9-94
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:148:21-84
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:144:19-82
 activity#com.example.advanceDemo.CameraLayerSegmentDemoActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:150:10-152:22
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:146:9-148:20
 	android:theme
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:151:16-48
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:147:19-51
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:150:20-89
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:146:19-88
 activity#com.example.advanceDemo.ExecuteRandomDemoActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:154:9-95
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:150:9-95
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:154:19-83
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:150:19-83
 activity#com.example.advanceDemo.SegmentRecorderActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:158:11-160:22
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:154:9-156:20
 	android:theme
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:159:19-51
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:155:19-51
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:158:21-83
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:154:19-81
 activity#com.example.commonDemo.CommonDemoActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:163:13-91
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:159:9-87
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:163:23-79
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:159:19-75
 activity#com.example.commonDemo.MediaInfoActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:164:10-87
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:160:9-86
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:164:20-75
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:160:19-74
 activity#com.example.commonDemo.AVEditorDemoActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:165:10-80
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:161:9-79
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:165:20-78
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:161:19-77
 activity#com.example.commonDemo.ScaleExecuteDemoActivity
-ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:166:10-84
+ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:162:9-83
 	android:name
-		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\AndroidManifest.xml:166:20-82
+		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:162:19-81

@@ -24,7 +24,7 @@ import com.lansosdk.box.DataLayer;
 import com.lansosdk.box.Layer;
 import com.lansosdk.box.DrawPad;
 import com.lansosdk.box.DrawPadPictureExecute;
-import com.lansosdk.box.DrawPadVideoExecute;
+import com.lansosdk.box.DrawPadVideoRunnable;
 import com.lansosdk.box.ViewLayer;
 import com.lansosdk.box.onDrawPadCompletedListener;
 import com.lansosdk.box.onDrawPadProgressListener;

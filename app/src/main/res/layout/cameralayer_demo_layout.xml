@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true" >
 
-          <com.example.advanceDemo.view.DrawPadView
+          <com.lansosdk.videoeditor.DrawPadCameraView
             		android:id="@+id/id_cameralayer_padview"
             		android:layout_width="match_parent"
             		android:layout_height="wrap_content"/>

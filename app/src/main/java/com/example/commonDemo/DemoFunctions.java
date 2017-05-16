@@ -461,10 +461,10 @@ public class DemoFunctions {
 		if(info.prepare())
 		{
 			int bitrate=(int)(info.vBitRate*1.5f);
-			if(bitrate>2000*1000)
-				bitrate=2000*1000; //2M
+			if(bitrate>3000*1000)
+				bitrate=3000*1000; //3M
 			
-			return editor.executeVideoAdjustSpeed(srcVideo, info.vCodecName,0.5f, bitrate, dstVideo);
+			return editor.executeVideoAdjustSpeed2(srcVideo, info.vCodecName,0.5f, bitrate, dstVideo);
 		}else{
 			return -1;
 		}

@@ -5,9 +5,7 @@ import java.util.Locale;
 
 
 import com.example.advanceDemo.view.BitmapCache;
-import com.example.advanceDemo.view.DrawPadView;
 import com.example.advanceDemo.view.ShowHeart;
-import com.example.advanceDemo.view.DrawPadView.onViewAvailable;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.BitmapLayer;
 import com.lansosdk.box.CanvasRunnable;
@@ -17,10 +15,12 @@ import com.lansosdk.box.DrawPad;
 import com.lansosdk.box.VideoLayer;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
+import com.lansosdk.videoeditor.DrawPadView;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
+import com.lansosdk.videoeditor.DrawPadView.onViewAvailable;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -73,7 +73,7 @@ public class CanvasLayerDemoActivity extends Activity {
     private String editTmpPath=null;
     private String dstPath=null;
     private LinearLayout  playVideo;
-    
+    private MediaInfo  mInfo=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) 
     {
@@ -81,6 +81,14 @@ public class CanvasLayerDemoActivity extends Activity {
         setContentView(R.layout.canvaslayer_demo_layout);
         
         mVideoPath = getIntent().getStringExtra("videopath");
+        
+        mInfo=new MediaInfo(mVideoPath,false);
+        if(mInfo.prepare()==false){
+            Log.e(TAG, " video path is error.finish\n");
+            finish();
+        }
+        
+        
         mDrawPadView = (DrawPadView) findViewById(R.id.id_canvaslayer_drawpadview);
         
         playVideo=(LinearLayout)findViewById(R.id.id_canvasLayer_saveplay);
@@ -162,13 +170,10 @@ public class CanvasLayerDemoActivity extends Activity {
      */
     private void initDrawPad()
     {
-    		MediaInfo info=new MediaInfo(mVideoPath,false);
-        	info.prepare();
-        	
         	mDrawPadView.setUseMainVideoPts(true);
         	
        		//设置使能 实时录制, 即把正在DrawPad中呈现的画面实时的保存下来,实现所见即所得的模式
-        	mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
+        	mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)mInfo.vFrameRate,editTmpPath);
         	//设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
     		mDrawPadView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
 			
@@ -248,7 +253,7 @@ public class CanvasLayerDemoActivity extends Activity {
 							 Paint paint = new Paint();
 			                 paint.setColor(Color.RED);
 		         			paint.setAntiAlias(true);
-		         			paint.setTextSize(80);
+		         			paint.setTextSize(50);
 	
 		         		canvas.drawText("蓝松短视频演示之<任意绘制>",20,mCanvasLayer.getPadHeight()-200, paint);
 					}

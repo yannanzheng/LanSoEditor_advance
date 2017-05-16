@@ -31,7 +31,7 @@ import com.lansosdk.box.CanvasRunnable;
 import com.lansosdk.box.CanvasLayer;
 import com.lansosdk.box.DataLayer;
 import com.lansosdk.box.DrawPad;
-import com.lansosdk.box.DrawPadVideoExecute;
+import com.lansosdk.box.DrawPadVideoRunnable;
 import com.lansosdk.box.GifLayer;
 import com.lansosdk.box.MVLayer;
 import com.lansosdk.box.MVLayerENDMode;
@@ -41,6 +41,7 @@ import com.lansosdk.box.onDrawPadCompletedListener;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadThreadProgressListener;
 import com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask;
+import com.lansosdk.videoeditor.DrawPadVideoExecute;
 import com.lansosdk.videoeditor.LanSoEditor;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
@@ -123,24 +124,10 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 			return ;
 		
 		isExecuting=true;
-		
-		 /**
-		  * 创建在后台调用DrawPad来处理视频的构造方法.
-		  * 
-		  * (类似photoshop的工作区)
-		  * 
-		  * @param ctx 语境,android的Context
-		  * @param srcPath 主视频的路径
-		  * @param padwidth DrawPad的的宽度
-		  * @param padheight DrawPad的的高度
-		  * @param bitrate   编码视频所希望的码率,比特率.
-		  * @param filter   为视频增加一个滤镜
-		  * @param dstPath  编码视频保存的路径.
-		  */
-		
 		 mDrawPad=new DrawPadVideoExecute(ExecuteVideoLayerDemoActivity.this,videoPath,480,480,1000000,null,editTmpPath);
-		 //或者可以用另一个构造方法, 指定主视频的开始时间, 这里举例是3*1000(3秒);
-//		 mDrawPad=new DrawPadVideoExecute(ExecuteVideoLayerDemoActivity.this,videoPath,3*1000,480,480,1000000,null,editTmpPath);
+		 
+//		mDrawPad=new DrawPadVideoExecute(ExecuteVideoLayerDemoActivity.this,videoPath,1080,1920,3000000,null,editTmpPath);
+		
 		 mDrawPad.setUseMainVideoPts(true);
 		 /**
 		  * 设置DrawPad处理的进度监听, 回传的currentTimeUs单位是微秒.
@@ -172,9 +159,7 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 				tvProgressHint.setText("DrawPadExecute Completed!!!");
 				isExecuting=false;
 				
-				if(isInsertAudio){
-					Log.i(TAG,"editTmp path is:"+editTmpPath);
-					
+				if(isInsertAudio){  //
 					dstPath=editTmpPath; 
 				}else{
 					if(SDKFileUtils.fileExist(editTmpPath)){
@@ -184,49 +169,54 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 						}
 					}
 				}
-				Log.i(TAG,"dstPath  is:"+dstPath);
-				
 				findViewById(R.id.id_video_edit_btn2).setEnabled(true);
 			}
 		});
-		/**
-		 * 设置是否使用主视频的时间戳为录制视频的时间戳, 
-    * 如果您传递过来的是一个完整的视频, 只是需要在此视频上做一些操作, 操作完成后,时长等于源视频的时长, 则建议使用主视频的时间戳, 如果视频是从中间截取一般开始的则不建议使用
-		 */
 //		vDrawPad.setUseMainVideoPts(true);
 		
-	//	addOtherAudio();
-		mDrawPad.pauseRecordDrawPad();
+		addOtherAudio();
+		
+		//在开启前,先设置为暂停录制,因为要增加一些图层.
+		mDrawPad.pauseRecord();
 		/**
 		 * 开始执行这个DrawPad
 		 */
-		mDrawPad.startDrawPad();
-		
-		//给视频增加一个虚化背景.
-//		VideoLayer mainLayer=mDrawPad.getMainVideoLayer();
-//		if(mainLayer!=null){
-//			mainLayer.setBackgroundBlurFactor(3.5f);
-//		}
-		
-		
-		/**
-		 * 一下是在处理过程中, 
-		 * 增加的几个Layer, 来实现视频在播放过程中叠加别的一些媒体, 像图片, 文字等.
-		 */
-		bitmapLayer=mDrawPad.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
-		bitmapLayer.setPosition(300, 200);
-		
-		//增加一个笑脸, add a bitmap
-		mDrawPad.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.xiaolian));	
+		if(mDrawPad.startDrawPad()){
+			 // 增加一些图层.
+			addLayers();
+		}else{
+			Log.e(TAG,"后台画板线程  运行失败,您请检查下是否是路径设置有无, 请用MediaInfo.checkFile执行查看下....");
+		}
+	}
+	private void addLayers()
+	{
+		if(mDrawPad.isRunning())
+		{
+			//给视频增加一个虚化背景.
+//			VideoLayer mainLayer=mDrawPad.getMainVideoLayer();
+//			if(mainLayer!=null){
+//				mainLayer.setBackgroundBlurFactor(3.5f);
+//			}
+			/**
+			 * 一下是在处理过程中, 
+			 * 增加的几个Layer, 来实现视频在播放过程中叠加别的一些媒体, 像图片, 文字等.
+			 */
+			bitmapLayer=mDrawPad.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
+			bitmapLayer.setPosition(300, 200);
+			
+			//增加一个笑脸, add a bitmap
+			mDrawPad.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.xiaolian));	
 
-		//增加一个CanvasLayer
-//		addCanvasLayer();
-//		addDataLayer();
-//		 addMVLayer();
-		 
-		//addGifLayer();
-		 mDrawPad.resumeRecordDrawPad();
-		 
+			//增加一个CanvasLayer
+//			addCanvasLayer();
+//			addDataLayer();
+//			 addMVLayer();
+			 
+			//addGifLayer();
+			
+			//增加完图层, 恢复运行.
+			 mDrawPad.resumeRecord();
+		}
 	}
 	/**
 	 * 可以插入一段声音.
@@ -238,18 +228,25 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 		/**
 		 *  插入一段声音, 这里拷贝Assets中的资源来做.
 		 */
-		String audio=CopyDefaultVideoAsyncTask.copyFile(getApplicationContext(), "hongdou10s.mp3");
-		 /**
-	     * 在处理中插入一段其他音频,比如笑声,雷声, 各种搞怪声音等.类似 一个主持人在说话, 讲了一笑话, 然后插入一段 大笑的声音一样
-	     * @param srcPath  音频的完整路径
-	     * @param startTimeMs 设置从主视频的哪个时间点开始插入.单位毫秒.
-	     * @param durationMs   把这段声音多长插入进去. 如果设置为-1,则全部插入进去, 如果音频大于主视频的音频时长,则等于主视频的时长.
-	     * 
-	     * @param mainvolume 插入时,主音频音量多大  默认是1.0f, 大于1,0则是放大, 小于则是降低
-	     * @param volume  插入时,当前音频音量多大  默认是1.0f, 大于1,0则是放大, 小于则是降低
-	     * @return  插入成功, 返回true, 失败返回false
-	     */
-		isInsertAudio=mDrawPad.addSubAudio(audio,1000,2000,3.0f,1.0f);
+		//String audio=CopyDefaultVideoAsyncTask.copyFile(getApplicationContext(), "hongdou10s.mp3");
+		
+		//String audio="/sdcard/effect_harouha.aac";
+		
+		String audio="/sdcard/chongjibo_a_music.mp3";
+		
+		//以下是多种测试.
+//		isInsertAudio=mDrawPad.addSubAudio(audio,0,-1,3.0f,1.0f);
+	//	isInsertAudio=mDrawPad.addSubAudio(audio,300,-1,3.0f,1.0f);
+		
+		//isInsertAudio=mDrawPad.addSubAudio(audio,800,-1,3.0f,1.0f);
+//		isInsertAudio=mDrawPad.addSubAudio(audio,2000,-1,3.0f,1.0f);
+//		isInsertAudio=mDrawPad.addSubAudio(audio,1500,-1,1.0f,1.0f);
+		
+		isInsertAudio=mDrawPad.addSubAudio(audio,300,-1,1.0f,1.0f);
+		
+		
+		Log.i(TAG,"isInsertAudio is:"+isInsertAudio);
+		
 		//vDrawPad.addSubAudio(audio,5000,-1,3.0f,2.0f);
 		//vDrawPad.addSubAudio(audio,1000,8000,3.0f,2.0f);
 	}
@@ -330,14 +327,10 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 	
 		/**
 		 * 增加一个CanvasLayer,
-		 * 因为Android的View机制是无法在非UI线程中使用View的. 但可以使用Canvas这个类工作在其他线程.
-		 * 
-		 * 因此我们设计了CanvasLayer,从而可以用Canvas来做各种Draw文字, 线条,图案等.
 		 */
 		private void addCanvasLayer()
 		{
 					mCanvasLayer=mDrawPad.addCanvasLayer();
-					
 					if(mCanvasLayer!=null){
 						
 						mCanvasLayer.setClearCanvas(false);

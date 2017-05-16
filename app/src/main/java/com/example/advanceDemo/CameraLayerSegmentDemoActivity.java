@@ -13,11 +13,9 @@ import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
 import com.example.advanceDemo.GPUImageFilterTools.FilterAdjuster;
 import com.example.advanceDemo.GPUImageFilterTools.OnGpuImageFilterChosenListener;
 import com.example.advanceDemo.view.BitmapCache;
-import com.example.advanceDemo.view.DrawPadView;
 import com.example.advanceDemo.view.ShowHeart;
 import com.example.advanceDemo.view.VideoFocusView;
 import com.example.advanceDemo.view.VideoProgressView;
-import com.example.advanceDemo.view.DrawPadView.onViewAvailable;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.CameraLayer;
 import com.lansosdk.box.DrawPadUpdateMode;
@@ -25,8 +23,12 @@ import com.lansosdk.box.LanSoEditorBox;
 import com.lansosdk.box.DrawPad;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
+import com.lansosdk.videoeditor.DrawPadCameraView;
+import com.lansosdk.videoeditor.DrawPadView;
+import com.lansosdk.videoeditor.LanSongUtil;
 import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
+import com.lansosdk.videoeditor.DrawPadView.onViewAvailable;
 
 import android.app.Activity;
 import android.content.Context;
@@ -59,7 +61,7 @@ public class CameraLayerSegmentDemoActivity extends Activity implements OnClickL
 	
 	private static final String TAG = "CameraLayerSegmentDemoActivity";
 
-    private DrawPadView mDrawPadView;
+    private DrawPadCameraView mDrawPadView;
     
     /**
      * 用来存放当前分段录制的多段视频文件, 
@@ -76,19 +78,14 @@ public class CameraLayerSegmentDemoActivity extends Activity implements OnClickL
     protected void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-		
         setContentView(R.layout.cameralayer_segment_layout);
-	
-		if(LanSoEditorBox.checkCameraPermission(getBaseContext())==false){
-			Toast.makeText(getApplicationContext(), "当前没有摄像机权限,请打开后重试!!!", Toast.LENGTH_LONG).show();
-			finish();
-		}
-		if(LanSoEditorBox.checkMicPermission(getBaseContext())==false){
-			Toast.makeText(getApplicationContext(), "当前没有麦克风权限,请打开后重试!!!", Toast.LENGTH_LONG).show();
-			finish();
-		}
         
-        mDrawPadView = (DrawPadView) findViewById(R.id.id_cameralayer_padview);
+        if(LanSongUtil.checkRecordPermission(getBaseContext())==false){
+      	   Toast.makeText(getApplicationContext(), "请打开权限后,重试!!!", Toast.LENGTH_LONG).show();
+      	   finish();
+         }
+        
+        mDrawPadView = (DrawPadCameraView) findViewById(R.id.id_cameralayer_padview);
         initView();
 
         dstPath=SDKFileUtils.createMp4FileInBox();
@@ -122,7 +119,6 @@ public class CameraLayerSegmentDemoActivity extends Activity implements OnClickL
     	 
     	mDrawPadView.setRecordMic(true);
     	mDrawPadView.setRealEncodeEnable(padWidth,padHeight,1000000,(int)25,null);
-    	mDrawPadView.setUpdateMode(DrawPadUpdateMode.AUTO_FLUSH, 25);
 
     	//设置进度监听
     	mDrawPadView.setOnDrawPadProgressListener(drawPadProgressListener);
@@ -145,13 +141,14 @@ public class CameraLayerSegmentDemoActivity extends Activity implements OnClickL
     	 * 这里设置先不开始录制.
     	 */
     	mDrawPadView.pauseDrawPadRecord();
-    	
-		mDrawPadView.startDrawPad();
-		//增加一个CameraLayer
-		mCameraLayer=	mDrawPadView.addCameraLayer(false,null);
-		if(mCameraLayer!=null){
-			mCameraLayer.startPreview();
-			doAutoFocus(); //摄像头打开后,开始自动聚焦.
+		if(mDrawPadView.startDrawPad())
+		{
+			//增加一个CameraLayer
+			mCameraLayer=	mDrawPadView.getCameraLayer();
+			if(mCameraLayer!=null){
+				mCameraLayer.startPreview();
+				doAutoFocus(); //摄像头打开后,开始自动聚焦.
+			}
 		}
     }
     /**

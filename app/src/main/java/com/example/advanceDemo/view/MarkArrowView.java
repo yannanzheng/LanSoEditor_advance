@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.Layer;
+import com.lansosdk.videoeditor.DrawPadView;
 
 /**
  * 继承自DrawPadView, 用来演示在视频中做标记的功能.

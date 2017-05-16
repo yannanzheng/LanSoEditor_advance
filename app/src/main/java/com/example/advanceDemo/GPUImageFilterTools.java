@@ -39,15 +39,8 @@ public class GPUImageFilterTools {
         final FilterList filters = new FilterList();
         
         filters.addFilter("(NONE)无", FilterType.NONE);
-        /**
-         * 美颜仅仅在 CameraLayer和 VideoLayer中支持,其他图层暂时不支持美颜滤镜.
-         */
-        filters.addFilter("美颜等级1", FilterType.BEAUTIFUL1);  
-        filters.addFilter("美颜等级2", FilterType.BEAUTIFUL2);  
-        filters.addFilter("美颜等级3", FilterType.BEAUTIFUL3);  
-        filters.addFilter("美颜等级4", FilterType.BEAUTIFUL4);  
-        filters.addFilter("美颜等级5", FilterType.BEAUTIFUL5);   
         
+        filters.addFilter("美颜", FilterType.BEAUTIFUL);  
         
         filters.addFilter("1AMARO", FilterType.AMARO);   
         filters.addFilter("2RISE", FilterType.RISE);   
@@ -67,36 +60,52 @@ public class GPUImageFilterTools {
         filters.addFilter("16if1977", FilterType.IF1977);     
         filters.addFilter("17LORDKELVIN", FilterType.LORDKELVIN);  	
         
+        //新增
+       filters.addFilter("PINCH_DISTORTION", FilterType.PINCH_DISTORTION);  
+       filters.addFilter("STRETCH_DISTORTION", FilterType.STRETCH_DISTORTION);  
+            	 
+        filters.addFilter("Bulge Distortion凸凹调节", FilterType.BULGE_DISTORTION);  
         
         filters.addFilter("黑色mask", FilterType.LanSongBLACKMASK);  
         filters.addFilter("区域透明", FilterType.LanSongMASK);  
-        
-        filters.addFilter("Contrast对比度", FilterType.CONTRAST);  
         filters.addFilter("Invert负片", FilterType.INVERT);  
-        
-        filters.addFilter("Pixelation", FilterType.PIXELATION);   //静止图片像素的大小.
-        filters.addFilter("Hue色调", FilterType.HUE);  
-        filters.addFilter("Gamma伽玛", FilterType.GAMMA);  
+        filters.addFilter("Pixelation像素方块", FilterType.PIXELATION); 
+
+        filters.addFilter("Vignette加轮廓", FilterType.VIGNETTE);  
+        filters.addFilter("Haze加减雾", FilterType.HAZE);  
+        filters.addFilter("Glass Sphere玻璃球效果", FilterType.GLASS_SPHERE);
+        filters.addFilter("Sphere Refraction球面折射", FilterType.SPHERE_REFRACTION); 
+
         
         filters.addFilter("Brightness图像亮度", FilterType.BRIGHTNESS); 
         filters.addFilter("Sepia复古", FilterType.SEPIA); 
         filters.addFilter("Grayscale灰度", FilterType.GRAYSCALE);  
         
-        
+        filters.addFilter("Swirl旋涡", FilterType.SWIRL);
         filters.addFilter("Posterize色调分离", FilterType.POSTERIZE);  
         filters.addFilter("Saturation饱和度", FilterType.SATURATION); 
         
-        filters.addFilter("Exposure曝光度", FilterType.EXPOSURE);  
-        
         filters.addFilter("Highlight Shadow阴影高亮", FilterType.HIGHLIGHT_SHADOW);  
         filters.addFilter("Monochrome单色", FilterType.MONOCHROME); 
+        filters.addFilter("White Balance白平衡", FilterType.WHITE_BALANCE);  
+        filters.addFilter("Exposure曝光度", FilterType.EXPOSURE);  
+        filters.addFilter("Hue色调", FilterType.HUE);  
+        filters.addFilter("Gamma伽玛", FilterType.GAMMA);  
         
+        filters.addFilter("False Color", FilterType.FALSE_COLOR);  
+        filters.addFilter("Color Balance颜色平衡", FilterType.COLOR_BALANCE);  
+        filters.addFilter("Levels Min (Mid Adjust)暗色调节", FilterType.LEVELS_FILTER_MIN);  
+        filters.addFilter("Lookup (Amatorka)查找表", FilterType.LOOKUP_AMATORKA); 
+        filters.addFilter("Crosshatch网格", FilterType.CROSSHATCH);  
+
+        filters.addFilter("CGA Color Space", FilterType.CGA_COLORSPACE);  
+        filters.addFilter("Kuwahara", FilterType.KUWAHARA);  
+        filters.addFilter("Halftone棉麻", FilterType.HALFTONE);
+
         filters.addFilter("Opacity透明度", FilterType.OPACITY);     
         filters.addFilter("RGB颜色调整", FilterType.RGB);  
-        
-        filters.addFilter("White Balance白平衡", FilterType.WHITE_BALANCE);  
-        
-        filters.addFilter("Vignette加轮廓", FilterType.VIGNETTE);  
+        filters.addFilter("Contrast对比度", FilterType.CONTRAST);  
+      
 
         filters.addFilter("Blend (Difference)", FilterType.BLEND_DIFFERENCE);
         filters.addFilter("Blend (Source Over)", FilterType.BLEND_SOURCE_OVER);
@@ -122,28 +131,8 @@ public class GPUImageFilterTools {
         filters.addFilter("Blend (Subtract)", FilterType.BLEND_SUBTRACT);
         filters.addFilter("Blend (Chroma Key)", FilterType.BLEND_CHROMA_KEY);
         filters.addFilter("Blend (Normal)", FilterType.BLEND_NORMAL);
-
-        filters.addFilter("Lookup (Amatorka)", FilterType.LOOKUP_AMATORKA); 
-        filters.addFilter("Crosshatch网格", FilterType.CROSSHATCH);  
-
-        filters.addFilter("CGA Color Space", FilterType.CGA_COLORSPACE);  
-        filters.addFilter("Kuwahara", FilterType.KUWAHARA);  
-        filters.addFilter("Halftone", FilterType.HALFTONE);
-
-        filters.addFilter("Bulge Distortion", FilterType.BULGE_DISTORTION);  
-        filters.addFilter("Glass Sphere", FilterType.GLASS_SPHERE); 
-        filters.addFilter("Haze", FilterType.HAZE);  
-        filters.addFilter("Sphere Refraction", FilterType.SPHERE_REFRACTION); 
-        filters.addFilter("Swirl", FilterType.SWIRL);  
-        filters.addFilter("False Color", FilterType.FALSE_COLOR);  
-
-        filters.addFilter("Color Balance", FilterType.COLOR_BALANCE);  
-
-        filters.addFilter("Levels Min (Mid Adjust)", FilterType.LEVELS_FILTER_MIN);  
-
-     	
-          		
-          		
+        
+        
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Choose a filter(total:"+filters.names.size()+" )");
         builder.setItems(filters.names.toArray(new String[filters.names.size()]),
@@ -160,22 +149,13 @@ public class GPUImageFilterTools {
     private static GPUImageFilter createFilterForType(final Context context, final FilterType type) {
         switch (type) {
         	case NONE:
-        		return new GPUImageFilter();
-        	//5级美颜效果.	
-        	case BEAUTIFUL1:
-        		return  new LanSongBeautyLevel1();
-         	case BEAUTIFUL2:
-        		return  new LanSongBeautyLevel2();
-        		
-        	case BEAUTIFUL3:
-        		return  new LanSongBeautyLevel3();
-        		
-        	case BEAUTIFUL4:
-        		return  new LanSongBeautyLevel4();
-        		
-        	case BEAUTIFUL5:
-        		return  new LanSongBeautyLevel5();
-        		
+        		return null;
+        	/**
+        	 * 注意: 以下五种美颜级别,仅仅是列举,详情可看@BeautylLevel	; 实际您可以任意组合.
+        	 * LanSongBeautyLevel1--5是不存在的滤镜, 仅仅是为了兼容其他滤镜而做的参考.
+        	 */
+        	case BEAUTIFUL:
+        		return  new LanSongBeautyFilter();
             case CONTRAST:
                 return new GPUImageContrastFilter(2.0f);
             case GAMMA:
@@ -292,6 +272,14 @@ public class GPUImageFilterTools {
                 return new GPUImageKuwaharaFilter();
             case BULGE_DISTORTION:
                 return new GPUImageBulgeDistortionFilter();
+                
+                //新增
+            case PINCH_DISTORTION:
+                return new LanSongDistortionPinchFilter();
+            case STRETCH_DISTORTION:
+                return new LanSongDistortionStretchFilter();
+                
+                
             case GLASS_SPHERE:
                 return new GPUImageGlassSphereFilter();
             case HAZE:
@@ -367,11 +355,11 @@ public class GPUImageFilterTools {
     }
 
     private enum FilterType {
-        NONE,BEAUTIFUL1,BEAUTIFUL2,BEAUTIFUL3,BEAUTIFUL4,BEAUTIFUL5,LanSongBLACKMASK,LanSongMASK,CONTRAST, GRAYSCALE,  SEPIA,  POSTERIZE, GAMMA, BRIGHTNESS, INVERT, HUE, PIXELATION,
+        NONE,BEAUTIFUL,LanSongBLACKMASK,LanSongMASK,CONTRAST, GRAYSCALE,  SEPIA,  POSTERIZE, GAMMA, BRIGHTNESS, INVERT, HUE, PIXELATION,
         SATURATION, EXPOSURE, HIGHLIGHT_SHADOW, MONOCHROME, OPACITY, RGB, WHITE_BALANCE, VIGNETTE,  BLEND_COLOR_BURN, BLEND_COLOR_DODGE, BLEND_DARKEN, BLEND_DIFFERENCE,
         BLEND_DISSOLVE, BLEND_EXCLUSION, BLEND_SOURCE_OVER, BLEND_HARD_LIGHT, BLEND_LIGHTEN, BLEND_ADD, BLEND_DIVIDE, BLEND_MULTIPLY, BLEND_OVERLAY, BLEND_SCREEN, BLEND_ALPHA,
         BLEND_COLOR, BLEND_HUE, BLEND_SATURATION, BLEND_LUMINOSITY, BLEND_LINEAR_BURN, BLEND_SOFT_LIGHT, BLEND_SUBTRACT, BLEND_CHROMA_KEY, BLEND_NORMAL, LOOKUP_AMATORKA,
-        CROSSHATCH, CGA_COLORSPACE, KUWAHARA,  BULGE_DISTORTION, GLASS_SPHERE, HAZE, SPHERE_REFRACTION, SWIRL, FALSE_COLOR,
+        CROSSHATCH, CGA_COLORSPACE, KUWAHARA,  BULGE_DISTORTION,PINCH_DISTORTION,STRETCH_DISTORTION, GLASS_SPHERE, HAZE, SPHERE_REFRACTION, SWIRL, FALSE_COLOR,
         COLOR_BALANCE, LEVELS_FILTER_MIN, HALFTONE,
         
         AMARO,RISE,HUDSON,XPROII,SIERRA,LOMOFI,EARLYBIRD,SUTRO,TOASTER,BRANNAN,INKWELL,WALDEN,HEFE,VALENCIA,NASHVILLE,IF1977,LORDKELVIN}

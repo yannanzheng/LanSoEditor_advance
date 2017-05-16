@@ -7,11 +7,9 @@ import java.util.Locale;
 
 
 
-import com.example.advanceDemo.view.DrawPadView;
 import com.example.advanceDemo.view.ShowHeart;
 import com.example.advanceDemo.view.VideoFocusView;
 import com.example.advanceDemo.view.VideoProgressView;
-import com.example.advanceDemo.view.DrawPadView.onViewAvailable;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.AudioLine;
 import com.lansosdk.box.BitmapLayer;
@@ -25,10 +23,12 @@ import com.lansosdk.box.DrawPad;
 import com.lansosdk.box.MVLayer;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
+import com.lansosdk.videoeditor.DrawPadView;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
+import com.lansosdk.videoeditor.DrawPadView.onViewAvailable;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -58,7 +58,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -92,9 +91,9 @@ public class CameraRecordDemoActivity extends Activity implements OnClickListene
         setContentView(R.layout.cameralayer_demo_layout);
         
         if(LanSoEditorBox.checkCameraPermission(getBaseContext())==false){
-			Toast.makeText(getApplicationContext(), "请打开权限后,重试!!!", Toast.LENGTH_LONG).show();
-			finish();
-		}
+     	   Toast.makeText(getApplicationContext(), "请打开权限后,重试!!!", Toast.LENGTH_LONG).show();
+     	   finish();
+        }
         
         mDrawPadView = (DrawPadView) findViewById(R.id.id_cameralayer_padview);
         
@@ -227,11 +226,11 @@ public class CameraRecordDemoActivity extends Activity implements OnClickListene
 	}
    //-------------------------------------------一下是UI界面和控制部分.---------------------------------------------------
    private TextView tvTime;
-   private LinearLayout playVideo;
+   private Button playVideo;
    private void initView()
    {
 	   tvTime=(TextView)findViewById(R.id.id_cameralayer_timetv);
-	   playVideo=(LinearLayout)findViewById(R.id.id_cameralayer_saveplay);
+	   playVideo=(Button)findViewById(R.id.id_cameralayer_saveplay);
 	   playVideo.setOnClickListener(new OnClickListener() {
 			
 			@Override

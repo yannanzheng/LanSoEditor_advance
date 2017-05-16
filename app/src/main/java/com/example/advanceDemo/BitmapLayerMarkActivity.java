@@ -75,8 +75,11 @@ public class BitmapLayerMarkActivity extends Activity{
         
         
         mVideoPath = getIntent().getStringExtra("videopath");
-        mMarkView = (MarkArrowView) findViewById(R.id.markarrow_view);
         
+        
+        
+        
+        mMarkView = (MarkArrowView) findViewById(R.id.markarrow_view);
         playVideo=(LinearLayout)findViewById(R.id.id_markarrow_saveplay);
         playVideo.setOnClickListener(new OnClickListener() {
 			

@@ -16,11 +16,10 @@ import jp.co.cyberagent.lansongsdk.gpuimage.IFAmaroFilter;
 
 import com.example.advanceDemo.GPUImageFilterTools.FilterAdjuster;
 import com.example.advanceDemo.GPUImageFilterTools.OnGpuImageFilterChosenListener;
-import com.example.advanceDemo.view.DrawPadView;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.DrawPad;
 import com.lansosdk.box.DrawPadUpdateMode;
-import com.lansosdk.box.DrawPadVideoExecute;
+import com.lansosdk.box.DrawPadVideoRunnable;
 import com.lansosdk.box.VideoLayer;
 import com.lansosdk.box.ViewLayer;
 import com.lansosdk.box.Layer;
@@ -29,6 +28,7 @@ import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
 import com.lansosdk.box.onDrawPadSnapShotListener;
 import com.lansosdk.videoeditor.CopyFileFromAssets;
+import com.lansosdk.videoeditor.DrawPadView;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
@@ -135,8 +135,6 @@ public class FilterDemoRealTimeActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				selectFilter();
-				
-				mDrawPadView.toggleSnatShot();
 				
 				/**
 				 * 如果您需要演示, 在按下按钮后, 放到后台执行, 则屏蔽上一句,打开这里就可以了. 
@@ -271,9 +269,9 @@ public class FilterDemoRealTimeActivity extends Activity {
 					@Override
 					public void onSnapShot(DrawPad v, Bitmap bmp) {
 						// TODO Auto-generated method stub
+						   Log.i(TAG, "已经保存到>>>>>>>>>>>>>");
 						
-						
-//						String str="SnapShot"+ pngCnt +".png";
+//						String str="Snap"+ pngCnt +".png";
 //				 		 pngCnt++;
 //						  File f = new File("/sdcard/", str);
 //						  if (f.exists()) {
@@ -412,7 +410,7 @@ public class FilterDemoRealTimeActivity extends Activity {
     }
     //----------------------------------------------------------放到后台执行
     private boolean isExecuting=false; 
-    private DrawPadVideoExecute  vDrawPad=null;
+    private DrawPadVideoRunnable  vDrawPad=null;
 	private void testDrawPadExecute()
 	{
 		if(isExecuting)
@@ -420,7 +418,7 @@ public class FilterDemoRealTimeActivity extends Activity {
 		
 		isExecuting=true;
 		
-		vDrawPad=new DrawPadVideoExecute(FilterDemoRealTimeActivity.this,mVideoPath,480,480,1000000,
+		vDrawPad=new DrawPadVideoRunnable(FilterDemoRealTimeActivity.this,mVideoPath,480,480,1000000,
 				new IFAmaroFilter(getApplicationContext()),editTmpPath);
 		
 		vDrawPad.setDrawPadProgressListener(new onDrawPadProgressListener() {

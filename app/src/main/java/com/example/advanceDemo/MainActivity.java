@@ -128,11 +128,6 @@ public class MainActivity extends Activity implements OnClickListener{
         
         tvVideoPath=(TextView)findViewById(R.id.id_main_tvvideo);
         
-        //以下为测试不同类型的视频使用.
-//        tvVideoPath.setText("/sdcard/VIDEO_36minute.mp4");
-//        tvVideoPath.setText("/sdcard/TEST_720P_90DU.mp4");
-//        tvVideoPath.setText("/sdcard/VIDEO_270du.mp4");
-        
         findViewById(R.id.id_main_segmentrecorder).setOnClickListener(this);
         findViewById(R.id.id_main_cameralayer).setOnClickListener(this);
         findViewById(R.id.id_main_camerafulllayer).setOnClickListener(this);
@@ -251,11 +246,14 @@ public class MainActivity extends Activity implements OnClickListener{
 				return;
 			switch (v.getId()) {
 				case R.id.id_main_segmentrecorder:
+//					startDemoActivity(VideoLayerRealTimeActivity.class);
+					//startDemoActivity(TwoVideoLayerRealTimeActivity.class);
+					//startDemoActivity(BitmapLayerFilterDemoActivity.class);
 //					startDemoActivity(CameraLayerFullSegmentActivity.class);  //全屏分段录制.
 //					startDemoActivity(VideoLayerRealTimeActivity.class);
 //					startDemoActivity(ExecuteBitmapLayerActivity.class);
-					startDemoActivity(SegmentRecorderActivity.class);
-//					startDemoActivity(CameraLayerSegmentDemoActivity.class);
+					startDemoActivity(SegmentRecorderActivity.class);  //分段录制
+//					startDemoActivity(CameraLayerSegmentDemoActivity.class); //摄像头图层的方式录制.
 //					startDemoActivity(ExtractVideoFrameDemoActivity.class);
 					break;
 				case R.id.id_main_cameralayer:
@@ -297,7 +295,7 @@ public class MainActivity extends Activity implements OnClickListener{
 					startDemoActivity(VideoLayerRealTimeActivity.class);
 					break;
 				case R.id.id_main_drawpadexecute_filter:
-					startDemoActivity(ExecuteFilterDemoActivity.class);
+					startDemoActivity(FilterExecuteDemoActivity.class);
 					break;
 				case R.id.id_main_drawpadpictureexecute:
 					startDemoActivity(ExecuteVideoLayerDemoActivity.class);
@@ -375,5 +373,4 @@ public class MainActivity extends Activity implements OnClickListener{
 		        }
 		        return result;
 		    }
-	   
 }

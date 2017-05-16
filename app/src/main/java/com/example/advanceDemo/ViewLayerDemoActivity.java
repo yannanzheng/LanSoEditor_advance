@@ -12,7 +12,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 
-import com.example.advanceDemo.view.DrawPadView;
 import com.example.advanceDemo.view.PaintConstants;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.DrawPad;
@@ -23,6 +22,7 @@ import com.lansosdk.box.Layer;
 import com.lansosdk.box.ViewLayerRelativeLayout;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
+import com.lansosdk.videoeditor.DrawPadView;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
@@ -84,7 +84,7 @@ public class ViewLayerDemoActivity extends Activity{
     private String dstPath=null;
 
     private ViewLayerRelativeLayout mLayerRelativeLayout;
-    
+    private MediaInfo  mInfo=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) 
     {
@@ -93,6 +93,12 @@ public class ViewLayerDemoActivity extends Activity{
         
         
         mVideoPath = getIntent().getStringExtra("videopath");
+        mInfo=new MediaInfo(mVideoPath,false);
+        if(mInfo.prepare()==false){
+            Log.e(TAG, " video path is error.finish\n");
+            finish();
+        }
+        
         mDrawPadView = (DrawPadView) findViewById(R.id.id_vview_realtime_drawpadview);
         
       
@@ -105,7 +111,6 @@ public class ViewLayerDemoActivity extends Activity{
         editTmpPath=SDKFileUtils.newMp4PathInBox();
         dstPath=SDKFileUtils.newMp4PathInBox();
 	    
-        
 	    //演示例子用到的.
 		PaintConstants.SELECTOR.COLORING = true;
 		PaintConstants.SELECTOR.KEEP_IMAGE = true;
@@ -121,8 +126,6 @@ public class ViewLayerDemoActivity extends Activity{
     }
     private void startPlayVideo()
     {
-          if (mVideoPath != null)
-          {
         	  mplayer=new MediaPlayer();
         	  try {
 				mplayer.setDataSource(mVideoPath);
@@ -148,12 +151,6 @@ public class ViewLayerDemoActivity extends Activity{
 				}
 			});
         	  mplayer.prepareAsync();
-          }
-          else {
-              Log.e(TAG, "Null Data Source\n");
-              finish();
-              return;
-          }
     }
     /**
      * Step1: 设置DrawPad 画板的尺寸.
@@ -167,7 +164,20 @@ public class ViewLayerDemoActivity extends Activity{
         	
     		mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
     		
-    		mDrawPadView.setOnDrawPadProgressListener(new DrawPadProgressListener());
+    		mDrawPadView.setOnDrawPadProgressListener(new onDrawPadProgressListener() {
+				
+				@Override
+				public void onProgress(DrawPad v, long currentTimeUs) {
+					// TODO Auto-generated method stub
+					if(currentTimeUs>7000*1000)  //在第7秒的时候, 不再显示.
+		  			{
+		  				hideWord();
+		  			}else if(currentTimeUs>3*1000*1000)  //在第三秒的时候, 显示tvWord
+		  			{
+		  				showWord();
+		  			}
+				}
+			});
     		
         	mDrawPadView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
     			
@@ -239,20 +249,7 @@ public class ViewLayerDemoActivity extends Activity{
 //            mViewLayer.setPosition(mViewLayer.getPadWidth()-mViewLayer.getLayerWidth()/4,mViewLayer.getPositionY()/4);
     	}
     }
-	  private class DrawPadProgressListener implements onDrawPadProgressListener
-	  {
-		  	@Override
-		  	public void onProgress(DrawPad v, long currentTimeUs) {
-		  		// TODO Auto-generated method stub
-		  			if(currentTimeUs>7000*1000)  //在第7秒的时候, 不再显示.
-		  			{
-		  				hideWord();
-		  			}else if(currentTimeUs>3*1000*1000)  //在第三秒的时候, 显示tvWord
-		  			{
-		  				showWord();
-		  			}
-		  	}
-	  }
+	  
     private void toastStop()
     {
     	Toast.makeText(getApplicationContext(), "录制已停止!!", Toast.LENGTH_SHORT).show();

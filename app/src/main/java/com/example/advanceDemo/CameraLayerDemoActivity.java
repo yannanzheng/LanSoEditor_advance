@@ -9,16 +9,16 @@ import java.util.Locale;
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImagePixelationFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSwirlFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.IF1977Filter;
 import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBeautyFilter;
 
 import com.example.advanceDemo.GPUImageFilterTools.FilterAdjuster;
 import com.example.advanceDemo.GPUImageFilterTools.OnGpuImageFilterChosenListener;
 import com.example.advanceDemo.view.BitmapCache;
-import com.example.advanceDemo.view.DrawPadView;
 import com.example.advanceDemo.view.ShowHeart;
 import com.example.advanceDemo.view.VideoFocusView;
 import com.example.advanceDemo.view.VideoProgressView;
-import com.example.advanceDemo.view.DrawPadView.onViewAvailable;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.BitmapLayer;
 import com.lansosdk.box.CameraLayer;
@@ -33,6 +33,10 @@ import com.lansosdk.box.MVLayer;
 import com.lansosdk.box.VideoLayer;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
+import com.lansosdk.videoeditor.DrawPadCameraView;
+import com.lansosdk.videoeditor.DrawPadCameraView.onViewAvailable;
+import com.lansosdk.videoeditor.DrawPadView;
+import com.lansosdk.videoeditor.LanSongUtil;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
@@ -82,7 +86,7 @@ public class CameraLayerDemoActivity extends Activity implements Handler.Callbac
 	
 	private static final String TAG = "CameraLayerDemoActivity";
 
-    private DrawPadView mDrawPadView;
+    private DrawPadCameraView mDrawPadView;
     
     private CameraLayer  mCameraLayer=null;
     private String dstTmpPath=null;
@@ -95,12 +99,12 @@ public class CameraLayerDemoActivity extends Activity implements Handler.Callbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cameralayer_demo_layout);
         
-        if(LanSoEditorBox.checkCameraPermission(getBaseContext())==false){
+        if(LanSongUtil.checkRecordPermission(getBaseContext())==false){
      	   Toast.makeText(getApplicationContext(), "请打开权限后,重试!!!", Toast.LENGTH_LONG).show();
      	   finish();
         }
         
-        mDrawPadView = (DrawPadView) findViewById(R.id.id_cameralayer_padview);
+        mDrawPadView = (DrawPadCameraView) findViewById(R.id.id_cameralayer_padview);
         
         initView();
         /**
@@ -125,6 +129,8 @@ public class CameraLayerDemoActivity extends Activity implements Handler.Callbac
 			mWakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, TAG);
 			mWakeLock.acquire();
 		}
+    	tvTime.setVisibility(View.INVISIBLE);
+		playVideo.setVisibility(View.INVISIBLE);
     }
     
     /**
@@ -142,7 +148,15 @@ public class CameraLayerDemoActivity extends Activity implements Handler.Callbac
     	mDrawPadView.setRecordMic(true);
     	mDrawPadView.setRealEncodeEnable(padWidth,padHeight,1000000,(int)25,dstTmpPath);
     	
-    	mDrawPadView.setUpdateMode(DrawPadUpdateMode.AUTO_FLUSH, 25);
+    	//设置当再次
+    	mDrawPadView.setOnViewAvailable(new onViewAvailable() {
+			
+			@Override
+			public void viewAvailable(DrawPadCameraView v) {
+				// TODO Auto-generated method stub
+				startDrawPad();
+			}
+		});
     	mDrawPadView.setOnDrawPadProgressListener(drawPadProgressListener);
 
     	//设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
@@ -150,32 +164,25 @@ public class CameraLayerDemoActivity extends Activity implements Handler.Callbac
     			@Override
     			public void onSizeChanged(int viewWidth, int viewHeight) {
     				// TODO Auto-generated method stub
-    				// 开始DrawPad的渲染线程. 
     				startDrawPad();
     			}
 	    });	
     }
+    
     /**
      * Step2: 开始录制
      */
     private void startDrawPad()
     {
-    	mDrawPadView.startDrawPad();
-//		mDrawPadView.pauseDrawPadRecord();
-		mCameraLayer=	mDrawPadView.addCameraLayer(false,null);
-	//	addMVLayer();
+    	if(mDrawPadView.startDrawPad())
+    	{
+    		mDrawPadView.pauseDrawPad();
+        	if(mCameraLayer==null){
+        		mCameraLayer=	mDrawPadView.getCameraLayer();	
+        	}
+    		mDrawPadView.resumeDrawPad();
+    	}
     }
-    
-    private void addMVLayer()
-	{
-		String  colorMVPath=com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask.copyFile(CameraLayerDemoActivity.this,"mei.mp4");
-	    String maskMVPath=com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask.copyFile(CameraLayerDemoActivity.this,"mei_b.mp4");
-		MVLayer  layer=mDrawPadView.addMVLayer(colorMVPath, maskMVPath);  //<-----增加MVLayer
-		/**
-		 * mv在播放完后, 有3种模式,消失/停留在最后一帧/循环.默认是循环.
-		 * layer.setEndMode(MVLayerENDMode.INVISIBLE); 
-		 */
-	}
     private onDrawPadProgressListener drawPadProgressListener=new onDrawPadProgressListener() {
 		
 		@Override
@@ -186,6 +193,7 @@ public class CameraLayerDemoActivity extends Activity implements Handler.Callbac
 				stopDrawPad();
 			}
 			if(tvTime!=null){
+				tvTime.setVisibility(View.VISIBLE);
 				long left=RECORD_CAMERA_TIME-currentTimeUs;
 				float leftF=((float)left/1000000);
 				 float b   =  (float)(Math.round(leftF*10))/10;  //保留一位小数.
@@ -201,9 +209,8 @@ public class CameraLayerDemoActivity extends Activity implements Handler.Callbac
     {
     	if(mDrawPadView!=null && mDrawPadView.isRunning())
     	{
-    		//录制完成后, 拿到音频文件.
+    			//录制完成后, 拿到音频文件.
     			String micPath=mDrawPadView.stopDrawPad2();
-				//Log.i(TAG,"micPath is:"+micPath);
 				if(SDKFileUtils.fileExist(dstTmpPath))
 				{
 					dstPath=SDKFileUtils.newMp4PathInBox();
@@ -259,62 +266,10 @@ public class CameraLayerDemoActivity extends Activity implements Handler.Callbac
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 			super.onDestroy();
-			
 		    if(SDKFileUtils.fileExist(dstTmpPath)){
 		    	SDKFileUtils.deleteFile(dstTmpPath);
 		    }
 	}
-   //-----------------------------
-//   private MediaPlayer mplayer=null;
-//   private VideoLayer videolayer=null;
-   /**
-    * 增加一个视频图层, 仅仅测试使用.
-    */
-//   private void addVideoLayer()
-//   {
-//	   if(mDrawPadView!=null && mDrawPadView.isRunning() && videolayer==null)
-//	   {
-//		   videolayer=mDrawPadView.addVideoLayer(480, 480, null);
-//		   if(videolayer!=null){
-//				videolayer.setScale(0.5f);
-//				
-//				mplayer=new MediaPlayer();
-//	   			try {
-//					mplayer.setDataSource("/sdcard/480x480.mp4");  //注意, 我们用了默认路径
-//				}  catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//	   			
-//	        	  try {
-//					mplayer.prepare();
-//					//设置到播放器中.
-//					mplayer.setSurface(new Surface(videolayer.getVideoTexture()));
-//					
-//				} catch (IllegalStateException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//	        	  
-//	        	  
-//	        	  mplayer.setOnCompletionListener(new OnCompletionListener() {
-//					
-//					@Override
-//					public void onCompletion(MediaPlayer mp) {
-//						// TODO Auto-generated method stub
-//						//播放完成后, 删除.
-//						if(videolayer!=null && mDrawPadView!=null){
-//							mDrawPadView.removeLayer(videolayer);
-//						}
-//					}
-//				});
-//	        	  mplayer.start();
-//			}
-//	   }
-//   }
    //-------------------------------------------一下是UI界面和控制部分.---------------------------------------------------
    private SeekBar AdjusterFilter;
    private TextView tvTime;
@@ -520,4 +475,55 @@ public class CameraLayerDemoActivity extends Activity implements Handler.Callbac
 		}
 		return true;
 	}
+	   //-----------------------------
+//  private MediaPlayer mplayer=null;
+//  private VideoLayer videolayer=null;
+  /**
+   * 增加一个视频图层, 仅仅测试使用.
+   */
+//  private void addVideoLayer()
+//  {
+//	   if(mDrawPadView!=null && mDrawPadView.isRunning() && videolayer==null)
+//	   {
+//		   videolayer=mDrawPadView.addVideoLayer(480, 480, null);
+//		   if(videolayer!=null){
+//				videolayer.setScale(0.5f);
+//				
+//				mplayer=new MediaPlayer();
+//	   			try {
+//					mplayer.setDataSource("/sdcard/480x480.mp4");  //注意, 我们用了默认路径
+//				}  catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//	   			
+//	        	  try {
+//					mplayer.prepare();
+//					//设置到播放器中.
+//					mplayer.setSurface(new Surface(videolayer.getVideoTexture()));
+//					
+//				} catch (IllegalStateException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//	        	  
+//	        	  
+//	        	  mplayer.setOnCompletionListener(new OnCompletionListener() {
+//					
+//					@Override
+//					public void onCompletion(MediaPlayer mp) {
+//						// TODO Auto-generated method stub
+//						//播放完成后, 删除.
+//						if(videolayer!=null && mDrawPadView!=null){
+//							mDrawPadView.removeLayer(videolayer);
+//						}
+//					}
+//				});
+//	        	  mplayer.start();
+//			}
+//	   }
+//  }
 }

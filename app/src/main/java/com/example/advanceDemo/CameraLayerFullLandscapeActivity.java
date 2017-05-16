@@ -12,7 +12,6 @@ import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBeautyFilter;
 
 import com.example.advanceDemo.GPUImageFilterTools.OnGpuImageFilterChosenListener;
-import com.example.advanceDemo.view.DrawPadView;
 import com.example.advanceDemo.view.VideoFocusView;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.BitmapLayer;
@@ -28,6 +27,8 @@ import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
 import com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask;
 import com.lansosdk.videoeditor.CopyFileFromAssets;
+import com.lansosdk.videoeditor.DrawPadCameraView;
+import com.lansosdk.videoeditor.DrawPadView;
 import com.lansosdk.videoeditor.LanSongUtil;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
@@ -38,6 +39,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
@@ -62,7 +64,7 @@ public class CameraLayerFullLandscapeActivity extends Activity implements OnClic
 	
 	private static final String TAG = "CameraLayerFullScreenActivity";
 
-    private DrawPadView mDrawPadView;
+    private DrawPadCameraView mDrawPadCamera;
     
     private CameraLayer  mCameraLayer=null;
     
@@ -78,32 +80,17 @@ public class CameraLayerFullLandscapeActivity extends Activity implements OnClic
     protected void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-		LanSongUtil.hideBottomUIMenu(this);
-		
+        
+        LanSongUtil.hideBottomUIMenu(this);
+        
         setContentView(R.layout.cameralayer_fullscreen_demo_layout);
-	
-		if(LanSoEditorBox.checkCameraPermission(getBaseContext())==false){
-			Toast.makeText(getApplicationContext(), "当前没有摄像机权限,请打开后重试!!!", Toast.LENGTH_LONG).show();
-			finish();
-		}
-		if(LanSoEditorBox.checkMicPermission(getBaseContext())==false){
-			Toast.makeText(getApplicationContext(), "当前没有麦克风权限,请打开后重试!!!", Toast.LENGTH_LONG).show();
-			finish();
-		}
         
-        mDrawPadView = (DrawPadView) findViewById(R.id.id_fullscreen_padview);
+        if(LanSongUtil.checkRecordPermission(getBaseContext())==false){
+      	   Toast.makeText(getApplicationContext(), "请打开权限后,重试!!!", Toast.LENGTH_LONG).show();
+      	   finish();
+         }
         
-        new Handler().postDelayed(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				String str="全屏的高度和宽度是:"+ mDrawPadView.getWidth()+" x "+ mDrawPadView.getHeight();
-		    	//tv.setText(str);
-				Log.i(TAG,str);
-				
-			}
-		}, 500);
+        mDrawPadCamera = (DrawPadCameraView) findViewById(R.id.id_fullscreen_padview);
  
         initView();
 
@@ -128,6 +115,7 @@ public class CameraLayerFullLandscapeActivity extends Activity implements OnClic
 			mWakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, TAG);
 			mWakeLock.acquire();
 		}
+    	findViewById(R.id.id_beautiful_btn).setVisibility(View.GONE);
     }
     
     /**
@@ -135,27 +123,14 @@ public class CameraLayerFullLandscapeActivity extends Activity implements OnClic
      */
     private void initDrawPad()
     {
-    	//设置使能 实时录制, 即把正在DrawPad中呈现的画面实时的保存下来,实现所见即所得的模式
-    	 DisplayMetrics dm = new DisplayMetrics();
-    	 dm = getResources().getDisplayMetrics();
-    	 
     	 //因手机屏幕是16:9;全屏模式,建议分辨率设置为960x544;
-    	 int padWidth=1280;  
-    	 int padHeight=720;
+    	 int padWidth=960;  
+    	 int padHeight=544;
     	 
-    	mDrawPadView.setRealEncodeEnable(padWidth,padHeight,3000000,(int)25,editTmpPath);
-    	mDrawPadView.setUpdateMode(DrawPadUpdateMode.AUTO_FLUSH, 25);
-    	mDrawPadView.setOnDrawPadProgressListener(drawPadProgressListener);
-
-    	//设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
-//    	mDrawPadView.setDrawPadSize(padWidth,padHeight,new onDrawPadSizeChangedListener() {
-//	    			
-//	    			@Override
-//	    			public void onSizeChanged(int viewWidth, int viewHeight) {
-//	    				// TODO Auto-generated method stub
-//	    				startDrawPad();
-//	    			}
-//	    });	
+    	mDrawPadCamera.setRealEncodeEnable(padWidth,padHeight,3000000,(int)25,editTmpPath);
+    	mDrawPadCamera.setOnDrawPadProgressListener(drawPadProgressListener);
+    	mDrawPadCamera.setCameraParam(true, null,true);
+    	
     	startDrawPad();
     }
     /**
@@ -163,22 +138,24 @@ public class CameraLayerFullLandscapeActivity extends Activity implements OnClic
      */
       private void startDrawPad()
       {
-    	   mDrawPadView.setRecordMic(true);
+    	  	mDrawPadCamera.setRecordMic(true);
     	   
-    	    mDrawPadView.startDrawPad();
-    		mCameraLayer=	mDrawPadView.addCameraLayer(false,null);  //使用前置相机,暂时不使用滤镜.
-    		addViewLayer();
-    		addBitmapLayer();
-    		addMVLayer();
+    	    if(mDrawPadCamera.startDrawPad())
+    	    {
+    	    	mCameraLayer=mDrawPadCamera.getCameraLayer();  
+//        		addViewLayer();
+//        		addBitmapLayer();
+//        		addMVLayer();
+    	    }
       }
       /**
        * Step3: 停止画板, 停止后,为新的视频文件增加上音频部分.
        */
       private void stopDrawPad()
       {
-	      	if(mDrawPadView!=null && mDrawPadView.isRunning())
+	      	if(mDrawPadCamera!=null && mDrawPadCamera.isRunning())
 	      	{
-	  				String micPath=mDrawPadView.stopDrawPad2();
+	  				String micPath=mDrawPadCamera.stopDrawPad2();
 	  				toastStop();
 	  				if(SDKFileUtils.fileExist(editTmpPath))
 	  				{
@@ -223,7 +200,7 @@ public class CameraLayerFullLandscapeActivity extends Activity implements OnClic
      */
     private void selectFilter()
     {
-    	if(mDrawPadView!=null && mDrawPadView.isRunning()){
+    	if(mDrawPadCamera!=null && mDrawPadCamera.isRunning()){
     		GPUImageFilterTools.showDialog(this, new OnGpuImageFilterChosenListener() {
 
                 @Override
@@ -232,8 +209,8 @@ public class CameraLayerFullLandscapeActivity extends Activity implements OnClic
                 	 * 通过DrawPad线程去切换 filterLayer的滤镜
                 	 * 有些Filter是可以调节的,这里为了代码简洁,暂时没有演示, 可以在CameraeLayerDemoActivity中查看.
                 	 */
-                	if(mDrawPadView!=null){
-                		mDrawPadView.switchFilterTo(mCameraLayer,filter);
+                	if(mDrawPadCamera!=null){
+                		mDrawPadCamera.switchFilterTo(mCameraLayer,filter);
                 	}
                 }
             });
@@ -244,8 +221,8 @@ public class CameraLayerFullLandscapeActivity extends Activity implements OnClic
     protected void onPause() {
     	// TODO Auto-generated method stub
     	super.onPause();
-    	if(mDrawPadView!=null){
-    		mDrawPadView.stopDrawPad();
+    	if(mDrawPadCamera!=null){
+    		mDrawPadCamera.stopDrawPad();
     	}
     	if (mWakeLock != null) {
 			mWakeLock.release();
@@ -274,9 +251,9 @@ public class CameraLayerFullLandscapeActivity extends Activity implements OnClic
    private void addViewLayer()
    {
         mLayerRelativeLayout=(ViewLayerRelativeLayout)findViewById(R.id.id_vview_realtime_gllayout);
-	   	if(mDrawPadView!=null && mDrawPadView.isRunning())
+	   	if(mDrawPadCamera!=null && mDrawPadCamera.isRunning())
 	   	{
-	   			mViewLayer=mDrawPadView.addViewLayer();
+	   			mViewLayer=mDrawPadCamera.addViewLayer();
 	           
 	   		//把这个图层绑定到LayerRelativeLayout中.从而LayerRelativeLayout中的各种UI界面会被绘制到Drawpad上.
 	   			mLayerRelativeLayout.bindViewLayer(mViewLayer);
@@ -297,10 +274,10 @@ public class CameraLayerFullLandscapeActivity extends Activity implements OnClic
    private BitmapLayer  bmpLayer;
    private void addBitmapLayer()
    {
-	   	if(mDrawPadView!=null && mDrawPadView.isRunning())
+	   	if(mDrawPadCamera!=null && mDrawPadCamera.isRunning())
 		{
 			String bitmapPath=CopyFileFromAssets.copyAssets(getApplicationContext(), "small.png");
-			bmpLayer=mDrawPadView.addBitmapLayer(BitmapFactory.decodeFile(bitmapPath));
+			bmpLayer=mDrawPadCamera.addBitmapLayer(BitmapFactory.decodeFile(bitmapPath));
 			
 			//把位置放到中间的右侧, 因为获取的高级是中心点的高度.
 			bmpLayer.setPosition(bmpLayer.getPadWidth()-bmpLayer.getLayerWidth()/2,bmpLayer.getPositionY());
@@ -364,7 +341,7 @@ public class CameraLayerFullLandscapeActivity extends Activity implements OnClic
   	    String maskMVPath=CopyDefaultVideoAsyncTask.copyFile(CameraLayerFullLandscapeActivity.this,"mei_b.mp4");
   		
 	    
-  	    MVLayer  layer=mDrawPadView.addMVLayer(colorMVPath, maskMVPath);  //<-----增加MVLayer
+  	    MVLayer  layer=mDrawPadCamera.addMVLayer(colorMVPath, maskMVPath);  //<-----增加MVLayer
   		/**
   		 * mv在播放完后, 有3种模式,消失/停留在最后一帧/循环.默认是循环.
   		 * layer.setEndMode(MVLayerENDMode.INVISIBLE); 
@@ -405,12 +382,12 @@ public class CameraLayerFullLandscapeActivity extends Activity implements OnClic
 		switch (v.getId()) {
 			case R.id.id_fullscreen_frontcamera:
 				if(mCameraLayer!=null){
-					if(mDrawPadView.isRunning())  
+					if(mDrawPadCamera.isRunning())  
 					{
 						//先把DrawPad暂停运行.
-						mDrawPadView.pauseDrawPad();
+						mDrawPadCamera.pauseDrawPad();
 						mCameraLayer.changeCamera();	
-						mDrawPadView.resumeDrawPad(); //再次开启.
+						mDrawPadCamera.resumeDrawPad(); //再次开启.
 					}
 				}
 				break;
@@ -431,5 +408,6 @@ public class CameraLayerFullLandscapeActivity extends Activity implements OnClic
 	    	Toast.makeText(getApplicationContext(), "录制已停止!!", Toast.LENGTH_SHORT).show();
 	    	Log.i(TAG,"录制已停止!!");
 	    }
+	
 }
 

@@ -3,11 +3,15 @@ package com.lansosdk.videoeditor;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import android.util.Log;
 
-
+/**
+ * 2017年5月14日12:15:30 再次修改.
+ * 
+ */
 public class AVEncoder {
 
 	private static final String TAG ="AVEncoder";
@@ -15,7 +19,11 @@ public class AVEncoder {
 //	private long audioCnt=0;
 	private long  mHandler=0;
 	
-	private int dataWidth,dataHeight;
+	/**
+	 * 在用户要求的宽高基础上, 得到要把Camera传递过来的数据, 裁剪到的实际宽高.
+	 * 当是竖屏的时候,则宽高对调,从而还是裁剪实际的onPreviewFrame中的数据.
+	 */
+	private int cutWidth,cutHeight;
 
 	/**
 	 * 在视频录制完成后, 对合成后的视频旋转角度.
@@ -35,20 +43,20 @@ public class AVEncoder {
 	 */
 	public boolean init(String fileName,int degree,int encW,int encH,int vfps,int bitrate,int asampleRate,int abitrate)  //一定是ts的后缀
 	{
-		if(encH>encW && encH>640)  //如果是竖屏录制, 高度过高,则横屏编码
+		if(encH>encW) 
 		{
 			mediaRorateDegree=degree;
 			mHandler=encoderInit(fileName,encH,encW, vfps, bitrate,1, asampleRate, abitrate);
 		}else{
 			mHandler=encoderInit(fileName,encW,encH, vfps, bitrate,1, asampleRate, abitrate);
 		}
-		
-		if(degree==90 || degree==270){  //竖屏,用户设置的是宽高对调了,但图像没有对调,故这里还原到图像没有对调的宽高.
-			dataWidth=encH;
-			dataHeight=encW;
+	
+		if(degree==90 || degree==270){ 
+			cutWidth=encH;
+			cutHeight=encW;
 		}else{
-			dataWidth=encW;
-			dataHeight=encH;
+			cutWidth=encW;
+			cutHeight=encH;
 		} 
 		return mHandler!=0 ? true: false;
 	}
@@ -90,13 +98,15 @@ public class AVEncoder {
 	 */
 	public void pushVideoData(byte[] data,int previewW,int previewH,int degree,long ptsMS)
 	{
+			if(previewH<cutHeight   || previewW < cutWidth){
+				Log.e(TAG,"your setting encoder size is Error! preview size is littler than setting size!");
+				return ;
+			}
+		
 		if(mHandler!=0){
-			
-			
-			//暂时放在这里:
 			byte[]  bb=null;
-			if( (previewW!=dataWidth || previewH!=dataHeight) && previewW>=dataWidth && previewH>=dataHeight){
-					bb=frameCut(data,previewW,previewH,dataWidth,dataHeight);
+			if( (previewW!=cutWidth || previewH!=cutHeight) && previewW>=cutWidth && previewH>=cutHeight){
+					bb=frameCut(data,previewW,previewH,cutWidth,cutHeight);
 			}else{
 				bb=data;
 			}
@@ -106,16 +116,15 @@ public class AVEncoder {
 			if(mediaRorateDegree==0){
 				if(	degree==90)  //不是后置,就是前置.
 				{
-					byteArray=rotateYUV420Degree90(bb,dataWidth,dataHeight);  //应该在这里实时的检测当前是后置还是前置,后置,应旋转90, 前置270;
+					byteArray=rotateYUV420Degree90(bb,cutWidth,cutHeight);  
 				}else{
-					byteArray=rotateYUV420Degree270(bb,dataWidth,dataHeight);
+					byteArray=rotateYUV420Degree270(bb,cutWidth,cutHeight);
 				}
 				encoderWriteVideoFrame(mHandler, byteArray, ptsMS); 
 			}else{
 				encoderWriteVideoFrame(mHandler, bb, ptsMS); 
 			}
 //			byte[]  byte3=convertNV21ToYUV420P(byte2,480,480,480,480);  //放到底层实现了.
-			
 		}
 	}
 	private     FileInputStream stream=null;
@@ -304,7 +313,7 @@ public class AVEncoder {
 	 * @param dstHeight
 	 * @return
 	 */
-	byte[] frameCut(byte[] bytes,int srcWidth,int srcHeight,int dstWidth,int dstHeight)
+	private byte[] frameCut(byte[] bytes,int srcWidth,int srcHeight,int dstWidth,int dstHeight)
 	{
 		byte[] retBytes=new byte[dstWidth*dstHeight*3/2];
 		
@@ -317,6 +326,8 @@ public class AVEncoder {
 			srcPos+=srcWidth; // 开始下一行.
 			dstPos+=dstWidth;
 		}
+		//跳过要裁剪掉的行数.
+		srcPos+=(srcHeight - dstHeight)*srcWidth;
 		//copy UV
 		for(int x = 0;x < dstHeight/2;x++)  //高度一致.
 		{

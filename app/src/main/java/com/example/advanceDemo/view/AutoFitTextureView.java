@@ -24,6 +24,7 @@ import com.lansosdk.box.ViewLayer;
 import com.lansosdk.box.onDrawPadCompletedListener;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadThreadProgressListener;
+import com.lansosdk.videoeditor.DrawPadView;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 

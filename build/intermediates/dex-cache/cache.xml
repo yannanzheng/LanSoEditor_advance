@@ -3,48 +3,48 @@
 
     <item
         is-multidex="true"
-        jar="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\libs\PermissionsManager.jar"
+        jar="E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\libs\PermissionsManager.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="6a1cc3def4753b22dc2c0ee55fcf533d2f456474">
-        <dex dex="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\build\intermediates\transforms\dex\debug\folders\1000\2\PermissionsManager_1d63e50ac8993ff640ccd438dd4467d51f5cd7ca\classes.dex" />
+        <dex dex="E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\build\intermediates\transforms\dex\debug\folders\1000\2\PermissionsManager_f2f36a6293255d3c389a751a9fb082cef6b5e60d\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jar="E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="03fda7e36e1f13e2b0681defcdf3df7a83c6a5ac">
-        <dex dex="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_8c87b6afe24074fff2e02bd5ddb7e69f3ab8cc76\classes.dex" />
+        sha1="0548e92e15a1d4481e5be8f3f112fa818e0acfdc">
+        <dex dex="E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_dda9612bc87791545be48eccade1f1b820f3c5c3\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jar="E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\libs\lansongeditor_hx.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="510aa6efc159983dfbffa676a0dae37568c0a46f">
-        <dex dex="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_5e66d61a65eb7cd94e3540e7b822657abe0e2b8f\classes.dex" />
+        sha1="cf481cb96b99d62662440336237e47788659ccd8">
+        <dex dex="E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\build\intermediates\transforms\dex\debug\folders\1000\2\lansongeditor_hx_37d52bc40adc384c3fffedbe59b8f7160da7a4ea\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\libs\lansongeditor_hx.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="1b549bb4752305e279e178d6f4d47625cdc16629">
-        <dex dex="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\build\intermediates\transforms\dex\debug\folders\1000\2\lansongeditor_hx_9cbca620be323895d4caa998343bc5f8ee2795ca\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\libs\textsurface.jar"
+        jar="E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\libs\textsurface.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="6a60927b917dd2b9476a3d058c369156fbe5a19c">
-        <dex dex="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\build\intermediates\transforms\dex\debug\folders\1000\2\textsurface_d191a335cfd5138a03650f434238cb2fad70d5ac\classes.dex" />
+        <dex dex="E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\build\intermediates\transforms\dex\debug\folders\1000\2\textsurface_94d541e68fc6bd73bf800edc9d76285af1758d53\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="caff8e51a24901cfc9cd7e1cf83d84f4cb0c103b">
+        <dex dex="E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_c6a7121b9677c067dccb456bb6871c4bd9a44312\classes.dex" />
     </item>
 
 </items>

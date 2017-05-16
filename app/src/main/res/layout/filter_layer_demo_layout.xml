@@ -7,7 +7,7 @@
     <FrameLayout 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-         <com.example.advanceDemo.view.DrawPadView
+         <com.lansosdk.videoeditor.DrawPadView
             android:id="@+id/id_filterLayer_demo_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

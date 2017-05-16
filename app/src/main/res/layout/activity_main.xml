@@ -179,7 +179,8 @@
 		<TextView  style="@style/main_item_arrow"/> 
 	</RelativeLayout>
 	
-			
+		
+
 	
     <RelativeLayout 
 	        android:layout_width="match_parent"
