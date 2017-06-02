@@ -1,6 +1,6 @@
 # LanSoEditor_advance
 android  video editor  advance sdk . filter, overlay,remark,mixer and so on安卓平台视频编辑高级版本，可以滤镜，叠加，标记等操作
-## 当前版本是2.3.3
+## 当前版本是2.3.4
 *   在原来的基础上,增加滤镜可以叠加功能,即一个滤镜的输出可以作为另一个滤镜的输入.
 *   增加美颜的加速处理功能.
 *   新增DrawPadCameraView
@@ -9,7 +9,7 @@ android  video editor  advance sdk . filter, overlay,remark,mixer and so on安�
 				您更新后, 需要删除原来com.example.advanceDemo.view文件夹下的DrawPadView!!!	
 	  2,DrawPadViewExecute移动到com.lansosdk.videoeditor包下面,并写了大量的注释,从而利于您调用.
 	  3 增加了滤镜叠加的功能.  当前的滤镜模式是: 输入源push到OpenGL内部, 然后经过多个滤镜处理后, 最后进行(移动旋转缩放亮暗调节)等调节. 
-## 版本是2.3.0
+## 版本2.3.0
 *  增加FrameInfo类. 
       您可以很快获取到视频中的所有帧时间戳，并获取到多少个关键帧，每个关键帧的时间戳等。
       从而有针对性的快速提取视频帧和或播放器的精确定位。      
@@ -91,5 +91,5 @@ android  video editor  advance sdk . filter, overlay,remark,mixer and so on安�
 
 ## 使用案例
 *   我们从事的是：商业SDK开发、更新和维护；
-*   当前包括500强 大公司在内的大约50多个上线APP在使用，行业涉及 社交、微商、广场舞、直播、工具、母婴、舞蹈、厨艺、金融、炫酷等多种行业
+*   当前包括500强 大公司在内的大约80多个上线APP在使用，行业涉及 社交、微商、广场舞、直播、工具、母婴、舞蹈、厨艺、金融、炫酷等多种行业
 *   欢迎联系我们，索取相关案例信息和授权说明

@@ -6,35 +6,341 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="version" />
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="lansojni" />
     <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
     <option name="TOOL_WINDOW_REGEXP_FILTER" value="false" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="59104114-1e24-4d38-b8dc-37cd703a829d" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/folders/1/5/slice_2/buildId.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/A.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/AudioConcatManager.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/AudioInsertManager.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/AudioLine.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/AudioMix.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/B.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/BitmapLayer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/BitmapLoader.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/BoxDecoder.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/BoxEncoder.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/BoxMediaInfo.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/BoxVideoEditor.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/C.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/CameraLayer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/CanvasLayer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/CanvasRunnable.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/D.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/DataLayer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/DrawPad.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/DrawPadAllExecute.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/DrawPadCameraRunnable.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/DrawPadPictureExecute.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/DrawPadTwoVideoExecute.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/DrawPadUpdateMode.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/DrawPadVideoRunnable.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/DrawPadViewRender.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/E.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/ExtractVideoFrame.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/F.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/FBOProgram.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/FrameInfo.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/G.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/GifDecoder.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/GifLayer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/H.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/I.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/J.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/K.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/L.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/LanSoEditorBox.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/Layer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/LayerShader.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/M.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/MVLayer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/MVLayerENDMode.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/MicLine.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/N.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/O.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/P.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/Q.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/R.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/S.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/ScaleExecute.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/T.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/TwoVideoLayer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/U.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/V.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/VideoLayer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/ViewLayer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/ViewLayerRelativeLayout.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/W.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/X.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/Y.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/YUVLayer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/Z.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/aa.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/ab.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/ac.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/ad.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/ae.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/af.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/ag.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/ah.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/ai.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/aj.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/ak.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/al.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/am.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/an.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/ao.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/ap.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/aq.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/ar.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/as.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/onAudioLineStartedListener.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/onCompressCompletedListener.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/onCompressProgressListener.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/onDrawPadCompletedListener.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/onDrawPadProgressListener.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/onDrawPadSizeChangedListener.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/onDrawPadSnapShotListener.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/onDrawPadThreadProgressListener.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/onExtractVideoFrameCompletedListener.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/onExtractVideoFrameProgressListener.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/onFilterViewSizeChangedListener.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/onLayerAvailableListener.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/onScaleCompletedListener.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/com/lansosdk/box/onScaleProgressListener.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageAddBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageAlphaBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageBrightnessFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageBulgeDistortionFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageCGAColorspaceFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageChromaKeyBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageColorBalanceFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageColorBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageColorBurnBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageColorDodgeBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageColorInvertFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageColorMatrixFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageContrastFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageCrosshatchFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageDarkenBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageDifferenceBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageDissolveBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageDivideBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageExclusionBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageExposureFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageFalseColorFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageFilterGroup.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageGammaFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageGaussianBlurFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageGlassSphereFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageGrayscaleFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageHalftoneFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageHardLightBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageHazeFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageHighlightShadowFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageHueBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageHueFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageKuwaharaFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageLevelsFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageLightenBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageLinearBurnBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageLookupFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageLuminosityBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageMixBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageMonochromeFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageMultiplyBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageNativeLibrary.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageNormalBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageOpacityFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageOverlayBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImagePixelationFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImagePosterizeFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageRGBFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageReplaceRGBFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageSaturationBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageSaturationFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageScreenBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageSepiaFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageSoftLightBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageSourceOverBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageSphereRefractionFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageSubtractBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageSwirlFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageToneCurveFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageTransformFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageTwoInputFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageTwoPassFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageTwoPassTextureSamplingFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageVignetteFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageWhiteBalanceFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/IF1977Filter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/IFAmaroFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/IFBrannanFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/IFEarlybirdFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/IFHefeFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/IFHudsonFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/IFInkwellFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/IFLomofiFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/IFLordKelvinFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/IFNashvilleFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/IFNormalFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/IFRiseFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/IFSierraFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/IFSutroFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/IFToasterFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/IFValenciaFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/IFWaldenFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/IFXproIIFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/InstaFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/LanSongAntiqueFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/LanSongBeautyFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/LanSongBlackMaskBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/LanSongCoolFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/LanSongCrayonFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/LanSongDistortionPinchFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/LanSongDistortionStretchFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/LanSongEmeraldFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/LanSongEvergreenFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/LanSongFilterParam.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/LanSongGaussianBlurFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/LanSongLatteFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/LanSongMaskBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/LanSongPinkFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/LanSongRomanceFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/LanSongSakuraFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/LanSongScreenBlendFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/LanSongSketchFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/LanSongSkinWhitenFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/OpenGLUtils.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/PixelBuffer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/Rotation.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/a.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/b.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/c.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/d.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/e.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/f.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/g.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/h.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/i.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/j.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/k.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/l.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/m.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/n.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/o.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/p.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/q.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/r.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/s.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/t.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/u.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/util/TextureRotationUtil.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/tmp/expandedArchives/lansongeditor_hx.jar_4e5flp8fhvuhfydfr1bbi1hc2/jp/co/cyberagent/lansongsdk/gpuimage/v.class" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/DrawPadView.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/DrawPadView.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/lansosdk/videoeditor/DrawPadView.class" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/lansosdk/videoeditor/DrawPadView.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/SegmentRecorderActivity$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/SegmentRecorderActivity$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/SegmentRecorderActivity$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/SegmentRecorderActivity$3.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/SegmentRecorderActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/example/advanceDemo/SegmentRecorderActivity.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/AVEncoder.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/AVEncoder.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/LanSoEditor.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/LanSoEditor.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/OpenSegmentsRecorder$AudioEncodeThread.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/OpenSegmentsRecorder$AudioEncodeThread.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/OpenSegmentsRecorder$AudioSampleThread.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/OpenSegmentsRecorder$AudioSampleThread.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/OpenSegmentsRecorder$VideoEncodeThread.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/OpenSegmentsRecorder$VideoEncodeThread.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/OpenSegmentsRecorder$VideoSegment.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/OpenSegmentsRecorder$VideoSegment.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/OpenSegmentsRecorder.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/lansosdk/videoeditor/OpenSegmentsRecorder.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/example/advanceDemo/SegmentRecorderActivity$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/example/advanceDemo/SegmentRecorderActivity$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/example/advanceDemo/SegmentRecorderActivity$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/example/advanceDemo/SegmentRecorderActivity$3.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/example/advanceDemo/SegmentRecorderActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/example/advanceDemo/SegmentRecorderActivity.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/lansosdk/videoeditor/AVEncoder.class" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/lansosdk/videoeditor/AVEncoder.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/lansosdk/videoeditor/LanSoEditor.class" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/lansosdk/videoeditor/LanSoEditor.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/lansosdk/videoeditor/OpenSegmentsRecorder$AudioEncodeThread.class" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/lansosdk/videoeditor/OpenSegmentsRecorder$AudioEncodeThread.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/lansosdk/videoeditor/OpenSegmentsRecorder$AudioSampleThread.class" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/lansosdk/videoeditor/OpenSegmentsRecorder$AudioSampleThread.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/lansosdk/videoeditor/OpenSegmentsRecorder$VideoEncodeThread.class" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/lansosdk/videoeditor/OpenSegmentsRecorder$VideoEncodeThread.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/lansosdk/videoeditor/OpenSegmentsRecorder$VideoSegment.class" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/lansosdk/videoeditor/OpenSegmentsRecorder$VideoSegment.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/lansosdk/videoeditor/OpenSegmentsRecorder.class" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/debug/com/lansosdk/videoeditor/OpenSegmentsRecorder.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDebug/zip-cache/haggc1laX+h6NL8NAT9SH9+WeU8=" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDebug/zip-cache/haggc1laX+h6NL8NAT9SH9+WeU8=" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/packageInstantRunResourcesDebug/zip-cache/haggc1laX+h6NL8NAT9SH9+WeU8=" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/packageInstantRunResourcesDebug/zip-cache/haggc1laX+h6NL8NAT9SH9+WeU8=" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-resources/resources-debug.ir.ap_" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-resources/resources-debug.ir.ap_" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/jniLibs/debug/armeabi-v7a/libffmpegeditor.so" afterPath="$PROJECT_DIR$/app/build/intermediates/jniLibs/debug/armeabi-v7a/libffmpegeditor.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/resources-debug.ap_" afterPath="$PROJECT_DIR$/app/build/intermediates/res/resources-debug.ap_" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/split-apk/debug/dep/dependencies.apk" afterPath="$PROJECT_DIR$/app/build/intermediates/split-apk/debug/dep/dependencies.apk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/split-apk/debug/slices/slice_2.apk" afterPath="$PROJECT_DIR$/app/build/intermediates/split-apk/debug/slices/slice_2.apk" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dex/debug/folders/1000/2/lansongeditor_hx_37d52bc40adc384c3fffedbe59b8f7160da7a4ea/classes.dex" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dex/debug/folders/1000/2/lansongeditor_hx_37d52bc40adc384c3fffedbe59b8f7160da7a4ea/classes.dex" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/split-apk/debug/slices/slice_4.apk" afterPath="$PROJECT_DIR$/app/build/intermediates/split-apk/debug/slices/slice_4.apk" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/split-apk/debug/slices/slice_7.apk" afterPath="$PROJECT_DIR$/app/build/intermediates/split-apk/debug/slices/slice_7.apk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_2/classes.dex" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_2/classes.dex" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/folders/1/5/main/com/lansosdk/videoeditor/DrawPadView.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/folders/1/5/main/com/lansosdk/videoeditor/DrawPadView.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/folders/1/5/slice_2/com/lansosdk/videoeditor/DrawPadView.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/folders/1/5/slice_2/com/lansosdk/videoeditor/DrawPadView.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/libs/lansongeditor_hx.jar" afterPath="$PROJECT_DIR$/app/libs/lansongeditor_hx.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_4/classes.dex" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_4/classes.dex" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_7/classes.dex" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_7/classes.dex" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/folders/1/5/main/com/example/advanceDemo/SegmentRecorderActivity$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/folders/1/5/main/com/example/advanceDemo/SegmentRecorderActivity$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/folders/1/5/main/com/example/advanceDemo/SegmentRecorderActivity$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/folders/1/5/main/com/example/advanceDemo/SegmentRecorderActivity$3.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/folders/1/5/main/com/example/advanceDemo/SegmentRecorderActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/folders/1/5/main/com/example/advanceDemo/SegmentRecorderActivity.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/folders/1/5/main/com/example/advanceDemo/view/MarkArrowView.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/folders/1/5/main/com/example/advanceDemo/view/MarkArrowView.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/folders/1/5/main/com/lansosdk/videoeditor/AVEncoder.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/folders/1/5/main/com/lansosdk/videoeditor/AVEncoder.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/folders/1/5/main/com/lansosdk/videoeditor/LanSoEditor.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/folders/1/5/main/com/lansosdk/videoeditor/LanSoEditor.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/folders/1/5/main/com/lansosdk/videoeditor/OpenSegmentsRecorder$AudioEncodeThread.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/folders/1/5/main/com/lansosdk/videoeditor/OpenSegmentsRecorder$AudioEncodeThread.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/folders/1/5/main/com/lansosdk/videoeditor/OpenSegmentsRecorder$AudioSampleThread.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/folders/1/5/main/com/lansosdk/videoeditor/OpenSegmentsRecorder$AudioSampleThread.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/folders/1/5/main/com/lansosdk/videoeditor/OpenSegmentsRecorder$VideoEncodeThread.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/folders/1/5/main/com/lansosdk/videoeditor/OpenSegmentsRecorder$VideoEncodeThread.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/folders/1/5/main/com/lansosdk/videoeditor/OpenSegmentsRecorder$VideoSegment.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/folders/1/5/main/com/lansosdk/videoeditor/OpenSegmentsRecorder$VideoSegment.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/folders/1/5/main/com/lansosdk/videoeditor/OpenSegmentsRecorder.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRun/debug/folders/1/5/main/com/lansosdk/videoeditor/OpenSegmentsRecorder.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/folders/1/5/slice_2/com/lansosdk/videoeditor/AVEncoder.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/folders/1/5/slice_2/com/lansosdk/videoeditor/AVEncoder.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/folders/1/5/slice_2/com/lansosdk/videoeditor/LanSoEditor.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/folders/1/5/slice_2/com/lansosdk/videoeditor/LanSoEditor.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/folders/1/5/slice_2/com/lansosdk/videoeditor/OpenSegmentsRecorder$AudioEncodeThread.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/folders/1/5/slice_2/com/lansosdk/videoeditor/OpenSegmentsRecorder$AudioEncodeThread.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/folders/1/5/slice_2/com/lansosdk/videoeditor/OpenSegmentsRecorder$AudioSampleThread.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/folders/1/5/slice_2/com/lansosdk/videoeditor/OpenSegmentsRecorder$AudioSampleThread.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/folders/1/5/slice_2/com/lansosdk/videoeditor/OpenSegmentsRecorder$VideoEncodeThread.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/folders/1/5/slice_2/com/lansosdk/videoeditor/OpenSegmentsRecorder$VideoEncodeThread.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/folders/1/5/slice_2/com/lansosdk/videoeditor/OpenSegmentsRecorder$VideoSegment.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/folders/1/5/slice_2/com/lansosdk/videoeditor/OpenSegmentsRecorder$VideoSegment.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/folders/1/5/slice_2/com/lansosdk/videoeditor/OpenSegmentsRecorder.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/folders/1/5/slice_2/com/lansosdk/videoeditor/OpenSegmentsRecorder.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/folders/1/5/slice_4/com/example/advanceDemo/SegmentRecorderActivity$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/folders/1/5/slice_4/com/example/advanceDemo/SegmentRecorderActivity$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/folders/1/5/slice_4/com/example/advanceDemo/SegmentRecorderActivity$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/folders/1/5/slice_4/com/example/advanceDemo/SegmentRecorderActivity$3.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/folders/1/5/slice_4/com/example/advanceDemo/SegmentRecorderActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/folders/1/5/slice_4/com/example/advanceDemo/SegmentRecorderActivity.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/folders/1/5/slice_7/com/example/advanceDemo/view/MarkArrowView.class" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/instantRunSlicer/debug/folders/1/5/slice_7/com/example/advanceDemo/view/MarkArrowView.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/mergeJniLibs/debug/folders/2000/1f/main/lib/armeabi-v7a/libffmpegeditor.so" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/mergeJniLibs/debug/folders/2000/1f/main/lib/armeabi-v7a/libffmpegeditor.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/outputs/apk/app-debug.apk" afterPath="$PROJECT_DIR$/app/build/outputs/apk/app-debug.apk" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/jniLibs/armeabi-v7a/libffmpegeditor.so" afterPath="$PROJECT_DIR$/app/src/main/jniLibs/armeabi-v7a/libffmpegeditor.so" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugAndroidTestResources/compile-file-map.properties" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugAndroidTestResources/compile-file-map.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/compile-file-map.properties" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/compile-file-map.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDebug/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDebug/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDebug/file-input-save-data.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDebug/file-input-save-data.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/packageInstantRunResourcesDebug/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/packageInstantRunResourcesDebug/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/packageInstantRunResourcesDebug/file-input-save-data.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/packageInstantRunResourcesDebug/file-input-save-data.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/manifest.crc" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/manifest.crc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/manifest.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/manifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_dependencies/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_dependencies/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_0/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_0/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_1/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_1/dex-renamer-state.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_2/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_2/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_3/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_3/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_4/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_4/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_5/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_5/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_6/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_6/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_7/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_7/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_8/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_8/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_9/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/instant-run-support/debug/package_slice_9/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/manifests/full/debug/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/manifests/full/debug/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/manifests/instant-run/debug/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/manifests/instant-run/debug/AndroidManifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/restart-dex/debug/build-info.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/restart-dex/debug/build-info.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/DrawPadView.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/DrawPadView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/outputs/logs/manifest-merger-debug-report.txt" afterPath="$PROJECT_DIR$/app/build/outputs/logs/manifest-merger-debug-report.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/SegmentRecorderActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/SegmentRecorderActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/AVEncoder.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/AVEncoder.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/LanSoEditor.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/LanSoEditor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/OpenCameraManager.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/OpenCameraManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/OpenSegmentsRecordListener.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/OpenSegmentsRecordListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/OpenSegmentsRecorder.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/OpenSegmentsRecorder.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" afterPath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
     </list>
     <ignored path="LanSoEditor_advance.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -66,14 +372,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="DrawPadView.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/DrawPadView.java">
+      <file leaf-file-name="SegmentRecorderActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/SegmentRecorderActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="926" column="41" selection-start-line="926" selection-start-column="41" selection-end-line="926" selection-end-column="41" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="105">
+              <caret line="194" column="46" selection-start-line="194" selection-start-column="46" selection-end-line="194" selection-end-column="46" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="286">
+              <caret line="41" column="62" selection-start-line="41" selection-start-column="62" selection-end-line="41" selection-end-column="62" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="android-manifest">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StartActivity.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/StartActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="391">
+              <caret line="194" column="50" selection-start-line="194" selection-start-column="50" selection-end-line="194" selection-end-column="50" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -203,6 +530,10 @@
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="processDebugResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="transformNativeLibsWithStripDebugSymbolForRelease" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Runs lint on all variants." />
@@ -566,6 +897,10 @@
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="transformNativeLibsWithStripDebugSymbolForDebug" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="compileDebugNdk" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
@@ -853,6 +1188,10 @@
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
                 <option name="name" value="processDebugResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="transformNativeLibsWithStripDebugSymbolForRelease" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Runs lint on all variants." />
@@ -1208,6 +1547,10 @@
                 <option name="description" value="Run unit tests for all variants." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
                 <option name="name" value="test" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="transformNativeLibsWithStripDebugSymbolForDebug" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
@@ -1746,13 +2089,16 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/LanSongUtil.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/CameraRecordDemoActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/CameraLayerFullPortActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/CameraLayerFullLandscapeActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/CameraLayerFullSegmentActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/CameraLayerSegmentDemoActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/SegmentRecorderActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/DrawPadCameraView.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/DrawPadView.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/LanSoEditor.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/CameraLayerFullLandscapeActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/AVEncoder.java" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/SegmentRecorderActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
       </list>
     </option>
   </component>
@@ -1773,7 +2119,7 @@
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
+    <navigator currentView="AndroidView" proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -1787,19 +2133,20 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="LanSoEditor_advance_AS" />
+              <option name="myItemId" value="LanSoEditor_advance" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="LanSoEditor_advance_AS" />
+              <option name="myItemId" value="LanSoEditor_advance" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -1809,7 +2156,7 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="LanSoEditor_advance_AS" />
+              <option name="myItemId" value="LanSoEditor_advance" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -1824,254 +2171,8 @@
         </subPane>
       </pane>
       <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LanSoEditor_advance" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LanSoEditor_advance" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LanSoEditor_advance" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LanSoEditor_advance" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LanSoEditor_advance" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LanSoEditor_advance" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LanSoEditor_advance" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LanSoEditor_advance" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LanSoEditor_advance" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jniLibs" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LanSoEditor_advance" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LanSoEditor_advance" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lansosdk" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LanSoEditor_advance" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LanSoEditor_advance" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lansosdk" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="videoeditor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LanSoEditor_advance" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LanSoEditor_advance" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="example" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commonDemo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LanSoEditor_advance" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LanSoEditor_advance" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="example" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="advanceDemo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LanSoEditor_advance" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LanSoEditor_advance" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="libs" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
+        <subPane />
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2088,11 +2189,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\java\com\lansosdk\videoeditor" />
       <recent name="E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\libs" />
       <recent name="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\java\com\lansosdk\videoeditor" />
       <recent name="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\jniLibs\armeabi-v7a" />
       <recent name="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\res" />
-      <recent name="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app\src\main\assets" />
     </key>
   </component>
   <component name="RunManager" selected="Android App.app">
@@ -2481,90 +2582,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/GifDecoder.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/GifLayer.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="27" column="33" selection-start-line="27" selection-start-column="33" selection-end-line="27" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/Layer.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1742">
-          <caret line="85" column="5" selection-start-line="85" selection-start-column="5" selection-end-line="85" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/ViewLayerRelativeLayout.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="780">
-          <caret line="40" column="5" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/VideoLayer.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="35" column="20" selection-start-line="35" selection-start-column="20" selection-end-line="35" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/AppData/Local/Android/sdk/platforms/android-23/android.jar!/android/database/sqlite/SQLiteDatabase.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="33" column="56" selection-start-line="33" selection-start-column="56" selection-end-line="33" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageDissolveBlendFilter.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/jp/co/cyberagent/lansongsdk/gpuimage/LanSongBeautyFilter.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="24" column="5" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/jp/co/cyberagent/lansongsdk/gpuimage/LanSongSketchFilter.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/jp/co/cyberagent/lansongsdk/gpuimage/LanSongCoolFilter.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="18" column="5" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/jp/co/cyberagent/lansongsdk/gpuimage/LanSongEmeraldFilter.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="22" column="46" selection-start-line="22" selection-start-column="46" selection-end-line="22" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/jp/co/cyberagent/lansongsdk/gpuimage/GPUImageMonochromeFilter.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/jp/co/cyberagent/lansongsdk/gpuimage/GPUImagePosterizeFilter.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="156">
@@ -2642,16 +2659,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/cameralayer_fullscreen_demo_layout.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="147" column="37" selection-start-line="147" selection-start-column="37" selection-end-line="147" selection-end-column="37" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/AppData/Local/Android/sdk/platforms/android-23/android.jar!/android/app/Instrumentation.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
@@ -2663,20 +2670,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="235">
           <caret line="165" column="5" selection-start-line="165" selection-start-column="5" selection-end-line="165" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/AVEncoder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="407" column="7" selection-start-line="407" selection-start-column="7" selection-end-line="407" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/OpenSegmentsRecorder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="43" column="13" selection-start-line="43" selection-start-column="13" selection-end-line="43" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -2714,13 +2707,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5720">
-          <caret line="299" column="56" selection-start-line="299" selection-start-column="56" selection-end-line="299" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/CameraRecordDemoActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2288">
@@ -2734,13 +2720,6 @@
         <state relative-caret-position="2366">
           <caret line="99" column="9" selection-start-line="99" selection-start-column="9" selection-end-line="99" selection-end-column="9" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/CameraLayerFullLandscapeActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1742">
-          <caret line="79" column="9" selection-start-line="79" selection-start-column="9" selection-end-line="79" selection-end-column="9" />
         </state>
       </provider>
     </entry>
@@ -2779,7 +2758,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="494">
           <caret line="60" column="36" selection-start-line="60" selection-start-column="36" selection-end-line="60" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2787,26 +2765,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1586">
           <caret line="115" column="23" selection-start-line="115" selection-start-column="23" selection-end-line="115" selection-end-column="23" />
-          <folding />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="12" column="59" selection-start-line="12" selection-start-column="59" selection-end-line="12" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-manifest">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/DrawPadVideoExecute.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="364">
           <caret line="40" column="13" selection-start-line="40" selection-start-column="13" selection-end-line="40" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2814,15 +2779,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="312">
           <caret line="21" column="7" selection-start-line="21" selection-start-column="7" selection-end-line="21" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/SegmentRecorderActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="832">
-          <caret line="67" column="19" selection-start-line="67" selection-start-column="19" selection-end-line="67" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2833,19 +2789,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/DrawPadCameraView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17290">
-          <caret line="736" column="30" selection-start-line="736" selection-start-column="30" selection-end-line="736" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/ExecuteTwoVideoLayerDemoActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
           <caret line="382" column="16" selection-start-line="382" selection-start-column="16" selection-end-line="382" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2853,17 +2800,172 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-49">
           <caret line="503" column="36" selection-start-line="503" selection-start-column="36" selection-end-line="503" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/DrawPadView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="926" column="41" selection-start-line="926" selection-start-column="41" selection-end-line="926" selection-end-column="41" />
+        <state relative-caret-position="28626">
+          <caret line="1180" column="7" selection-start-line="1180" selection-start-column="7" selection-end-line="1180" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="572">
+          <caret line="101" column="22" selection-start-line="101" selection-start-column="22" selection-end-line="101" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/LanSoEditor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="494">
+          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/VideoEditor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18044">
+          <caret line="713" column="21" selection-start-line="713" selection-start-column="21" selection-end-line="713" selection-end-column="21" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#3827#3828#0" expanded="false" />
+            <element signature="e#3866#3867#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/DrawPadCameraView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24232">
+          <caret line="1003" column="31" selection-start-line="1003" selection-start-column="31" selection-end-line="1003" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/A.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3614">
+          <caret line="156" column="22" selection-start-line="156" selection-start-column="22" selection-end-line="156" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/Layer.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8476">
+          <caret line="371" column="35" selection-start-line="371" selection-start-column="35" selection-end-line="371" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/B.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="806">
+          <caret line="39" column="25" selection-start-line="39" selection-start-column="25" selection-end-line="39" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/DrawPad.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="30" column="18" selection-start-line="30" selection-start-column="18" selection-end-line="30" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/DrawPadCameraRunnable.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6812">
+          <caret line="304" column="0" selection-start-line="304" selection-start-column="0" selection-end-line="304" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/LayerShader.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1248">
+          <caret line="51" column="35" selection-start-line="51" selection-start-column="35" selection-end-line="51" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/BitmapLayerMarkActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="26">
+          <caret line="99" column="11" selection-start-line="99" selection-start-column="11" selection-end-line="99" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/CameraLayerFullLandscapeActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="858">
+          <caret line="85" column="46" selection-start-line="85" selection-start-column="46" selection-end-line="85" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/ViewLayerRelativeLayout.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/cameralayer_fullscreen_demo_layout.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="15" column="49" selection-start-line="15" selection-start-column="49" selection-end-line="15" selection-end-column="49" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/OpenSegmentsRecorder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="407">
+          <caret line="115" column="32" selection-start-line="115" selection-start-column="32" selection-end-line="115" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/AVEncoder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="410" column="7" selection-start-line="410" selection-start-column="7" selection-end-line="410" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="52">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/SegmentRecorderActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="194" column="46" selection-start-line="194" selection-start-column="46" selection-end-line="194" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="41" column="62" selection-start-line="41" selection-start-column="62" selection-end-line="41" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/StartActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="194" column="50" selection-start-line="194" selection-start-column="50" selection-end-line="194" selection-end-column="50" />
+          <folding />
         </state>
       </provider>
     </entry>

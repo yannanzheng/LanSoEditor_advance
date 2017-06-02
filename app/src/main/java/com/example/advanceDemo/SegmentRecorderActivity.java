@@ -189,17 +189,17 @@ public class SegmentRecorderActivity extends Activity implements Handler.Callbac
 			case MSG_SEGMENT_PROGRESS:
 				int tm = msg.arg1;  //传递过来的是总时间
 				
-				if (tm < MIN_RECORD_TIME) 
-				{
-					nextBtn.setVisibility(View.INVISIBLE);
-				} else if (tm >= MIN_RECORD_TIME && tm < MAX_RECORD_TIME) {
-					nextBtn.setVisibility(View.VISIBLE);
-				} else if (tm >= MAX_RECORD_TIME) {
-					segmentRecorder.pauseRecord();
-					recordEnd();
-				}
-				
-				break;
+				if (tm < MIN_RECORD_TIME)
+			{
+				nextBtn.setVisibility(View.INVISIBLE);
+			} else if (tm >= MIN_RECORD_TIME && tm < MAX_RECORD_TIME) {
+				nextBtn.setVisibility(View.VISIBLE);
+			} else if (tm >= MAX_RECORD_TIME) {
+				segmentRecorder.pauseRecord();
+				recordEnd();
+			}
+			
+			break;
 
 			case MSG_SEGMENT_PAUSE:
 				int se = msg.arg1;  //如果序号??
@@ -216,7 +216,11 @@ public class SegmentRecorderActivity extends Activity implements Handler.Callbac
 				break;
 			case MSG_PAUSERECORD:
 				recorderVideoBtn.setBackgroundResource(R.drawable.video_record_start_btn);
+				
+				long  beforeDraw=System.currentTimeMillis();
 				segmentRecorder.pauseRecord();
+				Log.i("TIME"," pauseRecord 消耗时间是:"+ (System.currentTimeMillis() - beforeDraw));
+				
 				break;
 			case MSG_VIDEOCAMERA_READY:
 				resetVideoLayout();

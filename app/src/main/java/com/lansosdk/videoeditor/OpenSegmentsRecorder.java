@@ -73,12 +73,19 @@ public class OpenSegmentsRecorder implements PreviewCallback, SurfaceHolder.Call
 	private SurfaceHolder mSurfaceHolder = null;	
 
 	private AVEncoder  mEncoder=null;
+	private int firstSegmentDegree=90;  //第一段录制时的角度.
+	
+	
 	private Activity mActivity;
 	private OpenSegmentsRecordListener segmentRecordListener = null;
 	private int[] previewSize;
 	private int mEncWidth,mEncHeight;
 	private int mEncBitrate;
 	/**
+	 * 此类不建议用在 分段录制的过程中, 切换前后摄像头的情况.
+	 * 此类不建议用在 分段录制的过程中, 切换前后摄像头的情况.
+	 * 此类不建议用在 分段录制的过程中, 切换前后摄像头的情况.
+	 * 此类不建议用在 分段录制的过程中, 切换前后摄像头的情况.
 	 * 
 	 * @param activity
 	 * @param holder
@@ -114,9 +121,10 @@ public class OpenSegmentsRecorder implements PreviewCallback, SurfaceHolder.Call
 		if(cameraManager!=null && cameraManager.isPreviewing()){
 			currentSegVideoFile = 	SDKFileUtils.createFileInBox("ts");
 			
-			
-			mEncoder.init(currentSegVideoFile,cameraManager.getPreviewDataDegress(),mEncWidth,mEncHeight,25,mEncBitrate,44100,64000);
-			
+			if(firstSegmentDegree==-1){
+				firstSegmentDegree=cameraManager.getPreviewDataDegress();
+			}
+			mEncoder.init(currentSegVideoFile,firstSegmentDegree,mEncWidth,mEncHeight,25,mEncBitrate,44100,64000);
 			
 			videoEncodeThread = new VideoEncodeThread();  //视频编码		
 			audioSampleThread = new AudioSampleThread(); //音频采集		
@@ -413,7 +421,6 @@ public class OpenSegmentsRecorder implements PreviewCallback, SurfaceHolder.Call
 		public void run() {
 			while (mIsRecording.get()) {
 				if (!videoFrameQ.isEmpty()) {
-					
 					OpenFrame v = videoFrameQ.poll();
 					int degree=cameraManager.isUseBackCamera()?90:270;
 					mEncoder.pushVideoData(v.data,previewSize[0],previewSize[1],degree,v.ts);

@@ -113,7 +113,8 @@ public class AVEncoder {
 			
 			byte[] byteArray=null;
 			
-			if(mediaRorateDegree==0){
+			if(mediaRorateDegree==0)
+			{
 				if(	degree==90)  //不是后置,就是前置.
 				{
 					byteArray=rotateYUV420Degree90(bb,cutWidth,cutHeight);  
@@ -122,7 +123,16 @@ public class AVEncoder {
 				}
 				encoderWriteVideoFrame(mHandler, byteArray, ptsMS); 
 			}else{
-				encoderWriteVideoFrame(mHandler, bb, ptsMS); 
+				
+				
+				if(mediaRorateDegree!=degree){
+					byteArray=rotateYUV420Degree180(bb,cutWidth,cutHeight);	
+					encoderWriteVideoFrame(mHandler, byteArray, ptsMS); 
+				}else{
+					encoderWriteVideoFrame(mHandler, bb, ptsMS); 
+				}
+				
+				//encoderWriteVideoFrame(mHandler, bb, ptsMS); 
 			}
 //			byte[]  byte3=convertNV21ToYUV420P(byte2,480,480,480,480);  //放到底层实现了.
 		}

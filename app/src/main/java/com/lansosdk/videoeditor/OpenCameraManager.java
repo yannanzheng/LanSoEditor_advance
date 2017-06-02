@@ -216,9 +216,9 @@ public class OpenCameraManager {
 	public void updateParameters() {
 		startThreadJoin();
 		
-		Camera.Parameters camParams = camera.getParameters();
+		Parameters camParams = camera.getParameters();
 		Parameters parameters = camera.getParameters();
-		List<Camera.Size> supportedPreviewSizes = parameters.getSupportedPreviewSizes();
+		List<Size> supportedPreviewSizes = parameters.getSupportedPreviewSizes();
 		
 		
 		int desireWidth,desireHeight;
@@ -237,7 +237,7 @@ public class OpenCameraManager {
 				desireWidth=mDesireHeight;
 				desireHeight=mDesireWidth;
 			}
-			Camera.Size preSizeOld = null;
+			Size preSizeOld = null;
 			if (defaultScreenResolution == -1) {
 				boolean hasSize = false;
 				
@@ -276,7 +276,7 @@ public class OpenCameraManager {
 //				Log.i("TAG","last got preview size:"+previewSize[0]+" x "+previewSize[1]);
 //				camParams.setPreviewSize(previewSize[0], previewSize[1]);
 //			}
-			Camera.Size preSizeNew = null;
+			Size preSizeNew = null;
 			//--------------------------另一种获取的方式:
 				int w,h;
 		        if(desireHeight>desireWidth){  //竖屏, 则调过来.
@@ -331,12 +331,12 @@ public class OpenCameraManager {
 			if (cameraFacingType == CameraInfo.CAMERA_FACING_BACK && focusModes != null) {//  fix
 				Log.i("video", Build.MODEL);
 				if (((Build.MODEL.startsWith("GT-I950")) || (Build.MODEL.endsWith("SCH-I959")) || (Build.MODEL
-					.endsWith("MEIZU MX3"))) && focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
-					camParams.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
-				} else if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO)) {
-					camParams.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
+					.endsWith("MEIZU MX3"))) && focusModes.contains(Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
+					camParams.setFocusMode(Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+				} else if (focusModes.contains(Parameters.FOCUS_MODE_CONTINUOUS_VIDEO)) {
+					camParams.setFocusMode(Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
 				} else {
-					camParams.setFocusMode(Camera.Parameters.FOCUS_MODE_FIXED);
+					camParams.setFocusMode(Parameters.FOCUS_MODE_FIXED);
 				}
 			}
 			
@@ -350,16 +350,16 @@ public class OpenCameraManager {
 	//----------------------------------------
     private CameraPictureSizeComparator mCameraPictureSizeComparator =
             new CameraPictureSizeComparator();
-    public Camera.Size mCameraPictureSize=null;
+    public Size mCameraPictureSize=null;
 	private void findCameraSupportValue(int desiredWidth,int desiredHeight) 
     {
     	
-        Camera.Parameters cp = camera.getParameters();
-        List<Camera.Size> cs = cp.getSupportedPictureSizes();
+        Parameters cp = camera.getParameters();
+        List<Size> cs = cp.getSupportedPictureSizes();
         if (cs != null && !cs.isEmpty()) 
         {
             Collections.sort(cs, mCameraPictureSizeComparator);
-            for (Camera.Size size : cs) 
+            for (Size size : cs)
             {
                 if (size.width < desiredWidth && size.height < desiredWidth) {
                 	if(mCameraPictureSize==null){
@@ -381,7 +381,7 @@ public class OpenCameraManager {
         }
     }
 	public void doFocus(List<Camera.Area> focusList) {
-		Camera.Parameters param = camera.getParameters();
+		Parameters param = camera.getParameters();
 		param.setFocusAreas(focusList);
 		param.setMeteringAreas(focusList);
 		try {
@@ -442,7 +442,7 @@ public class OpenCameraManager {
 			int degrees = getRotationAngle(activity);
 			
 			
-			if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+			if (cameraInfo.facing == CameraInfo.CAMERA_FACING_FRONT) {
 				displayOrientation = (cameraInfo.orientation + degrees) % 360;
 				displayOrientation = (360 - displayOrientation) % 360;
 			} else {
@@ -473,9 +473,9 @@ public class OpenCameraManager {
 		return degrees;
 	}
 
-	class ResolutionComparator implements Comparator<Camera.Size> {
+	class ResolutionComparator implements Comparator<Size> {
 		@Override
-		public int compare(Camera.Size size1, Camera.Size size2) {
+		public int compare(Size size1, Size size2) {
 			if (size1.height != size2.height) {
 				return size1.height - size2.height;
 			} else {
@@ -483,21 +483,21 @@ public class OpenCameraManager {
 			}
 		}
 	}
-	private class CameraPictureSizeComparator implements Comparator<Camera.Size> {
+	private class CameraPictureSizeComparator implements Comparator<Size> {
 
 	    // 拍照尺寸从大到小，优先获取较大尺寸!!!  注意这里是从大到小排列.
-	    public int compare(Camera.Size size1, Camera.Size size2) {
+	    public int compare(Size size1, Size size2) {
 	        return size2.width - size1.width;
 	    }
 	}
-	 private Camera.Size getOptimalPreviewSize(Camera.Parameters parameters,
-             Camera.Size pictureSize, int viewHeight) {
+	 private Size getOptimalPreviewSize(Parameters parameters,
+             Size pictureSize, int viewHeight) {
 
 			if (parameters == null || pictureSize == null) {
 			return null;
 			}
 			
-			List<Camera.Size> sizes = parameters.getSupportedPreviewSizes();
+			List<Size> sizes = parameters.getSupportedPreviewSizes();
 			//从小到大排列.
 			Collections.sort(sizes, new CameraPreviewSizeComparator());
 			final double ASPECT_TOLERANCE = 0.05;
@@ -506,11 +506,11 @@ public class OpenCameraManager {
 			return null;
 			}
 			
-			Camera.Size optimalSize = null;
+			Size optimalSize = null;
 			double minDiff = Double.MAX_VALUE;
 			int targetHeight = pictureSize.height;
 			// Try to find an size match aspect ratio and size
-			for (Camera.Size size : sizes) 
+			for (Size size : sizes)
 			{
 			double ratio = (double) size.width / size.height;
 			if (Math.abs(ratio - targetRatio) > ASPECT_TOLERANCE) {
@@ -530,7 +530,7 @@ public class OpenCameraManager {
 			// Cannot find the one match the aspect ratio, ignore the requirement
 			if (optimalSize == null) {
 			minDiff = Double.MAX_VALUE;
-			for (Camera.Size size : sizes) 
+			for (Size size : sizes)
 			{
 			if (Math.abs(size.height - targetHeight) < minDiff) {
 			optimalSize = size;
@@ -540,10 +540,10 @@ public class OpenCameraManager {
 			}
 			return optimalSize;
 }
-	 	private class CameraPreviewSizeComparator implements Comparator<Camera.Size> {
+	 	private class CameraPreviewSizeComparator implements Comparator<Size> {
 		
 		// 预览尺寸从小到大，优先获取较小的尺寸
-			public int compare(Camera.Size size1, Camera.Size size2) {
+			public int compare(Size size1, Size size2) {
 					return size1.width - size2.width;
 			}
 		}
