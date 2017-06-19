@@ -31,7 +31,7 @@ android  video editor  advance sdk . filter, overlay,remark,mixer and so on安�
 		另外他们各自也有独立的方法。
 *   滤镜功能：当前所有的图层均支持滤镜功能。
 
-## 当前具有的图层种类有(8种):
+## 当前具有的图层种类有(11种):
 *  视频图层     VideoLayer
 *  摄像头图层   CameraLayer
 *  图片图层     BitmapLayer
@@ -40,8 +40,11 @@ android  video editor  advance sdk . filter, overlay,remark,mixer and so on安�
 *  Canvas图层   CanvasLayer
 *  Data图层     DataLayer
 *  Gif图层      GifLayer
-*  注：可多种图层混合叠加，也可以同时增加多个相同类型的图层。 如VideoLayer+BitmapLayer+ViewLayer或多个BitmapLayer叠加。
-
+*  YUV图层      YUVLayer
+*  双视频图层   TwoVideoLayer
+*  纹理图层     TextureLayer
+*  注1：可多种图层混合叠加，也可以同时增加多个相同类型的图层。 如VideoLayer+BitmapLayer+ViewLayer或多个BitmapLayer叠加。
+*  注2：可关于每个图层的功能,可联系我们,索取更多技术文档.
 			
 ## 三步调用（3 Step）
 *	1， 创建一个容器(DrawPad画板):  设置容器的宽度和高度,刷新率,码率,设置进度监听,结束监听 各种Listener等
