@@ -84,6 +84,10 @@
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\LanSoEditor_advance\\app\\src\\main\\res\\anim\\hyperspace_out.xml"
     },
     {
+        "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\anim\\focusview_show.xml",
+        "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\LanSoEditor_advance\\app\\src\\main\\res\\anim\\focusview_show.xml"
+    },
+    {
         "merged": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\LanSoEditor_advance\\app\\build\\intermediates\\res\\merged\\debug\\anim\\alpha_scale_rotate.xml",
         "source": "E:\\0000Coodec\\publish_sdk\\LanSoEditor_advance\\LanSoEditor_advance\\app\\src\\main\\res\\anim\\alpha_scale_rotate.xml"
     },

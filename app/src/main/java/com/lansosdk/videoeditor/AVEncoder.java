@@ -106,7 +106,12 @@ public class AVEncoder {
 		if(mHandler!=0){
 			byte[]  bb=null;
 			if( (previewW!=cutWidth || previewH!=cutHeight) && previewW>=cutWidth && previewH>=cutHeight){
-					bb=frameCut(data,previewW,previewH,cutWidth,cutHeight);
+					
+//				long  beforeDraw=System.currentTimeMillis();
+				bb=frameCut(data,previewW,previewH,cutWidth,cutHeight);
+					
+				
+//					Log.i("TIME"," 执行frameCut:耗时::"+ (System.currentTimeMillis() - beforeDraw));
 			}else{
 				bb=data;
 			}
@@ -126,10 +131,20 @@ public class AVEncoder {
 				
 				
 				if(mediaRorateDegree!=degree){
-					byteArray=rotateYUV420Degree180(bb,cutWidth,cutHeight);	
+					
+					
+//					long  beforeDraw=System.currentTimeMillis();
+					 
+					byteArray=rotateYUV420Degree180(bb,cutWidth,cutHeight);
+					
+//					Log.i("TIME","mediaRorateDegree"+mediaRorateDegree+ "degree"+degree+"旋转180耗时:" +
+//					(System.currentTimeMillis() - beforeDraw));
+					
 					encoderWriteVideoFrame(mHandler, byteArray, ptsMS); 
 				}else{
+//					long  beforeDraw=System.currentTimeMillis();
 					encoderWriteVideoFrame(mHandler, bb, ptsMS); 
+//					Log.i("TIME"," 直接编码耗时::"+ (System.currentTimeMillis() - beforeDraw));
 				}
 				
 				//encoderWriteVideoFrame(mHandler, bb, ptsMS); 

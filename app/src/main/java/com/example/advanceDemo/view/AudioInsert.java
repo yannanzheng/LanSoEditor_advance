@@ -34,7 +34,7 @@ public class AudioInsert {
 	  */
 	 public boolean addMainAudio(String audioPath) 
 	 {
-			return insertMng.addMainAudio(audioPath);
+			return insertMng.addMainAudio(audioPath,false);
 	 }
 	 /**
 	  * 增加一个 从音频文件, 格式是mp3或aac格式.

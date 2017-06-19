@@ -10,7 +10,7 @@ import com.lansoeditor.demo.R;
 import com.lansosdk.videoeditor.LanSoEditor;
 import com.lansosdk.videoeditor.LoadLanSongSdk;
 import com.lansosdk.videoeditor.OpenSegmentsRecordListener;
-import com.lansosdk.videoeditor.OpenSegmentsRecorder;
+import com.lansosdk.videoeditor.OSegmentsRecorder;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -47,7 +47,7 @@ public class SegmentRecorderActivity extends Activity implements Handler.Callbac
 	public static final float MIN_RECORD_TIME = 2 * 1000f;   //录制的最小时间
 	
 	private PowerManager.WakeLock mWakeLock;
-	private OpenSegmentsRecorder segmentRecorder;
+	private OSegmentsRecorder segmentRecorder;
 
 	private Handler handler;
 
@@ -91,11 +91,11 @@ public class SegmentRecorderActivity extends Activity implements Handler.Callbac
 		 * 不建议用1080x1920,因为有些手机的分辨率最大是1280x720, 根本达不到您设置的分辨率.
 		 * SegmentRecorderActivity设置为竖屏录制,故这里的分辨率是高度大于宽度的.如果是横屏录制,则应把宽高调过来.
 		 */
-//		segmentRecorder = new OpenSegmentsRecorder(this, cameraTextureView.getHolder(),544,960,2500*1000);//如果是全屏,则建议用这个(需要您修改UI为全屏模式)
-//		segmentRecorder = new OpenSegmentsRecorder(this, cameraTextureView.getHolder(),480,480,1200*1000); //正方形
-		segmentRecorder = new OpenSegmentsRecorder(this, cameraTextureView.getHolder(),480,640,1500*1000);  //推荐采用这个.
-//		segmentRecorder = new OpenSegmentsRecorder(this, cameraTextureView.getHolder(),720,1280,2000*1000);//不建议使用.
-//		segmentRecorder = new OpenSegmentsRecorder(this, cameraTextureView.getHolder(),576,1024,2000*1000);//不建议使用.
+//		segmentRecorder = new OSegmentsRecorder(this, cameraTextureView.getHolder(),544,960,2500*1000);//如果是全屏,则建议用这个(需要您修改UI为全屏模式)
+//		segmentRecorder = new OSegmentsRecorder(this, cameraTextureView.getHolder(),480,480,1200*1000); //正方形
+		segmentRecorder = new OSegmentsRecorder(this, cameraTextureView.getHolder(),480,640,1500*1000);  //推荐采用这个.
+//		segmentRecorder = new OSegmentsRecorder(this, cameraTextureView.getHolder(),720,1280,2000*1000);//不建议使用.
+//		segmentRecorder = new OSegmentsRecorder(this, cameraTextureView.getHolder(),576,1024,2000*1000);//不建议使用.
 		
 		//使用前置
 	

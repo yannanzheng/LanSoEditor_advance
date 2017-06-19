@@ -36,7 +36,6 @@ import java.util.Map;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 
-import com.example.advanceDemo.view.TextureRenderView;
 import com.lansosdk.box.AudioLine;
 import com.lansosdk.box.AudioInsertManager;
 import com.lansosdk.box.BitmapLayer;
@@ -173,7 +172,7 @@ private DrawPadUpdateMode mUpdateMode=DrawPadUpdateMode.ALL_VIDEO_READY;
 private int mAutoFlushFps=0;
 
 /**
- * 设置DrawPad的刷新模式,默认 {@link DrawPad.UpdateMode#ALL_VIDEO_READY};
+ * 设置DrawPad的刷新模式,默认 {@link DrawPadUpdateMode#ALL_VIDEO_READY};
  *
  * @param mode
  * @param autofps  //自动刷新的参数,每秒钟刷新几次(即视频帧率).当自动刷新的时候有用, 不是自动,则不起作用.
@@ -263,8 +262,6 @@ private class SurfaceCallback implements SurfaceTextureListener {
 		mSurfaceTexture = surface;
 		drawPadHeight=height;
 		drawPadWidth=width;
-		
-		
 		if(mSizeChangedCB!=null)
 			mSizeChangedCB.onSizeChanged(width, height);
 	}
@@ -278,8 +275,8 @@ private class SurfaceCallback implements SurfaceTextureListener {
 	@Override
 	public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
 		mSurfaceTexture = null;
-		drawPadHeight=0;
-		drawPadWidth=0;
+//    	            drawPadHeight=0;
+//    	            drawPadWidth=0;
 		
 		stopDrawPad();  //可以在这里增加以下. 这样当Texture销毁的时候, 停止DrawPad
 		
@@ -313,7 +310,7 @@ private class SurfaceCallback implements SurfaceTextureListener {
  * @param encH  录制视频的高度
  * @param encBr 录制视频的bitrate,
  * @param encFr 录制视频的 帧率
- * @param outPath  录制视频的保存路径. 注意:这个路径在分段录制功能时,无效.即调用 {@link #segmentStart(String)}时.
+ * @param outPath  录制视频的保存路径. 注意:这个路径在分段录制功能时,无效.即调用 {@link #segmentStart()}时.
  */
 public void setRealEncodeEnable(int encW,int encH,int encBr,int encFr,String outPath)
 {
@@ -399,7 +396,16 @@ public void setOnDrawPadProgressListener(onDrawPadProgressListener listener){
  * 故不能在回调 内增加各种UI相关的代码.
  */
 private onDrawPadThreadProgressListener drawPadThreadProgressListener=null;
-
+/**
+ * 方法与   onDrawPadProgressListener不同的地方在于:
+ * 此回调是在DrawPad渲染完一帧后,立即执行这个回调中的代码,不通过Handler传递出去,你可以精确的执行一些下一帧的如何操作.
+ *
+ * listener中的方法是在DrawPad线程中执行的, 请不要在此监听里放置耗时的处理, 以免造成DrawPad线程的卡顿.
+ *
+ * 不能在回调 内增加各种UI相关的代码.
+ *
+ * @param listener  此listner工作在opengl线程， 非UI线程。
+ */
 public void setOnDrawPadThreadProgressListener(onDrawPadThreadProgressListener listener)
 {
 	if(renderer!=null){
@@ -465,7 +471,7 @@ public String getMicPath()
  * 此方法可以在 {@link onDrawPadSizeChangedListener} 完成后调用.
  * 可以先通过 {@link #setDrawPadSize(int, int, onDrawPadSizeChangedListener)}来设置宽高,然后在回调中执行此方法.
  * 如果您已经在xml中固定了view的宽高,则可以直接调用这里, 无需再设置DrawPadSize
- * @param progresslistener
+ * @param progressListener
  * @param completedListener
  */
 @Deprecated
@@ -485,7 +491,7 @@ public boolean startDrawPad(onDrawPadProgressListener progressListener,onDrawPad
  */
 public boolean startDrawPad()
 {
-	return startDrawPad(isPauseRecordDrawPad);
+	return startDrawPad(isPauseRecord);
 }
 /**
  * 开始DrawPad的渲染线程, 阻塞执行, 直到DrawPad真正开始执行后才退出当前方法.
@@ -509,11 +515,11 @@ public boolean startDrawPad(boolean pauseRecord)
 			renderer.setDisplaySurface(new Surface(mSurfaceTexture));
 			
 			if(isCheckPadSize){
-				encWidth=make16Multi(encWidth);
-				encHeight=make16Multi(encHeight);
+				encWidth=LanSongUtil.make16Multi(encWidth);
+				encHeight=LanSongUtil.make16Multi(encHeight);
 			}
 			if(isCheckBitRate || encBitRate==0){
-				encBitRate=checkSuggestBitRate(encHeight * encWidth, encBitRate);
+				encBitRate=LanSongUtil.checkSuggestBitRate(encHeight * encWidth, encBitRate);
 			}
 			renderer.setEncoderEnable(encWidth,encHeight,encBitRate,encFrameRate,encodeOutput);
 			
@@ -531,13 +537,13 @@ public boolean startDrawPad(boolean pauseRecord)
 				renderer.setRecordExtraPcm(isRecordExtPcm, pcmChannels,pcmSampleRate,pcmBitRate);
 			}
 			
-			if(pauseRecord || isPauseRecordDrawPad){
+			if(pauseRecord || isPauseRecord){
 				renderer.pauseRecordDrawPad();
 			}
-			if(isPauseRefreshDrawPad){
+			if(isPauseRefresh){
 				renderer.pauseRefreshDrawPad();
 			}
-			if(isPausePreviewDrawPad){
+			if(isPausePreview){
 				renderer.pausePreviewDrawPad();
 			}
 			
@@ -564,7 +570,7 @@ public void pauseDrawPad()
 	if(renderer!=null){
 		renderer.pauseRefreshDrawPad();
 	}
-	isPauseRefreshDrawPad=true;
+	isPauseRefresh=true;
 }
 /**
  * 恢复之前暂停的DrawPad,让其继续画面刷新. 与{@link #pauseDrawPad()}配对使用.
@@ -574,7 +580,7 @@ public void resumeDrawPad()
 	if(renderer!=null){
 		renderer.resumeRefreshDrawPad();
 	}
-	isPauseRefreshDrawPad=false;
+	isPauseRefresh=false;
 }
 //---------------
 /**
@@ -593,7 +599,7 @@ public void pausePreview()
 	if(renderer!=null){
 		renderer.pausePreviewDrawPad();
 	}
-	isPausePreviewDrawPad=true;
+	isPausePreview=true;
 }
 /**
  * 不建议使用.
@@ -603,7 +609,7 @@ public void resumePreview()
 	if(renderer!=null){
 		renderer.resumePreviewDrawPad();
 	}
-	isPausePreviewDrawPad=false;
+	isPausePreview=false;
 }
 
 
@@ -617,7 +623,7 @@ public void pauseDrawPadRecord()
 	if(renderer!=null){
 		renderer.pauseRecordDrawPad();
 	}
-	isPauseRecordDrawPad=true;
+	isPauseRecord=true;
 }
 /**
  * 恢复drawpad的录制.
@@ -628,7 +634,7 @@ public void resumeDrawPadRecord()
 	if(renderer!=null){
 		renderer.resumeRecordDrawPad();
 	}
-	isPauseRecordDrawPad=false;
+	isPauseRecord=false;
 }
 /**
  * 是否也录制mic的声音.
@@ -643,11 +649,18 @@ private boolean isRecordMic=false;
  * 暂停录制则只暂停录制,刷新和预览一样在走动.
  * 暂停预览,则录制还在继续,但只是录制了同一副画面.
  */
-private boolean isPauseRefreshDrawPad=false;
+private boolean isPauseRefresh=false;
+/**
+ *DrawPad,停止录制.
+ */
+private boolean isPauseRecord=false;
 
-private boolean isPausePreviewDrawPad=false;
+/**
+ * 不建议使用.
+ */
+private boolean isPausePreview=false;
 
-private boolean isPauseRecordDrawPad=false;
+
 
 private boolean  isRecordExtPcm=false;  //是否使用外面的pcm输入.
 private int pcmSampleRate=44100;
@@ -717,9 +730,8 @@ public AudioLine getAudioLine()
 	}
 }
 /**
- * 此代码只是用在分段录制的Camera的过程中, 其他地方不建议使用.
+ * 分段录制, 开始录制一段.
  */
-@Deprecated
 public void segmentStart()
 {
 	if(renderer!=null){
@@ -727,12 +739,12 @@ public void segmentStart()
 	}
 }
 /**
- * 此代码只是用在分段录制的Camera的过程中, 其他地方不建议使用.
+ * 录制一段结束.
+ *
  * 录制完成后, 返回当前录制这一段的视频文件完整路径名,
  * 因为这里会等待 编码和音频采集模块处理完毕释放后才返回, 故有一定的阻塞时间(在低端手机上大概100ms),
  * 建议用Handler的 HandlerMessage的形式来处理
  */
-@Deprecated
 public String segmentStop()
 {
 	if(renderer!=null){
@@ -927,15 +939,19 @@ public VideoLayer addVideoLayer(int width, int height,GPUImageFilter filter)
  * @param filter 当前使用到的滤镜 ,如果不用, 则设置为null
  * @return
  */
-@Deprecated
 public CameraLayer addCameraLayer(boolean isFaceFront,GPUImageFilter filter)
 {
 	CameraLayer ret=null;
-	
 	if(renderer!=null)
-		ret=renderer.addCameraLayer(isFaceFront,filter);
+		if(filter!=null){
+			ArrayList<GPUImageFilter>  filters=new ArrayList<GPUImageFilter>();
+			filters.add(filter);
+			ret=renderer.addCameraLayer(isFaceFront,filters);
+		}else{
+			ret=renderer.addCameraLayer(isFaceFront,null);
+		}
 	else{
-		Log.e(TAG,"setMainVideoLayer error render is not avalid");
+		Log.e(TAG,"addCameraLayer error render is not avalid");
 	}
 	return ret;
 }
@@ -966,7 +982,7 @@ public BitmapLayer addBitmapLayer(Bitmap bmp)
 	{
 		//Log.i(TAG,"imgBitmapLayer:"+bmp.getWidth()+" height:"+bmp.getHeight());
 		if(renderer!=null)
-			return renderer.addBitmapLayer(bmp);
+			return renderer.addBitmapLayer(bmp,null);
 		else{
 			Log.e(TAG,"addBitmapLayer error render is not avalid");
 			return null;
@@ -976,7 +992,22 @@ public BitmapLayer addBitmapLayer(Bitmap bmp)
 		return null;
 	}
 }
-
+public BitmapLayer addBitmapLayer(Bitmap bmp,GPUImageFilter filter)
+{
+	if(bmp!=null)
+	{
+		//Log.i(TAG,"imgBitmapLayer:"+bmp.getWidth()+" height:"+bmp.getHeight());
+		if(renderer!=null)
+			return renderer.addBitmapLayer(bmp,filter);
+		else{
+			Log.e(TAG,"addBitmapLayer error render is not avalid");
+			return null;
+		}
+	}else{
+		Log.e(TAG,"addBitmapLayer error, bitmap is null");
+		return null;
+	}
+}
 /**
  * 获取一个DataLayer的图层,
  * 数据图层, 是一个RGBA格式的数据, 内部是一个RGBA格式的图像.
@@ -1050,6 +1081,24 @@ public MVLayer addMVLayer(String srcPath,String maskPath)
 	}
 }
 /**
+ * 是否在mv好了之后, 直接去显示, 如果不想直接显示, 可以先设置isShow=false,然后在需要显示的使用,
+ * 调用 {@link MVLayer #setPlayEnable(boolean)}, 此方法暂时只能被调用一次.
+ *
+ * @param srcPath
+ * @param maskPath
+ * @param isplay
+ * @return
+ */
+public MVLayer addMVLayer(String srcPath,String maskPath, boolean isplay)
+{
+	if(renderer!=null)
+		return renderer.addMVLayer(srcPath,maskPath,isplay);
+	else{
+		Log.e(TAG,"addMVLayer error render is not avalid");
+		return null;
+	}
+}
+/**
  * 获得一个 ViewLayer,您可以在获取后,仿照我们的例子,来为视频增加各种UI空间.
  * 注意:此方法一定在 startDrawPad之后,在stopDrawPad之前调用.
  * @return 返回ViewLayer对象.
@@ -1077,10 +1126,19 @@ public CanvasLayer addCanvasLayer()
 		return null;
 	}
 }
-public YUVLayer addYUVLayer()
+/**
+ * 增加一个yuv图层, 让您可以把YUV数据输入进来,当前仅支持NV21的格式
+ *
+ * yuv数据,可以是别家SDK处理后的结果, 或Camera的onPreviewFrame回调的数据, 或您本地的视频数据.也可以是您本地的视频数据.
+ *
+ * @param width
+ * @param height
+ * @return
+ */
+public YUVLayer addYUVLayer(int width,int height)
 {
 	if(renderer!=null)
-		return renderer.addYUVLayer();
+		return renderer.addYUVLayer(width,height);
 	else{
 		Log.e(TAG,"addCanvasLayer error render is not avalid");
 		return null;
@@ -1089,7 +1147,6 @@ public YUVLayer addYUVLayer()
 /**
  * 从渲染线程列表中移除并销毁这个Layer;
  * 注意:此方法一定在 startDrawPad之后,在stopDrawPad之前调用.
- * @param Layer
  */
 public void removeLayer(Layer layer)
 {
@@ -1107,7 +1164,7 @@ public void removeLayer(Layer layer)
  *
  * 注意: 这里内部会在切换的时候, 会销毁 之前的滤镜对象, 然后重新增加, 故您不可以把同一个滤镜对象再次放到进来, 您如果还想使用之前的滤镜,则应该重新创建一个对象.
  *
- * @param Layer  已经创建好的Layer对象
+ * @param layer  已经创建好的Layer对象
  * @param filter  要切换到的滤镜对象.
  * @return 切换成功,返回true; 失败返回false
  */
@@ -1157,68 +1214,5 @@ public void setNotCheckBitRate()
 public void setNotCheckDrawPadSize()
 {
 	isCheckPadSize=false;
-}
-/**
- * 把采样点处理成4的倍数.
- * 小于等于4的, 处理成4;  大于4小于8的处理成8;
- * 1234 处理成4, 5678处理成8;
- * @param value
- * @return
- */
-public static int make16Multi(int value)
-{
-	int  val2= value/16;
-	
-	if(value%16!=0)
-	{
-		val2+=1;
-		
-		val2*=16;
-		return val2;
-	}else{
-		return value;
-	}
-	/**
-	 * 	for(int i=0;i<100;i++)
-	 {
-	 int  val= i/4;
-	 
-	 if(i%4!=0)
-	 val+=1;
-	 
-	 val*=4;
-	 System.out.println("i="+i+" val:"+val);
-	 }
-	 */
-}
-/**
- *  获取lansosdk的建议码率;
- *  这个码率不是唯一的, 仅仅是我们建议这样设置, 如果您对码率理解很清楚或有一定的压缩要求,则完全可以不用我们的建议,自行设置.
- *
- * @param wxh  宽度和高度的乘积;
- * @return
- */
-public static int getSuggestBitRate(int wxh)
-{
-	if(wxh <= 480 * 480){
-		return 1000*1024;
-	}else if(wxh<=640 * 480){
-		return 1500*1024;
-	}else if(wxh <=800 *480){
-		return 1800*1024;
-	}else if(wxh <=960 * 544){
-		return 2000*1024;
-	}else if(wxh <=1280 * 720){
-		return 2500*1024;
-	}else if(wxh<=1920 * 1088){
-		return 3000*1024;
-	}else{
-		return 3500*1024;
-	}
-}
-public static int checkSuggestBitRate(int wxh, int bitrate)
-{
-	int sugg=getSuggestBitRate(wxh);
-	return bitrate < sugg ?  sugg: bitrate;   //如果设置过来的码率小于建议码率,则返回建议码率,不然返回设置码率
 }
 }

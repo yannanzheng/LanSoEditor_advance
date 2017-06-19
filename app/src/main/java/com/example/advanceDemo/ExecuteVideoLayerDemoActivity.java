@@ -125,7 +125,6 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 		
 		isExecuting=true;
 		 mDrawPad=new DrawPadVideoExecute(ExecuteVideoLayerDemoActivity.this,videoPath,480,480,1000000,null,editTmpPath);
-		 
 //		mDrawPad=new DrawPadVideoExecute(ExecuteVideoLayerDemoActivity.this,videoPath,1080,1920,3000000,null,editTmpPath);
 		
 		 mDrawPad.setUseMainVideoPts(true);
@@ -174,7 +173,7 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 		});
 //		vDrawPad.setUseMainVideoPts(true);
 		
-		addOtherAudio();
+//		addOtherAudio();
 		
 		//在开启前,先设置为暂停录制,因为要增加一些图层.
 		mDrawPad.pauseRecord();
@@ -228,11 +227,7 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 		/**
 		 *  插入一段声音, 这里拷贝Assets中的资源来做.
 		 */
-		//String audio=CopyDefaultVideoAsyncTask.copyFile(getApplicationContext(), "hongdou10s.mp3");
-		
-		//String audio="/sdcard/effect_harouha.aac";
-		
-		String audio="/sdcard/chongjibo_a_music.mp3";
+		String audio=CopyDefaultVideoAsyncTask.copyFile(getApplicationContext(), "hongdou10s.mp3");
 		
 		//以下是多种测试.
 //		isInsertAudio=mDrawPad.addSubAudio(audio,0,-1,3.0f,1.0f);
@@ -243,8 +238,6 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 //		isInsertAudio=mDrawPad.addSubAudio(audio,1500,-1,1.0f,1.0f);
 		
 		isInsertAudio=mDrawPad.addSubAudio(audio,300,-1,1.0f,1.0f);
-		
-		
 		Log.i(TAG,"isInsertAudio is:"+isInsertAudio);
 		
 		//vDrawPad.addSubAudio(audio,5000,-1,3.0f,2.0f);
@@ -280,7 +273,6 @@ public class ExecuteVideoLayerDemoActivity extends Activity{
 				
 			   tvHint.setText(R.string.drawpadexecute_demo_hint);
 			   tvProgressHint=(TextView)findViewById(R.id.id_video_edit_progress_hint);
-			       
 				 findViewById(R.id.id_video_edit_btn).setOnClickListener(new OnClickListener() {
 						@Override
 						public void onClick(View v) {

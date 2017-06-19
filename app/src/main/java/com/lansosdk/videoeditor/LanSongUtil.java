@@ -18,7 +18,7 @@ public class LanSongUtil {
 	 */
 	 public static boolean checkRecordPermission(Context ctx)
 	 {
-		   boolean ret1=LanSoEditorBox.checkCameraPermission(ctx);
+		   boolean ret1=LanSoEditorBox.cameraIsCanUse();
 		   boolean ret2=LanSoEditorBox.checkMicPermission(ctx);
 		   
 	       return ret1 && ret2;
@@ -48,28 +48,59 @@ public class LanSongUtil {
             decorView.setSystemUiVisibility(uiOptions);
         }
     }
-    
-    public static long make4Bei(long value)
+    /**
+	 * 当数据不是16的倍数的时候, 把他调整成16的倍数,
+	 *  
+	 * 如果是18,19这样接近16,则等于16, 等于缩小了原有的画面, 
+	 * 如果是25,28这样接近32,则等于32,  等于稍微拉伸了原来的画面,
+	 * 因为最多缩小或拉伸8个像素, 还不至于画面严重变形,而又兼容编码器的要求,故可以这样做.
+	 * 
+	 * 16, 17, 18, 19,20,21,22,23 ==>16;
+	 * 24,25,26,27,28,29,30,31,32==>32;
+	 * @param value  
+	 * @return
+	 */
+	public static int make16Multi(int value)
 	{
-		long  val2= value/4;
-		
-		if(value%4!=0)
-			val2+=1;
-		
-			val2*=4;
-		return val2;
-		
-		/**
-		 * 	for(int i=0;i<100;i++)
-		{
-			int  val= i/4;
-			
-			if(i%4!=0)
-				val+=1;
-			
-			val*=4;
-			System.out.println("i="+i+" val:"+val);
+	
+		if(value<16){
+			return value;
+		}else {
+			value+=8;
+			int  val2= value/16;
+			val2*=16;
+			return val2;
 		}
-		 */
+		
+	}
+    /**
+	 *  获取lansosdk的建议码率; 
+	 *  这个码率不是唯一的, 仅仅是我们建议这样设置, 如果您对码率理解很清楚或有一定的压缩要求,则完全可以不用我们的建议,自行设置.
+	 *  
+	 * @param wxh  宽度和高度的乘积;
+	 * @return
+	 */
+	public static int getSuggestBitRate(int wxh)
+	{
+		if(wxh <= 480 * 480){
+			return 1000*1024;
+		}else if(wxh<=640 * 480){
+			return 1500*1024;
+		}else if(wxh <=800 *480){
+			return 1800*1024;
+		}else if(wxh <=960 * 544){
+			return 2300*1024;
+		}else if(wxh <=1280 * 720){
+			return 2800*1024;
+		}else if(wxh<=1920 * 1088){
+			return 3000*1024;
+		}else{
+			return 3500*1024;
+		}
+	}
+	public static int checkSuggestBitRate(int wxh, int bitrate)
+	{
+		int sugg=getSuggestBitRate(wxh);
+		return bitrate < sugg ?  sugg: bitrate;   //如果设置过来的码率小于建议码率,则返回建议码率,不然返回设置码率
 	}
 }

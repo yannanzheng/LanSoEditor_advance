@@ -10,7 +10,6 @@ import java.util.Locale;
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBeautyFilter;
-import jp.co.cyberagent.lansongsdk.gpuimage.LanSongSkinWhitenFilter;
 
 import com.example.advanceDemo.GPUImageFilterTools.OnGpuImageFilterChosenListener;
 import com.example.advanceDemo.view.VideoFocusView;

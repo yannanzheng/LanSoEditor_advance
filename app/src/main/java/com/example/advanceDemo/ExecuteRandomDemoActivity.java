@@ -172,11 +172,11 @@ public class ExecuteRandomDemoActivity extends Activity{
 		 * 一下是在处理过程中, 
 		 * 增加的几个Layer, 来实现视频在播放过程中叠加别的一些媒体, 像图片, 文字等.
 		 */
-		bitmapLayer=vDrawPad.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
+		bitmapLayer=vDrawPad.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher),null);
 		bitmapLayer.setPosition(300, 200);
 		
 		//增加一个笑脸, add a bitmap
-		vDrawPad.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.xiaolian));	
+		vDrawPad.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.xiaolian),null);
 
 		//增加一个CanvasLayer
 //		addCanvasLayer();

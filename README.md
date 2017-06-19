@@ -1,24 +1,11 @@
 # LanSoEditor_advance
 android  video editor  advance sdk . filter, overlay,remark,mixer and so on安卓平台视频编辑高级版本，可以滤镜，叠加，标记等操作
-## 当前版本是2.3.4
-*   在原来的基础上,增加滤镜可以叠加功能,即一个滤镜的输出可以作为另一个滤镜的输入.
-*   增加美颜的加速处理功能.
-*   新增DrawPadCameraView
-*   其他更新:
-	  1,把DrawPadView 作为SDK的一部分, 移动到 com.lansosdk.videoeditor包里, 
-				您更新后, 需要删除原来com.example.advanceDemo.view文件夹下的DrawPadView!!!	
-	  2,DrawPadViewExecute移动到com.lansosdk.videoeditor包下面,并写了大量的注释,从而利于您调用.
-	  3 增加了滤镜叠加的功能.  当前的滤镜模式是: 输入源push到OpenGL内部, 然后经过多个滤镜处理后, 最后进行(移动旋转缩放亮暗调节)等调节. 
-## 版本2.3.0
-*  增加FrameInfo类. 
-      您可以很快获取到视频中的所有帧时间戳，并获取到多少个关键帧，每个关键帧的时间戳等。
-      从而有针对性的快速提取视频帧和或播放器的精确定位。      
-*  摄像头图层和视频图层：增加5级美颜效果。
-*  视频图层: 当画面小于视频宽高时,增加一个虚化背景.且虚化程度可调.
-*  音频部分: 增加多个音频拼接方法,比如音频A,音频B,音频C,拼接后音频是ABC;
-*  其他优化。
-*  SDK更改为4部分组成. armeabi-v7a,jar LSResource 和lansosdk文件夹.
-*  SDK的限制条件: SDK如果没有授权, 则APP名字一定要是我们demo的名字, 请注意.
+## 当前版本是2.4.0
+*  优化CameraLayer类, 使其更为流畅清晰,并增加运动检测聚焦和手动聚焦.
+*  增加人脸检测算法.
+*  增加白皙美颜, 冷冷的白皙也是一种美.
+*  新增LayerImage类, 您可以把当前图层克隆出多个画面,从而实现类似灵魂出窍,重影,画面分离等炫酷的效果.
+*  其他代码的优化.
 
 ## SDK简介
 * 像Android系统的UI架构设计了各种按钮, 文本框, 编辑框等各种控件一样. 我们设计了各种图层，如果您对UI架构的各种Button/TextView/ImageView熟悉, 用同样的思路来使用我们的SDK即可, 架构清晰易懂,及其方便调用.

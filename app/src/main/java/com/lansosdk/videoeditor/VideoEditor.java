@@ -36,7 +36,6 @@ import android.util.Log;
  *  mEditor.executeXXXXX();
  *  
  *
- *
  *  提示三:
  *  这些方法的底层，虽然方法在执行中，处于阻塞状态，但我们已经开启了另一个异步处理线程去执行。
  *  建议不要用多线程操作, 因为没有意义, 需要用到编解码的方法, 因硬件在大部分的手机SoC中就一个编解码器, 多个线程一样要排队执行.  
@@ -2661,9 +2660,6 @@ public class VideoEditor {
 					cmdList.add("-map");
 					cmdList.add("[a]");
 					
-//					cmdList.add("-acodec");  //音频采用默认编码.
-//					cmdList.add("copy");
-					
 					cmdList.add("-vcodec");
 					cmdList.add("lansoh264_enc");
 					cmdList.add("-b:v");
@@ -3421,7 +3417,7 @@ public class VideoEditor {
 		 * 
 		 *  为客户测试使用.
 		 * @param yuvPath
-		 * @param width
+		 * @param width.
 		 * @param height
 		 * @param imagePngPath
 		 * @param x
@@ -3682,37 +3678,29 @@ public class VideoEditor {
 			   isCheckPadSize=false;
 		   }
 		   /**
-			 * 把采样点处理成4的倍数.
-			 * 小于等于4的, 处理成4;  大于4小于8的处理成8;
-			 * 1234 处理成4, 5678处理成8;
-			 * @param value
+			 * 当数据不是16的倍数的时候, 把他调整成16的倍数,
+			 *  
+			 * 如果是18,19这样接近16,则等于16, 等于缩小了原有的画面, 
+			 * 如果是25,28这样接近32,则等于32,  等于稍微拉伸了原来的画面,
+			 * 因为最多缩小或拉伸8个像素, 还不至于画面严重变形,而又兼容编码器的要求,故可以这样做.
+			 * 
+			 * 16, 17, 18, 19,20,21,22,23 ==>16;
+			 * 24,25,26,27,28,29,30,31,32==>32;
+			 * @param value  
 			 * @return
 			 */
-			private int makeQuad(int value)
+			private static int make16Multi(int value)
 			{
-				int  val2= value/4;
-				
-				if(value%4!=0)
-				{
-					val2+=1;
-					
-					val2*=4;
-					return val2;
-				}else{
+			
+				if(value<16){
 					return value;
+				}else {
+					value+=8;
+					int  val2= value/16;
+					val2*=16;
+					return val2;
 				}
-				/**
-				 * 	for(int i=0;i<100;i++)
-				{
-					int  val= i/4;
-					
-					if(i%4!=0)
-						val+=1;
-					
-					val*=4;
-					System.out.println("i="+i+" val:"+val);
-				}
-				 */
+				
 			}
 			/**
 			 *  获取lansosdk的建议码率; 

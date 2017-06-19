@@ -200,11 +200,11 @@ public class ExecuteTwoVideoLayerDemoActivity extends Activity{
 			 * 一下是在处理过程中, 
 			 * 增加的几个Layer, 来实现视频在播放过程中叠加别的一些媒体, 像图片, 文字等.
 			 */
-			bitmapLayer=mDrawPad.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
+			bitmapLayer=mDrawPad.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher),null);
 			bitmapLayer.setPosition(300, 200);
 			
 			//增加一个笑脸, add a bitmap
-			mDrawPad.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.xiaolian));	
+			mDrawPad.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.xiaolian),null);
 			//增加一个CanvasLayer
 //			addCanvasLayer();
 //			addDataLayer();

@@ -212,7 +212,7 @@ public class ExecuteBitmapLayerActivity extends Activity{
 		 mDrawPad.pauseRefreshDrawPad(); 
 		
 			//设置一个背景,
-			mDrawPad.addBitmapLayer(BitmapFactory.decodeFile(picBackGround));
+			mDrawPad.addBitmapLayer(BitmapFactory.decodeFile(picBackGround),null);
 	      
 	       slideEffectArray=new ArrayList<SlideEffect>();
 	      
@@ -229,7 +229,7 @@ public class ExecuteBitmapLayerActivity extends Activity{
 	}
 	  private void addLayerToArray(int resId,long startMS,long endMS)
 	    {
-	    	BitmapLayer item=mDrawPad.addBitmapLayer(BitmapFactory.decodeResource(getResources(), resId));
+	    	BitmapLayer item=mDrawPad.addBitmapLayer(BitmapFactory.decodeResource(getResources(), resId),null);
 			SlideEffect  slide=new SlideEffect(item, 25, startMS, endMS, true);
 			slideEffectArray.add(slide);
 			

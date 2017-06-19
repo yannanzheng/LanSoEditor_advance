@@ -16,7 +16,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="5d1f344adb6d1b4fd1e087852f04374fe27f1dd7">
+        sha1="745d4d9ee5d712bf35f141d328817cdcafdabb29">
         <dex dex="E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_dda9612bc87791545be48eccade1f1b820f3c5c3\classes.dex" />
     </item>
     <item
@@ -25,7 +25,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="302d618796f23e6335de3b9d999a0bf5fae3c7ac">
+        sha1="2ad7ddfa28ac3f6c04c5bfa3ae5bba85b9d04284">
         <dex dex="E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\build\intermediates\transforms\dex\debug\folders\1000\2\lansongeditor_hx_37d52bc40adc384c3fffedbe59b8f7160da7a4ea\classes.dex" />
     </item>
     <item

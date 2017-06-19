@@ -4,11 +4,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 
-import com.lansoeditor.demo.R;
 import com.lansosdk.box.LanSoEditorBox;
 
 import android.content.Context;
-import android.util.Log;
 
 public class CopyFileFromAssets {
 	public static String copyAssets(Context mContext,String assetsName) {

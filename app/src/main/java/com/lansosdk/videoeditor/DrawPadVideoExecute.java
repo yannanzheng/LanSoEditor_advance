@@ -1,27 +1,18 @@
 package com.lansosdk.videoeditor;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.opengl.GLES20;
-import android.os.Build;
-import android.util.Log;
 
-import com.lansosdk.box.AudioInsertManager;
 import com.lansosdk.box.BitmapLayer;
-import com.lansosdk.box.BoxMediaInfo;
-import com.lansosdk.box.BoxVideoEditor;
 import com.lansosdk.box.CanvasLayer;
 import com.lansosdk.box.DataLayer;
 import com.lansosdk.box.DrawPadUpdateMode;
 import com.lansosdk.box.DrawPadVideoRunnable;
 import com.lansosdk.box.GifLayer;
 import com.lansosdk.box.Layer;
-import com.lansosdk.box.LayerShader;
 import com.lansosdk.box.MVLayer;
 import com.lansosdk.box.VideoLayer;
 import com.lansosdk.box.onDrawPadCompletedListener;
@@ -124,8 +115,10 @@ public class DrawPadVideoExecute {
    * 
    *设置是否使用主视频的时间戳为录制视频的时间戳;
    *
-   *如果您传递过来的是一个完整的视频, 只是需要在此视频上做一些操作, 
-   *操作完成后,时长等于源视频的时长, 则建议使用主视频的时间戳, 如果视频是从中间截取一般开始的
+   *设置是否使用主视频的时间戳为录制视频的时间戳, 如果您传递过来的是一个完整的视频, 只是需要在此视频上做一些操作,
+   *操作完成后,时长等于源视频的时长, 则建议使用主视频的时间戳, 如果视频是从中间截取一般开始的则不建议使用,
+   *
+   *默认是使用主视频时间.
    *
    *此方法,在DrawPad开始前调用.
    */
@@ -251,7 +244,7 @@ public class DrawPadVideoExecute {
    public BitmapLayer  addBitmapLayer(Bitmap bmp)
    {
 	   if(mDrawPad!=null && mDrawPad.isRunning()){
-		   return mDrawPad.addBitmapLayer(bmp);
+		   return mDrawPad.addBitmapLayer(bmp,null);
 	   }else{
 		   return null;
 	   }

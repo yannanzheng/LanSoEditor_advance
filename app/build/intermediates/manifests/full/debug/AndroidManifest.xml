@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lansoeditor.demo"
-    android:versionCode="2301"
-    android:versionName="2.3.1" > <!-- 这里的意思是：我们的sdk最低是Android4.3， 最高支持Andriod7.0 -->
+    android:versionCode="2400"
+    android:versionName="2.4.0" > <!-- 这里的意思是：我们的sdk最低是Android4.3， 最高支持Andriod7.0 -->
     <uses-sdk
         android:minSdkVersion="18"
         android:targetSdkVersion="23" />
@@ -58,7 +58,7 @@
         <activity android:name="com.example.advanceDemo.BitmapLayerFilterDemoActivity" />
         <activity android:name="com.example.advanceDemo.VideoPlayerActivity" />
         <activity android:name="com.example.advanceDemo.ExecuteVideoLayerDemoActivity" />
-        <activity android:name="com.example.advanceDemo.FilterExecuteDemoActivity" />
+        <activity android:name="com.example.advanceDemo.ExecuteFilterDemoActivity" />
         <activity android:name="com.example.advanceDemo.ExtractVideoFrameDemoActivity" />
         <activity android:name="com.example.advanceDemo.CanvasLayerDemoActivity" />
         <activity

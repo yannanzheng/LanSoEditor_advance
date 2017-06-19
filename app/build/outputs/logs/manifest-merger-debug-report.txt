@@ -149,7 +149,7 @@ activity#com.example.advanceDemo.ExecuteVideoLayerDemoActivity
 ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:83:9-99
 	android:name
 		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:83:19-87
-activity#com.example.advanceDemo.FilterExecuteDemoActivity
+activity#com.example.advanceDemo.ExecuteFilterDemoActivity
 ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:84:9-95
 	android:name
 		ADDED from E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\AndroidManifest.xml:84:19-83
