@@ -43,7 +43,7 @@ import android.util.Log;
  *
  *
  * 提示四:
- * 以下所有的需要用到filter的方法， 都可以用一条命令来完成， 比如你要同时执行倒叙+裁剪+水印， 可以用一个方法一次性执行完成，不必要执行两三次的编解码操作。 
+ * 以下所有的需要用到filter的方法(注释中有:【此方法用到编解码】的)， 都可以用一条命令来完成， 比如你要同时执行倒叙+裁剪+水印， 可以用一个方法一次性执行完成，不必要执行两三次的编解码操作。 
  * 可以联系我们， 在合作后为您定制方法。
  */
 public class VideoEditor {
@@ -155,32 +155,14 @@ public class VideoEditor {
 	    /**
 	     * 新增 在执行过程中取消的方法.
 	     * 如果在执行中调用了这个方法, 则会直接终止当前的操作.
+	     * 此方法仅仅是在ffmpeg线程中设置一个标志位,当前这一帧处理完毕后, 会检测到这个标志位,从而退出.
+	     * 因为execute是阻塞执行, 你可以判断execute有没有执行完,来判断是否完成.
+	     * 
 	     */
 	    public native void cancel();
-	
-//	/**
-//	 * 把一张图片转换为视频,并有淡入淡出的效果.
-//	 * 适用于视频转场的场合,比如两个视频AB之间需要转场,中间需要"五分钟过去了..."这样的文字,可以用这个命令来生成一个提示的视频,然后把这个转场和两个视频拼接起来即可.
-//	 * 注意:这里图片生成的视频的宽高等于图片的宽高,如果用在转场的场合,需要前后两个视频的宽高一直,比如都是480x480等.
-//	 * 
-//	 * @param srcPath  输入的图片文件路径
-//	 * @param totalTime  转换为视频的时长,一般3--5秒为易,生成的图片每秒钟是25帧.
-//	 * @param fadeinstart 从第几帧开始有淡入的效果 
-//	 * @param fadeinCnt   淡入的效果持续多少帧
-//	 * @param fadeoutstart 淡出开始的帧数.
-//	 * @param fadeoutCnt  淡出效果持续多少帧
-//	 * @param dstPath  视频保存的路径.
-//	 * @return
-//	 */
-//	public  int  pictureFadeInOut( String srcPath,int totalTime,int fadeinstart,int fadeinCnt,int fadeoutstart,int fadeoutCnt,
-//		   String dstPath)
-//	{
-//		
-//		
-//	}
-	
 	/**
 	 * 
+	 * 【此方法用到编解码】
 	 * @param srcPath
 	 * @param dstPath
 	 * @param duration
@@ -416,6 +398,7 @@ public class VideoEditor {
 	   * 两个音频文件混合.
 	   * 混合后的文件压缩格式是aac格式, 故需要您dstPath的后缀是aac或m4a.
 	   * 
+	   * 
 	   * @param audioPath1  主音频的完整路径
 	   * @param audioPath2  次音频的完整路径
 	   * @param value1  主音频的音量, 浮点类型, 大于1.0为放大音量, 小于1.0是减低音量.比如设置0.5则降低一倍.
@@ -495,6 +478,7 @@ public class VideoEditor {
 	 * {@link #executeAddWaterMark(String, String, int, int, String, int)}
 	 * {@link #executeAddWaterMark(String, String, float, float, int, int, String, int)}
 	 * 
+	 * 【此方法用到编解码】
 	 * @param srcPath 源视频
 	 * @param dstPath 目的视频
 	 * @param percent 压缩百分比.值从0--1
@@ -795,7 +779,6 @@ public class VideoEditor {
 				    	 command[i]=(String)cmdList.get(i);  
 				     }  
 				    return  executeVideoEditor(command);
-				  
 			  }else{
 				  return VIDEO_EDITOR_EXECUTE_FAILED;
 			  }
@@ -980,22 +963,23 @@ public class VideoEditor {
 				  return VIDEO_EDITOR_EXECUTE_FAILED;
 			  }
 		  }
-		  
 		  /**
-		   * 对视频时长进行 精确裁剪， 把mp4文件中的一段剪切成独立的一个视频文件, 比如把一个1分钟的视频,裁剪其中的10秒钟等.
-		   * 
-		   * 因为视频编码原理是根据IDR来裁剪, 要做到精确裁剪到指定时间, 则有可能指定的时间不是IDR帧的时间戳, 这时就需要先解码,然后编码的操作.
-		   * 这里的精确裁剪是先解码然后编码来统一完成精确裁剪.
-		   * 
-		   * 举例: 
+		   *  对视频时长进行 精确裁剪， 把mp4文件中的一段剪切成独立的一个视频文件, 比如把一个1分钟的视频,裁剪其中的10秒钟等.
+		   *  我们高级版本有直接投递到drawPad中的方法, 如果您使用我们的高级版本, 则建议用DrawPad的方式来处理,那样更快.
+		   *  
+		   *  因为视频编码原理是根据IDR来裁剪, 要做到精确裁剪到指定时间, 则有可能指定的时间不是IDR帧的时间戳, 这时就需要先解码,然后编码的操作.
+		   *  这里的精确裁剪是先解码然后编码来统一完成精确裁剪.
+		   *  注意:此方法为精确裁剪, 流程是:先解码,然后编码. 如果您还实际中还需要别的功能,比如增加LOGO,缩放等操作,建议把两个命令合并在一起,从而减少一次编解码.
+		   *  【此方法用到编解码】
+		   *  举例: 
 		   *editor.executeVideoCutExact(srcVideo, info.vCodecName, dstVideo, 0.6f, 1.0f, (int)((float)info.vBitRate*1.2f));
-		   * 
-		   * @param videoFile 原视频
+		   *
+		   * @param videoFile  原视频
+		   * @param decoder  原视频用到的解码器, 如果有硬件解码器,则建议用硬件解码器.用MediaInfo可以获取.
 		   * @param dstFile  裁剪后目标文件路径，
-		   * @param startS    开始裁剪位置，单位是秒，
-		   * @param durationS 需要裁剪的时长，单位秒，比如您可以从原视频的8.9秒出开始裁剪，裁剪2分钟，则这里的参数是120
+		   * @param startS  开始裁剪位置，单位是秒，
+		   * @param durationS  需要裁剪的时长，单位秒，比如您可以从原视频的8.9秒出开始裁剪，裁剪2分钟，则这里的参数是120
 		   * @param bitrate  因为需要编码， 设置编码的码率。 建议用MediaInfo中的vbitrate*1.2f
-		   * 
 		   * @return
 		   */
 		  public int executeVideoCutExact(String videoFile,String decoder,String dstFile,float startS,float durationS,int bitrate)
@@ -1015,6 +999,70 @@ public class VideoEditor {
 					
 					cmdList.add("-t");
 					cmdList.add(String.valueOf(durationS));
+					
+					cmdList.add("-vcodec");
+					cmdList.add("lansoh264_enc"); 
+					
+					cmdList.add("-b:v");
+					cmdList.add(checkBitRate(bitrate)); 
+					
+					cmdList.add("-pix_fmt");  
+					cmdList.add("yuv420p");
+					
+					cmdList.add("-acodec");
+					cmdList.add("copy");
+					
+					cmdList.add("-y");
+					cmdList.add(dstFile);
+					
+					String[] command=new String[cmdList.size()];  
+				     for(int i=0;i<cmdList.size();i++){  
+				    	 command[i]=(String)cmdList.get(i);  
+				     }  
+				    return  executeVideoEditor(command);
+				  
+			  }else{
+				  return VIDEO_EDITOR_EXECUTE_FAILED;
+			  }
+		  }
+		  /**
+		   * 精确裁剪的同时,缩放到指定位置,不同于上面的命令,这个可以设置宽度和高度. 其中宽度和高度是采用缩放来完成.
+		   * 
+		   * 
+		   * 采用的是软缩放的形式.
+		   * @param videoFile
+		   * @param decoder
+		   * @param dstFile
+		   * @param startS
+		   * @param durationS
+		   * 
+		   * @param width  要缩放到的宽度 建议是16的倍数 ,如果不是,则可以用 {@link #make16Multi(int)}来得到
+		   * @param height 要缩放到的高度, 建议是16的倍数
+		   * @param bitrate
+		   * @return
+		   */
+		  public int executeVideoCutExact(String videoFile,String decoder,String dstFile,
+				  float startS,float durationS,int width,int height,int bitrate)
+		  {
+			  if(fileExist(videoFile)){
+					List<String> cmdList=new ArrayList<String>();
+					
+					String scalecmd=String.format(Locale.getDefault(),"scale=%d:%d",width,height);
+					
+					cmdList.add("-vcodec");
+					cmdList.add(decoder);
+					
+			    	cmdList.add("-i");
+					cmdList.add(videoFile);
+
+					cmdList.add("-ss");
+					cmdList.add(String.valueOf(startS));
+					
+					cmdList.add("-t");
+					cmdList.add(String.valueOf(durationS));
+					
+					cmdList.add("-vf");
+					cmdList.add(scalecmd);
 					
 					cmdList.add("-vcodec");
 					cmdList.add("lansoh264_enc"); 
@@ -1101,6 +1149,7 @@ public class VideoEditor {
 			  }
 		  }
 		  /**
+		   * 【此方法用到编解码】
 		   * 对视频时长剪切的同时, 对画面进行裁剪.
 		   * @param videoFile
 		   * @param dstFile
@@ -1168,13 +1217,18 @@ public class VideoEditor {
 		   * 所有的帧会按照后缀名字加上_001.jpeg prefix_002.jpeg的顺序依次生成, 如果发现之前已经有同样格式的文件,则在原来数字后缀的基础上增加, 比如原来有prefix_516.jpeg;则这个方法执行从
 		   * prefix_517.jpeg开始生成视频帧.
 		   * 
-		   * 这条命令是把视频中的所有帧都提取成图片，适用于视频比较短的场合，比如一秒钟是２５帧，视频总时长是10秒，则会提取250帧图片，保存到您指定的路径
+		   * 
+		   *如果您使用的是高级版本,则建议用ExtractVideoFrameDemoActivity来获取视频图片,因为直接返回bitmap,不存到文件中,速度相对快很多
+		   *如果您使用的是高级版本,则建议用ExtractVideoFrameDemoActivity来获取视频图片,因为直接返回bitmap,不存到文件中,速度相对快很多
+		   *如果您使用的是高级版本,则建议用ExtractVideoFrameDemoActivity来获取视频图片,因为直接返回bitmap,不存到文件中,速度相对快很多
+		   *如果您使用的是高级版本,则建议用ExtractVideoFrameDemoActivity来获取视频图片,因为直接返回bitmap,不存到文件中,速度相对快很多
+		   *
+		   *
+		   * 这条命令是把视频中的所有帧都提取成图片，适用于视频比较短的场合，比如一秒钟是25帧，视频总时长是10秒，则会提取250帧图片，保存到您指定的路径
 		   * @param videoFile  
 		   * @param dstDir  目标文件夹绝对路径.
 		   * @param jpgPrefix   保存图片文件的前缀，可以是png或jpg
 		   * @return
-		   * 
-		   * ./ffmpeg -i tenSecond.mp4 -qscale:v 2 output_%03d.jpg
 		   */
 		  public int executeGetAllFrames(String videoFile,String decoder,String dstDir,String jpgPrefix)
 		  {
@@ -1209,13 +1263,19 @@ public class VideoEditor {
 		  /**
 		   * 根据设定的采样,获取视频的几行图片.
 		   * 假如视频时长是30秒,想平均取5张图片,则sampleRate=5/30;
+		   * 
+		   * 
+		   *如果您使用的是高级版本,则建议用ExtractVideoFrameDemoActivity来获取视频图片,因为直接返回bitmap,不存到文件中,速度相对快很多
+		   *如果您使用的是高级版本,则建议用ExtractVideoFrameDemoActivity来获取视频图片,因为直接返回bitmap,不存到文件中,速度相对快很多
+		   *如果您使用的是高级版本,则建议用ExtractVideoFrameDemoActivity来获取视频图片,因为直接返回bitmap,不存到文件中,速度相对快很多
+		   *如果您使用的是高级版本,则建议用ExtractVideoFrameDemoActivity来获取视频图片,因为直接返回bitmap,不存到文件中,速度相对快很多
+		   *
+		   *
 		   * @param videoFile
 		   * @param dstDir
 		   * @param jpgPrefix
 		   * @param sampeRate  一秒钟采样几张图片. 可以是小数.
 		   * @return
-		   * 
-		   * ./ffmpeg -i 2x.mp4 -qscale:v 2 -vsync 1 -r 5/32 -f image2 r5r-%03d.jpeg
 		   */
 		  public int executeGetSomeFrames(String videoFile,String dstDir,String jpgPrefix,float sampeRate)
 		  {
@@ -1257,7 +1317,14 @@ public class VideoEditor {
 		  }
 		  /**
 		   *  读取视频中的关键帧(IDR帧), 并把关键帧保存图片. 因是IDR帧, 在编码时没有起帧做参考,故提取的最快. 
+		   *
 		   * 
+		   *如果您使用的是高级版本,则建议用ExtractVideoFrameDemoActivity来获取视频图片,因为直接返回bitmap,不存到文件中,速度相对快很多
+		   *如果您使用的是高级版本,则建议用ExtractVideoFrameDemoActivity来获取视频图片,因为直接返回bitmap,不存到文件中,速度相对快很多
+		   *如果您使用的是高级版本,则建议用ExtractVideoFrameDemoActivity来获取视频图片,因为直接返回bitmap,不存到文件中,速度相对快很多
+		   *如果您使用的是高级版本,则建议用ExtractVideoFrameDemoActivity来获取视频图片,因为直接返回bitmap,不存到文件中,速度相对快很多
+		   *
+		   *
 		   * 经过我们SDK编码后的视频, 是一秒钟一个帧,如果您视频大小是30秒,则大约会提取30张图片.
 		   * 
 		   * @param videoFile  视频文件
@@ -1646,8 +1713,8 @@ public class VideoEditor {
 		   * 裁剪一个mp4分辨率，把视频画面的某一部分裁剪下来，
 		   * 
 		   * @param videoFile　需要裁剪的视频文件
-		   * @param cropWidth　裁剪的宽度
-		   * @param cropHeight 　裁剪的宽度
+		   * @param cropWidth　裁剪后的目标宽度
+		   * @param cropHeight 　裁剪后的目标高度
 		   * @param x  　视频画面开始的Ｘ坐标，　从画面的左上角开始是0.0坐标
 		   * @param y 视频画面开始的Y坐标，
 		   * @param dstFile 处理后保存的路径,后缀需要是mp4
@@ -1673,7 +1740,7 @@ public class VideoEditor {
 				  return VIDEO_EDITOR_EXECUTE_FAILED;
 			  }
 		  }
-		  //内部使用
+		  //内部使用【此方法用到编解码】
 		  private int executeFrameCrop(String videoFile,String codecname,String filter,String dstFile,int bitrate)
 		  {
 			  List<String> cmdList=new ArrayList<String>();
@@ -1712,6 +1779,8 @@ public class VideoEditor {
 		  /**
 		   *此视频缩放算法，采用是软缩放来实现，速度特慢, 不建议使用.　
 		   * 视频画面缩放, 务必保持视频的缩放后的宽高比,等于原来视频的宽高比.
+		   * 
+		   * 【此方法用到编解码】
 		   * 
 		   * @param videoFile
 		   * @param scaleWidth
@@ -1762,6 +1831,7 @@ public class VideoEditor {
 		  }
 		  
 		  /**
+		   * 【此方法用到编解码】
 		   * 缩放的同时增加logo水印.
 		   * TODO 暂时没有测试.
 		   * @param videoFile
@@ -1852,7 +1922,7 @@ public class VideoEditor {
 				  return VIDEO_EDITOR_EXECUTE_FAILED;
 			  }
 		  }
-		  //内部使用
+		  //内部使用 【此方法用到编解码】
 		  private int framecropoverlay(String videoFile,String decCodec, String pngPath,String filter,String dstFile,int bitrate)
 		  {
 			  List<String> cmdList=new ArrayList<String>();
@@ -1939,7 +2009,7 @@ public class VideoEditor {
 				  return VIDEO_EDITOR_EXECUTE_FAILED;
 			  }
 		  }
-		  //内部使用
+		  //内部使用  【此方法用到编解码】
 		  private int videoCutCropOverlay(String videoFile,String decCodec, String pngPath,float startTimeS,float duationS,String filter,String dstFile,int bitrate)
 		  {
 			  	List<String> cmdList=new ArrayList<String>();
@@ -2102,7 +2172,7 @@ public class VideoEditor {
 				  return VIDEO_EDITOR_EXECUTE_FAILED;
 			  }
 		  }
-		  //内部使用, 视频上增加水印.
+		  //内部使用, 视频上增加水印. 【此方法用到编解码】
 		  private int videoAddWatermark(String videoFile,String decName,String imagePngPath,String filter,String dstFile,int bitrate)
 		  {
 			  	List<String> cmdList=new ArrayList<String>();
@@ -2179,6 +2249,7 @@ public class VideoEditor {
 			  * ffmpeg -i Text.mp4 -i qzone.png -i qq2.png -i phiz5.png -i send.png -i cancel.png -i download.png  -filter_complex "overlay=25:25,overlay=0:0,overlay=35:35,overlay=45:45,overlay=55:55,overlay=65:65" -pix_fmt yuv420p -c:a copy HeT.mp4
 			  * */
 			  /**
+			   * 【此方法用到编解码】
 			   * 同时增加两个图片的水印.
 			   * @param videoFile
 			   * @param decName
@@ -2240,7 +2311,7 @@ public class VideoEditor {
 		  
 		  /**
 		   * 把视频填充成指定大小的画面, 比视频的宽高大的部分用黑色来填充.
-		   * 
+		   * 【此方法用到编解码】
 		   * @param videoFile 源视频路径
 		   * @param decCodec  视频用到的解码器, 通过MediaInfo得到.
 		   * @param padWidth  填充成的目标宽度 , 参数需要是16的倍数
@@ -2309,6 +2380,7 @@ public class VideoEditor {
 			  }
 		  }
 		  /**
+		   * 【此方法用到编解码】
 		   * 精确裁剪视频, 并填充到指定的宽高, 工作过程参考 {@link #executePadingVideo(String, String, int, int, int, int, String, int)}
 		   * @param videoFile
 		   * @param decCodec
@@ -2386,6 +2458,8 @@ public class VideoEditor {
 			  }
 		  }
 		  /**
+		   * 【此方法用到编解码】
+		   * 
 		   * 先裁剪画面的一部分, 然后再填充成一个指定大小的画面, 等于把裁剪后的画面,放到指定大小的画面上, 如小于指定的画面,则用黑色填充.
 		   * 
 		   * @param videoFile
@@ -2457,6 +2531,7 @@ public class VideoEditor {
 			  }
 		  }
 			/**
+			 * 【此方法用到编解码】
 			 * 给视频旋转角度,注意这里 只是 旋转画面的的角度,而不会调整视频的宽高.
 			 * @param srcPath　需要旋转角度的原视频
 			 * @param decoder　　视频的解码器名字
@@ -2466,7 +2541,6 @@ public class VideoEditor {
 			 */
 		  public int executeRotateAngle(String srcPath,String decoder,float angle,int bitrate,String dstPath)
 		  {
-			  ////ffmpeg -i INPUT -vf "rotate=45*(PI/180),format=yuv420p" -metadata:s:v rotate=0 -codec:v libx264 -codec:a copy output.mp4
 			  if(fileExist(srcPath)){
 					
 				  String filter=String.format(Locale.getDefault(),"rotate=%f*(PI/180),format=yuv420p",angle);
@@ -2516,6 +2590,7 @@ public class VideoEditor {
 		   * 如原来视频有90度或270度, 这样在有些播放器中, 会出现视频是横着播放的, 这是因为播放器没有检测视频角度; 为了兼容这样的播放器,需要把视频矫正成没有角度的并且画面正常显示的视频.
 		   * 此方法仅适用在单单需要校正角度，而不需要另外的编码操作，如有另外的编码操作， 则无需适用这个方法。
 		   * 
+		   * 【此方法用到编解码】
 		   * @param srcPath 原视频.
 		   * @param decoder 原视频的解码器
 		   * @param bitrate  原视频的码率的1.5f, 即info.vBitRate的1.5f
@@ -2631,6 +2706,7 @@ public class VideoEditor {
 		//---------------------------
 		/**
 		 * 调整视频的播放速度，　可以把视频加快速度，或放慢速度。适用在希望缩短视频中不重要的部分的场景，比如走路等
+		 * 【此方法用到编解码】
 		 * @param srcPath　　源视频
 		 * @param decoder　　指定视频的解码器名字
 		 * @param speed　　　　源视频中　　画面和音频同时改变的倍数，比如放慢一倍，则这里是0.5;加快一倍，这里是2；建议速度在0.5--2.0之间。
@@ -2682,6 +2758,8 @@ public class VideoEditor {
 		}
 		/**
 		 * 调整视频的播放速度，　可以把视频加快速度，或放慢速度。适用在希望缩短视频中不重要的部分的场景，比如走路等
+		 * 【此方法用到编解码】
+		 * 
 		 * 和#executeVideoAdjustSpeed 不同的是, 这方法仅仅是适用于没有音频的场合, 如果您视频中没有音频,可以用这个来做. 
 		 * (用Mediainfo可以检测出是否有音频部分)
 		 * @param srcPath　　源视频
@@ -2732,6 +2810,7 @@ public class VideoEditor {
 		}
 		/**
 		 * 视频水平镜像，即把视频左半部分镜像显示在右半部分
+		 * 【此方法用到编解码】
 		 * @param srcPath　源视频路径
 		 * @param decoder　　指定解码器
 		 * @param dstPath　　目标视频路径
@@ -2780,6 +2859,7 @@ public class VideoEditor {
 		}
 		/**
 		 * 视频垂直镜像，即把视频上半部分镜像显示在下半部分
+		 * 【此方法用到编解码】
 		 * @param srcPath　源视频路径
 		 * @param decoder　　指定解码器
 		 * @param dstPath　　目标视频路径
@@ -2828,6 +2908,7 @@ public class VideoEditor {
 		}
 		/**
 		 * 视频垂直方向反转
+		 * 【此方法用到编解码】
 		 * @param srcPath1　　原视频
 		 * @param decoder　　视频的解码器名字
 		 * @param dstPath　　目标视频　需要是mp4格式。
@@ -2874,6 +2955,7 @@ public class VideoEditor {
 		}
 		/**
 		 * 视频水平方向反转
+		 * 【此方法用到编解码】
 		 * @param srcPath1　　原视频
 		 * @param decoder　　视频的解码器名字
 		 * @param dstPath　　目标视频. 需要是mp4格式
@@ -2967,7 +3049,8 @@ public class VideoEditor {
 		}
 		/**
 		 * 
-		 * 视频逆时针旋转９０度,也即使顺时针旋转270度.
+		 * 视频逆时针旋转90度,也可以认为是顺时针旋转270度.
+		 * 【此方法用到编解码】
 		 * @param srcPath1　原视频
 		 * @param decoder　　视频的解码器名字
 		 * @param dstPath　　目标视频，需要是mp4格式
@@ -2975,8 +3058,6 @@ public class VideoEditor {
 		 */
 		public int executeVideoRotate90CounterClockwise( String srcPath,String decoder,int bitrate,String dstPath)
 		{
-			//ffmpeg -i INPUT -vf transpose=2 -c:a copy OUTPUT //---逆时针旋转视频90度
-			
 				if(fileExist(srcPath)){
 					
 					List<String> cmdList=new ArrayList<String>();
@@ -3111,6 +3192,8 @@ public class VideoEditor {
 		 * 注意：此处理会占用大量的内存，建议视频最好是480x480的分辨率, 并且不要过长，尽量在15秒内
 		 * 注意：此处理会占用大量的内存，建议视频最好是480x480的分辨率, 并且不要过长，尽量在15秒内
 		 * 
+		 * 【此方法用到编解码】
+		 * 
 		 * 如您的视频过大, 则可能导致:Failed to inject frame into filter network: Out of memory;这个是正常的.因为已超过APP可使用的内容范围, 内存不足.
 		 * 
 		 * @param srcPath1　　原mp4文件
@@ -3215,6 +3298,7 @@ public class VideoEditor {
 		 * 
 		 * 注意:这里的yuv格式是YUV402P(如果是NV21或NV12需要转换下)
 		 * 
+		 * 【此方法用到编解码】
 		 * @param yuvPath  yuv的路径
 		 * @param width  yuv的宽度
 		 * @param height yuv的高度
@@ -3280,6 +3364,8 @@ public class VideoEditor {
 		 * TODO  没有验证, 只是在PC端测试OK
 		 * 
 		 * 把yuv420p格式的yuv视频文件, 编码成MP4
+		 * 【此方法用到编解码】
+		 * 
 		 * @param srcPath  原文件
 		 * @param width  yuv视频的宽度
 		 * @param height 高度
@@ -3331,7 +3417,7 @@ public class VideoEditor {
 		
 		/**
 		 * 此方法仅仅是为了客户的需求,而临时性测试, 不建议使用, 仅供客户参考..请注意.
-		 * 
+		 * 【此方法用到编解码】
 		 * @param videoPath  视频路径
 		 * @param decoder  视频的解码器
 		 * @param subtilePath  字幕的路径
@@ -3381,7 +3467,6 @@ public class VideoEditor {
 		{
 			//参考代码://ffmpeg -i 2x.mp4 -vf "subtitles=tenSub.srt" -y out3.mp4
 			List<String> cmdList=new ArrayList<String>();
-			
 					
 			cmdList.add("-vcodec");
 			cmdList.add(decoder);
@@ -3414,7 +3499,7 @@ public class VideoEditor {
 		
 		/**
 		 * 把yuv的视频文件, 增加图片上去, 这里仅仅是增加图片,转换视频部分, 没有音频部分, 您如果需要音频部分,需要另外merge
-		 * 
+		 * 【此方法用到编解码】
 		 *  为客户测试使用.
 		 * @param yuvPath
 		 * @param width.
@@ -3504,6 +3589,47 @@ public class VideoEditor {
 //				     }  
 //				    return  executeVideoEditor(command);
 //		}
+		/**
+		 * 仅仅测试视频转gif格式, 
+		 * @param videoFile
+		 * @param decoder
+		 * @param dstGif
+		 * @return
+		 */
+		public int testVideo2Gif(String videoFile,String decoder, String dstGif) 
+		{
+//			ffmpeg -i capx.mp4 -t 10 -s 320x240 -pix_fmt rgb24 jidu1.gif
+//			ffmpeg -i video.mp4 -vf scale=500:-1 -t 10 -r 10 image.gif
+			
+					List<String> cmdList=new ArrayList<String>();
+					
+					cmdList.add("-vcodec");
+					cmdList.add(decoder);
+					
+			    	cmdList.add("-i");
+					cmdList.add(videoFile);
+					
+				
+					 cmdList.add("-t");
+			        cmdList.add("10");  //10秒
+			
+			        cmdList.add("-s");
+			        cmdList.add("320x240");  //缩放到320x240的分辨率
+			
+			        cmdList.add("-pix_fmt");
+			        cmdList.add("rgb24");  //格式是rgb24
+					 
+
+			        cmdList.add("-y"); 
+			        
+			        cmdList.add(dstGif);
+
+					String[] command=new String[cmdList.size()];  
+				     for(int i=0;i<cmdList.size();i++){  
+				    	 command[i]=(String)cmdList.get(i);  
+				     }  
+				    return  executeVideoEditor(command);
+		}
 		
 		/**
 		 * 校对一下 bitrate, 因为一些2013年左右的SoC中的硬件编码器如果码率大于2000*1000(2M)的话, 则会崩溃, 故这里限制在2M范围内.
@@ -3556,7 +3682,18 @@ public class VideoEditor {
 				    return  executeVideoEditor(command);
 			
 		  }
-		 
+		 /**
+		  * 【此方法用到编解码】
+		  * @param srcPath
+		  * @param decoder
+		  * @param pngPath
+		  * @param xpos
+		  * @param ypos
+		  * @param speed
+		  * @param bitrate
+		  * @param dstPath
+		  * @return
+		  */
 		 public int  executeAddMarkAdjustSpeed( String srcPath,String decoder,String  pngPath,int xpos,int ypos, float speed,int bitrate,String dstPath)
 			{
 //ffmpeg -i 2x.mp4 -i watermark.png -filter_complex "[0:v][1:v] overlay=0:0[overlay]; [overlay]setpts=0.5*PTS[v];[0:a]atempo=2.0[a]" -map "[v]" -map "[a]" output3.mp4
@@ -3607,6 +3744,18 @@ public class VideoEditor {
 					  return VIDEO_EDITOR_EXECUTE_FAILED;
 				  }
 			}
+		 /**
+		  * 【此方法用到编解码】
+		  * @param srcPath
+		  * @param decoder
+		  * @param pngPath
+		  * @param xpos
+		  * @param ypos
+		  * @param speed
+		  * @param bitrate
+		  * @param dstPath
+		  * @return
+		  */
 		 public int  executeAddMarkAdjustSpeed2( String srcPath,String decoder,String  pngPath,int xpos,int ypos, float speed,int bitrate,String dstPath)
 			{
 //ffmpeg -i 2x.mp4 -i watermark.png -filter_complex "[0:v][1:v] overlay=0:0[overlay]; [overlay]setpts=0.5*PTS[v];[0:a]atempo=2.0[a]" -map "[v]" -map "[a]" output3.mp4

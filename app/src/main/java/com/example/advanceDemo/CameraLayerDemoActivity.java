@@ -7,40 +7,19 @@ import java.util.Locale;
 
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
-import jp.co.cyberagent.lansongsdk.gpuimage.GPUImagePixelationFilter;
-import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
-import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSwirlFilter;
-import jp.co.cyberagent.lansongsdk.gpuimage.IF1977Filter;
-import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBeautyFilter;
 
 import com.example.advanceDemo.GPUImageFilterTools.FilterAdjuster;
 import com.example.advanceDemo.GPUImageFilterTools.OnGpuImageFilterChosenListener;
-import com.example.advanceDemo.view.BitmapCache;
-import com.example.advanceDemo.view.ShowHeart;
 import com.example.advanceDemo.view.VideoFocusView;
-import com.example.advanceDemo.view.VideoProgressView;
 import com.lansoeditor.demo.R;
-import com.lansosdk.box.BitmapLayer;
 import com.lansosdk.box.CameraLayer;
-import com.lansosdk.box.CameraLayer;
-import com.lansosdk.box.CanvasRunnable;
-import com.lansosdk.box.CanvasLayer;
-import com.lansosdk.box.DrawPadUpdateMode;
-import com.lansosdk.box.LanSoEditorBox;
-import com.lansosdk.box.Layer;
 import com.lansosdk.box.DrawPad;
-import com.lansosdk.box.MVLayer;
-import com.lansosdk.box.VideoLayer;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
 import com.lansosdk.videoeditor.DrawPadCameraView;
 import com.lansosdk.videoeditor.DrawPadCameraView.onViewAvailable;
-import com.lansosdk.videoeditor.DrawPadView;
 import com.lansosdk.videoeditor.LanSongUtil;
-import com.lansosdk.videoeditor.MediaInfo;
-import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
-import com.lansosdk.videoeditor.VideoEditor;
 
 
 import android.app.Activity;
@@ -89,7 +68,6 @@ public class CameraLayerDemoActivity extends Activity implements Handler.Callbac
     private DrawPadCameraView mDrawPadView;
     
     private CameraLayer  mCameraLayer=null;
-    private String dstTmpPath=null;
     private String dstPath=null;
 	private PowerManager.WakeLock mWakeLock;
 	
@@ -111,7 +89,7 @@ public class CameraLayerDemoActivity extends Activity implements Handler.Callbac
          * 在手机的默认路径下创建一个文件名,
          * 用来保存生成的视频文件,(在onDestroy中删除)
          */
-        dstTmpPath=SDKFileUtils.newMp4PathInBox();
+        dstPath=SDKFileUtils.newMp4PathInBox();
         
 		new Handler().postDelayed(new Runnable() {
 			@Override
@@ -140,13 +118,13 @@ public class CameraLayerDemoActivity extends Activity implements Handler.Callbac
     {
     	//设置使能 实时录制, 即把正在DrawPad中呈现的画面实时的保存下来,实现所见即所得的模式
     	/**
-    	 * 当前CameraLayer 只支持全屏和 正方形的宽高比,
+    	 * 当前CameraLayer 支持全屏和 正方形的宽高比,
     	 */
     	 int padWidth=480;
     	 int padHeight=480;
     	 
     	mDrawPadView.setRecordMic(true);
-    	mDrawPadView.setRealEncodeEnable(padWidth,padHeight,1000000,(int)25,dstTmpPath);
+    	mDrawPadView.setRealEncodeEnable(padWidth,padHeight,1000000,(int)25,dstPath);
     	
     	//设置当再次
     	mDrawPadView.setOnViewAvailable(new onViewAvailable() {
@@ -209,16 +187,7 @@ public class CameraLayerDemoActivity extends Activity implements Handler.Callbac
     {
     	if(mDrawPadView!=null && mDrawPadView.isRunning())
     	{
-    			//录制完成后, 拿到音频文件.
-    			String micPath=mDrawPadView.stopDrawPad2();
-				if(SDKFileUtils.fileExist(dstTmpPath))
-				{
-					dstPath=SDKFileUtils.newMp4PathInBox();
-					VideoEditor veditor=new VideoEditor();
-					veditor.executeVideoMergeAudio(dstTmpPath, micPath, dstPath);  //合并到新视频文件中.
-				}else{
-					Log.e(TAG," player completion, but file:"+dstTmpPath+" is not exist!!!");
-				}
+    			mDrawPadView.stopDrawPad();
 				mCameraLayer=null;
 				playVideo.setVisibility(View.VISIBLE);
 		}
@@ -266,8 +235,10 @@ public class CameraLayerDemoActivity extends Activity implements Handler.Callbac
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 			super.onDestroy();
-		    if(SDKFileUtils.fileExist(dstTmpPath)){
-		    	SDKFileUtils.deleteFile(dstTmpPath);
+			//删除文件.
+		    if(SDKFileUtils.fileExist(dstPath)){
+		    	SDKFileUtils.deleteFile(dstPath);
+		    	dstPath=null;
 		    }
 	}
    //-------------------------------------------一下是UI界面和控制部分.---------------------------------------------------
@@ -344,7 +315,7 @@ public class CameraLayerDemoActivity extends Activity implements Handler.Callbac
 //				}else{
 //					mDrawPadView.resumeDrawPadRecord();
 //				}
-				if (mCameraLayer!=null && mCameraLayer.supportChangeCamera()) {
+				if (mCameraLayer!=null) {
 					handler.sendEmptyMessage(MSG_CHANGE_CAMERA);
 				}
 				break;
@@ -433,7 +404,7 @@ public class CameraLayerDemoActivity extends Activity implements Handler.Callbac
 		
 		Rect targetFocusRect = new Rect(rect.left * 2000 / w - 1000, rect.top * 2000 / h - 1000, rect.right * 2000 / w - 1000, rect.bottom * 2000 / h - 1000);
 		try {
-			List<Camera.Area> focusList = new ArrayList<Camera.Area>();
+			List<Area> focusList = new ArrayList<Area>();
 			Area focusA = new Area(targetFocusRect, 1000);
 			focusList.add(focusA);
 			mCameraLayer.doFocus(focusList);

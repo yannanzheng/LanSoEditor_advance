@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFA500"
+    android:orientation="vertical" >
+    
+   <RelativeLayout  android:id="@+id/id_getframe_testtime" style="@style/main_item_reletivelayout">
+           	 <TextView   android:text="测试获取所有帧的速度" style="@style/main_item_textview"/>
+			<TextView  style="@style/main_item_arrow"/> 
+	</RelativeLayout>
+	
+    <RelativeLayout  android:id="@+id/id_getframe_get25frame" style="@style/main_item_reletivelayout">
+           	 <TextView   android:text="平均获取25帧" style="@style/main_item_textview"/>
+			<TextView  style="@style/main_item_arrow"/> 
+	</RelativeLayout>
+	
+     <RelativeLayout  android:id="@+id/id_getframe_get60frame" style="@style/main_item_reletivelayout">
+           	 <TextView   android:text="平均获取60帧" style="@style/main_item_textview"/>
+			<TextView  style="@style/main_item_arrow"/> 
+	</RelativeLayout>
+	
+      <RelativeLayout  android:id="@+id/id_getframe_allframe" style="@style/main_item_reletivelayout">
+           	 <TextView   android:text="获取视频中的所有帧" style="@style/main_item_textview"/>
+			<TextView  style="@style/main_item_arrow"/> 
+	</RelativeLayout>
+	
+      <RelativeLayout   
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="center_vertical"
+          android:background="@drawable/function_item_btn_bg"
+          android:layout_marginTop="20dip">
+          
+           	 <TextView   android:text="提示:(测试所有帧的速度)是真实的获取帧的速度.\n其他因为有UI界面加载和缓存的影响,表象略慢一些.\n"
+           	     android:layout_width="match_parent"
+           	     android:layout_height="80dip"/>
+	</RelativeLayout>
+
+</LinearLayout>

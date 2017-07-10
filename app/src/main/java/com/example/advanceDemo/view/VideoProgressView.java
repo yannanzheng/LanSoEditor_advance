@@ -3,8 +3,6 @@ package com.example.advanceDemo.view;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import com.example.advanceDemo.SegmentRecorderActivity;
-
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -12,11 +10,47 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 public class VideoProgressView extends SurfaceView implements SurfaceHolder.Callback, Runnable {
 
+
+	private volatile State currentState = State.PAUSE;
+
+	private boolean isVisible = true;
+	/**
+	 * 已经绘制后的长度.
+	 */
+	private float countWidth = 0;
+	private float perProgress = 0;
+	/**
+	 * 上一次绘制的时间.
+	 */
+	private long initTime;
+	private long drawFlashTime = 0;
+
+
+	private volatile boolean drawing = false;
+
+	private DisplayMetrics displayMetrics;
+	private int screenWidth, progressHeight;
+	
+	private Paint backgroundPaint, progressPaint, flashPaint, minTimePaint, breakPaint, rollbackPaint;
+	
+	private float perWidth;
+	private float flashWidth = 3f;
+	private float minTimeWidth = 5f;
+	private float breakWidth = 2f;
+
+	private LinkedList<Integer> timeList = new LinkedList<Integer>();
+
+	private Canvas canvas = null; 
+	private Thread thread = null;
+	private SurfaceHolder holder = null;
+
+	
 	public VideoProgressView(Context context) {
 		super(context);
 		init(context);
@@ -38,7 +72,6 @@ public class VideoProgressView extends SurfaceView implements SurfaceHolder.Call
 		this.setZOrderMediaOverlay(true);
 		displayMetrics = getResources().getDisplayMetrics();
 		screenWidth = displayMetrics.widthPixels;
-		perWidth = screenWidth / SegmentRecorderActivity.MAX_RECORD_TIME;
 
 		progressPaint = new Paint();
 		flashPaint = new Paint();
@@ -73,125 +106,54 @@ public class VideoProgressView extends SurfaceView implements SurfaceHolder.Call
 		holder.addCallback(this);
 	}
 
-	private volatile State currentState = State.PAUSE;
-
-	private boolean isVisible = true;
-	private float countWidth = 0;
-	private float perProgress = 0;
-	private long initTime;
-	private long drawFlashTime = 0;
-
-	private long lastStartTime = 0;
-	private long lastEndTime = 0;
-
-	private volatile boolean drawing = false;
-
-	private DisplayMetrics displayMetrics;
-	private int screenWidth, progressHeight;
-	private Paint backgroundPaint, progressPaint, flashPaint, minTimePaint, breakPaint, rollbackPaint;
-	private float perWidth;
-	private float flashWidth = 3f;
-	private float minTimeWidth = 5f;
-	private float breakWidth = 2f;
-
-	private LinkedList<Integer> timeList = new LinkedList<Integer>();
-
-	private Canvas canvas = null; //定义画布  
-	private Thread thread = null; //定义线程  
-	private SurfaceHolder holder = null;
-
-	private void myDraw() {
-		//		System.err.println("myDraw=============");
-		canvas = holder.lockCanvas();
-		progressHeight = getMeasuredHeight();
-
-		if (canvas != null) {
-			canvas.drawRect(0, 0, screenWidth, progressHeight, backgroundPaint);
-		}
-
-		long curSystemTime = System.currentTimeMillis();
-		countWidth = 0;
-		if (!timeList.isEmpty()) {
-			long preTime = 0;
-			long curTime = 0;
-			Iterator<Integer> iterator = timeList.iterator();
-			while (iterator.hasNext()) {
-				lastStartTime = preTime;
-				curTime = iterator.next();
-				lastEndTime = curTime;
-				float left = countWidth;
-				countWidth += (curTime - preTime) * perWidth;
-				if (canvas != null) {
-					canvas.drawRect(left, 0, countWidth, progressHeight, progressPaint);
-					canvas.drawRect(countWidth, 0, countWidth + breakWidth, progressHeight, breakPaint);
-				}
-				countWidth += breakWidth;
-				preTime = curTime;
-			}
-		}
-		if (timeList.isEmpty() || (!timeList.isEmpty() && timeList.getLast() <= SegmentRecorderActivity.MIN_RECORD_TIME)) {
-			float left = perWidth * SegmentRecorderActivity.MIN_RECORD_TIME;
-			if (canvas != null) {
-				canvas.drawRect(left, 0, left + minTimeWidth, progressHeight, minTimePaint);
-			}
-		}
-		if (currentState == State.BACKSPACE) {
-			float left = countWidth - (lastEndTime - lastStartTime) * perWidth;
-			float right = countWidth;
-			if (canvas != null) {
-				canvas.drawRect(left, 0, right, progressHeight, rollbackPaint);
-			}
-		}
-		// 手指按下时，绘制新进度条
-		if (currentState == State.START) {
-			perProgress += perWidth * (curSystemTime - initTime);
-			float right = (countWidth + perProgress) >= screenWidth ? screenWidth : (countWidth + perProgress);
-			if (canvas != null) {
-				canvas.drawRect(countWidth, 0, right, progressHeight, progressPaint);
-			}
-		}
-		if (drawFlashTime == 0 || curSystemTime - drawFlashTime >= 500) {
-			isVisible = !isVisible;
-			drawFlashTime = System.currentTimeMillis();
-		}
-		if (isVisible) {
-			if (currentState == State.START) {
-				if (canvas != null) {
-					canvas.drawRect(countWidth + perProgress, 0, countWidth + flashWidth + perProgress, progressHeight,
-							flashPaint);
-				}
-			} else {
-				if (canvas != null) {
-					canvas.drawRect(countWidth, 0, countWidth + flashWidth, progressHeight, flashPaint);
-				}
-			}
-		}
-		initTime = System.currentTimeMillis();
-		if (canvas != null) {
-			holder.unlockCanvasAndPost(canvas);
-		}
-	}
-
 	@Override
 	public void run() {
 		while (drawing) {
 			try {
 				myDraw();
-				Thread.sleep(40);
+				Thread.sleep(40);  //这里40毫秒更新一次.
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 	}
-
-	public void putTimeList(int time) {
-		timeList.add(time);
+	private float minRecordTimeMS=2 * 1000f;
+	private float maxRecordTimeMS=15 * 1000f;
+	/**
+	 * 设置最小录制时间, 单位毫秒
+	 */
+	public void setMinRecordTime(float  minMs)
+	{
+		minRecordTimeMS=minMs;
 	}
-
+	/**
+	 * 设置最大录制时间, 单位毫秒.
+	 * @param maxMs
+	 */
+	public void setMaxRecordTime(float  maxMs)
+	{
+		maxRecordTimeMS=maxMs;
+		perWidth = screenWidth / maxRecordTimeMS;
+	}
+	/**
+	 * 当一段录制完成后, 把这一段的时长放进来, 
+	 * 单位是毫秒.
+	 * @param timeMs
+	 */
+	public void putTimeList(int timeMs) {
+		Log.i("T","timeList  sput time list "+ timeMs);
+		timeList.add(timeMs);
+	}
+	/**
+	 * 清空放进来的所有段时长.
+	 */
 	public void clearTimeList() {
 		timeList.clear();
 	}
-
+	/**
+	 * 返回最后一段视频的时长, 单位是Ms
+	 * @return
+	 */
 	public int getLastTime() {
 		if ((timeList != null) && (!timeList.isEmpty())) {
 			return timeList.getLast();
@@ -219,18 +181,124 @@ public class VideoProgressView extends SurfaceView implements SurfaceHolder.Call
 		drawing = false;
 	}
 
+	/**
+	 * 设置当前绘制的状态, 如果要执行删除,则从timeList中删除最后一个
+	 * 
+	 * @param state
+	 */
 	public void setCurrentState(State state) {
 		currentState = state;
 		if (state != State.START) {
 			perProgress = perWidth;
 		}
+		curProgressTimeMs=0;
+		lastProgressTimeMs=0;
+		
 		if (state == State.DELETE) {
 			if ((timeList != null) && (!timeList.isEmpty())) {
 				timeList.removeLast();
+				
+				Log.i("T","timeList  size is:"+timeList.size());
+				
 			}
 		}
+		  
 	}
 
+	private void myDraw() {
+		canvas = holder.lockCanvas();
+		progressHeight = getMeasuredHeight();
+
+		if (canvas != null) {
+			canvas.drawRect(0, 0, screenWidth, progressHeight, backgroundPaint);
+		}
+
+		countWidth = 0;
+		
+		if (!timeList.isEmpty()) 
+		{
+			long curSegmentTime = 0;
+			
+			Iterator<Integer> iterator = timeList.iterator();
+			while (iterator.hasNext()) {
+				
+				curSegmentTime = iterator.next(); //当前这一段的时间.
+				
+				float left = countWidth;
+				countWidth += curSegmentTime * perWidth;
+				if (canvas != null) {
+					canvas.drawRect(left, 0, countWidth, progressHeight, progressPaint);
+					canvas.drawRect(countWidth, 0, countWidth + breakWidth, progressHeight, breakPaint);
+				}
+				countWidth += breakWidth;
+			}
+		}
+		
+		if (timeList.isEmpty() || (!timeList.isEmpty() && timeList.getLast() <= minRecordTimeMS)) {
+			float left = perWidth * minRecordTimeMS;
+			if (canvas != null) {
+				canvas.drawRect(left, 0, left + minTimeWidth, progressHeight, minTimePaint);
+			}
+		}
+		if (currentState == State.BACKSPACE) {
+			float left = countWidth - timeList.getLast() * perWidth;  //应该减去最后一段的时间.
+			float right = countWidth;
+			if (canvas != null) {
+				canvas.drawRect(left, 0, right, progressHeight, rollbackPaint);
+			}
+		}
+		/**
+		 *  手指按下时，绘制新进度条
+		 *  
+		 *  绘制一个新的刻度.
+		 *  
+		 *  当设置新的时间过来后, 这里应该是两个时间戳的相减
+		 */
+		if (currentState == State.START) 
+		{
+			perProgress += perWidth * (curProgressTimeMs - lastProgressTimeMs);
+			
+			float right = (countWidth + perProgress) >= screenWidth ? screenWidth : (countWidth + perProgress);
+			
+			if (canvas != null) {
+				canvas.drawRect(countWidth, 0, right, progressHeight, progressPaint);
+			}
+		}
+		
+		long curSystemTime = System.currentTimeMillis();
+		if (drawFlashTime == 0 || curSystemTime - drawFlashTime >= 500) {
+			isVisible = !isVisible;
+			drawFlashTime = curSystemTime;
+		}
+		
+		if (isVisible) {
+			if (currentState == State.START) {
+				if (canvas != null) {
+					canvas.drawRect(countWidth + perProgress, 0, countWidth + flashWidth + perProgress, progressHeight,
+							flashPaint);
+				}
+			} else {
+				if (canvas != null) {
+					canvas.drawRect(countWidth, 0, countWidth + flashWidth, progressHeight, flashPaint);
+				}
+			}
+		}
+		
+		lastProgressTimeMs=curProgressTimeMs;
+		if (canvas != null) {
+			holder.unlockCanvasAndPost(canvas);
+		}
+	}
+	private long curProgressTimeMs=0;
+	private long lastProgressTimeMs=0;
+	/**
+	 * 设置当前段的 进度, 单位是毫秒.
+	 * @param progressTimeMs
+	 */
+	public void setProgressTime(long progressTimeMs)
+	{
+		curProgressTimeMs=progressTimeMs;
+	}
 	public static enum State {
 
 		START(0x1), PAUSE(0x2), BACKSPACE(0x3), DELETE(0x4);

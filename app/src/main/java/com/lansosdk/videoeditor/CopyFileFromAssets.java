@@ -15,7 +15,7 @@ public class CopyFileFromAssets {
 		File dir = new File(SDKDir.TMP_DIR);
 		// 如果目录不中存在，创建这个目录
 		if (!dir.exists())
-			dir.mkdir();
+			dir.mkdirs();
 		try {
 			if (!(new File(filePath)).exists()) {
 				InputStream is = mContext.getResources().getAssets()

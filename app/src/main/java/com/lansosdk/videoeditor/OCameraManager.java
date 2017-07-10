@@ -26,7 +26,10 @@ public class OCameraManager {
 	private boolean isPreviewOn = false;
 	private int cameraFacingType = CameraInfo.CAMERA_FACING_BACK;
 	private Activity activity;
-	private int defaultScreenResolution = -1;
+	/**
+	 * 默认屏幕旋转角度,让前后拍摄的视频角度一致
+	 */
+//	private int defaultScreenResolution = -1;
 
 	private int previewSize[] = new int[2];
 	private int rotateDegree=0;
@@ -211,7 +214,7 @@ public class OCameraManager {
 				return 270;
 			}
 		}
-			return rotateDegree;
+		return rotateDegree;
 	}
 	public boolean isFaceFront()
 	{
@@ -220,19 +223,19 @@ public class OCameraManager {
 	public void updateParameters() {
 		startThreadJoin();
 		
-		Camera.Parameters camParams = camera.getParameters();
+		Parameters camParams = camera.getParameters();
 		Parameters parameters = camera.getParameters();
-		List<Camera.Size> supportedPreviewSizes = parameters.getSupportedPreviewSizes();
+		List<Size> cs = parameters.getSupportedPreviewSizes();
 		
 		
 		int desireWidth,desireHeight;
 		desireWidth=mDesireWidth;
 		desireHeight=mDesireHeight;
 		
-		if (supportedPreviewSizes != null && supportedPreviewSizes.size() > 0) {
+		if (cs != null && cs.size() > 0) {
 			
 			//先把分辨率从小到大排列.
-			Collections.sort(supportedPreviewSizes, new ResolutionComparator());
+			Collections.sort(cs, new ResolutionComparator());
 			rotateDegree=determineDisplayOrientation(activity, cameraFacingType);
 			
 			
@@ -241,46 +244,34 @@ public class OCameraManager {
 				desireWidth=mDesireHeight;
 				desireHeight=mDesireWidth;
 			}
-			Camera.Size preSizeOld = null;
-			if (defaultScreenResolution == -1) {
-				boolean hasSize = false;
+			Size preSizeOld = null;
 				
 				//打印支持的分辨率!!!
-				for (int i = 0; i < supportedPreviewSizes.size(); i++) {
-					Size size = supportedPreviewSizes.get(i);
-					Log.i("TAG","support size:"+size.width+" x "+size.height);
+				for (int i = 0; i < cs.size(); i++) {
+					Size size = cs.get(i);
+					Log.i("TAG","min==>max:support size:"+size.width+" x "+size.height);
 				}	
 				
-				
-				for (int i = 0; i < supportedPreviewSizes.size(); i++) {
-					Size size = supportedPreviewSizes.get(i);
+				//找大于希望的分辨率.
+				for (int i = 0; i < cs.size(); i++) {
+					Size size = cs.get(i);
 					if (size != null && size.width >= desireWidth && size.height >= desireHeight) {
 						preSizeOld = size;
-						hasSize = true;
 						break;
 					}
 				}
 				
-				if (!hasSize) {
-					int mediumResolution = supportedPreviewSizes.size() / 2;
-					if (mediumResolution >= supportedPreviewSizes.size()) {
-						mediumResolution = supportedPreviewSizes.size() - 1;
+				
+				if (preSizeOld==null) {
+					int mediumResolution = cs.size() / 2;
+					if (mediumResolution >= cs.size()) {
+						mediumResolution = cs.size() - 1;
 					}
-					preSizeOld = supportedPreviewSizes.get(mediumResolution);
+					preSizeOld = cs.get(mediumResolution);
 				}
-			} else {
-				if (defaultScreenResolution >= supportedPreviewSizes.size()) {
-					defaultScreenResolution = supportedPreviewSizes.size() - 1;
-				}
-				preSizeOld = supportedPreviewSizes.get(defaultScreenResolution);
-			}
-//			if (preSizeOld != null) {
-//				previewSize[0] = preSizeOld.width;
-//				previewSize[1] = preSizeOld.height;
-//				Log.i("TAG","last got preview size:"+previewSize[0]+" x "+previewSize[1]);
-//				camParams.setPreviewSize(previewSize[0], previewSize[1]);
-//			}
-			Camera.Size preSizeNew = null;
+				
+				Size preSizeNew = null;
+				
 			//--------------------------另一种获取的方式:
 				int w,h;
 		        if(desireHeight>desireWidth){  //竖屏, 则调过来.
@@ -292,7 +283,7 @@ public class OCameraManager {
 		        }
 		    	findCameraSupportValue(w,h);
 		    	preSizeNew= getOptimalPreviewSize(camParams,mCameraPictureSize,w);
-//		    	 Log.i("TAG","从图层的获取方法得到的宽高是:"+preSizeNew.width+"x"+preSizeNew.height);
+//		    	 Log.i("TAG","preSizeNew:"+preSizeNew.width+"x"+preSizeNew.height);
 		    	
 		    
 		    	if(preSizeNew !=null && preSizeOld!=null)
@@ -300,7 +291,6 @@ public class OCameraManager {
 		    		//如果两个都大于设置的宽度,则找最小的, 不然找最大的.
 		    		if(preSizeNew.width>w && preSizeOld.width>w)
 		    		{
-		    			
 		    			if(preSizeNew.width< preSizeOld.width){  
 			    			previewSize[0] = preSizeNew.width;
 							previewSize[1] = preSizeNew.height;
@@ -308,7 +298,6 @@ public class OCameraManager {
 			    			previewSize[0] = preSizeOld.width;
 							previewSize[1] = preSizeOld.height;
 			    		}
-		    			
 		    		}
 		    		else{
 		    			if(preSizeNew.width> preSizeOld.width){  
@@ -319,15 +308,16 @@ public class OCameraManager {
 							previewSize[1] = preSizeOld.height;
 			    		}
 		    		}
+		    	}else if(preSizeOld!=null) {
+		    		previewSize[0] = preSizeOld.width;
+					previewSize[1] = preSizeOld.height;
 		    	}
 				Log.i("TAG","last got preview size:"+previewSize[0]+" x "+previewSize[1]);
 				camParams.setPreviewSize(previewSize[0], previewSize[1]);
-		}
+			}
 		
-		camParams.setPreviewFrameRate(25);//gzj++
+			camParams.setPreviewFrameRate(25);//gzj++
 		
-		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.FROYO) {
-			
 			rotateDegree=determineDisplayOrientation(activity, cameraFacingType);
 			camera.setDisplayOrientation(rotateDegree);
 			
@@ -335,35 +325,30 @@ public class OCameraManager {
 			if (cameraFacingType == CameraInfo.CAMERA_FACING_BACK && focusModes != null) {//  fix
 				Log.i("video", Build.MODEL);
 				if (((Build.MODEL.startsWith("GT-I950")) || (Build.MODEL.endsWith("SCH-I959")) || (Build.MODEL
-					.endsWith("MEIZU MX3"))) && focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
-					camParams.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
-				} else if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO)) {
-					camParams.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
+					.endsWith("MEIZU MX3"))) && focusModes.contains(Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
+					camParams.setFocusMode(Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+				} else if (focusModes.contains(Parameters.FOCUS_MODE_CONTINUOUS_VIDEO)) {
+					camParams.setFocusMode(Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
 				} else {
-					camParams.setFocusMode(Camera.Parameters.FOCUS_MODE_FIXED);
+					camParams.setFocusMode(Parameters.FOCUS_MODE_FIXED);
 				}
 			}
 			
-			
-		} else {
-			camera.setDisplayOrientation(90);
-
-		}
 		camera.setParameters(camParams);
 	}
 	//----------------------------------------
     private CameraPictureSizeComparator mCameraPictureSizeComparator =
             new CameraPictureSizeComparator();
-    public Camera.Size mCameraPictureSize=null;
+    public Size mCameraPictureSize=null;
 	private void findCameraSupportValue(int desiredWidth,int desiredHeight) 
     {
     	
-        Camera.Parameters cp = camera.getParameters();
-        List<Camera.Size> cs = cp.getSupportedPictureSizes();
+        Parameters cp = camera.getParameters();
+        List<Size> cs = cp.getSupportedPictureSizes();
         if (cs != null && !cs.isEmpty()) 
         {
             Collections.sort(cs, mCameraPictureSizeComparator);
-            for (Camera.Size size : cs) 
+            for (Size size : cs)
             {
                 if (size.width < desiredWidth && size.height < desiredWidth) {
                 	if(mCameraPictureSize==null){
@@ -385,7 +370,7 @@ public class OCameraManager {
         }
     }
 	public void doFocus(List<Camera.Area> focusList) {
-		Camera.Parameters param = camera.getParameters();
+		Parameters param = camera.getParameters();
 		param.setFocusAreas(focusList);
 		param.setMeteringAreas(focusList);//这个只能这样设置, 不然的话, 聚焦不起作用.
 		try {
@@ -446,7 +431,7 @@ public class OCameraManager {
 			int degrees = getRotationAngle(activity);
 			
 			
-			if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+			if (cameraInfo.facing == CameraInfo.CAMERA_FACING_FRONT) {
 				displayOrientation = (cameraInfo.orientation + degrees) % 360;
 				displayOrientation = (360 - displayOrientation) % 360;
 			} else {
@@ -477,9 +462,9 @@ public class OCameraManager {
 		return degrees;
 	}
 
-	class ResolutionComparator implements Comparator<Camera.Size> {
+	class ResolutionComparator implements Comparator<Size> {
 		@Override
-		public int compare(Camera.Size size1, Camera.Size size2) {
+		public int compare(Size size1, Size size2) {
 			if (size1.height != size2.height) {
 				return size1.height - size2.height;
 			} else {
@@ -487,21 +472,21 @@ public class OCameraManager {
 			}
 		}
 	}
-	private class CameraPictureSizeComparator implements Comparator<Camera.Size> {
+	private class CameraPictureSizeComparator implements Comparator<Size> {
 
 	    // 拍照尺寸从大到小，优先获取较大尺寸!!!  注意这里是从大到小排列.
-	    public int compare(Camera.Size size1, Camera.Size size2) {
+	    public int compare(Size size1, Size size2) {
 	        return size2.width - size1.width;
 	    }
 	}
-	 private Camera.Size getOptimalPreviewSize(Camera.Parameters parameters,
-             Camera.Size pictureSize, int viewHeight) {
+	 private Size getOptimalPreviewSize(Parameters parameters,
+             Size pictureSize, int viewHeight) {
 
 			if (parameters == null || pictureSize == null) {
 			return null;
 			}
 			
-			List<Camera.Size> sizes = parameters.getSupportedPreviewSizes();
+			List<Size> sizes = parameters.getSupportedPreviewSizes();
 			//从小到大排列.
 			Collections.sort(sizes, new CameraPreviewSizeComparator());
 			final double ASPECT_TOLERANCE = 0.05;
@@ -510,11 +495,11 @@ public class OCameraManager {
 			return null;
 			}
 			
-			Camera.Size optimalSize = null;
+			Size optimalSize = null;
 			double minDiff = Double.MAX_VALUE;
 			int targetHeight = pictureSize.height;
 			// Try to find an size match aspect ratio and size
-			for (Camera.Size size : sizes) 
+			for (Size size : sizes)
 			{
 			double ratio = (double) size.width / size.height;
 			if (Math.abs(ratio - targetRatio) > ASPECT_TOLERANCE) {
@@ -534,7 +519,7 @@ public class OCameraManager {
 			// Cannot find the one match the aspect ratio, ignore the requirement
 			if (optimalSize == null) {
 			minDiff = Double.MAX_VALUE;
-			for (Camera.Size size : sizes) 
+			for (Size size : sizes)
 			{
 			if (Math.abs(size.height - targetHeight) < minDiff) {
 			optimalSize = size;
@@ -544,10 +529,10 @@ public class OCameraManager {
 			}
 			return optimalSize;
 }
-	 	private class CameraPreviewSizeComparator implements Comparator<Camera.Size> {
+	 	private class CameraPreviewSizeComparator implements Comparator<Size> {
 		
 		// 预览尺寸从小到大，优先获取较小的尺寸
-			public int compare(Camera.Size size1, Camera.Size size2) {
+			public int compare(Size size1, Size size2) {
 					return size1.width - size2.width;
 			}
 		}

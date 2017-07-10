@@ -132,56 +132,14 @@
 	<FrameLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
-		<com.lansosdk.videoeditor.FocusImageView
+		<com.example.advanceDemo.view.FocusImageView
 			android:id="@+id/id_camerea_focus_view"
 			android:layout_width="75dip"
 			android:layout_height="75dip"/>
 	</FrameLayout>
 
-
-	<!-- 美颜演示按钮. -->
-	<TextView
-		android:id="@+id/id_filter_tv"
+	<com.example.advanceDemo.view.FaceView
+		android:id="@+id/id_camerea_face_view"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:text=""/>
-
-	<LinearLayout
-		android:id="@+id/id_beautiful_btns"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_alignParentBottom="true"
-		android:layout_marginBottom="30dip"
-		android:orientation="horizontal"
-		>
-		<Button
-			android:id="@+id/id_beautiful_null"
-			android:layout_width="0dip"
-			android:layout_weight="1"
-			android:layout_height="wrap_content"
-			android:text="无"/>
-
-		<Button
-			android:id="@+id/id_beautiful_grindwhiten"
-			android:layout_width="0dip"
-			android:layout_weight="1"
-			android:layout_height="wrap_content"
-			android:text="白皙美颜)"/>
-
-		<Button
-			android:id="@+id/id_beautiful_grindpink"
-			android:layout_width="0dip"
-			android:layout_weight="1"
-			android:layout_height="wrap_content"
-			android:text="红润美颜"/>
-
-	</LinearLayout>
-
-	<SeekBar
-		android:id="@+id/id_fullscreen_seekbar"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_above="@id/id_beautiful_btns"
-		android:layout_margin="10dip"
-		/>
+		android:layout_height="match_parent" />
 </RelativeLayout>

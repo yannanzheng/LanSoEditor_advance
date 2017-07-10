@@ -11,16 +11,19 @@ import com.lansosdk.box.CanvasLayer;
 import com.lansosdk.box.DataLayer;
 import com.lansosdk.box.DrawPadUpdateMode;
 import com.lansosdk.box.DrawPadVideoRunnable;
+import com.lansosdk.box.FileParameter;
 import com.lansosdk.box.GifLayer;
 import com.lansosdk.box.Layer;
 import com.lansosdk.box.MVLayer;
 import com.lansosdk.box.VideoLayer;
 import com.lansosdk.box.onDrawPadCompletedListener;
+import com.lansosdk.box.onDrawPadErrorListener;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadThreadProgressListener;
 
 /**
  * 此类是对老版本的 DrawPadVideoExecute的一个封装, 并为每个方法增加了详细的使用说明, 以方便您调用具体的方法.
+ * 
  * 
  * 2017年5月4日12:35:51:
  * 把DrawPadVideoExecute更改名字为DrawPadVideoRunnable
@@ -32,6 +35,19 @@ import com.lansosdk.box.onDrawPadThreadProgressListener;
 public class DrawPadVideoExecute {
 	
 	private DrawPadVideoRunnable  mDrawPad=null;
+	
+	private int padWidth=0,padHeight=0,encBitRate=0;
+	private GPUImageFilter initFilter=null;
+	private String dstPath=null;
+	private String videoPath=null;
+	private long startTimeMs;
+	
+	private Context mContext=null;
+	private FileParameter initFileParam=null;
+	
+	private  boolean isUseMainVideoPts=false;
+	private DrawPadUpdateMode  mUpdateMode=DrawPadUpdateMode.ALL_VIDEO_READY;
+	private int mAutoFps=25;
 	/**
 	 * 
 	 * @param ctx 语境,android的Context
@@ -45,19 +61,41 @@ public class DrawPadVideoExecute {
    public DrawPadVideoExecute(Context ctx,String srcPath,int padwidth,int padheight,int bitrate,GPUImageFilter filter,String dstPath) 
    {
 	   if(mDrawPad==null){
-		   mDrawPad=new DrawPadVideoRunnable(ctx, srcPath, padwidth, padheight, bitrate, filter, dstPath);   
-	   }   
+		   mDrawPad=new DrawPadVideoRunnable(ctx, srcPath, padwidth, padheight, bitrate, filter, dstPath);
+	   }  
+	   mContext=ctx;
+	   videoPath=srcPath;
+	   padWidth=padwidth;
+	   padHeight=padheight;
+	   encBitRate=bitrate;
+	   initFilter=filter;
+	   this.dstPath=dstPath;
    }
-   
+   /**
+    * 只比上面少了一个码率的设置.
+    * @param ctx
+    * @param srcPath
+    * @param padwidth
+    * @param padheight
+    * @param filter
+    * @param dstPath
+    */
    public DrawPadVideoExecute(Context ctx,String srcPath,int padwidth,int padheight,GPUImageFilter filter,String dstPath) 
    {
 	   if(mDrawPad==null){
 		   mDrawPad=new DrawPadVideoRunnable(ctx, srcPath, padwidth, padheight, 0, filter, dstPath);   
-	   }   
+	   }  
+	   mContext=ctx;
+	   videoPath=srcPath;
+	   padWidth=padwidth;
+	   padHeight=padheight;
+	   initFilter=filter;
+	   this.dstPath=dstPath;
+	   
    }
    /**
     *  Drawpad后台执行, 可以指定开始时间.
-    *  因视频编码原理, 会定位到 [指定时间]前面最近的一个IDR刷新帧, 然后解码到[指定时间],画板才开始渲染视频,中间或许有一些延迟后.
+    *  因视频编码原理, 会定位到 [指定时间]前面最近的一个IDR刷新帧, 然后解码到[指定时间],画板才开始渲染视频,中间或许有一些延迟.
     * @param ctx
     * @param srcPath  主视频的完整路径.
     * @param startTimeMs  开始时间. 单位毫秒
@@ -70,40 +108,127 @@ public class DrawPadVideoExecute {
    public DrawPadVideoExecute(Context ctx,String srcPath,long startTimeMs,int padwidth,int padheight,int bitrate,GPUImageFilter filter,String dstPath) 
    {
 	   if(mDrawPad==null){
-		   mDrawPad=new DrawPadVideoRunnable(ctx, srcPath, padwidth, padheight, bitrate, filter, dstPath);
+		   mDrawPad=new DrawPadVideoRunnable(ctx, srcPath,startTimeMs, padwidth, padheight, bitrate, filter, dstPath);
 	   }
+	   mContext=ctx;
+	   videoPath=srcPath;
+	   padWidth=padwidth;
+	   padHeight=padheight;
+	   encBitRate=bitrate;
+	   initFilter=filter;
+	   this.startTimeMs=startTimeMs;
+	   
+	   this.dstPath=dstPath;
    }
-   
+   /**
+    * 相对于上面,只是少了码率.
+    * @param ctx
+    * @param srcPath
+    * @param startTimeMs
+    * @param padwidth
+    * @param padheight
+    * @param filter
+    * @param dstPath
+    */
    public DrawPadVideoExecute(Context ctx,String srcPath,long startTimeMs,int padwidth,int padheight,GPUImageFilter filter,String dstPath) 
    {
 	   if(mDrawPad==null){
-		   mDrawPad=new DrawPadVideoRunnable(ctx, srcPath, padwidth, padheight,0, filter, dstPath);
+		   mDrawPad=new DrawPadVideoRunnable(ctx, srcPath,startTimeMs, padwidth, padheight,0, filter, dstPath);
 	   }
+	   mContext=ctx;
+	   videoPath=srcPath;
+	   padWidth=padwidth;
+	   padHeight=padheight;
+	   initFilter=filter;
+	   this.startTimeMs=startTimeMs;
+	   this.dstPath=dstPath;
+   }
+   /**
+    * 增加了filebox类, 
+    * 其中FileParameter的配置是:
+	 * 
+		FileParameter  param=new FileParameter();
+		if(param.setDataSoure(mVideoPath)){
+			
+			 * 设置当前需要显示的区域 ,以左上角为0,0坐标. 
+			 * 
+			 * @param startX  开始的X坐标, 即从宽度的什么位置开始
+			 * @param startY  开始的Y坐标, 即从高度的什么位置开始
+			 * @param cropW   需要显示的宽度
+			 * @param cropH   需要显示的高度.
+			param.setShowRect(0, 0, 300, 200);
+			param.setStartTimeUs(5*1000*1000); //从5秒处开始处理, 当前仅在后台处理时有效.
+			videoMainLayer=mDrawPadView.addMainVideoLayer(param,new GPUImageSepiaFilter());
+		}
+		
+    * @param ctx
+    * @param filebox
+    * @param padwidth
+    * @param padheight
+    * @param filter
+    * @param dstPath
+    */
+   public DrawPadVideoExecute(Context ctx,FileParameter fileParam,int padwidth,int padheight,GPUImageFilter filter,String dstPath) 
+   {
+	   if(mDrawPad==null){
+		   mDrawPad=new DrawPadVideoRunnable(ctx, fileParam, padwidth, padheight,0, filter, dstPath);
+	   }
+	   mContext=ctx;
+	   initFileParam=fileParam;
+	   padWidth=padwidth;
+	   padHeight=padheight;
+	   initFilter=filter;
+	   this.dstPath=dstPath;
    }
   /**
    * 启动DrawPad,开始执行.
+   * 
    * 开启成功,返回true, 失败返回false
    */
    public boolean startDrawPad() {
-	   if(mDrawPad!=null && mDrawPad.isRunning()==false	){
+//暂时没有用到, 因为要设置音频, 可能在开始的时候,调用多次addSubaudio;	   
+//	   if(mDrawPad==null)
+//	   {
+//		   if(initFileParam!=null){
+//			   mDrawPad=new DrawPadVideoRunnable(mContext, initFileParam, padWidth, padHeight,encBitRate, initFilter, dstPath);
+//		   }else if(startTimeMs!=0){
+//			   mDrawPad=new DrawPadVideoRunnable(mContext, videoPath,startTimeMs, padWidth, padHeight,encBitRate, initFilter, dstPath);
+//		   }else{
+//			   mDrawPad=new DrawPadVideoRunnable(mContext, videoPath, padWidth, padHeight, encBitRate, initFilter, dstPath);   
+//		   }
+//		   
+//		   	  if(mPauseRecord){
+//				  mDrawPad.pauseRecordDrawPad();
+//			  }
+//			  
+//			  if(isCheckBitRate==false){
+//				  mDrawPad.setNotCheckBitRate();
+//			  }
+//			  
+//			  if(isCheckPadSize==false){
+//				  mDrawPad.setNotCheckDrawPadSize();
+//			  }
+//			  if(isUseMainVideoPts){
+//				  mDrawPad.setUseMainVideoPts(true);
+//			  }else{
+//				  mDrawPad.setUseMainVideoPts(false);
+//			  }
+//			 
+//			  //默认是视频准备好刷新.
+//			  if(mUpdateMode!=DrawPadUpdateMode.ALL_VIDEO_READY){
+//				  mDrawPad.setUpdateMode(mUpdateMode, mAutoFps);
+//			  }
+//			
+//			  mDrawPad.setDrawPadProgressListener(monDrawPadProgressListener);
+//			  mDrawPad.setDrawPadThreadProgressListener(monDrawPadThreadProgressListener);
+//			  mDrawPad.setDrawPadCompletedListener(monDrawPadCompletedListener);
+//	   }
+	   
+		  
+	   if(mDrawPad!=null && mDrawPad.isRunning()==false){
 		   return mDrawPad.startDrawPad();
-	   }else{
-		   return false;
 	   }
-   }
-   /**
-    * 启动DrawPad,开始执行. 可以在开始的时候,暂停录制.从而可以增加一些图层.
-   * 开启成功,返回true, 失败返回false
-   * 
-    * @param pause 是否在开启drawPad后, 暂停录制.
-    * @return
-    */
-   public boolean startDrawPad(boolean pause) {
-	   if(mDrawPad!=null && mDrawPad.isRunning()==false	){
-		   return mDrawPad.startDrawPad();
-	   }else{
-		   return false;
-	   }
+	   return false;
    }
    public void stopDrawPad() {
    	// TODO Auto-generated method stub
@@ -127,6 +252,7 @@ public class DrawPadVideoExecute {
 	   if(mDrawPad!=null && mDrawPad.isRunning()==false){
 		   mDrawPad.setUseMainVideoPts(use);
 	   }
+	   isUseMainVideoPts=use;
    }
    /**
     * 设置画面刷新模式, 当前有两种模式, 视频刷新/自动刷新. 
@@ -144,7 +270,13 @@ public class DrawPadVideoExecute {
 	   if(mDrawPad!=null && mDrawPad.isRunning()==false){
 		   mDrawPad.setUpdateMode(mode, fps);
 	   }
+	   mUpdateMode=mode;
+	   mAutoFps=fps;  
    }
+   private onDrawPadProgressListener monDrawPadProgressListener=null;
+   private onDrawPadThreadProgressListener monDrawPadThreadProgressListener=null;
+   private onDrawPadCompletedListener monDrawPadCompletedListener=null;
+   private onDrawPadErrorListener monDrawPadErrorListener=null;
    /**
 	 * DrawPad每执行完一帧画面,会调用这个Listener,返回的timeUs是当前画面的时间戳(微妙),
 	 *  可以利用这个时间戳来做一些变化,比如在几秒处缩放, 在几秒处平移等等.从而实现一些动画效果.
@@ -155,6 +287,7 @@ public class DrawPadVideoExecute {
 		if(mDrawPad!=null){
 			mDrawPad.setDrawPadProgressListener(listener);
 		}
+		monDrawPadProgressListener=listener;
 	}
 	/**
 	 * 方法与   onDrawPadProgressListener不同的地方在于:
@@ -167,6 +300,7 @@ public class DrawPadVideoExecute {
 		if(mDrawPad!=null){
 			mDrawPad.setDrawPadThreadProgressListener(listener);
 		}
+		monDrawPadThreadProgressListener=listener;
 	}
 	/**
 	 * DrawPad执行完成后的回调.
@@ -176,7 +310,16 @@ public class DrawPadVideoExecute {
 		if(mDrawPad!=null){
 			mDrawPad.setDrawPadCompletedListener(listener);
 		}
+		monDrawPadCompletedListener=listener;
 	}
+	public void setDrawPadErrorListener(onDrawPadErrorListener listener)
+	{
+		if(mDrawPad!=null){
+			mDrawPad.setDrawPadErrorListener(listener);
+		}
+		monDrawPadErrorListener=listener;
+	}
+	
   /**
    * 把当前图层放到DrawPad的最底部.
    * DrawPad运行后,有效.
@@ -189,7 +332,7 @@ public class DrawPadVideoExecute {
 	   }
    }
    /**
-    * 
+    * 把当前图层放到最顶层
     * @param layer
     */
    public void bringToFront(Layer layer)
@@ -199,7 +342,43 @@ public class DrawPadVideoExecute {
 	   }
    }
    /**
+    *  改变指定图层的位置. 
+    * @param layer
+    * @param position
+    */
+   public void changeLayerPosition(Layer layer,int position)
+   {
+	   if(mDrawPad!=null && mDrawPad.isRunning()){
+		   mDrawPad.changeLayerPosition(layer,position);
+	   }
+   }
+   /**
+    * 交换两个图层的位置.
+    * @param first
+    * @param second
+    */
+   public void swapTwoLayerPosition(Layer first,Layer second)
+   {
+	   if(mDrawPad!=null && mDrawPad.isRunning()){
+		   mDrawPad.swapTwoLayerPosition(first,second);
+	   }
+   }
+   
+   /**
+    * 获取当前画板中有多少个图层.
     * 
+    * @return
+    */
+   public int getLayerSize()
+   {
+	   	if(mDrawPad!=null){
+	   		return mDrawPad.getLayerSize();
+	   	}else{
+	   		return 0;
+	   	}
+   }
+   /**
+    * 得到当前DrawPadVideoRunnable中设置的视频图层对象.
     * @return
     */
    public VideoLayer getMainVideoLayer()
@@ -215,7 +394,9 @@ public class DrawPadVideoExecute {
     * 注意,这里插入的声音是和视频原有的声音混合后, 形成新的音频,而不是替换原来的声音, 如果您要替换原理的声音,则建议用{@link VideoEditor}中的相关方法来做.
     * 如果原视频没有音频部分,则默认创建一段无声的音频和别的音频混合.
     * 
-    * 成功增加后, 会在DrawPad开始运行时,开启一个线程去编解码音频文件, 如果您音频过大,则可能需要一定的时间来处理完成.
+    * 如果增加了其他声音, 则会在内部合成声音, 合成后, 您设置的目标文件中自然就有了声音, 外界无需另外addAudio的操作, 这是和别的Drawpad操作不同之处.
+    * 
+    * 成功增加后, 会在DrawPad开始运行时,开启一个线程去编解码音频文件, 如果您音频过大,则可能需要一定的时间来处理完成, 处理完毕后.
     * 此方法在DrawPad开始前调用.
     * 
     * 此方法可以被多次调用, 从而增加多段其他的音频.
@@ -381,22 +562,33 @@ public class DrawPadVideoExecute {
    {
 	   resumeRecord();
    }
+   private boolean mPauseRecord=false;
+   protected boolean isCheckBitRate=true;
+   
+   protected boolean isCheckPadSize=true;
    /**
     * 暂停录制,
     * 使用在 : 开始DrawPad后, 需要暂停录制, 来增加一些图层, 然后恢复录制的场合.
+    *  此方法使用在DrawPad线程中的 暂停和恢复的作用, 不能用在一个Activity的onPause和onResume中.
+    *  
     */
    public void pauseRecord()
    {
 	   if(mDrawPad!=null && mDrawPad.isRunning()){
 		   mDrawPad.pauseRecordDrawPad();
+	   }else{
+		   mPauseRecord=true;
 	   }
    }
    /**
     * 恢复录制.
+    * 此方法使用在DrawPad线程中的 暂停和恢复的作用, 不能用在一个Activity的onPause和onResume中.
     */
    public void resumeRecord(){
 	   if(mDrawPad!=null && mDrawPad.isRunning()){
 		   mDrawPad.resumeRecordDrawPad();
+	   }else{
+		   mPauseRecord=false;
 	   }
    }
    /**
@@ -414,7 +606,7 @@ public class DrawPadVideoExecute {
       * DrawPad是否在运行
       * @return
       */
-	 public boolean isRunning()
+	 public boolean isRunning() 
 	 {
 		 if(mDrawPad!=null){
 			 return mDrawPad.isRunning();
@@ -449,6 +641,7 @@ public class DrawPadVideoExecute {
 		 if(mDrawPad!=null && mDrawPad.isRunning()){
 			 mDrawPad.releaseDrawPad();
 		 }
+		 mPauseRecord=false;
 		 mDrawPad=null;
 	 }
 	   /**
@@ -460,10 +653,7 @@ public class DrawPadVideoExecute {
 	    */
 	   public void release()
 	   {
-		   if(mDrawPad!=null && mDrawPad.isRunning()){
-			   mDrawPad.release();
-		   }
-		   mDrawPad=null;
+		  releaseDrawPad();
 	   }
 	   
 	   /**
@@ -476,6 +666,8 @@ public class DrawPadVideoExecute {
 	   {
 		   if(mDrawPad!=null && mDrawPad.isRunning()==false){
 			   mDrawPad.setNotCheckBitRate();
+		   }else{
+			 isCheckBitRate=false;
 		   }
 	   }
 	   /**
@@ -486,6 +678,8 @@ public class DrawPadVideoExecute {
 	   {
 		   if(mDrawPad!=null && mDrawPad.isRunning()==false){
 			   mDrawPad.setNotCheckDrawPadSize();
+		   }else{
+			   isCheckPadSize=false;
 		   }
 	   }
 }

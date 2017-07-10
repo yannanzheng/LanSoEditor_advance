@@ -20,7 +20,6 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -64,11 +63,10 @@ public class OSegmentsRecorder implements PreviewCallback, SurfaceHolder.Callbac
 
 	private Semaphore semp = new Semaphore(1);
 
-	private VideoEncodeThread vEncodeThread;
+	private VideoEncodeThread encodeThread;
 	
 	
 	private AudioSampleThread aSampleThread;
-	private AudioEncodeThread aEncodeThread;
 
 	private SurfaceHolder mSurfaceHolder = null;	
 
@@ -83,6 +81,9 @@ public class OSegmentsRecorder implements PreviewCallback, SurfaceHolder.Callbac
 	private int mEncWidth,mEncHeight;
 	private int mEncBitrate;
 	/**
+	 * 
+	 * 2017年6月18: 取消音频线程.
+	 * 
 	 * 此类不建议用在 分段录制的过程中, 切换前后摄像头的情况.
 	 * 此类不建议用在 分段录制的过程中, 切换前后摄像头的情况.
 	 * 此类不建议用在 分段录制的过程中, 切换前后摄像头的情况.
@@ -136,14 +137,12 @@ public class OSegmentsRecorder implements PreviewCallback, SurfaceHolder.Callbac
 			mIsRecording.set(true);
 			
 			
-			vEncodeThread = new VideoEncodeThread();  //视频编码		
+			encodeThread = new VideoEncodeThread();  //视频编码		
 			aSampleThread = new AudioSampleThread(); //音频采集		
-			aEncodeThread = new AudioEncodeThread();  //音频编码.
 			
 			
 			aSampleThread.start();
-			vEncodeThread.start();
-			aEncodeThread.start();
+			encodeThread.start();
 			
 		}
 		
@@ -201,14 +200,10 @@ public class OSegmentsRecorder implements PreviewCallback, SurfaceHolder.Callbac
 				if(currentSegVideoFile!=null){
 					
 					try {
-						if(aEncodeThread!=null){
-							aEncodeThread.join();
-							aEncodeThread=null;
-						}
 						
-						if(vEncodeThread!=null){
-							vEncodeThread.join();
-							vEncodeThread=null;
+						if(encodeThread!=null){
+							encodeThread.join();
+							encodeThread=null;
 						}
 						
 						if(mEncoder!=null){
@@ -473,31 +468,28 @@ public class OSegmentsRecorder implements PreviewCallback, SurfaceHolder.Callbac
 		}
 	}
 
-	class AudioEncodeThread extends Thread {
 
-		@Override
-		public void run() {
-			while (mIsRecording.get()) {
-					if (!audioFrameQ.isEmpty()) {
-						OFrame v = audioFrameQ.poll();
-						mEncoder.pushAudioData(v.data,v.ts);
-					}
-			}
-		}
-	}
-	
-	
 	class VideoEncodeThread extends Thread {
 
 		@Override
 		public void run() {
-			while (mIsRecording.get()) {
+			while (mIsRecording.get()) 
+			{
+				//编码视频
 				if (!videoFrameQ.isEmpty()) {
 					OFrame v = videoFrameQ.poll();
 					int degree=cameraManager.isUseBackCamera()?90:270;
 					mEncoder.pushVideoData(v.data,previewSize[0],previewSize[1],degree,v.ts);
 				}
+				
+				//编码音频.
+				if (!audioFrameQ.isEmpty()) {
+					OFrame v = audioFrameQ.poll();
+					mEncoder.pushAudioData(v.data,v.ts);
+				}
+				
 			}
+			
 			//最后的帧数
 			while (!videoFrameQ.isEmpty()) {
 				OFrame v = videoFrameQ.poll();

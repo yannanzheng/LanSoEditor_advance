@@ -1,9 +1,15 @@
 package com.lansosdk.videoeditor;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import com.lansosdk.box.LanSoEditorBox;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.util.Log;
 import android.view.View;
@@ -103,4 +109,34 @@ public class LanSongUtil {
 		int sugg=getSuggestBitRate(wxh);
 		return bitrate < sugg ?  sugg: bitrate;   //如果设置过来的码率小于建议码率,则返回建议码率,不然返回设置码率
 	}
+	 static int bmtcnt=0;
+	 /**
+	  * 把图片保存到文件, 
+	  * 这里只是用来调试程序使用.
+	  * @param bmp
+	  */
+	 public static void savePng(Bitmap bmp)
+	 {
+		 if(bmp!=null)
+		 {
+			 File dir=new File("/sdcard/extract/");
+			 if(dir.exists()==false){
+				 dir.mkdirs();
+			 }
+			  try {
+					  BufferedOutputStream  bos;
+					  String name="/sdcard/extract/de"+ bmtcnt++ +".png";
+					  Log.i("savePng","name:"+name);
+					  
+					  bos = new BufferedOutputStream(new FileOutputStream(name));
+					  bmp.compress(Bitmap.CompressFormat.PNG, 90, bos);
+					  bos.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		 }
+		
+	 }
+	 
 }

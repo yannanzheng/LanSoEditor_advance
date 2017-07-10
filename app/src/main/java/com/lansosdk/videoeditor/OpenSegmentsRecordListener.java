@@ -27,8 +27,8 @@ public interface OpenSegmentsRecordListener {
 	public void segmentRecordStart();
 	/**
 	 *  当前段录制停止了,
-	 * @param timeMS  当前在暂停时的, 录制总时间.
+	 * @param timeMS  当前段的时长
 	 * @param segmentIdx segmnet的总数, 等于 getSegmentSize();
 	 */
-	public void segmentRecordPause(int timeMS,int segmentIdx);
+	public void segmentRecordPause(int timeMS, int segmentIdx);
 }

@@ -103,8 +103,21 @@
 			<TextView  style="@style/main_item_arrow"/>
 		</RelativeLayout>
 
+
+
 		<RelativeLayout  android:id="@+id/id_main_camerafulllayer2" style="@style/main_item_reletivelayout">
 			<TextView   android:text="摄像头图层(横屏)" style="@style/main_item_textview"/>
+			<TextView  style="@style/main_item_arrow"/>
+		</RelativeLayout>
+
+
+		<RelativeLayout  android:id="@+id/id_main_cameralayer_segment" style="@style/main_item_reletivelayout">
+			<TextView   android:text="摄像头图层(分段录制)" style="@style/main_item_textview"/>
+			<TextView  style="@style/main_item_arrow"/>
+		</RelativeLayout>
+
+		<RelativeLayout  android:id="@+id/id_main_extract_frame" style="@style/main_item_reletivelayout">
+			<TextView   android:text="提取图片" style="@style/main_item_textview"/>
 			<TextView  style="@style/main_item_arrow"/>
 		</RelativeLayout>
 

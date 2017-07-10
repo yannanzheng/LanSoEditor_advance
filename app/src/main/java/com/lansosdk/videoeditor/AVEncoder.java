@@ -109,8 +109,6 @@ public class AVEncoder {
 					
 //				long  beforeDraw=System.currentTimeMillis();
 				bb=frameCut(data,previewW,previewH,cutWidth,cutHeight);
-					
-				
 //					Log.i("TIME"," 执行frameCut:耗时::"+ (System.currentTimeMillis() - beforeDraw));
 			}else{
 				bb=data;
@@ -129,14 +127,9 @@ public class AVEncoder {
 				encoderWriteVideoFrame(mHandler, byteArray, ptsMS); 
 			}else{
 				
-				
 				if(mediaRorateDegree!=degree){
-					
-					
 //					long  beforeDraw=System.currentTimeMillis();
-					 
 					byteArray=rotateYUV420Degree180(bb,cutWidth,cutHeight);
-					
 //					Log.i("TIME","mediaRorateDegree"+mediaRorateDegree+ "degree"+degree+"旋转180耗时:" +
 //					(System.currentTimeMillis() - beforeDraw));
 					
@@ -145,11 +138,9 @@ public class AVEncoder {
 //					long  beforeDraw=System.currentTimeMillis();
 					encoderWriteVideoFrame(mHandler, bb, ptsMS); 
 //					Log.i("TIME"," 直接编码耗时::"+ (System.currentTimeMillis() - beforeDraw));
+//					Log.i(TAG,"Thread-------------push------video---end");
 				}
-				
-				//encoderWriteVideoFrame(mHandler, bb, ptsMS); 
 			}
-//			byte[]  byte3=convertNV21ToYUV420P(byte2,480,480,480,480);  //放到底层实现了.
 		}
 	}
 	private     FileInputStream stream=null;
@@ -158,7 +149,7 @@ public class AVEncoder {
 	{
 		if(mHandler!=0){
 			encoderWriteAudioFrame(mHandler, data, ptsMs); 
-			
+//			Log.i(TAG,"Thread-------------push--------------audio----end");
 			//一下是测试.
 //			if(stream==null){
 //				 try {

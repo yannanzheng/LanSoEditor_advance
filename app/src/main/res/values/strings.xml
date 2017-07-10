@@ -10,7 +10,7 @@
      <string name="lansong_hint">杭州蓝松科技有限公司\n   专业的视频处理SDK开发团队.</string>
     <string name="sdk_limit">SDK版本号是\"%1$s\" [商用版本]\n\nSDK底层做了授权限制,【仅可在此demo中运行】,并有效时间到 \"%2$d\"年 \"%3$d\"月之前,请注意.</string>
     	
-    <string name="adv_hint5">"此高级版本SDK为收费授权合作的形式,价格可联系我们. 技术支持:单一APP,永久使用, 不限制使用年数, 不限制设备安装量,纯本地处理,无网络服务器访问; 提供一年技术支持;普通问题3个工作日内及时解决;\n 联系方式:\n QQ:1852600324\n 公司电话:0571-89052701\n email:support@lansongtech.com."</string>
+    <string name="adv_hint5">"此高级版本SDK为商业收费授权合作的形式,价格可联系我们.  联系方式:\n QQ:1852600324\n 公司电话:0571-89052701\n email:support@lansongtech.com."</string>
   	
   	<string name="select_video">请选择视频</string>
 		
@@ -22,7 +22,7 @@
 	<string name="insert_audio_demo_hint">给在原有视频中插入一段音频.\n\n原理是: 把视频中的音频部分和另外的音频素材混淆,形成新的音频文件.</string>
     	
 	
-    <string name="extract_video_frame_hint">此功能演示:提取视频中的每一帧给您\n\n 每处理一帧,该帧的bitmap格式画面和时间戳通过回调发给您,可指定开始时间和随时结束.\n\n此演示暂时没有预览,可保存到本地.</string>
+    <string name="extract_video_frame_hint">此功能演示:提取视频中的每一帧给您\n\n 每处理一帧,该帧的bitmap格式画面和时间戳通过回调发给您,可指定开始时间和随时结束.指定提取间隔,指定平均获取几帧.\n</string>
     
     <string name="pictureset_execute_demo_hint">此功能演示:后台图片合成\n\n 流程:同时向DrawPad获取多个BitmapLayer,然后根据DrawPad的时间进度,依次操作多个BitmapLayer,从而实现图片动画效果,这里仅演示平移效果, 实际使用可以平移,缩放,旋转,闪烁混合使用.也可以增加ViewLayer,来呈现花样的动画.</string>
     

@@ -1,6 +1,18 @@
 package com.example.advanceDemo;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.Buffer;
+import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
+import java.nio.ShortBuffer;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -22,6 +34,7 @@ import com.lansosdk.videoeditor.VideoEditor;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -56,7 +69,8 @@ protected void onCreate(Bundle savedInstanceState) {
 	LoadLanSongSdk.loadLibraries();  //拿出来单独加载库文件.
 	LanSoEditor.initSo(getApplicationContext(),null);
 	Log.i(TAG,"LanSoEditorBox version:"+LanSoEditorBox.VERSION_BOX);
-	
+
+//        Log.i(TAG,"getCPUInfo"+ GPUUtils.isSlowGPU_UI());
 	
 	/**
 	 * 这个仅仅用来修改box里面的临时路径,如要修改VideoEidtor产生的路径,则在SDKDir.java中直接修改;
@@ -107,6 +121,9 @@ protected void onCreate(Bundle savedInstanceState) {
 	findViewById(R.id.id_main_drawpadexecute_filter).setOnClickListener(this);
 	findViewById(R.id.id_main_testvideoplay).setOnClickListener(this);
 	
+	findViewById(R.id.id_main_cameralayer_segment).setOnClickListener(this);
+	findViewById(R.id.id_main_extract_frame).setOnClickListener(this);
+	
 	findViewById(R.id.id_main_select_video).setOnClickListener(new OnClickListener() {
 		
 		@Override
@@ -125,6 +142,7 @@ protected void onCreate(Bundle savedInstanceState) {
 		}
 	});
 	showHintDialog();
+	// testFile();
 }
 private void showHintDialog()
 {
@@ -199,34 +217,25 @@ public void onClick(View v) {
 			return;
 		switch (v.getId()) {
 			case R.id.id_main_segmentrecorder:
-				//以下这些都是测试具体的一些图层或功能,您可以打开测试或直接使用.
-//					startDemoActivity(ExecuteTwoVideoLayerDemoActivity.class);
-//					startDemoActivity(BitmapLayerTuAoDemoActivity.class);
-//					startDemoActivity(CameraLayerFullSegmentActivity.class);
-//					startDemoActivity(VideoLayerRealTimeActivity.class);
-//					startDemoActivity(TwoVideoLayerRealTimeActivity.class);
-//					startDemoActivity(VideoLayerRealTimeActivity.class);
-//					startDemoActivity(ExecuteBitmapLayerActivity.class);
 				startDemoActivity(SegmentRecorderActivity.class);  //分段录制
-//					startDemoActivity(BitmapLayerFilterDemoActivity.class);
-//					startDemoActivity(CameraLayerFullPortActivityOLd.class);
-				//startDemoActivity(CameraLayerFullSegmentActivityOld.class);
-//					startDemoActivity(CameraLayerSegmentDemoActivity.class); //摄像头图层的方式录制.
-//					startDemoActivity(ExtractVideoFrameDemoActivity.class);
 				break;
 			case R.id.id_main_cameralayer:
-//					startDemoActivity(CameraRecordDemoActivity.class);
 				startDemoActivity(CameraLayerDemoActivity.class);
 				break;
 			case R.id.id_main_camerafulllayer:
-				startDemoActivity(CameraLayerFullPortActivity.class);
+				startDemoActivity(CameraLayerFullPortUIActivity.class);
 				break;
 			case R.id.id_main_camerafulllayer2:
 				startDemoActivity(CameraLayerFullLandscapeActivity.class);
 				break;
+			case R.id.id_main_cameralayer_segment:
+				startDemoActivity(CameraLayerFullSegmentActivity.class);
+				break;
+			case R.id.id_main_extract_frame:
+				startDemoActivity(ExtractFrameTypeListActivity.class);
+				break;
 			case R.id.id_main_viewlayerdemo1:
 				startDemoActivity(ViewLayerDemoActivity.class);
-//					startDemoActivity(VideoLayerAutoUpdateDemoActivity.class);  //
 				break;
 			case R.id.id_main_viewremark:
 				startDemoActivity(BitmapLayerMarkActivity.class);
@@ -331,4 +340,11 @@ public static boolean selfPermissionGranted(Context context,String permission) {
 	}
 	return result;
 }
+//--------------------------------
+private void testFile()
+{
+	
+	
+}
+	
 }

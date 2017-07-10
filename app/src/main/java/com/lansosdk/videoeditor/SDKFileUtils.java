@@ -40,7 +40,7 @@ public class SDKFileUtils {
 			
 			// 如果目录不中存在，创建这个目录
 			if (!d.exists())
-				d.mkdir();
+				d.mkdirs();
 			name+="/";
 			
 			
@@ -131,7 +131,7 @@ public class SDKFileUtils {
 				
 				// 如果目录不中存在，创建这个目录
 				if (!d.exists())
-					d.mkdir();
+					d.mkdirs();
 				name+="/";
 				
 				name+=String.valueOf(year);
