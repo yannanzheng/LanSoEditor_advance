@@ -55,6 +55,7 @@ import com.lansosdk.box.VideoLayer;
 import com.lansosdk.box.ViewLayer;
 import com.lansosdk.box.YUVLayer;
 import com.lansosdk.box.onDrawPadCompletedListener;
+import com.lansosdk.box.onDrawPadEncodeFrameListener;
 import com.lansosdk.box.onDrawPadPreviewProgressListener;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
@@ -91,6 +92,8 @@ public class DrawPadView extends FrameLayout {
  	
  	private int encWidth,encHeight,encFrameRate;
  	private int encBitRate=0;
+ 	
+ 	private float  encodeSpeed=1.0f;
  	/**
  	 *  经过宽度对齐到手机的边缘后, 缩放后的宽高,作为drawpad(画板)的宽高. 
  	 */
@@ -194,6 +197,23 @@ public class DrawPadView extends FrameLayout {
     		 renderer.setUpdateMode(mUpdateMode,mAutoFlushFps);
     	}
     }
+    /**
+	 * 调整在录制时的速度, 比如你想预览的时候是正常的, 录制好后, 一部分要快进或慢放,则可以在这里设置
+	 * 支持在任意时刻来变速;
+	 *  当前暂时不支持音频, 只是视频的加减速, 请注意!!!
+	 *  这个只是录制时的有效, 正常界面显示还是原来的界面,请注意!!!
+	 *  
+	 *  建议5个等级: 0.25f,0.5f,1.0f,1.5f,2.0f; 
+	 *  其中 0.25是放慢4倍;  0.5是放慢2倍; 1.0是采用和预览同样的速度; 1.5是加快一半, 2.0是加快2倍.
+	 * @param speed  速度系数,
+	 */
+	public void adjustEncodeSpeed(float speed)
+	{
+		if(renderer!=null){
+			renderer.adjustEncodeSpeed(speed);
+		}
+		encodeSpeed=speed;
+	}
     /**
      * 获取当前View的 宽度
      * @return
@@ -473,11 +493,56 @@ public class DrawPadView extends FrameLayout {
 	public void toggleSnatShot()
 	{
 		if(drawpadSnapShotListener!=null && renderer!=null && renderer.isRunning()){
-			renderer.toggleSnapShot();
+			renderer.toggleSnapShot(drawPadWidth,drawPadWidth);
 		}else{
 			Log.e(TAG,"toggle snap shot failed!!!");
 		}
 	}
+	public void toggleSnatShot(int width,int height)
+	{
+		if(drawpadSnapShotListener!=null && renderer!=null && renderer.isRunning()){
+			renderer.toggleSnapShot(width,height);
+		}else{
+			Log.e(TAG,"toggle snap shot failed!!!");
+		}
+	}
+	
+	private onDrawPadEncodeFrameListener drawPadPreviewFrameListener=null;
+	private int previewFrameWidth;
+	private int previewFrameHeight;
+	private int previewFrameType;
+	private boolean frameListenerInDrawPad=false;
+	/**
+	 * 设置每处理一帧的数据预览监听, 等于把当前处理的这一帧的画面拉出来,
+	 * 您可以根据这个画面来自行的编码保存, 或网络传输.
+	 * 建议设置的宽度和高度是16的倍数.
+	 * 
+	 * @param width  可以设置要引出这一帧画面的宽度, 如果宽度不等于drawpad的预览宽度,则会缩放.  
+	 * @param height  画面缩放到的高度,
+	 * @param type  数据的类型, 当前仅支持Bitmap, 后面或许会NV21等.
+	 * @param listener 监听对象.
+	 */
+	public void setOnDrawPadEncodeFrameListener(int width,int height,int type,onDrawPadEncodeFrameListener listener)
+	{
+		if(renderer!=null){
+			renderer.setDrawpadEncodeFrameListener(width, height, type,listener);
+		}
+		previewFrameWidth=width;
+		previewFrameHeight=height;
+		previewFrameType=type;
+		drawPadPreviewFrameListener=listener;
+	}
+	/**
+	 * 设置setOnDrawPadEncodeFrameListener 运行在UI线程还是UI线程, 如果是前台处理,建议是主线程, 如果是后台处理, 建议DrawPad线程.
+	 * @param en
+	 */
+	public void setFrameListenerInDrawPad(boolean en){
+		if(renderer!=null){
+			renderer.setFrameListenerInDrawPad(en);
+		}
+		frameListenerInDrawPad=en;
+	}
+	
 	private onDrawPadCompletedListener drawpadCompletedListener=null;
 	public void setOnDrawPadCompletedListener(onDrawPadCompletedListener listener){
 		if(renderer!=null){
@@ -562,6 +627,10 @@ public class DrawPadView extends FrameLayout {
 	 				
 	 				 //设置DrawPad处理的进度监听, 回传的currentTimeUs单位是微秒.
 	 				renderer.setDrawpadSnapShotListener(drawpadSnapShotListener);
+	 				renderer.setDrawpadEncodeFrameListener(previewFrameWidth, previewFrameHeight, previewFrameType, drawPadPreviewFrameListener);
+	 				renderer.setFrameListenerInDrawPad(frameListenerInDrawPad);
+	 				
+	 				
 	 				renderer.setDrawPadProgressListener(drawpadProgressListener);
 	 				renderer.setDrawPadCompletedListener(drawpadCompletedListener);
 	 				renderer.setDrawPadThreadProgressListener(drawPadThreadProgressListener);
@@ -582,14 +651,12 @@ public class DrawPadView extends FrameLayout {
 	 				if(isPausePreviewDrawPad){
 	 					renderer.pausePreviewDrawPad();
 	 				}
+	 				renderer.adjustEncodeSpeed(encodeSpeed);
+	 				
 	 				ret=renderer.startDrawPad();
-	 				Log.i(TAG,"再次start======2=========>");
-	 				
-	 				
 	 				if(ret==false){  
 	 					Log.e(TAG,"开启 DrawPad 失败, 或许是您之前的DrawPad没有Stop, 或者传递进去的surface对象已经被系统Destory!!," +
-	 							"请检测您 的代码或参考本文件中的SurfaceCallback 这个类中的注释;\n" +
-	 							"如果您是从一个Activity返回到当前Activity,希望再次预览, 可以看下我们setOnViewAvailable, 在PictureSetRealtimeActivity.java代码里有说明.");
+	 							"请检测您 的代码或参考本文件中的SurfaceCallback 这个类中的注释;\n");
 	 				}
 	 			}
          }else{
@@ -602,7 +669,7 @@ public class DrawPadView extends FrameLayout {
 	 * 在一些场景里,您需要开启DrawPad后,暂停下, 然后增加各种Layer后,安排好各种事宜后,再让其画面更新,则用到这个方法.
 	 * 
 	 * 此方法是对DrawPad线程 暂停和恢复的, 不能用在一个Activity的onPause和onResume中. 
-	 * 如果你要从一个Activity切换到另一个Activity,则需要 {@link #stopDrawPad()} 然后重新开始
+	 * 如果您要跳入到别的Activity, 则应该这里 {@link #stopDrawPad()} 在回到当前Activity的时候, 调用 {@link #startDrawPad()}
 	 */
 	public void pauseDrawPad()
 	{
@@ -615,7 +682,7 @@ public class DrawPadView extends FrameLayout {
 	 * 恢复之前暂停的DrawPad,让其继续画面刷新. 与{@link #pauseDrawPad()}配对使用.
 	 * 
 	 * 此方法是对DrawPad线程 暂停和恢复的, 不能用在一个Activity的onPause和onResume中. 
-	 * 如果你要从一个Activity切换到另一个Activity,则需要 {@link #stopDrawPad()} 然后重新开始
+	 * 如果您要跳入到别的Activity, 则应该这里 {@link #stopDrawPad()} 在回到当前Activity的时候, 调用 {@link #startDrawPad()}
 	 */
 	public void resumeDrawPad()
 	{

@@ -18,6 +18,7 @@ import com.lansosdk.box.MVLayer;
 import com.lansosdk.box.VideoLayer;
 import com.lansosdk.box.onDrawPadCompletedListener;
 import com.lansosdk.box.onDrawPadErrorListener;
+import com.lansosdk.box.onDrawPadEncodeFrameListener;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadThreadProgressListener;
 
@@ -35,7 +36,7 @@ import com.lansosdk.box.onDrawPadThreadProgressListener;
 public class DrawPadVideoExecute {
 	
 	private DrawPadVideoRunnable  mDrawPad=null;
-	
+	private float  encodeSpeed=1.0f;
 	private int padWidth=0,padHeight=0,encBitRate=0;
 	private GPUImageFilter initFilter=null;
 	private String dstPath=null;
@@ -230,12 +231,42 @@ public class DrawPadVideoExecute {
 	   }
 	   return false;
    }
+   
    public void stopDrawPad() {
    	// TODO Auto-generated method stub
 	   if(mDrawPad!=null && mDrawPad.isRunning()){
 		   mDrawPad.stopDrawPad();
 	   }
    }
+   /**
+	 * 调节视频的速度
+	 * 支持在任意时刻来变速; 你可以前3秒用一个速度, 中间3秒正常, 最后几秒用一个速度.
+	 * 
+	 *  当前暂时不支持音频, 只是视频的加减速, 请注意!!!
+	 *  
+	 *  建议5个等级: 0.25f,0.5f,1.0f,1.5f,2.0f; 
+	 *  其中 0.25是放慢4倍;  0.5是放慢2倍; 1.0是采用和预览同样的速度; 1.5是加快一半, 2.0是加快2倍.
+	 * @param speed  速度系数,
+	 * 
+	 * 
+	 * 测试代码是:
+	 * 	if(currentTimeUs> 15*1000000){
+					mDrawPad.adjustEncodeSpeed(1.0f);
+				}else if(currentTimeUs>6000000 && bitmapLayer!=null){
+					mDrawPad.adjustEncodeSpeed(0.25f);
+					v.removeLayer(bitmapLayer);
+				}else if(currentTimeUs>3000000 && bitmapLayer!=null)  {
+					bitmapLayer.setScale(2.0f);
+					mDrawPad.adjustEncodeSpeed(2.0f);
+				}
+	 */
+   public void adjustEncodeSpeed(float speed)
+	{
+		if(mDrawPad!=null){
+			mDrawPad.adjustEncodeSpeed(speed);
+		}
+		encodeSpeed=speed;
+	}
   /**
    * 
    *设置是否使用主视频的时间戳为录制视频的时间戳;
@@ -282,7 +313,6 @@ public class DrawPadVideoExecute {
 	 *  可以利用这个时间戳来做一些变化,比如在几秒处缩放, 在几秒处平移等等.从而实现一些动画效果.
 	 * @param currentTimeUs  当前DrawPad处理画面的时间戳.,单位微秒.
 	 */
-	
 	public void setDrawPadProgressListener(onDrawPadProgressListener listener){
 		if(mDrawPad!=null){
 			mDrawPad.setDrawPadProgressListener(listener);
@@ -294,7 +324,6 @@ public class DrawPadVideoExecute {
 	 * 此回调是在DrawPad渲染完一帧后,立即执行这个回调中的代码,不通过Handler传递出去,你可以精确的执行一些下一帧的如何操作.
 	 * 故不能在回调 内增加各种UI相关的代码.
 	 */
-	
 	public void setDrawPadThreadProgressListener(onDrawPadThreadProgressListener listener)
 	{
 		if(mDrawPad!=null){
@@ -312,6 +341,10 @@ public class DrawPadVideoExecute {
 		}
 		monDrawPadCompletedListener=listener;
 	}
+	/**
+	 * 设置当前DrawPad运行错误的回调监听.
+	 * @param listener
+	 */
 	public void setDrawPadErrorListener(onDrawPadErrorListener listener)
 	{
 		if(mDrawPad!=null){
@@ -320,6 +353,39 @@ public class DrawPadVideoExecute {
 		monDrawPadErrorListener=listener;
 	}
 	
+	
+	private onDrawPadEncodeFrameListener drawPadPreviewFrameListener=null;
+	private int previewFrameWidth;
+	private int previewFrameHeight;
+	private int previewFrameType;
+	private boolean encodeFrameInThread=false;
+	/**
+	 * 设置每处理一帧的数据预览监听, 等于把当前处理的这一帧的画面拉出来,
+	 * 您可以根据这个画面来自行的编码保存, 或网络传输.
+	 * 注意:此回调是在编码的时候执行的, 您需要先设置编码的各种参数, 并启动编码,这里才会触发. 回调的频率等于编码的帧率
+	 * 
+	 * @param listener 监听对象
+	 */
+	public void setDrawPadEncodeFrameListener(onDrawPadEncodeFrameListener listener)
+	{
+		if(mDrawPad!=null){
+			mDrawPad.setDrawpadEncodeFrameListener(padWidth, padHeight, 1,listener);
+		}
+		previewFrameWidth=padWidth;
+		previewFrameHeight=padHeight;
+		previewFrameType=1;
+		drawPadPreviewFrameListener=listener;
+	}
+	/**
+	 * 设置setOnDrawPadEncodeFrameListener 运行在UI线程还是UI线程, 如果是前台处理,建议是主线程, 如果是后台处理, 建议DrawPad线程.
+	 * @param en
+	 */
+	public void setFrameListenerInDrawPad(boolean en){
+		if(mDrawPad!=null){
+			mDrawPad.setFrameListenerInDrawPad(en);
+		}
+		encodeFrameInThread=en;
+	}
   /**
    * 把当前图层放到DrawPad的最底部.
    * DrawPad运行后,有效.
@@ -405,18 +471,31 @@ public class DrawPadVideoExecute {
     * 
     * @param startTimeMs 设置从主音频的哪个时间点开始插入.单位毫秒.
     * @param durationMs   把这段声音多长插入进去.
-    * @param mainvolume 插入时,主音频音量多大  默认是1.0f, 大于1,0则是放大, 小于则是降低
+    * 
+    * @param mainvolume 插入时,主音频音量多大  默认是1.0f, 大于1,0则是放大, 小于则是降低  !!注意,这里的主音频音量暂时没有用到,这里仅仅是兼容.
+    * 
     * @param volume  插入时,当前音频音量多大  默认是1.0f, 大于1,0则是放大, 小于则是降低
     * @return  插入成功, 返回true, 失败返回false
     */
+   	@Deprecated
 	 public boolean addSubAudio(String srcPath,long startTimeMs,long durationMs,float mainvolume,float volume) 
 	 {
 		 if(mDrawPad!=null && mDrawPad.isRunning()==false){
-			return mDrawPad.addSubAudio(srcPath, startTimeMs, durationMs, mainvolume, volume);
+			return mDrawPad.addSubAudio(srcPath, startTimeMs, durationMs,volume);
 		 }else{
 			 return false;
 		 }
 	 }
+   	
+   	 public boolean addSubAudio(String srcPath,long startTimeMs,long durationMs,float volume) 
+	 {
+		 if(mDrawPad!=null && mDrawPad.isRunning()==false){
+			return mDrawPad.addSubAudio(srcPath, startTimeMs, durationMs,volume);
+		 }else{
+			 return false;
+		 }
+	 }
+   	
 	 /**
 	  * 增加图片图层.
 	  * @param bmp

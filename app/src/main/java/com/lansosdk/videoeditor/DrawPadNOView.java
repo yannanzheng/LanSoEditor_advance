@@ -86,7 +86,7 @@ public class DrawPadNOView  {
  	/**
  	 *  经过宽度对齐到手机的边缘后, 缩放后的宽高,作为drawpad(画板)的宽高. 
  	 */
- 	private int drawPadWidth,drawPadHeight;  
+ 	private int padWidth,padHeight;  
  	
  	
  	private String encodeOutput=null; //编码输出路径
@@ -107,8 +107,8 @@ public class DrawPadNOView  {
 	 */
 	public void setDrawpadSizeDirect(int width,int height)
 	{
-		drawPadWidth=width;
-		drawPadHeight=height;
+		padWidth=width;
+		padHeight=height;
 		if(renderer!=null){
 			Log.w(TAG,"renderer maybe is running. your setting is not available!!");
 		}
@@ -131,14 +131,14 @@ public class DrawPadNOView  {
     	}
     }
     public int getDrawPadWidth(){
-    	return drawPadWidth;
+    	return padWidth;
     }
     /**
      * 获得当前View的高度.
      * @return
      */
     public int getDrawPadHeight(){
-    	return drawPadHeight;
+    	return padHeight;
     }
   
     /**
@@ -257,6 +257,14 @@ public class DrawPadNOView  {
 		}
 		drawpadSnapShotListener=listener;
 	}
+	public void toggleSnatShot()
+	{
+		if(drawpadSnapShotListener!=null && renderer!=null && renderer.isRunning()){
+			renderer.toggleSnapShot(padWidth,padHeight);
+		}else{
+			Log.e(TAG,"toggle snap shot failed!!!");
+		}
+	}
 	/**
 	 * 触发一下截取当前DrawPad中的内容.
 	 * 触发后, 会在DrawPad内部设置一个标志位,DrawPad线程会检测到这标志位后, 截取DrawPad, 并通过onDrawPadSnapShotListener监听反馈给您.
@@ -265,10 +273,10 @@ public class DrawPadNOView  {
 	 * 此方法,仅在前台工作时有效.
 	 * (注意:截取的仅仅是各种图层的内容, 不会截取DrawPad的黑色背景)
 	 */
-	public void toggleSnatShot()
+	public void toggleSnatShot(int width,int height)
 	{
 		if(drawpadSnapShotListener!=null && renderer!=null && renderer.isRunning()){
-			renderer.toggleSnapShot();
+			renderer.toggleSnapShot(width,height);
 		}else{
 			Log.e(TAG,"toggle snap shot failed!!!");
 		}
@@ -304,9 +312,9 @@ public class DrawPadNOView  {
 	public boolean startDrawPad()
 	{
 		boolean ret=false;
-		 if(renderer==null&& drawPadWidth>0 &&drawPadHeight>0)
+		 if(renderer==null&& padWidth>0 &&padHeight>0)
          {
-			 	renderer=new DrawPadViewRender(mContext, drawPadWidth, drawPadHeight);  //<----从这里去建立DrawPad线程.
+			 	renderer=new DrawPadViewRender(mContext, padWidth, padHeight);  //<----从这里去建立DrawPad线程.
 	 			if(renderer!=null){
 	 				
 	 				renderer.setUseMainVideoPts(isUseMainPts);
@@ -343,7 +351,7 @@ public class DrawPadNOView  {
 	 				}
 	 			}
          }else{
-        	 Log.e(TAG,"开启 DrawPad 失败, 您设置的宽度和高度是:"+drawPadWidth+" x "+drawPadHeight+" 如果您是从一个Activity返回到当前Activity,希望再次预览, 可以看下我们setOnViewAvailable, 在PictureSetRealtimeActivity.java代码里有说明.");
+        	 Log.e(TAG,"开启 DrawPad 失败, 您设置的宽度和高度是:"+padWidth+" x "+padHeight+" 如果您是从一个Activity返回到当前Activity,希望再次预览, 可以看下我们setOnViewAvailable, 在PictureSetRealtimeActivity.java代码里有说明.");
          }
 		 return ret;
 	}

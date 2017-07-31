@@ -407,7 +407,6 @@ public class CameraLayerDemoActivity extends Activity implements Handler.Callbac
 			List<Area> focusList = new ArrayList<Area>();
 			Area focusA = new Area(targetFocusRect, 1000);
 			focusList.add(focusA);
-			mCameraLayer.doFocus(focusList);
 			return rect;
 		} catch (Exception e) {
 			e.printStackTrace();

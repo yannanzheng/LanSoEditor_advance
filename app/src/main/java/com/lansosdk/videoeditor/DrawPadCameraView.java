@@ -15,6 +15,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.FloatMath;
 import android.util.Log;
 import android.view.Gravity;
@@ -55,6 +56,7 @@ import com.lansosdk.box.VideoLayer;
 import com.lansosdk.box.ViewLayer;
 import com.lansosdk.box.YUVLayer;
 import com.lansosdk.box.onDrawPadCompletedListener;
+import com.lansosdk.box.onDrawPadEncodeFrameListener;
 import com.lansosdk.box.onDrawPadPreviewProgressListener;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
@@ -90,7 +92,7 @@ public class DrawPadCameraView extends FrameLayout {
  	/**
  	 *  经过宽度对齐到手机的边缘后, 缩放后的宽高,作为drawpad(画板)的宽高. 
  	 */
- 	private int drawPadWidth,drawPadHeight; 
+ 	private int padWidth,padHeight; 
  	/**
  	 * 摄像头是否是前置摄像头
  	 */
@@ -104,6 +106,7 @@ public class DrawPadCameraView extends FrameLayout {
  	 */
  	private GPUImageFilter  initFilter=null;
  	
+ 	private float  encodeSpeed=1.0f;
  	  
     public DrawPadCameraView(Context context) {
         super(context);
@@ -204,25 +207,25 @@ public class DrawPadCameraView extends FrameLayout {
      * @return
      */
     public int getViewWidth(){
-    	return drawPadWidth;
+    	return padWidth;
     }
     /**
      * 获得当前View的高度.
      * @return
      */
     public int getViewHeight(){
-    	return drawPadHeight;
+    	return padHeight;
     }
     
     public int getDrawPadWidth(){
-    	return drawPadWidth;
+    	return padWidth;
     }
     /**
      * 获得当前View的高度.
      * @return
      */
     public int getDrawPadHeight(){
-    	return drawPadHeight;
+    	return padHeight;
     }
   
     public interface onViewAvailable {	    
@@ -256,8 +259,8 @@ public class DrawPadCameraView extends FrameLayout {
     	        public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
 
     	            mSurfaceTexture = surface;
-    	            drawPadHeight=height;
-    	            drawPadWidth=width;
+    	            padHeight=height;
+    	            padWidth=width;
     	            if(mViewAvailable!=null){
     	            	mViewAvailable.viewAvailable(DrawPadCameraView.this);
     	            }	
@@ -273,8 +276,8 @@ public class DrawPadCameraView extends FrameLayout {
     	        @Override
     	        public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
     	            mSurfaceTexture = surface;
-    	            drawPadHeight=height;
-    	            drawPadWidth=width;
+    	            padHeight=height;
+    	            padWidth=width;
     	            
 	        		if(mSizeChangedCB!=null){
 	        			mSizeChangedCB.onSizeChanged(width, height);
@@ -289,8 +292,8 @@ public class DrawPadCameraView extends FrameLayout {
     	        @Override
     	        public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
     	            mSurfaceTexture = null;
-    	            drawPadHeight=0;
-    	            drawPadWidth=0;
+    	            padHeight=0;
+    	            padWidth=0;
     	            
     	            stopDrawPad();  //可以在这里增加以下. 这样当Texture销毁的时候, 停止DrawPad
     	            
@@ -308,24 +311,37 @@ public class DrawPadCameraView extends FrameLayout {
     	        public void onSurfaceTextureUpdated(SurfaceTexture surface) {
     	        }
     }
-	/**
-	 * 
-	 * 
-	 * @param front  
-	 * @param filters  
-	 */
-	/**
-	 * 设置CameraLayer是否使用前置相机, 是否在刚开始增加滤镜.
-	 * @param front 是否是前置
-	 * @param filters  是否增加滤镜.
-	 * @param beauful   是否在录制的过程中,有没有可能用到美颜滤镜, 如果有的话, 则这里设置为true, 完全不可能用到,则设置为false;
-	 */
-	public void setCameraParam(boolean front,GPUImageFilter filter, boolean beauful)
-	{
-		isFrontCam=front;
-		initFilter=filter;
-		maybeBeauful=beauful;
-	}
+		/**
+		 * 设置CameraLayer是否使用前置相机, 是否在刚开始增加滤镜.
+		 * @param front 是否是前置  您可以用 {@link CameraLayer#isSupportFrontCamera()}来查看是否支持前置.
+		 * 
+		 * @param filter 是否增加滤镜.
+		 * @param beauful  是否在录制的过程中,有没有可能用到美颜滤镜, 如果有的话, 则这里设置为true, 完全不可能用到,则设置为false;
+		 */
+		public void setCameraParam(boolean front,GPUImageFilter filter, boolean beauful)
+		{
+			isFrontCam=front;
+			initFilter=filter;
+			maybeBeauful=beauful;
+		}
+		
+		/**
+		 * 调整在录制时的速度, 比如你想预览的时候是正常的, 录制好后, 一部分要快进或慢放,则可以在这里设置
+		 * 支持在任意时刻来变速; 甚至你可以设置一个按钮, 长按下的时候, 加快或放慢, 松开时正常.
+		 *  当前暂时不支持音频, 只是视频的加减速, 请注意!!!
+		 *  
+		 *  建议5个等级: 0.25f,0.5f,1.0f,1.5f,2.0f; 
+		 *  其中 0.25是放慢2倍;  0.5是放慢一倍; 1.0是采用和预览同样的速度; 1.5是加快一半, 2.0是加快2倍.
+		 * @param speed  速度系数,
+		 */
+		public void adjustEncodeSpeed(float speed)
+		{
+			if(renderer!=null){
+				renderer.adjustEncodeSpeed(speed);
+			}
+			encodeSpeed=speed;
+		}
+		
 		/**
 		 * 
 		 * 
@@ -343,7 +359,7 @@ public class DrawPadCameraView extends FrameLayout {
 		 * @param encFr 录制帧率
 		 * @param outPath  录制 的保存路径. 注意:这个路径在分段录制功能时,无效.即调用 {@link #segmentStart(String)}时.
 		 */
-	public void setRealEncodeEnable(int encW,int encH,int encBr,int encFr,String outPath)
+		public void setRealEncodeEnable(int encW,int encH,int encBr,int encFr,String outPath)
 	    {
 	    	if(encW>0 && encH>0 && encBr>0 && encFr>0){
 	    			encWidth=encW;
@@ -389,10 +405,10 @@ public class DrawPadCameraView extends FrameLayout {
 		if (width != 0 && height != 0 && cb!=null) {
 			float setAcpect=(float)width/(float)height;
 			
-			float setViewacpect=(float)drawPadWidth/(float)drawPadHeight;
+			float setViewacpect=(float)padWidth/(float)padHeight;
 			
 			Log.i(TAG,"setAcpect="+setAcpect+" setViewacpect:"+setViewacpect+
-					"set width:"+width+"x"+height+" view width:"+drawPadWidth+"x"+drawPadHeight);
+					"set width:"+width+"x"+height+" view width:"+padWidth+"x"+padHeight);
 			
 			
 		    if(setAcpect==setViewacpect){  //如果比例已经相等,不需要再调整,则直接显示.
@@ -411,9 +427,9 @@ public class DrawPadCameraView extends FrameLayout {
 	
 	private onDrawPadProgressListener drawpadProgressListener=null;
 	/**
-	 * 实时录制时, 每处理完一帧的回调.
+	 * 录制执行的回调.
 	 * 
-	 * DrawPad每执行完一帧画面,会调用这个Listener,返回的timeUs是当前画面的时间戳(微妙),
+	 * DrawPad每录制完一帧画面,会调用这个Listener,返回的timeUs是当前录制画面的时间戳(微妙),
 	 *  可以利用这个时间戳来做一些变化,比如在几秒处缩放, 在几秒处平移等等.从而实现一些动画效果.
 	 * @param currentTimeUs  当前DrawPad处理画面的时间戳.,单位微秒.
 	 */
@@ -426,6 +442,7 @@ public class DrawPadCameraView extends FrameLayout {
 	private onDrawPadPreviewProgressListener drawpadPreviewProgressListener=null;
 	/**
 	 *  预览执行回调.
+	 *  注意,因为Camera是全速运行, 会根据手机cpu的速度来执行, 可能一秒钟执行50帧, 或60帧, 也可能一秒钟执行30帧.
 	 *  在预览的时候, 每次刷新一帧,则调用这里,返回当刷新帧的时间戳
 	 *   可以复位当前时间戳 {@link #resetPreviewTime()}.
 	 * @param currentTimeUs  是系统时间和预览第一帧开始的时间差值,单位微秒.
@@ -467,6 +484,7 @@ public class DrawPadCameraView extends FrameLayout {
 	private onDrawPadSnapShotListener drawpadSnapShotListener=null;
 	/**
 	 * 设置 获取当前DrawPad这一帧的画面的监听, 
+	 *   注意,因为Camera是全速运行, 会根据手机cpu的速度来执行, 可能一秒钟执行50帧, 或60帧, 也可能一秒钟执行30帧.
 	 *  设置截图监听,当截图完成后, 返回当前图片的btimap格式的图片.
 	 *  此方法工作在主线程. 请不要在此方法里做图片的处理,以免造成拥堵;  建议获取到bitmap后,放入到一个链表中,在外面或另开一个线程处理. 
 	 */
@@ -476,6 +494,45 @@ public class DrawPadCameraView extends FrameLayout {
 			renderer.setDrawpadSnapShotListener(listener);
 		}
 		drawpadSnapShotListener=listener;
+	}
+	
+	
+	private onDrawPadEncodeFrameListener drawPadEncodeFrameListener=null;
+	private int previewFrameWidth;
+	private int previewFrameHeight;
+	private int previewFrameType;
+	private boolean frameListenerInDrawPad=false;
+	/**
+	 * 设置每处理一帧的数据预览监听, 等于把当前处理的这一帧的画面拉出来,
+	 * 您可以根据这个画面来自行的编码保存, 或网络传输.
+	 * 【注意:此回调是在编码的时候执行的, 您需要先设置编码的各种参数, 并启动编码,这里才会触发. 回调的频率等于编码的帧率】
+	 * 
+	 * 可以通过 {@link #setFrameListenerInDrawPad(boolean)} 来设置listener运行在DrawPad线程中,还是运行UI主线程.
+	 *
+	 * @param width  可以设置要引出这一帧画面的宽度, 如果宽度不等于drawpad的预览宽度,则会缩放.
+	 * @param height  画面缩放到的高度,
+	 * @param type  数据的类型, 当前仅支持Bitmap, 后面或许会NV21等.
+	 * @param listener 监听对象.  【注意:此回调是在编码的时候执行的, 您需要先设置编码的各种参数, 并启动编码,这里才会触发. 回调的频率等于编码的帧率】
+	 */
+	public void setOnDrawPadEncodeFrameListener(int width,int height,int type,onDrawPadEncodeFrameListener listener)
+	{
+		if(renderer!=null){
+			renderer.setDrawpadEncodeFrameListener(width, height, type,listener);
+		}
+		previewFrameWidth=width;
+		previewFrameHeight=height;
+		previewFrameType=type;
+		drawPadEncodeFrameListener=listener;
+	}
+	/**
+	 * 设置setOnDrawPadEncodeFrameListener 运行在UI线程还是UI线程, 如果是前台处理,建议是主线程, 如果是后台处理, 建议DrawPad线程.
+	 * @param en
+	 */
+	public void setFrameListenerInDrawPad(boolean en){
+		if(renderer!=null){
+			renderer.setFrameListenerInDrawPad(en);
+		}
+		frameListenerInDrawPad=en;
 	}
 	
 	/**
@@ -489,7 +546,15 @@ public class DrawPadCameraView extends FrameLayout {
 	public void toggleSnatShot()
 	{
 		if(drawpadSnapShotListener!=null && renderer!=null && renderer.isRunning()){
-			renderer.toggleSnapShot();
+			renderer.toggleSnapShot(padWidth,padHeight);
+		}else{
+			Log.e(TAG,"toggle snap shot failed!!!");
+		}
+	}
+	public void toggleSnatShot(int width,int height)
+	{
+		if(drawpadSnapShotListener!=null && renderer!=null && renderer.isRunning()){
+			renderer.toggleSnapShot(width,height);
 		}else{
 			Log.e(TAG,"toggle snap shot failed!!!");
 		}
@@ -514,6 +579,11 @@ public class DrawPadCameraView extends FrameLayout {
 		}else{
 			return null;
 		}
+	}
+	private CameraLayer extCameraLayer=null;
+	public void setExtCameraLayer(CameraLayer  layer)
+	{
+		extCameraLayer=layer;
 	}
 	/**
 	 * 开始DrawPad的渲染线程, 阻塞执行, 直到DrawPad真正开始执行后才退出当前方法.
@@ -545,11 +615,19 @@ public class DrawPadCameraView extends FrameLayout {
 			 return false;
 		 }
 		 
-		 if( mSurfaceTexture!=null && renderer==null && drawPadWidth>0 &&drawPadHeight>0)
+		 if( mSurfaceTexture!=null && renderer==null && padWidth>0 &&padHeight>0)
          {
 			 
-			 	renderer=new DrawPadCameraRunnable(getContext(), drawPadWidth, drawPadHeight);  //<----从这里去建立DrawPad线程.
+			 	renderer=new DrawPadCameraRunnable(getContext(), padWidth, padHeight);  //<----从这里去建立DrawPad线程.
 				renderer.setCameraParam(isFrontCam,initFilter,maybeBeauful);
+				
+					DisplayMetrics dm = getResources().getDisplayMetrics();
+					
+				 if(dm!=null && padWidth== dm.widthPixels && padHeight ==dm.heightPixels){
+					 renderer.setFullScreen(true);
+				 }
+				   
+				
 	 			if(renderer!=null){
 	 				renderer.setDisplaySurface(mTextureRenderView,new Surface(mSurfaceTexture));
 	 				
@@ -564,10 +642,12 @@ public class DrawPadCameraView extends FrameLayout {
 	 				
 	 				 //设置DrawPad处理的进度监听, 回传的currentTimeUs单位是微秒.
 	 				renderer.setDrawpadSnapShotListener(drawpadSnapShotListener);
+	 				renderer.setDrawpadEncodeFrameListener(previewFrameWidth, previewFrameHeight, previewFrameType, drawPadEncodeFrameListener);
 	 				renderer.setDrawPadProgressListener(drawpadProgressListener);
 	 				renderer.setDrawPadCompletedListener(drawpadCompletedListener);
 	 				renderer.setDrawPadThreadProgressListener(drawPadThreadProgressListener);
 	 				renderer.setDrawPadPreviewProgressListener(drawpadPreviewProgressListener);
+	 				renderer.setFrameListenerInDrawPad(frameListenerInDrawPad);
 	 				
 	 				if(isRecordMic){
 	 					renderer.setRecordMic(isRecordMic);	
@@ -575,32 +655,38 @@ public class DrawPadCameraView extends FrameLayout {
 	 					renderer.setRecordExtraPcm(isRecordExtPcm, pcmChannels,pcmSampleRate,pcmBitRate);
 	 				}
 	 				
+	 				if(extCameraLayer!=null){
+	 					renderer.setExtCameraLayer(extCameraLayer);
+	 				}
 	 				if(pauseRecord || isPauseRecord){
 	 					renderer.pauseRecordDrawPad();	
 	 				}
 	 				if(isPauseRefresh){
 	 					renderer.pauseRefreshDrawPad();
 	 				}
+	 				renderer.adjustEncodeSpeed(encodeSpeed);
 	 				ret=renderer.startDrawPad();
 	 				
 	 				isCameraOpened=ret;
 	 				if(ret==false){  //用中文注释.
 	 					Log.e(TAG,"开启 DrawPad 失败, 或许是您之前的DrawPad没有Stop, 或者传递进去的surface对象已经被系统Destory!!," +
-	 							"请检测您 的代码或参考本文件中的SurfaceCallback 这个类中的注释;\n" +
-	 							"如果您是从一个Activity返回到当前Activity,希望再次预览,可以看下我们setOnViewAvailable, 在PictureSetRealtimeActivity.java代码里有说明.");
+	 							"请检测您 的代码或直接拷贝我们的代码过去,在我们代码基础上修改参数;\n");
 	 				}else{
 	 					renderer.setDisplaySurface(mTextureRenderView,new Surface(mSurfaceTexture));
 	 				}
 	 			}
          }else{
-        	 Log.e(TAG,"开启 DrawPad 失败, 您设置的宽度和高度是:"+drawPadWidth+" x "+drawPadHeight+" 如果您是从一个Activity返回到当前Activity,希望再次预览, 可以看下我们setOnViewAvailable, 在PictureSetRealtimeActivity.java代码里有说明.");
+        	 Log.w(TAG,"开启 DrawPad 失败, 您设置的宽度和高度是:"+padWidth+" x "+padHeight);
          }
 		 return ret;
 	}
 	/**
-	 * 暂停DrawPad的画面刷新
+	 * 暂停DrawPad的画面刷新, 
 	 * 在一些场景里,您需要开启DrawPad后,暂停下, 然后增加各种Layer后,安排好各种事宜后,再让其画面更新,
 	 * 则用到这个方法.
+	 * 
+	 * 不可用来暂停后跳入到别的Activity中.  
+	 * 如果您要跳入到别的Activity, 则应该这里 {@link #stopDrawPad()} 在回到当前Activity的时候, 调用 {@link #startDrawPad()}
 	 */
 	public void pauseDrawPad()
 	{
@@ -613,6 +699,9 @@ public class DrawPadCameraView extends FrameLayout {
 	 * 恢复之前暂停的DrawPad,让其继续画面刷新.
 	 * 
 	 *  与{@link #pauseDrawPad()}配对使用.
+	 *  
+	 *  不可用来暂停后跳入到别的Activity中.  
+	 * 如果您要跳入到别的Activity, 则应该这里 {@link #stopDrawPad()} 在回到当前Activity的时候, 调用 {@link #startDrawPad()}
 	 */
 	public void resumeDrawPad()
 	{
@@ -819,8 +908,8 @@ public class DrawPadCameraView extends FrameLayout {
 	 */
 	public void setDrawpadSizeDirect(int width,int height)
 	{
-		drawPadWidth=width;
-		drawPadHeight=height;
+		padWidth=width;
+		padHeight=height;
 		if(renderer!=null){
 			Log.w(TAG,"renderer maybe is running. your setting is not available!!");
 		}

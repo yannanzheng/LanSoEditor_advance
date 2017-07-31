@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.lansoeditor.demo"
-          android:versionCode="2402"
-          android:versionName="2.4.2" >
+          android:versionCode="2406"
+          android:versionName="2.4.6" >
 
     <!-- 这里的意思是：我们的sdk最低是Android4.3， 最高支持Andriod7.0 23   -->
     <uses-sdk

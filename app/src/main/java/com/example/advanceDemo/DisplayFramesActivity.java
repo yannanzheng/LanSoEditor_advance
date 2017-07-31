@@ -31,222 +31,223 @@ import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.MemoryDiskCache;
 
 /**
-  * 快速获取视频的每一帧, 
+ * 快速获取视频的每一帧,
  * 注意: 在运行此类的时候, 请不要同时运行MediaPlayer或我们的DrawPad类, 因为在高通410,610等低端处理器中, 他们是共用同一个硬件资源,会冲突;但各种旗舰机
  * 不会出现类似问题
- * 
+ *
  */
 public class DisplayFramesActivity extends Activity{
 
-    	private static final String TAG="DisplayAllFramesActivity";
-    	
-    	public static final int FRAME_TYPE_25=1;
-    	public static final int FRAME_TYPE_60=2;
-    	public static final int FRAME_TYPE_ALL=3;
-    	
-		String videoPath=null;
-		int videoDuration;
-		boolean isRuned=false;
-		MediaInfo   mInfo;
-	    
-	    private boolean isExecuting=false; 
-	    private ExtractVideoFrame mExtractFrame;
-	    
-	    private MemoryDiskCache  mDiskCache;
-	    private BitmapLruCache   mLruCache;
-	    private int count=0;
-	    private GridView listView;
-		private ImageAdapter  mImageAdapter;
-		private int  mTpye=FRAME_TYPE_25;
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onCreate(savedInstanceState);
-		 
-		 videoPath=getIntent().getStringExtra("videopath");
-		 
-		 mTpye= getIntent().getExtras().getInt("TYPE");
-		 
-		 	
-		 setContentView(R.layout.video_all_frame_grid);
-		 
-		 listView = (GridView) findViewById(R.id.gridview);
-		 mImageAdapter=new ImageAdapter();
-		 listView.setAdapter(mImageAdapter);
-	     
-	}
-	@Override
-	protected void onResume() {
-		// TODO Auto-generated method stub
-		super.onResume();
-		startGetFrames();
-	}
+private static final String TAG="DisplayAllFramesActivity";
 
+public static final int FRAME_TYPE_25=1;
+public static final int FRAME_TYPE_60=2;
+public static final int FRAME_TYPE_ALL=3;
+
+String videoPath=null;
+int videoDuration;
+boolean isRuned=false;
+MediaInfo   mInfo;
+
+private boolean isExecuting=false;
+private ExtractVideoFrame mExtractFrame;
+
+private MemoryDiskCache  mDiskCache;
+private BitmapLruCache   mLruCache;
+private int count=0;
+private GridView listView;
+private ImageAdapter  mImageAdapter;
+private int  mTpye=FRAME_TYPE_25;
+TextView  tvHint;
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+	// TODO Auto-generated method stub
+	super.onCreate(savedInstanceState);
+	
+	videoPath=getIntent().getStringExtra("videopath");
+	
+	mTpye= getIntent().getExtras().getInt("TYPE");
+	
+	
+	setContentView(R.layout.video_all_frame_grid);
+	
+	tvHint=(TextView)findViewById(R.id.video_frame_tv);
+	
+	listView = (GridView) findViewById(R.id.gridview);
+	mImageAdapter=new ImageAdapter();
+	listView.setAdapter(mImageAdapter);
+	
+}
+@Override
+protected void onResume() {
+	// TODO Auto-generated method stub
+	super.onResume();
+	startGetFrames();
+}
+
+/**
+ * 从这里开始演示.
+ */
+private void startGetFrames()
+{
+	if(isExecuting)
+		return ;
+	
+	mInfo=new MediaInfo(videoPath);
+	if(mInfo.prepare()==false || mInfo.isHaveVideo()==false){
+		return ;
+	}
+	isExecuting=true;
 	/**
-	 * 从这里开始演示.
+	 * 初始化.
 	 */
-	private void startGetFrames()
-	{
-		if(isExecuting)
-			return ;
-		
-		mInfo=new MediaInfo(videoPath);
-		if(mInfo.prepare()==false || mInfo.isHaveVideo()==false){
-			return ;
-		}
-		isExecuting=true;
-		
-		/**
-		 * 初始化.
-		 */
-		mExtractFrame=new ExtractVideoFrame(DisplayFramesActivity.this,videoPath);
+	mExtractFrame=new ExtractVideoFrame(DisplayFramesActivity.this,videoPath);
 		if(mInfo.vWidth * mInfo.vHeight > 960*540){
 			mExtractFrame.setBitmapWH(mInfo.vWidth/2,mInfo.vHeight/2);  //视频分辨率过大,则缩小一倍.
 		}
+	if(mTpye==FRAME_TYPE_25){
+		//25帧, 先检查用 内存释放够,如果不够,再用SD卡来缓存.
+		mExtractFrame.setExtract25Frame();
 		
-		if(mTpye==FRAME_TYPE_25){
-			//25帧, 先检查用 内存释放够,如果不够,再用SD卡来缓存.
-			mExtractFrame.setExtract25Frame();
-			
-			long desireSize=mExtractFrame.getBitmapHeight() * mExtractFrame.getBitmapWidth() *4*25;
-			long cachesize=BitmapLruCache.getMaxCacheSize();
-			if(desireSize>cachesize){
-				mDiskCache=new MemoryDiskCache(getApplication());
-			}else{
-				mLruCache=new BitmapLruCache();	
-			}
-		}else if(mTpye==FRAME_TYPE_60){
-			mExtractFrame.setExtract60Frame();
+		long desireSize=mExtractFrame.getBitmapHeight() * mExtractFrame.getBitmapWidth() *4*25;
+		long cachesize=BitmapLruCache.getMaxCacheSize();
+		if(desireSize>cachesize){
 			mDiskCache=new MemoryDiskCache(getApplication());
-			
-		}else{  //不设置,则默认是全部解码
-			//全部解码,则用DiskLruCache
-			mDiskCache=new MemoryDiskCache(getApplication());
+		}else{
+			mLruCache=new BitmapLruCache();
 		}
+	}else if(mTpye==FRAME_TYPE_60){
+		mExtractFrame.setExtract60Frame();
+		mDiskCache=new MemoryDiskCache(getApplication());
 		
+	}else{  //不设置,则默认是全部解码
+		//全部解码,则用DiskLruCache
+		mDiskCache=new MemoryDiskCache(getApplication());
+	}
+	
+	
+	if(mDiskCache!=null){
+		Log.i(TAG,"写入到 硬盘.....");
+	}else{
+		Log.i(TAG,"写入到 memory....");
+	}
+	/**
+	 * 设置处理完成监听.
+	 */
+	mExtractFrame.setOnExtractCompletedListener(new onExtractVideoFrameCompletedListener() {
+		
+		@Override
+		public void onCompleted(ExtractVideoFrame v) {
+			// TODO Auto-generated method stub
+			Log.i(TAG,"视频提取完毕");
+			mImageAdapter.notifyDataSetChanged();
+		}
+	});
+	/**
+	 * 设置处理进度监听.
+	 */
+	mExtractFrame.setOnExtractProgressListener(new onExtractVideoFrameProgressListener() {
+		
+		/**
+		 * 当前帧的画面回调,,  ptsUS:当前帧的时间戳,单位微秒.
+		 */
+		@Override
+		public void onExtractBitmap(Bitmap bmp, long ptsUS) {
+			// TODO Auto-generated method stub
+			
+			tvHint.setText("bmp:"+bmp.getWidth()+" x "+bmp.getHeight());
+			
+			if(mDiskCache!=null){
+				mDiskCache.pushBitmap(bmp);
+				count++;
+				//if(count%10==0){
+				mImageAdapter.notifyDataSetChanged();
+				//}
+			}else if(mLruCache!=null){
+				mLruCache.pushBitmap(bmp);
+				count++;
+				//if(count%10==0){
+				mImageAdapter.notifyDataSetChanged();
+				//}
+			}
+		}
+	});
+	
+	/**
+	 * 开始执行.  或者你可以从指定地方开始解码.
+	 * mExtractFrame.start(10*1000*1000);则从视频的10秒处开始提取.
+	 */
+	mExtractFrame.start();
+}
+@Override
+protected void onDestroy() {
+	// TODO Auto-generated method stub
+	super.onDestroy();
+	if(mExtractFrame!=null){
+		mExtractFrame.stop();
+		mExtractFrame=null;
+	}
+	
+	if(mLruCache!=null){
+		mLruCache.clear();
+		mLruCache=null;
+	}
+	
+	if(mDiskCache!=null){
+		mDiskCache.clear();
+		mDiskCache=null;
+	}
+}
+//------------------------------------
+public class ImageAdapter extends BaseAdapter {
+	@Override
+	public int getCount() {
+		return count;
+	}
+	
+	@Override
+	public Object getItem(int position) {
+		return null;
+	}
+	
+	@Override
+	public long getItemId(int position) {
+		return position;
+	}
+	
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent)
+	{
+		
+		final ViewHolder holder;
+		View view = convertView;
+		
+		if (view == null) {
+			view = getLayoutInflater().inflate(R.layout.frame_grid_item, parent, false);
+			holder = new ViewHolder();
+			holder.imageView = (ImageView) view.findViewById(R.id.image);
+			view.setTag(holder);
+		} else {
+			holder = (ViewHolder) view.getTag();
+		}
 		
 		if(mDiskCache!=null){
-			Log.i(TAG,"写入到 硬盘.....");
-		}else{
-			Log.i(TAG,"写入到 memory....");
+			Bitmap  bmp=mDiskCache.getBitmap(position);
+			if(bmp!=null){
+				holder.imageView.setImageBitmap(bmp);
+			}
+		}else if(mLruCache!=null){
+			Bitmap  bmp=mLruCache.getBitmap(position);
+			if(bmp!=null){
+				holder.imageView.setImageBitmap(bmp);
+			}
 		}
-		 /**
-	     * 设置处理完成监听.
-	     */
-		mExtractFrame.setOnExtractCompletedListener(new onExtractVideoFrameCompletedListener() {
-			
-			@Override
-			public void onCompleted(ExtractVideoFrame v) {
-				// TODO Auto-generated method stub
-				Log.i(TAG,"视频提取完毕");
-				mImageAdapter.notifyDataSetChanged();
-			}
-		});
-		/**
-		 * 设置处理进度监听.
-		 */
-		mExtractFrame.setOnExtractProgressListener(new onExtractVideoFrameProgressListener() {
-			
-			/**
-			 * 当前帧的画面回调,,  ptsUS:当前帧的时间戳,单位微秒.
-			 * 拿到图片后,建议放到数组里, 如ArrayList等其他机制的列表.
-			 * 不建议一次性获取所有图片, 您可以每隔几张获取一次,因为获取过多图片,会导致OOM的问题,比如在vivo Y66上等.
-			 */
-			@Override
-			public void onExtractBitmap(Bitmap bmp, long ptsUS) {
-				// TODO Auto-generated method stub
-				
-				if(mDiskCache!=null){
-					mDiskCache.pushBitmap(bmp);
-					count++;
-					//if(count%10==0){
-						mImageAdapter.notifyDataSetChanged();
-					//}
-				}else if(mLruCache!=null){
-					mLruCache.pushBitmap(bmp);
-					count++;
-					//if(count%10==0){
-						mImageAdapter.notifyDataSetChanged();
-					//}
-				}
-			}
-		});
 		
-		/**
-		 * 开始执行.  或者你可以从指定地方开始解码.
-		 * mExtractFrame.start(10*1000*1000);则从视频的10秒处开始提取.
-		 */
-		mExtractFrame.start();
+		return view;
 	}
-   @Override
-    protected void onDestroy() {
-    	// TODO Auto-generated method stub
-    	super.onDestroy();
-    	if(mExtractFrame!=null){
-    		mExtractFrame.stop();
-    		mExtractFrame=null;
-    	}
-    	
-    	if(mLruCache!=null){
-    		mLruCache.clear();
-    		mLruCache=null;
-    	}
-    	
-    	if(mDiskCache!=null){
-    		mDiskCache.clear();
-    		mDiskCache=null;
-    	}
-    }
-   //------------------------------------
-   public class ImageAdapter extends BaseAdapter {
-		@Override
-		public int getCount() {
-			return count;
-		}
-
-		@Override
-		public Object getItem(int position) {
-			return null;
-		}
-
-		@Override
-		public long getItemId(int position) {
-			return position;
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) 
-		{
-			
-				final ViewHolder holder;
-				View view = convertView;
-				
-				if (view == null) {
-					view = getLayoutInflater().inflate(R.layout.frame_grid_item, parent, false);
-					holder = new ViewHolder();
-					holder.imageView = (ImageView) view.findViewById(R.id.image);
-					view.setTag(holder);
-				} else {
-					holder = (ViewHolder) view.getTag();
-				}
-				
-				if(mDiskCache!=null){
-					Bitmap  bmp=mDiskCache.getBitmap(position);
-					if(bmp!=null){
-						holder.imageView.setImageBitmap(bmp);
-					}	
-				}else if(mLruCache!=null){
-					Bitmap  bmp=mLruCache.getBitmap(position);
-					if(bmp!=null){
-						holder.imageView.setImageBitmap(bmp);
-					}	
-				}
-				
-				return view;
-		}
-
-		class ViewHolder {
-			ImageView imageView;
-		}
+	
+	class ViewHolder {
+		ImageView imageView;
 	}
+}
 }	
