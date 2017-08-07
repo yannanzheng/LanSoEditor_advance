@@ -43,14 +43,18 @@ public class AVEncoder {
 	 */
 	public boolean init(String fileName,int degree,int encW,int encH,int vfps,int bitrate,int asampleRate,int abitrate)  //一定是ts的后缀
 	{
+		Log.i(TAG,"AVEncoder  file name is:"+fileName+mediaRorateDegree);
+		
 		if(encH>encW) 
 		{
-			mediaRorateDegree=degree;
+			
 			mHandler=encoderInit(fileName,encH,encW, vfps, bitrate,1, asampleRate, abitrate);
 		}else{
 			mHandler=encoderInit(fileName,encW,encH, vfps, bitrate,1, asampleRate, abitrate);
 		}
-	
+		
+		mediaRorateDegree=degree;
+		
 		if(degree==90 || degree==270){ 
 			cutWidth=encH;
 			cutHeight=encW;
@@ -103,13 +107,12 @@ public class AVEncoder {
 				return ;
 			}
 		
-		if(mHandler!=0){
+		if(mHandler!=0)
+		{
 			byte[]  bb=null;
 			if( (previewW!=cutWidth || previewH!=cutHeight) && previewW>=cutWidth && previewH>=cutHeight){
-					
-//				long  beforeDraw=System.currentTimeMillis();
+				//Log.i(TAG,"裁剪=========>");
 				bb=frameCut(data,previewW,previewH,cutWidth,cutHeight);
-//					Log.i("TIME"," 执行frameCut:耗时::"+ (System.currentTimeMillis() - beforeDraw));
 			}else{
 				bb=data;
 			}
@@ -120,25 +123,21 @@ public class AVEncoder {
 			{
 				if(	degree==90)  //不是后置,就是前置.
 				{
+					//Log.i(TAG,"旋转角度!!!======90===>");
 					byteArray=rotateYUV420Degree90(bb,cutWidth,cutHeight);  
 				}else{
+					//Log.i(TAG,"旋转角度!!!======270===>");
 					byteArray=rotateYUV420Degree270(bb,cutWidth,cutHeight);
 				}
 				encoderWriteVideoFrame(mHandler, byteArray, ptsMS); 
 			}else{
 				
 				if(mediaRorateDegree!=degree){
-//					long  beforeDraw=System.currentTimeMillis();
+					//Log.i(TAG,"旋转角度!!!=========>");
 					byteArray=rotateYUV420Degree180(bb,cutWidth,cutHeight);
-//					Log.i("TIME","mediaRorateDegree"+mediaRorateDegree+ "degree"+degree+"旋转180耗时:" +
-//					(System.currentTimeMillis() - beforeDraw));
-					
 					encoderWriteVideoFrame(mHandler, byteArray, ptsMS); 
 				}else{
-//					long  beforeDraw=System.currentTimeMillis();
 					encoderWriteVideoFrame(mHandler, bb, ptsMS); 
-//					Log.i("TIME"," 直接编码耗时::"+ (System.currentTimeMillis() - beforeDraw));
-//					Log.i(TAG,"Thread-------------push------video---end");
 				}
 			}
 		}

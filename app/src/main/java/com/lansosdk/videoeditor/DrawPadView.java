@@ -55,7 +55,7 @@ import com.lansosdk.box.VideoLayer;
 import com.lansosdk.box.ViewLayer;
 import com.lansosdk.box.YUVLayer;
 import com.lansosdk.box.onDrawPadCompletedListener;
-import com.lansosdk.box.onDrawPadEncodeFrameListener;
+import com.lansosdk.box.onDrawPadOutFrameListener;
 import com.lansosdk.box.onDrawPadPreviewProgressListener;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
@@ -493,7 +493,7 @@ public class DrawPadView extends FrameLayout {
 	public void toggleSnatShot()
 	{
 		if(drawpadSnapShotListener!=null && renderer!=null && renderer.isRunning()){
-			renderer.toggleSnapShot(drawPadWidth,drawPadWidth);
+			renderer.toggleSnapShot(drawPadWidth,drawPadHeight);
 		}else{
 			Log.e(TAG,"toggle snap shot failed!!!");
 		}
@@ -507,7 +507,7 @@ public class DrawPadView extends FrameLayout {
 		}
 	}
 	
-	private onDrawPadEncodeFrameListener drawPadPreviewFrameListener=null;
+	private onDrawPadOutFrameListener drawPadPreviewFrameListener=null;
 	private int previewFrameWidth;
 	private int previewFrameHeight;
 	private int previewFrameType;
@@ -522,10 +522,10 @@ public class DrawPadView extends FrameLayout {
 	 * @param type  数据的类型, 当前仅支持Bitmap, 后面或许会NV21等.
 	 * @param listener 监听对象.
 	 */
-	public void setOnDrawPadEncodeFrameListener(int width,int height,int type,onDrawPadEncodeFrameListener listener)
+	public void setOnDrawPadOutFrameListener(int width,int height,int type,onDrawPadOutFrameListener listener)
 	{
 		if(renderer!=null){
-			renderer.setDrawpadEncodeFrameListener(width, height, type,listener);
+			renderer.setDrawpadOutFrameListener(width, height, type,listener);
 		}
 		previewFrameWidth=width;
 		previewFrameHeight=height;
@@ -533,12 +533,13 @@ public class DrawPadView extends FrameLayout {
 		drawPadPreviewFrameListener=listener;
 	}
 	/**
-	 * 设置setOnDrawPadEncodeFrameListener 运行在UI线程还是UI线程, 如果是前台处理,建议是主线程, 如果是后台处理, 建议DrawPad线程.
+	 * 设置setOnDrawPadOutFrameListener后, 你可以设置这个方法来让listener是否运行在Drawpad线程中.
+	 * 如果你要直接使用里面的数据, 则不用设置, 如果你要开启另一个线程, 把listener传递过来的数据送过去,则建议设置为true;
 	 * @param en
 	 */
-	public void setFrameListenerInDrawPad(boolean en){
+	public void setOutFrameInDrawPad(boolean en){
 		if(renderer!=null){
-			renderer.setFrameListenerInDrawPad(en);
+			renderer.setOutFrameInDrawPad(en);
 		}
 		frameListenerInDrawPad=en;
 	}
@@ -627,8 +628,8 @@ public class DrawPadView extends FrameLayout {
 	 				
 	 				 //设置DrawPad处理的进度监听, 回传的currentTimeUs单位是微秒.
 	 				renderer.setDrawpadSnapShotListener(drawpadSnapShotListener);
-	 				renderer.setDrawpadEncodeFrameListener(previewFrameWidth, previewFrameHeight, previewFrameType, drawPadPreviewFrameListener);
-	 				renderer.setFrameListenerInDrawPad(frameListenerInDrawPad);
+	 				renderer.setDrawpadOutFrameListener(previewFrameWidth, previewFrameHeight, previewFrameType, drawPadPreviewFrameListener);
+	 				renderer.setOutFrameInDrawPad(frameListenerInDrawPad);
 	 				
 	 				
 	 				renderer.setDrawPadProgressListener(drawpadProgressListener);

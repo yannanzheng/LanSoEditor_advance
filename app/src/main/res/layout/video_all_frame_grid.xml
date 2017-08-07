@@ -15,13 +15,6 @@
        android:verticalSpacing="4dip"
        android:padding="4dip" />
 
-   <TextView
-       android:id="@+id/video_frame_tv"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:textColor="@color/red"
-       android:textSize="20sp"
-       android:layout_centerInParent="true"
-       />
+
 </RelativeLayout>
 

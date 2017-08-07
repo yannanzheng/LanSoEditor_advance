@@ -21,6 +21,7 @@ import com.anthonycr.grant.PermissionsManager;
 import com.anthonycr.grant.PermissionsResultAction;
 import com.example.commonDemo.CommonDemoActivity;
 import com.lansoeditor.demo.R;
+import com.lansosdk.box.DrawPad;
 import com.lansosdk.box.LanSoEditorBox;
 import com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask;
 import com.lansosdk.videoeditor.LanSoEditor;
@@ -97,7 +98,7 @@ protected void onCreate(Bundle savedInstanceState) {
 	
 	tvVideoPath=(TextView)findViewById(R.id.id_main_tvvideo);
 	
-	findViewById(R.id.id_main_segmentrecorder).setOnClickListener(this);
+	findViewById(R.id.id_main_outbody).setOnClickListener(this);
 	findViewById(R.id.id_main_cameralayer).setOnClickListener(this);
 	findViewById(R.id.id_main_camerafulllayer).setOnClickListener(this);
 	findViewById(R.id.id_main_camerafulllayer2).setOnClickListener(this);
@@ -155,7 +156,7 @@ private void showHintDialog()
 	Log.i(TAG,"current year is:"+year+" month is:"+month +" limit year:"+lyear+" limit month:"+lmonth);
 	String timeHint=getResources().getString(R.string.sdk_limit);
 	timeHint=String.format(timeHint,VideoEditor.getSDKVersion(), lyear,lmonth);
-	
+	timeHint+="\n box版本:"+LanSoEditorBox.VERSION_BOX;
 	new AlertDialog.Builder(this)
 			.setTitle("提示")
 			.setMessage(timeHint)
@@ -216,14 +217,14 @@ public void onClick(View v) {
 		if(checkPath()==false)
 			return;
 		switch (v.getId()) {
-			case R.id.id_main_segmentrecorder:
-				startDemoActivity(SegmentRecorderActivity.class);  //分段录制
+			case R.id.id_main_outbody:
+				startDemoActivity(OutBodyDemoActivity.class);
 				break;
 			case R.id.id_main_cameralayer:
 				startDemoActivity(CameraLayerDemoActivity.class);
 				break;
 			case R.id.id_main_camerafulllayer:
-				startDemoActivity(CameraLayerFullPortUIActivity.class);
+				startDemoActivity(CameraLayerFullRecordActivity.class);
 				break;
 			case R.id.id_main_camerafulllayer2:
 				startDemoActivity(CameraLayerFullLandscapeActivity.class);
@@ -243,7 +244,7 @@ public void onClick(View v) {
 			case R.id.id_main_viewlayerdemo2:
 				startDemoActivity(ViewLayerOnlyRealTimeActivity.class);
 				break;
-			case R.id.id_main_canvaslayerdemo:  //绘制一个心形.
+			case R.id.id_main_canvaslayerdemo:
 				startDemoActivity(CanvasLayerDemoActivity.class);
 				break;
 			case R.id.id_main_videofilterdemo:

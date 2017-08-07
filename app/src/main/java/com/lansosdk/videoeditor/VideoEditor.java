@@ -275,6 +275,34 @@ public class VideoEditor {
 	     }  
 	     return executeVideoEditor(command);
 	}
+	
+	/**
+	 * 把mp3或m4a格式的音频文件, 转换为pcm的采样点数据,
+	 * @param srcPach  编码的音频文件, 后缀是mp3 或m4a 或aac
+	 * @param pcmPath  音频文件解码后的目标文件, 后缀是pcm
+	 * @return
+	 */
+	  public int executeDecodeMp3ToPcm(String srcPach,String pcmPath)
+	  {
+		//ffmpeg -i hongdou.mp3 -f s16le -acodec pcm_s16le dan.pcm
+			List<String> cmdList=new ArrayList<String>();
+			
+			cmdList.add("-i");
+			cmdList.add(srcPach);
+			
+			cmdList.add("-f");
+			cmdList.add("s16le");
+			cmdList.add("-acodec");
+			cmdList.add("pcm_s16le");
+			cmdList.add("-y");
+			cmdList.add(pcmPath);
+			
+			String[] command=new String[cmdList.size()];  
+		     for(int i=0;i<cmdList.size();i++){  
+		    	 command[i]=(String)cmdList.get(i);  
+		     }  
+		     return executeVideoEditor(command);
+	  }
 	  /**
 	   * 把pcm格式的音频文件编码成AAC
 	   * @param srcPach  源pcm文件
@@ -1688,26 +1716,26 @@ public class VideoEditor {
 			{
 				
 				//第一步,先把所有的mp4转换为ts流
-				ArrayList<String>  tsPathArray=new ArrayList<String>();
-				for(int i=0;i<mp4Array.length;i++)
-				{
-					String segTs1=SDKFileUtils.createFileInBox("ts");
-					executeConvertMp4toTs(mp4Array[i], segTs1);
-					tsPathArray.add(segTs1);
-				}
-				
-				//第二步: 把ts流拼接成mp4
-				String[] tsPaths=new String[tsPathArray.size()];  
-			     for(int i=0;i<tsPathArray.size();i++){  
-			    	 tsPaths[i]=(String)tsPathArray.get(i);  
-			     }  
-			     executeConvertTsToMp4(tsPaths , dstVideo);
-			     
-				  //第三步:删除临时生成的ts文件.
-			     for(int i=0;i<tsPathArray.size();i++)
+					ArrayList<String>  tsPathArray=new ArrayList<String>();
+					for(int i=0;i<mp4Array.length;i++)
 					{
-			    	 	SDKFileUtils.deleteFile(tsPathArray.get(i));
+						String segTs1=SDKFileUtils.createFileInBox("ts");
+						executeConvertMp4toTs(mp4Array[i], segTs1);
+						tsPathArray.add(segTs1);
 					}
+					
+					//第二步: 把ts流拼接成mp4
+					String[] tsPaths=new String[tsPathArray.size()];  
+				     for(int i=0;i<tsPathArray.size();i++){  
+				    	 tsPaths[i]=(String)tsPathArray.get(i);  
+				     }  
+				     executeConvertTsToMp4(tsPaths , dstVideo);
+				     
+					  //第三步:删除临时生成的ts文件.
+				     for(int i=0;i<tsPathArray.size();i++)
+						{
+				    	 	SDKFileUtils.deleteFile(tsPathArray.get(i));
+						}
 			}
 		  /**
 		   * 裁剪一个mp4分辨率，把视频画面的某一部分裁剪下来，
@@ -2119,19 +2147,28 @@ public class VideoEditor {
 		  public int executeAddWaterMark(String videoFile,String imagePngPath,int x,int y,String dstFile,int bitrate){
 			  
 			  if(fileExist(videoFile)){
-				  
-				  String filter=String.format(Locale.getDefault(),"overlay=%d:%d",x,y);
-				  
-					  	int ret=videoAddWatermark(videoFile,"lansoh264_dec",imagePngPath, filter, dstFile, bitrate);
-					  	Log.i(TAG,"executeAddWaterMark  ret =:"+ret);
-						if(ret!=0){
+			  		String filter=String.format(Locale.getDefault(),"overlay=%d:%d",x,y);
+			   		
+			  		int ret;
+			  		String mode=android.os.Build.MODEL;
+			  		if(mode.equals("MI 5s")){
+			  			ret=videoAddWatermarkX264(videoFile, "h264", imagePngPath, filter, dstFile, bitrate);
+			  		}else{
+			  			//先硬解 + 硬件编码
+			  			ret=videoAddWatermark(videoFile,"lansoh264_dec",imagePngPath, filter, dstFile, bitrate);
+						
+			  			//软解 + 硬件编码
+					  	if(ret!=0){
 							Log.i(TAG,"use soft decoder to add water mark");
 							ret=videoAddWatermark(videoFile,"h264",imagePngPath, filter, dstFile, bitrate);
 						}
-						if(ret!=0){	//如果再不行, 就用软解和软编码来做.
-							ret=videoAddWatermarkX264(videoFile, "", imagePngPath, filter, dstFile, bitrate);
+					  	
+					  	//如硬件不支持, 就用软解和软编码来做.
+						if(ret!=0){	
+							ret=videoAddWatermarkX264(videoFile, "lansoh264_dec", imagePngPath, filter, dstFile, bitrate);
 						}
-						return ret;
+			  		}
+					return ret;
 			  }else{
 				  return VIDEO_EDITOR_EXECUTE_FAILED;
 			  }
@@ -2211,9 +2248,10 @@ public class VideoEditor {
 		  //如果是NVIDIA的处理器,则使用软件来做.
 		  private  int videoAddWatermarkX264(String videoFile,String decName,String imagePngPath,String filter,String dstFile,int bitrate)
 		  {
-			  	Log.i(TAG,"is nvidia codec. use x264 to encode data....");
-			  	
 			  	List<String> cmdList=new ArrayList<String>();
+			  	
+			  	
+				 
 				cmdList.add("-vcodec");
 				cmdList.add(decName);
 				
@@ -2229,6 +2267,10 @@ public class VideoEditor {
 				cmdList.add("-acodec");
 				cmdList.add("copy");
 				
+				
+				 cmdList.add("-threads");
+				 cmdList.add("8");
+				 
 				cmdList.add("-vcodec");
 				cmdList.add("libx264"); 
 				

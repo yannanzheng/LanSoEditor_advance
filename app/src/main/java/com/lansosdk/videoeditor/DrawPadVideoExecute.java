@@ -18,7 +18,7 @@ import com.lansosdk.box.MVLayer;
 import com.lansosdk.box.VideoLayer;
 import com.lansosdk.box.onDrawPadCompletedListener;
 import com.lansosdk.box.onDrawPadErrorListener;
-import com.lansosdk.box.onDrawPadEncodeFrameListener;
+import com.lansosdk.box.onDrawPadOutFrameListener;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadThreadProgressListener;
 
@@ -35,20 +35,8 @@ import com.lansosdk.box.onDrawPadThreadProgressListener;
  */
 public class DrawPadVideoExecute {
 	
-	private DrawPadVideoRunnable  mDrawPad=null;
-	private float  encodeSpeed=1.0f;
-	private int padWidth=0,padHeight=0,encBitRate=0;
-	private GPUImageFilter initFilter=null;
-	private String dstPath=null;
-	private String videoPath=null;
-	private long startTimeMs;
-	
-	private Context mContext=null;
-	private FileParameter initFileParam=null;
-	
-	private  boolean isUseMainVideoPts=false;
-	private DrawPadUpdateMode  mUpdateMode=DrawPadUpdateMode.ALL_VIDEO_READY;
-	private int mAutoFps=25;
+	private DrawPadVideoRunnable  renderer=null;
+	private int padWidth,padHeight;
 	/**
 	 * 
 	 * @param ctx 语境,android的Context
@@ -61,16 +49,11 @@ public class DrawPadVideoExecute {
 	 */
    public DrawPadVideoExecute(Context ctx,String srcPath,int padwidth,int padheight,int bitrate,GPUImageFilter filter,String dstPath) 
    {
-	   if(mDrawPad==null){
-		   mDrawPad=new DrawPadVideoRunnable(ctx, srcPath, padwidth, padheight, bitrate, filter, dstPath);
+	   if(renderer==null){
+		   renderer=new DrawPadVideoRunnable(ctx, srcPath, padwidth, padheight, bitrate, filter, dstPath);
 	   }  
-	   mContext=ctx;
-	   videoPath=srcPath;
-	   padWidth=padwidth;
-	   padHeight=padheight;
-	   encBitRate=bitrate;
-	   initFilter=filter;
-	   this.dstPath=dstPath;
+	   this.padWidth=padwidth;
+	   this.padHeight=padheight;
    }
    /**
     * 只比上面少了一个码率的设置.
@@ -83,16 +66,11 @@ public class DrawPadVideoExecute {
     */
    public DrawPadVideoExecute(Context ctx,String srcPath,int padwidth,int padheight,GPUImageFilter filter,String dstPath) 
    {
-	   if(mDrawPad==null){
-		   mDrawPad=new DrawPadVideoRunnable(ctx, srcPath, padwidth, padheight, 0, filter, dstPath);   
+	   if(renderer==null){
+		   renderer=new DrawPadVideoRunnable(ctx, srcPath, padwidth, padheight, 0, filter, dstPath);   
 	   }  
-	   mContext=ctx;
-	   videoPath=srcPath;
-	   padWidth=padwidth;
-	   padHeight=padheight;
-	   initFilter=filter;
-	   this.dstPath=dstPath;
-	   
+	   this.padWidth=padwidth;
+	   this.padHeight=padheight;
    }
    /**
     *  Drawpad后台执行, 可以指定开始时间.
@@ -108,18 +86,11 @@ public class DrawPadVideoExecute {
     */
    public DrawPadVideoExecute(Context ctx,String srcPath,long startTimeMs,int padwidth,int padheight,int bitrate,GPUImageFilter filter,String dstPath) 
    {
-	   if(mDrawPad==null){
-		   mDrawPad=new DrawPadVideoRunnable(ctx, srcPath,startTimeMs, padwidth, padheight, bitrate, filter, dstPath);
+	   if(renderer==null){
+		   renderer=new DrawPadVideoRunnable(ctx, srcPath,startTimeMs, padwidth, padheight, bitrate, filter, dstPath);
 	   }
-	   mContext=ctx;
-	   videoPath=srcPath;
-	   padWidth=padwidth;
-	   padHeight=padheight;
-	   encBitRate=bitrate;
-	   initFilter=filter;
-	   this.startTimeMs=startTimeMs;
-	   
-	   this.dstPath=dstPath;
+	   this.padWidth=padwidth;
+	   this.padHeight=padheight;
    }
    /**
     * 相对于上面,只是少了码率.
@@ -133,16 +104,11 @@ public class DrawPadVideoExecute {
     */
    public DrawPadVideoExecute(Context ctx,String srcPath,long startTimeMs,int padwidth,int padheight,GPUImageFilter filter,String dstPath) 
    {
-	   if(mDrawPad==null){
-		   mDrawPad=new DrawPadVideoRunnable(ctx, srcPath,startTimeMs, padwidth, padheight,0, filter, dstPath);
+	   if(renderer==null){
+		   renderer=new DrawPadVideoRunnable(ctx, srcPath,startTimeMs, padwidth, padheight,0, filter, dstPath);
 	   }
-	   mContext=ctx;
-	   videoPath=srcPath;
-	   padWidth=padwidth;
-	   padHeight=padheight;
-	   initFilter=filter;
-	   this.startTimeMs=startTimeMs;
-	   this.dstPath=dstPath;
+	   this.padWidth=padwidth;
+	   this.padHeight=padheight;
    }
    /**
     * 增加了filebox类, 
@@ -171,15 +137,11 @@ public class DrawPadVideoExecute {
     */
    public DrawPadVideoExecute(Context ctx,FileParameter fileParam,int padwidth,int padheight,GPUImageFilter filter,String dstPath) 
    {
-	   if(mDrawPad==null){
-		   mDrawPad=new DrawPadVideoRunnable(ctx, fileParam, padwidth, padheight,0, filter, dstPath);
+	   if(renderer==null){
+		   renderer=new DrawPadVideoRunnable(ctx, fileParam, padwidth, padheight,0, filter, dstPath);
 	   }
-	   mContext=ctx;
-	   initFileParam=fileParam;
-	   padWidth=padwidth;
-	   padHeight=padheight;
-	   initFilter=filter;
-	   this.dstPath=dstPath;
+	   this.padWidth=padwidth;
+	   this.padHeight=padheight;
    }
   /**
    * 启动DrawPad,开始执行.
@@ -187,55 +149,16 @@ public class DrawPadVideoExecute {
    * 开启成功,返回true, 失败返回false
    */
    public boolean startDrawPad() {
-//暂时没有用到, 因为要设置音频, 可能在开始的时候,调用多次addSubaudio;	   
-//	   if(mDrawPad==null)
-//	   {
-//		   if(initFileParam!=null){
-//			   mDrawPad=new DrawPadVideoRunnable(mContext, initFileParam, padWidth, padHeight,encBitRate, initFilter, dstPath);
-//		   }else if(startTimeMs!=0){
-//			   mDrawPad=new DrawPadVideoRunnable(mContext, videoPath,startTimeMs, padWidth, padHeight,encBitRate, initFilter, dstPath);
-//		   }else{
-//			   mDrawPad=new DrawPadVideoRunnable(mContext, videoPath, padWidth, padHeight, encBitRate, initFilter, dstPath);   
-//		   }
-//		   
-//		   	  if(mPauseRecord){
-//				  mDrawPad.pauseRecordDrawPad();
-//			  }
-//			  
-//			  if(isCheckBitRate==false){
-//				  mDrawPad.setNotCheckBitRate();
-//			  }
-//			  
-//			  if(isCheckPadSize==false){
-//				  mDrawPad.setNotCheckDrawPadSize();
-//			  }
-//			  if(isUseMainVideoPts){
-//				  mDrawPad.setUseMainVideoPts(true);
-//			  }else{
-//				  mDrawPad.setUseMainVideoPts(false);
-//			  }
-//			 
-//			  //默认是视频准备好刷新.
-//			  if(mUpdateMode!=DrawPadUpdateMode.ALL_VIDEO_READY){
-//				  mDrawPad.setUpdateMode(mUpdateMode, mAutoFps);
-//			  }
-//			
-//			  mDrawPad.setDrawPadProgressListener(monDrawPadProgressListener);
-//			  mDrawPad.setDrawPadThreadProgressListener(monDrawPadThreadProgressListener);
-//			  mDrawPad.setDrawPadCompletedListener(monDrawPadCompletedListener);
-//	   }
-	   
-		  
-	   if(mDrawPad!=null && mDrawPad.isRunning()==false){
-		   return mDrawPad.startDrawPad();
+	   if(renderer!=null && renderer.isRunning()==false){
+		   return renderer.startDrawPad();
 	   }
 	   return false;
    }
    
    public void stopDrawPad() {
    	// TODO Auto-generated method stub
-	   if(mDrawPad!=null && mDrawPad.isRunning()){
-		   mDrawPad.stopDrawPad();
+	   if(renderer!=null && renderer.isRunning()){
+		   renderer.stopDrawPad();
 	   }
    }
    /**
@@ -262,10 +185,9 @@ public class DrawPadVideoExecute {
 	 */
    public void adjustEncodeSpeed(float speed)
 	{
-		if(mDrawPad!=null){
-			mDrawPad.adjustEncodeSpeed(speed);
+		if(renderer!=null){
+			renderer.adjustEncodeSpeed(speed);
 		}
-		encodeSpeed=speed;
 	}
   /**
    * 
@@ -280,10 +202,9 @@ public class DrawPadVideoExecute {
    */
    public void setUseMainVideoPts(boolean use)
    {
-	   if(mDrawPad!=null && mDrawPad.isRunning()==false){
-		   mDrawPad.setUseMainVideoPts(use);
+	   if(renderer!=null && renderer.isRunning()==false){
+		   renderer.setUseMainVideoPts(use);
 	   }
-	   isUseMainVideoPts=use;
    }
    /**
     * 设置画面刷新模式, 当前有两种模式, 视频刷新/自动刷新. 
@@ -298,26 +219,31 @@ public class DrawPadVideoExecute {
     * @param fps  一秒钟的帧率, 在自动刷新时有效.
     */
    public void setUpdateMode(DrawPadUpdateMode mode, int fps) {
-	   if(mDrawPad!=null && mDrawPad.isRunning()==false){
-		   mDrawPad.setUpdateMode(mode, fps);
+	   if(renderer!=null && renderer.isRunning()==false){
+		   renderer.setUpdateMode(mode, fps);
 	   }
-	   mUpdateMode=mode;
-	   mAutoFps=fps;  
    }
-   private onDrawPadProgressListener monDrawPadProgressListener=null;
-   private onDrawPadThreadProgressListener monDrawPadThreadProgressListener=null;
-   private onDrawPadCompletedListener monDrawPadCompletedListener=null;
-   private onDrawPadErrorListener monDrawPadErrorListener=null;
+   /**
+    * 在您配置了 OutFrame, 要输出每一帧的时候, 是否要禁止编码器.
+    * 当你只想要处理后的 数据, 而暂时不需要编码成最终的目标文件时, 把这里设置为true.
+    * 默认是false;
+    * @param dis
+    */
+   public void setDisableEncode(boolean dis)
+   {
+	   if(renderer!=null && renderer.isRunning()==false){
+		   renderer.setDisableEncode(dis);
+	   }
+   }
    /**
 	 * DrawPad每执行完一帧画面,会调用这个Listener,返回的timeUs是当前画面的时间戳(微妙),
 	 *  可以利用这个时间戳来做一些变化,比如在几秒处缩放, 在几秒处平移等等.从而实现一些动画效果.
 	 * @param currentTimeUs  当前DrawPad处理画面的时间戳.,单位微秒.
 	 */
 	public void setDrawPadProgressListener(onDrawPadProgressListener listener){
-		if(mDrawPad!=null){
-			mDrawPad.setDrawPadProgressListener(listener);
+		if(renderer!=null){
+			renderer.setDrawPadProgressListener(listener);
 		}
-		monDrawPadProgressListener=listener;
 	}
 	/**
 	 * 方法与   onDrawPadProgressListener不同的地方在于:
@@ -326,20 +252,19 @@ public class DrawPadVideoExecute {
 	 */
 	public void setDrawPadThreadProgressListener(onDrawPadThreadProgressListener listener)
 	{
-		if(mDrawPad!=null){
-			mDrawPad.setDrawPadThreadProgressListener(listener);
+		if(renderer!=null){
+			renderer.setDrawPadThreadProgressListener(listener);
 		}
-		monDrawPadThreadProgressListener=listener;
 	}
+	
 	/**
 	 * DrawPad执行完成后的回调.
 	 * @param listener
 	 */
 	public void setDrawPadCompletedListener(onDrawPadCompletedListener listener){
-		if(mDrawPad!=null){
-			mDrawPad.setDrawPadCompletedListener(listener);
+		if(renderer!=null){
+			renderer.setDrawPadCompletedListener(listener);
 		}
-		monDrawPadCompletedListener=listener;
 	}
 	/**
 	 * 设置当前DrawPad运行错误的回调监听.
@@ -347,18 +272,10 @@ public class DrawPadVideoExecute {
 	 */
 	public void setDrawPadErrorListener(onDrawPadErrorListener listener)
 	{
-		if(mDrawPad!=null){
-			mDrawPad.setDrawPadErrorListener(listener);
+		if(renderer!=null){
+			renderer.setDrawPadErrorListener(listener);
 		}
-		monDrawPadErrorListener=listener;
 	}
-	
-	
-	private onDrawPadEncodeFrameListener drawPadPreviewFrameListener=null;
-	private int previewFrameWidth;
-	private int previewFrameHeight;
-	private int previewFrameType;
-	private boolean encodeFrameInThread=false;
 	/**
 	 * 设置每处理一帧的数据预览监听, 等于把当前处理的这一帧的画面拉出来,
 	 * 您可以根据这个画面来自行的编码保存, 或网络传输.
@@ -366,25 +283,21 @@ public class DrawPadVideoExecute {
 	 * 
 	 * @param listener 监听对象
 	 */
-	public void setDrawPadEncodeFrameListener(onDrawPadEncodeFrameListener listener)
+	public void setDrawPadOutFrameListener(onDrawPadOutFrameListener listener)
 	{
-		if(mDrawPad!=null){
-			mDrawPad.setDrawpadEncodeFrameListener(padWidth, padHeight, 1,listener);
+		if(renderer!=null){
+			renderer.setDrawpadOutFrameListener(padWidth, padHeight, 1,listener);
 		}
-		previewFrameWidth=padWidth;
-		previewFrameHeight=padHeight;
-		previewFrameType=1;
-		drawPadPreviewFrameListener=listener;
 	}
 	/**
-	 * 设置setOnDrawPadEncodeFrameListener 运行在UI线程还是UI线程, 如果是前台处理,建议是主线程, 如果是后台处理, 建议DrawPad线程.
+	 * 设置setOnDrawPadOutFrameListener后, 你可以设置这个方法来让listener是否运行在Drawpad线程中.
+	 * 如果你要直接使用里面的数据, 则不用设置, 如果你要开启另一个线程, 把listener传递过来的数据送过去,则建议设置为true;
 	 * @param en
 	 */
-	public void setFrameListenerInDrawPad(boolean en){
-		if(mDrawPad!=null){
-			mDrawPad.setFrameListenerInDrawPad(en);
+	public void setOutFrameInDrawPad(boolean en){
+		if(renderer!=null){
+			renderer.setOutFrameInDrawPad(en);
 		}
-		encodeFrameInThread=en;
 	}
   /**
    * 把当前图层放到DrawPad的最底部.
@@ -393,8 +306,8 @@ public class DrawPadVideoExecute {
    */
    public void bringToBack(Layer layer)
    {
-	   if(mDrawPad!=null && mDrawPad.isRunning()){
-		   mDrawPad.bringToBack(layer);
+	   if(renderer!=null && renderer.isRunning()){
+		   renderer.bringToBack(layer);
 	   }
    }
    /**
@@ -403,8 +316,8 @@ public class DrawPadVideoExecute {
     */
    public void bringToFront(Layer layer)
    {
-	   if(mDrawPad!=null && mDrawPad.isRunning()){
-		   mDrawPad.bringToFront(layer);
+	   if(renderer!=null && renderer.isRunning()){
+		   renderer.bringToFront(layer);
 	   }
    }
    /**
@@ -414,8 +327,8 @@ public class DrawPadVideoExecute {
     */
    public void changeLayerPosition(Layer layer,int position)
    {
-	   if(mDrawPad!=null && mDrawPad.isRunning()){
-		   mDrawPad.changeLayerPosition(layer,position);
+	   if(renderer!=null && renderer.isRunning()){
+		   renderer.changeLayerPosition(layer,position);
 	   }
    }
    /**
@@ -425,8 +338,8 @@ public class DrawPadVideoExecute {
     */
    public void swapTwoLayerPosition(Layer first,Layer second)
    {
-	   if(mDrawPad!=null && mDrawPad.isRunning()){
-		   mDrawPad.swapTwoLayerPosition(first,second);
+	   if(renderer!=null && renderer.isRunning()){
+		   renderer.swapTwoLayerPosition(first,second);
 	   }
    }
    
@@ -437,8 +350,8 @@ public class DrawPadVideoExecute {
     */
    public int getLayerSize()
    {
-	   	if(mDrawPad!=null){
-	   		return mDrawPad.getLayerSize();
+	   	if(renderer!=null){
+	   		return renderer.getLayerSize();
 	   	}else{
 	   		return 0;
 	   	}
@@ -449,8 +362,8 @@ public class DrawPadVideoExecute {
     */
    public VideoLayer getMainVideoLayer()
    {
-	   if(mDrawPad!=null && mDrawPad.isRunning()){
-		  return  mDrawPad.getMainVideoLayer();
+	   if(renderer!=null && renderer.isRunning()){
+		  return  renderer.getMainVideoLayer();
 	   }else{
 		   return null;
 	   }
@@ -480,8 +393,8 @@ public class DrawPadVideoExecute {
    	@Deprecated
 	 public boolean addSubAudio(String srcPath,long startTimeMs,long durationMs,float mainvolume,float volume) 
 	 {
-		 if(mDrawPad!=null && mDrawPad.isRunning()==false){
-			return mDrawPad.addSubAudio(srcPath, startTimeMs, durationMs,volume);
+		 if(renderer!=null && renderer.isRunning()==false){
+			return renderer.addSubAudio(srcPath, startTimeMs, durationMs,volume);
 		 }else{
 			 return false;
 		 }
@@ -489,8 +402,8 @@ public class DrawPadVideoExecute {
    	
    	 public boolean addSubAudio(String srcPath,long startTimeMs,long durationMs,float volume) 
 	 {
-		 if(mDrawPad!=null && mDrawPad.isRunning()==false){
-			return mDrawPad.addSubAudio(srcPath, startTimeMs, durationMs,volume);
+		 if(renderer!=null && renderer.isRunning()==false){
+			return renderer.addSubAudio(srcPath, startTimeMs, durationMs,volume);
 		 }else{
 			 return false;
 		 }
@@ -503,8 +416,8 @@ public class DrawPadVideoExecute {
 	  */
    public BitmapLayer  addBitmapLayer(Bitmap bmp)
    {
-	   if(mDrawPad!=null && mDrawPad.isRunning()){
-		   return mDrawPad.addBitmapLayer(bmp,null);
+	   if(renderer!=null && renderer.isRunning()){
+		   return renderer.addBitmapLayer(bmp,null);
 	   }else{
 		   return null;
 	   }
@@ -518,8 +431,8 @@ public class DrawPadVideoExecute {
     */
    public DataLayer  addDataLayer(int dataWidth,int dataHeight)
    {
-	   if(mDrawPad!=null && mDrawPad.isRunning()){
-		 return  mDrawPad.addDataLayer(dataWidth, dataHeight);
+	   if(renderer!=null && renderer.isRunning()){
+		 return  renderer.addDataLayer(dataWidth, dataHeight);
 	   }else{
 		   return null;
 	   }
@@ -535,8 +448,8 @@ public class DrawPadVideoExecute {
     */
    public VideoLayer addVideoLayer(String videoPath,int vWidth,int vHeight,GPUImageFilter filter)
    {
-	   if(mDrawPad!=null && mDrawPad.isRunning()){
-		  return mDrawPad.addVideoLayer(videoPath, vWidth, vHeight, filter);
+	   if(renderer!=null && renderer.isRunning()){
+		  return renderer.addVideoLayer(videoPath, vWidth, vHeight, filter);
 	   }else{
 		   return null;
 	   }
@@ -553,8 +466,8 @@ public class DrawPadVideoExecute {
     */
    public MVLayer addMVLayer(String srcPath,String maskPath,boolean isAsync)
    {
-	   if(mDrawPad!=null && mDrawPad.isRunning()){
-		   return mDrawPad.addMVLayer(srcPath, maskPath);
+	   if(renderer!=null && renderer.isRunning()){
+		   return renderer.addMVLayer(srcPath, maskPath);
 	   }else{
 		   return null;
 	   }
@@ -567,8 +480,8 @@ public class DrawPadVideoExecute {
     */
    public MVLayer addMVLayer(String srcPath,String maskPath)
    {
-	   if(mDrawPad!=null && mDrawPad.isRunning()){
-		   return mDrawPad.addMVLayer(srcPath, maskPath);
+	   if(renderer!=null && renderer.isRunning()){
+		   return renderer.addMVLayer(srcPath, maskPath);
 	   }else{
 		   return null;
 	   }
@@ -580,8 +493,8 @@ public class DrawPadVideoExecute {
     */
    public GifLayer addGifLayer(String gifPath)
    {
-	   if(mDrawPad!=null && mDrawPad.isRunning()){
-		   return mDrawPad.addGifLayer(gifPath);
+	   if(renderer!=null && renderer.isRunning()){
+		   return renderer.addGifLayer(gifPath);
 	   }else{
 		   return null;
 	   }
@@ -595,8 +508,8 @@ public class DrawPadVideoExecute {
     */
    public GifLayer addGifLayer(int resId)
    {
-	   if(mDrawPad!=null && mDrawPad.isRunning()){
-		   return mDrawPad.addGifLayer(resId);
+	   if(renderer!=null && renderer.isRunning()){
+		   return renderer.addGifLayer(resId);
 	   }else{
 		   return null;
 	   }
@@ -609,8 +522,8 @@ public class DrawPadVideoExecute {
     */
    public CanvasLayer addCanvasLayer() 
 	{
-	   if(mDrawPad!=null && mDrawPad.isRunning()){
-		   return mDrawPad.addCanvasLayer();
+	   if(renderer!=null && renderer.isRunning()){
+		   return renderer.addCanvasLayer();
 	   }else{
 		   return null;
 	   }
@@ -621,8 +534,8 @@ public class DrawPadVideoExecute {
     */
    public void removeLayer(Layer layer)
    {
-	   if(mDrawPad!=null && mDrawPad.isRunning()){
-		   mDrawPad.removeLayer(layer);
+	   if(renderer!=null && renderer.isRunning()){
+		   renderer.removeLayer(layer);
 	   }
    }
    /**
@@ -653,8 +566,8 @@ public class DrawPadVideoExecute {
     */
    public void pauseRecord()
    {
-	   if(mDrawPad!=null && mDrawPad.isRunning()){
-		   mDrawPad.pauseRecordDrawPad();
+	   if(renderer!=null && renderer.isRunning()){
+		   renderer.pauseRecordDrawPad();
 	   }else{
 		   mPauseRecord=true;
 	   }
@@ -664,8 +577,8 @@ public class DrawPadVideoExecute {
     * 此方法使用在DrawPad线程中的 暂停和恢复的作用, 不能用在一个Activity的onPause和onResume中.
     */
    public void resumeRecord(){
-	   if(mDrawPad!=null && mDrawPad.isRunning()){
-		   mDrawPad.resumeRecordDrawPad();
+	   if(renderer!=null && renderer.isRunning()){
+		   renderer.resumeRecordDrawPad();
 	   }else{
 		   mPauseRecord=false;
 	   }
@@ -675,8 +588,8 @@ public class DrawPadVideoExecute {
     * @return
     */
    public boolean isRecording(){
-	   if(mDrawPad!=null && mDrawPad.isRunning()){
-		   return mDrawPad.isRecording();
+	   if(renderer!=null && renderer.isRunning()){
+		   return renderer.isRecording();
 	   }else{
 		   return false;
 	   }
@@ -687,8 +600,8 @@ public class DrawPadVideoExecute {
       */
 	 public boolean isRunning() 
 	 {
-		 if(mDrawPad!=null){
-			 return mDrawPad.isRunning();
+		 if(renderer!=null){
+			 return renderer.isRunning();
 		 }else{
 			 return false;
 		 }
@@ -707,8 +620,8 @@ public class DrawPadVideoExecute {
 	  */
 	 public void switchFilterList(Layer layer, ArrayList<GPUImageFilter> filters)
 	 {
-		 if(mDrawPad!=null && mDrawPad.isRunning()){
-			 mDrawPad.switchFilterList(layer, filters);
+		 if(renderer!=null && renderer.isRunning()){
+			 renderer.switchFilterList(layer, filters);
 		 }
 	 }
 	 /**
@@ -717,11 +630,11 @@ public class DrawPadVideoExecute {
 	  */
 	 public void releaseDrawPad() {
 		   	// TODO Auto-generated method stub
-		 if(mDrawPad!=null && mDrawPad.isRunning()){
-			 mDrawPad.releaseDrawPad();
+		 if(renderer!=null && renderer.isRunning()){
+			 renderer.releaseDrawPad();
 		 }
 		 mPauseRecord=false;
-		 mDrawPad=null;
+		 renderer=null;
 	 }
 	   /**
 	    * 停止DrawPad, 并释放资源.如果想再次开始,需要重新new, 然后start.
@@ -743,8 +656,8 @@ public class DrawPadVideoExecute {
 	    */
 	   public void setNotCheckBitRate()
 	   {
-		   if(mDrawPad!=null && mDrawPad.isRunning()==false){
-			   mDrawPad.setNotCheckBitRate();
+		   if(renderer!=null && renderer.isRunning()==false){
+			   renderer.setNotCheckBitRate();
 		   }else{
 			 isCheckBitRate=false;
 		   }
@@ -755,8 +668,8 @@ public class DrawPadVideoExecute {
 	    */
 	   public void setNotCheckDrawPadSize()
 	   {
-		   if(mDrawPad!=null && mDrawPad.isRunning()==false){
-			   mDrawPad.setNotCheckDrawPadSize();
+		   if(renderer!=null && renderer.isRunning()==false){
+			   renderer.setNotCheckDrawPadSize();
 		   }else{
 			   isCheckPadSize=false;
 		   }

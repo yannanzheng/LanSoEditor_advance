@@ -56,7 +56,7 @@ import com.lansosdk.box.VideoLayer;
 import com.lansosdk.box.ViewLayer;
 import com.lansosdk.box.YUVLayer;
 import com.lansosdk.box.onDrawPadCompletedListener;
-import com.lansosdk.box.onDrawPadEncodeFrameListener;
+import com.lansosdk.box.onDrawPadOutFrameListener;
 import com.lansosdk.box.onDrawPadPreviewProgressListener;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
@@ -70,8 +70,6 @@ import com.lansosdk.box.onDrawPadThreadProgressListener;
  *  
  *   适用在增加到UI界面中, 一边预览,一边实时保存的场合.
  *
- * 此代码由我们来维护, 但您可以放到您项目的任意地方. 以方便您的使用.
- * 
  */
 public class DrawPadCameraView extends FrameLayout {
 	
@@ -344,7 +342,6 @@ public class DrawPadCameraView extends FrameLayout {
 		
 		/**
 		 * 
-		 * 
 		 *  如果实时保存的宽高和原的宽高不成比例,则会先等比例缩放原,然后在多出的部分出增加黑边的形式呈现,比如原是16:9,设置的宽高是480x480,则会先把原按照宽度进行16:9的比例缩放.
 		 *  在缩放后,在的上下增加黑边的形式来实现480x480, 从而不会让变形.
 		 *  
@@ -497,40 +494,41 @@ public class DrawPadCameraView extends FrameLayout {
 	}
 	
 	
-	private onDrawPadEncodeFrameListener drawPadEncodeFrameListener=null;
-	private int previewFrameWidth;
-	private int previewFrameHeight;
-	private int previewFrameType;
+	private onDrawPadOutFrameListener drawPadOutFrameListener=null;
+	private int outFrameWidth;
+	private int outFrameHeight;
+	private int outFrameType;
 	private boolean frameListenerInDrawPad=false;
 	/**
 	 * 设置每处理一帧的数据预览监听, 等于把当前处理的这一帧的画面拉出来,
 	 * 您可以根据这个画面来自行的编码保存, 或网络传输.
 	 * 【注意:此回调是在编码的时候执行的, 您需要先设置编码的各种参数, 并启动编码,这里才会触发. 回调的频率等于编码的帧率】
 	 * 
-	 * 可以通过 {@link #setFrameListenerInDrawPad(boolean)} 来设置listener运行在DrawPad线程中,还是运行UI主线程.
+	 * 可以通过 {@link #setOutFrameInDrawPad(boolean)} 来设置listener运行在DrawPad线程中,还是运行UI主线程.
 	 *
 	 * @param width  可以设置要引出这一帧画面的宽度, 如果宽度不等于drawpad的预览宽度,则会缩放.
 	 * @param height  画面缩放到的高度,
 	 * @param type  数据的类型, 当前仅支持Bitmap, 后面或许会NV21等.
 	 * @param listener 监听对象.  【注意:此回调是在编码的时候执行的, 您需要先设置编码的各种参数, 并启动编码,这里才会触发. 回调的频率等于编码的帧率】
 	 */
-	public void setOnDrawPadEncodeFrameListener(int width,int height,int type,onDrawPadEncodeFrameListener listener)
+	public void setOnDrawPadOutFrameListener(int width,int height,int type,onDrawPadOutFrameListener listener)
 	{
 		if(renderer!=null){
-			renderer.setDrawpadEncodeFrameListener(width, height, type,listener);
+			renderer.setDrawpadOutFrameListener(width, height, type,listener);
 		}
-		previewFrameWidth=width;
-		previewFrameHeight=height;
-		previewFrameType=type;
-		drawPadEncodeFrameListener=listener;
+		outFrameWidth=width;
+		outFrameHeight=height;
+		outFrameType=type;
+		drawPadOutFrameListener=listener;
 	}
 	/**
-	 * 设置setOnDrawPadEncodeFrameListener 运行在UI线程还是UI线程, 如果是前台处理,建议是主线程, 如果是后台处理, 建议DrawPad线程.
+	 * 设置setOnDrawPadOutFrameListener后, 你可以设置这个方法来让listener是否运行在Drawpad线程中.
+	 * 如果你要直接使用里面的数据, 则不用设置, 如果你要开启另一个线程, 把listener传递过来的数据送过去,则建议设置为true;
 	 * @param en
 	 */
-	public void setFrameListenerInDrawPad(boolean en){
+	public void setOutFrameInDrawPad(boolean en){
 		if(renderer!=null){
-			renderer.setFrameListenerInDrawPad(en);
+			renderer.setOutFrameInDrawPad(en);
 		}
 		frameListenerInDrawPad=en;
 	}
@@ -560,6 +558,10 @@ public class DrawPadCameraView extends FrameLayout {
 		}
 	}
 	private onDrawPadCompletedListener drawpadCompletedListener=null;
+	/**
+	 * DrawPad容器执行完毕后的监听.
+	 * @param listener
+	 */
 	public void setOnDrawPadCompletedListener(onDrawPadCompletedListener listener){
 		if(renderer!=null){
 			renderer.setDrawPadCompletedListener(listener);
@@ -581,6 +583,10 @@ public class DrawPadCameraView extends FrameLayout {
 		}
 	}
 	private CameraLayer extCameraLayer=null;
+	/**
+	 * 是否使用外面的 "继承的CameraLayer"对象.
+	 * @param layer
+	 */
 	public void setExtCameraLayer(CameraLayer  layer)
 	{
 		extCameraLayer=layer;
@@ -642,12 +648,12 @@ public class DrawPadCameraView extends FrameLayout {
 	 				
 	 				 //设置DrawPad处理的进度监听, 回传的currentTimeUs单位是微秒.
 	 				renderer.setDrawpadSnapShotListener(drawpadSnapShotListener);
-	 				renderer.setDrawpadEncodeFrameListener(previewFrameWidth, previewFrameHeight, previewFrameType, drawPadEncodeFrameListener);
+	 				renderer.setDrawpadOutFrameListener(outFrameWidth, outFrameHeight, outFrameType, drawPadOutFrameListener);
 	 				renderer.setDrawPadProgressListener(drawpadProgressListener);
 	 				renderer.setDrawPadCompletedListener(drawpadCompletedListener);
 	 				renderer.setDrawPadThreadProgressListener(drawPadThreadProgressListener);
 	 				renderer.setDrawPadPreviewProgressListener(drawpadPreviewProgressListener);
-	 				renderer.setFrameListenerInDrawPad(frameListenerInDrawPad);
+	 				renderer.setOutFrameInDrawPad(frameListenerInDrawPad);
 	 				
 	 				if(isRecordMic){
 	 					renderer.setRecordMic(isRecordMic);	

@@ -1,40 +1,24 @@
 package com.example.advanceDemo;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
-
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
-import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
-import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBeautyFilter;
 
 import com.example.advanceDemo.GPUImageFilterTools.OnGpuImageFilterChosenListener;
 import com.example.advanceDemo.view.FocusImageView;
-import com.example.advanceDemo.view.VideoFocusView;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.BitmapLayer;
 import com.lansosdk.box.CameraLayer;
-import com.lansosdk.box.DrawPadUpdateMode;
-import com.lansosdk.box.LanSoEditorBox;
 import com.lansosdk.box.DrawPad;
-import com.lansosdk.box.Layer;
 import com.lansosdk.box.MVLayer;
 import com.lansosdk.box.ViewLayer;
 import com.lansosdk.box.ViewLayerRelativeLayout;
 import com.lansosdk.box.onDrawPadProgressListener;
-import com.lansosdk.box.onDrawPadSizeChangedListener;
 import com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask;
 import com.lansosdk.videoeditor.CopyFileFromAssets;
 import com.lansosdk.videoeditor.DrawPadCameraView;
-import com.lansosdk.videoeditor.DrawPadView;
 import com.lansosdk.videoeditor.LanSongUtil;
-import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
-import com.lansosdk.videoeditor.VideoEditor;
 import com.lansosdk.videoeditor.DrawPadCameraView.doFousEventListener;
+import com.lansosdk.videoeditor.DrawPadCameraView.onViewAvailable;
 
 
 import android.app.Activity;
@@ -62,9 +46,9 @@ import android.widget.Toast;
  */
 public class CameraLayerFullLandscapeActivity extends Activity implements OnClickListener{
    
-	private static final long RECORD_CAMERA_TIME=50*1000*1000; //定义录制的时间为20s
+	private static final long RECORD_CAMERA_TIME=15*1000*1000; //定义录制的时间为20s
 	
-	private static final String TAG = "CameraLayerFullScreenActivity";
+	private static final String TAG = "CameraLayerFullLandscapeActivity";
 
     private DrawPadCameraView mDrawPadCamera;
     
@@ -73,8 +57,7 @@ public class CameraLayerFullLandscapeActivity extends Activity implements OnClic
     private String dstPath=null;
     
 	private FocusImageView focusView;
-	
-	
+
 	private PowerManager.WakeLock mWakeLock;
 	private ViewLayer mViewLayer=null;
     private ViewLayerRelativeLayout mLayerRelativeLayout;
@@ -94,20 +77,10 @@ public class CameraLayerFullLandscapeActivity extends Activity implements OnClic
          }
         
         mDrawPadCamera = (DrawPadCameraView) findViewById(R.id.id_fullscreen_padview);
- 
+        dstPath=SDKFileUtils.newMp4PathInBox();
         
         initView();
-        focusView=(FocusImageView)findViewById(R.id.id_camerea_focus_view);
-        
-        
-        dstPath=SDKFileUtils.newMp4PathInBox();
-		new Handler().postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				initDrawPad();  //开始录制.
-			}
-		}, 500);
+        initDrawPad();
     }
     @Override
     protected void onResume() {
@@ -118,8 +91,14 @@ public class CameraLayerFullLandscapeActivity extends Activity implements OnClic
 			mWakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, TAG);
 			mWakeLock.acquire();
 		}
+	   	playVideo.setVisibility(View.GONE);
+		new Handler().postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				startDrawPad();
+			}
+		},200);
     }
-    
     /**
      * Step1: 开始运行 DrawPad 画板
      */
@@ -130,27 +109,29 @@ public class CameraLayerFullLandscapeActivity extends Activity implements OnClic
     	 int padHeight=544;
     	 
     	mDrawPadCamera.setRealEncodeEnable(padWidth,padHeight,3000*1024,(int)25,dstPath);
-    	/**
-    	 * 设置进度回调
-    	 */
-    	mDrawPadCamera.setOnDrawPadProgressListener(drawPadProgressListener);
-    	/**
-    	 * 设置是否前置.
-    	 */
-    	mDrawPadCamera.setCameraParam(true, null,true);
+    	mDrawPadCamera.setOnDrawPadProgressListener(drawPadProgressListener); //设置进度回调 
     	
+    	
+    	mDrawPadCamera.setCameraParam(false, null,true);  //设置是否前置.
     	/**
     	 * 设置当聚焦时的UI动画.
     	 */
     	mDrawPadCamera.setCameraFocusListener(new doFousEventListener() {
-			
+
 			@Override
 			public void onFocus(int x, int y) {
 				// TODO Auto-generated method stub
 				focusView.startFocus(x, y);
 			}
 		});
-    	startDrawPad();
+    	mDrawPadCamera.setOnViewAvailable(new onViewAvailable() {
+			
+			@Override
+			public void viewAvailable(DrawPadCameraView v) {
+				// TODO Auto-generated method stub
+					startDrawPad();
+			}
+		});
     }
     /**
      * Step2: 开始运行 Drawpad线程.
@@ -158,10 +139,10 @@ public class CameraLayerFullLandscapeActivity extends Activity implements OnClic
       private void startDrawPad()
       {
     	  	mDrawPadCamera.setRecordMic(true);
-    	   
+		  Log.i(TAG,"onViewAvaiable  drawPad工作	"+mDrawPadCamera.getDrawPadHeight()+mDrawPadCamera.getDrawPadWidth());
     	    if(mDrawPadCamera.startDrawPad())
     	    {
-    	    	mCameraLayer=mDrawPadCamera.getCameraLayer();  
+    	    	mCameraLayer=mDrawPadCamera.getCameraLayer();
 //        		addViewLayer();
 //        		addBitmapLayer();
 //        		addMVLayer();
@@ -175,11 +156,33 @@ public class CameraLayerFullLandscapeActivity extends Activity implements OnClic
 	      	if(mDrawPadCamera!=null && mDrawPadCamera.isRunning())
 	      	{
 	  				mDrawPadCamera.stopDrawPad();
+					Log.i(TAG,"onViewAvaiable  drawPad停止工作!!!!	");
 	  				toastStop();
 	  				mCameraLayer=null;
 	  		}
 	      	playVideo.setVisibility(View.VISIBLE);
       }
+      @Override
+      protected void onPause() {
+      	// TODO Auto-generated method stub
+      	super.onPause();
+      	if(mDrawPadCamera!=null){
+      		mDrawPadCamera.stopDrawPad();
+      	}
+      	if (mWakeLock != null) {
+  			mWakeLock.release();
+  			mWakeLock = null;
+      	}
+      }
+     @Override
+  	protected void onDestroy() {
+  		// TODO Auto-generated method stub
+  			super.onDestroy();
+  		    if(SDKFileUtils.fileExist(dstPath)){
+  		    	SDKFileUtils.deleteFile(dstPath);
+  		    	dstPath=null;
+  		    }
+  	}
     private onDrawPadProgressListener drawPadProgressListener=new onDrawPadProgressListener() {
 		
 		@Override
@@ -207,49 +210,27 @@ public class CameraLayerFullLandscapeActivity extends Activity implements OnClic
   			}
 		}
 	};
-    /**
-     * 选择滤镜效果, 
-     */
-    private void selectFilter()
-    {
-    	if(mDrawPadCamera!=null && mDrawPadCamera.isRunning()){
-    		GPUImageFilterTools.showDialog(this, new OnGpuImageFilterChosenListener() {
+   /**
+    * 选择滤镜效果, 
+    */
+   private void selectFilter()
+   {
+   	if(mDrawPadCamera!=null && mDrawPadCamera.isRunning()){
+   		GPUImageFilterTools.showDialog(this, new OnGpuImageFilterChosenListener() {
 
-                @Override
-                public void onGpuImageFilterChosenListener(final GPUImageFilter filter) {
-                	/**
-                	 * 通过DrawPad线程去切换 filterLayer的滤镜
-                	 * 有些Filter是可以调节的,这里为了代码简洁,暂时没有演示, 可以在CameraeLayerDemoActivity中查看.
-                	 */
-                	if(mDrawPadCamera!=null){
-                		mDrawPadCamera.switchFilterTo(mCameraLayer,filter);
-                	}
-                }
-            });
-    	}
-    }
-    
-    @Override
-    protected void onPause() {
-    	// TODO Auto-generated method stub
-    	super.onPause();
-    	if(mDrawPadCamera!=null){
-    		mDrawPadCamera.stopDrawPad();
-    	}
-    	if (mWakeLock != null) {
-			mWakeLock.release();
-			mWakeLock = null;
-    	}
-    }
-   @Override
-	protected void onDestroy() {
-		// TODO Auto-generated method stub
-			super.onDestroy();
-		    if(SDKFileUtils.fileExist(dstPath)){
-		    	SDKFileUtils.deleteFile(dstPath);
-		    	dstPath=null;
-		    }
-	}
+               @Override
+               public void onGpuImageFilterChosenListener(final GPUImageFilter filter) {
+               	/**
+               	 * 通过DrawPad线程去切换 filterLayer的滤镜
+               	 * 有些Filter是可以调节的,这里为了代码简洁,暂时没有演示, 可以在CameraeLayerDemoActivity中查看.
+               	 */
+               	if(mDrawPadCamera!=null){
+               		mDrawPadCamera.switchFilterTo(mCameraLayer,filter);
+               	}
+               }
+           });
+   	}
+   }
    /**
     * 增加一个UI图层: ViewLayer 
     */
@@ -321,7 +302,7 @@ public class CameraLayerFullLandscapeActivity extends Activity implements OnClic
    private void hideWord()
    {
    	 	if(tvWord!=null&& tvWord.getVisibility()==View.VISIBLE){
-				 tvWord.startAnimation(AnimationUtils.loadAnimation(this, R.anim.push_up_out));
+				 tvWord.startAnimation(AnimationUtils.loadAnimation(CameraLayerFullLandscapeActivity.this, R.anim.push_up_out));
 				 tvWord.setVisibility(View.INVISIBLE); 
 				 new Handler().postDelayed(new Runnable() {
 					
@@ -378,8 +359,10 @@ public class CameraLayerFullLandscapeActivity extends Activity implements OnClic
 		   		 }
 			}
 		});
-	   playVideo.setVisibility(View.GONE);
-	   
+	   	playVideo.setVisibility(View.GONE);
+	   	
+	    focusView=(FocusImageView)findViewById(R.id.id_fullscreen_focus_view);
+	    
    		findViewById(R.id.id_fullscreen_flashlight).setOnClickListener(this);
 		findViewById(R.id.id_fullscreen_frontcamera).setOnClickListener(this);
 		findViewById(R.id.id_fullscreen_filter).setOnClickListener(this);
@@ -390,7 +373,7 @@ public class CameraLayerFullLandscapeActivity extends Activity implements OnClic
 		switch (v.getId()) {
 			case R.id.id_fullscreen_frontcamera:
 				if(mCameraLayer!=null){
-					if(mDrawPadCamera.isRunning())  
+					if(mDrawPadCamera.isRunning() && CameraLayer.isSupportFrontCamera())  
 					{
 						//先把DrawPad暂停运行.
 						mDrawPadCamera.pauseDrawPad();
@@ -416,6 +399,4 @@ public class CameraLayerFullLandscapeActivity extends Activity implements OnClic
 	    	Toast.makeText(getApplicationContext(), "录制已停止!!", Toast.LENGTH_SHORT).show();
 	    	Log.i(TAG,"录制已停止!!");
 	    }
-	
 }
-

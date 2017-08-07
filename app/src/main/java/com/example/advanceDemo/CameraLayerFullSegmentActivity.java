@@ -136,6 +136,12 @@ public class CameraLayerFullSegmentActivity extends Activity implements OnClickL
 			mWakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, TAG);
 			mWakeLock.acquire();
 		}
+		new Handler().postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				startDrawPad();
+			}
+		},100);
     }
     @Override
     protected void onPause() {
@@ -361,7 +367,7 @@ public class CameraLayerFullSegmentActivity extends Activity implements OnClickL
 			break;
 			case R.id.id_fullscreen_frontcamera:
 				if(mCameraLayer!=null){
-					if(mDrawPadCamera.isRunning())  
+					if(mDrawPadCamera.isRunning() && CameraLayer.isSupportFrontCamera())  
 					{
 						//先把DrawPad暂停运行.
 						mDrawPadCamera.pauseDrawPad();

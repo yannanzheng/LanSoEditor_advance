@@ -87,8 +87,8 @@
 		</LinearLayout>
 
 
-		<RelativeLayout  android:id="@+id/id_main_segmentrecorder" style="@style/main_item_reletivelayout">
-			<TextView   android:text="分段录像(属于基本版本)" style="@style/main_item_textview"/>
+		<RelativeLayout  android:id="@+id/id_main_outbody" style="@style/main_item_reletivelayout">
+			<TextView   android:text="灵魂出窍" style="@style/main_item_textview"/>
 			<TextView  style="@style/main_item_arrow"/>
 		</RelativeLayout>
 

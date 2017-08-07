@@ -58,7 +58,6 @@ private int count=0;
 private GridView listView;
 private ImageAdapter  mImageAdapter;
 private int  mTpye=FRAME_TYPE_25;
-TextView  tvHint;
 @Override
 protected void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
@@ -71,8 +70,7 @@ protected void onCreate(Bundle savedInstanceState) {
 	
 	setContentView(R.layout.video_all_frame_grid);
 	
-	tvHint=(TextView)findViewById(R.id.video_frame_tv);
-	
+
 	listView = (GridView) findViewById(R.id.gridview);
 	mImageAdapter=new ImageAdapter();
 	listView.setAdapter(mImageAdapter);
@@ -155,8 +153,7 @@ private void startGetFrames()
 		public void onExtractBitmap(Bitmap bmp, long ptsUS) {
 			// TODO Auto-generated method stub
 			
-			tvHint.setText("bmp:"+bmp.getWidth()+" x "+bmp.getHeight());
-			
+
 			if(mDiskCache!=null){
 				mDiskCache.pushBitmap(bmp);
 				count++;

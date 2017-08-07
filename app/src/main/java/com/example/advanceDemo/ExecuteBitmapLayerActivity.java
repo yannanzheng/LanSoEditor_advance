@@ -23,7 +23,6 @@ import com.lansosdk.box.BoxDecoder;
 import com.lansosdk.box.DataLayer;
 import com.lansosdk.box.Layer;
 import com.lansosdk.box.DrawPad;
-import com.lansosdk.box.DrawPadPictureExecute;
 import com.lansosdk.box.DrawPadVideoRunnable;
 import com.lansosdk.box.ViewLayer;
 import com.lansosdk.box.onDrawPadCompletedListener;
@@ -31,6 +30,7 @@ import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadThreadProgressListener;
 import com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask;
 import com.lansosdk.videoeditor.CopyFileFromAssets;
+import com.lansosdk.videoeditor.DrawPadPictureExecute;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
@@ -133,7 +133,7 @@ public class ExecuteBitmapLayerActivity extends Activity{
 	/**
 	 * 使用DrawPad中的Picture执行类来做.
 	 */
-	DrawPadPictureExecute  mDrawPad=null;
+	DrawPadPictureExecute mDrawPad=null;
 	/**
 	 * 当前是否已经在执行, 以免造成多次执行.
 	 */
