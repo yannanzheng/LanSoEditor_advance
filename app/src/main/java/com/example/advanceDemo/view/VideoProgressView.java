@@ -121,6 +121,7 @@ public class VideoProgressView extends SurfaceView implements SurfaceHolder.Call
 	private float maxRecordTimeMS=15 * 1000f;
 	/**
 	 * 设置最小录制时间, 单位毫秒
+	 * @param minS
 	 */
 	public void setMinRecordTime(float  minMs)
 	{

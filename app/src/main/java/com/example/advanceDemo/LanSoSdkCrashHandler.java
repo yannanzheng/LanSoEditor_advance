@@ -14,6 +14,10 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.lang.Thread.UncaughtExceptionHandler;
 
+import com.lansosdk.box.LanSoEditorBox;
+import com.lansosdk.videoeditor.LanSoEditor;
+import com.lansosdk.videoeditor.VideoEditor;
+
 
 import android.os.Environment;
 import android.text.format.DateFormat;
@@ -41,11 +45,16 @@ public class LanSoSdkCrashHandler implements UncaughtExceptionHandler {
 
         // Inject some info about android version and the device, since google can't provide them in the developer console
         StackTraceElement[] trace = ex.getStackTrace();
-        StackTraceElement[] trace2 = new StackTraceElement[trace.length+3];
+        StackTraceElement[] trace2 = new StackTraceElement[trace.length+5];
         System.arraycopy(trace, 0, trace2, 0, trace.length);
-        trace2[trace.length+0] = new StackTraceElement("Android", "MODEL", android.os.Build.MODEL, -1);
-        trace2[trace.length+1] = new StackTraceElement("Android", "VERSION", android.os.Build.VERSION.RELEASE, -1);
-        trace2[trace.length+2] = new StackTraceElement("Android", "FINGERPRINT", android.os.Build.FINGERPRINT, -1);
+        trace2[trace.length+0] = new StackTraceElement("Android", "LanSongMODEL", android.os.Build.MODEL, -1);
+        trace2[trace.length+1] = new StackTraceElement("Android", "LanSongVERSION", android.os.Build.VERSION.RELEASE, -1);
+        trace2[trace.length+2] = new StackTraceElement("Android", "LanSongFINGERPRINT", android.os.Build.FINGERPRINT, -1);
+        
+        trace2[trace.length+3] = new StackTraceElement("Android", "LanSong box version:", LanSoEditorBox.VERSION_BOX, -1);
+        trace2[trace.length+4] = new StackTraceElement("Android", "LanSong editor version:", VideoEditor.getSDKVersion(), -1);
+        
+        
         ex.setStackTrace(trace2);
 
         ex.printStackTrace(printWriter);

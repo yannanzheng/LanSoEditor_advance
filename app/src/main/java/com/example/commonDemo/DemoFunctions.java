@@ -39,6 +39,8 @@ public class DemoFunctions {
 	  			
 	  			video2=video3;
 	  		}
+	  		
+	  		
 	  		String audio=CopyDefaultVideoAsyncTask.copyFile(ctx,"aac20s.aac");
 	  		ret=editor.executeVideoMergeAudio(video2,audio, dstPath);
 	  		SDKFileUtils.deleteFile(video3);
@@ -322,7 +324,7 @@ public class DemoFunctions {
 	 */
 	public static int demoVideoReverse(VideoEditor editor,String srcVideo,String dstVideo)
 	{
-		MediaInfo info=new MediaInfo(srcVideo);
+		MediaInfo info=new MediaInfo(srcVideo); 
 		if(info.prepare())
 		{
 			int bitrate=(int)(info.vBitRate*1.5f);
@@ -333,7 +335,6 @@ public class DemoFunctions {
 		}else{
 			return -1;
 		}
-		
 	}
 	/**
 	 * 视频增加边框
@@ -413,7 +414,11 @@ public class DemoFunctions {
 			if(bitrate>2000*1000)
 				bitrate=2000*1000; //2M
 			
-			return editor.executeVideoRotate90Clockwise(srcVideo, info.vCodecName, bitrate, dstVideo);
+			int ret= editor.executeVideoRotate90Clockwise(srcVideo, info.vCodecName, bitrate, dstVideo);
+			if(ret!=0){
+				ret= editor.executeVideoRotate90Clockwise(srcVideo,"h264", bitrate, dstVideo);
+			}
+			return ret;
 		}else{
 			return -1;
 		}

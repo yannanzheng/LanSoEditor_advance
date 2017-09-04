@@ -25,6 +25,7 @@ import com.lansosdk.box.onDrawPadThreadProgressListener;
 
 public class DrawPadPictureExecute {
 
+	private static final String TAG = "DrawPadPictureExecute";
 	DrawPadBitmapRunnable  renderer;
 	private int padWidth,padHeight;
 	
@@ -60,11 +61,14 @@ public class DrawPadPictureExecute {
    }
    public boolean startDrawPad()
    {
+	   boolean ret=false;
 	   if(renderer!=null && renderer.isRunning()==false){
-		   return renderer.startDrawPad();
-	   }else{
-		   return false;
+		   ret=renderer.startDrawPad();
 	   }
+	   if(ret==false){
+		   Log.e(TAG,"开启DrawPad 后台执行失败");
+	   }
+	   return ret;
    }
    public boolean startDrawPad(boolean pause) {
 	   
@@ -165,7 +169,42 @@ public class DrawPadPictureExecute {
    			renderer.removeLayer(lay);
    		}
    }
-   
+   public void removeAllLayer()
+   {
+   		if(renderer!=null && renderer.isRunning()){
+   			renderer.removeAllLayer();
+   		}
+   }
+   /**
+    * 切换滤镜
+    * @param layer  为哪个图层 
+    * @param filter  滤镜对象, 无滤镜则可以为null
+    */
+   public void switchFilterTo(Layer layer,GPUImageFilter filter) {
+  	 if(renderer!=null && renderer.isRunning()){
+	    		renderer.switchFilterTo(layer, filter);
+	    	}
+   }
+	/**
+	* 切换滤镜
+	* 为一个图层切换多个滤镜. 即一个滤镜处理完后的输出, 作为下一个滤镜的输入.
+	* 
+	* filter的列表, 是先add进去,最新渲染, 把第一个渲染的结果传递给第二个,第二个传递给第三个,以此类推.
+	* 
+	* 注意: 这里内部会在切换的时候, 会销毁 之前的列表中的所有滤镜对象, 然后重新增加, 故您不可以把同一个滤镜对象再次放到进来,
+	* 您如果还想使用之前的滤镜,则应该重新创建一个对象.
+	* 
+	* @param layer
+	* @param filters
+	*/
+	public void switchFilterList(Layer layer, ArrayList<GPUImageFilter> filters)
+	{
+		 if(renderer!=null && renderer.isRunning()){
+			 renderer.switchFilterList(layer, filters);
+		 }
+	}
+
+
    /**
 	 * DrawPad每执行完一帧画面,会调用这个Listener,返回的timeUs是当前画面的时间戳(微妙),
 	 *  可以利用这个时间戳来做一些变化,比如在几秒处缩放, 在几秒处平移等等.从而实现一些动画效果.
@@ -210,11 +249,18 @@ public class DrawPadPictureExecute {
 	/**
 	 * 设置每处理一帧的数据预览监听, 等于把当前处理的这一帧的画面拉出来,
 	 * 您可以根据这个画面来自行的编码保存, 或网络传输.
-	 * 注意:此回调是在编码的时候执行的, 您需要先设置编码的各种参数, 并启动编码,这里才会触发. 回调的频率等于编码的帧率
+	 * 
+	 * 建议在这里拿到数据后, 放到queue中, 然后在其他线程中来异步读取queue中的数据, 请注意queue中数据的总大小, 要及时处理和释放, 以免内存过大,造成OOM问题
 	 * 
 	 * @param listener 监听对象
 	 */
 	public void setDrawPadOutFrameListener(onDrawPadOutFrameListener listener)
+	{
+		if(renderer!=null){
+			renderer.setDrawpadOutFrameListener(padWidth, padHeight, 1,listener);
+		}
+	}
+	public void setDrawPadOutFrameListener(boolean isMulti,onDrawPadOutFrameListener listener)
 	{
 		if(renderer!=null){
 			renderer.setDrawpadOutFrameListener(padWidth, padHeight, 1,listener);
@@ -288,5 +334,14 @@ public class DrawPadPictureExecute {
 	   public void resumeRefreshDrawPad()
 	   {
 		   resumeRecord();
+	   }
+	   /**
+	    * 内部使用
+	    */
+	   public void resetOutFrames()
+	   {
+		   if(renderer!=null && renderer.isRunning()){
+			   renderer.resetOutFrames();  
+		   }
 	   }
 }

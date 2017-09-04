@@ -6,11 +6,12 @@ import android.util.Log;
 import com.lansosdk.box.AudioInsertManager;
 
 /**
- *  使用在给主音频增加一段别的音频, 可以设置两者在混合时的音量. 
- *  
- *   比如给一个视频中的音频部分增加别的搞笑音乐等.
- *
+ * 注意, 此类已经被废弃, 请用{@link AudioPadExecute}
+ * 注意, 此类已经被废弃, 请用{@link AudioPadExecute}
+ * 注意, 此类已经被废弃, 请用{@link AudioPadExecute}
+ * 注意, 此类已经被废弃, 请用{@link AudioPadExecute}
  */
+@Deprecated
 public class AudioInsert {
 
 	private AudioInsertManager insertMng;

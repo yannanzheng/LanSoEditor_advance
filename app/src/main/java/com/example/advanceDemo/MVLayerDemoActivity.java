@@ -16,6 +16,7 @@ import com.lansosdk.box.Layer;
 import com.lansosdk.box.DrawPad;
 import com.lansosdk.box.MVLayer;
 import com.lansosdk.box.VideoLayer;
+import com.lansosdk.box.onDrawPadOutFrameListener;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
 import com.lansosdk.box.onLayerAvailableListener;
@@ -65,9 +66,6 @@ public class MVLayerDemoActivity extends Activity {
     
     private String editTmpPath=null;
     private String dstPath=null;
-    
-    private String colorMVPath=null;
-    private String maskMVPath=null;
     private MediaInfo mInfo=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) 
@@ -87,11 +85,7 @@ public class MVLayerDemoActivity extends Activity {
         editTmpPath=SDKFileUtils.newMp4PathInBox();
         dstPath=SDKFileUtils.newMp4PathInBox();
         
-        /**
-         * 拿到两个文件,来还原出mv的视频.
-         */
-        colorMVPath=CopyDefaultVideoAsyncTask.copyFile(MVLayerDemoActivity.this,"mei.mp4");
-        maskMVPath=CopyDefaultVideoAsyncTask.copyFile(MVLayerDemoActivity.this,"mei_b.mp4");
+      
         
         new Handler().postDelayed(new Runnable() {
 			
@@ -147,14 +141,12 @@ public class MVLayerDemoActivity extends Activity {
      */
     private void initDrawPad()
     {
-    	if(colorMVPath!=null && maskMVPath!=null)
-    	{
         		//设置使能 实时录制, 即把正在DrawPad中呈现的画面实时的保存下来,实现所见即所得的模式
         		mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)mInfo.vFrameRate,editTmpPath);
         		mDrawPadView.setOnDrawPadProgressListener(new onDrawPadProgressListener() {
 					
 					@Override
-					public void onProgress(DrawPad v, long currentTimeUs) {
+					public void onProgress(DrawPad v, long currentTimeUs) { 
 						// TODO Auto-generated method stub
 						//Log.i(TAG,"MV当前时间戳是"+currentTimeUs);
 					}
@@ -178,7 +170,6 @@ public class MVLayerDemoActivity extends Activity {
 						startPlayVideo();
 					}
 				});
-    	}
     }
     /**
      * Step2: 开始运行 Drawpad线程.
@@ -193,19 +184,36 @@ public class MVLayerDemoActivity extends Activity {
     			mplayer.setSurface(new Surface(mLayerMain.getVideoTexture()));
     		}
     		mplayer.start();
-    		/**
-    		 * 增加一个MV图层.
-    		 */
-    		mvLayer=mDrawPadView.addMVLayer(colorMVPath, maskMVPath);  //<-----增加MVLayer
-    		//设置它为满屏.
+    		
+    		addMVLayer();
+    	}
+    }
+    /**
+	 * 增加一个MV图层.
+	 */
+    private void addMVLayer()
+    {
+    	  /**
+         * 拿到两个文件,来还原出mv的视频.
+         */
+        String colorMVPath=CopyDefaultVideoAsyncTask.copyFile(MVLayerDemoActivity.this,"mei.mp4");
+        String maskMVPath=CopyDefaultVideoAsyncTask.copyFile(MVLayerDemoActivity.this,"mei_b.mp4");
+        
+		mvLayer=mDrawPadView.addMVLayer(colorMVPath, maskMVPath);  //<-----增加MVLayer
+		if(mvLayer!=null){
+		//设置它为满屏.
     	    float scaleW=(float)mvLayer.getPadWidth()/(float)mvLayer.getLayerWidth();
     	    float scaleH=mvLayer.getPadHeight()/(float)mvLayer.getLayerHeight();
     	    mvLayer.setScale(scaleW, scaleH);
     	    
-    		if(mvLayer!=null){  //可以增加mv在播放结束后的三种模式, 停留在最后一帧/循环/消失/
-    			mvLayer.setEndMode(MVLayerENDMode.LOOP);
-    		}
-    	}
+    	    //可以设置当前的MV是否要录制到
+//    	    mvLayer.setVisibility(Layer.VISIBLE_ONLY_PREVIEW);
+	    
+		  //可以增加mv在播放结束后的三种模式, 停留在最后一帧/循环/消失/
+			mvLayer.setEndMode(MVLayerENDMode.LOOP);
+		}
+		
+		
     }
     /**
      * Step3: 停止画板,停止后,为新的视频文件增加上音频部分.
@@ -215,7 +223,6 @@ public class MVLayerDemoActivity extends Activity {
     	if(mDrawPadView!=null && mDrawPadView.isRunning()){
 			
 			mDrawPadView.stopDrawPad();
-			
 			toastStop();
 			if(SDKFileUtils.fileExist(editTmpPath)){
 				boolean ret=VideoEditor.encoderAddAudio(mVideoPath,editTmpPath,SDKDir.TMP_DIR,dstPath);

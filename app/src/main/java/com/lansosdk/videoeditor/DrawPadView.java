@@ -55,6 +55,7 @@ import com.lansosdk.box.VideoLayer;
 import com.lansosdk.box.ViewLayer;
 import com.lansosdk.box.YUVLayer;
 import com.lansosdk.box.onDrawPadCompletedListener;
+import com.lansosdk.box.onDrawPadErrorListener;
 import com.lansosdk.box.onDrawPadOutFrameListener;
 import com.lansosdk.box.onDrawPadPreviewProgressListener;
 import com.lansosdk.box.onDrawPadProgressListener;
@@ -167,9 +168,9 @@ public class DrawPadView extends FrameLayout {
     	mTextureRenderView.setDispalyRatio(AR_ASPECT_FIT_PARENT);
         
     	View renderUIView = mTextureRenderView.getView();
-        LayoutParams lp = new LayoutParams(
-                LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT,
+        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.WRAP_CONTENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT,
                 Gravity.CENTER);
         renderUIView.setLayoutParams(lp);
         addView(renderUIView);
@@ -364,7 +365,6 @@ public class DrawPadView extends FrameLayout {
     		Log.w(TAG,"enable real encode is error");
     	}
     }
-	
 	   private onDrawPadSizeChangedListener mSizeChangedCB=null; 
 	   /**
 	    * 设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
@@ -515,11 +515,12 @@ public class DrawPadView extends FrameLayout {
 	/**
 	 * 设置每处理一帧的数据预览监听, 等于把当前处理的这一帧的画面拉出来,
 	 * 您可以根据这个画面来自行的编码保存, 或网络传输.
-	 * 建议设置的宽度和高度是16的倍数.
+	 * 
+	 * 建议在这里拿到数据后, 放到queue中, 然后在其他线程中来异步读取queue中的数据, 请注意queue中数据的总大小, 要及时处理和释放, 以免内存过大,造成OOM问题
 	 * 
 	 * @param width  可以设置要引出这一帧画面的宽度, 如果宽度不等于drawpad的预览宽度,则会缩放.  
 	 * @param height  画面缩放到的高度,
-	 * @param type  数据的类型, 当前仅支持Bitmap, 后面或许会NV21等.
+	 * @param type  数据的类型, 当前仅支持Bitmap
 	 * @param listener 监听对象.
 	 */
 	public void setOnDrawPadOutFrameListener(int width,int height,int type,onDrawPadOutFrameListener listener)
@@ -535,6 +536,7 @@ public class DrawPadView extends FrameLayout {
 	/**
 	 * 设置setOnDrawPadOutFrameListener后, 你可以设置这个方法来让listener是否运行在Drawpad线程中.
 	 * 如果你要直接使用里面的数据, 则不用设置, 如果你要开启另一个线程, 把listener传递过来的数据送过去,则建议设置为true;
+	 * [建议设置为true, 在DrawPad内部执行listener, 间隔取图片后,放入到列表中,然后在另外线程中使用.]
 	 * @param en
 	 */
 	public void setOutFrameInDrawPad(boolean en){
@@ -552,6 +554,19 @@ public class DrawPadView extends FrameLayout {
 		drawpadCompletedListener=listener;
 	}
 	
+	
+	private onDrawPadErrorListener  drawPadErrorListener=null;
+	/**
+	 * 设置当前DrawPad运行错误的回调监听.
+	 * @param listener
+	 */
+	public void setOnDrawPadErrorListener(onDrawPadErrorListener listener)
+	{
+		if(renderer!=null){
+			renderer.setDrawPadErrorListener(listener);
+		}
+		drawPadErrorListener=listener;
+	}
 	/**
 	 * 此方法仅仅使用在录制视频的同时,您也设置了录制音频
 	 * 
@@ -616,8 +631,8 @@ public class DrawPadView extends FrameLayout {
 	 				renderer.setDisplaySurface(new Surface(mSurfaceTexture));
 	 				
 	 				if(isCheckPadSize){
-	 					encWidth=LanSongUtil.make16Multi(encWidth);
-	 					encHeight=LanSongUtil.make16Multi(encHeight);
+	 					encWidth=LanSongUtil.make32Multi(encWidth);
+	 					encHeight=LanSongUtil.make32Multi(encHeight);
 	 				}
 	 				if(isCheckBitRate || encBitRate==0){
 	 					encBitRate=LanSongUtil.checkSuggestBitRate(encHeight * encWidth, encBitRate);
@@ -631,11 +646,11 @@ public class DrawPadView extends FrameLayout {
 	 				renderer.setDrawpadOutFrameListener(previewFrameWidth, previewFrameHeight, previewFrameType, drawPadPreviewFrameListener);
 	 				renderer.setOutFrameInDrawPad(frameListenerInDrawPad);
 	 				
-	 				
 	 				renderer.setDrawPadProgressListener(drawpadProgressListener);
 	 				renderer.setDrawPadCompletedListener(drawpadCompletedListener);
 	 				renderer.setDrawPadThreadProgressListener(drawPadThreadProgressListener);
 	 				renderer.setDrawPadPreviewProgressListener(drawpadPreviewProgressListener);
+	 				renderer.setDrawPadErrorListener(drawPadErrorListener);
 	 				
 	 				if(isRecordMic){
 	 					renderer.setRecordMic(isRecordMic);	
@@ -1179,7 +1194,7 @@ public class DrawPadView extends FrameLayout {
 		if(bmp!=null)
 		{
 			//Log.i(TAG,"imgBitmapLayer:"+bmp.getWidth()+" height:"+bmp.getHeight());
-			if(renderer!=null)
+			if(renderer!=null && renderer.isRunning())
 				return renderer.addBitmapLayer(bmp,null);
 			else{
 				Log.e(TAG,"addBitmapLayer error render is not avalid");

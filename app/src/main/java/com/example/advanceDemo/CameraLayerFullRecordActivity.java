@@ -6,13 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageEmbossFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
-import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageLookupFilter;
-import jp.co.cyberagent.lansongsdk.gpuimage.IF1977Filter;
-import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBeautyWhiteFilter;
-import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBeautyAdvanceFilter;
-import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBeautyFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.LanSongGrindFilter;
+
 
 import com.example.advanceDemo.GPUImageFilterTools.OnGpuImageFilterChosenListener;
 import com.example.advanceDemo.view.CameraProgressBar;
@@ -26,10 +22,11 @@ import com.lansosdk.box.DrawPad;
 import com.lansosdk.box.Layer;
 import com.lansosdk.box.MVLayer;
 import com.lansosdk.box.MVLayerENDMode;
-import com.lansosdk.box.SampleManager;
+import com.lansosdk.box.AudioPad;
 import com.lansosdk.box.SampleSave;
 import com.lansosdk.box.ViewLayer;
 import com.lansosdk.box.ViewLayerRelativeLayout;
+import com.lansosdk.box.onDrawPadErrorListener;
 import com.lansosdk.box.onDrawPadOutFrameListener;
 import com.lansosdk.box.onDrawPadPreviewProgressListener;
 import com.lansosdk.box.onDrawPadProgressListener;
@@ -53,6 +50,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.PointF;
 import android.hardware.Camera.Face;
 import android.os.Build;
 import android.os.Bundle;
@@ -112,8 +110,6 @@ public class CameraLayerFullRecordActivity extends Activity implements OnClickLi
         
         setContentView(R.layout.camera_full_record_layout);
         mDrawPadCamera = (DrawPadCameraView) findViewById(R.id.id_fullrecord_padview);
-       
-     ;
         
         initView();
         mProgressBar.setMaxProgress(RECORD_CAMERA_MAX/1000);
@@ -128,9 +124,9 @@ public class CameraLayerFullRecordActivity extends Activity implements OnClickLi
             		 * 如果你要分段录制,并支持回删,则可以采用SegmentStart和SegmentStop;
             		 */
             		if(mDrawPadCamera.isRecording()){
-            			mDrawPadCamera.pauseDrawPadRecord();  //暂停录制,如果要停止录制
+            			mDrawPadCamera.pauseRecord();  //暂停录制,如果要停止录制
             		}else{
-            			mDrawPadCamera.resumeDrawPadRecord();
+            			mDrawPadCamera.startRecord();
             		}
             	}
             }
@@ -175,7 +171,7 @@ public class CameraLayerFullRecordActivity extends Activity implements OnClickLi
     	/**
     	 * 相机前后置.是否设置滤镜.
     	 */
-    	mDrawPadCamera.setCameraParam(true, null,true);
+    	mDrawPadCamera.setCameraParam(false,null,true);
     	
     	/**
     	 * 当手动聚焦的时候, 返回聚焦点的位置,让focusView去显示一个聚焦的动画.
@@ -189,6 +185,7 @@ public class CameraLayerFullRecordActivity extends Activity implements OnClickLi
 			}
 		});
     	/**
+    	 * 
     	 * UI界面有效后, 开始开启DrawPad线程, 来预览画面.
     	 */
     	mDrawPadCamera.setOnViewAvailable(new onViewAvailable() {
@@ -199,20 +196,14 @@ public class CameraLayerFullRecordActivity extends Activity implements OnClickLi
 					startDrawPad();
 			}
 		});
-    	/**
-    	 * 在录制的过程中,拿到画面的每一帧.
-    	 */
-    	mDrawPadCamera.setOutFrameInDrawPad(true);
-    	mDrawPadCamera.setOnDrawPadOutFrameListener(544, 960, 1, new onDrawPadOutFrameListener() {
+    	mDrawPadCamera.setOnDrawPadErrorListener(new onDrawPadErrorListener() {
 			
 			@Override
-			public void onDrawPadOutFrame(DrawPad v, Object obj, int type, long ptsUs) {
+			public void onError(DrawPad d, int what) {
 				// TODO Auto-generated method stub
-				Bitmap bmp=(Bitmap)obj;
-				Log.i(TAG,"----------onDrawPad OutFrame---->"+bmp.getWidth()+" x "+bmp.getHeight());
+				Log.e(TAG,"DrawPad画板线程运行出错!!!"+what);
 			}
 		});
-    	
     }
     private boolean isSwitch=false;
     /**
@@ -220,12 +211,13 @@ public class CameraLayerFullRecordActivity extends Activity implements OnClickLi
      */
       private void startDrawPad()
       {
-    	  mDrawPadCamera.pauseDrawPadRecord();  //先不要录制视频.
-    	  
-    	  if(mDrawPadCamera.startDrawPad())
+    	  if(mDrawPadCamera.setupDrawpad())
     	  {
     		  mCamLayer=mDrawPadCamera.getCameraLayer();
     		  addBitmapLayer();
+    		  mDrawPadCamera.startPreview();
+    	  }else{
+    		  Log.i(TAG,"建立drawpad线程失败.");
     	  }
       }
       /**
@@ -319,7 +311,7 @@ public class CameraLayerFullRecordActivity extends Activity implements OnClickLi
 			String bitmapPath=CopyFileFromAssets.copyAssets(getApplicationContext(), "small.png");
 			bmpLayer=mDrawPadCamera.addBitmapLayer(BitmapFactory.decodeFile(bitmapPath));
 			
-			//把位置放到中间的右侧, 因为获取的高级是中心点的高度.
+			//把位置放到中间的右侧, 因为获取的高度是中心点的高度.
 			bmpLayer.setPosition(bmpLayer.getPadWidth()-bmpLayer.getLayerWidth()/2,bmpLayer.getPositionY());
 		}
    }
@@ -368,9 +360,9 @@ public class CameraLayerFullRecordActivity extends Activity implements OnClickLi
 					if(mDrawPadCamera.isRunning() && CameraLayer.isSupportFrontCamera())  
 					{
 						//先把DrawPad暂停运行.
-						mDrawPadCamera.pauseDrawPad();
+						mDrawPadCamera.pausePreview();
 						mCamLayer.changeCamera();	
-						mDrawPadCamera.resumeDrawPad(); //再次开启.
+						mDrawPadCamera.resumePreview(); //再次开启.
 					}
 				}
 				break;

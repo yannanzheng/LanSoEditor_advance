@@ -27,9 +27,6 @@ import com.lansosdk.videoeditor.MediaInfo;
  * 快速获取视频的每一帧, 
  * 注意: 在运行此类的时候, 请不要同时运行MediaPlayer或我们的DrawPad类, 因为在高通410,610等低端处理器中, 他们是共用同一个硬件资源,会冲突;但各种旗舰机
  * 不会出现类似问题.
- * 建议你们在用户选中文件的时候, 一次性全部读取文件到DiskCache中, 在需要用的时候, 从DiskCache中读取.
- * 
- * 
  */
 public class ExtractVideoFrameDemoActivity extends Activity{
 
@@ -122,7 +119,7 @@ public class ExtractVideoFrameDemoActivity extends Activity{
 				  "\n"+
 				  "视频宽高:"+mInfo.vWidth+" x "+ mInfo.vHeight+ "\n"+ 
 				  "解码后图片缩放宽高:"+mExtractFrame.getBitmapWidth() +" x "+ mExtractFrame.getBitmapHeight()+ "\n";
-				
+				  
 				  Log.i("TIME","解码结束::"+ str);
 				  tvProgressHint.setText("Completed"+str);
 				  isExecuting=false;
@@ -145,11 +142,8 @@ public class ExtractVideoFrameDemoActivity extends Activity{
 				String hint=" 当前是第"+frameCount+ "帧" + "\n"+
 							 "当前帧的时间戳是:"+String.valueOf(ptsUS) +"微秒";
 				
-				//Log.i(TAG,hint);
-				
 				tvProgressHint.setText(hint);
-				 
-//				savePng(bmp);  //用保持图片的方式来测试.
+//				savePng(bmp);  //测试使用.
 //				if(bmp!=null && bmp.isRecycled()){
 //					 bmp.recycle();
 //					 bmp=null;
@@ -167,15 +161,13 @@ public class ExtractVideoFrameDemoActivity extends Activity{
 		mExtractFrame.start();
 		
 		
-		
-//		/**
-//		 * 您可以一帧一帧的读取, seekPause是指:seek到指定帧后, 调用回调就暂停.
-//		 * 单位是us, 微秒.
-//		 * 如果您频繁的读取, 建议直接一次性读取完毕,放到sd卡里,然后用的时候, 从sd卡中读取.
-//		 */
+		/**
+		 * 您可以一帧一帧的读取, seekPause是指:seek到指定帧后, 调用回调就暂停.
+		 * 单位是us, 微秒.
+		 * 单独读取的话, 把这里打开
+		 * 如果您频繁的读取, 建议直接一次性读取完毕,放到sd卡里,然后用的时候, 从sd卡中读取.
+		 */
 //		mExtractFrame.seekPause(seekCount*1000*1000);
-		
-		
 		startTime=System.currentTimeMillis();
 	}
    @Override
@@ -183,36 +175,35 @@ public class ExtractVideoFrameDemoActivity extends Activity{
     	// TODO Auto-generated method stub
     	super.onDestroy();
     }
-   private int seekCount=0;
-   private void initUI()
-   {
-		   tvHint=(TextView)findViewById(R.id.id_extract_frame_hint);
-		   tvHint.setText(R.string.extract_video_frame_hint);
-		   tvProgressHint=(TextView)findViewById(R.id.id_extract_frame_progress_hint);
-		       
-			 findViewById(R.id.id_extract_frame_btn).setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-							testExtractVideoFrame();
-					}
-			 });
-			 
-			 findViewById(R.id.id_extract_frame_btn2).setVisibility(View.GONE);
-			 /**
-			  * 一下是测试,读取指定视频位置的图片, 读取速度比上面慢一些, 如果您频繁的读取, 建议直接一次性读取完毕,放到sd卡里,然后用的时候, 从sd卡中读取.
-			  */
-//			 findViewById(R.id.id_extract_frame_btn2).setOnClickListener(new OnClickListener() {
-//				
-//				@Override
-//				public void onClick(View v) {
-//					// TODO Auto-generated method stub
-//					seekCount++;
-//					mExtractFrame.seekPause(seekCount*1000*1000);
+	   private int seekCount=0;
+	   private void initUI()
+	   {
+			   tvHint=(TextView)findViewById(R.id.id_extract_frame_hint);
+			   tvHint.setText(R.string.extract_video_frame_hint);
+			   tvProgressHint=(TextView)findViewById(R.id.id_extract_frame_progress_hint);
+			       
+				 findViewById(R.id.id_extract_frame_btn).setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+								testExtractVideoFrame();
+						}
+				 });
+				 findViewById(R.id.id_extract_frame_btn2).setVisibility(View.GONE);
+				 /**
+				  * 一下是测试,读取指定视频位置的图片, 读取速度比上面慢一些, 如果您频繁的读取, 建议直接一次性读取完毕,放到sd卡里,然后用的时候, 从sd卡中读取.
+				  */
+//				 findViewById(R.id.id_extract_frame_btn2).setOnClickListener(new OnClickListener() {
 //					
-//				}
-//			});
-			 
-   }
+//					@Override
+//					public void onClick(View v) {
+//						// TODO Auto-generated method stub
+//						if(mExtractFrame!=null){
+//							seekCount++;
+//							mExtractFrame.seekPause(seekCount*1000*1000);
+//						}
+//					}
+//				});
+	   }
 	 	/**
 		 * 临时为了获取一个bitmap图片,临时测试. 可以用来作为视频的封面.
 		 * @param src
@@ -227,7 +218,7 @@ public class ExtractVideoFrameDemoActivity extends Activity{
 			    	   decoderHandler=AVDecoder.decoderInit(src);
 			    	   if(decoderHandler!=0)
 			    	   {
-			    		   mGLRgbBuffer = IntBuffer.allocate(info.vWidth * info.vHeight);
+			    		    mGLRgbBuffer = IntBuffer.allocate(info.vWidth * info.vHeight);
 			    			mGLRgbBuffer.position(0);
 		    				AVDecoder.decoderFrame(decoderHandler, -1, mGLRgbBuffer.array());
 		    				AVDecoder.decoderRelease(decoderHandler);
@@ -235,7 +226,6 @@ public class ExtractVideoFrameDemoActivity extends Activity{
 		    				//转换为bitmap
 		    				Bitmap stitchBmp = Bitmap.createBitmap(info.vWidth , info.vHeight, Bitmap.Config.ARGB_8888);
 		    				 stitchBmp.copyPixelsFromBuffer(mGLRgbBuffer);
-		    				
 		    				 /**
 		    				  * 这里是保存到文件, 仅仅用来测试, 实际您可以不用保存到文件.
 		    				  */
@@ -257,7 +247,7 @@ public class ExtractVideoFrameDemoActivity extends Activity{
 			 }
 			  try {
 					  BufferedOutputStream  bos;
-					  String name="/sdcard/extract/a"+ bmtcnt++ +".png";
+					  String name="/sdcard/extract/b"+ bmtcnt++ +".png";
 					  Log.i(TAG,"name:"+name);
 					  
 					  bos = new BufferedOutputStream(new FileOutputStream(name));

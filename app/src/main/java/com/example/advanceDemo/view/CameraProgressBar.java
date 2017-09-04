@@ -21,7 +21,6 @@ import android.view.ViewConfiguration;
 
 /**
  * 此代码来源于网络, 不属于SDK的一部分. 我们只是用来作为UI部分,演示录制功能.
- * 如果作者对此有异议,请联系我们, 谢谢!
  * 
  * Created by you on 2016/10/23.
  */

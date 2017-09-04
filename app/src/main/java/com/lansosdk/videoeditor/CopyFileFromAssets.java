@@ -9,6 +9,12 @@ import com.lansosdk.box.LanSoEditorBox;
 import android.content.Context;
 
 public class CopyFileFromAssets {
+	/**
+	 * 拷贝资源文件夹中的文件到默认地址.
+	 * @param mContext
+	 * @param assetsName
+	 * @return  返回 拷贝文件的目标路径
+	 */
 	public static String copyAssets(Context mContext,String assetsName) {
 		String filePath =  SDKDir.TMP_DIR  + "/" + assetsName;
 
@@ -33,6 +39,7 @@ public class CopyFileFromAssets {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		return null;
 	}
 	public static String copyResId(Context mContext, int resId) {

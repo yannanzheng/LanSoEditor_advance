@@ -176,7 +176,7 @@ public class ExecuteRandomDemoActivity extends Activity{
 		bitmapLayer.setPosition(300, 200);
 		
 		//增加一个笑脸, add a bitmap
-		vDrawPad.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.xiaolian),null);
+		vDrawPad.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.xiaolian),null);	
 
 		//增加一个CanvasLayer
 //		addCanvasLayer();

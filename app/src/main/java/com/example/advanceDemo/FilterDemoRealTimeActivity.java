@@ -13,6 +13,7 @@ import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.IF1977Filter;
 import jp.co.cyberagent.lansongsdk.gpuimage.IFAmaroFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.LanSongTestCentorFilter;
 
 import com.example.advanceDemo.GPUImageFilterTools.FilterAdjuster;
 import com.example.advanceDemo.GPUImageFilterTools.OnGpuImageFilterChosenListener;
@@ -325,7 +326,7 @@ public class FilterDemoRealTimeActivity extends Activity {
 		 */
 		filterLayer=mDrawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),
 				new IF1977Filter(getBaseContext()));
-    			
+		
 		if(filterLayer!=null){
 			mplayer.setSurface(new Surface(filterLayer.getVideoTexture()));
 			mplayer.start();

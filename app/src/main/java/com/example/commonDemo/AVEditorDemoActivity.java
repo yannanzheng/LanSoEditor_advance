@@ -105,6 +105,7 @@ public class AVEditorDemoActivity extends Activity implements OnClickListener{
 			});
 	        
 	        dstVideo=SDKFileUtils.newMp4PathInBox();
+	        
 	        dstAudio=SDKFileUtils.newMp4PathInBox();
 	  } 
 	  @Override
@@ -240,6 +241,7 @@ public class AVEditorDemoActivity extends Activity implements OnClickListener{
 					DemoFunctions.demoVideoRotate90CounterClockwise(mEditor, srcVideo, dstVideo);
 					break;
 				case R.string.demo_id_videoaddanglemeta:
+					
 					DemoFunctions.demoSetVideoMetaAngle(mEditor, srcVideo, dstVideo);
 					break;
 				case R.string.demo_id_ontpicturevideo:

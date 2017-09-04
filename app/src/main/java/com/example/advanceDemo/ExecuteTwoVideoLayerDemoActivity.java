@@ -51,18 +51,6 @@ import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
 import com.lansosdk.videoeditor.onVideoEditorProgressListener;
 
-/**
- * 演示: 使用DrawPad在后台执行视频和视频的叠加处理.
- * 
- * 适用在 一些UI界面需要用户手动操作UI界面,比如旋转叠加的视频等,增加图片后旋转图片等,这些UI交互完成后, 
- * 记录下用户的操作信息,但需要统一处理时,通过此类来在后台执行.
- * 
- * 流程:通过DrawPadVideoExecute来实现视频的编辑处理,
- * 效果:建立一个DrawPad后,增加VideoLayer让其播放,在播放过程中,向里面增加两个图片和一个UI,
- * 其中给一个图片移动位置,并在3秒处放大一倍,在6秒处消失,处理中实时的形成视频等
- * 
- *
- */
 public class ExecuteTwoVideoLayerDemoActivity extends Activity{
 
 		String videoPath=null;
@@ -74,17 +62,10 @@ public class ExecuteTwoVideoLayerDemoActivity extends Activity{
 		 TextView tvHint;
 	    private String editTmpPath=null;  //视频处理的临时文件存放
 	    private String dstPath=null;
-	    /**
-	     * 图片图层
-	     */
+	    
+	    
 	    private BitmapLayer bitmapLayer=null;
-	    /**
-	     * Canvas 图层.
-	     */
 	    private CanvasLayer mCanvasLayer=null;
-	    /**
-	     * DrawPad, 用来执行图像处理的对象.
-	     */
 	    private DrawPadTwoVideoExecute  mDrawPad=null;
 	    
 	    /**
@@ -102,6 +83,7 @@ public class ExecuteTwoVideoLayerDemoActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		 
 		 videoPath=getIntent().getStringExtra("videopath");
+		 videoPath="/sdcard/960x544.mp4";
 		 
 		 mInfo=new MediaInfo(videoPath);
 		 mInfo.prepare();
@@ -204,7 +186,7 @@ public class ExecuteTwoVideoLayerDemoActivity extends Activity{
 			bitmapLayer.setPosition(300, 200);
 			
 			//增加一个笑脸, add a bitmap
-			mDrawPad.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.xiaolian),null);
+			mDrawPad.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.xiaolian),null);	
 			//增加一个CanvasLayer
 //			addCanvasLayer();
 //			addDataLayer();

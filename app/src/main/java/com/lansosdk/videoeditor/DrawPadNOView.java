@@ -53,6 +53,7 @@ import com.lansosdk.box.VideoLayer;
 import com.lansosdk.box.ViewLayer;
 import com.lansosdk.box.YUVLayer;
 import com.lansosdk.box.onDrawPadCompletedListener;
+import com.lansosdk.box.onDrawPadOutFrameListener;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSnapShotListener;
 import com.lansosdk.box.onDrawPadThreadProgressListener;
@@ -67,8 +68,6 @@ import com.lansosdk.box.onDrawPadThreadProgressListener;
  *   
  * 适用在增加到UI界面中, 一边预览,一边实时保存的场合.
  *
- * 此代码由我们来维护, 请不要修改其中代码,您可以继承该方法,在继承的类中增加您想要的代码.
- * 
  */
 public class DrawPadNOView  {
 	
@@ -154,9 +153,7 @@ public class DrawPadNOView  {
 	 * 暂停预览,则录制还在继续,但只是录制了同一副画面.
 	 */
 	private boolean isPauseRefreshDrawPad=false;
-	
 	private boolean isPausePreviewDrawPad=false;
-	
 	private boolean isPauseRecord=false;
 
 	 private boolean  isRecordExtPcm=false;  //是否使用外面的pcm输入.
@@ -287,6 +284,45 @@ public class DrawPadNOView  {
 		}
 		drawpadCompletedListener=listener;
 	}
+	
+	private onDrawPadOutFrameListener drawPadPreviewFrameListener=null;
+	private int previewFrameWidth;
+	private int previewFrameHeight;
+	private int previewFrameType;
+	private boolean frameListenerInDrawPad=false;
+	/**
+	 * 设置每处理一帧的数据预览监听, 等于把当前处理的这一帧的画面拉出来,
+	 * 您可以根据这个画面来自行的编码保存, 或网络传输.
+	 * 
+	 * 建议在这里拿到数据后, 放到queue中, 然后在其他线程中来异步读取queue中的数据, 请注意queue中数据的总大小, 要及时处理和释放, 以免内存过大,造成OOM问题
+	 * 
+	 * @param width  可以设置要引出这一帧画面的宽度, 如果宽度不等于drawpad的预览宽度,则会缩放.  
+	 * @param height  画面缩放到的高度,
+	 * @param type  数据的类型, 当前仅支持Bitmap
+	 * @param listener 监听对象.
+	 */
+	public void setOnDrawPadOutFrameListener(int width,int height,int type,onDrawPadOutFrameListener listener)
+	{
+		if(renderer!=null){
+			renderer.setDrawpadOutFrameListener(width, height, type,listener);
+		}
+		previewFrameWidth=width;
+		previewFrameHeight=height;
+		previewFrameType=type;
+		drawPadPreviewFrameListener=listener;
+	}
+	/**
+	 * 设置setOnDrawPadOutFrameListener后, 你可以设置这个方法来让listener是否运行在Drawpad线程中.
+	 * 如果你要直接使用里面的数据, 则不用设置, 如果你要开启另一个线程, 把listener传递过来的数据送过去,则建议设置为true;
+	 * [建议设置为true, 在DrawPad内部执行listener, 间隔取图片后,放入到列表中,然后在另外线程中使用.]
+	 * @param en
+	 */
+	public void setOutFrameInDrawPad(boolean en){
+		if(renderer!=null){
+			renderer.setOutFrameInDrawPad(en);
+		}
+		frameListenerInDrawPad=en;
+	}
 
 	/**
 	 * 此方法仅仅使用在录制视频的同时,您也设置了录制音频
@@ -320,8 +356,8 @@ public class DrawPadNOView  {
 	 				//因为要预览,这里设置显示的Surface,当然如果您有特殊情况需求,也可以不用设置,但displayersurface和EncoderEnable要设置一个,DrawPadRender才可以工作.
 	 				
 	 				if(isCheckPadSize){
-	 					encWidth=LanSongUtil.make16Multi(encWidth);
-	 					encHeight=LanSongUtil.make16Multi(encHeight);
+	 					encWidth=LanSongUtil.make32Multi(encWidth);
+	 					encHeight=LanSongUtil.make32Multi(encHeight);
 	 				}
 	 				
 	 				if(isCheckBitRate || encBitRate==0){
@@ -336,6 +372,10 @@ public class DrawPadNOView  {
 	 				renderer.setDrawPadProgressListener(drawpadProgressListener);
 	 				renderer.setDrawPadCompletedListener(drawpadCompletedListener);
 	 				renderer.setDrawPadThreadProgressListener(drawPadThreadProgressListener);
+	 				
+	 				renderer.setDrawpadOutFrameListener(previewFrameWidth, previewFrameHeight, previewFrameType, drawPadPreviewFrameListener);
+	 				renderer.setOutFrameInDrawPad(frameListenerInDrawPad);
+	 				
 	 				
 	 				if(isRecordMic){
 	 					renderer.setRecordMic(isRecordMic);	

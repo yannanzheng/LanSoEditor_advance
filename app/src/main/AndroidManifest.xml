@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.lansoeditor.demo"
-          android:versionCode="2500"
-          android:versionName="2.5.0" >
+          android:versionCode="2600"
+          android:versionName="2.6.0" >
 
-    <!-- 这里的意思是：我们的sdk最低是Android4.3， 最高支持Andriod7.1 1   -->
+    <!-- 这里的意思是：我们的sdk最低是Android4.3， 最高支持Andriod7.0 23   -->
     <uses-sdk
         android:minSdkVersion="18"
         android:targetSdkVersion="23" />
@@ -46,6 +46,7 @@
         android:name="android.hardware.camera.front"
         android:required="false" />
 
+    <!-- android:largeHeap="true"让他内存显示最大到512M -->
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -60,7 +61,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
 
         <activity
@@ -70,19 +70,20 @@
         </activity>
 
 
-        <activity android:name="com.example.advanceDemo.VideoLayerTwoRealTimeActivity"></activity>
+
+        <activity android:name="com.example.advanceDemo.Demo2LayerMothedActivity"></activity>
 
 
         <activity android:name="com.example.advanceDemo.FilterDemoRealTimeActivity"></activity>
 
         <activity android:name="com.example.advanceDemo.BitmapLayerMarkActivity"></activity>
 
+        <activity android:name="com.example.advanceDemo.OutBodyDemoActivity"></activity>
 
 
 
-        <activity android:name="com.example.advanceDemo.VideoLayerRealTimeActivity"></activity>
 
-
+        <activity android:name="com.example.advanceDemo.Demo1LayerMothedActivity"></activity>
 
 
 
@@ -100,7 +101,12 @@
 
 
 
-        <activity android:name="com.example.advanceDemo.ExecuteVideoLayerDemoActivity"></activity>
+
+
+
+        <activity android:name="com.example.advanceDemo.ExecuteCanvasLayerActivity"></activity>
+
+        <activity android:name="com.example.advanceDemo.ExecuteVideoLayerActivity"></activity>
         <activity android:name="com.example.advanceDemo.ExecuteFilterDemoActivity"></activity>
 
         <activity android:name="com.example.advanceDemo.ExtractVideoFrameDemoActivity"></activity>
@@ -110,13 +116,10 @@
         <activity android:name="com.example.advanceDemo.ExtractFrameTypeListActivity"></activity>
 
 
+        <activity android:name="com.example.advanceDemo.ExecuteTwoBitmapActivity"></activity>
 
-        <activity android:name="com.example.advanceDemo.OutBodyDemoActivity"
-            ></activity>
 
-        <activity android:name="com.example.advanceDemo.CanvasLayerDemoActivity"
-            ></activity>
-
+        <activity android:name="com.example.advanceDemo.CanvasLayerDemoActivity"></activity>
         <activity android:name="com.example.advanceDemo.CameraLayerFullRecordActivity"
                   android:screenOrientation="portrait"
                   android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
@@ -136,6 +139,7 @@
 
 
 
+
         <activity android:name="com.example.advanceDemo.CameraLayerFullLandscapeActivity"
                   android:screenOrientation="landscape"
                   android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
@@ -144,14 +148,9 @@
 
 
 
-
-        <activity android:name="com.example.advanceDemo.CameraLayerDemoActivity"
+        <activity android:name="com.example.advanceDemo.CameraLayerRectActivity"
                   android:screenOrientation="portrait">
         </activity>
-
-
-
-
 
         <activity android:name="com.example.advanceDemo.FileExplorerActivity"
                   android:label="@string/select_video"></activity>
@@ -160,7 +159,7 @@
         <activity android:name="com.example.advanceDemo.ExecuteBitmapLayerActivity"></activity>
         <activity android:name="com.example.advanceDemo.ViewLayerDemoActivity"></activity>
 
-        <activity android:name="com.example.advanceDemo.ViewLayerOnlyRealTimeActivity"></activity>
+        <activity android:name="com.example.advanceDemo.ViewLayerOnlyActivity"></activity>
 
 
 
@@ -169,9 +168,11 @@
 
 
 
-        <activity android:name="com.example.advanceDemo.InsertAudioDemoActivity"></activity>
 
         <activity android:name="com.example.advanceDemo.ExecuteRandomDemoActivity"></activity>
+
+
+
         <!--    common version -->
         <activity android:name="com.example.commonDemo.CommonDemoActivity"></activity>
         <activity android:name="com.example.commonDemo.MediaInfoActivity"></activity>

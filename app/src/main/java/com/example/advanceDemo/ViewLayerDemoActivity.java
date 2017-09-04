@@ -20,9 +20,12 @@ import com.lansosdk.box.VideoLayer;
 import com.lansosdk.box.ViewLayer;
 import com.lansosdk.box.Layer;
 import com.lansosdk.box.ViewLayerRelativeLayout;
+import com.lansosdk.box.onDrawPadPreviewProgressListener;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
+import com.lansosdk.box.onDrawPadSnapShotListener;
 import com.lansosdk.videoeditor.DrawPadView;
+import com.lansosdk.videoeditor.LanSongUtil;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
@@ -34,6 +37,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -55,6 +59,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -74,9 +79,8 @@ public class ViewLayerDemoActivity extends Activity{
     private DrawPadView mDrawPadView;
     
     private MediaPlayer mplayer=null;
-    private MediaPlayer mplayer2=null;
     
-    private VideoLayer  mLayerMain=null;
+    private VideoLayer  mainVideoLayer=null;
     private ViewLayer mViewLayer=null;
     
 //    
@@ -152,6 +156,8 @@ public class ViewLayerDemoActivity extends Activity{
 			});
         	  mplayer.prepareAsync();
     }
+    
+    long lastTimeUs=0;
     /**
      * Step1: 设置DrawPad 画板的尺寸.
      * 并设置是否实时录制画板上的内容.
@@ -161,9 +167,18 @@ public class ViewLayerDemoActivity extends Activity{
     	MediaInfo info=new MediaInfo(mVideoPath,false);
     	if(info.prepare())
     	{
-        	
+    		mDrawPadView.setUpdateMode(DrawPadUpdateMode.AUTO_FLUSH,25);
     		mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
     		
+    		mDrawPadView.setOnDrawPadSnapShotListener(new onDrawPadSnapShotListener() {
+				
+				@Override
+				public void onSnapShot(DrawPad v, Bitmap bmp) {
+					// TODO Auto-generated method stub
+					Log.i(TAG,"drawPad snap shot!!!!!"+ bmp.getWidth()+" x " +bmp.getHeight());
+//					LanSongUtil.savePng(bmp);
+				}
+			});
     		mDrawPadView.setOnDrawPadProgressListener(new onDrawPadProgressListener() {
 				
 				@Override
@@ -178,7 +193,6 @@ public class ViewLayerDemoActivity extends Activity{
 		  			}
 				}
 			});
-    		
         	mDrawPadView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
     			
     			@Override
@@ -195,14 +209,15 @@ public class ViewLayerDemoActivity extends Activity{
      */
     private void startDrawPad()
     {
-    	mDrawPadView.startDrawPad();
-		
-		mLayerMain=mDrawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
-		if(mLayerMain!=null){
-			mplayer.setSurface(new Surface(mLayerMain.getVideoTexture()));
-		}
-		mplayer.start();
-		addViewLayer();
+    	if(mDrawPadView.startDrawPad())
+    	{
+    		mainVideoLayer=mDrawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
+    		if(mainVideoLayer!=null){
+    			mplayer.setSurface(new Surface(mainVideoLayer.getVideoTexture()));
+    		}
+    		mplayer.start();
+    		addViewLayer();	
+    	}
     }
     /**
      * Step3: 做好后, 停止画板, 因为画板里没有声音, 这里增加上原来的声音.
@@ -223,6 +238,7 @@ public class ViewLayerDemoActivity extends Activity{
 					SDKFileUtils.deleteFile(editTmpPath);
 		    	findViewById(R.id.id_vview_realtime_saveplay).setVisibility(View.VISIBLE);
 			}
+			
 		}
     }
     /**
@@ -264,11 +280,6 @@ public class ViewLayerDemoActivity extends Activity{
     		mplayer=null;
     	}
     	
-    	if(mplayer2!=null){
-    		mplayer2.stop();
-    		mplayer2.release();
-    		mplayer2=null;
-    	}
     	
     	if(mDrawPadView!=null){
     		mDrawPadView.stopDrawPad();
@@ -282,9 +293,19 @@ public class ViewLayerDemoActivity extends Activity{
           } 
     }
     //--------------------------------------一下为UI界面-----------------------------------------------------------
+    int  snapShotW=480;
+    int  snapShotH=480;
     private void initView()
     {
     	  tvWord=(TextView)findViewById(R.id.id_vview_tvtest);
+          btnTest=(Button)findViewById(R.id.id_drawimage_btn);
+          btnTest.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+			}
+		});
           
           findViewById(R.id.id_vview_realtime_saveplay).setOnClickListener(new OnClickListener() {
   			
@@ -303,6 +324,7 @@ public class ViewLayerDemoActivity extends Activity{
       	findViewById(R.id.id_vview_realtime_saveplay).setVisibility(View.GONE);
     }
     private TextView tvWord; 
+    private Button btnTest;
     private void showWord()
     {
     	 if(tvWord!=null&& tvWord.getVisibility()!=View.VISIBLE){

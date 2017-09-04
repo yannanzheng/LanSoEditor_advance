@@ -8,6 +8,7 @@ import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 
 import com.example.advanceDemo.view.ShowHeart;
 import com.lansoeditor.demo.R;
+import com.lansosdk.box.BitmapLayer;
 import com.lansosdk.box.CanvasLayer;
 import com.lansosdk.box.CanvasRunnable;
 import com.lansosdk.box.DrawPad;
@@ -19,6 +20,7 @@ import com.lansosdk.box.Layer;
 import com.lansosdk.box.onDrawPadCompletedListener;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
+import com.lansosdk.box.onDrawPadThreadProgressListener;
 import com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask;
 import com.lansosdk.videoeditor.CopyFileFromAssets;
 import com.lansosdk.videoeditor.DrawPadView;
@@ -76,7 +78,7 @@ public class PictureSetRealTimeActivity extends Activity{
     private ArrayList<SlideEffect>  slideEffectArray;
     
     private String dstPath=null;
-    
+    private BitmapLayer  bgLayer=null;
     private Context mContext=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) 
@@ -99,6 +101,13 @@ public class PictureSetRealTimeActivity extends Activity{
 				}
 			}, 500);
     }
+    @Override
+    protected void onResume() {
+    	// TODO Auto-generated method stub
+    	super.onResume();
+        findViewById(R.id.id_DrawPad_saveplay).setVisibility(View.GONE);
+    }
+    boolean isSwitched=false;
     /**
      * Step1: 初始化DrawPad
      */
@@ -108,6 +117,18 @@ public class PictureSetRealTimeActivity extends Activity{
     	mDrawPadView.setUpdateMode(DrawPadUpdateMode.AUTO_FLUSH,30);
     	//使能实时录制,并设置录制后视频的宽度和高度, 码率, 帧率,保存路径.
     	mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)30,dstPath);
+    	
+    	mDrawPadView.setOnDrawPadThreadProgressListener(new onDrawPadThreadProgressListener() {
+			
+			@Override
+			public void onThreadProgress(DrawPad arg0, long arg1) {
+				// TODO Auto-generated method stub
+				 if(arg1>=1000*1000 && isSwitched==false){
+					  bgLayer.switchBitmap(BitmapFactory.decodeFile("/sdcard/a2.jpg"));
+					  isSwitched=true;
+				  }
+			}
+		});
     	
     	mDrawPadView.setOnDrawPadCompletedListener(new DrawPadCompleted());
 		mDrawPadView.setOnDrawPadProgressListener(new DrawPadProgressListener());
@@ -123,29 +144,14 @@ public class PictureSetRealTimeActivity extends Activity{
 		});
     	
     	//这里仅仅是举例,当界面再次返回的时候,依旧显示图片更新的动画效果,即重新开始DrawPad, 很多时候是不需要这样的场景, 这里仅仅是举例
-//    	mDrawPadView.setOnViewAvailable(new onViewAvailable() {
-//			
-//			@Override
-//			public void viewAvailable(DrawPadView v) {
-//				// TODO Auto-generated method stub
-//				if(isStarted){
-//				    
-//				      String picPath=SDKDir.TMP_DIR+"/"+"picname.jpg";   
-//					  mDrawPadView.addBitmapLayer(BitmapFactory.decodeFile(picPath));
-//				      
-//				      slideEffectArray=new ArrayList<SlideEffect>();
-//				      
-//						//这里同时获取多个,只是不显示出来.
-//				      getFifthLayer(R.drawable.tt,0,5000);  		//1--5秒.
-//				      getFifthLayer(R.drawable.tt3,5000,10000);  //5--10秒.
-//				      getFifthLayer(R.drawable.pic3,10000,15000);	//10---15秒 
-//				      getFifthLayer(R.drawable.pic4,15000,20000);  //15---20秒
-//				      getFifthLayer(R.drawable.pic5,20000,25000);  //20---25秒
-//				      
-//				    
-//				}
-//			}
-//		});
+    	mDrawPadView.setOnViewAvailable(new onViewAvailable() {
+			
+			@Override
+			public void viewAvailable(DrawPadView v) {
+				// TODO Auto-generated method stub
+				startDrawPad();
+			}
+		});
     }
     /**
      * Step2: 开始运行 Drawpad线程. (停止是在进度监听中, 根据时间来停止的.)
@@ -170,7 +176,7 @@ public class PictureSetRealTimeActivity extends Activity{
 		   }
 		   
 		   //先 增加第一张Bitmap的Layer, 因为是第一张,放在DrawPad中维护的数组的最下面, 认为是背景图片.
-		   mDrawPadView.addBitmapLayer(BitmapFactory.decodeFile(picPath));
+		   bgLayer=mDrawPadView.addBitmapLayer(BitmapFactory.decodeFile(picPath));
 		   
 		   slideEffectArray=new ArrayList<SlideEffect>();
 		   
@@ -182,7 +188,7 @@ public class PictureSetRealTimeActivity extends Activity{
 		   addBitmapLayer(R.drawable.pic5,20000,25000);  //20---25秒
 		   
 		 //增加一个MV图层  
-		   addMVLayer();
+//		   addMVLayer();
 		   
 		   mDrawPadView.resumeDrawPad();
     }
@@ -205,6 +211,11 @@ public class PictureSetRealTimeActivity extends Activity{
     	Layer item=mDrawPadView.addBitmapLayer(BitmapFactory.decodeResource(getResources(), resId));
 		SlideEffect  slide=new SlideEffect(item, 25, startMS, endMS, true);
 		slideEffectArray.add(slide);
+		
+		
+//		float width=(100f/(float)item.getLayerWidth());
+//		float height=(100f/(float)item.getLayerHeight());
+//		item.setScale(width, height);
     }
     //DrawPad完成时的回调.
     private class DrawPadCompleted implements onDrawPadCompletedListener
@@ -236,11 +247,12 @@ public class PictureSetRealTimeActivity extends Activity{
 			  {
 				  mDrawPadView.stopDrawPad();
 			  }
-			  
-			  
+			 
 			  if(slideEffectArray!=null && slideEffectArray.size()>0){
 				  for(SlideEffect item: slideEffectArray){
 					  item.run(currentTimeUs/1000);
+					
+					 
 				  }
 			  }
 		}

@@ -28,6 +28,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.MediaController;
 import android.widget.TableLayout;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -56,6 +57,7 @@ import com.lansosdk.box.VideoLayer;
 import com.lansosdk.box.ViewLayer;
 import com.lansosdk.box.YUVLayer;
 import com.lansosdk.box.onDrawPadCompletedListener;
+import com.lansosdk.box.onDrawPadErrorListener;
 import com.lansosdk.box.onDrawPadOutFrameListener;
 import com.lansosdk.box.onDrawPadPreviewProgressListener;
 import com.lansosdk.box.onDrawPadProgressListener;
@@ -170,9 +172,9 @@ public class DrawPadCameraView extends FrameLayout {
     	mTextureRenderView.setDispalyRatio(AR_ASPECT_FIT_PARENT);
         
     	View renderUIView = mTextureRenderView.getView();
-        LayoutParams lp = new LayoutParams(
-                LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT,
+        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.WRAP_CONTENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT,
                 Gravity.CENTER);
         renderUIView.setLayoutParams(lp);
         addView(renderUIView);
@@ -506,6 +508,8 @@ public class DrawPadCameraView extends FrameLayout {
 	 * 
 	 * 可以通过 {@link #setOutFrameInDrawPad(boolean)} 来设置listener运行在DrawPad线程中,还是运行UI主线程.
 	 *
+	 *建议在这里拿到数据后, 放到queue中, 然后在其他线程中来异步读取queue中的数据, 请注意queue中数据的总大小, 要及时处理和释放, 以免内存过大,造成OOM问题
+	 *
 	 * @param width  可以设置要引出这一帧画面的宽度, 如果宽度不等于drawpad的预览宽度,则会缩放.
 	 * @param height  画面缩放到的高度,
 	 * @param type  数据的类型, 当前仅支持Bitmap, 后面或许会NV21等.
@@ -569,18 +573,19 @@ public class DrawPadCameraView extends FrameLayout {
 		drawpadCompletedListener=listener;
 	}
 
+	
+	
+	private onDrawPadErrorListener  drawPadErrorListener=null;
 	/**
-	 * 此方法仅仅使用在录制的同时,您也设置了录制音频
-	 * 
-	 * @return  在录制结束后, 返回录制mic的音频文件路径, 
+	 * 设置当前DrawPad运行错误的回调监听.
+	 * @param listener
 	 */
-	public String getMicPath()
+	public void setOnDrawPadErrorListener(onDrawPadErrorListener listener)
 	{
 		if(renderer!=null){
-			return renderer.getAudioRecordPath();
-		}else{
-			return null;
+			renderer.setDrawPadErrorListener(listener);
 		}
+		drawPadErrorListener=listener;
 	}
 	private CameraLayer extCameraLayer=null;
 	/**
@@ -592,12 +597,30 @@ public class DrawPadCameraView extends FrameLayout {
 		extCameraLayer=layer;
 	}
 	/**
+	 * 建立drawPad (类似UI中的创建一个Layout, 或Word中的A4纸张)
+	 * 建立视频处理的线程,也是建立一个容器, 容器的大小是您设置的DrawPad的size(如果是全屏,则是布局的大小)
+	 * 建立后, 里面是没有图层,也不会显示和编码,您需要
+	 * @return
+	 */
+	public boolean setupDrawpad()
+	{
+		if(renderer==null){
+			pauseRecord();
+			pausePreview();
+			return startDrawPad(true);
+		}else{
+			return false;
+		}
+	}
+	/**
+	 * [不好理解, 不再使用]
 	 * 开始DrawPad的渲染线程, 阻塞执行, 直到DrawPad真正开始执行后才退出当前方法.
 	 * 
 	 * 可以先通过 {@link #setDrawPadSize(int, int, onDrawPadSizeChangedListener)}来设置宽高,然后在回调中执行此方法.
 	 * 如果您已经在xml中固定了view的宽高,则可以直接调用这里, 无需再设置DrawPadSize
 	 * @return
 	 */
+	@Deprecated
 	public boolean startDrawPad()
 	{
 		return startDrawPad(isPauseRecord);
@@ -605,20 +628,24 @@ public class DrawPadCameraView extends FrameLayout {
 	/**
 	 * 开始DrawPad的渲染线程, 阻塞执行, 直到DrawPad真正开始执行后才退出当前方法.
 	 * 如果DrawPad设置了录制功能, 这里可以在开启后暂停录制. 适用在当您开启录制后, 需要先增加一个图层的场合后,在让它开始录制的场合, 可用resume
-	 * 	 * {@link #resumeDrawPadRecord()} 来回复录制.
+	 * 	 * {@link #startRecord()} 来回复录制.
 	 * 
 	 * @param pauseRecord  如果DrawPad设置了录制功能, 这里可以在开启后暂停录制. 适用在当您开启录制后, 需要先增加一个图层的场合后,在让它开始录制的场合, 可用resume
-	 * 	  {@link #resumeDrawPadRecord()} 来回复录制.
+	 * 	  {@link #startRecord()} 来回复录制.
 	 * @return
 	 */
 	private static boolean isCameraOpened=false;
-	public boolean startDrawPad(boolean pauseRecord)
+	private boolean startDrawPad(boolean pauseRecord)
 	{
 		boolean ret=false;
 	 
 		 if(isCameraOpened){
-			 Log.w(TAG,"DrawPadCameraView is Opened...");
+			 Log.w(TAG,"DrawPad线程已经开启.,如果您是从下一个Activity返回的,请先stopDrawPad后,再次开启.");
 			 return false;
+		 }
+		 
+		 if(LanSongUtil.checkRecordPermission(getContext())==false){
+	      	  return false;
 		 }
 		 
 		 if( mSurfaceTexture!=null && renderer==null && padWidth>0 &&padHeight>0)
@@ -626,20 +653,18 @@ public class DrawPadCameraView extends FrameLayout {
 			 
 			 	renderer=new DrawPadCameraRunnable(getContext(), padWidth, padHeight);  //<----从这里去建立DrawPad线程.
 				renderer.setCameraParam(isFrontCam,initFilter,maybeBeauful);
-				
-					DisplayMetrics dm = getResources().getDisplayMetrics();
+				DisplayMetrics dm = getResources().getDisplayMetrics();
 					
 				 if(dm!=null && padWidth== dm.widthPixels && padHeight ==dm.heightPixels){
 					 renderer.setFullScreen(true);
 				 }
-				   
 				
 	 			if(renderer!=null){
 	 				renderer.setDisplaySurface(mTextureRenderView,new Surface(mSurfaceTexture));
 	 				
 	 				if(isCheckPadSize){
-	 					encWidth=LanSongUtil.make16Multi(encWidth);
-	 					encHeight=LanSongUtil.make16Multi(encHeight);
+	 					encWidth=LanSongUtil.make32Multi(encWidth);
+	 					encHeight=LanSongUtil.make32Multi(encHeight);
 	 				}
 	 				if(isCheckBitRate || encBitRate==0){
 	 					encBitRate=LanSongUtil.checkSuggestBitRate(encHeight * encWidth, encBitRate);
@@ -655,10 +680,13 @@ public class DrawPadCameraView extends FrameLayout {
 	 				renderer.setDrawPadPreviewProgressListener(drawpadPreviewProgressListener);
 	 				renderer.setOutFrameInDrawPad(frameListenerInDrawPad);
 	 				
+	 				renderer.setDrawPadErrorListener(drawPadErrorListener);
 	 				if(isRecordMic){
 	 					renderer.setRecordMic(isRecordMic);	
 	 				}else if(isRecordExtPcm){
 	 					renderer.setRecordExtraPcm(isRecordExtPcm, pcmChannels,pcmSampleRate,pcmBitRate);
+	 				}else if(recordExtMp3!=null){
+	 					renderer.setRecordExtraMp3(recordExtMp3);
 	 				}
 	 				
 	 				if(extCameraLayer!=null){
@@ -671,6 +699,8 @@ public class DrawPadCameraView extends FrameLayout {
 	 					renderer.pauseRefreshDrawPad();
 	 				}
 	 				renderer.adjustEncodeSpeed(encodeSpeed);
+	 				
+	 				Log.i(TAG,"starting run drawpad  thread...");
 	 				ret=renderer.startDrawPad();
 	 				
 	 				isCameraOpened=ret;
@@ -687,13 +717,83 @@ public class DrawPadCameraView extends FrameLayout {
 		 return ret;
 	}
 	/**
-	 * 暂停DrawPad的画面刷新, 
-	 * 在一些场景里,您需要开启DrawPad后,暂停下, 然后增加各种Layer后,安排好各种事宜后,再让其画面更新,
-	 * 则用到这个方法.
+	 * 开始预览, 应在setupDrawPad之后调用.
+	 * 
+	 */
+	public void startPreview()
+	{
+		if(renderer!=null){
+			renderer.resumeRefreshDrawPad();
+		}
+		isPauseRefresh=false;
+	}
+	/**
+	 *	暂停预览
 	 * 
 	 * 不可用来暂停后跳入到别的Activity中.  
-	 * 如果您要跳入到别的Activity, 则应该这里 {@link #stopDrawPad()} 在回到当前Activity的时候, 调用 {@link #startDrawPad()}
+	 * 如果您要跳入到别的Activity, 则应该这里 {@link #stopDrawPad()} 在回到当前Activity的时候, 调用 {@link #setupDrawpad()}
 	 */
+	public void pausePreview()
+	{
+		if(renderer!=null){
+			renderer.pauseRefreshDrawPad();
+		}
+		isPauseRefresh=true;
+	}
+	/**
+	 * 恢复预览
+	 * 
+	 *  不可用来暂停后跳入到别的Activity中.  
+	 * 如果您要跳入到别的Activity, 则应该这里 {@link #stopDrawPad()} 在回到当前Activity的时候, 调用 {@link #setupDrawpad()}
+	 */
+	public void resumePreview()
+	{
+		if(renderer!=null){
+			renderer.resumeRefreshDrawPad();
+		}
+		isPauseRefresh=false;
+	}
+	/**
+	 *  开始录制和恢复录制.
+	 *  录制前需要你 在 setupDrawPad前,通过 {@link #setRealEncodeEnable(int, int, int, String)};来配置好各种参数.
+	 */
+	public void startRecord()
+	{
+		if(renderer!=null){
+			renderer.resumeRecordDrawPad();
+		}
+		isPauseRecord=false;
+	}
+	/**
+	 * 暂停录制
+	 * 此方法仅仅在内部设置一个暂停/恢复录制的标志位;
+	 * 
+	 * 一般用在开始录制后的暂停; 
+	 * 不可用来暂停后跳入到别的Activity中.
+	 */
+	public void pauseRecord()
+	{
+		if(renderer!=null){
+			renderer.pauseRecordDrawPad();
+		}
+		isPauseRecord=true;
+	}
+	/**
+	 * 恢复录制. (等同于startDrawPad)
+	 * (只是为了逻辑清晰而已.)
+	 */
+	public void resumeRecord()
+	{
+		if(renderer!=null){
+			renderer.resumeRecordDrawPad();
+		}
+		isPauseRecord=false;
+	}
+	/**
+	 *[不好理解, 不再使用]
+	 *
+	 */
+	@Deprecated
 	public void pauseDrawPad()
 	{
 		if(renderer!=null){
@@ -702,13 +802,10 @@ public class DrawPadCameraView extends FrameLayout {
 		isPauseRefresh=true;
 	}
 	/**
-	 * 恢复之前暂停的DrawPad,让其继续画面刷新.
-	 * 
-	 *  与{@link #pauseDrawPad()}配对使用.
-	 *  
-	 *  不可用来暂停后跳入到别的Activity中.  
-	 * 如果您要跳入到别的Activity, 则应该这里 {@link #stopDrawPad()} 在回到当前Activity的时候, 调用 {@link #startDrawPad()}
+	 *[不好理解, 不再使用]
+	 *
 	 */
+	@Deprecated
 	public void resumeDrawPad()
 	{
 		if(renderer!=null){
@@ -717,10 +814,17 @@ public class DrawPadCameraView extends FrameLayout {
 		isPauseRefresh=false;
 	}
 	/**
-	 * 暂停drawpad的录制,这个方法使用在暂停录制后, 在当前画面做其他的一些操作.
+	 * [不再使用]
+	 * 暂停drawpad的录制, 此方法仅仅在内部设置一个暂停/恢复录制的标志位;
+	 * 您可以在DrawPad开始前后调用.
+	 * 
+	 * 如果startDrawPad没有开始时调用这里, 会在当startDrawPad运行后, 不开始录制; 如果您想开始录制,则用resumeDrawPadRecord来开始.
+	 * 如果startDrawPad开始后, 则这里等于暂停录制;
 	 * 
 	 * 不可用来暂停后跳入到别的Activity中.
+	 * 
 	 */
+	@Deprecated
 	public void pauseDrawPadRecord()
 	{
 		if(renderer!=null){
@@ -729,8 +833,10 @@ public class DrawPadCameraView extends FrameLayout {
 		isPauseRecord=true;
 	}
 	/**
+	 * [不好理解, 不再使用]
 	 *  如果之前在startDrawPad的时候, 只是设置了录制的各种参数,而pause了录制,这里等于开启录制
 	 */
+	@Deprecated
 	public void resumeDrawPadRecord()
 	{
 		if(renderer!=null){
@@ -750,6 +856,7 @@ public class DrawPadCameraView extends FrameLayout {
 	 private int pcmBitRate=64000;
 	 private int pcmChannels=2; //音频格式. 音频默认是双通道.
 	 
+	 private String recordExtMp3=null;
 
 	/**
 	 * 是否在CameraLayer录制的同时, 录制mic的声音.  在drawpad开始前调用. 
@@ -801,7 +908,24 @@ public class DrawPadCameraView extends FrameLayout {
 		}
 	}
 	/**
-	 * 获取一个音频输入对象, 向内部投递数据, 
+	 *  使用外部的mp3文件, 作为录制视频的音频部分.
+	 *  此方法,在startDrawPad开启前调用
+	 *  此方法增加后, 会一边播放音频, 一边录制. 
+	 *  我们会内部经过处理, 从而使录制的音频和视频画面 同步.
+	 *  
+	 * @param mp3Path  mp3文件, 当前仅支持44100的采样率,2通道
+	 * @param endloop  当播放到文件结束后, 是否要重新循环播放, 当前暂时不支持循环, 这里仅预留.
+	 */
+	public void setRecordExtraMp3(String mp3Path,boolean endloop)
+	{
+		if(renderer!=null){
+			renderer.setRecordExtraMp3(mp3Path);
+		}else{
+			recordExtMp3=mp3Path;
+		}
+	}
+	/**
+	 * 获取一个音频输入对象, 向内部投递数据,  配合setRecordExtraPcm使用, 其他地方不使用.
 	 * 只有当开启画板录制,并设置了录制外面数据的情况下,才有效.
 	 * @return
 	 */
@@ -836,6 +960,10 @@ public class DrawPadCameraView extends FrameLayout {
 			return null;	
 		}
 	}
+	/**
+	 * 当前是否正在录制.
+	 * @return
+	 */
 	public boolean isRecording()
 	{
 		if(renderer!=null)
@@ -844,7 +972,7 @@ public class DrawPadCameraView extends FrameLayout {
 			return false;
 	}
 	/**
-	 * 当前DrawPad是否在工作.
+	 * 当前DrawPad容器 线程是否在工作.
 	 * @return
 	 */
 	public boolean isRunning()
@@ -870,6 +998,9 @@ public class DrawPadCameraView extends FrameLayout {
 	 * 停止DrawPad的渲染线程 
 	 * 
 	 * 此方法仅仅在录制了外部pcm声音数据的时候使用, 其他时候,不可使用.
+	 * 
+	 * [此方法在2.6.0的时候不再使用.]
+	 * 
 	 * 如果设置了在录制的时候,设置了录制extPcm, 则返回录制音频的文件路径. 
 	 * 此方法执行后, DrawPad会释放内部所有Layer对象,您外界拿到的各种图层对象将无法再使用.
 	 * @return
@@ -989,9 +1120,14 @@ public class DrawPadCameraView extends FrameLayout {
     		return 0;
     	}
     }
+    /**
+     * 获取当前摄像头图层, 
+     * 此方法只能在startDrawPad开启后调用, 如果在之前调用,则返回null;
+     * @return
+     */
     public CameraLayer getCameraLayer()
     {
-		if(renderer!=null)
+		if(renderer!=null && renderer.isRunning())
 			return renderer.getCameraLayer();
 		else{
 			Log.e(TAG,"getCameraLayer error render is not avalid");
@@ -1209,7 +1345,7 @@ public class DrawPadCameraView extends FrameLayout {
 		     * 放大缩小画面
 		     */
 		    private boolean isZoomEvent=false;
-		    private float startDis;
+		    private float pointering;  //两个手指按下.
 		    
 			 public boolean onTouchEvent(MotionEvent event) {
 				 		
@@ -1224,7 +1360,7 @@ public class DrawPadCameraView extends FrameLayout {
 				             case MotionEvent.ACTION_POINTER_DOWN:
 				            	 //计算两个手指间的距离
 				            	 if(isRunning()){
-				            			 startDis = spacing(event);
+				            			 pointering = spacing(event);
 						                 isZoomEvent=true;	
 				            	 }
 				                 break;
@@ -1235,12 +1371,12 @@ public class DrawPadCameraView extends FrameLayout {
 				                	 if(layer!=null && event.getPointerCount()>= 2)
 				                	 {//触屏两个点时才执行
 					                     float endDis = spacing(event);// 结束距离
-					                     int scale = (int) ((endDis - startDis) / 10f);  //每变化10f zoom变1
+					                     int scale = (int) ((endDis - pointering) / 10f);  //每变化10f zoom变1
 					                     if (scale >= 1 || scale <= -1)
 					                     {
 					                         int zoom = layer.getZoom() + scale;
 					                         layer.setZoom(zoom);
-					                         startDis = endDis;
+					                         pointering = endDis;
 					                     }
 				                	 }
 				                 }
@@ -1257,6 +1393,7 @@ public class DrawPadCameraView extends FrameLayout {
 				                			 y=renderer.getTouchY(y);
 				                		 }
 				                		 layer.doFocus((int)x, (int)y);
+				                		 
 				                		 if(mDoFocusListener!=null){
 				                			 mDoFocusListener.onFocus((int)x, (int)y);
 				                		 }
@@ -1279,7 +1416,7 @@ public class DrawPadCameraView extends FrameLayout {
 			 private doFousEventListener mDoFocusListener;
 
 			   public interface doFousEventListener {
-			        void onFocus(int x, int y);
+			        void onFocus(int x,int y);
 			   }
 			   /**
 			    * 当用户按下Drawpad画面后, 会去聚焦,这里返回一个监听,显示一个聚焦的动画.

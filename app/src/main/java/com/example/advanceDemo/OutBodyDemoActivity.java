@@ -42,13 +42,8 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
-/**
- * 用来演示当前比较火的抖音的一些功能.
- * 2017年8月1日11:53:20: 目前有灵魂出窍的功能.
- */
-
-public class OutBodyDemoActivity extends Activity implements OnSeekBarChangeListener {
-    private static final String TAG = "VideoLayerRealTimeActivity";
+public class OutBodyDemoActivity extends Activity {
+    private static final String TAG = "OutBodyDemoActivity";
 
     private String mVideoPath;
 
@@ -56,16 +51,12 @@ public class OutBodyDemoActivity extends Activity implements OnSeekBarChangeList
     
     private VPlayer mplayer=null;
     private VideoLayer  mainVideoLayer=null;
-    private Layer operationLayer=null;
-    
-    
+
     private String editTmpPath=null;
     private String dstPath=null;
     private LinearLayout  playVideo;
     private MediaInfo mInfo=null;
-    private Button  btnTest;
-    private int postion=0;
- 
+    private Button  btnOutBody;
     @Override
     protected void onCreate(Bundle savedInstanceState) 
     {
@@ -80,8 +71,8 @@ public class OutBodyDemoActivity extends Activity implements OnSeekBarChangeList
     	}
     	
         mDrawPadView = (DrawPadView) findViewById(R.id.DrawPad_view);
-        btnTest=(Button)findViewById(R.id.id_drawpad_testbutton);
-        btnTest.setOnClickListener(new OnClickListener() {
+        btnOutBody=(Button)findViewById(R.id.id_outbody_button);
+        btnOutBody.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -169,7 +160,6 @@ public class OutBodyDemoActivity extends Activity implements OnSeekBarChangeList
     }
     /**
      * Step1:  init DrawPad 初始化
-     * @param mp
      */
     private void initDrawPad()
     {
@@ -213,6 +203,7 @@ public class OutBodyDemoActivity extends Activity implements OnSeekBarChangeList
 		}
 	
 		mplayer.start();
+//		addBitmapLayer();
     }
     
     /**
@@ -239,7 +230,6 @@ public class OutBodyDemoActivity extends Activity implements OnSeekBarChangeList
 		}
     }
 
-
     @Override
     protected void onPause() {
     	// TODO Auto-generated method stub
@@ -255,90 +245,16 @@ public class OutBodyDemoActivity extends Activity implements OnSeekBarChangeList
     }
    @Override
 protected void onDestroy() {
-	// TODO Auto-generated method stub
-	super.onDestroy();
-	
-    if(SDKFileUtils.fileExist(dstPath)){
-    	SDKFileUtils.deleteFile(dstPath);
-    }
-    if(SDKFileUtils.fileExist(editTmpPath)){
-    	SDKFileUtils.deleteFile(editTmpPath);
-    } 
-}
-    private float xpos=0,ypos=0;
-	
-    /**
-     * 提示:实际使用中没有主次之分, 只要是继承自Layer的对象,都可以调节,这里仅仅是举例
-     * 可以调节的有:平移,旋转,缩放,RGBA值,显示/不显示(闪烁)效果.
-     */
-	@Override
-	public void onProgressChanged(SeekBar seekBar, int progress,
-			boolean fromUser) {
-		// TODO Auto-generated method stub
-		switch (seekBar.getId()) {
-			case R.id.id_DrawPad_skbar_rotate:
-				if(operationLayer!=null){
-					operationLayer.setRotate(progress);
-				}
-				break;
-			case R.id.id_DrawPad_skbar_moveX:
-					if(operationLayer!=null){
-						 xpos+=10;
-						 if(xpos>mDrawPadView.getViewWidth())
-							 xpos=0;
-						 operationLayer.setPosition(xpos, operationLayer.getPositionY());
-					}
-				break;	
-			case R.id.id_DrawPad_skbar_moveY:
-				if(operationLayer!=null){
-					 ypos+=10;
-					 if(ypos>mDrawPadView.getViewWidth())
-						 ypos=0;
-					 operationLayer.setPosition(operationLayer.getPositionX(), ypos);
-				}
-			break;				
-			case R.id.id_DrawPad_skbar_scale:
-				if(operationLayer!=null){
-					float scale=(float)progress/100;
-					int width=(int)(operationLayer.getLayerWidth() * scale);
-					operationLayer.setScaledValue(width, operationLayer.getLayerHeight());
-				}
-			break;		
-			case R.id.id_DrawPad_skbar_brightness:
-					if(operationLayer!=null){
-						float value=(float)progress/100;
-						//同时调节RGB的比例, 让他慢慢亮起来,或暗下去.
-						operationLayer.setRedPercent(value);  
-						operationLayer.setGreenPercent(value); 
-						operationLayer.setBluePercent(value);  
-					}
-				break;
-			case R.id.id_DrawPad_skbar_alpha:
-				if(operationLayer!=null){
-					float value=(float)progress/100;
-					operationLayer.setAlphaPercent(0.01f);
-				}
-				break;
-			case R.id.id_DrawPad_skbar_background:
-//				if(operationLayer!=null){
-//					float value=(float)progress/100;
-//					operationLayer.setBackgroundBlurFactor(value);
-//				}
-				break;
-			default:
-				break;
-		}
-	}
-	@Override
-	public void onStartTrackingTouch(SeekBar seekBar) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void onStopTrackingTouch(SeekBar seekBar) {
-		// TODO Auto-generated method stub
-		
-	}
+	   // TODO Auto-generated method stub
+	   super.onDestroy();
+
+	   if (SDKFileUtils.fileExist(dstPath)) {
+		   SDKFileUtils.deleteFile(dstPath);
+	   }
+	   if (SDKFileUtils.fileExist(editTmpPath)) {
+		   SDKFileUtils.deleteFile(editTmpPath);
+	   }
+   }
 	 private void toastStop()
 	    {
 	    	Toast.makeText(getApplicationContext(), "录制已停止!!", Toast.LENGTH_SHORT).show();

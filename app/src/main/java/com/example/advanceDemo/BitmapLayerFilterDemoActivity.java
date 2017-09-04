@@ -8,21 +8,13 @@ import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 
 import com.example.advanceDemo.GPUImageFilterTools.FilterAdjuster;
 import com.example.advanceDemo.GPUImageFilterTools.OnGpuImageFilterChosenListener;
-import com.example.advanceDemo.view.ShowHeart;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.BitmapLayer;
-import com.lansosdk.box.CanvasLayer;
-import com.lansosdk.box.CanvasRunnable;
 import com.lansosdk.box.DrawPad;
 import com.lansosdk.box.DrawPadUpdateMode;
-import com.lansosdk.box.MVLayer;
-import com.lansosdk.box.VideoLayer;
-import com.lansosdk.box.ViewLayer;
-import com.lansosdk.box.Layer;
 import com.lansosdk.box.onDrawPadCompletedListener;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
-import com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask;
 import com.lansosdk.videoeditor.CopyFileFromAssets;
 import com.lansosdk.videoeditor.DrawPadView;
 import com.lansosdk.videoeditor.MediaInfo;
@@ -35,25 +27,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.media.MediaPlayer;
-import android.media.MediaPlayer.OnCompletionListener;
-import android.media.MediaPlayer.OnErrorListener;
-import android.media.MediaPlayer.OnInfoListener;
-import android.media.MediaPlayer.OnPreparedListener;
-import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Surface;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.LinearLayout;
 import android.widget.SeekBar;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
@@ -219,11 +198,11 @@ public class BitmapLayerFilterDemoActivity extends Activity{
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				 if(SDKFileUtils.fileExist(dstPath)){
-		   			 	Intent intent=new Intent(BitmapLayerFilterDemoActivity.this,VideoPlayerActivity.class);
+		   			 	Intent intent=new Intent(mContext,VideoPlayerActivity.class);
 			    	    	intent.putExtra("videopath", dstPath);
 			    	    	startActivity(intent);
 		   		 }else{
-		   			 Toast.makeText(BitmapLayerFilterDemoActivity.this, "目标文件不存在", Toast.LENGTH_SHORT).show();
+		   			 Toast.makeText(mContext, "目标文件不存在", Toast.LENGTH_SHORT).show();
 		   		 }
 			}
 		});

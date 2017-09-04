@@ -32,9 +32,10 @@
           android:background="@drawable/function_item_btn_bg"
           android:layout_marginTop="20dip">
           
-           	 <TextView   android:text="提示:(测试所有帧的速度)是真实的获取帧的速度.\n其他因为有UI界面加载和缓存的影响,表象略慢一些.\n"
+           	 <TextView   android:text="提示:(测试所有帧的速度)是真实的获取帧的速度.\n其他因为有UI界面加载和缓存的影响,表象略慢一些.\n,支持:任意时间段提取, 间隔提取等"
            	     android:layout_width="match_parent"
-           	     android:layout_height="80dip"/>
+           	     android:textSize="16dip"
+           	     android:layout_height="120dip"/>
 	</RelativeLayout>
 
 </LinearLayout>

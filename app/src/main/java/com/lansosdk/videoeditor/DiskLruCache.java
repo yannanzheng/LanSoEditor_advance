@@ -210,7 +210,7 @@ public final class DiskLruCache implements Closeable {
      * Returns the ASCII characters up to but not including the next "\r\n", or
      * "\n".
      *
-     * @throws EOFException if the stream is exhausted before the next newline
+     * @throws java.io.EOFException if the stream is exhausted before the next newline
      *     character.
      */
     public static String readAsciiLine(InputStream in) throws IOException {
@@ -303,7 +303,7 @@ public final class DiskLruCache implements Closeable {
      * @param appVersion
      * @param valueCount the number of values per cache entry. Must be positive.
      * @param maxSize the maximum number of bytes this cache should use to store
-     * @throws IOException if reading or writing the cache directory fails
+     * @throws java.io.IOException if reading or writing the cache directory fails
      */
     public static DiskLruCache open(File directory, int appVersion, int valueCount, long maxSize)
             throws IOException {

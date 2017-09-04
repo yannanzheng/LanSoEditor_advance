@@ -13,6 +13,7 @@
             android:layout_height="wrap_content"
             />
       
+      
       <LinearLayout 
           android:id="@+id/id_DrawPad_saveplay"
         android:layout_width="wrap_content"
@@ -66,7 +67,8 @@
 		         	<!-- Y方向 --> 	
 		         <LinearLayout  android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
 		              <TextView android:layout_width="0dip" android:layout_weight="2" android:layout_height="wrap_content" android:text="垂直移动"/>
-		                <SeekBar android:id="@+id/id_DrawPad_skbar_moveY" android:layout_width="0dip" android:layout_weight="6" android:layout_height="wrap_content"
+		                <SeekBar android:id="@+id/id_DrawPad_skbar_moveY" 
+		                    android:layout_width="0dip" android:layout_weight="6" android:layout_height="wrap_content"
 					      android:layout_margin="5dip"/>
 		          	</LinearLayout>
 				<!-- 亮暗-->
@@ -83,8 +85,11 @@
 		          	</LinearLayout>
 		         <!-- 背景调节 --> 	
 				 	<LinearLayout  android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
-		              <TextView android:layout_width="0dip" android:layout_weight="2" android:layout_height="wrap_content" android:text="增加背景"/>
-		                <SeekBar android:id="@+id/id_DrawPad_skbar_background" android:layout_width="0dip" android:layout_weight="6" android:layout_height="wrap_content"
+		              
+		              <TextView android:layout_width="0dip" android:layout_weight="2" 
+		                  android:layout_height="wrap_content" android:text="增加背景"/>
+		                <SeekBar android:id="@+id/id_DrawPad_skbar_background" android:layout_width="0dip" 
+		                    android:layout_weight="6" android:layout_height="wrap_content"
 					      android:layout_margin="5dip"/>
 		          	</LinearLayout>
 		          	

@@ -8,6 +8,7 @@ import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
 
 import com.example.advanceDemo.view.BitmapCache;
 import com.example.advanceDemo.view.ShowHeart;
+import com.example.advanceDemo.view.SlidingLayer;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.BitmapLayer;
 import com.lansosdk.box.BitmapLoader;
@@ -57,14 +58,7 @@ import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
 /**
- * 演示: 使用DrawPad来实现 视频和图片的实时叠加. 
- * 
- * 流程是: 
- * 先创建一个DrawPad,然后在视频播放过程中,从DrawPad中增加一个BitmapLayer,然后可以调节SeekBar来对Layer的每个
- * 参数进行调节.
- * 
- * 可以调节的有:平移,旋转,缩放,RGBA值,显示/不显示(闪烁)效果.
- * 实际使用中, 可用这些属性来做些动画,比如平移+RGBA调节,呈现舒缓移除的效果. 缓慢缩放呈现照片播放效果;旋转呈现欢快的炫酷效果等等.
+ * 演示<双视频图层>的功能.
  */
 
 public class TwoVideoLayerRealTimeActivity extends Activity implements OnSeekBarChangeListener {
@@ -76,7 +70,7 @@ public class TwoVideoLayerRealTimeActivity extends Activity implements OnSeekBar
     
     private MediaPlayer mplayer=null;
     private MediaPlayer mplayer2=null;
-    private TwoVideoLayer  videoMainLayer=null;
+    private TwoVideoLayer  twoVideoLayer=null;
     private VideoLayer operationLayer=null;
     
     
@@ -84,13 +78,16 @@ public class TwoVideoLayerRealTimeActivity extends Activity implements OnSeekBar
     private String dstPath=null;
     private LinearLayout  playVideo;
     private  MediaInfo mInfo;
+    private boolean isDisplayed;
     @Override
     protected void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.drawpad_layout);
+        setContentView(R.layout.twovideolayer_demo_layout);
         
         mVideoPath = getIntent().getStringExtra("videopath");
+        mVideoPath="/sdcard/960x544.mp4";
+        
         mDrawPadView = (DrawPadView) findViewById(R.id.DrawPad_view);
         mInfo=new MediaInfo(mVideoPath,false);
         if(mInfo.prepare()==false)
@@ -99,19 +96,6 @@ public class TwoVideoLayerRealTimeActivity extends Activity implements OnSeekBar
         	 this.finish();
         }
         
-        initSeekBar(R.id.id_DrawPad_skbar_rotate,360); //角度是旋转360度,如果值大于360,则取360度内剩余的角度值.
-        initSeekBar(R.id.id_DrawPad_skbar_moveX,100);
-        initSeekBar(R.id.id_DrawPad_skbar_moveY,100);
-        
-        initSeekBar(R.id.id_DrawPad_skbar_scale,800);   //这里设置最大可放大8倍
-        
-        initSeekBar(R.id.id_DrawPad_skbar_brightness,100);  //red最大为100
-        initSeekBar(R.id.id_DrawPad_skbar_alpha,100);
-        initSeekBar(R.id.id_DrawPad_skbar_background,800);
-        
-        
-    	
-    	
         playVideo=(LinearLayout)findViewById(R.id.id_DrawPad_saveplay);
         playVideo.setOnClickListener(new OnClickListener() {
 			
@@ -128,7 +112,6 @@ public class TwoVideoLayerRealTimeActivity extends Activity implements OnSeekBar
 			}
 		});
         playVideo.setVisibility(View.GONE);
-
         //在手机的默认路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
         editTmpPath=SDKFileUtils.newMp4PathInBox();
         dstPath=SDKFileUtils.newMp4PathInBox();
@@ -142,18 +125,6 @@ public class TwoVideoLayerRealTimeActivity extends Activity implements OnSeekBar
 				startPlayVideo();
 			}
 		}, 500);
-    }
-    private void initSeekBar(int resId,int maxvalue)
-    {
-    	   SeekBar skbar=(SeekBar)findViewById(resId);
-           skbar.setOnSeekBarChangeListener(this);
-           skbar.setMax(maxvalue);
-    }
-    @Override
-    protected void onResume() {
-    	// TODO Auto-generated method stub
-    	super.onResume();
-    	
     }
     /**
      * VideoLayer是外部提供画面来源, 您可以用你们自己的播放器作为画面输入源,也可以用原生的MediaPlayer,只需要视频播放器可以设置surface即可.
@@ -204,13 +175,11 @@ public class TwoVideoLayerRealTimeActivity extends Activity implements OnSeekBar
      */
     private void initDrawPad(MediaPlayer mp)
     {
-    	
-        	
-        	int padWidth=480;
-        	int padHeight=480;
+        	int padWidth=544;
+        	int padHeight=960;
         	
         	//设置使能 实时录制, 即把正在DrawPad中呈现的画面实时的保存下来,实现所见即所得的模式
-        	mDrawPadView.setRealEncodeEnable(padWidth,padHeight,1000000,(int)mInfo.vFrameRate,editTmpPath);
+        	mDrawPadView.setRealEncodeEnable(padWidth,padHeight,3000000,(int)mInfo.vFrameRate,editTmpPath);
         	mDrawPadView.setOnDrawPadProgressListener(new onDrawPadProgressListener() {
 				
 				@Override
@@ -219,16 +188,16 @@ public class TwoVideoLayerRealTimeActivity extends Activity implements OnSeekBar
 				}
 			});
         	
-        	mDrawPadView.setUpdateMode(DrawPadUpdateMode.AUTO_FLUSH, (int)mInfo.vFrameRate);
+//        	mDrawPadView.setUpdateMode(DrawPadUpdateMode.AUTO_FLUSH, (int)mInfo.vFrameRate);
         	
         		//设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
     		mDrawPadView.setDrawPadSize(padWidth,padHeight,new onDrawPadSizeChangedListener() {
-			@Override
-			public void onSizeChanged(int viewWidth, int viewHeight) {
-				// TODO Auto-generated method stub
-				startDrawPad();
-			}
-		});
+				@Override
+				public void onSizeChanged(int viewWidth, int viewHeight) {
+					// TODO Auto-generated method stub
+					startDrawPad();
+				}
+    		});
     }
     /**
      * Step2: 开始运行 Drawpad
@@ -245,29 +214,48 @@ public class TwoVideoLayerRealTimeActivity extends Activity implements OnSeekBar
 		mDrawPadView.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.videobg));
 		
 		//增加一个主视频的 VideoLayer
-		videoMainLayer=mDrawPadView.addTwoVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight());
+		twoVideoLayer=mDrawPadView.addTwoVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight());
 		
-		if(videoMainLayer!=null)
+		twoVideoLayer.setSecondVideoMirror(true, false);
+		
+		if(twoVideoLayer!=null)
 		{
-			mplayer.setSurface(new Surface(videoMainLayer.getVideoTexture()));
+			mplayer.setSurface(new Surface(twoVideoLayer.getVideoTexture()));
 		}
-	
-		
 		mplayer.start();
 	
-		  mplayer2=new MediaPlayer();
-    	  try {
-			mplayer2.setDataSource("/sdcard/mask.mp4");
-			mplayer2.prepare();
-			
-			mplayer2.setSurface(new Surface(videoMainLayer.getVideoTexture2()));
-			mplayer2.start();
-		}  catch (IOException e) {
+		mplayer2=new MediaPlayer();
+  	  try {
+				mplayer2.setDataSource("/sdcard/taohua.mp4");
+				mplayer2.prepare();
+				mplayer2.setSurface(new Surface(twoVideoLayer.getVideoTexture2()));
+				mplayer2.start();
+		  }  catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			  e.printStackTrace();
+		 }
 		addBitmapLayer();
 		mDrawPadView.resumeDrawPad();
+    }
+    private void changeMp2()
+    {
+    	if(mplayer2!=null){
+    		mplayer2.stop();
+    		mplayer2.release();
+    		mplayer2=null;
+    	}
+    	mplayer2=new MediaPlayer();
+  	  try {
+				mplayer2.setDataSource("/sdcard/mask.mp4");
+				mplayer2.prepare();
+				
+				mplayer2.setSurface(new Surface(twoVideoLayer.getVideoTexture2()));
+				mplayer2.start();
+		  }  catch (IOException e) {
+			// TODO Auto-generated catch block
+			  e.printStackTrace();
+		 }
+    	
     }
     
     /**

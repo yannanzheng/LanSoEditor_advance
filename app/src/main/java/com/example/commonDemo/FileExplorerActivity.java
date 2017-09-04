@@ -123,7 +123,10 @@ public class FileExplorerActivity extends ListActivity {
 			if(!checkExtension(file)) {
 				Toast.makeText(this, "Not Support This File extensions!", Toast.LENGTH_LONG).show();
 				return;
+				
+				
 			}else if(MediaInfo.isSupport(file.getAbsolutePath())){
+				
 				startPlayer(file.getAbsolutePath());
 			}else{
 				Toast.makeText(this, "Not Support This File extensions!", Toast.LENGTH_LONG).show();

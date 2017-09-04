@@ -63,7 +63,7 @@ public class CameraLayerRectActivity extends Activity implements Handler.Callbac
    
 	private static final long RECORD_CAMERA_TIME=20*1000*1000; //定义录制的时间为20s
 	
-	private static final String TAG = "CameraLayerRectActivity";
+	private static final String TAG = "CameraLayerDemoActivity";
 
     private DrawPadCameraView mDrawPad;
     
@@ -144,9 +144,15 @@ public class CameraLayerRectActivity extends Activity implements Handler.Callbac
      */
     private void startDrawPad()
     {
-    	if(mDrawPad.startDrawPad())
+    	if(mDrawPad.setupDrawpad())
     	{
     		mCameraLayer=mDrawPad.getCameraLayer();
+    		
+    		/**
+    		 * 可以在这里增加别的图层.
+    		 */
+    		mDrawPad.startPreview();
+    		mDrawPad.startRecord();
     	}
     }
     private onDrawPadProgressListener drawPadProgressListener=new onDrawPadProgressListener() {

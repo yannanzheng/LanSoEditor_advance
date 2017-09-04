@@ -1,5 +1,7 @@
 package com.lansosdk.videoeditor;
 
+import com.lansosdk.box.LanSoEditorBox;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -15,6 +17,7 @@ public class LanSoEditor {
 		  public static void initSo(Context context,String keyfile)
 		  {
 		    	    nativeInit(context,context.getAssets(),keyfile);
+		    	    LanSoEditorBox.init();  //新增初始化box包.
 		  }
 	    public static void unInitSo()
 	    {

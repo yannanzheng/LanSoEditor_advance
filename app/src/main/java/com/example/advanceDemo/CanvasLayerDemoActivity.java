@@ -87,8 +87,6 @@ public class CanvasLayerDemoActivity extends Activity {
             Log.e(TAG, " video path is error.finish\n");
             finish();
         }
-        
-        
         mDrawPadView = (DrawPadView) findViewById(R.id.id_canvaslayer_drawpadview);
         
         playVideo=(LinearLayout)findViewById(R.id.id_canvasLayer_saveplay);
@@ -181,9 +179,22 @@ public class CanvasLayerDemoActivity extends Activity {
 			public void onSizeChanged(int viewWidth, int viewHeight) {
 				// TODO Auto-generated method stub
 				// 开始DrawPad的渲染线程. 
-				startDrawPad();
-			}
-		});
+					startDrawPad();
+				}
+    		});
+    		
+    		mDrawPadView.setOnDrawPadProgressListener(new onDrawPadProgressListener() {
+				
+				@Override
+				public void onProgress(DrawPad v, long currentTimeUs) {
+					// TODO Auto-generated method stub
+					
+					if(currentTimeUs>20*1000*1000){
+						mDrawPadView.removeLayer(mCanvasLayer);	
+						mCanvasLayer=null;
+					}
+				}
+			});
     }
     /**
      * Step2: 开始运行画板
@@ -272,8 +283,7 @@ public class CanvasLayerDemoActivity extends Activity {
 						mShowHeart.drawTrack(canvas);
 					}
 				});
-				
-	            //Canvas图层的移动缩放旋转.
+	            //以下是测试:Canvas图层的移动缩放旋转.
 //				mCanvasLayer.setScale(0.5f);
 //				mCanvasLayer.setRotate(60);
 //				mCanvasLayer.setPosition(mCanvasLayer.getPadWidth()-mCanvasLayer.getLayerWidth()/4,mCanvasLayer.getPositionY()/4);

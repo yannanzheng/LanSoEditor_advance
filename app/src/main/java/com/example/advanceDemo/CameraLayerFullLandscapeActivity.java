@@ -17,6 +17,7 @@ import com.lansosdk.videoeditor.CopyFileFromAssets;
 import com.lansosdk.videoeditor.DrawPadCameraView;
 import com.lansosdk.videoeditor.LanSongUtil;
 import com.lansosdk.videoeditor.SDKFileUtils;
+import com.lansosdk.videoeditor.VideoEditor;
 import com.lansosdk.videoeditor.DrawPadCameraView.doFousEventListener;
 import com.lansosdk.videoeditor.DrawPadCameraView.onViewAvailable;
 
@@ -46,7 +47,7 @@ import android.widget.Toast;
  */
 public class CameraLayerFullLandscapeActivity extends Activity implements OnClickListener{
    
-	private static final long RECORD_CAMERA_TIME=15*1000*1000; //定义录制的时间为20s
+	private static final long RECORD_CAMERA_TIME=5*1000*1000; //定义录制的时间为20s
 	
 	private static final String TAG = "CameraLayerFullLandscapeActivity";
 
@@ -57,7 +58,7 @@ public class CameraLayerFullLandscapeActivity extends Activity implements OnClic
     private String dstPath=null;
     
 	private FocusImageView focusView;
-
+	
 	private PowerManager.WakeLock mWakeLock;
 	private ViewLayer mViewLayer=null;
     private ViewLayerRelativeLayout mLayerRelativeLayout;
@@ -107,17 +108,18 @@ public class CameraLayerFullLandscapeActivity extends Activity implements OnClic
     	 //因手机屏幕是16:9;全屏模式,建议分辨率设置为960x544;
     	 int padWidth=960;  
     	 int padHeight=544;
+    	 int bitrate=3000*1024;
     	 
-    	mDrawPadCamera.setRealEncodeEnable(padWidth,padHeight,3000*1024,(int)25,dstPath);
+    	mDrawPadCamera.setRealEncodeEnable(padWidth,padHeight,bitrate,(int)25,dstPath);
     	mDrawPadCamera.setOnDrawPadProgressListener(drawPadProgressListener); //设置进度回调 
     	
-    	
+    	mDrawPadCamera.setRecordMic(true);
     	mDrawPadCamera.setCameraParam(false, null,true);  //设置是否前置.
     	/**
     	 * 设置当聚焦时的UI动画.
     	 */
     	mDrawPadCamera.setCameraFocusListener(new doFousEventListener() {
-
+			
 			@Override
 			public void onFocus(int x, int y) {
 				// TODO Auto-generated method stub
@@ -138,14 +140,16 @@ public class CameraLayerFullLandscapeActivity extends Activity implements OnClic
      */
       private void startDrawPad()
       {
-    	  	mDrawPadCamera.setRecordMic(true);
-		  Log.i(TAG,"onViewAvaiable  drawPad工作	"+mDrawPadCamera.getDrawPadHeight()+mDrawPadCamera.getDrawPadWidth());
-    	    if(mDrawPadCamera.startDrawPad())
+    	    if(mDrawPadCamera.setupDrawpad())
     	    {
     	    	mCameraLayer=mDrawPadCamera.getCameraLayer();
+    	    
 //        		addViewLayer();
 //        		addBitmapLayer();
 //        		addMVLayer();
+    	    	
+    	    	mDrawPadCamera.startPreview();
+    	    	mDrawPadCamera.startRecord();
     	    }
       }
       /**
@@ -376,9 +380,9 @@ public class CameraLayerFullLandscapeActivity extends Activity implements OnClic
 					if(mDrawPadCamera.isRunning() && CameraLayer.isSupportFrontCamera())  
 					{
 						//先把DrawPad暂停运行.
-						mDrawPadCamera.pauseDrawPad();
+						mDrawPadCamera.pausePreview();
 						mCameraLayer.changeCamera();	
-						mDrawPadCamera.resumeDrawPad(); //再次开启.
+						mDrawPadCamera.resumePreview(); //再次开启.
 					}
 				}
 				break;

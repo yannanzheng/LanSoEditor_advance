@@ -422,6 +422,42 @@ public class VideoEditor {
 		     } 
 		     return  executeVideoEditor(command);
 	  }
+	  
+	  /**
+	   * 创建一个静音的音频文件, [为客户而写, 没有测试]
+	   * @param sampleRate  采样率
+	   * @param channels 通道号, 如果是双通道,则这里是4
+	   * @param duration  静音的时长
+	   * @param dstPath  目标文件, 后缀是wav
+	   * @return
+	   */
+	  public int executeCreateMuteAudio(int sampleRate,int channels, int duration, String dstPath)
+	  {
+		//ffmpeg -f lavfi -i "anullsrc=r=44100:cl=4" -t 5 -c:a pcm_s16le test2.wav  //创建一个44100, 双通道的音频
+		  List<String> cmdList=new ArrayList<String>();
+			String source=String.format(Locale.getDefault(),"anullsrc=r=%d:cl=%d",sampleRate,channels/2);
+			
+			
+			cmdList.add("-f");
+			cmdList.add("lavfi");
+
+			cmdList.add("-i");
+			cmdList.add(source);
+
+			cmdList.add("-t");
+			cmdList.add(String.valueOf(duration));
+			
+			cmdList.add("--c:a");
+			cmdList.add("pcm_s16le");
+			
+			cmdList.add("-y");
+			cmdList.add(dstPath);
+			String[] command=new String[cmdList.size()];  
+		     for(int i=0;i<cmdList.size();i++){  
+		    	 command[i]=(String)cmdList.get(i);  
+		     } 
+		     return  executeVideoEditor(command);
+	  }
 	  /**
 	   * 两个音频文件混合.
 	   * 混合后的文件压缩格式是aac格式, 故需要您dstPath的后缀是aac或m4a.
@@ -728,11 +764,14 @@ public class VideoEditor {
 			  
 			  MediaInfo vInfo=new MediaInfo(videoFile,false);
 			  MediaInfo aInfo=new MediaInfo(audioFile,false);
-			  if(vInfo.prepare() && aInfo.prepare()){
-				  
-					  if(aInfo.aCodecName.equals("aac")){
+			  
+			  boolean vRet=vInfo.prepare() ;
+			  boolean aRet=aInfo.prepare();
+			  if(vRet && aRet){
+
+				  if(aInfo.aCodecName.equals("aac")){
 						  isAAC=true;
-					  }
+				    }
 					List<String> cmdList=new ArrayList<String>();
 			    	cmdList.add("-i");
 					cmdList.add(videoFile);
@@ -759,6 +798,7 @@ public class VideoEditor {
 				    return  executeVideoEditor(command);
 				  
 			  }else{
+				  Log.e(TAG,"executeVideoMergeAudio error:"+vRet+aRet+vInfo.toString()+ " AINFO:"+aInfo.toString());
 				  return VIDEO_EDITOR_EXECUTE_FAILED;
 			  }
 		  }

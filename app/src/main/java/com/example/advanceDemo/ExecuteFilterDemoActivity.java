@@ -1,6 +1,14 @@
 package com.example.advanceDemo;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
+import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSwirlFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageToneCurveFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.IF1977Filter;
+import jp.co.cyberagent.lansongsdk.gpuimage.IFRiseFilter;
 
 
 import android.app.Activity;
@@ -10,6 +18,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -18,13 +28,21 @@ import android.widget.Toast;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.BitmapLayer;
 import com.lansosdk.box.DrawPad;
+import com.lansosdk.box.DrawPadVideoRunnable;
+import com.lansosdk.box.Layer;
+import com.lansosdk.box.VideoLayer;
+import com.lansosdk.box.ViewLayer;
 import com.lansosdk.box.onDrawPadCompletedListener;
 import com.lansosdk.box.onDrawPadProgressListener;
+import com.lansosdk.box.onScaleCompletedListener;
+import com.lansosdk.box.onScaleProgressListener;
 import com.lansosdk.videoeditor.DrawPadVideoExecute;
+import com.lansosdk.videoeditor.LanSoEditor;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
+import com.lansosdk.videoeditor.onVideoEditorProgressListener;
 
 /**
  * 演示Layer中的滤镜属性在后台工作的场合, 
@@ -55,6 +73,7 @@ public class ExecuteFilterDemoActivity extends Activity{
 	private DrawPadVideoExecute  mDrawPad=null;
 	private boolean isExecuting=false;
 		
+	private Layer  mainVideoLayer=null;
 	private static final String TAG="FilterDemoExecuteActivity";
 	
    	private static final boolean VERBOSE = false; 
@@ -65,6 +84,8 @@ public class ExecuteFilterDemoActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		 
 		 videoPath=getIntent().getStringExtra("videopath");
+		 
+		 
 		 mInfo=new MediaInfo(videoPath);
 		 mInfo.prepare();
 		 
@@ -91,6 +112,8 @@ public class ExecuteFilterDemoActivity extends Activity{
         	   SDKFileUtils.deleteFile(editTmpPath);
            } 
     }
+	long  beforeDraw=0;
+	private boolean isSwitch=false;
 	/**
 	 * 
 	 */
@@ -99,6 +122,8 @@ public class ExecuteFilterDemoActivity extends Activity{
 		if(isExecuting)
 			return ;
 		
+		  beforeDraw=System.currentTimeMillis();
+	    
 		isExecuting=true;
 		//设置pad的宽度和高度.
 		int padWidth=mInfo.vWidth;
@@ -112,68 +137,91 @@ public class ExecuteFilterDemoActivity extends Activity{
 				 (int)(mInfo.vBitRate*1.5f)
 				 ,new IF1977Filter(getApplicationContext()),editTmpPath);
 		 
+		 mDrawPad.setUseMainVideoPts(true);
 		
-		 //设置DrawPad处理的进度监听, 回传的currentTimeUs单位是微秒.
+		 /**
+		  * 设置DrawPad处理的进度监听, 回传的currentTimeUs单位是微秒.
+		  */
 		mDrawPad.setDrawPadProgressListener(new onDrawPadProgressListener() {
 			
 			@Override
 			public void onProgress(DrawPad v, long currentTimeUs) {
 				// TODO Auto-generated method stub
-				tvProgressHint.setText(String.valueOf(currentTimeUs));
-			
-				//6秒后消失
-				if(currentTimeUs>6000000 && bitmapLayer!=null)  
-					v.removeLayer(bitmapLayer);
-				
-				//3秒的时候,放大一倍.
-				if(currentTimeUs>3000000 && bitmapLayer!=null)  
-					bitmapLayer.setScale(2.0f);
+				drawPadProgress(v, currentTimeUs);
 			}
 		});
-		//设置DrawPad处理完成后的监听.
+		/**
+		 * 设置DrawPad处理完成后的监听.
+		 */
 		mDrawPad.setDrawPadCompletedListener(new onDrawPadCompletedListener() {
 			
 			@Override
 			public void onCompleted(DrawPad v) {
 				// TODO Auto-generated method stub
-				tvProgressHint.setText("DrawPadExecute Completed!!!");
-				
-				isExecuting=false;
-				
-				if(SDKFileUtils.fileExist(editTmpPath)){
-					//合并音频文件.
-					boolean ret=VideoEditor.encoderAddAudio(videoPath, editTmpPath,SDKDir.TMP_DIR,dstPath);
-					if(!ret){
-						dstPath=editTmpPath;
-					}
-				}
-				  findViewById(R.id.id_video_edit_btn2).setEnabled(true);
+				drawPadCompleted();
 			}
 		});
 
 		mDrawPad.pauseRecord();
+		
 		if(mDrawPad.startDrawPad())
 		{
+			//增加两个图层
 			bitmapLayer=mDrawPad.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
 			bitmapLayer.setPosition(300, 200);
+			
 			mDrawPad.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.xiaolian));
 			
-			mDrawPad.resumeRecord();
+			//获取主图层.
+			mainVideoLayer=mDrawPad.getMainVideoLayer();
+			mDrawPad.resumeRecord();  //开始恢复处理.
 		}else{
 			new AlertDialog.Builder(this)
-					.setTitle("提示")
-					.setMessage("DrawPad运行错误,请查看下相关的参数.")
-					.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-						
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							// TODO Auto-generated method stub
-						}
-					})
-					.show();
+			.setTitle("提示")
+			.setMessage("DrawPad开启错误.或许视频分辨率过高导致..")
+	        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+				}
+			})
+	        .show();
 		}
-		
-		
+	}
+	
+	/**
+	 * DrawPad容器的进度监听, 走到什么位置后,设置对应的内容.
+	 * @param v
+	 * @param currentTimeUs
+	 */
+	private void drawPadProgress(DrawPad v,long currentTimeUs)
+	{
+		tvProgressHint.setText(String.valueOf(currentTimeUs));
+		//演示在中间切换滤镜
+		if(currentTimeUs>3*1000*1000 && mainVideoLayer!=null && isSwitch==false){
+			ArrayList<GPUImageFilter>  lists=new ArrayList<GPUImageFilter>();
+			lists.add(new GPUImageSwirlFilter());
+			mDrawPad.switchFilterList(mainVideoLayer, lists);
+			
+			isSwitch=false;
+		}
+	}
+	/**
+	 * 完成后, 去播放
+	 */
+	private void drawPadCompleted()
+	{
+		tvProgressHint.setText("DrawPadExecute Completed!!!");
+		isExecuting=false;
+		if(SDKFileUtils.fileExist(editTmpPath)){
+			//合并音频文件.
+			boolean ret=VideoEditor.encoderAddAudio(videoPath, editTmpPath,SDKDir.TMP_DIR,dstPath);
+			if(!ret){
+				dstPath=editTmpPath;
+			}
+		}
+		  findViewById(R.id.id_video_edit_btn2).setEnabled(true);
 	}
 	private void showHintDialog()
 	{
@@ -193,7 +241,6 @@ public class ExecuteFilterDemoActivity extends Activity{
 	}
 	private void initView()
 	{
-		 
 		 tvHint=(TextView)findViewById(R.id.id_video_editor_hint);
 		 tvHint.setText(R.string.filterLayer_execute_hint);
 		 tvProgressHint=(TextView)findViewById(R.id.id_video_edit_progress_hint);

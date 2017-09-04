@@ -179,7 +179,8 @@ public class CameraLayerFullSegmentActivity extends Activity implements OnClickL
     	  */
     	 int padWidth=544;  
     	 int padHeight=960;
-    	 
+    		
+    	 mDrawPadCamera.setRecordMic(true);
     	mDrawPadCamera.setRealEncodeEnable(padWidth,padHeight,3000000,(int)25,SDKFileUtils.newMp4PathInBox());
     	
     	mDrawPadCamera.setCameraParam(false,null , false);
@@ -201,17 +202,11 @@ public class CameraLayerFullSegmentActivity extends Activity implements OnClickL
      */
       private void startDrawPad()
       {
-    	  	mDrawPadCamera.setRecordMic(true);
-    		/**
-        	 * 这里设置先不开始录制.
-        	 */
-        	mDrawPadCamera.pauseDrawPadRecord();
-        	/**
-        	 * 开启画板 DrawPad.
-        	 */
-    	    if(mDrawPadCamera.startDrawPad())
+    	    if(mDrawPadCamera.setupDrawpad())
     	    {
     	    	mCameraLayer=mDrawPadCamera.getCameraLayer();
+    	    	
+    	    	mDrawPadCamera.startPreview();
     	    }
       }
       /**
@@ -370,9 +365,9 @@ public class CameraLayerFullSegmentActivity extends Activity implements OnClickL
 					if(mDrawPadCamera.isRunning() && CameraLayer.isSupportFrontCamera())  
 					{
 						//先把DrawPad暂停运行.
-						mDrawPadCamera.pauseDrawPad();
+						mDrawPadCamera.pausePreview();
 						mCameraLayer.changeCamera();	
-						mDrawPadCamera.resumeDrawPad(); //再次开启.
+						mDrawPadCamera.resumePreview(); //再次开启.
 					}
 				}
 				break;

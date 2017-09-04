@@ -277,9 +277,10 @@ public class DrawPadVideoExecute {
 		}
 	}
 	/**
-	 * 设置每处理一帧的数据预览监听, 等于把当前处理的这一帧的画面拉出来,
+	 * 设置每处理一帧的数据监听, 等于把当前处理的这一帧的画面拉出来,
 	 * 您可以根据这个画面来自行的编码保存, 或网络传输.
-	 * 注意:此回调是在编码的时候执行的, 您需要先设置编码的各种参数, 并启动编码,这里才会触发. 回调的频率等于编码的帧率
+	 * 
+	 * 建议在这里拿到数据后, 放到queue中, 然后在其他线程中来异步读取queue中的数据, 请注意queue中数据的总大小, 要及时处理和释放, 以免内存过大,造成OOM问题
 	 * 
 	 * @param listener 监听对象
 	 */
@@ -287,6 +288,12 @@ public class DrawPadVideoExecute {
 	{
 		if(renderer!=null){
 			renderer.setDrawpadOutFrameListener(padWidth, padHeight, 1,listener);
+		}
+	}
+	public void setDrawPadOutFrameListener(int width,int height,onDrawPadOutFrameListener listener)
+	{
+		if(renderer!=null){
+			renderer.setDrawpadOutFrameListener(width, height, 1,listener);
 		}
 	}
 	/**
@@ -385,21 +392,9 @@ public class DrawPadVideoExecute {
     * @param startTimeMs 设置从主音频的哪个时间点开始插入.单位毫秒.
     * @param durationMs   把这段声音多长插入进去.
     * 
-    * @param mainvolume 插入时,主音频音量多大  默认是1.0f, 大于1,0则是放大, 小于则是降低  !!注意,这里的主音频音量暂时没有用到,这里仅仅是兼容.
-    * 
     * @param volume  插入时,当前音频音量多大  默认是1.0f, 大于1,0则是放大, 小于则是降低
     * @return  插入成功, 返回true, 失败返回false
     */
-   	@Deprecated
-	 public boolean addSubAudio(String srcPath,long startTimeMs,long durationMs,float mainvolume,float volume) 
-	 {
-		 if(renderer!=null && renderer.isRunning()==false){
-			return renderer.addSubAudio(srcPath, startTimeMs, durationMs,volume);
-		 }else{
-			 return false;
-		 }
-	 }
-   	
    	 public boolean addSubAudio(String srcPath,long startTimeMs,long durationMs,float volume) 
 	 {
 		 if(renderer!=null && renderer.isRunning()==false){
@@ -408,7 +403,15 @@ public class DrawPadVideoExecute {
 			 return false;
 		 }
 	 }
-   	
+   	@Deprecated
+ 	 public boolean addSubAudio(String srcPath,long startTimeMs,long durationMs,float mainvolume,float volume) 
+ 	 {
+ 		 if(renderer!=null && renderer.isRunning()==false){
+ 			return renderer.addSubAudio(srcPath, startTimeMs, durationMs,volume);
+ 		 }else{
+ 			 return false;
+ 		 }
+ 	 }
 	 /**
 	  * 增加图片图层.
 	  * @param bmp
@@ -606,6 +609,11 @@ public class DrawPadVideoExecute {
 			 return false;
 		 }
 	 }
+	  public void switchFilterTo(Layer layer,GPUImageFilter filter) {
+	    	 if(renderer!=null && renderer.isRunning()){
+		    		renderer.switchFilterTo(layer, filter);
+		    	}
+	     }
 	 /**
 	  * 切换滤镜
 	  * 为一个图层切换多个滤镜. 即一个滤镜处理完后的输出, 作为下一个滤镜的输入.
@@ -672,6 +680,14 @@ public class DrawPadVideoExecute {
 			   renderer.setNotCheckDrawPadSize();
 		   }else{
 			   isCheckPadSize=false;
+		   }
+	   }
+	   public void setCheckDrawPadSize(boolean check)
+	   {
+		   if(renderer!=null && renderer.isRunning()==false){
+			   renderer.setCheckDrawPadSize(check);
+		   }else{
+			   isCheckPadSize=check;
 		   }
 	   }
 }

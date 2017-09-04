@@ -2,10 +2,10 @@ package com.example.advanceDemo;
 
 import java.io.IOException;
 
-import com.example.advanceDemo.view.IRenderView;
-import com.example.advanceDemo.view.TextureRenderView;
 import com.lansoeditor.demo.R;
+import com.lansosdk.videoeditor.IRenderView;
 import com.lansosdk.videoeditor.MediaInfo;
+import com.lansosdk.videoeditor.TextureRenderView;
 import com.lansosdk.videoplayer.VPlayer;
 import com.lansosdk.videoplayer.VideoPlayer;
 import com.lansosdk.videoplayer.VideoPlayer.OnPlayerCompletionListener;
@@ -132,7 +132,7 @@ public class VideoPlayerActivity extends Activity {
     }  
     private void showHintDialog(){
     	   
-    		new AlertDialog.Builder(this)
+    	new AlertDialog.Builder(this)
 		.setTitle("提示")
 		.setMessage("抱歉,暂时不支持当前视频格式")
         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -217,8 +217,7 @@ public class VideoPlayerActivity extends Activity {
     					        
     					        textureView.setVideoSize(mp.getVideoWidth(), mp.getVideoHeight());
     					        textureView.requestLayout();
-    					        
-    				        vplayer.start();
+    					        vplayer.start();
     					}
     			});
     	vplayer.setOnCompletionListener(new OnPlayerCompletionListener() {

@@ -8,6 +8,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -23,9 +24,11 @@ import com.lansosdk.box.BoxDecoder;
 import com.lansosdk.box.DataLayer;
 import com.lansosdk.box.Layer;
 import com.lansosdk.box.DrawPad;
+import com.lansosdk.box.DrawPadBitmapRunnable;
 import com.lansosdk.box.DrawPadVideoRunnable;
 import com.lansosdk.box.ViewLayer;
 import com.lansosdk.box.onDrawPadCompletedListener;
+import com.lansosdk.box.onDrawPadOutFrameListener;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadThreadProgressListener;
 import com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask;
@@ -43,18 +46,32 @@ import com.lansosdk.videoeditor.VideoEditor;
  */
 public class ExecuteBitmapLayerActivity extends Activity{
 
-	int videoDuration;
-	boolean isRuned=false;
-	TextView tvProgressHint;
-	 TextView tvHint;
-	 
+	private static final String TAG="ExecuteBitmapLayerActivity";
+		int videoDuration;
+		boolean isRuned=false;
+		TextView tvProgressHint;
+		TextView tvHint;
 	 
 	    private String dstPath=null;
 	    
 	    private String picBackGround=null;
-	    
 	    private ArrayList<SlideEffect>  slideEffectArray;
-	private static final String TAG="ExecuteBitmapLayerActivity";
+	    
+	    VideoEditor mVideoEditer;
+		/**
+		 * 图片类的Layer
+		 */
+		BitmapLayer bitmapLayer=null;
+		/**
+		 * 使用DrawPad中的Picture执行类来做.
+		 */
+		DrawPadPictureExecute  mDrawPad=null;
+		private int padWidth,padHeight;
+		/**
+		 * 当前是否已经在执行, 以免造成多次执行.
+		 */
+		private boolean isExecuting=false;
+		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -121,46 +138,23 @@ public class ExecuteBitmapLayerActivity extends Activity{
     		 SDKFileUtils.deleteFile(dstPath);
          }
     }
-	   
-   /**
-    * 
-    */
-	VideoEditor mVideoEditer;
-	/**
-	 * 图片类的Layer
-	 */
-	BitmapLayer bitmapLayer=null;
-	/**
-	 * 使用DrawPad中的Picture执行类来做.
-	 */
-	DrawPadPictureExecute mDrawPad=null;
-	/**
-	 * 当前是否已经在执行, 以免造成多次执行.
-	 */
-	private boolean isExecuting=false;
-
-	
 	private void testDrawPadExecute()
 	{
 		if(isExecuting)
 			return ;
 		
+		padWidth=480;
+		padHeight=480;
 		isExecuting=true;
+		
+		
+		
 		//注意:这里的是直接把DrawPad设置为480x480,execute是没有自动缩放到屏幕的宽度的,如果加载图片,则最大的图片为480x480,如果超过则只显示480x480的部分.
-		 /**
-		  * DrawPad的图片转换为视频的后台执行
-		  * @param ctx  语境,android的Context
-		  * @param glwidth  opengl的display的宽度  可以认为是DrawPad这个池子的宽度.
-		  * @param glheight  opengl的display的高度, 可以认为是DrawPad这个池子的高度.
-		  * @param duration  视频时长
-		  * @param framerate  帧率
-		  * @param bitrate   编码视频所希望的码率,比特率,设置的越大,则文件越大, 设置小一些会起到视频压缩的效果.
-		  * @param dstPath   编码视频保存的路径.
-		  */
 		 mDrawPad=new DrawPadPictureExecute(getApplicationContext(), 480, 480, 26*1000, 25, 1000000, dstPath);
 		
 		 /**
-		  * 设置DrawPad的处理进度监听, 您可以在每一帧的过程中对ILayer做各种变化,比如平移,缩放,旋转,颜色变化,增删一个Layer等,来实现各种动画画面.
+		  * 设置DrawPad的处理进度监听, 您可以在每一帧的过程中对ILayer做各种变化,
+		  * 比如平移,缩放,旋转,颜色变化,增删一个Layer等,来实现各种动画画面.
 		  */
 		mDrawPad.setDrawPadProgressListener(new onDrawPadProgressListener() {
 			
@@ -177,6 +171,8 @@ public class ExecuteBitmapLayerActivity extends Activity{
 				  }
 			}
 		});
+		mDrawPad.setDisableEncode(true);
+		
 		/**
 		 * 处理完毕后的监听
 		 */
@@ -186,7 +182,6 @@ public class ExecuteBitmapLayerActivity extends Activity{
 			public void onCompleted(DrawPad v) {
 				// TODO Auto-generated method stub
 				tvProgressHint.setText("DrawPadExecute Completed!!!");
-				
 				isExecuting=false;
 				//清空效果数组.
 				if(slideEffectArray!=null){
@@ -202,16 +197,16 @@ public class ExecuteBitmapLayerActivity extends Activity{
 				}
 			}
 		});
-		/**
-		 *开始处理. 
-		 */
-		 mDrawPad.startDrawPad();
-		 /**
-		  * 可以在后台处理过程中,暂停画面的走动.比如想一次性增加多个Layer对象后,在让DrawPad执行,这样比在画面走动中获取更精确一些.
-		  */
-		 mDrawPad.pauseRefreshDrawPad(); 
-		
-			//设置一个背景,
+			/**
+			 * 开始前先设置暂停标记.暂停画面的走动.比如想一次性增加多个Layer对象后,
+			  * 在让DrawPad执行,这样比在画面走动中获取更精确一些.
+			 */
+			mDrawPad.pauseRecord();
+			/**
+			 *开始处理. 
+			 */
+			 mDrawPad.startDrawPad();
+			//你可以设置一个背景,
 			mDrawPad.addBitmapLayer(BitmapFactory.decodeFile(picBackGround),null);
 	      
 	       slideEffectArray=new ArrayList<SlideEffect>();
@@ -225,7 +220,7 @@ public class ExecuteBitmapLayerActivity extends Activity{
 	      
 //	      mDrawPad.addGifLayer(R.drawable.g06);
 	      //增加完Layer后,再次恢复DrawPad,让其工作.
-	      mDrawPad.resumeRefreshDrawPad();
+	      mDrawPad.resumeRecord();
 	}
 	  private void addLayerToArray(int resId,long startMS,long endMS)
 	    {

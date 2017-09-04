@@ -240,8 +240,8 @@ public class MediaInfo {
     			 return false;
     		 }
     		 
-    		 if(vFrameRate>60) //如果帧率大于60帧, 则不支持.  
-    			 return false;
+//    		 if(vFrameRate>60) //如果帧率大于60帧, 则不支持.  
+//    			 return false;
     		 
     		 if(vCodecName==null || vCodecName.isEmpty())
     			 return false;

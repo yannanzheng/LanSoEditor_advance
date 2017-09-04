@@ -92,6 +92,10 @@
     	    android:textSize="18sp"/>
        </LinearLayout>
     	
-    	
+    	<Button 
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:text="屏幕截图"
+    	    android:id="@+id/id_drawimage_btn"/>
     	
 </RelativeLayout>

@@ -12,7 +12,9 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.util.Log;
+import android.view.Surface;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 public class LanSongUtil {
@@ -77,7 +79,17 @@ public class LanSongUtil {
 			val2*=16;
 			return val2;
 		}
-		
+	}
+	protected static int make32Multi(int value)
+	{
+		if(value<32){
+			return 32;
+		}else {
+			value+=16;
+			int  val2= value/32;
+			val2*=32;
+			return val2;
+		}
 	}
     /**
 	 *  获取lansosdk的建议码率; 
@@ -136,7 +148,31 @@ public class LanSongUtil {
 					e.printStackTrace();
 				}
 		 }
-		
+	 }
+	 /**
+	  * 获取到当前Activity的角度, [只是放到这里, 暂时没有测试] //TODO
+	  * @param ctx
+	  * @return
+	  */
+	 public static int getActivityAngle(Context ctx)
+	 {
+		 int rotation = ((WindowManager) ctx.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getRotation();
+	        int degrees = 0;
+	        switch (rotation) {
+	            case Surface.ROTATION_0:
+	                degrees = 0;
+	                break;
+	            case Surface.ROTATION_90:
+	                degrees = 90;
+	                break;
+	            case Surface.ROTATION_180:
+	                degrees = 180;
+	                break;
+	            case Surface.ROTATION_270:
+	                degrees = 270;
+	                break;
+	        }
+	        return degrees;
 	 }
 	 
 }

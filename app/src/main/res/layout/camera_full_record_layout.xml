@@ -1,20 +1,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:orientation="vertical" >
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-        <com.lansosdk.videoeditor.DrawPadCameraView
-            android:id="@+id/id_fullrecord_padview"
+         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </FrameLayout>
-
-
+            android:layout_height="match_parent" >
+          		<com.lansosdk.videoeditor.DrawPadCameraView
+            		android:id="@+id/id_fullrecord_padview"
+            		android:layout_width="match_parent"
+            		android:layout_height="match_parent"/>
+        </FrameLayout>
+        
+         
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
@@ -47,7 +47,7 @@
                 android:textSize="20sp"
                 android:background="@null"
                 android:text="@string/filter"/>
-
+            
             <Button
                 android:id="@+id/id_fullrecord_flashlight"
                 android:layout_width="25dp"
@@ -62,19 +62,19 @@
                 android:background="@drawable/video_record_switch_camera"/>
         </LinearLayout>
     </RelativeLayout>
-
-    <!-- focus, 聚焦的画面 -->
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <com.example.advanceDemo.view.FocusImageView
-            android:id="@+id/id_fullrecord_focusview"
-            android:layout_width="75dip"
-            android:layout_height="75dip"/>
-    </FrameLayout>
-
-    <!--  录制控制部分 -->
-    <RelativeLayout
+    
+       <!-- focus, 聚焦的画面 -->
+       <FrameLayout 
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+                 <com.example.advanceDemo.view.FocusImageView
+              		 android:id="@+id/id_fullrecord_focusview"
+		       		 android:layout_width="75dip"
+		       		 android:layout_height="75dip"/>
+      </FrameLayout>
+      
+       <!--  录制控制部分 -->
+        <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:paddingLeft="40dp"
@@ -82,18 +82,18 @@
         android:layout_alignParentBottom="true">
 
         <ImageView android:id="@+id/id_fullrecord_cancel"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_centerVertical="true"
-                   android:src="@drawable/camera_close"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/camera_close"/>
 
         <ImageView android:id="@+id/id_fullrecord_ok"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_centerVertical="true"
-                   android:layout_alignParentRight="true"
-                   android:visibility="invisible"
-                   android:src="@drawable/camera_choice"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:visibility="invisible"
+            android:src="@drawable/camera_choice"/>
 
         <com.example.advanceDemo.view.CameraProgressBar
             android:id="@+id/id_fullrecord_progress"
@@ -103,6 +103,5 @@
             android:layout_centerInParent="true"
             app:isLongScale="true"
             app:innerRadio="3dp"/>
-
-    </RelativeLayout>
+    	</RelativeLayout>
 </RelativeLayout>
