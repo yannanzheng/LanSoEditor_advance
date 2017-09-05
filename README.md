@@ -8,6 +8,7 @@ android  video editor  advance sdk . filter, overlay,remark,mixer and so on安�
 *	4,图层的父类Layer 增加画面区域显示功能,圆形显示, 你可以把视频慢慢展开, 花样展开等操作, 可和移动缩放旋转同时使用.
 *	5,摄像头图层CameraLayer增加多画面显示功能, 您可以创建多个子图层, 从而同时显示多个Camera的画面.
 *	6,优化其他代码和 增加客户需求的一些小细节功能.
+[更多版本日志](https://github.com/LanSoSdk/LanSoEditor_advance/blob/master/%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E.md)
 
 ## SDK简介
 * 像Android系统的UI架构设计了各种按钮, 文本框, 编辑框等各种控件一样. 我们设计了各种图层，如果您对UI架构的各种Button/TextView/ImageView熟悉, 用同样的思路来使用我们的SDK即可, 架构清晰易懂,及其方便调用.
