@@ -10,6 +10,7 @@ android  video editor  advance sdk . filter, overlay,remark,mixer and so on安�
 *	6,优化其他代码和 增加客户需求的一些小细节功能.
 
 [更多版本日志](https://github.com/LanSoSdk/LanSoEditor_advance/blob/master/%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E.md)
+
 ###(下载后, 在当前文件夹里有apk,可直接安装测试)
 
 ## SDK简介
