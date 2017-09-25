@@ -37,7 +37,6 @@ import java.util.Map;
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
 
-import com.lansosdk.box.AudioLine;
 import com.lansosdk.box.AudioInsertManager;
 import com.lansosdk.box.BitmapLayer;
 import com.lansosdk.box.CameraLayer;
@@ -844,19 +843,6 @@ public class DrawPadView extends FrameLayout {
 		}
 	}
 	/**
-	 * 获取一个音频输入对象, 向内部投递数据, 
-	 * 只有当开启画板录制,并设置了录制外面数据的情况下,才有效.
-	 * @return
-	 */
-	public AudioLine getAudioLine()
-	{
-		if(renderer!=null){
-			return renderer.getAudioLine();
-		}else{
-			return null;
-		}
-	}
-	/**
 	 * 分段录制, 开始录制一段.
 	 */
 	public void segmentStart()
@@ -1299,7 +1285,7 @@ public class DrawPadView extends FrameLayout {
      * 
      * @param srcPath
      * @param maskPath
-     * @param isplay  
+     * @param isplay    是否直接显示.
      * @return
      */
 	public MVLayer addMVLayer(String srcPath,String maskPath, boolean isplay)
@@ -1374,14 +1360,15 @@ public class DrawPadView extends FrameLayout {
 		}
 	}
 	/**
+	 * [不再使用,请使用每个图层的switchFilterTo方法] 
 	 * 为已经创建好的图层对象切换滤镜效果
-	 * 
 	 * 注意: 这里内部会在切换的时候, 会销毁 之前的滤镜对象, 然后重新增加, 故您不可以把同一个滤镜对象再次放到进来, 您如果还想使用之前的滤镜,则应该重新创建一个对象.
 	 * 
 	 * @param Layer  已经创建好的Layer对象
 	 * @param filter  要切换到的滤镜对象.
 	 * @return 切换成功,返回true; 失败返回false
 	 */
+	@Deprecated
 	   public boolean  switchFilterTo(Layer layer, GPUImageFilter filter) {
 	    	if(renderer!=null){
 	    		return renderer.switchFilter(layer, filter);
@@ -1389,6 +1376,8 @@ public class DrawPadView extends FrameLayout {
     		return false;
 	    }
 	   /**
+	    * [不再使用,请使用每个图层的switchFilterList方法]
+	    * 
 	    * 为一个图层切换多个滤镜. 即一个滤镜处理完后的输出, 作为下一个滤镜的输入.
 	    * 
 	    * filter的列表, 是先add进去,最新渲染, 把第一个渲染的结果传递给第二个,第二个传递给第三个,以此类推.
@@ -1400,6 +1389,7 @@ public class DrawPadView extends FrameLayout {
 	    * @param filters  滤镜数组; 如果设置为null,则不增加滤镜.
 	    * @return
 	    */
+		@Deprecated
 	   public boolean  switchFilterList(Layer layer, ArrayList<GPUImageFilter> filters) {
 	    	if(renderer!=null){
 	    		return renderer.switchFilterList(layer, filters);

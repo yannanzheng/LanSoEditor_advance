@@ -6,7 +6,7 @@ public class SDKDir {
 	
 	//Environment.getExternalStorageDirectory()
 	// FileWriter out = new FileWriter(new File(Environment.getExternalStorageDirectory(), "content.txt"));
-	public static final String TMP_DIR="/sdcard/lansongBox/";
+	public static  String TMP_DIR="/sdcard/lansongBox/";
 	public static String getPath()
 	{
 		File file=new File(TMP_DIR);

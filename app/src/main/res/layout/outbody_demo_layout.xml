@@ -26,7 +26,7 @@
             android:layout_height="0dip"
             android:layout_weight="4">
             <Button
-	    	    android:id="@+id/id_outbody_button"
+	    	    android:id="@+id/id_drawpad_testbutton"
 	    	    android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_centerInParent="true"

@@ -86,35 +86,17 @@
         
     </LinearLayout>
      
- 
+    <RelativeLayout  android:id="@+id/id_main_cameralayer" style="@style/main_item_reletivelayout">
+           	 <TextView   android:text="摄像头图层【视频录制】   >>>>" style="@style/main_item_textview"/>
+			<TextView  style="@style/main_item_arrow"/> 
+	</RelativeLayout>
+	
      <RelativeLayout  android:id="@+id/id_main_outbody" style="@style/main_item_reletivelayout">
            	 <TextView   android:text="灵魂出窍" style="@style/main_item_textview"/>
 			<TextView  style="@style/main_item_arrow"/> 
 	</RelativeLayout>
 	
-     <RelativeLayout  android:id="@+id/id_main_cameralayer" style="@style/main_item_reletivelayout">
-           	 <TextView   android:text="摄像头图层(正方形)" style="@style/main_item_textview"/>
-			<TextView  style="@style/main_item_arrow"/> 
-	</RelativeLayout>
-	
-     	
-     <RelativeLayout  android:id="@+id/id_main_camerafulllayer" style="@style/main_item_reletivelayout">
-           	 <TextView   android:text="摄像头图层(竖屏)" style="@style/main_item_textview"/>
-			<TextView  style="@style/main_item_arrow"/> 
-	</RelativeLayout>
-     
-     
-        
-    <RelativeLayout  android:id="@+id/id_main_camerafulllayer2" style="@style/main_item_reletivelayout">
-           	 <TextView   android:text="摄像头图层(横屏)" style="@style/main_item_textview"/>
-			<TextView  style="@style/main_item_arrow"/> 
-	</RelativeLayout>
-	
-         
-      <RelativeLayout  android:id="@+id/id_main_cameralayer_segment" style="@style/main_item_reletivelayout">
-           	 <TextView   android:text="摄像头图层(分段录制)" style="@style/main_item_textview"/>
-			<TextView  style="@style/main_item_arrow"/> 
-	</RelativeLayout>
+  
 	
     <RelativeLayout  android:id="@+id/id_main_extract_frame" style="@style/main_item_reletivelayout">
            	 <TextView   android:text="提取图片" style="@style/main_item_textview"/>
@@ -158,12 +140,12 @@
 		
           <RelativeLayout  android:id="@+id/id_main_videobitmapoverlay" style="@style/main_item_reletivelayout">
           
-           	    <TextView   android:text="图层属性1" 				style="@style/main_item_textview"/>
+           	    <TextView   android:text="所有图层均支持的功能1" 				style="@style/main_item_textview"/>
 			<TextView  style="@style/main_item_arrow"/> 
 	  </RelativeLayout>
 	  
         <RelativeLayout  android:id="@+id/id_main_twovideooverlay" style="@style/main_item_reletivelayout">
-           	    <TextView   android:text="图层属性2" 				style="@style/main_item_textview"/>
+           	    <TextView   android:text="所有图层均支持的功能2" 				style="@style/main_item_textview"/>
 			<TextView  style="@style/main_item_arrow"/> 
 		</RelativeLayout>
 	

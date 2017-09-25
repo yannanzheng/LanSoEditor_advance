@@ -54,7 +54,6 @@ public class CommonDemoActivity extends Activity{
 			 new DemoInfo(R.string.demo_id_videocompress,R.string.demo_more_videocompress,true,false),
 			 new DemoInfo(R.string.demo_id_videocrop,R.string.demo_more_videocrop,true,false),
 			 new DemoInfo(R.string.demo_id_videoscale_soft,R.string.demo_more_videoscale_soft,true,false),
-			 new DemoInfo(R.string.demo_id_videoscale_hard,R.string.demo_more_videoscale_hard,false,false),
 			 new DemoInfo(R.string.demo_id_videowatermark,R.string.demo_more_videowatermark,true,false),
 			 new DemoInfo(R.string.demo_id_videocropwatermark,R.string.demo_more_videocropwatermark,true,false),
 			 new DemoInfo(R.string.demo_id_videogetframes,R.string.demo_more_videogetframes,false,false),

@@ -55,6 +55,7 @@ import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
 /**
+ * 
  * 演示: 使用DrawPad来实现 视频和视频的实时叠加.
  * 
  * 流程是: 
@@ -202,9 +203,8 @@ public class Demo2LayerMothedActivity extends Activity implements OnSeekBarChang
 //				param.setShowRect(0, 0, 300, 200);
 //				mVideoLayer=mDrawPadView.addMainVideoLayer(param,null);
 //			}
-			mVideoLayer=mDrawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),new GPUImageTransformFilter());
+			mVideoLayer=mDrawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
 			if(mVideoLayer!=null){
-				mVideoLayer.setVideoRotateAngle(mInfo.vRotateAngle);
 				mplayer.setSurface(new Surface(mVideoLayer.getVideoTexture()));
 			}
 			mplayer.start();
@@ -253,7 +253,7 @@ public class Demo2LayerMothedActivity extends Activity implements OnSeekBarChang
 		    }
 		    if(SDKFileUtils.fileExist(editTmpPath)){
 		    	SDKFileUtils.deleteFile(editTmpPath);
-		    } 
+		    }
 	}
     
  
@@ -305,7 +305,6 @@ public class Demo2LayerMothedActivity extends Activity implements OnSeekBarChang
 					
 					float startX=(float)progress/100f;
 					mVideoLayer.setVisibleRect(startX, 1.0f, 0.0f, 1.0f);
-//					mVideoLayer.setVisibleRect(0.01f,0.2f,0f,1f);
 				}
 				break;
 			case R.id.id_mothed2_skbar_rectround:  

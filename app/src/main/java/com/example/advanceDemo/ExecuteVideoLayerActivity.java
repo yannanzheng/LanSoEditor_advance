@@ -117,7 +117,7 @@ public class ExecuteVideoLayerActivity extends Activity{
 		 mInfo=new MediaInfo(videoPath);
 		 mInfo.prepare();
 		 
-		 setContentView(R.layout.video_edit_demo_layout);
+		 setContentView(R.layout.execute_edit_demo_layout);
 		 
 		 initUI();
 		 

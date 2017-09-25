@@ -8,6 +8,7 @@ import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSwirlFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageToneCurveFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.IF1977Filter;
+import jp.co.cyberagent.lansongsdk.gpuimage.IFNashvilleFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.IFRiseFilter;
 
 
@@ -58,10 +59,8 @@ import com.lansosdk.videoeditor.onVideoEditorProgressListener;
  */
 public class ExecuteFilterDemoActivity extends Activity{
 
-	String videoPath=null;
-	ProgressDialog  mProgressDialog;
-	int videoDuration;
-	boolean isRuned=false;
+	private static final String TAG="FilterDemoExecuteActivity";
+	private String videoPath=null;
 	MediaInfo   mInfo;
 	TextView tvProgressHint;
 	 TextView tvHint;
@@ -69,14 +68,11 @@ public class ExecuteFilterDemoActivity extends Activity{
 	private String editTmpPath=null;
 	private String dstPath=null;
 	
-	private BitmapLayer bitmapLayer=null;
 	private DrawPadVideoExecute  mDrawPad=null;
 	private boolean isExecuting=false;
 		
 	private Layer  mainVideoLayer=null;
-	private static final String TAG="FilterDemoExecuteActivity";
 	
-   	private static final boolean VERBOSE = false; 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -89,7 +85,7 @@ public class ExecuteFilterDemoActivity extends Activity{
 		 mInfo=new MediaInfo(videoPath);
 		 mInfo.prepare();
 		 
-		 setContentView(R.layout.video_edit_demo_layout);
+		 setContentView(R.layout.execute_edit_demo_layout);
 		 initView();
 		 
        //在手机的默认路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
@@ -113,10 +109,8 @@ public class ExecuteFilterDemoActivity extends Activity{
            } 
     }
 	long  beforeDraw=0;
-	private boolean isSwitch=false;
-	/**
-	 * 
-	 */
+	private boolean isSwirlFilter=false;
+	private boolean isNashvilleFilter=false;
 	private void startDrawPadExecute()
 	{
 		if(isExecuting)
@@ -166,13 +160,6 @@ public class ExecuteFilterDemoActivity extends Activity{
 		
 		if(mDrawPad.startDrawPad())
 		{
-			//增加两个图层
-			bitmapLayer=mDrawPad.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
-			bitmapLayer.setPosition(300, 200);
-			
-			mDrawPad.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.xiaolian));
-			
-			//获取主图层.
 			mainVideoLayer=mDrawPad.getMainVideoLayer();
 			mDrawPad.resumeRecord();  //开始恢复处理.
 		}else{
@@ -198,13 +185,24 @@ public class ExecuteFilterDemoActivity extends Activity{
 	private void drawPadProgress(DrawPad v,long currentTimeUs)
 	{
 		tvProgressHint.setText(String.valueOf(currentTimeUs));
-		//演示在中间切换滤镜
-		if(currentTimeUs>3*1000*1000 && mainVideoLayer!=null && isSwitch==false){
-			ArrayList<GPUImageFilter>  lists=new ArrayList<GPUImageFilter>();
-			lists.add(new GPUImageSwirlFilter());
-			mDrawPad.switchFilterList(mainVideoLayer, lists);
-			
-			isSwitch=false;
+		/**
+		 * 演示在中间切换滤镜
+		 * 在3秒的时候, 切换一个滤镜.
+		 * 在6秒的时候, 再次切换一个滤镜
+		 */
+		if(currentTimeUs>6*1000*1000)
+		{
+			if(mainVideoLayer!=null && isNashvilleFilter==false){
+				mainVideoLayer.switchFilterTo(new IFNashvilleFilter(getApplicationContext()));
+				isNashvilleFilter=true;
+			}
+		}
+		else if(currentTimeUs>3*1000*1000)
+		{
+			if(mainVideoLayer!=null && isSwirlFilter==false){
+				mainVideoLayer.switchFilterTo(new GPUImageSwirlFilter());
+				isSwirlFilter=true;
+			}
 		}
 	}
 	/**
@@ -243,6 +241,8 @@ public class ExecuteFilterDemoActivity extends Activity{
 	{
 		 tvHint=(TextView)findViewById(R.id.id_video_editor_hint);
 		 tvHint.setText(R.string.filterLayer_execute_hint);
+		 
+		 
 		 tvProgressHint=(TextView)findViewById(R.id.id_video_edit_progress_hint);
 	      findViewById(R.id.id_video_edit_btn).setOnClickListener(new OnClickListener() {
 				

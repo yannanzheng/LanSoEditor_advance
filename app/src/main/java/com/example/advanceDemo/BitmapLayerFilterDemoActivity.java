@@ -178,13 +178,15 @@ public class BitmapLayerFilterDemoActivity extends Activity{
                 @Override
                 public void onGpuImageFilterChosenListener(final GPUImageFilter filter) {
                 	
-                	//在这里通过DrawPad线程去切换 filterLayer的滤镜
-    	         	   if(mDrawPadView.switchFilterTo(bmpLayer,filter)){
-    	         		   mFilterAdjuster = new FilterAdjuster(filter);
-    	         		   //如果这个滤镜 可调, 显示可调节进度条.
-    	         		   findViewById(R.id.id_bitmapfilter_demo_seek1).setVisibility(
-    	         		            mFilterAdjuster.canAdjust() ? View.VISIBLE : View.GONE);
-    	         	   }
+                	  if(bmpLayer!=null){
+                		  bmpLayer.switchFilterTo(filter);
+                		  mFilterAdjuster = new FilterAdjuster(filter);
+                		  
+                		  
+                		  //如果这个滤镜 可调, 显示可调节进度条.
+                		  findViewById(R.id.id_bitmapfilter_demo_seek1).setVisibility(
+   	         		            mFilterAdjuster.canAdjust() ? View.VISIBLE : View.GONE);
+                	  }
                 }
             });
     	}

@@ -59,7 +59,10 @@ public class BitmapPadExecute {
 		mDrawPad=new DrawPadPictureExecute(mContext, width, height, -1, 25, 1000000, null);
 		mDrawPad.setDisableEncode(true);
 		mDrawPad.setOutFrameInDrawPad(true);
-		mDrawPad.setDrawPadOutFrameListener(false,new onDrawPadOutFrameListener() {
+		
+		mDrawPad.setCheckDrawPadSize(true);
+		
+		mDrawPad.setDrawPadOutFrameListener(true,new onDrawPadOutFrameListener() {
 			
 			@Override
 			public void onDrawPadOutFrame(DrawPad v, Object obj, int type, long ptsUs) {
@@ -97,7 +100,8 @@ public class BitmapPadExecute {
 		LanSongScreenBlendFilter  filter=new  LanSongScreenBlendFilter();
 		filter.setBitmap(bmp2);
 		
-		mDrawPad.addBitmapLayer(bmp1,filter);	
+		BitmapLayer  layer=mDrawPad.addBitmapLayer(bmp1,filter);	
+		layer.setScaledValue(layer.getPadWidth(), layer.getPadHeight());
 		mDrawPad.resumeRecord();
 		
 		//等待.
@@ -120,7 +124,8 @@ public class BitmapPadExecute {
 			mDrawPad.pauseRecord();
 			mDrawPad.removeAllLayer();  
 			//放进去.
-			mDrawPad.addBitmapLayer(bmp1,filter);	
+			BitmapLayer  layer=mDrawPad.addBitmapLayer(bmp1,filter);
+			layer.setScaledValue(layer.getPadWidth(), layer.getPadHeight());	
 			mDrawPad.resumeRecord();
 			
 			//等待.
@@ -141,11 +146,17 @@ public class BitmapPadExecute {
 	{
 		if(bmps!=null && bmps.size()>0){
 			mDrawPad.pauseRecord();
-			mDrawPad.removeAllLayer();  
+			mDrawPad.removeAllLayer();
+			BitmapLayer  layerFirst=null;
 			//放进去.
 			for(Bitmap bmp: bmps){
-				mDrawPad.addBitmapLayer(bmp,null);	
+				BitmapLayer  layer2=mDrawPad.addBitmapLayer(bmp,null);
+				if(layerFirst==null){
+					layerFirst=layer2;
+				}
 			}
+			//等于第一个的大小.
+			layerFirst.setScaledValue(layerFirst.getPadWidth(), layerFirst.getPadHeight());
 				
 			mDrawPad.resumeRecord();
 			
@@ -205,8 +216,7 @@ public class BitmapPadExecute {
 	     */
 	    /**
 		  * 给一个图片, 增加多个滤镜的方法演示.
-		  *   
-			private void testFile()
+		  *   private void testFile()
 		    {
 						
 				testGetFilters();  //执行一次;
@@ -218,7 +228,7 @@ public class BitmapPadExecute {
 					}
 				}).start();
 			}
-		    private void testGetFilters()
+		  *  private void testGetFilters()
 		    {
 		    	ArrayList<GPUImageFilter>  filters=new ArrayList<GPUImageFilter>();
 				filters.add(new GPUImageSepiaFilter());

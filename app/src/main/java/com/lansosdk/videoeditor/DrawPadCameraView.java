@@ -38,7 +38,6 @@ import java.util.Map;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 
-import com.lansosdk.box.AudioLine;
 import com.lansosdk.box.AudioInsertManager;
 import com.lansosdk.box.BitmapLayer;
 import com.lansosdk.box.CameraLayer;
@@ -86,7 +85,6 @@ public class DrawPadCameraView extends FrameLayout {
  	
  	private SurfaceTexture mSurfaceTexture=null;
  	
- 	
  	private int encWidth,encHeight,encFrameRate;
  	private int encBitRate=0;
  	/**
@@ -129,7 +127,6 @@ public class DrawPadCameraView extends FrameLayout {
         initVideoView(context);
     }
 
-    
     private void initVideoView(Context context) {
         setTextureView();
 
@@ -686,7 +683,9 @@ public class DrawPadCameraView extends FrameLayout {
 	 				}else if(isRecordExtPcm){
 	 					renderer.setRecordExtraPcm(isRecordExtPcm, pcmChannels,pcmSampleRate,pcmBitRate);
 	 				}else if(recordExtMp3!=null){
-	 					renderer.setRecordExtraMp3(recordExtMp3);
+	 					if(renderer.setRecordExtraMp3(recordExtMp3)==false){
+	 						Log.e(TAG,"设置外部mp3音频错误, 请检查下您的音频文件是否正常.");
+	 					}
 	 				}
 	 				
 	 				if(extCameraLayer!=null){
@@ -791,7 +790,8 @@ public class DrawPadCameraView extends FrameLayout {
 	}
 	/**
 	 *[不好理解, 不再使用]
-	 *
+	 *  drawpad流程更改为:建立容器(setupDrawPad)===>开始预览(startPreview)===>开始录制(startRecord);
+	 *  (原来的代码一行不变, 一样可以使用)
 	 */
 	@Deprecated
 	public void pauseDrawPad()
@@ -803,7 +803,8 @@ public class DrawPadCameraView extends FrameLayout {
 	}
 	/**
 	 *[不好理解, 不再使用]
-	 *
+	 *drawpad流程更改为:建立容器(setupDrawPad)===>开始预览(startPreview)===>开始录制(startRecord);
+	 *  (原来的代码一行不变, 一样可以使用)
 	 */
 	@Deprecated
 	public void resumeDrawPad()
@@ -815,13 +816,8 @@ public class DrawPadCameraView extends FrameLayout {
 	}
 	/**
 	 * [不再使用]
-	 * 暂停drawpad的录制, 此方法仅仅在内部设置一个暂停/恢复录制的标志位;
-	 * 您可以在DrawPad开始前后调用.
-	 * 
-	 * 如果startDrawPad没有开始时调用这里, 会在当startDrawPad运行后, 不开始录制; 如果您想开始录制,则用resumeDrawPadRecord来开始.
-	 * 如果startDrawPad开始后, 则这里等于暂停录制;
-	 * 
-	 * 不可用来暂停后跳入到别的Activity中.
+	 * drawpad流程更改为:建立容器(setupDrawPad)===>开始预览(startPreview)===>开始录制(startRecord);
+	 *  (原来的代码一行不变, 一样可以使用)
 	 * 
 	 */
 	@Deprecated
@@ -834,7 +830,8 @@ public class DrawPadCameraView extends FrameLayout {
 	}
 	/**
 	 * [不好理解, 不再使用]
-	 *  如果之前在startDrawPad的时候, 只是设置了录制的各种参数,而pause了录制,这里等于开启录制
+	 *  drawpad流程更改为:建立容器(setupDrawPad)===>开始预览(startPreview)===>开始录制(startRecord);
+	 *  (原来的代码一行不变, 一样可以使用)
 	 */
 	@Deprecated
 	public void resumeDrawPadRecord()
@@ -912,6 +909,9 @@ public class DrawPadCameraView extends FrameLayout {
 	 *  此方法,在startDrawPad开启前调用
 	 *  此方法增加后, 会一边播放音频, 一边录制. 
 	 *  我们会内部经过处理, 从而使录制的音频和视频画面 同步.
+	 *  适合用在 舞蹈等随着音乐节拍而舞动的画面.
+	 *  
+	 *  在开始录制前调用, 您可以让用户选择几个曲子, 然后用MediaPlayer播放, 当真正开始录制时候, 在startRecord前调用这里.
 	 *  
 	 * @param mp3Path  mp3文件, 当前仅支持44100的采样率,2通道
 	 * @param endloop  当播放到文件结束后, 是否要重新循环播放, 当前暂时不支持循环, 这里仅预留.
@@ -919,24 +919,26 @@ public class DrawPadCameraView extends FrameLayout {
 	public void setRecordExtraMp3(String mp3Path,boolean endloop)
 	{
 		if(renderer!=null){
-			renderer.setRecordExtraMp3(mp3Path);
+			if(renderer.setRecordExtraMp3(mp3Path)==false){
+				Log.e(TAG,"设置外部mp3音频错误, 请检查下您的音频文件是否正常.");
+			}
 		}else{
 			recordExtMp3=mp3Path;
 		}
 	}
-	/**
-	 * 获取一个音频输入对象, 向内部投递数据,  配合setRecordExtraPcm使用, 其他地方不使用.
-	 * 只有当开启画板录制,并设置了录制外面数据的情况下,才有效.
-	 * @return
-	 */
-	public AudioLine getAudioLine()
-	{
-		if(renderer!=null){
-			return renderer.getAudioLine();
-		}else{
-			return null;
-		}
-	}
+//	/**
+//	 * 获取一个音频输入对象, 向内部投递数据,  配合setRecordExtraPcm使用, 其他地方不使用.
+//	 * 只有当开启画板录制,并设置了录制外面数据的情况下,才有效.
+//	 * @return
+//	 */
+//	public AudioLine getAudioLine()
+//	{
+//		if(renderer!=null){
+//			return renderer.getAudioLine();
+//		}else{
+//			return null;
+//		}
+//	}
 	/**
 	 * 此代码只是用在分段录制的Camera的过程中, 其他地方不建议使用.
 	 */
@@ -1312,27 +1314,18 @@ public class DrawPadCameraView extends FrameLayout {
 		}
 	}
 	   /**
-	    * 为一个图层切换多个滤镜. 即一个滤镜处理完后的输出, 作为下一个滤镜的输入.
-	    * 
-	    * filter的列表, 是先add进去,最新渲染, 把第一个渲染的结果传递给第二个,第二个传递给第三个,以此类推.
-	    * 
-	    * 注意: 这里内部会在切换的时候, 会销毁 之前的列表中的所有滤镜对象, 然后重新增加, 故您不可以把同一个滤镜对象再次放到进来,
-	    * 您如果还想使用之前的滤镜,则应该重新创建一个对象.
-	    * 
-	    * @param layer  图层对象,
-	    * @param filters  滤镜数组; 如果设置为null,则不增加滤镜.
-	    * @return
+	    * 不再使用, 请在每个图层对象中直接使用 switchFilterList
 	    */
+		@Deprecated
 	   public void  switchFilterList(Layer layer, ArrayList<GPUImageFilter> filters) {
 	    	if(renderer!=null && renderer.isRunning()){
 	    		renderer.switchFilterList(layer, filters);
 	    	}
 	    }
-	   /**
-	    * 切换一个滤镜
-	    * @param layer
-	    * @param filter
-	    */
+		/**
+		 * 不再使用, 请在每个图层对象中直接使用switchFilterTo
+		 */
+		@Deprecated
 	     public boolean switchFilterTo(Layer layer,GPUImageFilter filter) {
 	    	 if(renderer!=null && renderer.isRunning()){
 		    		return renderer.switchFilterTo(layer, filter);

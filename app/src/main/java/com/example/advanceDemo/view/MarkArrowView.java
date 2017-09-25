@@ -41,7 +41,7 @@ public class MarkArrowView extends DrawPadView{
         super(context, attrs, defStyleAttr, defStyleRes);
     }
   
-    Layer bitmap=null;
+    Layer bitmapLayer=null;
     
     @Override
   public boolean onTouchEvent(MotionEvent event) {
@@ -51,16 +51,18 @@ public class MarkArrowView extends DrawPadView{
   	 switch (event.getAction())   
        {  
 	       case MotionEvent.ACTION_DOWN:  
-	    	   	if(bitmap==null){
+	    	   	if(bitmapLayer==null){
 	    	   	//继承自DrawPadView, 在按下时获取一个BitmapLayer
-	    	   		bitmap=addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.mianju2));
-	    	   		bitmap.setVisibility(Layer.INVISIBLE);
+	    	   		bitmapLayer=addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.mianju2));
+	    	   		if(bitmapLayer!=null){
+	    	   			bitmapLayer.setVisibility(Layer.INVISIBLE);	
+	    	   		}
 	    	   	}
 	          return true; 
 	       case MotionEvent.ACTION_MOVE:  
-	    		if(bitmap!=null){
-	    			bitmap.setPosition(event.getX(),event.getY());
-	    			bitmap.setVisibility(Layer.VISIBLE);
+	    		if(bitmapLayer!=null){
+	    			bitmapLayer.setPosition(event.getX(),event.getY());
+	    			bitmapLayer.setVisibility(Layer.VISIBLE);
 	    		}
 	    		  return true;   
 	       case MotionEvent.ACTION_UP:  

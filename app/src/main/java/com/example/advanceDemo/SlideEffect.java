@@ -59,7 +59,6 @@ public class SlideEffect {
 		long endSecond=mEndMS-1000;
 		
 		if(currentTimeMS>(mEndMS+1000) || currentTimeMS<mStartMS){  //不在这个范围,则不显示,mEndMS+1000多出一秒是让右侧滑动的走完.
-//		if(currentX>viewHeight || currentTimeMS<mStartMS){
 			mLayer.setVisibility(Layer.INVISIBLE);
 			return ;
 		}
@@ -71,10 +70,7 @@ public class SlideEffect {
 		if(currentTimeMS >=endSecond){
 			currentX+=stepPerFrame;
 		}
-//		Log.i("sno","current:"+currentX+" y "+currentY);
-		
 		mLayer.setPosition(currentX, currentY);
-		
 	}
 	public Layer getLayer()
 	{

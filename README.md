@@ -1,13 +1,10 @@
 # LanSoEditor_advance
 android  video editor  advance sdk . filter, overlay,remark,mixer and so on安卓平台视频编辑高级版本，可以滤镜，叠加，标记等操作
 
-## 当前版本是2.6.0
-*	1,增加BitmapPad容器, 类似DrawPad是处理画面的容器一样, BitampPad是处理图片的容器.
-*	2,增加AudioPad容器, 是处理声音的容器, 可以在任意时刻增删声音, 后期增加变声,重复,滤镜等功能.
-*	3,优化DrawPad的处理速度, 前台增加滤镜后的处理速度提高一倍.
-*	4,图层的父类Layer 增加画面区域显示功能,圆形显示, 你可以把视频慢慢展开, 花样展开等操作, 可和移动缩放旋转同时使用.
-*	5,摄像头图层CameraLayer增加多画面显示功能, 您可以创建多个子图层, 从而同时显示多个Camera的画面.
-*	6,优化其他代码和 增加客户需求的一些小细节功能.
+## 当前版本是2.6.6
+*	1,每个图层新增子图层功能.
+*	2,优化滤镜和其他代码.
+* 3,增加客户需求的一些小细节功能.
 
 [更多版本日志](https://github.com/LanSoSdk/LanSoEditor_advance/blob/master/%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E.md)
 

@@ -29,6 +29,7 @@ import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
 import com.lansosdk.box.onDrawPadSnapShotListener;
 import com.lansosdk.videoeditor.CopyFileFromAssets;
+import com.lansosdk.videoeditor.DrawPadVideoExecute;
 import com.lansosdk.videoeditor.DrawPadView;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
@@ -37,6 +38,7 @@ import com.lansosdk.videoeditor.VideoEditor;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -57,9 +59,7 @@ import android.util.Log;
 import android.view.Surface;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.LinearLayout;
 import android.widget.SeekBar;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
@@ -83,6 +83,8 @@ public class FilterDemoRealTimeActivity extends Activity {
     
     private VideoLayer  filterLayer=null;
     
+    private MediaInfo  mInfo;
+    
     private SeekBar skbarFilterAdjuster;
     /**
      * 在进行视频滤镜的过程中, 实时保存的视频画面文件的临时路径.
@@ -102,22 +104,19 @@ public class FilterDemoRealTimeActivity extends Activity {
         
         
         mVideoPath = getIntent().getStringExtra("videopath");
+        
+       
+        
         mDrawPadView = (DrawPadView) findViewById(R.id.id_filterLayer_demo_view);
         skbarFilterAdjuster=(SeekBar)findViewById(R.id.id_filterLayer_demo_seek1);
         skbarFilterAdjuster.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 			
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
-				// TODO Auto-generated method stub
-				
 			}
-			
 			@Override
 			public void onStartTrackingTouch(SeekBar seekBar) {
-				// TODO Auto-generated method stub
-				
 			}
-			
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress,
 					boolean fromUser) {
@@ -137,17 +136,15 @@ public class FilterDemoRealTimeActivity extends Activity {
 				// TODO Auto-generated method stub
 				selectFilter();
 				
-				/**
-				 * 如果您需要演示, 在按下按钮后, 放到后台执行, 则屏蔽上一句,打开这里就可以了. 
-				 if(mplayer!=null){
-					mplayer.stop();
-					mplayer.release();
-					mplayer=null;
-				}
-				mDrawPadView.stopDrawPad();
-				testDrawPadExecute();
-				 */
-				
+				//如果您要前台预览到一半, 直接后台处理,请打开如下代码.
+//				 if(mplayer!=null){
+//					mplayer.stop();
+//					mplayer.release();
+//					mplayer=null;
+//				}
+//				mDrawPadView.stopDrawPad();
+//				drawpadExecute();
+//				Log.i(TAG,"开始后台执行....drawpad  progress is");
 			}
 		});
         
@@ -174,14 +171,17 @@ public class FilterDemoRealTimeActivity extends Activity {
         editTmpPath=SDKFileUtils.newMp4PathInBox();
         dstPath=SDKFileUtils.newMp4PathInBox();
         
-        new Handler().postDelayed(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				 startPlayVideo();
-			}
-		}, 500);
+        mInfo=new MediaInfo(mVideoPath, false);
+        if(mInfo.prepare()){
+        	 new Handler().postDelayed(new Runnable() {
+     			
+     			@Override
+     			public void run() {
+     				// TODO Auto-generated method stub
+     				 startPlayVideo();
+     			}
+     		}, 500);
+        }
     }
     @Override
     protected void onPause() {
@@ -194,7 +194,6 @@ public class FilterDemoRealTimeActivity extends Activity {
 		}
     }
     private FilterAdjuster mFilterAdjuster;
-    
     /**
      * 选择滤镜效果, 
      */
@@ -204,15 +203,15 @@ public class FilterDemoRealTimeActivity extends Activity {
 
             @Override
             public void onGpuImageFilterChosenListener(final GPUImageFilter filter) {
-            	
-            	//在这里通过DrawPad线程去切换 filterLayer的滤镜
-	         	   if(mDrawPadView.switchFilterTo(filterLayer,filter)){  //<-----在这里切换滤镜.
-	         		   mFilterAdjuster = new FilterAdjuster(filter);
-	
+            	   if(filterLayer!=null)
+            	   {
+            		   filterLayer.switchFilterTo(filter);
+            		   mFilterAdjuster = new FilterAdjuster(filter);
+            			
 	         		   //如果这个滤镜 可调, 显示可调节进度条.
 	         		    findViewById(R.id.id_filterLayer_demo_seek1).setVisibility(
 	         		            mFilterAdjuster.canAdjust() ? View.VISIBLE : View.GONE);
-	         	   }
+            	   }
             }
         });
     }
@@ -264,41 +263,12 @@ public class FilterDemoRealTimeActivity extends Activity {
     			mDrawPadView.setUpdateMode(DrawPadUpdateMode.ALL_VIDEO_READY,25);
         	
     			
-    			//您可以截图当前DrawPad中的内容. 这里仅仅测试
-    			mDrawPadView.setOnDrawPadSnapShotListener(new onDrawPadSnapShotListener() {
-					
-					@Override
-					public void onSnapShot(DrawPad v, Bitmap bmp) {
-						// TODO Auto-generated method stub
-						   Log.i(TAG, "已经保存到>>>>>>>>>>>>>");
-						
-//						String str="Snap"+ pngCnt +".png";
-//				 		 pngCnt++;
-//						  File f = new File("/sdcard/", str);
-//						  if (f.exists()) {
-//							  f.delete();
-//						  }
-//						  try {
-//							   FileOutputStream out = new FileOutputStream(f);
-//							   bmp.compress(Bitmap.CompressFormat.PNG, 90, out);
-//							   out.flush();
-//							   out.close();
-//						   Log.i(TAG, "已经保存到"+f.getPath());
-//						  } catch (FileNotFoundException e) {
-//						   // TODO Auto-generated catch block
-//							  e.printStackTrace();
-//						  } catch (IOException e) {
-//						   // TODO Auto-generated catch block
-//							  e.printStackTrace();
-//						  }
-					}
-				});
-    			
-//        		设置使能 实时保存, 即把正在DrawPad中呈现的画面实时的保存下来,实现所见即所得的模式
-        	mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
-        	
-        	mDrawPadView.setOnDrawPadProgressListener(new DrawPadProgressListener());
-        	mDrawPadView.setOnDrawPadCompletedListener(new DrawPadCompleted());
+    			/**
+    			 * 设置使能 实时保存, 即把正在DrawPad中呈现的画面实时的保存下来,实现所见即所得的模式
+    			 */
+    			mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
+
+    			mDrawPadView.setOnDrawPadCompletedListener(new DrawPadCompleted());
         	//设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
         	mDrawPadView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
     			
@@ -333,25 +303,6 @@ public class FilterDemoRealTimeActivity extends Activity {
 		}
     }
     /**
-     * 您可以增加一个背景图片.
-     */
-    private void addBackgroundBitmap()
-    {
-    	  DisplayMetrics dm = new DisplayMetrics();// 获取屏幕密度（方法2）
-	       dm = getResources().getDisplayMetrics();
-	        
-	           
-	      int screenWidth  = dm.widthPixels;	
-	      String picPath=null;   
-	      if(screenWidth>=1080){
-	    	  picPath=CopyFileFromAssets.copyAssets(getApplicationContext(), "pic1080x1080u2.jpg");
-	      }else{
-	    	  picPath=CopyFileFromAssets.copyAssets(getApplicationContext(),"pic720x720.jpg");
-	      }
-	      //先 增加第一张Bitmap的Layer, 因为是第一张,放在DrawPad中维护的数组的最下面, 认为是背景图片.
-	      mDrawPadView.addBitmapLayer(BitmapFactory.decodeFile(picPath));
-    }
-    /**
      * DrawPad完成后的回调.
      * @author Administrator
      */
@@ -363,7 +314,7 @@ public class FilterDemoRealTimeActivity extends Activity {
 			// TODO Auto-generated method stub
 			if(isDestorying==false)
 			{
-					toastStop();
+					Toast.makeText(getApplicationContext(), "录制已停止!!", Toast.LENGTH_SHORT).show();
 					if(SDKFileUtils.fileExist(editTmpPath)){
 						boolean ret=VideoEditor.encoderAddAudio(mVideoPath,editTmpPath,SDKDir.TMP_DIR,dstPath);
 						if(!ret){
@@ -374,20 +325,6 @@ public class FilterDemoRealTimeActivity extends Activity {
 					}
 			}
 		}
-    }
-    //DrawPad进度回调.每一帧都返回一个回调.
-    private class DrawPadProgressListener implements onDrawPadProgressListener
-    {
-
-		@Override
-		public void onProgress(DrawPad v, long currentTimeUs) {
-			// TODO Auto-generated method stub
-				
-		}
-    }
-    private void toastStop()
-    {
-    	Toast.makeText(getApplicationContext(), "录制已停止!!", Toast.LENGTH_SHORT).show();
     }
     
     boolean isDestorying=false;  //是否正在销毁, 因为销毁会停止DrawPad
@@ -411,15 +348,29 @@ public class FilterDemoRealTimeActivity extends Activity {
     }
     //----------------------------------------------------------放到后台执行
     private boolean isExecuting=false; 
-    private DrawPadVideoRunnable  vDrawPad=null;
-	private void testDrawPadExecute()
+    private DrawPadVideoExecute  vDrawPad=null;
+    private ProgressDialog  mProgressDialog;
+    /**
+     * 放到后台执行.
+     */
+	private void drawpadExecute()
 	{
 		if(isExecuting)
 			return ;
 		
 		isExecuting=true;
 		
-		vDrawPad=new DrawPadVideoRunnable(FilterDemoRealTimeActivity.this,mVideoPath,480,480,1000000,
+		
+		  mProgressDialog = new ProgressDialog(FilterDemoRealTimeActivity.this);
+          mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+          mProgressDialog.setMessage("正在后台处理:");
+          mProgressDialog.setCancelable(false);
+          mProgressDialog.show();
+        
+          SDKFileUtils.deleteFile(editTmpPath);
+          editTmpPath=SDKFileUtils.newMp4PathInBox();
+          
+		vDrawPad=new DrawPadVideoExecute(FilterDemoRealTimeActivity.this,mVideoPath,480,480,1000000,
 				new IFAmaroFilter(getApplicationContext()),editTmpPath);
 		
 		vDrawPad.setDrawPadProgressListener(new onDrawPadProgressListener() {
@@ -427,7 +378,15 @@ public class FilterDemoRealTimeActivity extends Activity {
 			@Override
 			public void onProgress(DrawPad v, long currentTimeUs) {
 				// TODO Auto-generated method stub
-				Log.i(TAG,"drawpad  progress is:"+currentTimeUs);
+				
+				float percent= (float)currentTimeUs/1000000f;
+				percent/=mInfo.vDuration;
+				Log.i(TAG,"drawpad  progress is:"+percent);
+
+				float b   =  (float)(Math.round(percent*100));  //保留一位小数.
+				if(b<=100){
+					mProgressDialog.setMessage("正在后台处理:"+b+ " %");	
+				}
 			}
 		});
 		/**
@@ -438,8 +397,12 @@ public class FilterDemoRealTimeActivity extends Activity {
 			@Override
 			public void onCompleted(DrawPad v) {
 				// TODO Auto-generated method stub
-				Log.i(TAG,"drawpad  Completed:"+ editTmpPath);
+				if( mProgressDialog!=null){
+		     		 mProgressDialog.cancel();
+		     		 mProgressDialog=null;
+				}
 				
+				Log.i(TAG,"dst path is:"+editTmpPath);
 				if(SDKFileUtils.fileExist(editTmpPath)){
 					boolean ret=VideoEditor.encoderAddAudio(mVideoPath,editTmpPath,SDKDir.TMP_DIR,dstPath);
 					if(!ret){
@@ -451,11 +414,12 @@ public class FilterDemoRealTimeActivity extends Activity {
 				}else{
 					Toast.makeText(getApplicationContext(), "录制文件不存在", Toast.LENGTH_SHORT).show();
 				}
-				
 			}
 		});
-		
 		vDrawPad.startDrawPad();
 	}
 
+	
+	//------------------------------------------------------------------------
+	
 }

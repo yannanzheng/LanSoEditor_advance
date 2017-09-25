@@ -1,33 +1,9 @@
 package com.example.advanceDemo;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.Buffer;
-import java.nio.ByteBuffer;
-import java.nio.IntBuffer;
-import java.nio.ShortBuffer;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Locale;
 
-import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
-import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageGammaFilter;
-import jp.co.cyberagent.lansongsdk.gpuimage.GPUImagePixelationFilter;
-import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
-import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSwirlFilter;
-import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBulgeDistortionFilter;
 
 
 import com.anthonycr.grant.PermissionsManager;
@@ -101,18 +77,10 @@ public class MainActivity extends Activity implements OnClickListener{
 		Thread.setDefaultUncaughtExceptionHandler(new LanSoSdkCrashHandler());
         setContentView(R.layout.activity_main);
         
-        LoadLanSongSdk.loadLibraries();  //拿出来单独加载库文件.
-        LanSoEditor.initSo(getApplicationContext(),null);
-        
-        
-//        Log.i(TAG,"getCPUInfo"+ GPUUtils.isSlowGPU_UI());
-        
         /**
-         * 修改box里面的临时路径如不调用, 则默认是/sdcard/lansongBox/文件夹下.
-         * 要修改VideoEidtor产生的路径,则在SDKDir.java中直接修改;
+         * 初始化SDK
          */
-//        LanSoEditorBox.setTempFileDir("/sdcard/testTmp/");
-        
+    	LanSoEditor.initSDK(getApplicationContext(), null);
         
         
     	//因为从android6.0系统有各种权限的限制,这里先检查是否有读写的权限,PermissionsManager采用github上开源库,不属于我们sdk的一部分.
@@ -132,96 +100,10 @@ public class MainActivity extends Activity implements OnClickListener{
             }
         });
         
-        tvVideoPath=(TextView)findViewById(R.id.id_main_tvvideo);
-        
-        
-        findViewById(R.id.id_main_outbody).setOnClickListener(this); //灵魂出窍
-        findViewById(R.id.id_main_cameralayer).setOnClickListener(this);
-        findViewById(R.id.id_main_camerafulllayer).setOnClickListener(this);
-        findViewById(R.id.id_main_camerafulllayer2).setOnClickListener(this);
-        
-        findViewById(R.id.id_main_viewlayerdemo1).setOnClickListener(this);
-        findViewById(R.id.id_main_viewremark).setOnClickListener(this);
-        findViewById(R.id.id_main_viewlayerdemo2).setOnClickListener(this);
-        findViewById(R.id.id_main_canvaslayerdemo).setOnClickListener(this);
-        findViewById(R.id.id_main_videofilterdemo).setOnClickListener(this);  //图层滤镜. 用videoLayer来演示.
-        
-        findViewById(R.id.id_main_mvlayerdemo).setOnClickListener(this);  //图层滤镜. 用videoLayer来演示.
-        
-        findViewById(R.id.id_main_pictures).setOnClickListener(this);
-        
-        findViewById(R.id.id_main_commonversion).setOnClickListener(this);
-        
-        findViewById(R.id.id_main_twovideooverlay).setOnClickListener(this);
-        findViewById(R.id.id_main_videobitmapoverlay).setOnClickListener(this);
-        
-        findViewById(R.id.id_main_drawpadpictureexecute).setOnClickListener(this);
-        findViewById(R.id.id_main_drawpadexecute_filter).setOnClickListener(this);
-        findViewById(R.id.id_main_testvideoplay).setOnClickListener(this);
-        
-        findViewById(R.id.id_main_cameralayer_segment).setOnClickListener(this);
-        findViewById(R.id.id_main_extract_frame).setOnClickListener(this);
-        
-        findViewById(R.id.id_main_select_video).setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				startSelectVideoActivity();
-			}
-		});
-        
-        findViewById(R.id.id_main_use_default_videobtn).setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				new CopyDefaultVideoAsyncTask(MainActivity.this, tvVideoPath, "ping20s.mp4").execute();
-			}
-		});
+      
+        initView();
         showHintDialog();
     }
-    
-    private void showHintDialog()
-   	{
-    	Calendar c = Calendar.getInstance();
-   		int year=c.get(Calendar.YEAR);
-   		int month=c.get(Calendar.MONTH)+1;
-   		
-   		int lyear=VideoEditor.getLimitYear();
-   		int lmonth=VideoEditor.getLimitMonth();
-   		Log.i(TAG,"current year is:"+year+" month is:"+month +" limit year:"+lyear+" limit month:"+lmonth);
-   		String timeHint=getResources().getString(R.string.sdk_limit);
-   		String version=VideoEditor.getSDKVersion()+ ";\n BOX:"+LanSoEditorBox.VERSION_BOX;
-   		
-   		timeHint=String.format(timeHint,version, lyear,lmonth);
-   		
-   		new AlertDialog.Builder(this)
-   		.setTitle("提示")
-   		.setMessage(timeHint)
-           .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-   			
-   			@Override
-   			public void onClick(DialogInterface dialog, int which) {
-   				// TODO Auto-generated method stub
-   			}
-   		})
-        .show();
-   	}
-    private void showHintDialog(int stringId)
-   	{
-      new AlertDialog.Builder(this)
-   		.setTitle("提示")
-   		.setMessage(stringId)
-           .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-   			
-   			@Override
-   			public void onClick(DialogInterface dialog, int which) {
-   				// TODO Auto-generated method stub
-   			}
-   		})
-           .show();
-   	}
     @Override
     protected void onDestroy() {
     	// TODO Auto-generated method stub
@@ -257,26 +139,12 @@ public class MainActivity extends Activity implements OnClickListener{
 				return;
 			switch (v.getId()) {
 				case R.id.id_main_outbody:
-					//以下这些都是测试具体的一些图层或功能,您可以打开测试或直接使用.
-//					startDemoActivity(ExecuteTwoVideoLayerDemoActivity.class);
-//					startDemoActivity(TwoVideoLayerRealTimeActivity.class);
-//					startDemoActivity(VideoLayerRealTimeActivity.class);
 					startDemoActivity(OutBodyDemoActivity.class);
-//					startDemoActivity(ExecuteTwoBitmapActivity.class);
+//					startDemoActivity(VideoLayerTransformActivity.class);
+//					startDemoActivity(ExecuteAllDrawpadActivity.class);
 					break;
 				case R.id.id_main_cameralayer:
-					startDemoActivity(CameraLayerRectActivity.class);
-//					startDemoActivity(CameraLayerEXTPcmActivity.class);
-					break;
-				case R.id.id_main_camerafulllayer:
-					startDemoActivity(CameraLayerFullRecordActivity.class);
-//					startDemoActivity(CameraTestListActivity.class);
-					break;
-				case R.id.id_main_camerafulllayer2:
-					startDemoActivity(CameraLayerFullLandscapeActivity.class);
-					break;
-				case R.id.id_main_cameralayer_segment:
-					startDemoActivity(CameraLayerFullSegmentActivity.class);
+					startDemoActivity(CameraListDemoActivity.class);
 					break;
 				case R.id.id_main_extract_frame:
 					startDemoActivity(ExtractFrameTypeListActivity.class);
@@ -328,6 +196,92 @@ public class MainActivity extends Activity implements OnClickListener{
 		}
 	}
 	//-----------------------------
+	private void initView()
+	{
+		 tvVideoPath=(TextView)findViewById(R.id.id_main_tvvideo);
+	        
+	        findViewById(R.id.id_main_outbody).setOnClickListener(this); //灵魂出窍
+	        findViewById(R.id.id_main_cameralayer).setOnClickListener(this);
+	        
+	        findViewById(R.id.id_main_viewlayerdemo1).setOnClickListener(this);
+	        findViewById(R.id.id_main_viewremark).setOnClickListener(this);
+	        findViewById(R.id.id_main_viewlayerdemo2).setOnClickListener(this);
+	        findViewById(R.id.id_main_canvaslayerdemo).setOnClickListener(this);
+	        findViewById(R.id.id_main_videofilterdemo).setOnClickListener(this);  //图层滤镜. 用videoLayer来演示.
+	        
+	        findViewById(R.id.id_main_mvlayerdemo).setOnClickListener(this);  //图层滤镜. 用videoLayer来演示.
+	        
+	        findViewById(R.id.id_main_pictures).setOnClickListener(this);
+	        
+	        findViewById(R.id.id_main_commonversion).setOnClickListener(this);
+	        
+	        findViewById(R.id.id_main_twovideooverlay).setOnClickListener(this);
+	        findViewById(R.id.id_main_videobitmapoverlay).setOnClickListener(this);
+	        
+	        findViewById(R.id.id_main_drawpadpictureexecute).setOnClickListener(this);
+	        findViewById(R.id.id_main_drawpadexecute_filter).setOnClickListener(this);
+	        findViewById(R.id.id_main_testvideoplay).setOnClickListener(this);
+	        
+	        findViewById(R.id.id_main_extract_frame).setOnClickListener(this);
+	        
+	        findViewById(R.id.id_main_select_video).setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					startSelectVideoActivity();
+				}
+			});
+	        
+	        findViewById(R.id.id_main_use_default_videobtn).setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					new CopyDefaultVideoAsyncTask(MainActivity.this, tvVideoPath, "ping20s.mp4").execute();
+				}
+			});
+	}
+	private void showHintDialog()
+   	{
+    	Calendar c = Calendar.getInstance();
+   		int year=c.get(Calendar.YEAR);
+   		int month=c.get(Calendar.MONTH)+1;
+   		
+   		int lyear=VideoEditor.getLimitYear();
+   		int lmonth=VideoEditor.getLimitMonth();
+   		Log.i(TAG,"current year is:"+year+" month is:"+month +" limit year:"+lyear+" limit month:"+lmonth);
+   		String timeHint=getResources().getString(R.string.sdk_limit);
+   		String version=VideoEditor.getSDKVersion()+ ";\n BOX:"+LanSoEditorBox.VERSION_BOX;
+   		
+   		timeHint=String.format(timeHint,version, lyear,lmonth);
+   		
+   		new AlertDialog.Builder(this)
+   		.setTitle("提示")
+   		.setMessage(timeHint)
+           .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+   			
+   			@Override
+   			public void onClick(DialogInterface dialog, int which) {
+   				// TODO Auto-generated method stub
+   			}
+   		})
+        .show();
+   	}
+    private void showHintDialog(int stringId)
+   	{
+      new AlertDialog.Builder(this)
+   		.setTitle("提示")
+   		.setMessage(stringId)
+           .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+   			
+   			@Override
+   			public void onClick(DialogInterface dialog, int which) {
+   				// TODO Auto-generated method stub
+   			}
+   		})
+           .show();
+   	}
 	 private final static int SELECT_FILE_REQUEST_CODE=10;
 	  	private void startSelectVideoActivity()
 	    {
@@ -387,4 +341,9 @@ public class MainActivity extends Activity implements OnClickListener{
 		        }
 		        return result;
 		 }
+	   //--------------------------------
+	    private void testFile()
+	    {
+	    	
+		}
 }

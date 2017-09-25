@@ -83,7 +83,7 @@ public class VideoLayerAutoUpdateDemoActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.videopen_autoupdate_demo_layout);
+        setContentView(R.layout.videolayer_autoupdate_demo_layout);
         
         initView();
         

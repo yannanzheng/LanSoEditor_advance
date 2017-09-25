@@ -85,18 +85,53 @@ public class MVLayerDemoActivity extends Activity {
         editTmpPath=SDKFileUtils.newMp4PathInBox();
         dstPath=SDKFileUtils.newMp4PathInBox();
         
-      
-        
         new Handler().postDelayed(new Runnable() {
 			
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				//showHintDialog();
 				startPlayVideo();
 			}
 		}, 500);
     }
+    @Override
+    protected void onResume() {
+    	// TODO Auto-generated method stub
+    	super.onResume();
+    	findViewById(R.id.id_mvlayer_saveplay).setVisibility(View.INVISIBLE);
+    	
+    }
+
+    @Override
+    protected void onPause() {
+    	// TODO Auto-generated method stub
+    	super.onPause();
+    	if(mplayer!=null){
+    		mplayer.stop();
+    		mplayer.release();
+    		mplayer=null;
+    	}
+		if(mplayer2!=null){
+    		mplayer2.stop();
+    		mplayer2.release();
+    		mplayer2=null;
+    	}
+    	if(mDrawPadView!=null){
+    		mDrawPadView.stopDrawPad();
+    	}
+    }
+   @Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		
+	    if(SDKFileUtils.fileExist(dstPath)){
+	    	SDKFileUtils.deleteFile(dstPath);
+	    }
+	    if(SDKFileUtils.fileExist(editTmpPath)){
+	    	SDKFileUtils.deleteFile(editTmpPath);
+	    } 
+   }
     /**
      * VideoLayer是外部提供画面来源, 您可以用你们自己的播放器作为画面输入源,也可以用原生的MediaPlayer,只需要视频播放器可以设置surface即可.
      * 一下举例是采用MediaPlayer作为视频输入源.
@@ -157,7 +192,6 @@ public class MVLayerDemoActivity extends Activity {
 	    			
 	    			@Override
 	    			public void onSizeChanged(int viewWidth, int viewHeight) {
-	    				// TODO Auto-generated method stub
 	    				// 开始DrawPad的渲染线程. 
 	    					startDrawPad();
 	    				}
@@ -184,7 +218,7 @@ public class MVLayerDemoActivity extends Activity {
     			mplayer.setSurface(new Surface(mLayerMain.getVideoTexture()));
     		}
     		mplayer.start();
-    		
+			
     		addMVLayer();
     	}
     }
@@ -193,6 +227,7 @@ public class MVLayerDemoActivity extends Activity {
 	 */
     private void addMVLayer()
     {
+    	
     	  /**
          * 拿到两个文件,来还原出mv的视频.
          */
@@ -202,6 +237,13 @@ public class MVLayerDemoActivity extends Activity {
 		mvLayer=mDrawPadView.addMVLayer(colorMVPath, maskMVPath);  //<-----增加MVLayer
 		if(mvLayer!=null){
 		//设置它为满屏.
+			mvLayer.setOnLayerAvailableListener(new onLayerAvailableListener() {
+				
+				@Override
+				public void onAvailable(Layer layer) {
+				}
+			});
+			
     	    float scaleW=(float)mvLayer.getPadWidth()/(float)mvLayer.getLayerWidth();
     	    float scaleH=mvLayer.getPadHeight()/(float)mvLayer.getLayerHeight();
     	    mvLayer.setScale(scaleW, scaleH);
@@ -212,8 +254,6 @@ public class MVLayerDemoActivity extends Activity {
 		  //可以增加mv在播放结束后的三种模式, 停留在最后一帧/循环/消失/
 			mvLayer.setEndMode(MVLayerENDMode.LOOP);
 		}
-		
-		
     }
     /**
      * Step3: 停止画板,停止后,为新的视频文件增加上音频部分.
@@ -237,42 +277,6 @@ public class MVLayerDemoActivity extends Activity {
 			}
 		}
     }
-    @Override
-    protected void onResume() {
-    	// TODO Auto-generated method stub
-    	super.onResume();
-    	findViewById(R.id.id_mvlayer_saveplay).setVisibility(View.INVISIBLE);
-    }
-    @Override
-    protected void onPause() {
-    	// TODO Auto-generated method stub
-    	super.onPause();
-    	if(mplayer!=null){
-    		mplayer.stop();
-    		mplayer.release();
-    		mplayer=null;
-    	}
-		if(mplayer2!=null){
-    		mplayer2.stop();
-    		mplayer2.release();
-    		mplayer2=null;
-    	}
-    	if(mDrawPadView!=null){
-    		mDrawPadView.stopDrawPad();
-    	}
-    }
-   @Override
-	protected void onDestroy() {
-		// TODO Auto-generated method stub
-		super.onDestroy();
-		
-	    if(SDKFileUtils.fileExist(dstPath)){
-	    	SDKFileUtils.deleteFile(dstPath);
-	    }
-	    if(SDKFileUtils.fileExist(editTmpPath)){
-	    	SDKFileUtils.deleteFile(editTmpPath);
-	    } 
-   }
    private void initView()
    {
 	   findViewById(R.id.id_mvlayer_saveplay).setOnClickListener(new OnClickListener() {

@@ -298,14 +298,6 @@ public class ViewLayerDemoActivity extends Activity{
     private void initView()
     {
     	  tvWord=(TextView)findViewById(R.id.id_vview_tvtest);
-          btnTest=(Button)findViewById(R.id.id_drawimage_btn);
-          btnTest.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-			}
-		});
           
           findViewById(R.id.id_vview_realtime_saveplay).setOnClickListener(new OnClickListener() {
   			
@@ -324,7 +316,6 @@ public class ViewLayerDemoActivity extends Activity{
       	findViewById(R.id.id_vview_realtime_saveplay).setVisibility(View.GONE);
     }
     private TextView tvWord; 
-    private Button btnTest;
     private void showWord()
     {
     	 if(tvWord!=null&& tvWord.getVisibility()!=View.VISIBLE){

@@ -47,6 +47,12 @@ public class DrawPadPictureExecute {
 	   this.padWidth=padwidth;
 	   this.padHeight=padheight;
    }
+   public void setCheckDrawPadSize(boolean check)
+   {
+	   if(renderer!=null){
+		   renderer.setCheckDrawPadSize(check);
+	   }
+   }
    /**
     * 在您配置了 OutFrame, 要输出每一帧的时候, 是否要禁止编码器.
     * 当你只想要处理后的 数据, 而暂时不需要编码成最终的目标文件时, 把这里设置为true.
@@ -263,7 +269,13 @@ public class DrawPadPictureExecute {
 	public void setDrawPadOutFrameListener(boolean isMulti,onDrawPadOutFrameListener listener)
 	{
 		if(renderer!=null){
-			renderer.setDrawpadOutFrameListener(padWidth, padHeight, 1,listener);
+			int w=padWidth;
+			int h=padHeight;
+			if(isMulti){
+				w=make32Multi(w);
+				h=make32Multi(h);
+			}
+			renderer.setDrawpadOutFrameListener(w, h, 1,listener);
 		}
 	}
 	public void setDrawPadOutFrameListener(int width,int height,onDrawPadOutFrameListener listener)
@@ -299,9 +311,7 @@ public class DrawPadPictureExecute {
 		   resumeRecord();
 	   }
 	   private boolean mPauseRecord=false;
-	   protected boolean isCheckBitRate=true;
 	   
-	   protected boolean isCheckPadSize=true;
 	   /**
 	    * 暂停录制,
 	    * 使用在 : 开始DrawPad后, 需要暂停录制, 来增加一些图层, 然后恢复录制的场合.
@@ -344,4 +354,16 @@ public class DrawPadPictureExecute {
 			   renderer.resetOutFrames();  
 		   }
 	   }
+	   
+	   protected static int make32Multi(int value)
+		{
+			if(value<32){
+				return 32;
+			}else {
+				value+=16;
+				int  val2= value/32;
+				val2*=32;
+				return val2;
+			}
+		}
 }

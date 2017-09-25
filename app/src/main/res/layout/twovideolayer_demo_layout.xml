@@ -36,4 +36,13 @@
               android:layout_gravity="center"
               android:src="@drawable/play2"/>
       </LinearLayout>
+      	   
+    	     
+    	<Button
+    	    android:id="@+id/id_drawpad_testbutton"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:layout_centerInParent="true"
+    	    android:text="测试按钮" 
+    	    />
 </RelativeLayout>

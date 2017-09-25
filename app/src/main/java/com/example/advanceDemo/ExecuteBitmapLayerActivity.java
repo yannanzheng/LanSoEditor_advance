@@ -79,7 +79,7 @@ public class ExecuteBitmapLayerActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		 
 		 
-		 setContentView(R.layout.video_edit_demo_layout);
+		 setContentView(R.layout.execute_edit_demo_layout);
 		 tvHint=(TextView)findViewById(R.id.id_video_editor_hint);
 		 
 		 tvHint.setText(R.string.pictureset_execute_demo_hint);

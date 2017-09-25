@@ -12,6 +12,7 @@ import com.lansosdk.box.BitmapLayer;
 import com.lansosdk.box.DrawPad;
 import com.lansosdk.box.FileParameter;
 import com.lansosdk.box.Layer;
+import com.lansosdk.box.SubLayer;
 import com.lansosdk.box.VideoLayer;
 import com.lansosdk.box.YUVLayer;
 import com.lansosdk.box.onDrawPadOutFrameListener;
@@ -19,19 +20,19 @@ import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
 import com.lansosdk.box.onDrawPadThreadProgressListener;
 import com.lansosdk.videoeditor.DrawPadView;
+import com.lansosdk.videoeditor.DrawPadView.onViewAvailable;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
-import com.lansosdk.videoplayer.VPlayer;
-import com.lansosdk.videoplayer.VideoPlayer;
-import com.lansosdk.videoplayer.VideoPlayer.OnPlayerCompletionListener;
-import com.lansosdk.videoplayer.VideoPlayer.OnPlayerPreparedListener;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnCompletionListener;
+import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -62,7 +63,7 @@ public class Demo1LayerMothedActivity extends Activity implements OnSeekBarChang
 
     private DrawPadView mDrawPadView;
     
-    private VPlayer mplayer=null;
+    private MediaPlayer mplayer=null;
     private VideoLayer  mainVideoLayer=null;
     private BitmapLayer bitmapLayer=null;
     
@@ -72,7 +73,6 @@ public class Demo1LayerMothedActivity extends Activity implements OnSeekBarChang
     private LinearLayout  playVideo;
     private MediaInfo mInfo=null;
     private Button  btnTest;
-    int RotateCnt=0;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) 
@@ -88,55 +88,52 @@ public class Demo1LayerMothedActivity extends Activity implements OnSeekBarChang
     	}
     	
         mDrawPadView = (DrawPadView) findViewById(R.id.DrawPad_view);
-        
-        
         initView();
-        
         //在手机的默认路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
         editTmpPath=SDKFileUtils.newMp4PathInBox();
         dstPath=SDKFileUtils.newMp4PathInBox();
-        
-        new Handler().postDelayed(new Runnable() {
-			
+    }
+    @Override
+    protected void onResume() {
+    	// TODO Auto-generated method stub
+    	super.onResume();
+    	playVideo.setVisibility(View.INVISIBLE);
+    	new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
-				//showHintDialog();
 				startPlayVideo();
 			}
-		}, 500);
+		}, 100);
     }
-    /**
-     * VideoLayer是外部提供画面来源, 
-     * 您可以用你们自己的播放器作为画面输入源,
-     * 也可以用原生的MediaPlayer,只需要视频播放器可以设置surface即可.
-     * 
-     * 一下举例是采用MediaPlayer作为视频输入源.
-     */
     private void startPlayVideo()
     {
-    	 if (mVideoPath != null){
-    		 		mplayer=new VPlayer(Demo1LayerMothedActivity.this);
-    		 		mplayer.setVideoPath(mVideoPath);
-    		 		mplayer.setOnPreparedListener(new OnPlayerPreparedListener() {
+    	 if (mVideoPath != null)
+    	 {
+		 		mplayer=new MediaPlayer();
+		 		try {
+					mplayer.setDataSource(mVideoPath);
+					mplayer.setOnPreparedListener(new OnPreparedListener() {
 						
 						@Override
-						public void onPrepared(VideoPlayer mp) {
+						public void onPrepared(MediaPlayer mp) {
 							// TODO Auto-generated method stub
 							initDrawPad();
 						}
 					});
-    		 		mplayer.setOnCompletionListener(new OnPlayerCompletionListener() {
+			 		mplayer.setOnCompletionListener(new OnCompletionListener() {
 						
 						@Override
-						public void onCompletion(VideoPlayer mp) {
+						public void onCompletion(MediaPlayer mp) {
 							// TODO Auto-generated method stub
 							stopDrawPad();
 						}
 					});
-		       	  mplayer.prepareAsync();
-         }
-         else {
+			 		mplayer.prepareAsync();
+				}  catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+         }else {
              finish();
              return;
          }
@@ -150,15 +147,6 @@ public class Demo1LayerMothedActivity extends Activity implements OnSeekBarChang
     		int padWidth=480;
     		int padHeight=480;
     	
-        	//设置使能 实时录制, 即把正在DrawPad中呈现的画面实时的保存下来,实现所见即所得的模式
-        	mDrawPadView.setRealEncodeEnable(padWidth,padHeight,1000000,(int)mInfo.vFrameRate,editTmpPath);
-        	mDrawPadView.setOnDrawPadProgressListener(new onDrawPadProgressListener() {
-				
-				@Override
-				public void onProgress(DrawPad v, long currentTimeUs) {
-					// TODO Auto-generated method stub
-				}
-			});
         	//设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
     		mDrawPadView.setDrawPadSize(padWidth,padHeight,new onDrawPadSizeChangedListener() {
 				@Override
@@ -167,63 +155,32 @@ public class Demo1LayerMothedActivity extends Activity implements OnSeekBarChang
 					startDrawPad();
 				}
     		});
-    		
-//    		/**
-//        	 * 是否要实时获取图片
-//        	 */
-//    		mDrawPadView.setOutFrameInDrawPad(true);
-//    		mDrawPadView.setOnDrawPadOutFrameListener(480, 480, 1, new onDrawPadOutFrameListener() {
-//				
-//				@Override
-//				public void onDrawPadOutFrame(DrawPad v, Object obj, int type, long ptsUs) {
-//					// TODO Auto-generated method stub
-//					Bitmap  bmp=(Bitmap)obj;
-//					Log.i(TAG,"out frame listener  bmp is:"+bmp.getWidth()+" x "+bmp.getHeight()+ "ptsUs:"+ptsUs);
-//					testFrames.pushBitmap(bmp);
-//				}
-//			});
+    		mDrawPadView.setRealEncodeEnable(padWidth,padHeight,1000000,(int)mInfo.vFrameRate,editTmpPath);
+        	mDrawPadView.setOnDrawPadProgressListener(new onDrawPadProgressListener() {
+				
+				@Override
+				public void onProgress(DrawPad v, long currentTimeUs) {
+				}
+			});
     }
     /**
      * Step2: 开始运行 Drawpad
      */
     private void startDrawPad() 
     {
-    	// 开始DrawPad的渲染线程. 
-		if(mDrawPadView.startDrawPad())
+		if(mDrawPadView.isRunning()==false && mDrawPadView.startDrawPad())
 		{
 			//如果视频太单调了, 可以给视频增加一个背景图片
 			mDrawPadView.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.videobg));
-			
 			//增加一个主视频的 VideoLayer
 			mainVideoLayer=mDrawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
-			
-//			或者只显示画面的一部分, 如下配置.
-//			FileParameter  param=new FileParameter();
-//			if(param.setDataSoure(mVideoPath)){
-//				/**
-//				 * 设置当前需要显示的区域 ,以左上角为0,0坐标. 
-//				 * 
-//				 * @param startX  开始的X坐标, 即从宽度的什么位置开始
-//				 * @param startY  开始的Y坐标, 即从高度的什么位置开始
-//				 * @param cropW   需要显示的宽度
-//				 * @param cropH   需要显示的高度.
-//				 */
-//				param.setShowRect(0, 0, 300, 200);
-//				//param.setStartTimeUs(5*1000*1000); //从5秒处开始播放, 当前仅在后台处理时有效.
-//				operationLayer=videoMainLayer=mDrawPadView.addMainVideoLayer(param,new GPUImageSepiaFilter());
-//			}
-			
 			if(mainVideoLayer!=null)
 			{
 				mplayer.setSurface(new Surface(mainVideoLayer.getVideoTexture()));
-				mainVideoLayer.setScale(0.8f);  //把视频缩小一些, 因为外面有背景.
+			//	mainVideoLayer.setScale(0.8f);  //把视频缩小一些, 因为外面有背景.
 			}
-		
 			mplayer.start();
-		
 			addBitmapLayer();
-//			addYUVLayer();
-//			addGifLayer();
 		}
     }
     
@@ -236,6 +193,7 @@ public class Demo1LayerMothedActivity extends Activity implements OnSeekBarChang
 			
 			mDrawPadView.stopDrawPad();
 			toastStop();
+			
 			
 			if(SDKFileUtils.fileExist(editTmpPath)){
 				boolean ret=VideoEditor.encoderAddAudio(mVideoPath,editTmpPath,SDKDir.TMP_DIR,dstPath);
@@ -299,10 +257,6 @@ public class Demo1LayerMothedActivity extends Activity implements OnSeekBarChang
 						  mYuvLayer.pushNV21DataToTexture(mData.yuv,0,false,false);
 					  }
 				}
-				
-				
-				
-				
 			}
 		});
     }
@@ -320,21 +274,23 @@ public class Demo1LayerMothedActivity extends Activity implements OnSeekBarChang
     	}
     }
    @Override
-protected void onDestroy() {
-	// TODO Auto-generated method stub
-	super.onDestroy();
-	
-    if(SDKFileUtils.fileExist(dstPath)){
-    	SDKFileUtils.deleteFile(dstPath);
-    }
-    if(SDKFileUtils.fileExist(editTmpPath)){
-    	SDKFileUtils.deleteFile(editTmpPath);
-    } 
-}
-    private float xpos=0,ypos=0;
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		
+	    if(SDKFileUtils.fileExist(dstPath)){
+	    	SDKFileUtils.deleteFile(dstPath);
+	    }
+	    if(SDKFileUtils.fileExist(editTmpPath)){
+	    	SDKFileUtils.deleteFile(editTmpPath);
+	    } 
+	}
+    
     private void initView()
     {
-    
+    	  
+       
+          
           initSeekBar(R.id.id_DrawPad_skbar_rotate,360); //角度是旋转360度,如果值大于360,则取360度内剩余的角度值.
           initSeekBar(R.id.id_DrawPad_skbar_moveX,100);
           initSeekBar(R.id.id_DrawPad_skbar_moveY,100);
@@ -370,6 +326,7 @@ protected void onDestroy() {
            skbar.setOnSeekBarChangeListener(this);
            skbar.setMax(maxvalue);
     }
+    private float xpos=0,ypos=0;
     /**
      * 提示:实际使用中没有主次之分, 只要是继承自Layer的对象,都可以调节,这里仅仅是举例
      * 可以调节的有:平移,旋转,缩放,RGBA值,显示/不显示(闪烁)效果.
@@ -397,7 +354,6 @@ protected void onDestroy() {
 					 ypos+=10;
 					 if(ypos>mDrawPadView.getDrawPadHeight())
 						 ypos=0;
-					 
 					 bitmapLayer.setPosition(bitmapLayer.getPositionX(), ypos);
 				}
 			break;				

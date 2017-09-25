@@ -7,6 +7,7 @@ import java.io.InputStream;
 import com.lansosdk.box.LanSoEditorBox;
 
 import android.content.Context;
+import android.util.Log;
 
 public class CopyFileFromAssets {
 	/**
@@ -23,7 +24,7 @@ public class CopyFileFromAssets {
 		if (!dir.exists())
 			dir.mkdirs();
 		try {
-			if (!(new File(filePath)).exists()) {
+			if (!(new File(filePath)).exists()) {  //如果不存在.
 				InputStream is = mContext.getResources().getAssets()
 						.open(assetsName);
 				FileOutputStream fos = new FileOutputStream(filePath);
@@ -34,6 +35,8 @@ public class CopyFileFromAssets {
 				}
 				fos.close();
 				is.close();
+			}else{
+				Log.i("copyFile","CopyFileFromAssets.copyAssets() is work. file existe!");
 			}
 			return filePath;
 		} catch (Exception e) {

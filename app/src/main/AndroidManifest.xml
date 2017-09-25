@@ -67,9 +67,54 @@
             android:name="com.example.advanceDemo.MainActivity">
             <!-- 因为要加载.so库, 这里一定要用MainActivity来启动 -->
 
+
+
         </activity>
 
 
+        <!-- 录制类  -->
+        <activity android:name="com.example.advanceDemo.CameraListDemoActivity"></activity>
+
+
+        <activity android:name="com.example.advanceDemo.camera.CameraLayerRectActivity"></activity>
+        <activity android:name="com.example.advanceDemo.camera.CameraLayerFullPortActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            >
+        </activity>
+
+        <activity android:name="com.example.advanceDemo.camera.CameraLayerFullPortWithMp3Activity"
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            >
+        </activity>
+
+
+        <activity android:name="com.example.advanceDemo.camera.CameraSubLayerDemo1Activity"
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            >
+        </activity>
+
+        <activity android:name="com.example.advanceDemo.camera.CameraSubLayerDemo2Activity"
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            >
+        </activity>
+
+        <activity android:name="com.example.advanceDemo.camera.CameraLayerFullSegmentActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            >
+        </activity>
+
+        <activity   android:name="com.example.advanceDemo.camera.CameraLayerFullLandscapeActivity"
+                    android:screenOrientation="landscape"
+                    android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            >
+        </activity>
+
+        <!-- 基本图层类 -->
 
         <activity android:name="com.example.advanceDemo.Demo2LayerMothedActivity"></activity>
 
@@ -86,8 +131,7 @@
         <activity android:name="com.example.advanceDemo.Demo1LayerMothedActivity"></activity>
 
 
-
-        <activity android:name="com.example.advanceDemo.TwoVideoLayerRealTimeActivity"></activity>
+        <activity android:name="com.example.advanceDemo.TwoVideoLayerActivity"></activity>
 
         <activity android:name="com.example.advanceDemo.ExecuteTwoVideoLayerDemoActivity"></activity>
 
@@ -97,10 +141,9 @@
         <activity android:name="com.example.advanceDemo.BitmapLayerFilterDemoActivity"></activity>
 
 
+        <!-- 其他类 -->
         <activity android:name="com.example.advanceDemo.VideoPlayerActivity"></activity>
-
-
-
+        <activity android:name="com.example.advanceDemo.DrawPadNOViewDemoActivity"></activity>
 
 
 
@@ -116,41 +159,16 @@
         <activity android:name="com.example.advanceDemo.ExtractFrameTypeListActivity"></activity>
 
 
-        <activity android:name="com.example.advanceDemo.ExecuteTwoBitmapActivity"></activity>
-
-
+        <activity android:name="com.example.advanceDemo.ExecuteBitmapPadActivity"></activity>
         <activity android:name="com.example.advanceDemo.CanvasLayerDemoActivity"></activity>
-        <activity android:name="com.example.advanceDemo.CameraLayerFullRecordActivity"
-                  android:screenOrientation="portrait"
-                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-            >
-        </activity>
+
+        <activity android:name="com.example.advanceDemo.VideoLayerTransformActivity"></activity>
 
 
 
 
 
-        <activity android:name="com.example.advanceDemo.CameraLayerFullSegmentActivity"
-                  android:screenOrientation="portrait"
-                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-            >
-        </activity>
 
-
-
-
-
-        <activity android:name="com.example.advanceDemo.CameraLayerFullLandscapeActivity"
-                  android:screenOrientation="landscape"
-                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-            >
-        </activity>
-
-
-
-        <activity android:name="com.example.advanceDemo.CameraLayerRectActivity"
-                  android:screenOrientation="portrait">
-        </activity>
 
         <activity android:name="com.example.advanceDemo.FileExplorerActivity"
                   android:label="@string/select_video"></activity>
@@ -161,15 +179,23 @@
 
         <activity android:name="com.example.advanceDemo.ViewLayerOnlyActivity"></activity>
 
-
-
         <activity android:name="com.example.advanceDemo.MVLayerDemoActivity"></activity>
+
+
+
         <activity android:name="com.example.advanceDemo.VideoLayerAutoUpdateDemoActivity"></activity>
 
 
 
 
-        <activity android:name="com.example.advanceDemo.ExecuteRandomDemoActivity"></activity>
+
+
+
+
+
+
+        <activity android:name="com.example.advanceDemo.ExecuteAllDrawpadActivity"></activity>
+
 
 
 

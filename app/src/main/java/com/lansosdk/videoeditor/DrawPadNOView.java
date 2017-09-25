@@ -36,7 +36,6 @@ import java.util.Map;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 
-import com.lansosdk.box.AudioLine;
 import com.lansosdk.box.AudioInsertManager;
 import com.lansosdk.box.BitmapLayer;
 import com.lansosdk.box.CameraLayer;
@@ -462,19 +461,6 @@ public class DrawPadNOView  {
 			pcmSampleRate=samplerate;
 			pcmBitRate=bitrate;
 			pcmChannels=channels;
-		}
-	}
-	/**
-	 * 获取一个音频输入对象, 向内部投递数据, 
-	 * 只有当开启画板录制,并设置了录制外面数据的情况下,才有效.
-	 * @return
-	 */
-	public AudioLine getAudioLine()
-	{
-		if(renderer!=null){
-			return renderer.getAudioLine();
-		}else{
-			return null;
 		}
 	}
 	public boolean isRecording()
