@@ -13,23 +13,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="59104114-1e24-4d38-b8dc-37cd703a829d" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/PermissionsManager.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/android_android_23.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/lansongeditor_hx.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/support_annotations_23_4_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/support_v4_23_4_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/textsurface.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/LanSongEditorDemo_DEMO.apk" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/libs/lansongeditor_hx.jar" afterPath="$PROJECT_DIR$/app/libs/lansongeditor_hx.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/a1.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/a1.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/a2.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/a2.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/a3.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/a3.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/a4.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/a4.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/a5.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/a5.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/a6.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/a6.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/a7.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/a7.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/a8.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/a8.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
     </list>
     <ignored path="LanSoEditor_advance.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -64,8 +63,21 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3043">
-              <caret line="290" column="17" selection-start-line="290" selection-start-column="17" selection-end-line="290" selection-end-column="17" />
+            <state relative-caret-position="599">
+              <caret line="340" column="17" selection-start-line="340" selection-start-column="17" selection-end-line="340" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+          <provider editor-type-id="android-manifest">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="130">
+              <caret line="53" column="35" selection-start-line="53" selection-start-column="35" selection-end-line="53" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -1790,21 +1802,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/VideoLayerRealTimeActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/LanSongUtil.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/CameraRecordDemoActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/CameraLayerSegmentDemoActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/LanSoEditor.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/AVEncoder.java" />
-        <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/FilterExecuteDemoActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/ExecuteFilterDemoActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/ExecuteRandomDemoActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/ExecuteTwoVideoLayerDemoActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/view/AudioInsert.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/FocusImageView.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/ExtractVideoFrameDemoActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/CameraLayerFullPortUIActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/CameraLayerFullSegmentActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/view/VideoProgressView.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/SegmentRecorderActivity.java" />
@@ -1841,6 +1838,21 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/AudioPadDemoActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/commonDemo/CommonDemoActivity.java" />
+        <option value="$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/ar.class" />
+        <option value="$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/aS.class" />
+        <option value="$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/AudioSource.class" />
+        <option value="$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/aV.class" />
+        <option value="$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/LayerShader.class" />
+        <option value="$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/DrawPadAllExecute.class" />
+        <option value="$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/DrawPadTwoVideoExecute.class" />
+        <option value="$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/DrawPadUpdateMode.class" />
+        <option value="$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/DrawPadVideoRunnable.class" />
+        <option value="$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/DrawPadViewRender.class" />
+        <option value="$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/ScaleExecute.class" />
+        <option value="$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/T.class" />
+        <option value="$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/af.class" />
+        <option value="$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/a.class" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
       </list>
     </option>
   </component>
@@ -1875,7 +1887,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane">
+        <subPane />
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -1956,11 +1970,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="jniLibs" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="armeabi-v7a" />
+              <option name="myItemId" value="res" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1986,87 +1996,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
+              <option name="myItemId" value="res" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LanSoEditor_advance" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LanSoEditor_advance" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="example" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commonDemo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LanSoEditor_advance" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LanSoEditor_advance" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="example" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="advanceDemo" />
+              <option name="myItemId" value="drawable-xxhdpi" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2090,18 +2024,16 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="AndroidView">
         <subPane />
       </pane>
-      <pane id="PackagesPane">
-        <subPane />
-      </pane>
-      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
-    <property name="device.picker.selection" value="PBV7N16C29009630" />
+    <property name="device.picker.selection" value="3a184f80" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="ExportApk.ApkPath" value="E:\0000Coodec\publish_sdk\LanSoEditor_advance\app" />
     <property name="ExportApk.Flavors" value="" />
@@ -2112,15 +2044,15 @@
     <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\libs" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\res\drawable-xxhdpi" />
       <recent name="E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\jniLibs\armeabi-v7a" />
       <recent name="E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\libs" />
       <recent name="E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\assets" />
       <recent name="E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\res\drawable-hdpi" />
-      <recent name="E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\src\main\res\layout" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\0000Coodec\publish_sdk\LanSoEditor_advance\LanSoEditor_advance\app\libs" />
     </key>
   </component>
   <component name="RunManager" selected="Android App.app">
@@ -2504,164 +2436,23 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="1" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/DrawPadAllExecute.class</url>
+          <line>190</line>
+          <properties />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="2" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/MVLayerENDMode.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/onCompressProgressListener.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/onDrawPadSnapShotListener.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/Q.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="572">
-          <caret line="215" column="21" selection-start-line="215" selection-start-column="21" selection-end-line="215" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/Demo1LayerMothedActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="693">
-          <caret line="252" column="30" selection-start-line="252" selection-start-column="30" selection-end-line="252" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/SubLayer.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="32" column="17" selection-start-line="32" selection-start-column="17" selection-end-line="32" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/aP.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="406" column="12" selection-start-line="406" selection-start-column="12" selection-end-line="406" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/aj.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="658">
-          <caret line="75" column="23" selection-start-line="75" selection-start-column="23" selection-end-line="75" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/AudioPad.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="29" column="35" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lansosdk/videoeditor/LanSoEditor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="26" column="49" selection-start-line="26" selection-start-column="49" selection-end-line="26" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/OutBodyDemoActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="250" column="45" selection-start-line="250" selection-start-column="45" selection-end-line="250" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/ExecuteVideoLayerActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="400" column="17" selection-start-line="400" selection-start-column="17" selection-end-line="400" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/Layer.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="57" column="23" selection-start-line="57" selection-start-column="23" selection-end-line="57" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/AudioSuource.class" />
-    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/BitmapGetFilters.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/BitmapLayer.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1482">
-          <caret line="30" column="21" selection-start-line="30" selection-start-column="21" selection-end-line="30" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/AudioInsertManager.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="28" column="15" selection-start-line="28" selection-start-column="15" selection-end-line="28" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/AudioLine.class" />
-    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/BoxAVDecoder.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="572">
-          <caret line="25" column="57" selection-start-line="25" selection-start-column="57" selection-end-line="25" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/BoxDecoder.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/BoxEncoder.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="19" column="5" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/BoxMediaInfo.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="598">
-          <caret line="27" column="23" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/BoxVideoEditor.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6500">
           <caret line="262" column="27" selection-start-line="262" selection-start-column="27" selection-end-line="262" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/C.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="14" column="19" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
         </state>
       </provider>
     </entry>
@@ -2737,28 +2528,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/A.class">
+    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/a.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="156">
           <caret line="13" column="12" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="12" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/A.class">
+    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/a.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="104">
           <caret line="7" column="19" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/A.class">
+    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/a.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="156">
           <caret line="13" column="12" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="12" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/A.class">
+    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/a.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="156">
           <caret line="13" column="12" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="12" />
@@ -2769,11 +2560,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="573">
           <caret line="379" column="9" selection-start-line="379" selection-start-column="9" selection-end-line="379" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/A.class">
+    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/a.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="156">
           <caret line="13" column="12" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="12" />
@@ -2784,7 +2574,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4316">
           <caret line="169" column="59" selection-start-line="169" selection-start-column="59" selection-end-line="169" selection-end-column="59" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2792,7 +2581,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="520">
           <caret line="2666" column="13" selection-start-line="2666" selection-start-column="13" selection-end-line="2666" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2800,7 +2588,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="260">
           <caret line="22" column="24" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2811,22 +2598,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="56" column="60" selection-start-line="56" selection-start-column="60" selection-end-line="56" selection-end-column="60" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/StartActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="469">
           <caret line="197" column="4" selection-start-line="197" selection-start-column="4" selection-end-line="197" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2834,7 +2609,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="26">
           <caret line="51" column="33" selection-start-line="51" selection-start-column="33" selection-end-line="51" selection-end-column="33" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2842,14 +2616,197 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="364">
           <caret line="55" column="106" selection-start-line="55" selection-start-column="106" selection-end-line="55" selection-end-column="106" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/ar.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="546">
+          <caret line="78" column="5" selection-start-line="78" selection-start-column="5" selection-end-line="78" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/aS.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25">
+          <caret line="29" column="34" selection-start-line="29" selection-start-column="34" selection-end-line="29" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/LayerShader.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-962">
+          <caret line="11" column="29" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/aV.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="884">
+          <caret line="43" column="16" selection-start-line="43" selection-start-column="16" selection-end-line="43" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/AudioSource.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="623">
+          <caret line="51" column="1" selection-start-line="51" selection-start-column="1" selection-end-line="51" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/BitmapGetFilters.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="494">
+          <caret line="154" column="56" selection-start-line="154" selection-start-column="56" selection-end-line="154" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/BitmapLayer.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4265">
+          <caret line="47" column="5" selection-start-line="47" selection-start-column="5" selection-end-line="47" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/BoxAVDecoder.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="15" column="55" selection-start-line="15" selection-start-column="55" selection-end-line="15" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/BoxDecoder.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="104">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/C.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="14" column="19" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/DrawPadAllExecute.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3666">
+          <caret line="171" column="29" selection-start-line="171" selection-start-column="29" selection-end-line="171" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/DrawPadTwoVideoExecute.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="598">
+          <caret line="52" column="18" selection-start-line="52" selection-start-column="18" selection-end-line="52" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/DrawPadVideoRunnable.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="546">
+          <caret line="56" column="16" selection-start-line="56" selection-start-column="16" selection-end-line="56" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/DrawPadViewRender.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/ScaleExecute.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/SubLayer.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/T.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="520">
+          <caret line="33" column="32" selection-start-line="33" selection-start-column="32" selection-end-line="33" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/Layer.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7748">
+          <caret line="335" column="33" selection-start-line="335" selection-start-column="33" selection-end-line="335" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/af.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1092">
+          <caret line="54" column="11" selection-start-line="54" selection-start-column="11" selection-end-line="54" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/a.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="104">
+          <caret line="7" column="19" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/a.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="8" column="44" selection-start-line="8" selection-start-column="44" selection-end-line="8" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/com/lansosdk/box/DrawPadUpdateMode.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="104">
+          <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="78">
+          <caret line="3" column="50" selection-start-line="3" selection-start-column="50" selection-end-line="3" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="53" column="35" selection-start-line="53" selection-start-column="35" selection-end-line="53" selection-end-column="35" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/advanceDemo/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3043">
-          <caret line="290" column="17" selection-start-line="290" selection-start-column="17" selection-end-line="290" selection-end-column="17" />
+        <state relative-caret-position="599">
+          <caret line="340" column="17" selection-start-line="340" selection-start-column="17" selection-end-line="340" selection-end-column="17" />
           <folding />
         </state>
       </provider>
