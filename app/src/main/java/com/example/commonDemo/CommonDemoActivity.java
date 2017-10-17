@@ -51,30 +51,6 @@ public class CommonDemoActivity extends Activity{
 			 new DemoInfo(R.string.demo_id_cutaudio,R.string.demo_more_cutaudio,false,true),
 			 new DemoInfo(R.string.demo_id_cutvideo,R.string.demo_more_cutvideo,true,false),
 			 new DemoInfo(R.string.demo_id_concatvideo,R.string.demo_more_concatvideo,true,false),
-			 new DemoInfo(R.string.demo_id_videocompress,R.string.demo_more_videocompress,true,false),
-			 new DemoInfo(R.string.demo_id_videocrop,R.string.demo_more_videocrop,true,false),
-			 new DemoInfo(R.string.demo_id_videoscale_soft,R.string.demo_more_videoscale_soft,true,false),
-			 new DemoInfo(R.string.demo_id_videowatermark,R.string.demo_more_videowatermark,true,false),
-			 new DemoInfo(R.string.demo_id_videocropwatermark,R.string.demo_more_videocropwatermark,true,false),
-			 new DemoInfo(R.string.demo_id_videogetframes,R.string.demo_more_videogetframes,false,false),
-			 new DemoInfo(R.string.demo_id_videogetoneframe,R.string.demo_more_videogetoneframe,false,false),
-			 new DemoInfo(R.string.demo_id_videozeroangle,R.string.demo_more_videozeroangle,true,false),
-			 new DemoInfo(R.string.demo_id_videoclockwise90,R.string.demo_more_videoclockwise90,true,false),
-			 new DemoInfo(R.string.demo_id_videocounterClockwise90,R.string.demo_more_videocounterClockwise90,true,false),
-			 new DemoInfo(R.string.demo_id_videoaddanglemeta,R.string.demo_more_videoaddanglemeta,true,false),
-			 new DemoInfo(R.string.demo_id_ontpicturevideo,R.string.demo_more_ontpicturevideo,true,false),
-			 new DemoInfo(R.string.demo_id_morepicturevideo,R.string.demo_more_morepicturevideo,true,false),
-			 new DemoInfo(R.string.demo_id_audiodelaymix,R.string.demo_more_audiodelaymix,false,true),
-			 new DemoInfo(R.string.demo_id_audiovolumemix,R.string.demo_more_audiovolumemix,false,true),
-			 new DemoInfo(R.string.demo_id_videopad,R.string.demo_more_videopad,true,false),
-			 new DemoInfo(R.string.demo_id_videoadjustspeed,R.string.demo_more_videoadjustspeed,true,false),
-			 new DemoInfo(R.string.demo_id_videomirrorh,R.string.demo_more_videomirrorh,true,false),
-			 new DemoInfo(R.string.demo_id_videomirrorv,R.string.demo_more_videomirrorv,true,false),
-			 new DemoInfo(R.string.demo_id_videorotateh,R.string.demo_more_videorotateh,true,false),
-			 new DemoInfo(R.string.demo_id_videorotatev,R.string.demo_more_videorotatev,true,false),
-			 new DemoInfo(R.string.demo_id_videoreverse,R.string.demo_more_videoreverse,true,false),
-
-			 new DemoInfo(R.string.demo_id_avreverse,R.string.demo_more_avreverse,true,false),
 			 
 	};
 	private ListView  mListView=null;
@@ -114,11 +90,6 @@ public class CommonDemoActivity extends Activity{
 	{
 			DemoInfo demo = mTestCmdArray[position];
 			
-			if(demo.mHintId==R.string.demo_id_videoscale_hard)
-			{
-				startScaleActivity();
-				
-			}else{
 				Intent intent=new Intent(CommonDemoActivity.this,AVEditorDemoActivity.class);
 				
 				intent.putExtra("videopath1",mVideoPath.toString());
@@ -127,7 +98,6 @@ public class CommonDemoActivity extends Activity{
 				intent.putExtra("demoID", demo.mHintId);
 				intent.putExtra("textID", demo.mTextId);
 				startActivity(intent);
-			}
 	}
 	private void startMediaInfoActivity()
 	{
@@ -136,13 +106,6 @@ public class CommonDemoActivity extends Activity{
 		startActivity(intent);
 	}
 
-	  //-----------------------
-	  private void startScaleActivity()  //开启硬件缩放
-	  {
-		  Intent intent=new Intent(CommonDemoActivity.this,ScaleExecuteDemoActivity.class);
-	    	intent.putExtra("videopath", mVideoPath.toString());
-	    	startActivity(intent);
-	  }
 	//------------------------------------------
 		private class SoftApAdapter extends BaseAdapter
 		{

@@ -5,6 +5,7 @@ import java.util.Locale;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.Rotation;
 
 import com.example.advanceDemo.view.BitmapCache;
 import com.example.advanceDemo.view.ShowHeart;
@@ -24,6 +25,7 @@ import com.lansosdk.box.YUVLayer;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
 import com.lansosdk.box.onDrawPadThreadProgressListener;
+import com.lansosdk.videoeditor.CopyFileFromAssets;
 import com.lansosdk.videoeditor.DrawPadView;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
@@ -77,7 +79,7 @@ public class TwoVideoLayerActivity extends Activity {
     private String dstPath=null;
     private LinearLayout  playVideo;
     private  MediaInfo mInfo;
-    private boolean isDisplayed;
+    private boolean isDisplayed=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) 
     {
@@ -86,7 +88,7 @@ public class TwoVideoLayerActivity extends Activity {
         
         mVideoPath = getIntent().getStringExtra("videopath");
         
-        mDrawPadView = (DrawPadView) findViewById(R.id.DrawPad_view);
+        mDrawPadView = (DrawPadView) findViewById(R.id.id_twovideolayer_view);
         mInfo=new MediaInfo(mVideoPath,false);
         if(mInfo.prepare()==false)
         {
@@ -94,7 +96,7 @@ public class TwoVideoLayerActivity extends Activity {
         	 this.finish();
         }
         
-        playVideo=(LinearLayout)findViewById(R.id.id_DrawPad_saveplay);
+        playVideo=(LinearLayout)findViewById(R.id.id_twovideolayer_saveplay);
         playVideo.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -110,7 +112,7 @@ public class TwoVideoLayerActivity extends Activity {
 			}
 		});
         playVideo.setVisibility(View.GONE);
-        findViewById(R.id.id_drawpad_testbutton).setOnClickListener(new OnClickListener() {
+        findViewById(R.id.id_twovideolayer_testbutton).setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -129,8 +131,6 @@ public class TwoVideoLayerActivity extends Activity {
 			
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
-				//showHintDialog();
 				startPlayVideo();
 			}
 		}, 500);
@@ -173,40 +173,30 @@ public class TwoVideoLayerActivity extends Activity {
               return;
           }
     }
-    private void toastStop()
-    {
-    	Toast.makeText(getApplicationContext(), "录制已停止!!", Toast.LENGTH_SHORT).show();
-    	Log.i(TAG,"录制已停止!!");
-    }
     /**
      * Step1:  init DrawPad 初始化
      * @param mp
      */
     private void initDrawPad(MediaPlayer mp)
     {
-        	int padWidth=544;
-        	int padHeight=960;
+        	int padWidth=480;
+        	int padHeight=480;
         	
-        	//设置使能 实时录制, 即把正在DrawPad中呈现的画面实时的保存下来,实现所见即所得的模式
-        	mDrawPadView.setRealEncodeEnable(padWidth,padHeight,3000000,(int)mInfo.vFrameRate,editTmpPath);
-        	mDrawPadView.setOnDrawPadProgressListener(new onDrawPadProgressListener() {
+        	/**
+        	 * 设置使能 实时录制, 即把正在DrawPad中呈现的画面实时的保存下来,实现所见即所得的模式
+        	 */
+        	mDrawPadView.setRealEncodeEnable(padWidth,padHeight,1200*1000,(int)mInfo.vFrameRate,editTmpPath);
+        	
+        	mDrawPadView.setUseMainVideoPts(true);
+        	
+        	mDrawPadView.setDrawPadSize(padWidth, padHeight, new onDrawPadSizeChangedListener() {
 				
-				@Override
-				public void onProgress(DrawPad v, long currentTimeUs) {
-					// TODO Auto-generated method stub
-				}
-			});
-        	
-//        	mDrawPadView.setUpdateMode(DrawPadUpdateMode.AUTO_FLUSH, (int)mInfo.vFrameRate);
-        	
-        		//设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
-    		mDrawPadView.setDrawPadSize(padWidth,padHeight,new onDrawPadSizeChangedListener() {
 				@Override
 				public void onSizeChanged(int viewWidth, int viewHeight) {
 					// TODO Auto-generated method stub
 					startDrawPad();
 				}
-    		});
+			});
     }
     /**
      * Step2: 开始运行 Drawpad
@@ -215,28 +205,41 @@ public class TwoVideoLayerActivity extends Activity {
     {
     	// 开始DrawPad的渲染线程. 
     	mDrawPadView.pauseDrawPad();
-		mDrawPadView.startDrawPad();
-		
-		//增加一个主视频的 VideoLayer
-		twoVideoLayer=mDrawPadView.addTwoVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight());
-		if(twoVideoLayer!=null)
-		{
-			mplayer.setSurface(new Surface(twoVideoLayer.getVideoTexture()));
-		}
-		mplayer.start();
-	
-		mplayer2=new MediaPlayer();
-  	  try {
-				mplayer2.setDataSource("/sdcard/taohua.mp4");
-				mplayer2.prepare();
-				mplayer2.setSurface(new Surface(twoVideoLayer.getVideoTexture2()));
-				mplayer2.start();
-		  }  catch (IOException e) {
-			// TODO Auto-generated catch block
-			  e.printStackTrace();
-		 }
-		mDrawPadView.resumeDrawPad();
+    	if(mDrawPadView.startDrawPad())
+    	{
+    		//增加一个主视频的 VideoLayer
+    		twoVideoLayer=mDrawPadView.addTwoVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight());
+    		if(twoVideoLayer!=null)
+    		{
+    			mplayer.setSurface(new Surface(twoVideoLayer.getVideoTexture()));
+    		}
+    		mplayer.start();
+    	
+    		//增加第二个视频.
+    		mplayer2=new MediaPlayer();
+      	  try {
+      		  		String video=CopyFileFromAssets.copyAssets(getApplicationContext(), "taohua.mp4");
+    				mplayer2.setDataSource(video);
+    				mplayer2.prepare();
+    				mplayer2.setLooping(true);
+    				mplayer2.setSurface(new Surface(twoVideoLayer.getVideoTexture2()));
+    				mplayer2.start();
+    				
+    				if(mInfo.vRotateAngle==90){  //mInfo是主视频的MediaInfo
+    					twoVideoLayer.setSecondVideoMirror(Rotation.ROTATION_270,true, false);	
+    				}else if (mInfo.vRotateAngle==270){
+    					twoVideoLayer.setSecondVideoMirror(Rotation.ROTATION_90,true, false);	
+    				}
+    		  }  catch (IOException e) {
+    			// TODO Auto-generated catch block
+    			  e.printStackTrace();
+    		 }
+    		mDrawPadView.resumeDrawPad();
+    	}
     }
+    /**
+     * 或者您可以切换为另一个效果视频,
+     */
     private void changeMp2()
     {
     	if(mplayer2!=null){
@@ -245,18 +248,16 @@ public class TwoVideoLayerActivity extends Activity {
     		mplayer2=null;
     	}
     	mplayer2=new MediaPlayer();
-  	  try {
+  	  try{
 				mplayer2.setDataSource("/sdcard/mask.mp4");
 				mplayer2.prepare();
 				
 				mplayer2.setSurface(new Surface(twoVideoLayer.getVideoTexture2()));
 				mplayer2.start();
 		  }  catch (IOException e) {
-			// TODO Auto-generated catch block
 			  e.printStackTrace();
 		 }
     }
-    
     /**
      * Step3: stop DrawPad
      */
@@ -265,7 +266,7 @@ public class TwoVideoLayerActivity extends Activity {
     	if(mDrawPadView!=null && mDrawPadView.isRunning()){
 			
 			mDrawPadView.stopDrawPad();
-			toastStop();
+			Toast.makeText(getApplicationContext(), "录制已停止!!", Toast.LENGTH_SHORT).show();
 			
 			//增加音频
 			if(SDKFileUtils.fileExist(editTmpPath)){
@@ -304,12 +305,7 @@ public class TwoVideoLayerActivity extends Activity {
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		
-	    if(SDKFileUtils.fileExist(dstPath)){
-	    	SDKFileUtils.deleteFile(dstPath);
-	    }
-	    if(SDKFileUtils.fileExist(editTmpPath)){
-	    	SDKFileUtils.deleteFile(editTmpPath);
-	    } 
+		SDKFileUtils.deleteFile(dstPath);
+		SDKFileUtils.deleteFile(editTmpPath);
 	}
 }

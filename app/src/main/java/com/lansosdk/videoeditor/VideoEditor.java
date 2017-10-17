@@ -16,11 +16,20 @@ import android.media.MediaMetadataRetriever;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.provider.MediaStore.Video;
 import android.text.TextUtils;
 import android.util.Log;
 
 
 /**
+ * 此代码是基本版本里的功能, 不属于专业版本,因专业版本包含基本版本, 故放进来而已.
+ * 此代码是基本版本里的功能, 不属于专业版本,因专业版本包含基本版本, 故放进来而已.
+ * 此代码是基本版本里的功能, 不属于专业版本,因专业版本包含基本版本, 故放进来而已.
+ * 此代码是基本版本里的功能, 不属于专业版本,因专业版本包含基本版本, 故放进来而已.
+ * 此代码是基本版本里的功能, 不属于专业版本,因专业版本包含基本版本, 故放进来而已.
+ * 此代码是基本版本里的功能, 不属于专业版本,因专业版本包含基本版本, 故放进来而已.
+ * 
+ * 
  * 如果您想扩展ffmpeg的命令, 可以继承这个类,然后在其中想我们的各种executeXXX的举例一样来使用,不要直接修改我们的这个文件, 以方便以后的sdk更新升级.
  *
  *  此类的executeXXX的方法，是阻塞性执行， 即调用后，会一直阻塞在这里执行，直到执行完退出后，才执行下一行代码。您可以仿照我们的例子，采用ASynctask的形式或new Thread的形式来做。
@@ -649,6 +658,19 @@ public class VideoEditor {
 		return false;
 	}
 	/**
+	 * 只是内部使用, 用来把视频和音频合成在一起, 没有做任意判断
+	 * @param videoPath
+	 * @param audioPath
+	 * @return
+	 */
+	public static String mp4AddAudio(String videoPath,String audioPath)
+	{
+		String ret=SDKFileUtils.createMp4FileInBox();
+		VideoEditor editor=new VideoEditor();
+		editor.executeVideoMergeAudio(videoPath, audioPath, ret);
+		return ret;
+	}
+	/**
 	 * 用新的音频文件, 替换掉原来视频文件中的音频轨道.
 	 * 
 	 * @param oldMp4
@@ -1032,264 +1054,15 @@ public class VideoEditor {
 			  }
 		  }
 		  /**
-		   *  对视频时长进行 精确裁剪， 把mp4文件中的一段剪切成独立的一个视频文件, 比如把一个1分钟的视频,裁剪其中的10秒钟等.
-		   *  我们高级版本有直接投递到drawPad中的方法, 如果您使用我们的高级版本, 则建议用DrawPad的方式来处理,那样更快.
-		   *  
-		   *  因为视频编码原理是根据IDR来裁剪, 要做到精确裁剪到指定时间, 则有可能指定的时间不是IDR帧的时间戳, 这时就需要先解码,然后编码的操作.
-		   *  这里的精确裁剪是先解码然后编码来统一完成精确裁剪.
-		   *  注意:此方法为精确裁剪, 流程是:先解码,然后编码. 如果您还实际中还需要别的功能,比如增加LOGO,缩放等操作,建议把两个命令合并在一起,从而减少一次编解码.
-		   *  【此方法用到编解码】
-		   *  举例: 
-		   *editor.executeVideoCutExact(srcVideo, info.vCodecName, dstVideo, 0.6f, 1.0f, (int)((float)info.vBitRate*1.2f));
-		   *
-		   * @param videoFile  原视频
-		   * @param decoder  原视频用到的解码器, 如果有硬件解码器,则建议用硬件解码器.用MediaInfo可以获取.
-		   * @param dstFile  裁剪后目标文件路径，
-		   * @param startS  开始裁剪位置，单位是秒，
-		   * @param durationS  需要裁剪的时长，单位秒，比如您可以从原视频的8.9秒出开始裁剪，裁剪2分钟，则这里的参数是120
-		   * @param bitrate  因为需要编码， 设置编码的码率。 建议用MediaInfo中的vbitrate*1.2f
-		   * @return
-		   */
-		  public int executeVideoCutExact(String videoFile,String decoder,String dstFile,float startS,float durationS,int bitrate)
-		  {
-			  if(fileExist(videoFile)){
-				
-					List<String> cmdList=new ArrayList<String>();
-					
-					cmdList.add("-vcodec");
-					cmdList.add(decoder);
-					
-			    	cmdList.add("-i");
-					cmdList.add(videoFile);
-
-					cmdList.add("-ss");
-					cmdList.add(String.valueOf(startS));
-					
-					cmdList.add("-t");
-					cmdList.add(String.valueOf(durationS));
-					
-					cmdList.add("-vcodec");
-					cmdList.add("lansoh264_enc"); 
-					
-					cmdList.add("-b:v");
-					cmdList.add(checkBitRate(bitrate)); 
-					
-					cmdList.add("-pix_fmt");  
-					cmdList.add("yuv420p");
-					
-					cmdList.add("-acodec");
-					cmdList.add("copy");
-					
-					cmdList.add("-y");
-					cmdList.add(dstFile);
-					
-					String[] command=new String[cmdList.size()];  
-				     for(int i=0;i<cmdList.size();i++){  
-				    	 command[i]=(String)cmdList.get(i);  
-				     }  
-				    return  executeVideoEditor(command);
-				  
-			  }else{
-				  return VIDEO_EDITOR_EXECUTE_FAILED;
-			  }
-		  }
-		  /**
-		   * 精确裁剪的同时,缩放到指定位置,不同于上面的命令,这个可以设置宽度和高度. 其中宽度和高度是采用缩放来完成.
-		   * 
-		   * 
-		   * 采用的是软缩放的形式.
-		   * @param videoFile
-		   * @param decoder
-		   * @param dstFile
-		   * @param startS
-		   * @param durationS
-		   * 
-		   * @param width  要缩放到的宽度 建议是16的倍数 ,如果不是,则可以用 {@link #make16Multi(int)}来得到
-		   * @param height 要缩放到的高度, 建议是16的倍数
-		   * @param bitrate
-		   * @return
-		   */
-		  public int executeVideoCutExact(String videoFile,String decoder,String dstFile,
-				  float startS,float durationS,int width,int height,int bitrate)
-		  {
-			  if(fileExist(videoFile)){
-					List<String> cmdList=new ArrayList<String>();
-					
-					String scalecmd=String.format(Locale.getDefault(),"scale=%d:%d",width,height);
-					
-					cmdList.add("-vcodec");
-					cmdList.add(decoder);
-					
-			    	cmdList.add("-i");
-					cmdList.add(videoFile);
-
-					cmdList.add("-ss");
-					cmdList.add(String.valueOf(startS));
-					
-					cmdList.add("-t");
-					cmdList.add(String.valueOf(durationS));
-					
-					cmdList.add("-vf");
-					cmdList.add(scalecmd);
-					
-					cmdList.add("-vcodec");
-					cmdList.add("lansoh264_enc"); 
-					
-					cmdList.add("-b:v");
-					cmdList.add(checkBitRate(bitrate)); 
-					
-					cmdList.add("-pix_fmt");  
-					cmdList.add("yuv420p");
-					
-					cmdList.add("-acodec");
-					cmdList.add("copy");
-					
-					cmdList.add("-y");
-					cmdList.add(dstFile);
-					
-					String[] command=new String[cmdList.size()];  
-				     for(int i=0;i<cmdList.size();i++){  
-				    	 command[i]=(String)cmdList.get(i);  
-				     }  
-				    return  executeVideoEditor(command);
-				  
-			  }else{
-				  return VIDEO_EDITOR_EXECUTE_FAILED;
-			  }
-		  }
-		  /**
-		   * 
-		   * 对视频时长进行 精确裁剪， 并在对视频精确编码的同时,对音频进行编码.
-		   * 
-		   * 把mp4文件中的一段剪切成独立的一个视频文件, 比如把一个30分钟的视频,裁剪其中的10秒钟等.
-		   * 
-		   * @param videoFile 原视频
-		   * @param dstFile  裁剪后目标文件路径，
-		   * @param startS    开始裁剪位置，单位是秒，
-		   * @param durationS 需要裁剪的时长，单位秒，比如您可以从原视频的8.9秒出开始裁剪，裁剪2分钟，则这里的参数是120
-		   * @param bitrate  因为需要编码， 设置编码的码率。 建议用MediaInfo中的vbitrate*1.2f
-		   * @param encodeAudio 是否对音频进行编码.
-		   * @return
-		   */
-		  public int executeVideoExactCut(String videoFile,String dstFile,float startS,float durationS,int bitrate,boolean encodeAudio)
-		  {
-			  if(fileExist(videoFile)){
-				
-				 
-					List<String> cmdList=new ArrayList<String>();
-					
-			    	cmdList.add("-i");
-					cmdList.add(videoFile);
-
-					cmdList.add("-ss");
-					cmdList.add(String.valueOf(startS));
-					
-					cmdList.add("-t");
-					cmdList.add(String.valueOf(durationS));
-					
-					cmdList.add("-vcodec");
-					cmdList.add("lansoh264_enc"); 
-					
-					cmdList.add("-b:v");
-					cmdList.add(checkBitRate(bitrate)); 
-					
-					cmdList.add("-pix_fmt");  
-					cmdList.add("yuv420p");
-					
-					cmdList.add("-acodec");
-					if(encodeAudio){
-						cmdList.add("libfaac");
-					}else{
-						cmdList.add("copy");
-					}
-					
-					cmdList.add("-y");
-					cmdList.add(dstFile);
-					
-					String[] command=new String[cmdList.size()];  
-				     for(int i=0;i<cmdList.size();i++){  
-				    	 command[i]=(String)cmdList.get(i);  
-				     }  
-				    return  executeVideoEditor(command);
-				  
-			  }else{
-				  return VIDEO_EDITOR_EXECUTE_FAILED;
-			  }
-		  }
-		  /**
-		   * 【此方法用到编解码】
-		   * 对视频时长剪切的同时, 对画面进行裁剪.
-		   * @param videoFile
-		   * @param dstFile
-		   * @param startS
-		   * @param durationS
-		   * @param cropWidth
-		   * @param cropHeight
-		   * @param x
-		   * @param y
-		   * @param bitrate
-		   * @param encodeAudio
-		   * @return
-		   */
-		  public int executeVideoExactCut(String videoFile,String dstFile,float startS,float durationS,int cropWidth,int cropHeight,int x,int y,int bitrate,boolean encodeAudio)
-		  {
-			  if(fileExist(videoFile)){
-				
-				  	String cropcmd=String.format(Locale.getDefault(),"crop=%d:%d:%d:%d",cropWidth,cropHeight,x,y);
-				  
-					List<String> cmdList=new ArrayList<String>();
-					
-			    	cmdList.add("-i");
-					cmdList.add(videoFile);
-
-					cmdList.add("-ss");
-					cmdList.add(String.valueOf(startS));
-					
-					cmdList.add("-t");
-					cmdList.add(String.valueOf(durationS));
-					
-					cmdList.add("-vf");
-					cmdList.add(cropcmd);
-					
-					cmdList.add("-vcodec");
-					cmdList.add("lansoh264_enc"); 
-					
-					cmdList.add("-b:v");
-					cmdList.add(checkBitRate(bitrate)); 
-					
-					cmdList.add("-pix_fmt");  
-					cmdList.add("yuv420p");
-					
-					cmdList.add("-acodec");
-					if(encodeAudio){
-						cmdList.add("libfaac");
-					}else{
-						cmdList.add("copy");
-					}
-					
-					cmdList.add("-y");
-					cmdList.add(dstFile);
-					
-					String[] command=new String[cmdList.size()];  
-				     for(int i=0;i<cmdList.size();i++){  
-				    	 command[i]=(String)cmdList.get(i);  
-				     }  
-				    return  executeVideoEditor(command);
-				  
-			  }else{
-				  return VIDEO_EDITOR_EXECUTE_FAILED;
-			  }
-		  }
-		  /**
 		   * 获取视频的所有帧图片,并保存到指定路径.
 		   * 所有的帧会按照后缀名字加上_001.jpeg prefix_002.jpeg的顺序依次生成, 如果发现之前已经有同样格式的文件,则在原来数字后缀的基础上增加, 比如原来有prefix_516.jpeg;则这个方法执行从
 		   * prefix_517.jpeg开始生成视频帧.
 		   * 
 		   * 
-		   *如果您使用的是高级版本,则建议用ExtractVideoFrameDemoActivity来获取视频图片,因为直接返回bitmap,不存到文件中,速度相对快很多
-		   *如果您使用的是高级版本,则建议用ExtractVideoFrameDemoActivity来获取视频图片,因为直接返回bitmap,不存到文件中,速度相对快很多
-		   *如果您使用的是高级版本,则建议用ExtractVideoFrameDemoActivity来获取视频图片,因为直接返回bitmap,不存到文件中,速度相对快很多
-		   *如果您使用的是高级版本,则建议用ExtractVideoFrameDemoActivity来获取视频图片,因为直接返回bitmap,不存到文件中,速度相对快很多
+		   *如果您使用的是专业版本,则建议用ExtractVideoFrameDemoActivity来获取视频图片,因为直接返回bitmap,不存到文件中,速度相对快很多
+		   *如果您使用的是专业版本,则建议用ExtractVideoFrameDemoActivity来获取视频图片,因为直接返回bitmap,不存到文件中,速度相对快很多
+		   *如果您使用的是专业版本,则建议用ExtractVideoFrameDemoActivity来获取视频图片,因为直接返回bitmap,不存到文件中,速度相对快很多
+		   *如果您使用的是专业版本,则建议用ExtractVideoFrameDemoActivity来获取视频图片,因为直接返回bitmap,不存到文件中,速度相对快很多
 		   *
 		   *
 		   * 这条命令是把视频中的所有帧都提取成图片，适用于视频比较短的场合，比如一秒钟是25帧，视频总时长是10秒，则会提取250帧图片，保存到您指定的路径
@@ -1333,10 +1106,10 @@ public class VideoEditor {
 		   * 假如视频时长是30秒,想平均取5张图片,则sampleRate=5/30;
 		   * 
 		   * 
-		   *如果您使用的是高级版本,则建议用ExtractVideoFrameDemoActivity来获取视频图片,因为直接返回bitmap,不存到文件中,速度相对快很多
-		   *如果您使用的是高级版本,则建议用ExtractVideoFrameDemoActivity来获取视频图片,因为直接返回bitmap,不存到文件中,速度相对快很多
-		   *如果您使用的是高级版本,则建议用ExtractVideoFrameDemoActivity来获取视频图片,因为直接返回bitmap,不存到文件中,速度相对快很多
-		   *如果您使用的是高级版本,则建议用ExtractVideoFrameDemoActivity来获取视频图片,因为直接返回bitmap,不存到文件中,速度相对快很多
+		   *如果您使用的是专业版本,则建议用ExtractVideoFrameDemoActivity来获取视频图片,因为直接返回bitmap,不存到文件中,速度相对快很多
+		   *如果您使用的是专业版本,则建议用ExtractVideoFrameDemoActivity来获取视频图片,因为直接返回bitmap,不存到文件中,速度相对快很多
+		   *如果您使用的是专业版本,则建议用ExtractVideoFrameDemoActivity来获取视频图片,因为直接返回bitmap,不存到文件中,速度相对快很多
+		   *如果您使用的是专业版本,则建议用ExtractVideoFrameDemoActivity来获取视频图片,因为直接返回bitmap,不存到文件中,速度相对快很多
 		   *
 		   *
 		   * @param videoFile
@@ -1387,10 +1160,10 @@ public class VideoEditor {
 		   *  读取视频中的关键帧(IDR帧), 并把关键帧保存图片. 因是IDR帧, 在编码时没有起帧做参考,故提取的最快. 
 		   *
 		   * 
-		   *如果您使用的是高级版本,则建议用ExtractVideoFrameDemoActivity来获取视频图片,因为直接返回bitmap,不存到文件中,速度相对快很多
-		   *如果您使用的是高级版本,则建议用ExtractVideoFrameDemoActivity来获取视频图片,因为直接返回bitmap,不存到文件中,速度相对快很多
-		   *如果您使用的是高级版本,则建议用ExtractVideoFrameDemoActivity来获取视频图片,因为直接返回bitmap,不存到文件中,速度相对快很多
-		   *如果您使用的是高级版本,则建议用ExtractVideoFrameDemoActivity来获取视频图片,因为直接返回bitmap,不存到文件中,速度相对快很多
+		   *如果您使用的是专业版本,则建议用ExtractVideoFrameDemoActivity来获取视频图片,因为直接返回bitmap,不存到文件中,速度相对快很多
+		   *如果您使用的是专业版本,则建议用ExtractVideoFrameDemoActivity来获取视频图片,因为直接返回bitmap,不存到文件中,速度相对快很多
+		   *如果您使用的是专业版本,则建议用ExtractVideoFrameDemoActivity来获取视频图片,因为直接返回bitmap,不存到文件中,速度相对快很多
+		   *如果您使用的是专业版本,则建议用ExtractVideoFrameDemoActivity来获取视频图片,因为直接返回bitmap,不存到文件中,速度相对快很多
 		   *
 		   *
 		   * 经过我们SDK编码后的视频, 是一秒钟一个帧,如果您视频大小是30秒,则大约会提取30张图片.
@@ -1778,73 +1551,6 @@ public class VideoEditor {
 						}
 			}
 		  /**
-		   * 裁剪一个mp4分辨率，把视频画面的某一部分裁剪下来，
-		   * 
-		   * @param videoFile　需要裁剪的视频文件
-		   * @param cropWidth　裁剪后的目标宽度
-		   * @param cropHeight 　裁剪后的目标高度
-		   * @param x  　视频画面开始的Ｘ坐标，　从画面的左上角开始是0.0坐标
-		   * @param y 视频画面开始的Y坐标，
-		   * @param dstFile 处理后保存的路径,后缀需要是mp4
-		   * @param codecname  使用的解码器的名字
-		   * @param bitrate  <============注意:这里的bitrate在设置的时候, 因为是设置编码器的恒定码率, 推荐设置为 预设值的1.5倍为准, 比如视频原有的码率是1M,则裁剪一半,预设值可能是500k, 
-		   * 这里推荐是为500k的1.5,因为原有的视频大部分是动态码率VBR,可以认为通过{@link MediaInfo} 得到的 {@link MediaInfo#vBitRate}是平均码率,这里要设置,推荐是1.5倍为好.
-		   * @return
-		   */
-		  public int executeVideoFrameCrop(String videoFile,int cropWidth,int cropHeight,int x,int y,String dstFile,String codecname,int bitrate)
-		  {
-			  if( fileExist(videoFile)){
-					
-					String cropcmd=String.format(Locale.getDefault(),"crop=%d:%d:%d:%d",cropWidth,cropHeight,x,y);
-//					
-					int ret=executeFrameCrop(videoFile,codecname,cropcmd,dstFile,bitrate);
-					if(ret!=0){  //执行失败
-						Log.w(TAG,"video editor execute video frmae crop  error,switch to software decoder...");
-						ret=executeFrameCrop(videoFile,"h264",cropcmd,dstFile,bitrate);  //采用软解
-					}
-					return ret;
-//					return executeFrameCrop(videoFile,"h264",cropcmd,dstFile,bitrate);  //仅仅测试
-			  }else{
-				  return VIDEO_EDITOR_EXECUTE_FAILED;
-			  }
-		  }
-		  //内部使用【此方法用到编解码】
-		  private int executeFrameCrop(String videoFile,String codecname,String filter,String dstFile,int bitrate)
-		  {
-			  List<String> cmdList=new ArrayList<String>();
-//				
-				cmdList.add("-vcodec");
-				cmdList.add(codecname);
-				
-				cmdList.add("-i");
-				cmdList.add(videoFile);
-
-				cmdList.add("-vf");
-				cmdList.add(filter);
-				
-				cmdList.add("-acodec");
-				cmdList.add("copy");
-				
-				cmdList.add("-vcodec");
-				cmdList.add("lansoh264_enc"); 
-				
-				cmdList.add("-b:v");
-				cmdList.add(checkBitRate(bitrate)); 
-				
-				cmdList.add("-pix_fmt");  //<========请注意, 使用lansoh264_enc编码器编码的时候,请务必指定格式,因为底层设计只支持yuv420p的输出.
-				cmdList.add("yuv420p");
-				
-				cmdList.add("-y");
-				
-				cmdList.add(dstFile);
-				String[] command=new String[cmdList.size()];  
-			     for(int i=0;i<cmdList.size();i++){  
-			    	 command[i]=(String)cmdList.get(i);  
-			     } 
-			     return  executeVideoEditor(command);
-		  }
-		  
-		  /**
 		   *此视频缩放算法，采用是软缩放来实现，速度特慢, 不建议使用.　
 		   * 视频画面缩放, 务必保持视频的缩放后的宽高比,等于原来视频的宽高比.
 		   * 
@@ -2172,7 +1878,7 @@ public class VideoEditor {
 		   * 为视频增加图片，图片可以是带透明的png类型，也可以是jpg类型;
 		   * 适用在为视频增加logo，或增加一些好玩的图片的场合，
 		   * 以下两条方法，也是叠加图片，不同的是可以指定叠加时间段
-		   * 我们的高级版本可以实现 在任意时刻叠加图片，叠加视频的类，可以实现视频或图片的缩放，移动，旋转等动作
+		   * 我们的专业版本可以实现 在任意时刻叠加图片，叠加视频的类，可以实现视频或图片的缩放，移动，旋转等动作
 		   * @param videoFile　原视频
 		   * @param imagePngPath　　png图片的路径
 		   * @param x　　叠加图片相对于视频的Ｘ坐标，视频的左上角为坐标原点0.0

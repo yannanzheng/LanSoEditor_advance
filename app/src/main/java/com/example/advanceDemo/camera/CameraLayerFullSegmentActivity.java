@@ -168,7 +168,7 @@ public class CameraLayerFullSegmentActivity extends Activity implements OnClickL
 	}
     
     /**
-     *初始化 DrawPad 画板
+     *初始化 DrawPad 容器
      */
     private void initDrawPad()
     {
@@ -227,7 +227,7 @@ public class CameraLayerFullSegmentActivity extends Activity implements OnClickL
 						segmentArray.add(segmentPath); 
 					}
 	    		  	/**
-	    		  	 * 停止 画板.
+	    		  	 * 停止 容器.
 	    		  	 */
 	  				mDrawPadCamera.stopDrawPad();
 	  				mCameraLayer=null;

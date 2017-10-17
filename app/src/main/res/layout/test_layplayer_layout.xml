@@ -1,0 +1,60 @@
+<RelativeLayout
+    android:id="@+id/id_DrawPad_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+   
+      <com.lansosdk.videoeditor.DrawPadView
+            android:id="@+id/id_test_playerview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+      
+      <TextView 
+          android:id="@+id/id_test_playerTv"
+          android:layout_below="@id/id_test_playerview"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_centerHorizontal="true"
+          android:layout_margin="10dip"
+          android:textSize="20sp"/>
+      
+      <SeekBar 
+          android:id="@+id/id_test_seekbar"
+          android:layout_below="@id/id_test_playerTv"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_margin="10dip"
+          android:max="100"/>
+      <LinearLayout 
+          android:layout_below="@id/id_test_seekbar"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+          
+          <Button 
+              android:id="@+id/id_test_btn_pause"
+              android:layout_width="0dip"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:text="暂停/恢复"
+              android:textSize="20sp"/>
+          <Button 
+              android:id="@+id/id_test_btn_backplay"
+              android:layout_width="0dip"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:text="慢速"
+              android:textSize="20sp"/>
+          <Button 
+              android:id="@+id/id_test_btn_replace"
+              android:layout_width="0dip"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:text="快速"
+              android:textSize="20sp"/>
+      </LinearLayout>
+</RelativeLayout>

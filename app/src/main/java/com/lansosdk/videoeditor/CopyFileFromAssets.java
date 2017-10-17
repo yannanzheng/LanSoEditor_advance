@@ -12,6 +12,7 @@ import android.util.Log;
 public class CopyFileFromAssets {
 	/**
 	 * 拷贝资源文件夹中的文件到默认地址.
+	 * 如果文件已经存在,则直接返回文件路径
 	 * @param mContext
 	 * @param assetsName
 	 * @return  返回 拷贝文件的目标路径

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Locale;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageTransformFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBlackFilter;
 
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.BitmapLayer;
@@ -35,6 +36,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PointF;
+import android.media.MediaCodecInfo;
+import android.media.MediaFormat;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnErrorListener;
@@ -79,7 +82,7 @@ public class Demo2LayerMothedActivity extends Activity implements OnSeekBarChang
     
     private MediaPlayer mplayer=null;
     
-    private VideoLayer  mVideoLayer=null;
+    private VideoLayer  videoLayer=null;
     
     private String editTmpPath=null;
     private String dstPath=null;
@@ -156,13 +159,20 @@ public class Demo2LayerMothedActivity extends Activity implements OnSeekBarChang
     	mInfo=new MediaInfo(mVideoPath,false);
     	if(mInfo.prepare())
     	{
-    		// 设置DrawPad的刷新模式,默认 {@link DrawPad.UpdateMode#ALL_VIDEO_READY};
+    		customDrawpadEncoder();
+    		/**
+    		 * 设置DrawPad的刷新模式,默认 {@link DrawPad.UpdateMode#ALL_VIDEO_READY};
+    		 */
         	mDrawPadView.setUpdateMode(DrawPadUpdateMode.ALL_VIDEO_READY,25);
         		
-        	//设置使能 实时录制, 即把正在DrawPad中呈现的画面实时的保存下来,起到所见即所得的模式
+        	/**
+        	 * 设置使能 实时录制, 即把正在DrawPad中呈现的画面实时的保存下来,起到所见即所得的模式
+        	 */
         	mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)mInfo.vFrameRate,editTmpPath);
         	
-        	//设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
+        	/**
+        	 * 设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
+        	 */
         	mDrawPadView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
     			
     			@Override
@@ -171,8 +181,18 @@ public class Demo2LayerMothedActivity extends Activity implements OnSeekBarChang
     				startDrawPad();
     			}
     		});
+        	
+
+        	mDrawPadView.setOnDrawPadProgressListener(new onDrawPadProgressListener() {
+				
+				@Override
+				public void onProgress(DrawPad v, long currentTimeUs) {
+					
+				}
+			});
     	}
     }
+    private BitmapLayer bitmapLayer;
     /**
      * Step2:  start DrawPad 开始运行这个容器.
      */
@@ -200,12 +220,14 @@ public class Demo2LayerMothedActivity extends Activity implements OnSeekBarChang
 //				 * @param cropW   需要显示的宽度
 //				 * @param cropH   需要显示的高度.
 //				 */
-//				param.setShowRect(0, 0, 300, 200);
+//				param.setShowRect(0, 0, 1080, 800);
 //				mVideoLayer=mDrawPadView.addMainVideoLayer(param,null);
+//				mVideoLayer.setImageRenderLast(false);
 //			}
-			mVideoLayer=mDrawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
-			if(mVideoLayer!=null){
-				mplayer.setSurface(new Surface(mVideoLayer.getVideoTexture()));
+			videoLayer=mDrawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
+			
+			if(videoLayer!=null){
+				mplayer.setSurface(new Surface(videoLayer.getVideoTexture()));
 			}
 			mplayer.start();
 		}
@@ -217,7 +239,8 @@ public class Demo2LayerMothedActivity extends Activity implements OnSeekBarChang
     {
     	if(mDrawPadView!=null && mDrawPadView.isRunning()){
 			mDrawPadView.stopDrawPad();
-			toastStop();
+			Toast.makeText(getApplicationContext(), "录制已停止!!", Toast.LENGTH_SHORT).show();
+			
 			if(SDKFileUtils.fileExist(editTmpPath)){
 				boolean ret=VideoEditor.encoderAddAudio(mVideoPath,editTmpPath,SDKDir.TMP_DIR,dstPath);
 				if(!ret){
@@ -234,7 +257,6 @@ public class Demo2LayerMothedActivity extends Activity implements OnSeekBarChang
     boolean isDestorying=false;  //是否正在销毁, 因为销毁会停止DrawPad
     @Override
     protected void onDestroy() {
-    	// TODO Auto-generated method stub
     	super.onDestroy();
     	
     		isDestorying=true;
@@ -254,6 +276,7 @@ public class Demo2LayerMothedActivity extends Activity implements OnSeekBarChang
 		    if(SDKFileUtils.fileExist(editTmpPath)){
 		    	SDKFileUtils.deleteFile(editTmpPath);
 		    }
+		    
 	}
     
  
@@ -264,8 +287,6 @@ public class Demo2LayerMothedActivity extends Activity implements OnSeekBarChang
          initSeekBar(R.id.id_mothed2_skbar_rectxy,100); 
          initSeekBar(R.id.id_mothed2_skbar_circle,100);
          initSeekBar(R.id.id_mothed2_skbar_circle_center,100);
-         
-         
          playVideo=(LinearLayout)findViewById(R.id.id_mothed2_saveplay);
          playVideo.setOnClickListener(new OnClickListener() {
  			
@@ -290,32 +311,30 @@ public class Demo2LayerMothedActivity extends Activity implements OnSeekBarChang
            skbar.setMax(maxvalue);
     }
     int RotateCnt=0;
-    /**
-     * 提示:实际使用中没有主次之分, 只要是继承自Layer的对象,都可以调节,这里仅仅是举例
-     */
+    
 	@Override
 	public void onProgressChanged(SeekBar seekBar, int progress,
 			boolean fromUser) {
-		// TODO Auto-generated method stub
+    	
+    	Layer  optionLayer=(Layer)videoLayer;  //为了测试不同图层对象,特意转换一下. 
+    	
 		switch (seekBar.getId()) {
          
 			case R.id.id_mothed2_skbar_rectleft: //演示从左侧裁剪
-				if(mVideoLayer!=null){
-					
-					
+				if(optionLayer!=null){
 					float startX=(float)progress/100f;
-					mVideoLayer.setVisibleRect(startX, 1.0f, 0.0f, 1.0f);
+					optionLayer.setVisibleRect(startX, 1.0f, 0.0f, 1.0f);
 				}
 				break;
 			case R.id.id_mothed2_skbar_rectround:  
-					if(mVideoLayer!=null){
+					if(optionLayer!=null){
 						float endX=(float)progress/100f;
 						float  half=endX/2.0f;
-						mVideoLayer.setVisibleRect(0.5f-half, 0.5f+half, 0.0f, 1.0f);
+						optionLayer.setVisibleRect(0.5f-half, 0.5f+half, 0.0f, 1.0f);
 					}
 				break;	
 			case R.id.id_mothed2_skbar_rectxy:  //演示宽度和高度同时缩放
-				if(mVideoLayer!=null){
+				if(videoLayer!=null){
 					float start=(float)progress/100f;
 					
 					float  end=(float)start+0.5f;
@@ -329,7 +348,7 @@ public class Demo2LayerMothedActivity extends Activity implements OnSeekBarChang
 					 * @param startY 
 					 * @param endY
 					 */
-					mVideoLayer.setVisibleRect(start, end,start,end);
+					optionLayer.setVisibleRect(start, end,start,end);
 					/**
 					 * 设置可见矩形四周的边框的宽度和颜色
 					 * @param width  边框的宽度,最大是1.0, 最小是0.0, 推荐是0.01f
@@ -338,11 +357,11 @@ public class Demo2LayerMothedActivity extends Activity implements OnSeekBarChang
 					 * @param b
 					 * @param a
 					 */
-					mVideoLayer.setVisibleRectBorder(0.0f, 1.0f, 0.0f, 0.0f, 1.0f);
+					optionLayer.setVisibleRectBorder(0.0f, 1.0f, 0.0f, 0.0f, 1.0f);
 				}
 			break;
 			case R.id.id_mothed2_skbar_circle:
-				if(mVideoLayer!=null){
+				if(optionLayer!=null){
 					float radius=(float)progress/100f;
 					/**
 					 * 画面以圆形裁剪 只显示画面圆形的某一个部分.
@@ -350,16 +369,16 @@ public class Demo2LayerMothedActivity extends Activity implements OnSeekBarChang
 					 * @param radius 圆的半径, 范围0--1.0f 
 					 * @param center 圆的中心点位置, 范围0--1.0f;, 最上角为0,0,右下角为1,1;, 居中则是new PointF(0.5f,0.5f);
 					 */
-					mVideoLayer.setVisibleCircle(radius, new PointF(0.5f,0.5f));
-					mVideoLayer.setVisibleCircleeBorder(0.01f, 1.0f, 0.0f, 0.0f, 1.0f);
+					optionLayer.setVisibleCircle(radius, new PointF(0.5f,0.5f));
+					optionLayer.setVisibleCircleeBorder(0.01f, 1.0f, 0.0f, 0.0f, 1.0f);
 				}
 			break;		
 			case R.id.id_mothed2_skbar_circle_center:
-				if(mVideoLayer!=null){
+				if(optionLayer!=null){
 					float xy=(float)progress/100f;
 					xy/=2.0f;  
 					//因为是半径, 如果显示画面的一半圆形, 则整个画面是1.0f,则半径0.5;如果显示一半则是0.25;
-					mVideoLayer.setVisibleCircle(0.25f, new PointF(xy,xy));
+					optionLayer.setVisibleCircle(0.25f, new PointF(xy,xy));
 				}
 			break;	
 			default:
@@ -374,10 +393,50 @@ public class Demo2LayerMothedActivity extends Activity implements OnSeekBarChang
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
 		// TODO Auto-generated method stub
-		
 	}
-	  private void toastStop()
-	    {
-	    	Toast.makeText(getApplicationContext(), "录制已停止!!", Toast.LENGTH_SHORT).show();
-	    }
+	/**
+	   * 定制LanSoSdk的DrawPad的编码参数, 
+	   */
+	  private  void customDrawpadEncoder()
+	  {
+		  /**
+		   * 可以修改
+		   * "video/avc":  是采用H264编码.
+		   * mwidht, mHeight:  为视频的宽度和高度, 请在使用时, 建议采用设置到我们sdk中编码的宽度和高度. 
+		   */
+		  MediaFormat encodeFormat = MediaFormat.createVideoFormat("video/avc", 480, 480);
+	        
+		  /**
+		   * 不能修改
+		   * 我们当前sdk是采用surface格式为渲染窗口, 请务必这里要设置COLOR_FORMAT为FormatSurface;
+		   */
+		  encodeFormat.setInteger(MediaFormat.KEY_COLOR_FORMAT, MediaCodecInfo.CodecCapabilities.COLOR_FormatSurface); 
+	       
+		  /**
+		   * 码率,您可以任意修改
+		   */
+		  encodeFormat.setInteger(MediaFormat.KEY_BIT_RATE,1000*1000);
+	        
+	      /**
+	       * 帧率  , 可以修改
+	       */
+		  encodeFormat.setInteger(MediaFormat.KEY_FRAME_RATE,25);
+	      /**
+	       * 几秒钟一个IDR帧. 可以修改  
+	       */
+		  encodeFormat.setInteger(MediaFormat.KEY_I_FRAME_INTERVAL,1);//这里表示相隔几秒钟产生一个I帧;设置为1表示1秒钟产生一个I帧.
+	        
+		  /**
+		   * ................这里您可以增加别的参数, 比如profile. bitrate_mode等等.
+		   *     encodeFormat.setInteger(MediaFormat.KEY_BITRATE_MODE, EncoderCapabilities.BITRATE_MODE_CQ);
+		   * ...................
+		   */
+		  
+		  /**
+		   *设置到cEc中.注意, 因为这是静态变量, 设置后, 如果您后期没用更正, 则drawpad一直会采用这个方法里的参数作为编码的参数.
+		   *
+		   * 如果您想使用我们drawpad的默认参数,请把DrawPad.cEc设置为null;
+		   */
+	       DrawPad.cEc=encodeFormat;  
+	  }
 }

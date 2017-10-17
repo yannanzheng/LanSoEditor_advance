@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white_half" >
+    
+    <!-- 第一排 -->
+          <LinearLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal">
+        
+			        <RelativeLayout 
+			            android:id="@+id/id_camrecord_rect"
+			             android:layout_width="0dip" android:layout_weight="1" android:layout_height="150dip" android:layout_margin="5dip"
+			            android:background="@drawable/start_btn_bg">
+			            
+			            <TextView 
+			                android:layout_width="wrap_content" android:layout_height="wrap_content" 
+			                android:text="正方形" android:textSize="30sp"
+			                android:layout_centerInParent="true"
+			                android:textColor="@color/blue"/>
+			            
+			            <TextView 
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:text="480x480正方形" 
+			                android:layout_centerHorizontal="true"
+			                android:layout_alignParentBottom="true"/>
+			        </RelativeLayout>
+        
+			         <RelativeLayout 
+			            android:id="@+id/id_camrecord_fullport"
+			             android:layout_width="0dip" android:layout_weight="1" android:layout_height="150dip" android:layout_margin="5dip"
+			            android:background="@drawable/start_btn_bg">
+			            
+			            <TextView 
+			                android:layout_width="wrap_content" android:layout_height="wrap_content" 
+			                android:text="竖屏" android:textSize="30sp"
+			                android:layout_centerInParent="true"
+			                android:textColor="@color/blue"/>
+			            
+			            <TextView 
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:text="竖屏全屏" 
+			                android:layout_centerHorizontal="true"
+			                android:layout_alignParentBottom="true"/>
+			        </RelativeLayout>
+            </LinearLayout> 
+          
+    <!-- 第一排 -->
+          <LinearLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal">
+        
+			        <RelativeLayout 
+			            android:id="@+id/id_camrecord_fulllandscape"
+			             android:layout_width="0dip" android:layout_weight="1" android:layout_height="150dip" android:layout_margin="5dip"
+			            android:background="@drawable/start_btn_bg">
+			            
+			            <TextView 
+			                android:layout_width="wrap_content" android:layout_height="wrap_content" 
+			                android:text="横屏" android:textSize="30sp"
+			                android:layout_centerInParent="true"
+			                android:textColor="@color/blue"/>
+			            
+			            <TextView 
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:text="横屏全屏" 
+			                android:layout_centerHorizontal="true"
+			                android:layout_alignParentBottom="true"/>
+			        </RelativeLayout>
+        
+			         <RelativeLayout 
+			            android:id="@+id/id_camrecord_musicrecord"
+			             android:layout_width="0dip" android:layout_weight="1" android:layout_height="150dip" android:layout_margin="5dip"
+			            android:background="@drawable/start_btn_bg">
+			            
+			            <TextView 
+			                android:layout_width="wrap_content" android:layout_height="wrap_content" 
+			                android:text="音乐录制" android:textSize="30sp"
+			                android:layout_centerInParent="true"
+			                android:textColor="@color/blue"/>
+			            
+			            <TextView 
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:text="随着音乐跳舞的场合" 
+			                android:layout_centerHorizontal="true"
+			                android:layout_alignParentBottom="true"/>
+			        </RelativeLayout>
+            </LinearLayout> 
+      <!-- 第一排 -->
+          <LinearLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal">
+        
+			        <RelativeLayout 
+			            android:id="@+id/id_camrecord_sublayer1"
+			             android:layout_width="0dip" android:layout_weight="1" android:layout_height="150dip" android:layout_margin="5dip"
+			            android:background="@drawable/start_btn_bg">
+			            
+			            <TextView 
+			                android:layout_width="wrap_content" android:layout_height="wrap_content" 
+			                android:text="子图层1" android:textSize="30sp"
+			                android:layout_centerInParent="true"
+			                android:textColor="@color/blue"/>
+			            
+			            <TextView 
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:text="主图层复制出多个子图层" 
+			                android:layout_centerHorizontal="true"
+			                android:layout_alignParentBottom="true"/>
+			        </RelativeLayout>
+        
+			         <RelativeLayout 
+			            android:id="@+id/id_camrecord_sublayer2"
+			             android:layout_width="0dip" android:layout_weight="1" android:layout_height="150dip" android:layout_margin="5dip"
+			            android:background="@drawable/start_btn_bg">
+			            
+			            <TextView 
+			                android:layout_width="wrap_content" android:layout_height="wrap_content" 
+			                android:text="子图层2" android:textSize="30sp"
+			                android:layout_centerInParent="true"
+			                android:textColor="@color/blue"/>
+			            
+			            <TextView 
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:text="叠加多个子图层" 
+			                android:layout_centerHorizontal="true"
+			                android:layout_alignParentBottom="true"/>
+			        </RelativeLayout>
+            </LinearLayout>             
+      
+
+</LinearLayout>

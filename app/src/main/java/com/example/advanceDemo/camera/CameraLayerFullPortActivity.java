@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Locale;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBeautyAdvanceFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.LanSongGrindFilter;
 
 
@@ -31,7 +32,6 @@ import com.lansosdk.box.ViewLayer;
 import com.lansosdk.box.ViewLayerRelativeLayout;
 import com.lansosdk.box.onDrawPadErrorListener;
 import com.lansosdk.box.onDrawPadOutFrameListener;
-import com.lansosdk.box.onDrawPadPreviewProgressListener;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSnapShotListener;
 import com.lansosdk.box.onDrawPadThreadProgressListener;
@@ -55,6 +55,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PointF;
 import android.hardware.Camera.Face;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -62,6 +63,7 @@ import android.os.Message;
 import android.os.PowerManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
@@ -151,7 +153,7 @@ public class CameraLayerFullPortActivity extends Activity implements OnClickList
     }
                                     
     /**
-     * Step1: 开始运行 DrawPad 画板
+     * Step1: 开始运行 DrawPad 容器
      */
     private void initDrawPad()
     {
@@ -170,8 +172,7 @@ public class CameraLayerFullPortActivity extends Activity implements OnClickList
     	/**
     	 * 相机前后置.是否设置滤镜.
     	 */
-    	mDrawPadCamera.setCameraParam(false, null,true);
-    	
+    	mDrawPadCamera.setCameraParam(false, new LanSongBeautyAdvanceFilter(),true);
     	/**
     	 * 当手动聚焦的时候, 返回聚焦点的位置,让focusView去显示一个聚焦的动画.
     	 */
@@ -183,6 +184,7 @@ public class CameraLayerFullPortActivity extends Activity implements OnClickList
 				focusView.startFocus(x, y);
 			}
 		});
+    	mDrawPadCamera.setRecordMic(true);
     	/**
     	 * 
     	 * UI界面有效后, 开始开启DrawPad线程, 来预览画面.
@@ -200,22 +202,9 @@ public class CameraLayerFullPortActivity extends Activity implements OnClickList
 			@Override
 			public void onError(DrawPad d, int what) {
 				// TODO Auto-generated method stub
-				Log.e(TAG,"DrawPad画板线程运行出错!!!"+what);
+				Log.e(TAG,"DrawPad容器线程运行出错!!!"+what);
 			}
 		});
-    	
-//    	mDrawPadCamera.setOutFrameInDrawPad(true);  //得到实时画面
-//    	mDrawPadCamera.setOnDrawPadOutFrameListener(544, 960, 1, new onDrawPadOutFrameListener() {
-//			
-//			@Override
-//			public void onDrawPadOutFrame(DrawPad v, Object obj, int type, long ptsUs) {
-//				// TODO Auto-generated method stub
-//				Bitmap bmp=(Bitmap)obj;
-//				Log.i(TAG,"ondrawpad outFrame:"+bmp.getWidth()+" x "+bmp.getHeight());
-//				testFrame.pushBitmap(bmp);
-//				
-//			}
-//		});
     }
     /**
      * Step2: 开始运行 Drawpad线程.
@@ -226,13 +215,16 @@ public class CameraLayerFullPortActivity extends Activity implements OnClickList
     	  {
     		  mCamLayer=mDrawPadCamera.getCameraLayer();
     		  addBitmapLayer();
+    		  
+    		  addMVLayer();
+    		  
     		  mDrawPadCamera.startPreview();
     	  }else{
     		  Log.i(TAG,"建立drawpad线程失败.");
     	  }
       }
       /**
-       * Step3: 停止画板, 停止后,为新的视频文件增加上音频部分.
+       * Step3: 停止容器, 停止后,为新的视频文件增加上音频部分.
        */
       private void stopDrawPad()
       {
@@ -300,7 +292,6 @@ public class CameraLayerFullPortActivity extends Activity implements OnClickList
     }
    @Override
 	protected void onDestroy() {
-		// TODO Auto-generated method stub
 			super.onDestroy();
 			stopDrawPad();
 			
@@ -320,6 +311,47 @@ public class CameraLayerFullPortActivity extends Activity implements OnClickList
 			//把位置放到中间的右侧, 因为获取的高度是中心点的高度.
 			bmpLayer.setPosition(bmpLayer.getPadWidth()-bmpLayer.getLayerWidth()/2,bmpLayer.getPositionY());
 		}
+   }
+   private  MVLayer  mvLayer;
+   private void addMVLayer()
+ 	{
+	   if(mvLayer!=null){
+		   mDrawPadCamera.removeLayer(mvLayer);
+		   mvLayer=null;
+	   }
+ 		String  colorMVPath=CopyDefaultVideoAsyncTask.copyFile(CameraLayerFullPortActivity.this,"mei.mp4");
+ 	    String maskMVPath=CopyDefaultVideoAsyncTask.copyFile(CameraLayerFullPortActivity.this,"mei_b.mp4");
+	    
+ 	     mvLayer=mDrawPadCamera.addMVLayer(colorMVPath, maskMVPath);  //<-----增加MVLayer
+ 		/**
+ 		 * mv在播放完后, 有3种模式,消失/停留在最后一帧/循环.默认是循环.
+ 		 * layer.setEndMode(MVLayerENDMode.INVISIBLE); 
+ 		 */
+ 	}
+   private MediaPlayer  mplayer2=null;
+   private void addEffectVideo()
+   {
+		mplayer2=new MediaPlayer();
+	  	  try {
+					mplayer2.setDataSource("/sdcard/taohua.mp4");
+					mplayer2.prepare();
+					/**
+					 * 从摄像头图层获取一个surface, 作为视频的输出窗口
+					 */
+					mplayer2.setSurface(new Surface(mCamLayer.getVideoTexture2()));
+					mplayer2.start();
+					
+					
+					/**
+					 * 把视频的滤镜 设置到摄像头图层中. 
+					 * 当然您也可以用switchFilterList来增加多个滤镜对象.比如先美颜, 最后增加效果视频.
+					 */
+					mCamLayer.switchFilterTo(mCamLayer.getEffectFilter());
+					
+			  }  catch (IOException e) {
+				// TODO Auto-generated catch block
+				  e.printStackTrace();
+			 }
    }
    //-------------------------------------------一下是UI界面和控制部分.---------------------------------------------------
    private void initView()

@@ -19,6 +19,7 @@ public class LanSoEditor {
 		  LoadLanSongSdk.loadLibraries();  //拿出来单独加载库文件.
 		  LanSoEditor.initSo(context,str);
 	  }
+	  
 	  /**
 	   * 为了统一, 这里请不要调用, 直接调用initSDK即可.
 	   * @param context
@@ -34,7 +35,6 @@ public class LanSoEditor {
 	  public static void unInitSo()
 	  {
 	    		nativeUninit();
-	  
 	  }
 	  /**
 	   * 设置默认产生文件的文件夹, 默认是:/sdcard/lansongBox/

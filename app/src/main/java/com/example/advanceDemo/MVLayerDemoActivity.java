@@ -172,7 +172,7 @@ public class MVLayerDemoActivity extends Activity {
           }
     }
     /**
-     * Step1: 开始运行 DrawPad 画板
+     * Step1: 开始运行 DrawPad 容器
      */
     private void initDrawPad()
     {
@@ -256,7 +256,7 @@ public class MVLayerDemoActivity extends Activity {
 		}
     }
     /**
-     * Step3: 停止画板,停止后,为新的视频文件增加上音频部分.
+     * Step3: 停止容器,停止后,为新的视频文件增加上音频部分.
      */
     private void stopDrawPad()
     {

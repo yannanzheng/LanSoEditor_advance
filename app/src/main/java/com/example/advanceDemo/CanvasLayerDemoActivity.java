@@ -15,12 +15,12 @@ import com.lansosdk.box.DrawPad;
 import com.lansosdk.box.VideoLayer;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
+import com.lansosdk.box.onDrawPadThreadProgressListener;
 import com.lansosdk.videoeditor.DrawPadView;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
-import com.lansosdk.videoeditor.DrawPadView.onViewAvailable;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -97,8 +97,8 @@ public class CanvasLayerDemoActivity extends Activity {
 				// TODO Auto-generated method stub
 				 if(SDKFileUtils.fileExist(dstPath)){
 		   			 	Intent intent=new Intent(CanvasLayerDemoActivity.this,VideoPlayerActivity.class);
-			    	    	intent.putExtra("videopath", dstPath);
-			    	    	startActivity(intent);
+		   			 	intent.putExtra("videopath", dstPath);
+		   			 	startActivity(intent);
 		   		 }else{
 		   			 Toast.makeText(CanvasLayerDemoActivity.this, "目标文件不存在", Toast.LENGTH_SHORT).show();
 		   		 }
@@ -129,7 +129,6 @@ public class CanvasLayerDemoActivity extends Activity {
         	  mplayer=new MediaPlayer();
         	  try {
 				mplayer.setDataSource(mVideoPath);
-				
 			}  catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -158,13 +157,8 @@ public class CanvasLayerDemoActivity extends Activity {
               return;
           }
     }
-    private void toastStop()
-    {
-    	Toast.makeText(getApplicationContext(), "录制已停止!!", Toast.LENGTH_SHORT).show();
-    	Log.i(TAG,"录制已停止!!");
-    }
     /**
-     * Step1: 初始化 DrawPad 画板
+     * Step1: 初始化 DrawPad 容器
      */
     private void initDrawPad()
     {
@@ -189,32 +183,46 @@ public class CanvasLayerDemoActivity extends Activity {
 				public void onProgress(DrawPad v, long currentTimeUs) {
 					// TODO Auto-generated method stub
 					
-					if(currentTimeUs>20*1000*1000){
+					if(currentTimeUs>20*1000*1000 && mCanvasLayer!=null){
 						mDrawPadView.removeLayer(mCanvasLayer);	
 						mCanvasLayer=null;
 					}
 				}
 			});
+    		mDrawPadView.setOnDrawPadThreadProgressListener(new onDrawPadThreadProgressListener() {
+				
+				@Override
+				public void onThreadProgress(DrawPad v, long currentTimeUs) {
+					Log.i(TAG,"ThreadProgress 的时间戳是:"+currentTimeUs);
+					frameCnt++;
+				}
+			});
+    		
     }
+    private int frameCnt=0;
     /**
-     * Step2: 开始运行画板
+     * Step2: 开始运行容器
      */
     private void startDrawPad()
     {
-    	mDrawPadView.startDrawPad(true);
-		/**
-		 * 增加一个主视频的 VideoLayer
-		 */
-		mLayerMain=mDrawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
-		if(mLayerMain!=null){
-			mplayer.setSurface(new Surface(mLayerMain.getVideoTexture()));
-		}
-		
-		mplayer.start();
-		addCanvasLayer();  //增加一个CanvasLayer
+    	mDrawPadView.pauseDrawPad();
+    	if(mDrawPadView.startDrawPad())
+    	{
+    		 //增加一个主视频的 VideoLayer
+    		mLayerMain=mDrawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
+    		if(mLayerMain!=null){
+    			mplayer.setSurface(new Surface(mLayerMain.getVideoTexture()));
+    		}
+    		
+    		mplayer.start();
+				
+    		addCanvasLayer();  //增加一个CanvasLayer
+    		
+    		mDrawPadView.resumeDrawPad();
+    	}
     }
     /**
-     * Step3: 停止画板,停止后,为新的视频文件增加上音频部分.
+     * Step3: 停止容器,停止后,为新的视频文件增加上音频部分.
      */
     private void stopDrawPad()
     {
@@ -269,8 +277,6 @@ public class CanvasLayerDemoActivity extends Activity {
 		         		canvas.drawText("蓝松短视频演示之<任意绘制>",20,mCanvasLayer.getPadHeight()-200, paint);
 					}
 				});
-				mDrawPadView.resumeDrawPadRecord();
-				
 				/**
 				 * 增加另一个CanvasRunnable
 				 */
@@ -303,16 +309,16 @@ public class CanvasLayerDemoActivity extends Activity {
     		mDrawPadView.stopDrawPad();
     	}
     }
+    private void toastStop()
+    {
+    	Toast.makeText(getApplicationContext(), "录制已停止!!", Toast.LENGTH_SHORT).show();
+    	Log.i(TAG,"录制已停止!!");
+    }
    @Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		
-	    if(SDKFileUtils.fileExist(dstPath)){
-	    	SDKFileUtils.deleteFile(dstPath);
-	    }
-	    if(SDKFileUtils.fileExist(editTmpPath)){
-	    	SDKFileUtils.deleteFile(editTmpPath);
-	    } 
+		SDKFileUtils.deleteFile(dstPath);
+		SDKFileUtils.deleteFile(editTmpPath);
 	}
 }

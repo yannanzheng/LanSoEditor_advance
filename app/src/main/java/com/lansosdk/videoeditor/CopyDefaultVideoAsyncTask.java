@@ -106,7 +106,5 @@ public class CopyDefaultVideoAsyncTask extends AsyncTask<Object, Object, Boolean
 		 }else{
 			Toast.makeText(mContext, "抱歉! 默认视频文件拷贝失败,请联系我们:视频样片路径:"+str, Toast.LENGTH_SHORT).show();
 		 }
-		 
-		 
 	}
 }

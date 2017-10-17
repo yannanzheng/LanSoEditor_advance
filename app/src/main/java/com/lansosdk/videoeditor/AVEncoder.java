@@ -8,15 +8,9 @@ import java.io.IOException;
 
 import android.util.Log;
 
-/**
- * 2017年5月14日12:15:30 再次修改.
- * 
- */
 public class AVEncoder {
 
 	private static final String TAG ="AVEncoder";
-	
-//	private long audioCnt=0;
 	private long  mHandler=0;
 	
 	/**
@@ -111,7 +105,6 @@ public class AVEncoder {
 		{
 			byte[]  bb=null;
 			if( (previewW!=cutWidth || previewH!=cutHeight) && previewW>=cutWidth && previewH>=cutHeight){
-				//Log.i(TAG,"裁剪=========>");
 				bb=frameCut(data,previewW,previewH,cutWidth,cutHeight);
 			}else{
 				bb=data;
@@ -123,17 +116,14 @@ public class AVEncoder {
 			{
 				if(	degree==90)  //不是后置,就是前置.
 				{
-					//Log.i(TAG,"旋转角度!!!======90===>");
 					byteArray=rotateYUV420Degree90(bb,cutWidth,cutHeight);  
 				}else{
-					//Log.i(TAG,"旋转角度!!!======270===>");
 					byteArray=rotateYUV420Degree270(bb,cutWidth,cutHeight);
 				}
 				encoderWriteVideoFrame(mHandler, byteArray, ptsMS); 
 			}else{
 				
 				if(mediaRorateDegree!=degree){
-					//Log.i(TAG,"旋转角度!!!=========>");
 					byteArray=rotateYUV420Degree180(bb,cutWidth,cutHeight);
 					encoderWriteVideoFrame(mHandler, byteArray, ptsMS); 
 				}else{
@@ -148,29 +138,6 @@ public class AVEncoder {
 	{
 		if(mHandler!=0){
 			encoderWriteAudioFrame(mHandler, data, ptsMs); 
-//			Log.i(TAG,"Thread-------------push--------------audio----end");
-			//一下是测试.
-//			if(stream==null){
-//				 try {
-//					stream=new FileInputStream("/sdcard/niu_44100_2.pcm");
-//					
-//				} catch (FileNotFoundException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			}
-//			
-//			 byte buffer[] = new byte[1024*2*2];
-//			 try {
-//				stream.read(buffer);
-//				encoderWriteAudioFrame(mHandler, buffer, ptsMs); 
-//				Log.i(TAG,"写入到audio frame "+buffer.length);
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-			
-			
 		}
 	}
 	
@@ -196,7 +163,7 @@ public class AVEncoder {
 	 * @param imageHeight
 	 * @return
 	 */
-	private byte[] rotateYUV420Degree180(byte[] data, int imageWidth, int imageHeight)
+	public byte[] rotateYUV420Degree180(byte[] data, int imageWidth, int imageHeight)
 	{
 		byte [] yuv = new byte[imageWidth*imageHeight*3/2];
 		int i = 0;
@@ -222,7 +189,7 @@ public class AVEncoder {
 	 * @param imageHeight
 	 * @return
 	 */
-	private byte[] rotateYUV420Degree270(byte[] data, int imageWidth, int imageHeight)
+	public byte[] rotateYUV420Degree270(byte[] data, int imageWidth, int imageHeight)
 	{
 		final byte [] yuv = new byte[imageWidth*imageWidth*3/2];
 		int wh = 0;
@@ -262,7 +229,7 @@ public class AVEncoder {
 	 * @param imageHeight
 	 * @return
 	 */
-	private byte[] rotateYUV420Degree90_YUAN(byte[] data, int imageWidth, int imageHeight)
+	public byte[] rotateYUV420Degree90_YUAN(byte[] data, int imageWidth, int imageHeight)
 	{
 
 		final byte [] yuv = new byte[imageWidth*imageHeight*3/2];
@@ -290,7 +257,7 @@ public class AVEncoder {
 		}
 		return yuv;
 	}
-	private byte[] rotateYUV420Degree90(byte[] data, int imageWidth, int imageHeight) 
+	public byte[] rotateYUV420Degree90(byte[] data, int imageWidth, int imageHeight) 
 	{
 	    byte [] yuv = new byte[imageWidth*imageHeight*3/2];
 	    // Rotate the Y luma
@@ -328,7 +295,7 @@ public class AVEncoder {
 	 * @param dstHeight
 	 * @return
 	 */
-	private byte[] frameCut(byte[] bytes,int srcWidth,int srcHeight,int dstWidth,int dstHeight)
+	public byte[] frameCut(byte[] bytes,int srcWidth,int srcHeight,int dstWidth,int dstHeight)
 	{
 		byte[] retBytes=new byte[dstWidth*dstHeight*3/2];
 		
@@ -425,11 +392,18 @@ public class AVEncoder {
 	 * @param abitrate
 	 * @return
 	 */
-	private  native long encoderInit(String saveFile,int width,int height,int vfps,int vbitrate,int achannel,int asamplerate,int abitrate);
+	public  native long encoderInit(String saveFile,int width,int height,int vfps,int vbitrate,int achannel,int asamplerate,int abitrate);
 	
-	private  native long encoderRelease(long handle);
+	public  native long encoderRelease(long handle);
 	
-	private  native int  encoderWriteVideoFrame(long handle,byte[] yuv420sp,long pts);
+	/**
+	 * 视频编码,  
+	 * @param handle
+	 * @param yuv420sp
+	 * @param pts  编码时间戳, 单位毫秒. ms
+	 * @return
+	 */
+	public  native int  encoderWriteVideoFrame(long handle,byte[] yuv420sp,long pts);
 	/**
 	 * 
 	 * 这里暂时没有返回长度, 实际注意, audiodata的长度要等于 采样点 *通道数 *2
@@ -439,7 +413,7 @@ public class AVEncoder {
 	 * @param pts
 	 * @return
 	 */
-	private  native int  encoderWriteAudioFrame(long handle,byte[] audiodata,long pts);
+	public  native int  encoderWriteAudioFrame(long handle,byte[] audiodata,long pts);
 	
 	/**
 	 * 2017年4月8日:

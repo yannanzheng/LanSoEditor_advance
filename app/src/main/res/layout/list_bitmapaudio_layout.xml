@@ -1,0 +1,53 @@
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" 
+    android:layout_width="match_parent"
+     android:layout_height="match_parent"
+    android:background="#FFA500"
+    android:orientation="vertical">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFA500"
+    android:orientation="vertical" >
+    
+     
+     <RelativeLayout  android:id="@+id/id_bitmapaudio_videoextract" style="@style/main_item_reletivelayout">
+           	 <TextView   android:text="视频提取图片" style="@style/main_item_textview"/>
+			<TextView  style="@style/main_item_arrow"/> 
+	</RelativeLayout>
+	
+    <RelativeLayout  android:id="@+id/id_bitmapaudio_bitmapfilter2video" style="@style/main_item_reletivelayout">
+           	 <TextView   android:text="图片滤镜" style="@style/main_item_textview"/>
+			<TextView  style="@style/main_item_arrow"/> 
+	</RelativeLayout>
+   
+	
+    <RelativeLayout  android:id="@+id/id_bitmapaudio_bitmapmorefilter" style="@style/main_item_reletivelayout">
+           	 <TextView   android:text="图片生成多种滤镜" style="@style/main_item_textview"/>
+			<TextView  style="@style/main_item_arrow"/> 
+	</RelativeLayout>
+	
+    
+     <RelativeLayout  android:id="@+id/id_bitmapaudio_bitmappad" style="@style/main_item_reletivelayout">
+           	 <TextView   android:text="图片容器BitmapPad" style="@style/main_item_textview"/>
+			<TextView  style="@style/main_item_arrow"/> 
+	</RelativeLayout>
+	
+     <RelativeLayout  android:id="@+id/id_bitmapaudio_audiomergevideo" style="@style/main_item_reletivelayout">
+           	 <TextView   android:text="给视频增加背景音乐" style="@style/main_item_textview"/>
+			<TextView  style="@style/main_item_arrow"/> 
+	</RelativeLayout>
+	
+     <RelativeLayout  android:id="@+id/id_bitmapaudio_audioconcat" style="@style/main_item_reletivelayout">
+           	 <TextView   android:text="声音任意拼接(后台)" style="@style/main_item_textview"/>
+			<TextView  style="@style/main_item_arrow"/> 
+	</RelativeLayout>
+	
+	 <RelativeLayout  android:id="@+id/id_bitmapaudio_audiopad" style="@style/main_item_reletivelayout">
+           	 <TextView   android:text="声音容器AudioPad(后台)" style="@style/main_item_textview"/>
+			<TextView  style="@style/main_item_arrow"/> 
+	</RelativeLayout>	
+	
+</LinearLayout>
+</ScrollView>

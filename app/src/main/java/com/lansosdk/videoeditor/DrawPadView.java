@@ -51,18 +51,16 @@ import com.lansosdk.box.DrawPadUpdateMode;
 import com.lansosdk.box.DrawPadViewRender;
 import com.lansosdk.box.TwoVideoLayer;
 import com.lansosdk.box.VideoLayer;
+import com.lansosdk.box.VideoLayer2;
 import com.lansosdk.box.ViewLayer;
 import com.lansosdk.box.YUVLayer;
 import com.lansosdk.box.onDrawPadCompletedListener;
 import com.lansosdk.box.onDrawPadErrorListener;
 import com.lansosdk.box.onDrawPadOutFrameListener;
-import com.lansosdk.box.onDrawPadPreviewProgressListener;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
 import com.lansosdk.box.onDrawPadSnapShotListener;
 import com.lansosdk.box.onDrawPadThreadProgressListener;
-
-
 
 /**
  * 对各种图层的画面做处理, 可以预览,最终生成视频. 
@@ -95,7 +93,7 @@ public class DrawPadView extends FrameLayout {
  	
  	private float  encodeSpeed=1.0f;
  	/**
- 	 *  经过宽度对齐到手机的边缘后, 缩放后的宽高,作为drawpad(画板)的宽高. 
+ 	 *  经过宽度对齐到手机的边缘后, 缩放后的宽高,作为drawpad(容器)的宽高. 
  	 */
  	private int drawPadWidth,drawPadHeight;  
  	
@@ -419,30 +417,6 @@ public class DrawPadView extends FrameLayout {
 		drawpadProgressListener=listener;
 	}
 	
-	private onDrawPadPreviewProgressListener drawpadPreviewProgressListener=null;
-	/**
-	 *  预览执行回调.
-	 *  在预览的时候, 每次刷新一帧,则调用这里,返回当刷新帧的时间戳
-	 *   可以复位当前时间戳 {@link #resetPreviewTime()}.
-	 *   
-	 * @param currentTimeUs  是系统时间和预览第一帧开始的时间差值,单位微秒.
-	 */
-	public void setOnDrawPadPreviewProgressListener(onDrawPadPreviewProgressListener listener){
-		if(renderer!=null){
-			renderer.setDrawPadPreviewProgressListener(listener);
-		}
-		drawpadPreviewProgressListener=listener;
-	}
-	/**
-	 * 复位当前预览进度时间戳, 
-	 * 复位后,下一帧返回0
-	 */
-	public void resetPreviewTime(long resetTimeUs){
-		if(renderer!=null){
-			renderer.resetPreviewTime(resetTimeUs);
-		}
-	}
-	
 	
 	/**
 	 * 方法与   onDrawPadProgressListener不同的地方在于:
@@ -579,24 +553,16 @@ public class DrawPadView extends FrameLayout {
 			return null;
 		}
 	}
-	/**
-	 * 这个方法我们演示不在使用, 因此此方法不能达到 见名知意 的效果, 故我们不在使用, 您可以自行决定. 
-	 * 开始DrawPad的渲染线程, 阻塞执行, 直到DrawPad真正开始执行后才退出当前方法.
-	 * 
-	 * 此方法可以在 {@link onDrawPadSizeChangedListener} 完成后调用.
-	 * 可以先通过 {@link #setDrawPadSize(int, int, onDrawPadSizeChangedListener)}来设置宽高,然后在回调中执行此方法.
-	 * 如果您已经在xml中固定了view的宽高,则可以直接调用这里, 无需再设置DrawPadSize
-	 * @param progresslistener
-	 * @param completedListener
-	 */
-	@Deprecated
-	public boolean startDrawPad(onDrawPadProgressListener progressListener,onDrawPadCompletedListener completedListener)
+	private boolean isFastVideoMode=false;
+	public void setFastVideoMode(boolean is)
 	{
-		drawpadProgressListener=progressListener;
-		drawpadCompletedListener=completedListener;
-		
-		return startDrawPad();
+		if(renderer!=null){
+			renderer.setFastVideoMode(is);
+		}else{
+			isFastVideoMode=is;
+		}
 	}
+	
 	/**
 	 * 开始DrawPad的渲染线程, 阻塞执行, 直到DrawPad真正开始执行后才退出当前方法.
 	 * 
@@ -630,14 +596,16 @@ public class DrawPadView extends FrameLayout {
 	 				renderer.setDisplaySurface(new Surface(mSurfaceTexture));
 	 				
 	 				if(isCheckPadSize){
-	 					encWidth=LanSongUtil.make32Multi(encWidth);
-	 					encHeight=LanSongUtil.make32Multi(encHeight);
+	 					encWidth=LanSongUtil.make16Multi(encWidth);  //编码默认16字节对齐.
+	 					encHeight=LanSongUtil.make16Multi(encHeight);
 	 				}
 	 				if(isCheckBitRate || encBitRate==0){
 	 					encBitRate=LanSongUtil.checkSuggestBitRate(encHeight * encWidth, encBitRate);
 	 				}
 	 				renderer.setEncoderEnable(encWidth,encHeight,encBitRate,encFrameRate,encodeOutput);
-	 				
+	 				if(isFastVideoMode){
+	 					renderer.setFastVideoMode(isFastVideoMode);
+	 				}
 	 				renderer.setUpdateMode(mUpdateMode,mAutoFlushFps);
 	 				
 	 				 //设置DrawPad处理的进度监听, 回传的currentTimeUs单位是微秒.
@@ -648,7 +616,6 @@ public class DrawPadView extends FrameLayout {
 	 				renderer.setDrawPadProgressListener(drawpadProgressListener);
 	 				renderer.setDrawPadCompletedListener(drawpadCompletedListener);
 	 				renderer.setDrawPadThreadProgressListener(drawPadThreadProgressListener);
-	 				renderer.setDrawPadPreviewProgressListener(drawpadPreviewProgressListener);
 	 				renderer.setDrawPadErrorListener(drawPadErrorListener);
 	 				
 	 				if(isRecordMic){
@@ -816,7 +783,7 @@ public class DrawPadView extends FrameLayout {
 	 * 适用在需要实时录制的视频, 如果您仅仅是对视频增加背景音乐等, 可以使用 {@link VideoEditor#executeVideoMergeAudio(String, String, String)}
 	 * 来做处理.
 	 * 
-	 * 注意:当设置了录制外部的pcm数据后, 当前画板上录制的视频帧,就以音频的帧率为参考时间戳,从而保证音视频同步进行. 
+	 * 注意:当设置了录制外部的pcm数据后, 当前容器上录制的视频帧,就以音频的帧率为参考时间戳,从而保证音视频同步进行. 
 	 * 故您在投递音频的时候, 需要严格按照音频播放的速度投递. 
 	 * 
 	 * 如采用外面的pcm数据,则视频在录制过程中,会参考音频时间戳,来计算得出视频的时间戳,
@@ -941,9 +908,9 @@ public class DrawPadView extends FrameLayout {
         }
 	}
 	/**
-	 * 直接设置画板的宽高, 不让他自动缩放.
+	 * 直接设置容器的宽高, 不让他自动缩放.
 	 * 
-	 * 要在画板开始前调用.
+	 * 要在容器开始前调用.
 	 * @param width
 	 * @param height
 	 */
@@ -1000,7 +967,7 @@ public class DrawPadView extends FrameLayout {
 		}
     }
     /**
-     * 获取当前画板中有多少个图层.
+     * 获取当前容器中有多少个图层.
      * @return
      */
     public int getLayerSize()
@@ -1104,6 +1071,16 @@ public class DrawPadView extends FrameLayout {
 			return null;
 		}
 	}
+	
+	public VideoLayer2 addVideoLayer2(String videoPath,GPUImageFilter filter)
+	{
+		if(renderer!=null)
+			return renderer.addVideoLayer2(videoPath,filter);
+		else{
+			Log.e(TAG,"addVideoLayer error render is not avalid");
+			return null;
+		}
+	}
 	/**
 	 *增加一个视频图层, 视频可以设置显示区域. 
 	 * 其中FileParameter的配置是:
@@ -1179,7 +1156,6 @@ public class DrawPadView extends FrameLayout {
 	{
 		if(bmp!=null)
 		{
-			//Log.i(TAG,"imgBitmapLayer:"+bmp.getWidth()+" height:"+bmp.getHeight());
 			if(renderer!=null && renderer.isRunning())
 				return renderer.addBitmapLayer(bmp,null);
 			else{

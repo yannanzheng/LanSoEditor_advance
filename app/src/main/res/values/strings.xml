@@ -26,14 +26,14 @@
     
     <string name="pictureset_execute_demo_hint">此功能演示:后台图片合成\n\n 流程:同时向DrawPad获取多个BitmapLayer,然后根据DrawPad的时间进度,依次操作多个BitmapLayer,从而实现图片动画效果,这里仅演示平移效果, 实际使用可以平移,缩放,旋转,闪烁混合使用.也可以增加ViewLayer,来呈现花样的动画.</string>
     
-	<string name="filterLayer_execute_hint">此功能演示:后台视频滤镜(DrawPad架构)\n\n. 流程:建立DrawPad容器, 向里面增加视频图层, 开始处理.在3秒的时候切换一个滤镜,在6秒的时候, 切换另一个滤镜</string>
+	<string name="filterLayer_execute_hint">此功能演示:后台视频滤镜处理, \n 缩放/压缩/精切裁剪/画面裁剪等均是这个功能,只是配置不同而已\n. 流程:建立DrawPad容器, 向里面增加视频图层, 开始处理.在3秒的时候切换一个滤镜,在6秒的时候, 切换另一个滤镜</string>
     
-    <string name="videolayer_transform_hints">注意:\n多个视频 以多种动画的形式合成同一个视频的功能, 当前暂时不支持声音合成。\n\n但您可以对合成后的视频增加背景音乐 .</string>	
+    <string name="videolayer_transform_hints">演示流程:先视频A, 3秒后图片B, 再3秒后出现视频C >=>3个合成在一起, 当前暂时不支持声音合成。\n\n但您可以对合成后的视频增加背景音乐 .</string>	
     <string name="audiopad_execute_hint">此功能演示:后台音频容器的演示\n\n. 流程:</string>
     	
     
     <string name="filterexecute_demo_hint">此功能演示:后台视频滤镜\n\n.适用在当不需要UI界面做滤镜预览的场合.比如不经过滤镜预览或没有预览完毕,就可以做视频滤镜处理,这样的场合使用.</string>
-	<string name="picture_set_realtime_hint">用多个 BitmapLayer图层 绘制到 DrawPad画板中, 并调试他们的各种动画,来实现影集的效果</string>
+	<string name="picture_set_realtime_hint">用多个 BitmapLayer图层 绘制到 DrawPad容器中, 并调试他们的各种动画,来实现影集的效果</string>
 	    
 	<string name="origal_width">提示:\n当前视频宽度小于屏幕宽度, 采取原尺寸显示,您可以在代码中修改为自适应屏幕宽度显示形式</string>
 	<string name="fix_width">提示:\n当前视频宽度大于或等于屏幕宽度, 采取自适应到屏幕宽度,您可以在代码中修改为原尺寸的显示形式</string>
@@ -41,17 +41,17 @@
 	<string name="file_not_exist">文件不存在</string>
 	
 	<string name="drawimage_hint1">画面涂鸦:在画面中滑动,滑动的线条实时的保存到视频里.</string>
-	<string name="drawimage_hint2">VideoLayer + ViewLayer 绘制到画板上\n\n (这里仅是UI中的ImageView,实际您可以用TextView,Button,ViewPager等控件来增加文字,动画,图片,线条等).</string>
+	<string name="drawimage_hint2">VideoLayer + ViewLayer 绘制到容器上\n\n (这里仅是UI中的ImageView,实际您可以用TextView,Button,ViewPager等控件来增加文字,动画,图片,线条等).</string>
 	
-	<string name="canvaslayer_hint1">VideoLayer + CanvasLayer 绘制到画板上</string>
+	<string name="canvaslayer_hint1">VideoLayer + CanvasLayer 绘制到容器上</string>
 	
-	<string name="video_remark">滑动画面,进行标记\n\n VideoLayer + BitmapLayer 绘制到画板上 </string>
+	<string name="video_remark">滑动画面,进行标记\n\n VideoLayer + BitmapLayer 绘制到容器上 </string>
 	<string name="filter">滤镜</string>
 	
 	
-	<string name="gaobai_hint">\n增加一个 ViewLayer(UI图层)到画板上.</string>
-		<string name="mvlayer_hint">\n增加一个 VideoLayer和 MVLayer图层 到  DrawPad 画板上.</string>
-		<string name="cameralayer_hint">\n增加一个 CameraLayer到  DrawPad 画板上[临时演示用, 后续会增加滤镜等].</string>
+	<string name="gaobai_hint">\n增加一个 ViewLayer(UI图层)到容器上.</string>
+		<string name="mvlayer_hint">\n增加一个 VideoLayer和 MVLayer图层 到  DrawPad 容器上.</string>
+		<string name="cameralayer_hint">\n增加一个 CameraLayer到  DrawPad 容器上.</string>
 		
 	   <string name="gaobai_1">认识你</string>
 <string name="gaobai_2">一定是命运的安排</string>
@@ -99,35 +99,8 @@
 	<string name="demo_id_cutaudio">音频剪切</string>
 	<string name="demo_id_cutvideo">视频剪切</string>
 	<string name="demo_id_concatvideo">视频拼接</string>
-	<string name="demo_id_videocompress">视频压缩</string>
-	<string name="demo_id_videocrop">画面裁剪</string>
-	<string name="demo_id_videoscale_soft">视频缩放[软件实现]</string>
-	<string name="demo_id_videoscale_hard">视频缩放[GPU实现]</string>
-	<string name="demo_id_videowatermark">增加水印</string>
-	<string name="demo_id_videocropwatermark">裁剪和加水印</string>
-	<string name="demo_id_videogetframes">获取所有帧图片</string>
-	<string name="demo_id_videogetoneframe">获取一帧图片</string>
-	<string name="demo_id_videozeroangle">视频矫正角度</string>
-	<string name="demo_id_videoclockwise90">视频旋转90度</string>
-	<string name="demo_id_videocounterClockwise90">视频旋转270度</string>
-	<string name="demo_id_videoaddanglemeta">视频增加角度数据</string>
-	<string name="demo_id_ontpicturevideo">一张图片转视频</string>
-	 
-	<string name="demo_id_morepicturevideo">多张图片转视频</string>
 	<string name="demo_id_audiodelaymix">音频延迟混合</string>
 	<string name="demo_id_audiovolumemix">音频音量控制混合</string>
-	<string name="demo_id_videopad">视频增加边框</string>
-	<string name="demo_id_videoadjustspeed">视频加减速度</string>
-	<string name="demo_id_videomirrorh">视频水平镜像</string>
-	<string name="demo_id_videomirrorv">视频垂直镜像</string>
-	<string name="demo_id_videorotateh">视频垂直反转</string>
-	<string name="demo_id_videorotatev">视频水平反转</string>
-	<string name="demo_id_videoreverse">视频倒序</string>
-	<string name="demo_id_avreverse">音视频倒序</string>
-	
-	
-	<string name="demo_id_expend_cmd">自定义扩展功能</string>
-	<string name="demo_id_connet_us">联系我们</string>
   
 	<!-- ========================================================================== -->
 	<string name="demo_more_avsplit">把多媒体文件如mp4,flv等中的的音频和视频分离开,形成独立的音频文件和视频文件 </string>
@@ -135,30 +108,6 @@
 	<string name="demo_more_cutaudio">演示截取音频的前20秒或时长的一半,形成新的音频文件\n(为代码清晰,方便演示,使用默认音频,此代码开放,您可以自行更改测试)</string>
 	<string name="demo_more_cutvideo">这里演示截取视频的前20秒或时长的一半,形成新的视频文件.</string>
 	<string name="demo_more_concatvideo">为了方便演示,需要您的视频大于20秒(或用默认视频).\n先把原视频从(0到1/3处)和(2/3到结束)截取成两段,然后拼接</string>
-	<string name="demo_more_videocompress">调整的小太多,则会导致画面下降.这里演示把码率降低为70%</string>
-	<string name="demo_more_videocrop">演示从左上角裁剪视频高度和宽度为原来的一半保存为新的视频</string>
-	<string name="demo_more_videoscale_soft">演示宽高缩小一半,采用软缩放的形式来做\n流程是硬解码  软件缩放 硬编码</string>
-	<string name="demo_more_videoscale_hard">演示宽高缩小一半,采用硬缩放的形式来做\n流程是硬解码  软件缩放  硬编码</string>
-	<string name="demo_more_videowatermark">增加水印,增加一张demo自动的logo图片到视频中</string>
-	<string name="demo_more_videocropwatermark">裁剪和加水印,裁剪画面的同时增加一张logo图片</string>
-	<string name="demo_more_videogetframes">获取所有帧图片,保存在/sdcard/lansongBox/下面</string>
-	<string name="demo_more_videogetoneframe">获取一帧图片,保存在/sdcard/lansongbox/下面</string>
-	<string name="demo_more_videozeroangle">视频矫正角度,把原来已经有的视频角度矫正过来.</string>
-	<string name="demo_more_videoclockwise90">视频旋转90度</string>
-	<string name="demo_more_videocounterClockwise90">视频旋转270度</string>
-	<string name="demo_more_videoaddanglemeta">视频增加角度数据</string>
-	<string name="demo_more_ontpicturevideo">一张图片转视频</string>
-	<string name="demo_more_morepicturevideo">此方法演示需要多张图片,并放在同一个文件夹内,并有一定的命令规则,暂时不演示, VideoEditor.java中的方法是完全正常的,实际您可以直接使用.</string>
-	<string name="demo_more_audiodelaymix">两个音频在混合时,第二个延时一定时间.\n(为代码清晰,方便演示,使用默认音频,此代码开放,您可以自行更改测试)</string>
-	<string name="demo_more_audiovolumemix">两个音频在混合时,调整每个音频的音量.\n(为代码清晰,方便演示,使用默认音频,此代码开放,您可以自行更改测试)</string>
-	<string name="demo_more_videopad">视频增加边框,为视频增加黑色的边框,演示是宽度和高度增加32个像素点</string>
-	<string name="demo_more_videoadjustspeed">视频加减速度</string>
-	<string name="demo_more_videomirrorh">视频水平镜像</string>
-	<string name="demo_more_videomirrorv">视频垂直镜像</string>
-	<string name="demo_more_videorotateh">视频垂直反转</string>
-	<string name="demo_more_videorotatev">视频水平反转</string>
-	<string name="demo_more_videoreverse">视频倒序</string>
-	<string name="demo_more_avreverse">音视频倒序</string>
 	
 	
 	<string name="filter_normal">普通</string>

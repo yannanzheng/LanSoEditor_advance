@@ -8,10 +8,12 @@ public class LoadLanSongSdk {
 	public static synchronized void loadLibraries() {
         if (isLoaded)
             return;
-        Log.d("lansoeditor","load libraries......");
-    	System.loadLibrary("ffmpegeditor");
-    	System.loadLibrary("lsdisplay");
-    	System.loadLibrary("lsplayer");
+        Log.d("lansoeditor","load libraries.....LanSongffmpeg.");
+        
+        //2017年10月15日, 名字更改为LanSongxxxx
+    	System.loadLibrary("LanSongffmpeg");
+    	System.loadLibrary("LanSongdisplay");
+    	System.loadLibrary("LanSongplayer");
     	
 	    isLoaded=true;
 	}

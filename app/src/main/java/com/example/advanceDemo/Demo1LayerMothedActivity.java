@@ -59,9 +59,9 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 public class Demo1LayerMothedActivity extends Activity implements OnSeekBarChangeListener {
     private static final String TAG = "Demo1LayerMothedActivity";
 
-    private String mVideoPath;
+    private String videoPath;
 
-    private DrawPadView mDrawPadView;
+    private DrawPadView drawPadView;
     
     private MediaPlayer mplayer=null;
     private VideoLayer  mainVideoLayer=null;
@@ -72,7 +72,6 @@ public class Demo1LayerMothedActivity extends Activity implements OnSeekBarChang
     private String dstPath=null;
     private LinearLayout  playVideo;
     private MediaInfo mInfo=null;
-    private Button  btnTest;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) 
@@ -80,38 +79,40 @@ public class Demo1LayerMothedActivity extends Activity implements OnSeekBarChang
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drawpad_layout);
         
-        mVideoPath = getIntent().getStringExtra("videopath");
-        mInfo=new MediaInfo(mVideoPath,false);
+        videoPath = getIntent().getStringExtra("videopath");
+        mInfo=new MediaInfo(videoPath,false);
     	if(mInfo.prepare()==false){
     		 Toast.makeText(this, "传递过来的视频文件错误", Toast.LENGTH_SHORT).show();
     		 this.finish();
     	}
     	
-        mDrawPadView = (DrawPadView) findViewById(R.id.DrawPad_view);
+        drawPadView = (DrawPadView) findViewById(R.id.DrawPad_view);
         initView();
         //在手机的默认路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
         editTmpPath=SDKFileUtils.newMp4PathInBox();
         dstPath=SDKFileUtils.newMp4PathInBox();
+        
+    	
     }
     @Override
     protected void onResume() {
     	// TODO Auto-generated method stub
     	super.onResume();
-    	playVideo.setVisibility(View.INVISIBLE);
     	new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {
 				startPlayVideo();
 			}
 		}, 100);
+    	playVideo.setVisibility(View.INVISIBLE);
     }
     private void startPlayVideo()
     {
-    	 if (mVideoPath != null)
+    	 if (videoPath != null)
     	 {
 		 		mplayer=new MediaPlayer();
 		 		try {
-					mplayer.setDataSource(mVideoPath);
+					mplayer.setDataSource(videoPath);
 					mplayer.setOnPreparedListener(new OnPreparedListener() {
 						
 						@Override
@@ -130,7 +131,6 @@ public class Demo1LayerMothedActivity extends Activity implements OnSeekBarChang
 					});
 			 		mplayer.prepareAsync();
 				}  catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
          }else {
@@ -147,16 +147,19 @@ public class Demo1LayerMothedActivity extends Activity implements OnSeekBarChang
     		int padWidth=480;
     		int padHeight=480;
     	
-        	//设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
-    		mDrawPadView.setDrawPadSize(padWidth,padHeight,new onDrawPadSizeChangedListener() {
+    	
+        	/**
+        	 * 设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
+        	 */
+    		drawPadView.setDrawPadSize(padWidth,padHeight,new onDrawPadSizeChangedListener() {
 				@Override
 				public void onSizeChanged(int viewWidth, int viewHeight) {
 					// TODO Auto-generated method stub
 					startDrawPad();
 				}
     		});
-    		mDrawPadView.setRealEncodeEnable(padWidth,padHeight,1000000,(int)mInfo.vFrameRate,editTmpPath);
-        	mDrawPadView.setOnDrawPadProgressListener(new onDrawPadProgressListener() {
+    		drawPadView.setRealEncodeEnable(padWidth,padHeight,1000000,(int)mInfo.vFrameRate,editTmpPath);
+        	drawPadView.setOnDrawPadProgressListener(new onDrawPadProgressListener() {
 				
 				@Override
 				public void onProgress(DrawPad v, long currentTimeUs) {
@@ -168,35 +171,38 @@ public class Demo1LayerMothedActivity extends Activity implements OnSeekBarChang
      */
     private void startDrawPad() 
     {
-		if(mDrawPadView.isRunning()==false && mDrawPadView.startDrawPad())
+    	drawPadView.pauseDrawPad();
+    	
+		if(drawPadView.isRunning()==false && drawPadView.startDrawPad())
 		{
+			
 			//如果视频太单调了, 可以给视频增加一个背景图片
-			mDrawPadView.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.videobg));
+			drawPadView.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.videobg));
 			//增加一个主视频的 VideoLayer
-			mainVideoLayer=mDrawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
+			mainVideoLayer=drawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
 			if(mainVideoLayer!=null)
 			{
 				mplayer.setSurface(new Surface(mainVideoLayer.getVideoTexture()));
 			//	mainVideoLayer.setScale(0.8f);  //把视频缩小一些, 因为外面有背景.
 			}
 			mplayer.start();
+			
 			addBitmapLayer();
+			drawPadView.resumeDrawPad();
 		}
     }
-    
     /**
      * Step3: stop DrawPad
      */
     private void stopDrawPad()
     {
-    	if(mDrawPadView!=null && mDrawPadView.isRunning()){
+    	if(drawPadView!=null && drawPadView.isRunning()){
 			
-			mDrawPadView.stopDrawPad();
+			drawPadView.stopDrawPad();
 			toastStop();
 			
-			
 			if(SDKFileUtils.fileExist(editTmpPath)){
-				boolean ret=VideoEditor.encoderAddAudio(mVideoPath,editTmpPath,SDKDir.TMP_DIR,dstPath);
+				boolean ret=VideoEditor.encoderAddAudio(videoPath,editTmpPath,SDKDir.TMP_DIR,dstPath);
 				if(!ret){
 					dstPath=editTmpPath;
 				}else{
@@ -210,9 +216,9 @@ public class Demo1LayerMothedActivity extends Activity implements OnSeekBarChang
     }
     private void addGifLayer()
     {
-    	if(mDrawPadView!=null && mDrawPadView.isRunning())
+    	if(drawPadView!=null && drawPadView.isRunning())
     	{
-    		mDrawPadView.addGifLayer(R.drawable.g07);  
+    		drawPadView.addGifLayer(R.drawable.g07);  
     	}
     }
     /**
@@ -221,17 +227,19 @@ public class Demo1LayerMothedActivity extends Activity implements OnSeekBarChang
      */
     private void addBitmapLayer()
     {
-    	Bitmap bmp=BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
-    	bitmapLayer=mDrawPadView.addBitmapLayer(bmp);
+    	if(bitmapLayer==null){
+    		Bitmap bmp=BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+        	bitmapLayer=drawPadView.addBitmapLayer(bmp);
+    	}
     }
     private YUVLayer mYuvLayer=null;
     private YUVLayerDemoData mData;
     private int count=0;
     private void addYUVLayer()
     {
-    	mYuvLayer=mDrawPadView.addYUVLayer(960, 720);
+    	mYuvLayer=drawPadView.addYUVLayer(960, 720);
     	mData = readDataFromAssets("data.log");
-    	mDrawPadView.setOnDrawPadThreadProgressListener(new onDrawPadThreadProgressListener() {
+    	drawPadView.setOnDrawPadThreadProgressListener(new onDrawPadThreadProgressListener() {
 			
 			@Override
 			public void onThreadProgress(DrawPad v, long currentTimeUs) {
@@ -247,7 +255,7 @@ public class Demo1LayerMothedActivity extends Activity implements OnSeekBarChang
 					 */
 					  count++;
 					  if(count>200){
-						//这里仅仅是演示把yuv push到画板里, 实际使用中, 你拿到的byte[]的yuv数据,可以直接push
+						//这里仅仅是演示把yuv push到容器里, 实际使用中, 你拿到的byte[]的yuv数据,可以直接push
 						  mYuvLayer.pushNV21DataToTexture(mData.yuv,270,false,false);
 					  }else if(count>150){
 						  mYuvLayer.pushNV21DataToTexture(mData.yuv,180,false,false);
@@ -269,28 +277,20 @@ public class Demo1LayerMothedActivity extends Activity implements OnSeekBarChang
     		mplayer.release();
     		mplayer=null;
     	}
-    	if(mDrawPadView!=null){
-    		mDrawPadView.stopDrawPad();
+    	if(drawPadView!=null){
+    		drawPadView.stopDrawPad();
     	}
     }
    @Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		
-	    if(SDKFileUtils.fileExist(dstPath)){
-	    	SDKFileUtils.deleteFile(dstPath);
-	    }
-	    if(SDKFileUtils.fileExist(editTmpPath)){
-	    	SDKFileUtils.deleteFile(editTmpPath);
-	    } 
+		SDKFileUtils.deleteFile(dstPath);
+		SDKFileUtils.deleteFile(editTmpPath);
 	}
     
     private void initView()
     {
-    	  
-       
-          
           initSeekBar(R.id.id_DrawPad_skbar_rotate,360); //角度是旋转360度,如果值大于360,则取360度内剩余的角度值.
           initSeekBar(R.id.id_DrawPad_skbar_moveX,100);
           initSeekBar(R.id.id_DrawPad_skbar_moveY,100);
@@ -301,14 +301,11 @@ public class Demo1LayerMothedActivity extends Activity implements OnSeekBarChang
           initSeekBar(R.id.id_DrawPad_skbar_alpha,100);
           initSeekBar(R.id.id_DrawPad_skbar_background,800);
           
-          
-          
           playVideo=(LinearLayout)findViewById(R.id.id_DrawPad_saveplay);
           playVideo.setOnClickListener(new OnClickListener() {
   			
   			@Override
   			public void onClick(View v) {
-  				// TODO Auto-generated method stub
   				 if(SDKFileUtils.fileExist(dstPath)){
   		   			 	Intent intent=new Intent(Demo1LayerMothedActivity.this,VideoPlayerActivity.class);
   			    	    	intent.putExtra("videopath", dstPath);
@@ -344,7 +341,7 @@ public class Demo1LayerMothedActivity extends Activity implements OnSeekBarChang
 			case R.id.id_DrawPad_skbar_moveX:
 					if(bitmapLayer!=null){
 						 xpos+=10;
-						 if(xpos>mDrawPadView.getDrawPadWidth())
+						 if(xpos>drawPadView.getDrawPadWidth())
 							 xpos=0;
 						 bitmapLayer.setPosition(xpos, bitmapLayer.getPositionY());
 					}
@@ -352,7 +349,7 @@ public class Demo1LayerMothedActivity extends Activity implements OnSeekBarChang
 			case R.id.id_DrawPad_skbar_moveY:
 				if(bitmapLayer!=null){
 					 ypos+=10;
-					 if(ypos>mDrawPadView.getDrawPadHeight())
+					 if(ypos>drawPadView.getDrawPadHeight())
 						 ypos=0;
 					 bitmapLayer.setPosition(bitmapLayer.getPositionX(), ypos);
 				}

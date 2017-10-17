@@ -58,7 +58,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 
 /**
  *  演示:  告白浪漫情诗 .
- *  流程: 在DrawPad画板上增加一个VieLayer图层 ,利用TextSurface这个文字动画效果的开源库, 绘制出浪漫的情诗文字.
+ *  流程: 在DrawPad容器上增加一个VieLayer图层 ,利用TextSurface这个文字动画效果的开源库, 绘制出浪漫的情诗文字.
  */
 public class ViewLayerOnlyActivity extends Activity implements IEndListener{
     private static final String TAG = "ViewLayerOnlyActivity";
@@ -121,7 +121,7 @@ public class ViewLayerOnlyActivity extends Activity implements IEndListener{
         
     }
     /**
-     * Step1: 初始化 DrawPad 画板
+     * Step1: 初始化 DrawPad 容器
      */
     private void initDrawPad()
     {
@@ -154,7 +154,7 @@ public class ViewLayerOnlyActivity extends Activity implements IEndListener{
     	addViewLayer();
     	playGaoBai();
     }
-    //增加一个ViewLayer到画板上.
+    //增加一个ViewLayer到容器上.
     private void addViewLayer()
     {
     	mViewLayer=mDrawPadView.addViewLayer();

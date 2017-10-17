@@ -20,7 +20,6 @@ import com.lansosdk.box.VideoLayer;
 import com.lansosdk.box.ViewLayer;
 import com.lansosdk.box.Layer;
 import com.lansosdk.box.ViewLayerRelativeLayout;
-import com.lansosdk.box.onDrawPadPreviewProgressListener;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
 import com.lansosdk.box.onDrawPadSnapShotListener;
@@ -84,7 +83,7 @@ public class ViewLayerDemoActivity extends Activity{
     private ViewLayer mViewLayer=null;
     
 //    
-    private String editTmpPath=null;  //用来保存画板录制的目标文件路径.
+    private String editTmpPath=null;  //用来保存容器录制的目标文件路径.
     private String dstPath=null;
 
     private ViewLayerRelativeLayout mLayerRelativeLayout;
@@ -159,8 +158,8 @@ public class ViewLayerDemoActivity extends Activity{
     
     long lastTimeUs=0;
     /**
-     * Step1: 设置DrawPad 画板的尺寸.
-     * 并设置是否实时录制画板上的内容.
+     * Step1: 设置DrawPad 容器的尺寸.
+     * 并设置是否实时录制容器上的内容.
      */
     private void initDrawPad()
     {
@@ -204,7 +203,7 @@ public class ViewLayerDemoActivity extends Activity{
     	}
     }
     /**
-     * Step2: Drawpad设置好后, 开始画板线程运行,
+     * Step2: Drawpad设置好后, 开始容器线程运行,
      * 并增加一个视频图层和 view图层.
      */
     private void startDrawPad()
@@ -220,7 +219,7 @@ public class ViewLayerDemoActivity extends Activity{
     	}
     }
     /**
-     * Step3: 做好后, 停止画板, 因为画板里没有声音, 这里增加上原来的声音.
+     * Step3: 做好后, 停止容器, 因为容器里没有声音, 这里增加上原来的声音.
      */
     private void stopDrawPad()
     {

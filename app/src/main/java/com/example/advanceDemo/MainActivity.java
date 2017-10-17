@@ -10,12 +10,10 @@ import com.anthonycr.grant.PermissionsManager;
 import com.anthonycr.grant.PermissionsResultAction;
 import com.example.commonDemo.CommonDemoActivity;
 import com.lansoeditor.demo.R;
-import com.lansosdk.box.AudioMix;
-import com.lansosdk.box.DrawPad;
-import com.lansosdk.box.BitmapGetFilters;
+import com.lansosdk.box.FrameInfo;
 import com.lansosdk.box.LanSoEditorBox;
-import com.lansosdk.box.AudioPad;
-import com.lansosdk.box.SampleSave;
+import com.lansosdk.box.onCompressCompletedListener;
+import com.lansosdk.box.onCompressProgressListener;
 import com.lansosdk.box.onDrawPadOutFrameListener;
 import com.lansosdk.box.onGetFiltersOutFrameListener;
 import com.lansosdk.videoeditor.AVDecoder;
@@ -76,37 +74,22 @@ public class MainActivity extends Activity implements OnClickListener{
         
 		Thread.setDefaultUncaughtExceptionHandler(new LanSoSdkCrashHandler());
         setContentView(R.layout.activity_main);
-        
         /**
          * 初始化SDK
          */
     	LanSoEditor.initSDK(getApplicationContext(), null);
         
-        
-    	//因为从android6.0系统有各种权限的限制,这里先检查是否有读写的权限,PermissionsManager采用github上开源库,不属于我们sdk的一部分.
-		 //下载地址是:https://github.com/anthonycr/Grant,您也可以使用别的方式来检查app所需权限.
-        PermissionsManager.getInstance().requestAllManifestPermissionsIfNecessary(this, new PermissionsResultAction() {
-            @Override
-            public void onGranted() {
-            	isPermissionOk=true;
-                Toast.makeText(MainActivity.this, R.string.message_granted, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onDenied(String permission) {
-            	isPermissionOk=false;
-                String message = String.format(Locale.getDefault(), getString(R.string.message_denied), permission);
-                Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
-            }
-        });
-        
-      
+    	/**
+    	 * 检查权限
+    	 */
+        checkPermission();
+    	
         initView();
         showHintDialog();
+        testFile();
     }
     @Override
     protected void onDestroy() {
-    	// TODO Auto-generated method stub
     	super.onDestroy();
     	LanSoEditor.unInitSo();
     	SDKFileUtils.deleteDir(new File(SDKDir.TMP_DIR));
@@ -132,19 +115,16 @@ public class MainActivity extends Activity implements OnClickListener{
     }
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		if(isPermissionOk)
 		{
 			if(checkPath()==false)
 				return;
 			switch (v.getId()) {
+				case R.id.id_main_cameralayer:
+					startDemoActivity(CameraListRecordActivity.class);
+				break;
 				case R.id.id_main_outbody:
 					startDemoActivity(OutBodyDemoActivity.class);
-//					startDemoActivity(VideoLayerTransformActivity.class);
-//					startDemoActivity(ExecuteAllDrawpadActivity.class);
-					break;
-				case R.id.id_main_cameralayer:
-					startDemoActivity(CameraListDemoActivity.class);
 					break;
 				case R.id.id_main_extract_frame:
 					startDemoActivity(ExtractFrameTypeListActivity.class);
@@ -161,8 +141,8 @@ public class MainActivity extends Activity implements OnClickListener{
 				case R.id.id_main_canvaslayerdemo:  //绘制一个心形.
 					startDemoActivity(CanvasLayerDemoActivity.class);
 					break; 
-				case R.id.id_main_videofilterdemo:
-					startDemoActivity(FilterDemoRealTimeActivity.class);
+				case R.id.id_main_layermothed3:
+					startDemoActivity(Demo3LayerFilterActivity.class);
 					break;
 				case R.id.id_main_mvlayerdemo:
 					startDemoActivity(MVLayerDemoActivity.class);
@@ -170,14 +150,17 @@ public class MainActivity extends Activity implements OnClickListener{
 				case R.id.id_main_pictures:
 					startDemoActivity(PictureSetRealTimeActivity.class);
 					break;
-				case R.id.id_main_twovideooverlay:
+				case R.id.id_main_layermothed2:
 					startDemoActivity(Demo2LayerMothedActivity.class);
 					break;
-				case R.id.id_main_videobitmapoverlay:
+				case R.id.id_main_layermothed1:
 					startDemoActivity(Demo1LayerMothedActivity.class);
 					break;
 				case R.id.id_main_drawpadexecute_filter:
 					startDemoActivity(ExecuteFilterDemoActivity.class);
+					break;
+				case R.id.id_main_drawpad_all:
+					startDemoActivity(ExecuteAllDrawpadActivity.class);
 					break;
 				case R.id.id_main_drawpadpictureexecute:
 					startDemoActivity(ExecuteVideoLayerActivity.class);
@@ -187,6 +170,16 @@ public class MainActivity extends Activity implements OnClickListener{
 					break;
 				case R.id.id_main_testvideoplay:
 					startDemoActivity(VideoPlayerActivity.class);
+					break;
+					//---新增
+				case R.id.id_main_twovideolayer:
+					startDemoActivity(TwoVideoLayerActivity.class);
+					break;
+				case R.id.id_main_videotransform:
+					startDemoActivity(VideoLayerTransformActivity.class);
+					break;
+				case R.id.id_main_videobiansu:
+					startDemoActivity(TestLayerPlayerActivity.class);
 					break;
 				default:
 					break;
@@ -198,7 +191,7 @@ public class MainActivity extends Activity implements OnClickListener{
 	//-----------------------------
 	private void initView()
 	{
-		 tvVideoPath=(TextView)findViewById(R.id.id_main_tvvideo);
+			tvVideoPath=(TextView)findViewById(R.id.id_main_tvvideo);
 	        
 	        findViewById(R.id.id_main_outbody).setOnClickListener(this); //灵魂出窍
 	        findViewById(R.id.id_main_cameralayer).setOnClickListener(this);
@@ -207,22 +200,29 @@ public class MainActivity extends Activity implements OnClickListener{
 	        findViewById(R.id.id_main_viewremark).setOnClickListener(this);
 	        findViewById(R.id.id_main_viewlayerdemo2).setOnClickListener(this);
 	        findViewById(R.id.id_main_canvaslayerdemo).setOnClickListener(this);
-	        findViewById(R.id.id_main_videofilterdemo).setOnClickListener(this);  //图层滤镜. 用videoLayer来演示.
+	        findViewById(R.id.id_main_layermothed3).setOnClickListener(this); 
 	        
-	        findViewById(R.id.id_main_mvlayerdemo).setOnClickListener(this);  //图层滤镜. 用videoLayer来演示.
+	        findViewById(R.id.id_main_mvlayerdemo).setOnClickListener(this);
 	        
 	        findViewById(R.id.id_main_pictures).setOnClickListener(this);
 	        
 	        findViewById(R.id.id_main_commonversion).setOnClickListener(this);
 	        
-	        findViewById(R.id.id_main_twovideooverlay).setOnClickListener(this);
-	        findViewById(R.id.id_main_videobitmapoverlay).setOnClickListener(this);
+	        findViewById(R.id.id_main_layermothed2).setOnClickListener(this);
+	        findViewById(R.id.id_main_layermothed1).setOnClickListener(this);
 	        
 	        findViewById(R.id.id_main_drawpadpictureexecute).setOnClickListener(this);
 	        findViewById(R.id.id_main_drawpadexecute_filter).setOnClickListener(this);
+	        findViewById(R.id.id_main_drawpad_all).setOnClickListener(this);
+	        
+	        findViewById(R.id.id_main_twovideolayer).setOnClickListener(this);
+	        findViewById(R.id.id_main_videotransform).setOnClickListener(this);
+	        findViewById(R.id.id_main_videobiansu).setOnClickListener(this);
+		
 	        findViewById(R.id.id_main_testvideoplay).setOnClickListener(this);
 	        
 	        findViewById(R.id.id_main_extract_frame).setOnClickListener(this);
+	        
 	        
 	        findViewById(R.id.id_main_select_video).setOnClickListener(new OnClickListener() {
 				
@@ -242,6 +242,25 @@ public class MainActivity extends Activity implements OnClickListener{
 				}
 			});
 	}
+	private void checkPermission()
+    {
+    	//因为从android6.0系统有各种权限的限制,这里先检查是否有读写的权限,PermissionsManager采用github上开源库,不属于我们sdk的一部分.
+		 //下载地址是:https://github.com/anthonycr/Grant,您也可以使用别的方式来检查app所需权限.
+       PermissionsManager.getInstance().requestAllManifestPermissionsIfNecessary(this, new PermissionsResultAction() {
+           @Override
+           public void onGranted() {
+           	isPermissionOk=true;
+               Toast.makeText(MainActivity.this, R.string.message_granted, Toast.LENGTH_SHORT).show();
+           }
+
+           @Override
+           public void onDenied(String permission) {
+           	isPermissionOk=false;
+               String message = String.format(Locale.getDefault(), getString(R.string.message_denied), permission);
+               Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+           }
+       });
+    }
 	private void showHintDialog()
    	{
     	Calendar c = Calendar.getInstance();
@@ -344,6 +363,6 @@ public class MainActivity extends Activity implements OnClickListener{
 	   //--------------------------------
 	    private void testFile()
 	    {
-	    	
+//
 		}
 }

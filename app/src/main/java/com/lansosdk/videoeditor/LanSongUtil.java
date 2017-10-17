@@ -80,17 +80,6 @@ public class LanSongUtil {
 			return val2;
 		}
 	}
-	protected static int make32Multi(int value)
-	{
-		if(value<32){
-			return 32;
-		}else {
-			value+=16;
-			int  val2= value/32;
-			val2*=32;
-			return val2;
-		}
-	}
     /**
 	 *  获取lansosdk的建议码率; 
 	 *  这个码率不是唯一的, 仅仅是我们建议这样设置, 如果您对码率理解很清楚或有一定的压缩要求,则完全可以不用我们的建议,自行设置.

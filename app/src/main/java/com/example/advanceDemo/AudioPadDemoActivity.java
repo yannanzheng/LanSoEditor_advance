@@ -85,6 +85,8 @@ public class AudioPadDemoActivity  extends Activity  implements OnClickListener{
     		 mProgressDialog.cancel();
     		 mProgressDialog=null;
     	}
+	
+    	
 	}
 	private void resultPreview()
 	{

@@ -2,6 +2,8 @@ package com.example.advanceDemo;
 
 import java.nio.IntBuffer;
 
+import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageLookupFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.IFAmaroFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.IFRiseFilter;
 
@@ -26,6 +28,7 @@ import android.widget.Toast;
 import com.example.advanceDemo.view.ShowHeart;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.BitmapLayer;
+import com.lansosdk.box.BitmapLoader;
 import com.lansosdk.box.BoxDecoder;
 import com.lansosdk.box.CanvasRunnable;
 import com.lansosdk.box.CanvasLayer;
@@ -63,7 +66,7 @@ public class ExecuteTwoVideoLayerDemoActivity extends Activity{
 	    private String editTmpPath=null;  //视频处理的临时文件存放
 	    private String dstPath=null;
 	    
-	    
+	    private TwoVideoLayer  twovideoLayer=null;
 	    private BitmapLayer bitmapLayer=null;
 	    private CanvasLayer mCanvasLayer=null;
 	    private DrawPadTwoVideoExecute  mDrawPad=null;
@@ -83,8 +86,6 @@ public class ExecuteTwoVideoLayerDemoActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		 
 		 videoPath=getIntent().getStringExtra("videopath");
-		 videoPath="/sdcard/960x544.mp4";
-		 
 		 mInfo=new MediaInfo(videoPath);
 		 mInfo.prepare();
 		 
@@ -162,16 +163,15 @@ public class ExecuteTwoVideoLayerDemoActivity extends Activity{
 		});
 //		vDrawPad.setUseMainVideoPts(true);
 		
-		//在开启前,先设置为暂停录制,因为要增加一些图层.
 		mDrawPad.pauseRecordDrawPad();
 		/**
 		 * 开始执行这个DrawPad
 		 */
-		if(mDrawPad.startDrawPad()){
-			 // 增加一些图层.
+		if(mDrawPad.startDrawPad())
+		{
 			addLayers();
 		}else{
-			Log.e(TAG,"后台画板线程  运行失败,您请检查下是否是路径设置有无, 请用MediaInfo.checkFile执行查看下....");
+			Log.e(TAG,"后台容器线程  运行失败,您请检查下是否是路径设置有无, 请用MediaInfo.checkFile执行查看下....");
 		}
 	}
 	private void addLayers()
@@ -187,13 +187,6 @@ public class ExecuteTwoVideoLayerDemoActivity extends Activity{
 			
 			//增加一个笑脸, add a bitmap
 			mDrawPad.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.xiaolian),null);	
-			//增加一个CanvasLayer
-//			addCanvasLayer();
-//			addDataLayer();
-//			 addMVLayer();
-//			addGifLayer();
-			
-			//增加完图层, 恢复运行.
 			 mDrawPad.resumeRecordDrawPad();
 		}
 	}
@@ -213,12 +206,8 @@ public class ExecuteTwoVideoLayerDemoActivity extends Activity{
 			}
     		mDrawPad=null;
     	}
-    	   if(SDKFileUtils.fileExist(dstPath)){
-    		   SDKFileUtils.deleteFile(dstPath);
-           }
-           if(SDKFileUtils.fileExist(editTmpPath)){
-        	   SDKFileUtils.deleteFile(editTmpPath);
-           } 
+    	SDKFileUtils.deleteFile(dstPath);
+    	SDKFileUtils.deleteFile(editTmpPath);
     }
 	 
 	   private void initUI()
@@ -314,22 +303,6 @@ public class ExecuteTwoVideoLayerDemoActivity extends Activity{
 //			  layer.setEndMode(MVLayerENDMode.INVISIBLE); 
 			 
 		}
-		GifLayer gifLayer;
-		private void addGifLayer()
-		{
-			gifLayer=mDrawPad.addGifLayer(R.drawable.g06);
-			
-//			new Handler().postDelayed(new Runnable() {
-//				
-//				@Override
-//				public void run() {
-//					// TODO Auto-generated method stub
-//					gifLayer.setScale(0.5f);
-//					gifLayer.setRotate(60);
-//					gifLayer.setPosition(gifLayer.getPadWidth()-gifLayer.getLayerWidth()/4,giflayer.getPositionY()/4);
-//				}
-//			}, 1000);  //系统时间1秒后,旋转到右上角.
-		}
 		private MediaInfo gifInfo;
 		private long decoderHandler;
 	   private IntBuffer  mGLRgbBuffer;
@@ -354,7 +327,7 @@ public class ExecuteTwoVideoLayerDemoActivity extends Activity{
 	   /**
 	    * 增加一个DataLayer, 数据图层. 数据图层是可以把外界的数据图片RGBA, 作为一个图层, 传到到DrawPad中. 
 	    * 
-	    * 流程是: 把gif作为一个视频文件, 一帧一帧的解码,把解码得到的数据通过DataLayer传递到画板中.
+	    * 流程是: 把gif作为一个视频文件, 一帧一帧的解码,把解码得到的数据通过DataLayer传递到容器中.
 	    */
 	 
 	   private void addDataLayer()
@@ -370,7 +343,7 @@ public class ExecuteTwoVideoLayerDemoActivity extends Activity{
 		    	   dataLayer=mDrawPad.addDataLayer(gifInfo.vWidth,gifInfo.vHeight);
 		    	   
 		    	   /**
-		    	    * 画板中的onDrawPadThreadProgressListener监听,与 onDrawPadProgressListener不同的地方在于:
+		    	    * 容器中的onDrawPadThreadProgressListener监听,与 onDrawPadProgressListener不同的地方在于:
 		    	    * 此回调是在DrawPad渲染完一帧后,立即执行这个回调中的代码,不通过Handler传递出去.
 		    	    */
 		    		mDrawPad.setDrawPadThreadProgressListener(new onDrawPadThreadProgressListener() {

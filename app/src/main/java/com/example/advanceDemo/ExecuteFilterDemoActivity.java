@@ -18,6 +18,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -59,7 +60,7 @@ import com.lansosdk.videoeditor.onVideoEditorProgressListener;
  */
 public class ExecuteFilterDemoActivity extends Activity{
 
-	private static final String TAG="FilterDemoExecuteActivity";
+	private static final String TAG="ExecuteFilterDemoActivity";
 	private String videoPath=null;
 	MediaInfo   mInfo;
 	TextView tvProgressHint;

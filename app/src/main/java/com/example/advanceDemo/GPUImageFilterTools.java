@@ -39,8 +39,7 @@ public class GPUImageFilterTools {
         final FilterList filters = new FilterList();
         
         filters.addFilter("(NONE)无", FilterType.NONE);
-        filters.addFilter("美颜(红润)", FilterType.BEAUTIFUL);  
-        filters.addFilter("美颜(白皙)", FilterType.BEAUTIFUL2); 
+        filters.addFilter("美颜", FilterType.BEAUTIFUL);  
         
         filters.addFilter("1AMARO", FilterType.AMARO);   
         filters.addFilter("2RISE", FilterType.RISE);   
@@ -163,9 +162,9 @@ public class GPUImageFilterTools {
         	 * LanSongBeautyLevel1--5是不存在的滤镜, 仅仅是为了兼容其他滤镜而做的参考.
         	 */
         	case BEAUTIFUL:
-        		return  new LanSongBeautyFilter();
-          	case BEAUTIFUL2:
-        		return  new LanSongBeautyWhiteFilter();	
+        		return  new LanSongBeautyAdvanceFilter();  //美颜默认全开.
+//          	case BEAUTIFUL2:  //白皙美颜默认不再使用.
+//        		return  new LanSongBeautyWhiteFilter();	
             case CONTRAST:
                 return new GPUImageContrastFilter(2.0f);
             case GAMMA:

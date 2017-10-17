@@ -58,7 +58,6 @@ import com.lansosdk.box.YUVLayer;
 import com.lansosdk.box.onDrawPadCompletedListener;
 import com.lansosdk.box.onDrawPadErrorListener;
 import com.lansosdk.box.onDrawPadOutFrameListener;
-import com.lansosdk.box.onDrawPadPreviewProgressListener;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
 import com.lansosdk.box.onDrawPadSnapShotListener;
@@ -88,7 +87,7 @@ public class DrawPadCameraView extends FrameLayout {
  	private int encWidth,encHeight,encFrameRate;
  	private int encBitRate=0;
  	/**
- 	 *  经过宽度对齐到手机的边缘后, 缩放后的宽高,作为drawpad(画板)的宽高. 
+ 	 *  经过宽度对齐到手机的边缘后, 缩放后的宽高,作为drawpad(容器)的宽高. 
  	 */
  	private int padWidth,padHeight; 
  	/**
@@ -427,6 +426,9 @@ public class DrawPadCameraView extends FrameLayout {
 	 * 
 	 * DrawPad每录制完一帧画面,会调用这个Listener,返回的timeUs是当前录制画面的时间戳(微妙),
 	 *  可以利用这个时间戳来做一些变化,比如在几秒处缩放, 在几秒处平移等等.从而实现一些动画效果.
+	 *  
+	 *  此回调中 {@link onDrawPadProgressListener #onProgress(DrawPad, long)}中的long是当前即将编码的时间戳, 单位是US微秒.
+	 *  
 	 * @param currentTimeUs  当前DrawPad处理画面的时间戳.,单位微秒.
 	 */
 	public void setOnDrawPadProgressListener(onDrawPadProgressListener listener){
@@ -435,30 +437,8 @@ public class DrawPadCameraView extends FrameLayout {
 		}
 		drawpadProgressListener=listener;
 	}
-	private onDrawPadPreviewProgressListener drawpadPreviewProgressListener=null;
-	/**
-	 *  预览执行回调.
-	 *  注意,因为Camera是全速运行, 会根据手机cpu的速度来执行, 可能一秒钟执行50帧, 或60帧, 也可能一秒钟执行30帧.
-	 *  在预览的时候, 每次刷新一帧,则调用这里,返回当刷新帧的时间戳
-	 *   可以复位当前时间戳 {@link #resetPreviewTime()}.
-	 * @param currentTimeUs  是系统时间和预览第一帧开始的时间差值,单位微秒.
-	 */
-	public void setOnDrawPadPreviewProgressListener(onDrawPadPreviewProgressListener listener){
-		if(renderer!=null){
-			renderer.setDrawPadPreviewProgressListener(listener);
-		}
-		drawpadPreviewProgressListener=listener;
-	}
 	
 	private onDrawPadThreadProgressListener drawPadThreadProgressListener=null;
-	/**
-	 * 复位当前预览进度时间戳, 复位后,下一帧返回0
-	 */
-	public void resetPreviewTime(){
-		if(renderer!=null){
-			renderer.resetPreviewTime();
-		}
-	}
 	/**
 	 * 
 	 * 方法与   onDrawPadProgressListener不同的地方在于:
@@ -466,7 +446,7 @@ public class DrawPadCameraView extends FrameLayout {
 	 * 故不能在回调 内增加各种UI相关的代码
 	 * 不要在代码中增加过多的耗时的代码, 以造成内部处理线程的阻塞.
 	 * 
-	 * 
+	 * 此回调中 {@link onDrawPadThreadProgressListener #onThreadProgress(DrawPad, long)}中的long是当前即将预览和编码的时间戳, 单位是US微秒.
 	 * @param listener
 	 */
 	public void setOnDrawPadThreadProgressListener(onDrawPadThreadProgressListener listener)
@@ -593,6 +573,15 @@ public class DrawPadCameraView extends FrameLayout {
 	{
 		extCameraLayer=layer;
 	}
+	private boolean isFastVideoMode=false;
+	public void setFastVideoMode(boolean is)
+	{
+		if(renderer!=null){
+			renderer.setFastVideoMode(is);
+		}else{
+			isFastVideoMode=is;
+		}
+	}
 	/**
 	 * 建立drawPad (类似UI中的创建一个Layout, 或Word中的A4纸张)
 	 * 建立视频处理的线程,也是建立一个容器, 容器的大小是您设置的DrawPad的size(如果是全屏,则是布局的大小)
@@ -622,15 +611,6 @@ public class DrawPadCameraView extends FrameLayout {
 	{
 		return startDrawPad(isPauseRecord);
 	}
-	/**
-	 * 开始DrawPad的渲染线程, 阻塞执行, 直到DrawPad真正开始执行后才退出当前方法.
-	 * 如果DrawPad设置了录制功能, 这里可以在开启后暂停录制. 适用在当您开启录制后, 需要先增加一个图层的场合后,在让它开始录制的场合, 可用resume
-	 * 	 * {@link #startRecord()} 来回复录制.
-	 * 
-	 * @param pauseRecord  如果DrawPad设置了录制功能, 这里可以在开启后暂停录制. 适用在当您开启录制后, 需要先增加一个图层的场合后,在让它开始录制的场合, 可用resume
-	 * 	  {@link #startRecord()} 来回复录制.
-	 * @return
-	 */
 	private static boolean isCameraOpened=false;
 	private boolean startDrawPad(boolean pauseRecord)
 	{
@@ -640,7 +620,6 @@ public class DrawPadCameraView extends FrameLayout {
 			 Log.w(TAG,"DrawPad线程已经开启.,如果您是从下一个Activity返回的,请先stopDrawPad后,再次开启.");
 			 return false;
 		 }
-		 
 		 if(LanSongUtil.checkRecordPermission(getContext())==false){
 	      	  return false;
 		 }
@@ -660,21 +639,22 @@ public class DrawPadCameraView extends FrameLayout {
 	 				renderer.setDisplaySurface(mTextureRenderView,new Surface(mSurfaceTexture));
 	 				
 	 				if(isCheckPadSize){
-	 					encWidth=LanSongUtil.make32Multi(encWidth);
-	 					encHeight=LanSongUtil.make32Multi(encHeight);
+	 					encWidth=LanSongUtil.make16Multi(encWidth);
+	 					encHeight=LanSongUtil.make16Multi(encHeight);
 	 				}
 	 				if(isCheckBitRate || encBitRate==0){
 	 					encBitRate=LanSongUtil.checkSuggestBitRate(encHeight * encWidth, encBitRate);
 	 				}
 	 				renderer.setEncoderEnable(encWidth,encHeight,encBitRate,encFrameRate,encodeOutput);
-	 				
+	 				if(isFastVideoMode){
+	 					renderer.setFastVideoMode(isFastVideoMode);
+	 				}
 	 				 //设置DrawPad处理的进度监听, 回传的currentTimeUs单位是微秒.
 	 				renderer.setDrawpadSnapShotListener(drawpadSnapShotListener);
 	 				renderer.setDrawpadOutFrameListener(outFrameWidth, outFrameHeight, outFrameType, drawPadOutFrameListener);
 	 				renderer.setDrawPadProgressListener(drawpadProgressListener);
 	 				renderer.setDrawPadCompletedListener(drawpadCompletedListener);
 	 				renderer.setDrawPadThreadProgressListener(drawPadThreadProgressListener);
-	 				renderer.setDrawPadPreviewProgressListener(drawpadPreviewProgressListener);
 	 				renderer.setOutFrameInDrawPad(frameListenerInDrawPad);
 	 				
 	 				renderer.setDrawPadErrorListener(drawPadErrorListener);
@@ -878,7 +858,7 @@ public class DrawPadCameraView extends FrameLayout {
 	 * 适用在需要实时录制的, 如果您仅仅是对增加背景音乐等, 可以使用 {@link VideoEditor#executeVideoMergeAudio(String, String, String)}
 	 * 来做处理.
 	 * 
-	 * 注意:当设置了录制外部的pcm数据后, 当前画板上录制的帧,就以音频的帧率为参考时间戳,从而保证音同步进行. 
+	 * 注意:当设置了录制外部的pcm数据后, 当前容器上录制的帧,就以音频的帧率为参考时间戳,从而保证音同步进行. 
 	 * 故您在投递音频的时候, 需要严格按照音频播放的速度投递. 
 	 * 
 	 * 如采用外面的pcm数据,则在录制过程中,会参考音频时间戳,来计算得出的时间戳,
@@ -926,19 +906,6 @@ public class DrawPadCameraView extends FrameLayout {
 			recordExtMp3=mp3Path;
 		}
 	}
-//	/**
-//	 * 获取一个音频输入对象, 向内部投递数据,  配合setRecordExtraPcm使用, 其他地方不使用.
-//	 * 只有当开启画板录制,并设置了录制外面数据的情况下,才有效.
-//	 * @return
-//	 */
-//	public AudioLine getAudioLine()
-//	{
-//		if(renderer!=null){
-//			return renderer.getAudioLine();
-//		}else{
-//			return null;
-//		}
-//	}
 	/**
 	 * 此代码只是用在分段录制的Camera的过程中, 其他地方不建议使用.
 	 */
@@ -1039,9 +1006,9 @@ public class DrawPadCameraView extends FrameLayout {
         }
 	}
 	/**
-	 * 直接设置画板的宽高, 不让他自动缩放.
+	 * 直接设置容器的宽高, 不让他自动缩放.
 	 * 
-	 * 要在画板开始前调用.
+	 * 要在容器开始前调用.
 	 * @param width
 	 * @param height
 	 */
@@ -1110,7 +1077,7 @@ public class DrawPadCameraView extends FrameLayout {
 		}
     }
     /**
-     * 获取当前画板中有多少个图层.
+     * 获取当前容器中有多少个图层.
      * 
      * @return
      */

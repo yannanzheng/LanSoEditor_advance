@@ -74,13 +74,13 @@ public class DrawPadVideoExecute {
    }
    /**
     *  Drawpad后台执行, 可以指定开始时间.
-    *  因视频编码原理, 会定位到 [指定时间]前面最近的一个IDR刷新帧, 然后解码到[指定时间],画板才开始渲染视频,中间或许有一些延迟.
+    *  因视频编码原理, 会定位到 [指定时间]前面最近的一个IDR刷新帧, 然后解码到[指定时间],容器才开始渲染视频,中间或许有一些延迟.
     * @param ctx
     * @param srcPath  主视频的完整路径.
     * @param startTimeMs  开始时间. 单位毫秒
-    * @param padwidth  画板宽度.
-    * @param padheight 画板高度.
-    * @param bitrate 画板编码的码率
+    * @param padwidth  容器宽度.
+    * @param padheight 容器高度.
+    * @param bitrate 容器编码的码率
     * @param filter  为这视频设置一个滤镜, 如果您要增加多个滤镜,则用{@link #switchFilterList(Layer, ArrayList)}
     * @param dstPath  处理后保存的目标文件.
     */
@@ -111,7 +111,7 @@ public class DrawPadVideoExecute {
 	   this.padHeight=padheight;
    }
    /**
-    * 增加了filebox类, 
+    * 增加了FileParameter类, 
     * 其中FileParameter的配置是:
 	 * 
 		FileParameter  param=new FileParameter();
@@ -142,6 +142,12 @@ public class DrawPadVideoExecute {
 	   }
 	   this.padWidth=padwidth;
 	   this.padHeight=padheight;
+   }
+   public void setFastVideoMode(boolean is)
+   {
+	   if(renderer!=null){
+		   renderer.setFastVideoMode(is);
+	   }
    }
   /**
    * 启动DrawPad,开始执行.
@@ -351,7 +357,7 @@ public class DrawPadVideoExecute {
    }
    
    /**
-    * 获取当前画板中有多少个图层.
+    * 获取当前容器中有多少个图层.
     * 
     * @return
     */

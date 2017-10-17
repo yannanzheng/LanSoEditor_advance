@@ -114,7 +114,7 @@ public class CameraLayerRectActivity extends Activity implements Handler.Callbac
     }
     
     /**
-     * Step1: 开始运行 DrawPad 画板
+     * Step1: 开始运行 DrawPad 容器
      */
     private void initDrawPad()
     {
@@ -122,9 +122,12 @@ public class CameraLayerRectActivity extends Activity implements Handler.Callbac
     	/**
     	 * 当前CameraLayer 支持全屏和 正方形的宽高比,
     	 */
-    	 int padWidth=480;
-    	 int padHeight=480;
+//    	 int padWidth=480;
+//    	 int padHeight=480;
     	 
+    	int padWidth=480;
+   	 	int padHeight=480;
+   	 
     	mDrawPad.setRecordMic(true);
     	mDrawPad.setCameraParam(true, null, true);
     	mDrawPad.setRealEncodeEnable(padWidth,padHeight,1000000,(int)25,dstPath);
@@ -177,7 +180,7 @@ public class CameraLayerRectActivity extends Activity implements Handler.Callbac
 		}
 	};
     /**
-     * Step3: 停止画板 停止后,为新的视频文件增加上音频部分.
+     * Step3: 停止容器 停止后,为新的视频文件增加上音频部分.
      */
     private void stopDrawPad()
     {

@@ -12,29 +12,24 @@ public class MoveCentor {
 
 	private Layer mLayer;
 	private  long mStartUS,mEndUS;
-	private  int stepX,stepY;  //x,y每次递增多少.
 	private int currentX=0,currentY=0;
+	private float durationS;
 	
-	
-	public MoveCentor(Layer layer,long startUs, long durationUs,float fps)
+	/**
+	 * @param layer
+	 * @param startUs  开始时间
+	 * @param durationUs  动画运行时间
+	 */
+	public MoveCentor(Layer layer,long startUs, long durationUs)
 	{
 		if(durationUs>0 && layer!=null){
-			
 			mLayer=layer;
 			mStartUS=startUs;
 			mEndUS=mStartUS + durationUs;
+			durationS= (float)durationUs/1000000f;
 			
-			float time= (float)durationUs/1000000f;  //总时间,转换为秒
-			
-			int frameSize=(int)(time *fps);  //得到这个时间段内有多少帧;
-
-			stepX= layer.getPadWidth()/(frameSize*2);  //移动到 layer.getPadWidth()/2的位置 ,在这些帧内, 故每一帧移动多少, 要除以frameSize;
-			
-			stepY= layer.getPadHeight()/(frameSize*2);  
-			 
 			currentX=0;
 			currentY=0;
-//			Log.i("mov","frameSize:"+frameSize+ "layer.getPadWidth():"+layer.getPadWidth()+ "stepX:"+stepX);
 		}
 	}
 	
@@ -47,15 +42,32 @@ public class MoveCentor {
 		if(mLayer!=null)
 		{
 			mLayer.setVisibility(Layer.VISIBLE);
-			currentX+=stepX;
-			currentY+=stepY;
+			
+			float timeDelta=(float)( (currentTimeUs-mStartUS)/1000000f);  //时间差.
+			
+			float factor=timeDelta/durationS;  //当前时间段应该缩放的值是, 与开始时间差,除以总时间,等于一个百分比.
+			
+			
+			//缩放视频图层
+			mLayer.setScale(factor);
+			
+			float width2=(float)mLayer.getPadWidth() *0.5f;
+			float height2=(float)mLayer.getPadHeight() *0.5f;
+			
+			currentX= (int)(factor* width2);
+			currentY= (int)(factor* height2);
+			
+			
 			if(currentX>mLayer.getPadWidth()/2){  //以为浮点计算后取整, 可能有偏差,这里如果大于,则等于;
 				currentX=mLayer.getPadWidth()/2;
 			}
 			if(currentY>mLayer.getPadHeight()/2){
 				currentY=mLayer.getPadHeight()/2;
 			}
+			
+			//移动视频图层
 			mLayer.setPosition(currentX, currentY);
+			
 //			Log.i("move","currentX:"+currentX + " currentY:"+currentY);
 		}
 	}

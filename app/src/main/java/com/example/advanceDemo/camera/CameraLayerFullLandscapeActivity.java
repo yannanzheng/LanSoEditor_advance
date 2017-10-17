@@ -1,6 +1,9 @@
 package com.example.advanceDemo.camera;
 
+import java.io.IOException;
+
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.Rotation;
 
 import com.example.advanceDemo.GPUImageFilterTools;
 import com.example.advanceDemo.VideoPlayerActivity;
@@ -28,12 +31,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
@@ -67,6 +72,7 @@ import android.widget.Toast;
 	</style>
  */
 public class CameraLayerFullLandscapeActivity extends Activity implements OnClickListener{
+//public class CameraLayerFullLandscapeActivity extends AppCompatActivity implements OnClickListener{  
 	private static final long RECORD_CAMERA_TIME=15*1000*1000; //定义录制的时间为20s
 	
 	private static final String TAG = "CameraLayerFullLandscapeActivity";
@@ -121,7 +127,7 @@ public class CameraLayerFullLandscapeActivity extends Activity implements OnClic
 		},200);
     }
     /**
-     * Step1: 开始运行 DrawPad 画板
+     * Step1: 开始运行 DrawPad 容器
      */
     private void initDrawPad()
     {
@@ -129,8 +135,9 @@ public class CameraLayerFullLandscapeActivity extends Activity implements OnClic
     	 int padWidth=960;  
     	 int padHeight=544;
     	 int bitrate=3000*1024;
+    	 int frameRate=25;
     	 
-    	mDrawPadCamera.setRealEncodeEnable(padWidth,padHeight,bitrate,(int)25,dstPath);
+    	mDrawPadCamera.setRealEncodeEnable(padWidth,padHeight,bitrate,frameRate,dstPath);
     	/**
     	 * 设置进度回调 
     	 */
@@ -138,7 +145,7 @@ public class CameraLayerFullLandscapeActivity extends Activity implements OnClic
     	
     	mDrawPadCamera.setRecordMic(true);
     	
-    	mDrawPadCamera.setCameraParam(true, null,true);  //设置是否前置.
+    	mDrawPadCamera.setCameraParam(false, null,true);  //设置是否前置.
     	/**
     	 * 设置当聚焦时的UI动画.
     	 */
@@ -178,7 +185,7 @@ public class CameraLayerFullLandscapeActivity extends Activity implements OnClic
     	    }
       }
       /**
-       * Step3: 停止画板, 停止后,为新的视频文件增加上音频部分.
+       * Step3: 停止容器, 停止后,为新的视频文件增加上音频部分.
        */
       private void stopDrawPad()
       {
@@ -354,18 +361,6 @@ public class CameraLayerFullLandscapeActivity extends Activity implements OnClic
 					}, 1000);
 		 }
    }
-   private void addMVLayer()
-  	{
-  		String  colorMVPath=CopyDefaultVideoAsyncTask.copyFile(CameraLayerFullLandscapeActivity.this,"mei.mp4");
-  	    String maskMVPath=CopyDefaultVideoAsyncTask.copyFile(CameraLayerFullLandscapeActivity.this,"mei_b.mp4");
-  		
-	    
-  	    MVLayer  layer=mDrawPadCamera.addMVLayer(colorMVPath, maskMVPath);  //<-----增加MVLayer
-  		/**
-  		 * mv在播放完后, 有3种模式,消失/停留在最后一帧/循环.默认是循环.
-  		 * layer.setEndMode(MVLayerENDMode.INVISIBLE); 
-  		 */
-  	}
    //-------------------------------------------一下是UI界面和控制部分.---------------------------------------------------
    private LinearLayout  playVideo;
    private TextView tvTime;
@@ -379,7 +374,6 @@ public class CameraLayerFullLandscapeActivity extends Activity implements OnClic
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				 if(SDKFileUtils.fileExist(dstPath)){
 		   			 	Intent intent=new Intent(CameraLayerFullLandscapeActivity.this,VideoPlayerActivity.class);
 			    	    	intent.putExtra("videopath", dstPath);

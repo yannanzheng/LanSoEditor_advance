@@ -4,12 +4,6 @@ import java.io.IOException;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
 
-import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
-import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
-import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSwirlFilter;
-import jp.co.cyberagent.lansongsdk.gpuimage.IFAmaroFilter;
-import jp.co.cyberagent.lansongsdk.gpuimage.IFRiseFilter;
-
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -38,6 +32,7 @@ import com.lansosdk.box.CanvasRunnable;
 import com.lansosdk.box.CanvasLayer;
 import com.lansosdk.box.DataLayer;
 import com.lansosdk.box.DrawPad;
+import com.lansosdk.box.DrawPadUpdateMode;
 import com.lansosdk.box.DrawPadVideoRunnable;
 import com.lansosdk.box.FileParameter;
 import com.lansosdk.box.GifLayer;
@@ -139,13 +134,16 @@ public class ExecuteVideoLayerActivity extends Activity{
 		
 		 isExecuting=true;
 		 mDrawPad=new DrawPadVideoExecute(mContext,videoPath,480,480,1000*1000,null,editTmpPath);
+		 
+		 mDrawPad.setUpdateMode(DrawPadUpdateMode.AUTO_FLUSH, (int)mInfo.vFrameRate);
+		 
 		 mDrawPad.setDrawPadErrorListener(new onDrawPadErrorListener() {
 			
 			@Override
 			public void onError(DrawPad d, int what) {
 				// TODO Auto-generated method stub
 				mDrawPad.stopDrawPad();
-				Log.e(TAG,"后台画板线程 运行失败,您请检查下是否码率分辨率设置过大,或者联系我们!...");
+				Log.e(TAG,"后台容器线程 运行失败,您请检查下是否码率分辨率设置过大,或者联系我们!...");
 			}
 		});
 		 /**
@@ -210,7 +208,7 @@ public class ExecuteVideoLayerActivity extends Activity{
 			 // 增加一些图层.
 			addLayers();
 		}else{
-			Log.e(TAG,"后台画板线程  运行失败,您请检查下是否是路径设置有无, 请用MediaInfo.checkFile执行查看下....");
+			Log.e(TAG,"后台容器线程  运行失败,您请检查下是否是路径设置有无, 请用MediaInfo.checkFile执行查看下....");
 		}
 	}
 	/**
@@ -425,7 +423,7 @@ public class ExecuteVideoLayerActivity extends Activity{
 	   /**
 	    * 增加一个DataLayer, 数据图层. 数据图层是可以把外界的数据图片RGBA, 作为一个图层, 传到到DrawPad中. 
 	    * 
-	    * 流程是: 把gif作为一个视频文件, 一帧一帧的解码,把解码得到的数据通过DataLayer传递到画板中.
+	    * 流程是: 把gif作为一个视频文件, 一帧一帧的解码,把解码得到的数据通过DataLayer传递到容器中.
 	    */
 	 
 	   private void addDataLayer()
@@ -441,7 +439,7 @@ public class ExecuteVideoLayerActivity extends Activity{
 		    	   dataLayer=mDrawPad.addDataLayer(gifInfo.vWidth,gifInfo.vHeight);
 		    	   
 		    	   /**
-		    	    * 画板中的onDrawPadThreadProgressListener监听,与 onDrawPadProgressListener不同的地方在于:
+		    	    * 容器中的onDrawPadThreadProgressListener监听,与 onDrawPadProgressListener不同的地方在于:
 		    	    * 此回调是在DrawPad渲染完一帧后,立即执行这个回调中的代码,不通过Handler传递出去.
 		    	    */
 		    		mDrawPad.setDrawPadThreadProgressListener(new onDrawPadThreadProgressListener() {

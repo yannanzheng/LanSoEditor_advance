@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:orientation="horizontal"
-        android:layout_weight="1"
+        android:layout_weight="6"
         android:background="@drawable/lansong_hint_bg">
        
         <TextView 
@@ -22,150 +22,71 @@
              android:textColor="@color/red"/>
     </RelativeLayout>
     
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="请选择视频源"
+        />
     <!-- 横排 -->
     <LinearLayout 
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="7"
+        android:layout_weight="4"
+        android:gravity="fill_horizontal"
         android:orientation="horizontal">
-       
         
+        <RelativeLayout 
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+             <Button 
+                android:id="@+id/id_listmain_record"
+                android:layout_width="wrap_content"
+                 android:layout_height="wrap_content" 
+                android:text="录制" 
+                android:textSize="30sp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/circle_btn_bg_blue"
+                android:textColor="@color/white"/>
+        </RelativeLayout>
+           
+         
+         <RelativeLayout 
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+             <Button 
+                 android:id="@+id/id_listmain_default"
+                android:layout_width="wrap_content"
+                 android:layout_height="wrap_content" 
+                android:text="默认" 
+                android:textSize="30sp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/circle_btn_bg_blue"
+                android:textColor="@color/white"/>
+        </RelativeLayout>
         
-        <!-- 竖排 -->
-          <LinearLayout 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-	     android:layout_gravity="center_horizontal"
-        android:orientation="vertical">
-        
-       <!-- 再次横排 -->
-          <LinearLayout 
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:orientation="horizontal">
-        
-			        <RelativeLayout 
-			            android:id="@+id/id_start_btn_record"
-			             android:layout_width="0dip" android:layout_weight="1" android:layout_height="150dip" android:layout_margin="5dip"
-			            android:background="@drawable/start_btn_bg">
-			            
-			            <TextView 
-			                android:layout_width="wrap_content" android:layout_height="wrap_content" 
-			                android:text="录制" android:textSize="30sp"
-			                android:layout_centerInParent="true"
-			                android:textColor="@color/blue"/>
-			            
-			            <TextView 
-			                android:layout_width="wrap_content"
-			                android:layout_height="wrap_content"
-			                android:text="多种录制列举" 
-			                android:layout_centerHorizontal="true"
-			                android:layout_alignParentBottom="true"/>
-			        </RelativeLayout>
-        
-			         <RelativeLayout 
-			            android:id="@+id/id_start_btn_layer"
-			             android:layout_width="0dip" android:layout_weight="1" android:layout_height="150dip" android:layout_margin="5dip"
-			            android:background="@drawable/start_btn_bg">
-			            
-			            <TextView 
-			                android:layout_width="wrap_content" android:layout_height="wrap_content" 
-			                android:text="图层" android:textSize="30sp"
-			                android:layout_centerInParent="true"
-			                android:textColor="@color/blue"/>
-			            
-			            <TextView 
-			                android:layout_width="wrap_content"
-			                android:layout_height="wrap_content"
-			                android:text="11种图层.子图层.滤镜" 
-			                android:layout_centerHorizontal="true"
-			                android:layout_alignParentBottom="true"/>
-			        </RelativeLayout>
-            </LinearLayout> 
-          
-          
-           <!-- 再次横排 -->
-          <LinearLayout 
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:orientation="horizontal">
-        
-			        <RelativeLayout 
-			            android:id="@+id/id_start_btn_effect"
-			             android:layout_width="0dip" android:layout_weight="1" android:layout_height="150dip" android:layout_margin="5dip"
-			            android:background="@drawable/start_btn_bg">
-			            
-			            <TextView 
-			                android:layout_width="wrap_content" android:layout_height="wrap_content" 
-			                android:text="特效" android:textSize="30sp"
-			                android:layout_centerInParent="true"
-			                android:textColor="@color/blue"/>
-			            
-			            <TextView 
-			                android:layout_width="wrap_content"
-			                android:layout_height="wrap_content"
-			                android:text="转场.慢放.倒序.重复...." 
-			                android:layout_centerHorizontal="true"
-			                android:layout_alignParentBottom="true"/>
-			        </RelativeLayout>
-        
-			         <RelativeLayout 
-			            android:id="@+id/id_start_btn_commonapp"
-			             android:layout_width="0dip" android:layout_weight="1" android:layout_height="150dip" android:layout_margin="5dip"
-			            android:background="@drawable/start_btn_bg">
-			            
-			            <TextView 
-			                android:layout_width="wrap_content" android:layout_height="wrap_content" 
-			                android:text="图片|声音" android:textSize="30sp"
-			                android:layout_centerInParent="true"
-			                android:textColor="@color/blue"/>
-			            
-			            <TextView 
-			                android:layout_width="wrap_content"
-			                android:layout_height="wrap_content"
-			                android:text="声音.图片等处理" 
-			                android:layout_centerHorizontal="true"
-			                android:layout_alignParentBottom="true"/>
-			        </RelativeLayout>
-            </LinearLayout>
-            
-          <View 
-              android:layout_width="match_parent"
-              android:layout_height="1dip"
-              android:background="@color/whitesmoke"/>
-          
-          
-              <LinearLayout 
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:orientation="horizontal">
-        <!-- 
-				        <Button 
-				             android:layout_width="0dip" android:layout_weight="1" android:layout_height="60dip" 
-				             android:text="图片|声音" android:textSize="18sp"
-				            android:background="@drawable/start_btn_bg"/>
-				           
-			             <Button 
-				             android:layout_width="0dip" android:layout_weight="1" android:layout_height="60dip" 
-				             android:text="滤镜" android:textSize="18sp"
-				             android:textColor="@color/red"
-				            android:background="@drawable/start_btn_bg"/>
-				              -->
-			             <Button 
-				             android:layout_width="0dip" android:layout_weight="1" android:layout_height="60dip" 
-				             android:text="基本版本" android:textSize="18sp"
-				             android:textColor="@color/mediumseagreen"
-				            android:background="@drawable/start_btn_bg"/>
-            </LinearLayout>
-            
-                 <TextView 
+          <RelativeLayout 
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+             <Button 
+                android:id="@+id/id_listmain_select"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" 
+                android:text="选择" 
+                android:textSize="30sp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/circle_btn_bg_blue"
+                android:textColor="@color/white"/>
+        </RelativeLayout>
+     </LinearLayout>
+
+		<TextView 
              android:id="@+id/id_start_version_hint"
              android:layout_width="match_parent"
-             android:layout_height="wrap_content"
+	        android:layout_height="0dip"
+	        android:layout_weight="4"
              android:layout_centerInParent="true"
              android:text="我们从事商业手机端视频SDK的开发维护."/>
-                 
-         </LinearLayout>  <!-- 竖排 -->
-    </LinearLayout>
-     
 </LinearLayout>

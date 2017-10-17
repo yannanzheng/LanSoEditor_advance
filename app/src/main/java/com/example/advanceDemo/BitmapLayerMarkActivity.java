@@ -143,7 +143,7 @@ public class BitmapLayerMarkActivity extends Activity{
           }
     }
     /**
-     * Step1: 初始化 DrawPad 画板
+     * Step1: 初始化 DrawPad 容器
      */
     private void initDrawPad()
     {
@@ -163,7 +163,7 @@ public class BitmapLayerMarkActivity extends Activity{
     	}
     }
     /**
-     * Step2:增加一个BitmapLayer到画板上.已经在MarkArrowView中实现了.
+     * Step2:增加一个BitmapLayer到容器上.已经在MarkArrowView中实现了.
      */
     private void startDrawPad()
     {
@@ -177,7 +177,7 @@ public class BitmapLayerMarkActivity extends Activity{
     }
     
     /**
-     * Step3: 增加完成后, 停止画板DrawPad 停止后,为新的视频文件增加上音频部分.
+     * Step3: 增加完成后, 停止容器DrawPad 停止后,为新的视频文件增加上音频部分.
      */
     private void stopDrawPad()
     {

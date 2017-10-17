@@ -31,7 +31,6 @@ import com.lansosdk.box.ViewLayer;
 import com.lansosdk.box.ViewLayerRelativeLayout;
 import com.lansosdk.box.onDrawPadErrorListener;
 import com.lansosdk.box.onDrawPadOutFrameListener;
-import com.lansosdk.box.onDrawPadPreviewProgressListener;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSnapShotListener;
 import com.lansosdk.box.onDrawPadThreadProgressListener;
@@ -153,7 +152,7 @@ public class CameraLayerFullPortWithMp3Activity extends Activity implements OnCl
     }
                                     
     /**
-     * Step1: 开始运行 DrawPad 画板
+     * Step1: 开始运行 DrawPad 容器
      */
     private void initDrawPad()
     {
@@ -206,7 +205,7 @@ public class CameraLayerFullPortWithMp3Activity extends Activity implements OnCl
 			@Override
 			public void onError(DrawPad d, int what) {
 				// TODO Auto-generated method stub
-				Log.e(TAG,"DrawPad画板线程运行出错!!!"+what);
+				Log.e(TAG,"DrawPad容器线程运行出错!!!"+what);
 			}
 		});
     }
@@ -225,7 +224,7 @@ public class CameraLayerFullPortWithMp3Activity extends Activity implements OnCl
     	  }
       }
       /**
-       * Step3: 停止画板, 停止后,为新的视频文件增加上音频部分.
+       * Step3: 停止容器, 停止后,为新的视频文件增加上音频部分.
        */
       private void stopDrawPad()
       {

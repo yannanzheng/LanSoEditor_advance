@@ -80,7 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="为演示直观，大部分用 [前台画板]，最后有[后台画板]的举例."
+                android:text="为演示直观，大部分用 [前台容器]，最后有[后台容器]的举例."
             android:textColor="@color/red"/>
         </LinearLayout>
         
@@ -91,18 +91,20 @@
 			<TextView  style="@style/main_item_arrow"/> 
 	</RelativeLayout>
 	
-     <RelativeLayout  android:id="@+id/id_main_outbody" style="@style/main_item_reletivelayout">
-           	 <TextView   android:text="灵魂出窍" style="@style/main_item_textview"/>
+      <RelativeLayout  android:id="@+id/id_main_layermothed1" style="@style/main_item_reletivelayout">
+           	    <TextView   android:text="所有图层均支持的功能1" 				style="@style/main_item_textview"/>
 			<TextView  style="@style/main_item_arrow"/> 
-	</RelativeLayout>
-	
-  
-	
-    <RelativeLayout  android:id="@+id/id_main_extract_frame" style="@style/main_item_reletivelayout">
-           	 <TextView   android:text="提取图片" style="@style/main_item_textview"/>
+	  </RelativeLayout>
+	  
+        <RelativeLayout  android:id="@+id/id_main_layermothed2" style="@style/main_item_reletivelayout">
+           	    <TextView   android:text="所有图层均支持的功能2" 				style="@style/main_item_textview"/>
 			<TextView  style="@style/main_item_arrow"/> 
-	</RelativeLayout>
-	
+		</RelativeLayout>
+	<RelativeLayout  android:id="@+id/id_main_layermothed3" style="@style/main_item_reletivelayout">
+           	    <TextView   android:text="所有图层均支持之滤镜 3" 				style="@style/main_item_textview"/>
+			<TextView  style="@style/main_item_arrow"/> 
+		</RelativeLayout>
+		
 	  <RelativeLayout  android:id="@+id/id_main_viewlayerdemo1" style="@style/main_item_reletivelayout">
            	 <TextView   android:text="UI图层" style="@style/main_item_textview"/>
 			<TextView  style="@style/main_item_arrow"/> 
@@ -126,43 +128,59 @@
 		 <RelativeLayout  android:id="@+id/id_main_viewremark" style="@style/main_item_reletivelayout">
            	 <TextView   android:text="图片图层" 				style="@style/main_item_textview"/>
 			<TextView  style="@style/main_item_arrow"/> 
-	</RelativeLayout>   
+		</RelativeLayout>   
+		
+		  <RelativeLayout  android:id="@+id/id_main_twovideolayer" style="@style/main_item_reletivelayout">
+           	 <TextView   android:text="双视频图层" 				style="@style/main_item_textview"/>
+			<TextView  style="@style/main_item_arrow"/> 
+		</RelativeLayout>  
 	
        <RelativeLayout  android:id="@+id/id_main_pictures" style="@style/main_item_reletivelayout">
            	<TextView   android:text="照片影集" 				style="@style/main_item_textview"/>
 			<TextView  style="@style/main_item_arrow"/> 
 		</RelativeLayout>
-      
-          <RelativeLayout  android:id="@+id/id_main_videofilterdemo" style="@style/main_item_reletivelayout">
-           	    <TextView   android:text="滤镜属性" 				style="@style/main_item_textview"/>
+		
+	      <RelativeLayout  android:id="@+id/id_main_outbody" style="@style/main_item_reletivelayout">
+	           	 <TextView   android:text="灵魂出窍" style="@style/main_item_textview"/>
+				<TextView  style="@style/main_item_arrow"/> 
+		</RelativeLayout>
+		
+	    <RelativeLayout  android:id="@+id/id_main_extract_frame" style="@style/main_item_reletivelayout">
+	           	 <TextView   android:text="提取图片" style="@style/main_item_textview"/>
+				<TextView  style="@style/main_item_arrow"/> 
+		</RelativeLayout>
+	
+          <RelativeLayout  android:id="@+id/id_main_videotransform" style="@style/main_item_reletivelayout">
+           	 <TextView   android:text="图层增删动画[转场,前台]" 				style="@style/main_item_textview"/>
+			<TextView  style="@style/main_item_arrow"/> 
+		</RelativeLayout>
+          
+           <RelativeLayout  android:id="@+id/id_main_videobiansu" style="@style/main_item_reletivelayout">
+           	    <TextView   android:text="视频任意点变速,精确定位" 				style="@style/main_item_textview"/>
 			<TextView  style="@style/main_item_arrow"/> 
 		</RelativeLayout>
 		
-          <RelativeLayout  android:id="@+id/id_main_videobitmapoverlay" style="@style/main_item_reletivelayout">
-          
-           	    <TextView   android:text="所有图层均支持的功能1" 				style="@style/main_item_textview"/>
-			<TextView  style="@style/main_item_arrow"/> 
-	  </RelativeLayout>
-	  
-        <RelativeLayout  android:id="@+id/id_main_twovideooverlay" style="@style/main_item_reletivelayout">
-           	    <TextView   android:text="所有图层均支持的功能2" 				style="@style/main_item_textview"/>
+		 <RelativeLayout  android:id="@+id/id_main_videoreverse" style="@style/main_item_reletivelayout">
+           	    <TextView   android:text="视频任意点倒序【合作后提供】" 				style="@style/main_item_textview"/>
 			<TextView  style="@style/main_item_arrow"/> 
 		</RelativeLayout>
-	
-       
-	
+		
+	<!-- 后台操作 -->
 	<RelativeLayout  android:id="@+id/id_main_drawpadexecute_filter" style="@style/main_item_reletivelayout">
           
-           	    <TextView   android:text="后台画板 (滤镜)" 		 android:textColor="@color/blue" 		style="@style/main_item_textview"/>
+           	    <TextView   android:text="后台容器 (滤镜)" 		 android:textColor="@color/blue" 		style="@style/main_item_textview"/>
+			<TextView  style="@style/main_item_arrow"/> 
+	</RelativeLayout>
+	
+	<RelativeLayout  android:id="@+id/id_main_drawpad_all" style="@style/main_item_reletivelayout">
+           	 <TextView   android:text="图层增删动画[转场,后台]" 		 android:textColor="@color/blue" 		style="@style/main_item_textview"/>
 			<TextView  style="@style/main_item_arrow"/> 
 	</RelativeLayout>
 	
 	<RelativeLayout  android:id="@+id/id_main_drawpadpictureexecute" style="@style/main_item_reletivelayout">
-          
-           	    <TextView   android:text="后台画板  (多种图层混合) " 	 android:textColor="@color/blue" 			style="@style/main_item_textview"/>
+           	<TextView   android:text="后台容器  (多种图层混合) " 	 android:textColor="@color/blue" 			style="@style/main_item_textview"/>
 			<TextView  style="@style/main_item_arrow"/> 
 	</RelativeLayout>
-	
 		  
 	<RelativeLayout  android:id="@+id/id_main_commonversion" style="@style/main_item_reletivelayout">
           	<TextView   android:text="视频编辑 --基本版本演示" 	  android:textColor="@color/mediumseagreen"  android:textStyle="bold"      style="@style/main_item_textview"/>

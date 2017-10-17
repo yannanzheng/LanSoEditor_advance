@@ -210,75 +210,12 @@ public class AVEditorDemoActivity extends Activity implements OnClickListener{
 				case R.string.demo_id_concatvideo:  //视频拼接
 					DemoFunctions.demoVideoConcat(mEditor, srcVideo, dstVideo);
 					break;
-				case R.string.demo_id_videocompress:
-					DemoFunctions.demoVideoCompress(mEditor, srcVideo, dstVideo);
-					break;
-				case R.string.demo_id_videocrop:
-					DemoFunctions.demoFrameCrop(mEditor, srcVideo, dstVideo);
-					break;
-				case R.string.demo_id_videoscale_soft:
-					DemoFunctions.demoVideoScale(mEditor, srcVideo, dstVideo);
-					break;
-				case R.string.demo_id_videowatermark:
-					 DemoFunctions.demoAddPicture(AVEditorDemoActivity.this, mEditor, srcVideo, dstVideo);
-					break;
-				case R.string.demo_id_videocropwatermark:
-					DemoFunctions.demoVideoCropOverlay(AVEditorDemoActivity.this, mEditor, srcVideo, dstVideo);
-					break;
-				case R.string.demo_id_videogetframes:
-					DemoFunctions.demoGetAllFrames(mEditor, srcVideo);
-					break;
-				case R.string.demo_id_videogetoneframe:
-					DemoFunctions.demoGetOneFrame(mEditor, srcVideo, dstVideo);
-					break;
-				case R.string.demo_id_videozeroangle:
-					DemoFunctions.demoGetOneFrame(mEditor, srcVideo, dstVideo);
-					break;
-				case R.string.demo_id_videoclockwise90:
-					DemoFunctions.demoVideoRotate90Clockwise(mEditor, srcVideo, dstVideo);
-					break;
-				case R.string.demo_id_videocounterClockwise90:
-					DemoFunctions.demoVideoRotate90CounterClockwise(mEditor, srcVideo, dstVideo);
-					break;
-				case R.string.demo_id_videoaddanglemeta:
-					
-					DemoFunctions.demoSetVideoMetaAngle(mEditor, srcVideo, dstVideo);
-					break;
-				case R.string.demo_id_ontpicturevideo:
-					DemoFunctions.demoOnePicture2Video(AVEditorDemoActivity.this, mEditor, dstVideo);
-					break;
-				case R.string.demo_id_morepicturevideo: 
-					//此方法演示需要多张图片,并放在同一个文件夹内,并有一定的命令规则,暂时不演示, VideoEditor.java中的方法是完全正常的.
-					break;
+				
 				case R.string.demo_id_audiodelaymix:
 					DemoFunctions.demoAudioDelayMix(AVEditorDemoActivity.this, mEditor, dstAudio);
 					break;
 				case R.string.demo_id_audiovolumemix:
 					DemoFunctions.demoAudioVolumeMix(AVEditorDemoActivity.this, mEditor, dstAudio);
-					break;
-				case R.string.demo_id_videopad:
-					DemoFunctions.demoPaddingVideo(mEditor, srcVideo, dstVideo);
-					break;
-				case R.string.demo_id_videoadjustspeed:
-					DemoFunctions.demoVideoAdjustSpeed(mEditor, srcVideo, dstVideo);
-					break;
-				case R.string.demo_id_videomirrorh:
-					DemoFunctions.demoVideoMirrorH(mEditor, srcVideo, dstVideo);
-					break;
-				case R.string.demo_id_videomirrorv:
-					DemoFunctions.demoVideoMirrorV(mEditor, srcVideo, dstVideo);
-					break;
-				case R.string.demo_id_videorotateh:
-					DemoFunctions.demoVideoRotateHorizontally(mEditor, srcVideo, dstVideo);
-					break;
-				case R.string.demo_id_videorotatev:
-					DemoFunctions.demoVideoRotateVertically(mEditor, srcVideo, dstVideo);
-					break;
-				case R.string.demo_id_videoreverse:
-					DemoFunctions.demoVideoReverse(mEditor, srcVideo, dstVideo);
-					break;
-				case R.string.demo_id_avreverse:
-					DemoFunctions.demoAVReverse(mEditor, srcVideo, dstVideo);
 					break;
 		default:
 			break;
