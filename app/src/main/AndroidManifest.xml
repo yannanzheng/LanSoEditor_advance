@@ -57,15 +57,18 @@
         
         <activity android:name="com.example.advanceDemo.StartActivity"
             android:theme="@style/AppTheme2">
-         </activity>
-         
-        <activity
-            android:name="com.example.advanceDemo.MainActivity">
-              <intent-filter>
+
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+         </activity>
+         
+        <activity
+            android:name="com.example.advanceDemo.MainActivity">
+
         </activity>
         
             
