@@ -172,7 +172,7 @@ public class CameraLayerFullPortActivity extends Activity implements OnClickList
     	/**
     	 * 相机前后置.是否设置滤镜.
     	 */
-    	mDrawPadCamera.setCameraParam(false, new LanSongBeautyAdvanceFilter(),true);
+    	mDrawPadCamera.setCameraParam(false,null,true);
     	/**
     	 * 当手动聚焦的时候, 返回聚焦点的位置,让focusView去显示一个聚焦的动画.
     	 */
@@ -180,7 +180,6 @@ public class CameraLayerFullPortActivity extends Activity implements OnClickList
 			
 			@Override
 			public void onFocus(int x, int y) {
-				// TODO Auto-generated method stub
 				focusView.startFocus(x, y);
 			}
 		});
@@ -193,7 +192,6 @@ public class CameraLayerFullPortActivity extends Activity implements OnClickList
 			
 			@Override
 			public void viewAvailable(DrawPadCameraView v) {
-				// TODO Auto-generated method stub
 					startDrawPad();
 			}
 		});
@@ -201,7 +199,6 @@ public class CameraLayerFullPortActivity extends Activity implements OnClickList
 			
 			@Override
 			public void onError(DrawPad d, int what) {
-				// TODO Auto-generated method stub
 				Log.e(TAG,"DrawPad容器线程运行出错!!!"+what);
 			}
 		});
@@ -215,7 +212,6 @@ public class CameraLayerFullPortActivity extends Activity implements OnClickList
     	  {
     		  mCamLayer=mDrawPadCamera.getCameraLayer();
     		  addBitmapLayer();
-    		  
     		  addMVLayer();
     		  
     		  mDrawPadCamera.startPreview();
@@ -238,8 +234,6 @@ public class CameraLayerFullPortActivity extends Activity implements OnClickList
 		
 		@Override
 		public void onProgress(DrawPad v, long currentTimeUs) {
-			// TODO Auto-generated method stub
-			
 			if(currentTimeUs>=RECORD_CAMERA_MIN && btnOk!=null){
 				btnOk.setVisibility(View.VISIBLE);
 			}
@@ -280,7 +274,6 @@ public class CameraLayerFullPortActivity extends Activity implements OnClickList
     
     @Override
     protected void onPause() {
-    	// TODO Auto-generated method stub
     	super.onPause();
     	if(mDrawPadCamera!=null){
     		mDrawPadCamera.stopDrawPad();
