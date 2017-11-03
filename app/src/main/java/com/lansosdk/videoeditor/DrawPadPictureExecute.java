@@ -65,10 +65,10 @@ public class DrawPadPictureExecute {
 		   renderer.setDisableEncode(dis);
 	   }
    }
-   public void setFastVideoMode(boolean is)
+   public void setLanSongVideoMode(boolean is)
    {
 	   if(renderer!=null){
-		   renderer.setFastVideoMode(is);
+		   renderer.setLanSongVideoMode(is);
 	   }
    }
    public boolean startDrawPad()

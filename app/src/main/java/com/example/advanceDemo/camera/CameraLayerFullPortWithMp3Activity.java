@@ -164,10 +164,6 @@ public class CameraLayerFullPortWithMp3Activity extends Activity implements OnCl
     	 */
     	mDrawPadCamera.setRealEncodeEnable(padWidth,padHeight,bitrate,(int)25,dstPath);
     	/**
-    	 * 录制的同时,录制外面的声音.
-    	 */
-  	    mDrawPadCamera.setRecordMic(true);
-    	/**
     	 * 设置录制处理进度监听.
     	 */
     	mDrawPadCamera.setOnDrawPadProgressListener(drawPadProgressListener);

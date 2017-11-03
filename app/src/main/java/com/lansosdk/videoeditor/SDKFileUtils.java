@@ -83,6 +83,10 @@ public class SDKFileUtils {
 	{
 		return createFile(SDKDir.TMP_DIR, ".mp4");
 	}
+	public static String createMP3FileInBox()
+	{
+		return createFile(SDKDir.TMP_DIR, ".mp3");
+	}
 	/**
 	 * 在box目录下生成一个aac的文件,并返回名字的路径.
 	 * @return

@@ -45,153 +45,63 @@
         android:layout_height="wrap_content"
         android:id="@+id/id_main_tvvideo"/>
     
-    
-    <LinearLayout 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@drawable/bg_info">
-        <TextView 
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:text="提示:"
-            android:textSize="30sp"
-            android:textColor="@color/gold"
-            android:layout_gravity="center"
-            android:gravity="center"/>
-        
-        
-        <LinearLayout 
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-             android:layout_weight="7"
-            android:orientation="vertical">
-            <TextView 
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2"
-                android:text="SDK可[前台]处理,也可后台处理"
-            	android:textColor="@color/blue"
-            	android:textSize="25sp"
-                android:gravity="center_vertical"/>
-            
-              <TextView 
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:text="为演示直观，大部分用 [前台容器]，最后有[后台容器]的举例."
-            android:textColor="@color/red"/>
-        </LinearLayout>
-        
-    </LinearLayout>
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFA500"
+    android:orientation="vertical" >
+ 
+     <RelativeLayout  android:id="@+id/id_mainlist_camerarecord" style="@style/main_item_reletivelayout2">
+           	 <TextView   android:text="摄像头录制" style="@style/main_item_textview"/>
+			<TextView  style="@style/main_item_arrow"/> 
+	</RelativeLayout>
+	
+     	
+     <RelativeLayout  android:id="@+id/id_mainlist_somelayer" style="@style/main_item_reletivelayout2">
+           	 <TextView   android:text="基本图层控件" style="@style/main_item_textview"/>
+			<TextView  style="@style/main_item_arrow"/> 
+	</RelativeLayout>
      
-    <RelativeLayout  android:id="@+id/id_main_cameralayer" style="@style/main_item_reletivelayout">
-           	 <TextView   android:text="摄像头图层【视频录制】   >>>>" style="@style/main_item_textview"/>
+     
+        
+    <RelativeLayout  android:id="@+id/id_mainlist_changjing" style="@style/main_item_reletivelayout2">
+           	 <TextView   android:text="应用场景举例" style="@style/main_item_textview"/>
 			<TextView  style="@style/main_item_arrow"/> 
 	</RelativeLayout>
 	
-      <RelativeLayout  android:id="@+id/id_main_layermothed1" style="@style/main_item_reletivelayout">
-           	    <TextView   android:text="所有图层均支持的功能1" 				style="@style/main_item_textview"/>
-			<TextView  style="@style/main_item_arrow"/> 
-	  </RelativeLayout>
-	  
-        <RelativeLayout  android:id="@+id/id_main_layermothed2" style="@style/main_item_reletivelayout">
-           	    <TextView   android:text="所有图层均支持的功能2" 				style="@style/main_item_textview"/>
-			<TextView  style="@style/main_item_arrow"/> 
-		</RelativeLayout>
-	<RelativeLayout  android:id="@+id/id_main_layermothed3" style="@style/main_item_reletivelayout">
-           	    <TextView   android:text="所有图层均支持之滤镜 3" 				style="@style/main_item_textview"/>
-			<TextView  style="@style/main_item_arrow"/> 
-		</RelativeLayout>
-		
-	  <RelativeLayout  android:id="@+id/id_main_viewlayerdemo1" style="@style/main_item_reletivelayout">
-           	 <TextView   android:text="UI图层" style="@style/main_item_textview"/>
+         
+      <RelativeLayout  android:id="@+id/id_mainlist_xuanku" style="@style/main_item_reletivelayout2">
+           	 <TextView   android:text="炫酷类" style="@style/main_item_textview"/>
 			<TextView  style="@style/main_item_arrow"/> 
 	</RelativeLayout>
 	
-    <RelativeLayout  android:id="@+id/id_main_viewlayerdemo2" style="@style/main_item_reletivelayout">
-           	    <TextView   android:text="UI图层2" style="@style/main_item_textview"/>
+      <RelativeLayout  android:id="@+id/id_mainlist_facedetected" style="@style/main_item_reletivelayout2">
+           	 <TextView   android:text="人脸识别类" style="@style/main_item_textview"/>
 			<TextView  style="@style/main_item_arrow"/> 
 	</RelativeLayout>
 	
-    <RelativeLayout  android:id="@+id/id_main_canvaslayerdemo" style="@style/main_item_reletivelayout">
-           	    <TextView   android:text="Canvas图层" style="@style/main_item_textview"/>
-			<TextView  style="@style/main_item_arrow"/> 
-	</RelativeLayout>
-    
-	     <RelativeLayout  android:id="@+id/id_main_mvlayerdemo" style="@style/main_item_reletivelayout">
-           	    <TextView   android:text="MV图层" 				style="@style/main_item_textview"/>
-			<TextView  style="@style/main_item_arrow"/> 
-		</RelativeLayout>
-		
-		 <RelativeLayout  android:id="@+id/id_main_viewremark" style="@style/main_item_reletivelayout">
-           	 <TextView   android:text="图片图层" 				style="@style/main_item_textview"/>
-			<TextView  style="@style/main_item_arrow"/> 
-		</RelativeLayout>   
-		
-		  <RelativeLayout  android:id="@+id/id_main_twovideolayer" style="@style/main_item_reletivelayout">
-           	 <TextView   android:text="双视频图层" 				style="@style/main_item_textview"/>
-			<TextView  style="@style/main_item_arrow"/> 
-		</RelativeLayout>  
-	
-       <RelativeLayout  android:id="@+id/id_main_pictures" style="@style/main_item_reletivelayout">
-           	<TextView   android:text="照片影集" 				style="@style/main_item_textview"/>
-			<TextView  style="@style/main_item_arrow"/> 
-		</RelativeLayout>
-		
-	      <RelativeLayout  android:id="@+id/id_main_outbody" style="@style/main_item_reletivelayout">
-	           	 <TextView   android:text="灵魂出窍" style="@style/main_item_textview"/>
-				<TextView  style="@style/main_item_arrow"/> 
-		</RelativeLayout>
-		
-	    <RelativeLayout  android:id="@+id/id_main_extract_frame" style="@style/main_item_reletivelayout">
-	           	 <TextView   android:text="提取图片" style="@style/main_item_textview"/>
-				<TextView  style="@style/main_item_arrow"/> 
-		</RelativeLayout>
-	
-          <RelativeLayout  android:id="@+id/id_main_videotransform" style="@style/main_item_reletivelayout">
-           	 <TextView   android:text="图层增删动画[转场,前台]" 				style="@style/main_item_textview"/>
-			<TextView  style="@style/main_item_arrow"/> 
-		</RelativeLayout>
-          
-           <RelativeLayout  android:id="@+id/id_main_videobiansu" style="@style/main_item_reletivelayout">
-           	    <TextView   android:text="视频任意点变速,精确定位" 				style="@style/main_item_textview"/>
-			<TextView  style="@style/main_item_arrow"/> 
-		</RelativeLayout>
-		
-		 <RelativeLayout  android:id="@+id/id_main_videoreverse" style="@style/main_item_reletivelayout">
-           	    <TextView   android:text="视频任意点倒序【合作后提供】" 				style="@style/main_item_textview"/>
-			<TextView  style="@style/main_item_arrow"/> 
-		</RelativeLayout>
-		
-	<!-- 后台操作 -->
-	<RelativeLayout  android:id="@+id/id_main_drawpadexecute_filter" style="@style/main_item_reletivelayout">
-          
-           	    <TextView   android:text="后台容器 (滤镜)" 		 android:textColor="@color/blue" 		style="@style/main_item_textview"/>
+      
+    <RelativeLayout  android:id="@+id/id_mainlist_videoonedo" style="@style/main_item_reletivelayout2">
+           	 <TextView   android:text="视频常见处理" style="@style/main_item_textview"/>
 			<TextView  style="@style/main_item_arrow"/> 
 	</RelativeLayout>
 	
-	<RelativeLayout  android:id="@+id/id_main_drawpad_all" style="@style/main_item_reletivelayout">
-           	 <TextView   android:text="图层增删动画[转场,后台]" 		 android:textColor="@color/blue" 		style="@style/main_item_textview"/>
+    <RelativeLayout  android:id="@+id/id_mainlist_bitmaps" style="@style/main_item_reletivelayout2">
+           	 <TextView   android:text="图片/声音/其他类" style="@style/main_item_textview"/>
 			<TextView  style="@style/main_item_arrow"/> 
 	</RelativeLayout>
 	
-	<RelativeLayout  android:id="@+id/id_main_drawpadpictureexecute" style="@style/main_item_reletivelayout">
-           	<TextView   android:text="后台容器  (多种图层混合) " 	 android:textColor="@color/blue" 			style="@style/main_item_textview"/>
+        <RelativeLayout  android:id="@+id/id_mainlist_videoplay" style="@style/main_item_reletivelayout2">
+           	 <TextView   android:text="直接播放" style="@style/main_item_textview"/>
 			<TextView  style="@style/main_item_arrow"/> 
 	</RelativeLayout>
-		  
-	<RelativeLayout  android:id="@+id/id_main_commonversion" style="@style/main_item_reletivelayout">
-          	<TextView   android:text="视频编辑 --基本版本演示" 	  android:textColor="@color/mediumseagreen"  android:textStyle="bold"      style="@style/main_item_textview"/>
-			<TextView  style="@style/main_item_arrow"/> 
-	</RelativeLayout>
-			
-	<RelativeLayout  android:id="@+id/id_main_testvideoplay" style="@style/main_item_reletivelayout">
-          
-	    <TextView   android:text="直接视频播放" style="@style/main_item_textview"/>
-		<TextView  style="@style/main_item_arrow"/> 
-	</RelativeLayout>
+
+  
+
+</LinearLayout>
+ 
+     
+   
 	
 		
 

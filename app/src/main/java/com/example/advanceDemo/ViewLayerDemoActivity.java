@@ -12,6 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 
+import com.example.advanceDemo.view.ImageTouchView;
 import com.example.advanceDemo.view.PaintConstants;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.DrawPad;
@@ -88,6 +89,7 @@ public class ViewLayerDemoActivity extends Activity{
 
     private ViewLayerRelativeLayout mLayerRelativeLayout;
     private MediaInfo  mInfo=null;
+    ImageTouchView imgeTouchView;
     @Override
     protected void onCreate(Bundle savedInstanceState) 
     {
@@ -103,8 +105,9 @@ public class ViewLayerDemoActivity extends Activity{
         }
         
         mDrawPadView = (DrawPadView) findViewById(R.id.id_vview_realtime_drawpadview);
+        imgeTouchView=(ImageTouchView)findViewById(R.id.switcher);
+        imgeTouchView.setActivity(ViewLayerDemoActivity.this);
         
-      
         mLayerRelativeLayout=(ViewLayerRelativeLayout)findViewById(R.id.id_vview_realtime_gllayout);
       
     	
@@ -175,7 +178,6 @@ public class ViewLayerDemoActivity extends Activity{
 				public void onSnapShot(DrawPad v, Bitmap bmp) {
 					// TODO Auto-generated method stub
 					Log.i(TAG,"drawPad snap shot!!!!!"+ bmp.getWidth()+" x " +bmp.getHeight());
-//					LanSongUtil.savePng(bmp);
 				}
 			});
     		mDrawPadView.setOnDrawPadProgressListener(new onDrawPadProgressListener() {

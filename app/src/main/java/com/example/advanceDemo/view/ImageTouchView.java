@@ -1,6 +1,8 @@
 package com.example.advanceDemo.view;
 
 
+import com.lansoeditor.demo.R;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -21,6 +23,7 @@ import android.util.FloatMath;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
 
 public class ImageTouchView extends ImageView{
@@ -61,7 +64,6 @@ public class ImageTouchView extends ImageView{
 	int x = 0;  
 	int y = 0;  
 
-
 	public ImageTouchView(Context context) {
 		super(context);
 	}
@@ -83,7 +85,11 @@ public class ImageTouchView extends ImageView{
 		}
 
 	}
-
+	public void setActivity(Activity acty)
+	{
+		mActivity=acty;
+	}
+	Activity mActivity;
 	public void setupView(){
 
 		//获取屏幕分辨率,需要根据分辨率来使用图片居中

@@ -74,7 +74,6 @@ import android.widget.Toast;
 public class CameraLayerFullLandscapeActivity extends Activity implements OnClickListener{
 //public class CameraLayerFullLandscapeActivity extends AppCompatActivity implements OnClickListener{  
 	private static final long RECORD_CAMERA_TIME=15*1000*1000; //定义录制的时间为20s
-	
 	private static final String TAG = "CameraLayerFullLandscapeActivity";
 
     private DrawPadCameraView mDrawPadCamera;

@@ -73,7 +73,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 public class PictureSetRealTimeActivity extends Activity{
     private static final String TAG = "PictureSetRealTimeActivity";
 
-    private DrawPadView mDrawPadView;
+    private DrawPadView drawPadView;
     
     private ArrayList<SlideEffect>  slideEffectArray;
     
@@ -87,7 +87,7 @@ public class PictureSetRealTimeActivity extends Activity{
         setContentView(R.layout.picture_set_layout);
         initView();
         
-        mDrawPadView = (DrawPadView) findViewById(R.id.DrawPad_view);
+        drawPadView = (DrawPadView) findViewById(R.id.DrawPad_view);
 
         //在手机的默认路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
         dstPath=SDKFileUtils.newMp4PathInBox();
@@ -103,7 +103,6 @@ public class PictureSetRealTimeActivity extends Activity{
     }
     @Override
     protected void onResume() {
-    	// TODO Auto-generated method stub
     	super.onResume();
         findViewById(R.id.id_DrawPad_saveplay).setVisibility(View.GONE);
     }
@@ -114,27 +113,25 @@ public class PictureSetRealTimeActivity extends Activity{
     private void initDrawPad()
     {
 		//设置为自动刷新模式, 帧率为25
-    	mDrawPadView.setUpdateMode(DrawPadUpdateMode.AUTO_FLUSH,30);
+    	drawPadView.setUpdateMode(DrawPadUpdateMode.AUTO_FLUSH,30);
     	//使能实时录制,并设置录制后视频的宽度和高度, 码率, 帧率,保存路径.
-    	mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)30,dstPath);
+    	drawPadView.setRealEncodeEnable(480,480,1000000,(int)30,dstPath);
     	
-    	mDrawPadView.setOnDrawPadThreadProgressListener(new onDrawPadThreadProgressListener() {
+    	drawPadView.setOnDrawPadThreadProgressListener(new onDrawPadThreadProgressListener() {
 			
 			@Override
 			public void onThreadProgress(DrawPad arg0, long arg1) {
-				// TODO Auto-generated method stub
 				 if(arg1>=1000*1000 && isSwitched==false){
 					  bgLayer.switchBitmap(BitmapFactory.decodeFile("/sdcard/a2.jpg"));
 					  isSwitched=true;
 				  }
 			}
 		});
-    	
-    	mDrawPadView.setOnDrawPadCompletedListener(new DrawPadCompleted());
-		mDrawPadView.setOnDrawPadProgressListener(new DrawPadProgressListener());
+    	drawPadView.setOnDrawPadCompletedListener(new DrawPadCompleted());
+		drawPadView.setOnDrawPadProgressListener(new DrawPadProgressListener());
     	//设置DrawPad的宽高, 这里设置为480x480,如果您已经在xml中固定大小,则不需要再次设置,
     	//可以直接调用startDrawPad来开始录制.
-    	mDrawPadView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
+    	drawPadView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
 			
 			@Override
 			public void onSizeChanged(int viewWidth, int viewHeight) {
@@ -144,11 +141,10 @@ public class PictureSetRealTimeActivity extends Activity{
 		});
     	
     	//这里仅仅是举例,当界面再次返回的时候,依旧显示图片更新的动画效果,即重新开始DrawPad, 很多时候是不需要这样的场景, 这里仅仅是举例
-    	mDrawPadView.setOnViewAvailable(new onViewAvailable() {
+    	drawPadView.setOnViewAvailable(new onViewAvailable() {
 			
 			@Override
 			public void viewAvailable(DrawPadView v) {
-				// TODO Auto-generated method stub
 				startDrawPad();
 			}
 		});
@@ -158,39 +154,40 @@ public class PictureSetRealTimeActivity extends Activity{
      */
     private void startDrawPad()
     {
-    		mDrawPadView.startDrawPad();
-    		
-    		mDrawPadView.pauseDrawPad();
-    		
-			   
-    		DisplayMetrics dm = new DisplayMetrics();// 获取屏幕密度（方法2）
-		    dm = getResources().getDisplayMetrics();
-		     
-		      
-		   int screenWidth  = dm.widthPixels;	
-		   String picPath=null;   
-		   if(screenWidth>=1080){
-			   picPath=CopyFileFromAssets.copyAssets(mContext, "pic1080x1080u2.jpg");
-		   }else{
-			   picPath=CopyFileFromAssets.copyAssets(mContext, "pic720x720.jpg");
-		   }
-		   
-		   //先 增加第一张Bitmap的Layer, 因为是第一张,放在DrawPad中维护的数组的最下面, 认为是背景图片.
-		   bgLayer=mDrawPadView.addBitmapLayer(BitmapFactory.decodeFile(picPath));
-		   
-		   slideEffectArray=new ArrayList<SlideEffect>();
-		   
-		   //这里同时增加多个,只是不显示出来.
-		   addBitmapLayer(R.drawable.tt,0,5000);  		//1--5秒.
-		   addBitmapLayer(R.drawable.tt3,5000,10000);  //5--10秒.
-		   addBitmapLayer(R.drawable.pic3,10000,15000);	//10---15秒 
-		   addBitmapLayer(R.drawable.pic4,15000,20000);  //15---20秒
-		   addBitmapLayer(R.drawable.pic5,20000,25000);  //20---25秒
-		   
-		 //增加一个MV图层  
-//		   addMVLayer();
-		   
-		   mDrawPadView.resumeDrawPad();
+    		drawPadView.pauseDrawPad();
+    		if(drawPadView.startDrawPad())
+    		{
+    			DisplayMetrics dm = new DisplayMetrics();// 获取屏幕密度（方法2）
+    		    dm = getResources().getDisplayMetrics();
+    		     
+    		      
+    		   int screenWidth  = dm.widthPixels;	
+    		   String picPath=null;   
+    		   if(screenWidth>=1080){
+    			   picPath=CopyFileFromAssets.copyAssets(mContext, "pic1080x1080u2.jpg");
+    		   }else{
+    			   picPath=CopyFileFromAssets.copyAssets(mContext, "pic720x720.jpg");
+    		   }
+    		   
+    		   //先 增加第一张Bitmap的Layer, 因为是第一张,放在DrawPad中维护的数组的最下面, 认为是背景图片.
+    		   bgLayer=drawPadView.addBitmapLayer(BitmapFactory.decodeFile(picPath));
+    		   bgLayer.setScaledValue(bgLayer.getPadWidth(), bgLayer.getPadHeight());
+    		   
+    		   
+    		   slideEffectArray=new ArrayList<SlideEffect>();
+    		   
+    		   //这里同时增加多个,只是不显示出来.
+    		   addBitmapLayer(R.drawable.tt,0,5000);  		//1--5秒.
+    		   addBitmapLayer(R.drawable.tt3,5000,10000);  //5--10秒.
+    		   addBitmapLayer(R.drawable.pic3,10000,15000);	//10---15秒 
+    		   addBitmapLayer(R.drawable.pic4,15000,20000);  //15---20秒
+    		   addBitmapLayer(R.drawable.pic5,20000,25000);  //20---25秒
+    		   
+    		 //增加一个MV图层  
+//    		   addMVLayer();
+    		   
+    		   drawPadView.resumeDrawPad();
+    		}
     }
     
     private void addMVLayer()
@@ -198,7 +195,7 @@ public class PictureSetRealTimeActivity extends Activity{
   		String  colorMVPath=CopyDefaultVideoAsyncTask.copyFile(PictureSetRealTimeActivity.this,"mei.mp4");
   	    String maskMVPath=CopyDefaultVideoAsyncTask.copyFile(PictureSetRealTimeActivity.this,"mei_b.mp4");
   	    
-  		MVLayer  layer=mDrawPadView.addMVLayer(colorMVPath, maskMVPath);  //<-----增加MVLayer
+  		MVLayer  layer=drawPadView.addMVLayer(colorMVPath, maskMVPath);  //<-----增加MVLayer
   		layer.setScaledValue(layer.getPadWidth(), layer.getPadHeight());
   		
   		/**
@@ -208,7 +205,7 @@ public class PictureSetRealTimeActivity extends Activity{
   	}
     private void addBitmapLayer(int resId,long startMS,long endMS)
     {
-    	Layer item=mDrawPadView.addBitmapLayer(BitmapFactory.decodeResource(getResources(), resId));
+    	Layer item=drawPadView.addBitmapLayer(BitmapFactory.decodeResource(getResources(), resId));
 		SlideEffect  slide=new SlideEffect(item, 25, startMS, endMS, true);
 		slideEffectArray.add(slide);
 		
@@ -245,7 +242,7 @@ public class PictureSetRealTimeActivity extends Activity{
 			  
 			  if(currentTimeUs>=18*1000*1000)  //26秒.多出一秒,让图片走完.
 			  {
-				  mDrawPadView.stopDrawPad();
+				  drawPadView.stopDrawPad();
 			  }
 			 
 			  if(slideEffectArray!=null && slideEffectArray.size()>0){
@@ -291,9 +288,9 @@ public class PictureSetRealTimeActivity extends Activity{
 	   		 slideEffectArray=null;
     	}
     	
-    	if(mDrawPadView!=null){
-    		mDrawPadView.stopDrawPad();
-    		mDrawPadView=null;        		   
+    	if(drawPadView!=null){
+    		drawPadView.stopDrawPad();
+    		drawPadView=null;        		   
     	}
     	
     	if(SDKFileUtils.fileExist(dstPath)){

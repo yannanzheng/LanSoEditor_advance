@@ -60,8 +60,9 @@ public class GPUImageFilterTools {
         filters.addFilter("17LORDKELVIN", FilterType.LORDKELVIN);  	
         
 
-        filters.addFilter("黑色mask", FilterType.LanSongBLACKMASK);  
+        filters.addFilter("黑色抠图", FilterType.LanSongBLACKMASK);  
         filters.addFilter("区域透明", FilterType.LanSongMASK);  
+        
         filters.addFilter("Invert负片", FilterType.INVERT);  
         filters.addFilter("Pixelation像素方块", FilterType.PIXELATION); 
 
@@ -375,8 +376,7 @@ public class GPUImageFilterTools {
     private static GPUImageFilter createBlendFilter(Context context, Class<? extends GPUImageTwoInputFilter> filterClass) {
         try {
             GPUImageTwoInputFilter filter = filterClass.newInstance();
-            filter.setBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_launcher));
-//            filter.setBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.tt3));
+            filter.setBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_launcher));  //这里用默认图片举例.
             return filter;
         } catch (Exception e) {
             e.printStackTrace();
@@ -415,7 +415,9 @@ public class GPUImageFilterTools {
         private final Adjuster<? extends GPUImageFilter> adjuster;
 
         public FilterAdjuster(final GPUImageFilter filter) {
-            if (filter instanceof GPUImageSepiaFilter) {
+        	if(filter instanceof LanSongBeautyAdvanceFilter){
+        		adjuster=new BeautyAdvanceAdjuster().filter(filter);
+        	}else if (filter instanceof GPUImageSepiaFilter) {
                 adjuster = new SepiaAdjuster().filter(filter);
             } else if (filter instanceof GPUImageContrastFilter) {
                 adjuster = new ContrastAdjuster().filter(filter);
@@ -515,6 +517,13 @@ public class GPUImageFilterTools {
                 return (end - start) * percentage / 100 + start;
             }
         }
+        private class BeautyAdvanceAdjuster extends Adjuster<LanSongBeautyAdvanceFilter> {
+            @Override
+            public void adjust(final int percentage) {
+                getFilter().setBeautyLevel(range(percentage, 0.0f, 1.0f));
+            }
+          }
+        
         private class PixelationAdjuster extends Adjuster<GPUImagePixelationFilter> {
           @Override
           public void adjust(final int percentage) {

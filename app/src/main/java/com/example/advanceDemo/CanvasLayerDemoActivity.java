@@ -268,7 +268,6 @@ public class CanvasLayerDemoActivity extends Activity {
 					@Override
 					public void onDrawCanvas(CanvasLayer layer, Canvas canvas,
 							long currentTimeUs) {
-						// TODO Auto-generated method stub
 							 Paint paint = new Paint();
 			                 paint.setColor(Color.RED);
 		         			paint.setAntiAlias(true);

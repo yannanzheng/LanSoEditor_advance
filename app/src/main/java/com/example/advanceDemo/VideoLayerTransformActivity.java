@@ -73,7 +73,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 
 /**
  * 采用自动刷新模式 
- *  
+ *  前台转场.  
  *  先播放一个视频, 然后在10秒后,插入另一个视频.并增加进入动画.
  */
 public class VideoLayerTransformActivity extends Activity{
@@ -145,7 +145,6 @@ public class VideoLayerTransformActivity extends Activity{
         	  try {
 				mplayer.setDataSource(mVideoPath);
 			}  catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
         	  mplayer.setOnPreparedListener(new OnPreparedListener() {
@@ -215,7 +214,8 @@ public class VideoLayerTransformActivity extends Activity{
     	if(mDrawPad.startDrawPad())
     	{
     		//增加一个背景
-    		mDrawPad.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.pad_bg));
+    		BitmapLayer layer=mDrawPad.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.pad_bg));
+    		layer.setScaledValue(layer.getPadWidth(), layer.getPadHeight()); //让背景铺满整个容器.
     		
         	videoLayer1=mDrawPad.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
     		if(videoLayer1!=null)
@@ -228,7 +228,6 @@ public class VideoLayerTransformActivity extends Activity{
     		playAudio();
         }
     }
-    	
     /**
      * Step3: 做好后, 停止容器, 因为容器里没有声音, 这里增加上原来的声音.
      */
@@ -382,14 +381,12 @@ public class VideoLayerTransformActivity extends Activity{
         		  mplayer2.setVolume(0.0f, 0.0f);  //不要声音.
 				
         	  }  catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
         	  }
         	  mplayer2.setOnPreparedListener(new OnPreparedListener() {
 				
 				@Override
 				public void onPrepared(MediaPlayer mp) {
-					// TODO Auto-generated method stub
 					if(mDrawPad!=null && mDrawPad.isRunning()){
 						videoLayer2=mDrawPad.addVideoLayer(mplayer2.getVideoWidth(), mplayer2.getVideoHeight(),null);
 						if(videoLayer2!=null)
@@ -414,7 +411,6 @@ public class VideoLayerTransformActivity extends Activity{
 			audioPlay.prepare();
 	    	audioPlay.start();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }

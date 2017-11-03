@@ -15,7 +15,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-public class CameraListRecordActivity extends Activity implements OnClickListener{
+public class ListCameraRecordActivity extends Activity implements OnClickListener{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +63,7 @@ public class CameraListRecordActivity extends Activity implements OnClickListene
 	}
 	private void startDemoActivity(Class<?> cls)
    	{
-    	Intent intent=new Intent(CameraListRecordActivity.this,cls);
+    	Intent intent=new Intent(ListCameraRecordActivity.this,cls);
     	startActivity(intent);
    	}
 	

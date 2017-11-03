@@ -63,8 +63,9 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 public class ViewLayerOnlyActivity extends Activity implements IEndListener{
     private static final String TAG = "ViewLayerOnlyActivity";
 
-
-    private DrawPadView mDrawPadView;
+    private String audioPath;
+    private MediaPlayer audioPlayer;
+    private DrawPadView drawPadView;
     /**
      * 采用github上开源的文字动画类, 您可以从https://github.com/elevenetc/TextSurface下载源代码.
      * 当前也可以直接使用我们封装好的textsurface.jar库.
@@ -73,8 +74,9 @@ public class ViewLayerOnlyActivity extends Activity implements IEndListener{
     private ViewLayerRelativeLayout mGLRelativeLayout;
     
     
-    private String dstPath=null;
+    private String editorTmpPath=null;
     
+    private String dstPath=null;
     private ViewLayer mViewLayer=null;
     
     @Override
@@ -84,16 +86,15 @@ public class ViewLayerOnlyActivity extends Activity implements IEndListener{
         setContentView(R.layout.viewpen_preview_layout);
         
         
-        mDrawPadView = (DrawPadView) findViewById(R.id.id_viewLayer_DrawPad_view);
+        drawPadView = (DrawPadView) findViewById(R.id.id_viewLayer_DrawPad_view);
         findViewById(R.id.id_viewLayer_saveplay).setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				 if(SDKFileUtils.fileExist(dstPath)){
 		   			 	Intent intent=new Intent(ViewLayerOnlyActivity.this,VideoPlayerActivity.class);
-			    	    	intent.putExtra("videopath", dstPath);
-			    	    	startActivity(intent);
+		   			 	intent.putExtra("videopath", dstPath);
+		   			 	startActivity(intent);
 		   		 }else{
 		   			 Toast.makeText(ViewLayerOnlyActivity.this, "目标文件不存在", Toast.LENGTH_SHORT).show();
 		   		 }
@@ -108,17 +109,15 @@ public class ViewLayerOnlyActivity extends Activity implements IEndListener{
          * 在手机的默认路径下创建一个文件名,用来保存生成的视频文件,
          * (在onDestroy中删除)
          */
-        dstPath=SDKFileUtils.newMp4PathInBox();
+        editorTmpPath=SDKFileUtils.newMp4PathInBox();
         
         new Handler().postDelayed(new Runnable() {
 			
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				initDrawPad();
 			}
 		}, 500);
-        
     }
     /**
      * Step1: 初始化 DrawPad 容器
@@ -126,19 +125,18 @@ public class ViewLayerOnlyActivity extends Activity implements IEndListener{
     private void initDrawPad()
     {
 		//设置为自动刷新模式, 帧率为25
-    	mDrawPadView.setUpdateMode(DrawPadUpdateMode.AUTO_FLUSH,25);
+    	drawPadView.setUpdateMode(DrawPadUpdateMode.AUTO_FLUSH,25);
     	//使能实时录制,并设置录制后视频的宽度和高度, 码率, 帧率,保存路径.//因为视频就是一些文字,没有剧烈的画面运动,这里把码率设置小一些为600k
-    	mDrawPadView.setRealEncodeEnable(480,480,1000*1000,(int)25,dstPath);
+    	drawPadView.setRealEncodeEnable(480,480,1000*1000,(int)25,editorTmpPath);
     	
-    	mDrawPadView.setOnDrawPadCompletedListener(new DrawPadCompleted());
+    	drawPadView.setOnDrawPadCompletedListener(new DrawPadCompleted());
     	
     	//设置DrawPad的宽高, 这里设置为480x480,如果您已经在xml中固定大小,则不需要再次设置,
     	//可以直接调用startDrawPad来开始录制.
-    	mDrawPadView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
+    	drawPadView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
 			
 			@Override
 			public void onSizeChanged(int viewWidth, int viewHeight) {
-				// TODO Auto-generated method stub
 				 startDrawPad();
 			}
 		});
@@ -150,14 +148,18 @@ public class ViewLayerOnlyActivity extends Activity implements IEndListener{
      */
     private void startDrawPad()
     {
-    	mDrawPadView.startDrawPad();
-    	addViewLayer();
-    	playGaoBai();
+    	if(drawPadView.startDrawPad())
+    	{
+    		playAudio();
+    		addViewLayer();
+        	playGaoBai();
+        	
+    	}
     }
     //增加一个ViewLayer到容器上.
     private void addViewLayer()
     {
-    	mViewLayer=mDrawPadView.addViewLayer();
+    	mViewLayer=drawPadView.addViewLayer();
         mGLRelativeLayout.bindViewLayer(mViewLayer);
         mGLRelativeLayout.invalidate();
         
@@ -170,17 +172,15 @@ public class ViewLayerOnlyActivity extends Activity implements IEndListener{
     //DrawPad完成时的回调.
     private class DrawPadCompleted implements onDrawPadCompletedListener
     {
-
 		@Override
 		public void onCompleted(DrawPad v) {
-			// TODO Auto-generated method stub
-			
 			if(isDestorying==false){
-				if(SDKFileUtils.fileExist(dstPath)){
+				if(SDKFileUtils.fileExist(editorTmpPath)){
 					//可以在这里利用VideoEditor.java类来增加声音等.
-//					VideoEditor editor=new VideoEditor();
-					//videoFile源文件(dstPath); audioFile音频文件, dstFile生成的目标文件.
-//					editor.executeVideoMergeAudio(videoFile, audioFile, dstFile);
+					dstPath=SDKFileUtils.createMp4FileInBox();
+			   		audioPath=CopyFileFromAssets.copyAssets(getApplicationContext(), "thrid50s.m4a");
+					VideoEditor editor=new VideoEditor();
+					editor.executeVideoMergeAudio(editorTmpPath, audioPath, dstPath);
 			    	findViewById(R.id.id_viewLayer_saveplay).setVisibility(View.VISIBLE);
 				}
 				toastStop();
@@ -200,15 +200,34 @@ public class ViewLayerOnlyActivity extends Activity implements IEndListener{
     	// TODO Auto-generated method stub
     	super.onDestroy();
     	isDestorying=true;
-    	if(mDrawPadView!=null){
-    		mDrawPadView.stopDrawPad();
-    		mDrawPadView=null;        		   
+    	if(drawPadView!=null){
+    		drawPadView.stopDrawPad();
+    		drawPadView=null;        		   
+    	}
+    	if(audioPlayer!=null){
+    		audioPlayer.stop();
+    		audioPlayer.release();
+    		audioPlayer=null;
+    	}
+    		
+    	SDKFileUtils.deleteFile(editorTmpPath);
+    	gaoBaiChapter=MAX_CHAPTER+1; //不在让画面更新.
+    }
+    private void playAudio()
+    {
+    	if(audioPlayer==null){
+    		
+    		audioPath=CopyFileFromAssets.copyAssets(getApplicationContext(), "thrid50s.m4a");
+    		audioPlayer=new MediaPlayer();
+        	try {
+        		audioPlayer.setDataSource(audioPath);
+        		audioPlayer.prepare();
+        		audioPlayer.start();
+    		} catch (Exception e) {
+    			e.printStackTrace();
+    		}
     	}
     	
-    	if(SDKFileUtils.fileExist(dstPath)){
-    		SDKFileUtils.deleteFile(dstPath);
-        }
-    	gaoBaiChapter=MAX_CHAPTER+1; //不在让画面更新.
     }
 //  /-----------------------------
     private int gaoBaiChapter=0;
@@ -223,9 +242,8 @@ public class ViewLayerOnlyActivity extends Activity implements IEndListener{
 				
 				@Override
 				public void run() {
-					// TODO Auto-generated method stub
-					if(mDrawPadView!=null)
-						mDrawPadView.stopDrawPad();
+					if(drawPadView!=null)
+						drawPadView.stopDrawPad();
 				}
 			},500);
 			return ;
@@ -257,7 +275,6 @@ public class ViewLayerOnlyActivity extends Activity implements IEndListener{
 	//su.levenetc.android.textsurface.interfaces.IEndListener的监听.
 	@Override
 	public void onAnimationEnd(ISurfaceAnimation animation) {
-		// TODO Auto-generated method stub
 		playGaoBai();
 	}
 }

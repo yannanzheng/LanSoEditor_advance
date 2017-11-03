@@ -97,7 +97,6 @@ public class AVEditorDemoActivity extends Activity implements OnClickListener{
 				
 				@Override
 				public void onProgress(VideoEditor v, int percent) {
-					// TODO Auto-generated method stub
 					if(mProgressDialog!=null){
 						mProgressDialog.setMessage("正在处理中..."+String.valueOf(percent)+"%");
 					}
@@ -277,10 +276,5 @@ public class AVEditorDemoActivity extends Activity implements OnClickListener{
 	       		 mProgressDialog=null;
 		  }
 	  }
-	  
-	  
-	  
-	  
-	  
 }
 

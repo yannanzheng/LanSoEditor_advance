@@ -87,10 +87,7 @@ public class CameraLayerRectActivity extends Activity implements Handler.Callbac
         mDrawPad = (DrawPadCameraView) findViewById(R.id.id_cameralayer_padview);
         
         initView();
-        /**
-         * 在手机的默认路径下创建一个文件名,
-         * 用来保存生成的视频文件,(在onDestroy中删除)
-         */
+        
         dstPath=SDKFileUtils.newMp4PathInBox();
         
 		new Handler().postDelayed(new Runnable() {
@@ -102,7 +99,6 @@ public class CameraLayerRectActivity extends Activity implements Handler.Callbac
     }
     @Override
     protected void onResume() {
-    	// TODO Auto-generated method stub
     	super.onResume();
     	if (mWakeLock == null) {
 			PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
@@ -118,15 +114,12 @@ public class CameraLayerRectActivity extends Activity implements Handler.Callbac
      */
     private void initDrawPad()
     {
-    	//设置使能 实时录制, 即把正在DrawPad中呈现的画面实时的保存下来,实现所见即所得的模式
     	/**
     	 * 当前CameraLayer 支持全屏和 正方形的宽高比,
     	 */
-//    	 int padWidth=480;
-//    	 int padHeight=480;
+    	 int padWidth=480;
+    	 int padHeight=480;
     	 
-    	int padWidth=480;
-   	 	int padHeight=480;
    	 
     	mDrawPad.setRecordMic(true);
     	mDrawPad.setCameraParam(true, null, true);
@@ -138,7 +131,6 @@ public class CameraLayerRectActivity extends Activity implements Handler.Callbac
     	mDrawPad.setDrawPadSize(padWidth,padHeight,new onDrawPadSizeChangedListener() {
     			@Override
     			public void onSizeChanged(int viewWidth, int viewHeight) {
-    				// TODO Auto-generated method stub
     				startDrawPad();
     			}
 	    });	
@@ -230,13 +222,9 @@ public class CameraLayerRectActivity extends Activity implements Handler.Callbac
 
    @Override
 	protected void onDestroy() {
-		// TODO Auto-generated method stub
 			super.onDestroy();
-			//删除文件.
-		    if(SDKFileUtils.fileExist(dstPath)){
-		    	SDKFileUtils.deleteFile(dstPath);
-		    	dstPath=null;
-		    }
+			SDKFileUtils.deleteFile(dstPath);
+			dstPath=null;
 	}
    //-------------------------------------------一下是UI界面和控制部分.---------------------------------------------------
    private SeekBar AdjusterFilter;
@@ -251,7 +239,6 @@ public class CameraLayerRectActivity extends Activity implements Handler.Callbac
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				 if(SDKFileUtils.fileExist(dstPath)){
 		   			 	Intent intent=new Intent(CameraLayerRectActivity.this,VideoPlayerActivity.class);
 		   			 	intent.putExtra("videopath", dstPath);
@@ -293,7 +280,6 @@ public class CameraLayerRectActivity extends Activity implements Handler.Callbac
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		switch (v.getId()) {
 			case R.id.id_cameralayer_frontcamera:
 				if (mCameraLayer!=null && CameraLayer.isSupportFrontCamera()) {

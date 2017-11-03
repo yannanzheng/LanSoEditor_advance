@@ -20,6 +20,7 @@ import com.lansoeditor.demo.R;
 import com.lansosdk.box.ExtractVideoFrame;
 import com.lansosdk.box.onExtractVideoFrameCompletedListener;
 import com.lansosdk.box.onExtractVideoFrameProgressListener;
+import com.lansosdk.box.onExtractVideoFrameProgressListener2;
 import com.lansosdk.videoeditor.AVDecoder;
 import com.lansosdk.videoeditor.MediaInfo;
 
@@ -78,7 +79,7 @@ public class ExtractVideoFrameDemoActivity extends Activity{
 	     * 设置在获取图片的时候, 可以指定图片的宽高, 指定后, 视频帧画面会被缩放到指定的宽高.
 	     * 
 	     * 不调用则内部认为, 如果视频大于等于1280x720则自动缩小一倍.不然使用原来大小.
-	     * 
+	     * 大部分的使用场景是:作为预览横条用, 建议缩放, 这样可减少app内存
 	     * @param width  缩放宽度
 	     * @param height 缩放高度
 	     */
@@ -143,7 +144,8 @@ public class ExtractVideoFrameDemoActivity extends Activity{
 							 "当前帧的时间戳是:"+String.valueOf(ptsUS) +"微秒";
 				
 				tvProgressHint.setText(hint);
-//				savePng(bmp);  //测试使用.
+				
+				Log.i(TAG,"bitmap ptsUs is:"+ptsUS);
 //				if(bmp!=null && bmp.isRecycled()){
 //					 bmp.recycle();
 //					 bmp=null;
@@ -153,6 +155,7 @@ public class ExtractVideoFrameDemoActivity extends Activity{
 //				}
 			}
 		});
+		
 		frameCount=0;
 		/**
 		 * 开始执行.  或者你可以从指定地方开始解码.

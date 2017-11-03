@@ -121,7 +121,6 @@ public class VideoPlayerActivity extends Activity {
 			@Override
 			public void onSurfaceTextureAvailable(SurfaceTexture surface, int width,
 					int height) {
-				// TODO Auto-generated method stub
 				if(isSupport){
 				//	Log.i(TAG,"开始播放.....");
 					play(new Surface(surface));
@@ -162,7 +161,6 @@ public class VideoPlayerActivity extends Activity {
 			
 			@Override
 			public void onCompletion(MediaPlayer mp) {
-				// TODO Auto-generated method stub
 				 Toast.makeText(VideoPlayerActivity.this, "视频播放完毕!", Toast.LENGTH_SHORT).show();
 			}
 		});
@@ -202,7 +200,6 @@ public class VideoPlayerActivity extends Activity {
     			
     			@Override
     			public void onPrepared(VideoPlayer mp) {
-    				// TODO Auto-generated method stub
     						vplayer.setSurface(surface);
     					      
     						  //因为是竖屏.宽度小于高度.
@@ -225,7 +222,6 @@ public class VideoPlayerActivity extends Activity {
 			@Override
 			public void onCompletion(VideoPlayer mp) {
 				// TODO Auto-generated method stub
-				Log.i(TAG,"vplayer --------------oncompletion-----!");
 				 Toast.makeText(VideoPlayerActivity.this,"视频播放完成", Toast.LENGTH_SHORT).show();
 			}
 		});

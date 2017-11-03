@@ -10,9 +10,7 @@
       <com.lansosdk.videoeditor.DrawPadView
             android:id="@+id/DrawPad_view"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-      
+            android:layout_height="wrap_content"/>
       
       <LinearLayout 
           android:id="@+id/id_DrawPad_saveplay"
@@ -92,7 +90,13 @@
 		                    android:layout_weight="6" android:layout_height="wrap_content"
 					      android:layout_margin="5dip"/>
 		          	</LinearLayout>
-		          	
              </LinearLayout>
              </ScrollView>
+             <!-- 
+             <Button 
+        android:id="@+id/id_drawpad_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="测试按钮"/>
+         -->
 </RelativeLayout>

@@ -143,10 +143,18 @@ public class DrawPadVideoExecute {
 	   this.padWidth=padwidth;
 	   this.padHeight=padheight;
    }
-   public void setFastVideoMode(boolean is)
+   public DrawPadVideoExecute(Context ctx,FileParameter fileParam,int padwidth,int padheight,int bitrate,GPUImageFilter filter,String dstPath) 
+   {
+	   if(renderer==null){
+		   renderer=new DrawPadVideoRunnable(ctx, fileParam, padwidth, padheight,bitrate, filter, dstPath);
+	   }
+	   this.padWidth=padwidth;
+	   this.padHeight=padheight;
+   }
+   public void setLanSongVideoMode(boolean is)
    {
 	   if(renderer!=null){
-		   renderer.setFastVideoMode(is);
+		   renderer.setLanSongVideoMode(is);
 	   }
    }
   /**
@@ -162,7 +170,6 @@ public class DrawPadVideoExecute {
    }
    
    public void stopDrawPad() {
-   	// TODO Auto-generated method stub
 	   if(renderer!=null && renderer.isRunning()){
 		   renderer.stopDrawPad();
 	   }

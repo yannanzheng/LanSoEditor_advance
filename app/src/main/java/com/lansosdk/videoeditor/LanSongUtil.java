@@ -28,7 +28,6 @@ public class LanSongUtil {
 	 {
 		   boolean ret1=LanSoEditorBox.cameraIsCanUse();
 		   boolean ret2=LanSoEditorBox.checkMicPermission(ctx);
-		   
 	       return ret1 && ret2;
 	 }
 	  /**

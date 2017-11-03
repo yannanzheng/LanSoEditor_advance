@@ -58,6 +58,7 @@ import com.lansosdk.box.onDrawPadCompletedListener;
 import com.lansosdk.box.onDrawPadErrorListener;
 import com.lansosdk.box.onDrawPadOutFrameListener;
 import com.lansosdk.box.onDrawPadProgressListener;
+import com.lansosdk.box.onDrawPadRunTimeListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
 import com.lansosdk.box.onDrawPadSnapShotListener;
 import com.lansosdk.box.onDrawPadThreadProgressListener;
@@ -179,7 +180,7 @@ public class DrawPadView extends FrameLayout {
     private int mAutoFlushFps=0;
     
     /**
-     * 设置DrawPad的刷新模式,默认 {@link DrawPad.UpdateMode#ALL_VIDEO_READY};
+     * 设置DrawPad的刷新模式,默认 {@link DrawPadUpdateMode#ALL_VIDEO_READY};
      * 
      * @param mode
      * @param autofps  //自动刷新的参数,每秒钟刷新几次(即视频帧率).当自动刷新的时候有用, 不是自动,则不起作用.
@@ -401,6 +402,27 @@ public class DrawPadView extends FrameLayout {
             requestLayout();
         }
 	}
+	private onDrawPadRunTimeListener drawpadRunTimeListener=null;
+	/**
+	 * 当前drawpad容器运行了多长时间, 仅供参考使用. 没有特别的意义.
+	 * 内部每渲染一帧, 则会回调这里.
+	 * 仅仅作为drawpad容器运行时间的参考, 
+	 * 如果你要看当前视频图层的运行时间,则应设置图层的监听,而不是容器运行时间的监听, 可以通过 {@link #resetDrawPadRunTime()}来复位这个时间.
+	 * 
+	 * @param li
+	 */
+	public void setOnDrawPadRunTimeListener(onDrawPadRunTimeListener li){
+		if(renderer!=null){
+			renderer.setDrawPadRunTimeListener(li);
+		}
+		drawpadRunTimeListener=li;
+	}
+	public void resetDrawPadRunTime()
+	{
+		if(renderer!=null){
+			renderer.resetPadRunTime();
+		}
+	}
 	/**
 	 * DrawPad每执行完一帧画面,会调用这个Listener,返回的timeUs是当前画面的时间戳(微妙),
 	 *  可以利用这个时间戳来做一些变化,比如在几秒处缩放, 在几秒处平移等等.从而实现一些动画效果.
@@ -554,10 +576,15 @@ public class DrawPadView extends FrameLayout {
 		}
 	}
 	private boolean isFastVideoMode=false;
-	public void setFastVideoMode(boolean is)
+	/**
+	 * 设置录制好的视频, 
+	 * 
+	 * @param is
+	 */
+	public void setLanSongVideoMode(boolean is)
 	{
 		if(renderer!=null){
-			renderer.setFastVideoMode(is);
+			renderer.setLanSongVideoMode(is);
 		}else{
 			isFastVideoMode=is;
 		}
@@ -604,7 +631,7 @@ public class DrawPadView extends FrameLayout {
 	 				}
 	 				renderer.setEncoderEnable(encWidth,encHeight,encBitRate,encFrameRate,encodeOutput);
 	 				if(isFastVideoMode){
-	 					renderer.setFastVideoMode(isFastVideoMode);
+	 					renderer.setLanSongVideoMode(isFastVideoMode);
 	 				}
 	 				renderer.setUpdateMode(mUpdateMode,mAutoFlushFps);
 	 				
@@ -617,6 +644,7 @@ public class DrawPadView extends FrameLayout {
 	 				renderer.setDrawPadCompletedListener(drawpadCompletedListener);
 	 				renderer.setDrawPadThreadProgressListener(drawPadThreadProgressListener);
 	 				renderer.setDrawPadErrorListener(drawPadErrorListener);
+	 				renderer.setDrawPadRunTimeListener(drawpadRunTimeListener);
 	 				
 	 				if(isRecordMic){
 	 					renderer.setRecordMic(isRecordMic);	

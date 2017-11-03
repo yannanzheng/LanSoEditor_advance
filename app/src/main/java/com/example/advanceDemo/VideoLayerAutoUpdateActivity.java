@@ -123,7 +123,6 @@ public class VideoLayerAutoUpdateActivity extends Activity{
 				
 				@Override
 				public void onPrepared(MediaPlayer mp) {
-					// TODO Auto-generated method stub
 					initDrawPad();
 				}
 			});
@@ -131,7 +130,6 @@ public class VideoLayerAutoUpdateActivity extends Activity{
 				
 				@Override
 				public void onCompletion(MediaPlayer mp) {
-					// TODO Auto-generated method stub
 					stopDrawPad();
 				}
 			});
@@ -158,7 +156,6 @@ public class VideoLayerAutoUpdateActivity extends Activity{
     			
     			@Override
     			public void onSizeChanged(int viewWidth, int viewHeight) {
-    				// TODO Auto-generated method stub
     				startDrawPad();
     			}
     		});
@@ -216,7 +213,6 @@ public class VideoLayerAutoUpdateActivity extends Activity{
   			
   			@Override
   			public void onClick(View v) {
-  				// TODO Auto-generated method stub
   				 if(SDKFileUtils.fileExist(dstPath)){
   		   			 	Intent intent=new Intent(VideoLayerAutoUpdateActivity.this,VideoPlayerActivity.class);
   			    	    	intent.putExtra("videopath", dstPath);
@@ -234,7 +230,6 @@ public class VideoLayerAutoUpdateActivity extends Activity{
   			
   			@Override
   			public void onClick(View v) {
-  				// TODO Auto-generated method stub
   					if(mplayer!=null && mplayer.isPlaying()){
   						mplayer.pause();
   					}
@@ -244,7 +239,6 @@ public class VideoLayerAutoUpdateActivity extends Activity{
   			
   			@Override
   			public void onClick(View v) {
-  				// TODO Auto-generated method stub
   					if(mplayer!=null && mplayer.isPlaying()==false){
   						mplayer.start();
   					}

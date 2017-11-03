@@ -36,9 +36,6 @@ public class BitmapCache {
         q = new ReferenceQueue<Bitmap>();
     }
 
-    /**
-     * ȡ�û�����ʵ��
-      */
     public static BitmapCache getInstance() {
         if (cache == null) {
             cache = new BitmapCache();

@@ -1,6 +1,7 @@
 package com.lansosdk.videoeditor;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 
@@ -43,9 +44,32 @@ public class CopyFileFromAssets {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		return null;
 	}
+	
+	public static void copyFile(String srcFile,String dstPath) {
+
+		// 如果目录不中存在，创建这个目录
+		try {
+			if (!(new File(dstPath)).exists()) {  //如果不存在.
+				InputStream is = new FileInputStream(srcFile);
+				FileOutputStream fos = new FileOutputStream(dstPath);
+				byte[] buffer = new byte[7168];
+				int count = 0;
+				while ((count = is.read(buffer)) > 0) {
+					fos.write(buffer, 0, count);
+				}
+				fos.close();
+				is.close();
+			}else{
+				Log.i("copyFile","CopyFileFromAssets.copyFile() is not work. file existe!");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 	public static String copyResId(Context mContext, int resId) {
 	      String str2=  mContext.getResources().getString(resId);
 	      String str3=str2.substring(str2.lastIndexOf("/")+1);

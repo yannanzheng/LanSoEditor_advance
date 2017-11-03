@@ -210,7 +210,10 @@ public class CameraLayerEXTPcmActivity extends Activity implements OnClickListen
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 			super.onDestroy();
-			SDKFileUtils.deleteFile(videoPath);
+			
+		    if(SDKFileUtils.fileExist(videoPath)){
+		    	SDKFileUtils.deleteFile(videoPath);
+		    }
 	}
    //-------------------------------------------一下是UI界面和控制部分.---------------------------------------------------
    private TextView tvTime;

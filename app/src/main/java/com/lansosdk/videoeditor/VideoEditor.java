@@ -485,13 +485,43 @@ public class VideoEditor {
 			
 		  	String filter=String.format(Locale.getDefault(),"[0:a]volume=volume=%f[a1]; [1:a]volume=volume=%f[a2]; [a1][a2]amix=inputs=2:duration=first:dropout_transition=2",value1,value2);
 		  
-			
 			cmdList.add("-i");
 			cmdList.add(audioPath1);
 
 			cmdList.add("-i");
 			cmdList.add(audioPath2);
 
+			cmdList.add("-filter_complex");
+			cmdList.add(filter);
+			
+			cmdList.add("-acodec");
+			cmdList.add("libfaac");
+			
+			cmdList.add("-y");
+			cmdList.add(dstPath);
+			String[] command=new String[cmdList.size()];  
+		     for(int i=0;i<cmdList.size();i++){  
+		    	 command[i]=(String)cmdList.get(i);  
+		     } 
+		     return  executeVideoEditor(command);
+	  }
+	  public int executeAudioVolumeMix(String audioPath1,String audioPath2,float value1,float value2,float duration,String dstPath)
+	  {
+		  List<String> cmdList=new ArrayList<String>();
+			
+		  	String filter=String.format(Locale.getDefault(),"[0:a]volume=volume=%f[a1]; [1:a]volume=volume=%f[a2]; [a1][a2]amix=inputs=2:duration=first:dropout_transition=2",value1,value2);
+		  
+			cmdList.add("-i");
+			cmdList.add(audioPath1);
+
+			cmdList.add("-i");
+			cmdList.add(audioPath2);
+
+			if(duration>0.0f){
+				cmdList.add("-t");
+				cmdList.add(String.valueOf(duration));
+			}
+			
 			cmdList.add("-filter_complex");
 			cmdList.add(filter);
 			
@@ -657,6 +687,35 @@ public class VideoEditor {
 		}
 		return false;
 	}
+	public static boolean encoderAddAudio(String oldMp4,String newMp4,String dstMp4)
+	{
+		//
+		MediaInfo  info=new MediaInfo(oldMp4,false);
+		if(info.prepare())
+		{
+			String audioPath=null;
+			if(info.aCodecName!=null)  //只有在有音频的场合,才增加.
+			{
+				if(info.aCodecName.equalsIgnoreCase("aac")){
+					audioPath=SDKFileUtils.createFile(SDKDir.TMP_DIR, ".aac");
+				}else if(info.aCodecName.equalsIgnoreCase("mp3"))
+					audioPath=SDKFileUtils.createFile(SDKDir.TMP_DIR, ".mp3");	
+				
+				if(audioPath!=null){
+					VideoEditor veditor=new VideoEditor();
+					veditor.executeDeleteVideo(oldMp4, audioPath);  //获得音频
+					veditor.executeVideoMergeAudio(newMp4, audioPath, dstMp4);  //合并到新视频文件中.
+					SDKFileUtils.deleteFile(audioPath);
+					return true;
+				}
+			}else{
+				Log.w(TAG,"old mp4 file no audio . do not add audio");
+			}
+		}else{
+			Log.w(TAG,"old mp4 file prepare error!!,do not add audio");
+		}
+		return false;
+	}
 	/**
 	 * 只是内部使用, 用来把视频和音频合成在一起, 没有做任意判断
 	 * @param videoPath
@@ -759,6 +818,45 @@ public class VideoEditor {
 			  	List<String> cmdList=new ArrayList<String>();
 		    	cmdList.add("-i");
 				cmdList.add(srcFile);
+				cmdList.add("-acodec");
+				cmdList.add("copy");
+				cmdList.add("-vn");
+				cmdList.add("-y");
+				cmdList.add(dstFile);
+				String[] command=new String[cmdList.size()];  
+			     for(int i=0;i<cmdList.size();i++){  
+			    	 command[i]=(String)cmdList.get(i);  
+			     }  
+			    return  executeVideoEditor(command);
+		  }
+		  /**
+		   * 删除视频, 提取音频.
+		   * @param srcFile
+		   * @param dstFile
+		   * @param startS
+		   * @param durationS
+		   * @return
+		   */
+		  public int executeDeleteVideo(String srcFile,String dstFile,float startS,float durationS)
+		  {
+			  	if(fileExist(srcFile)==false)
+			  		return VIDEO_EDITOR_EXECUTE_FAILED;
+			  	
+			  	List<String> cmdList=new ArrayList<String>();
+			  	
+			  	if(startS>0.0f){
+			  		cmdList.add("-ss");
+					cmdList.add(String.valueOf(startS));
+			  	}
+			  	
+		    	cmdList.add("-i");
+				cmdList.add(srcFile);
+				
+				if(durationS>0.0f){
+					cmdList.add("-t");
+					cmdList.add(String.valueOf(durationS));
+				}
+				
 				cmdList.add("-acodec");
 				cmdList.add("copy");
 				cmdList.add("-vn");
@@ -1370,6 +1468,47 @@ public class VideoEditor {
 				  return VIDEO_EDITOR_EXECUTE_FAILED;
 			  }
 		  }
+		  /**
+		   * 把mp3转化为AAC
+		   * 
+		   * @param mp3Path 源文件
+		   * @param startS 开始时间,单位秒, 
+		   * @param durationS 时长多少.大于0有效, 等于0,默认一直到文件尾.
+		   * @param dstAacPath  目标文件.
+		   * @return
+		   */
+		  public int executeConvertMp3ToAAC(String mp3Path,float startS,float durationS,String dstAacPath)
+		  {
+			  if(fileExist(mp3Path)){
+					
+					List<String> cmdList=new ArrayList<String>();
+					
+					cmdList.add("-ss");
+					cmdList.add(String.valueOf(startS));
+					
+			    	cmdList.add("-i");
+					cmdList.add(mp3Path);
+
+					if(durationS>0.0f){
+						cmdList.add("-t");
+						cmdList.add(String.valueOf(durationS));
+					}
+					cmdList.add("-acodec");
+					cmdList.add("libfaac");
+					
+					cmdList.add("-y");
+					cmdList.add(dstAacPath);
+					String[] command=new String[cmdList.size()];  
+				     for(int i=0;i<cmdList.size();i++){  
+				    	 command[i]=(String)cmdList.get(i);  
+				     }  
+				    return  executeVideoEditor(command);
+			  }else{
+				  return VIDEO_EDITOR_EXECUTE_FAILED;
+			  }
+		  }
+		  
+		  
 		  /**
 		   * 把视频解码成mjpeg格式的mp4文件.
 		   * 

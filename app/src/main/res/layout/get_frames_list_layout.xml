@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFA500"
@@ -25,17 +28,24 @@
 			<TextView  style="@style/main_item_arrow"/> 
 	</RelativeLayout>
 	
-      <RelativeLayout   
+         <RelativeLayout   
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:gravity="center_vertical"
           android:background="@drawable/function_item_btn_bg"
           android:layout_marginTop="20dip">
           
-           	 <TextView   android:text="提示:(测试所有帧的速度)是真实的获取帧的速度.\n其他因为有UI界面加载和缓存的影响,表象略慢一些.\n,支持:任意时间段提取, 间隔提取等"
+           	 <TextView   android:text="提取图片提示:(测试所有帧的速度)是真实的获取帧的速度.\n其他因为有UI界面加载和缓存的影响,表象略慢一些.\n,支持:任意时间段提取, 间隔提取等"
            	     android:layout_width="match_parent"
            	     android:textSize="16dip"
            	     android:layout_height="120dip"/>
 	</RelativeLayout>
-
+	
+	 <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="以下因比较简单,不再写界面,可见每个类中 最后演示代码(持续更新...)\n有: \n图片容器:BitmapPadExecute;\n图片多滤镜效果:BitmapGetFilters\n声音容器:AudioPadExecute;\n声音拼接:AudioConcat;\n视频编解码AVDecode/AVEncoder;等等;
+        "/>
 </LinearLayout>
+</ScrollView>

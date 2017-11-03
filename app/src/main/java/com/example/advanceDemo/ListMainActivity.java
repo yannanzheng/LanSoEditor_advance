@@ -1,7 +1,9 @@
 package com.example.advanceDemo;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -38,16 +40,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.res.AssetManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.hardware.Camera;
-import android.media.AudioAttributes;
-import android.media.AudioManager;
-import android.media.MediaCodecInfo;
-import android.media.MediaFormat;
-import android.media.MediaPlayer;
-import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -59,14 +51,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class MainActivity extends Activity implements OnClickListener{
-
-
+public class ListMainActivity extends Activity implements OnClickListener{
 	 private static final String TAG="MainActivity";
 	 private static final boolean VERBOSE = false;   
-	 
-	private TextView tvVideoPath;
-	private boolean isPermissionOk=false;
+	 private TextView tvVideoPath;
+	 private boolean isPermissionOk=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,13 +86,13 @@ public class MainActivity extends Activity implements OnClickListener{
     
     private boolean checkPath(){
     	if(tvVideoPath.getText()!=null && tvVideoPath.getText().toString().isEmpty()){
-    		Toast.makeText(MainActivity.this, "请输入视频地址", Toast.LENGTH_SHORT).show();
+    		Toast.makeText(ListMainActivity.this, "请输入视频地址", Toast.LENGTH_SHORT).show();
     		return false;
     	}	
     	else{
     		String path=tvVideoPath.getText().toString();
     		if((new File(path)).exists()==false){
-    			Toast.makeText(MainActivity.this, "文件不存在", Toast.LENGTH_SHORT).show();
+    			Toast.makeText(ListMainActivity.this, "文件不存在", Toast.LENGTH_SHORT).show();
     			return false;
     		}else{
     			MediaInfo info=new MediaInfo(path,false);
@@ -115,71 +104,37 @@ public class MainActivity extends Activity implements OnClickListener{
     }
 	@Override
 	public void onClick(View v) {
+		if(isPermissionOk==false){
+			checkPermission();
+		}
 		if(isPermissionOk)
 		{
 			if(checkPath()==false)
 				return;
 			switch (v.getId()) {
-				case R.id.id_main_cameralayer:
-					startDemoActivity(CameraListRecordActivity.class);
-				break;
-				case R.id.id_main_outbody:
-					startDemoActivity(OutBodyDemoActivity.class);
+				case R.id.id_mainlist_camerarecord:
+					startDemoActivity(ListCameraRecordActivity.class);  
 					break;
-				case R.id.id_main_extract_frame:
-					startDemoActivity(ExtractFrameTypeListActivity.class);
+				case R.id.id_mainlist_somelayer:
+					startDemoActivity(ListLayerDemoActivity.class);
 					break;
-				case R.id.id_main_viewlayerdemo1:
-					startDemoActivity(ViewLayerDemoActivity.class);
+				case R.id.id_mainlist_changjing:
+					startDemoActivity(ListSceneDemoActivity.class);
 					break;
-				case R.id.id_main_viewremark:
-					startDemoActivity(BitmapLayerMarkActivity.class);
+				case R.id.id_mainlist_xuanku:
+					startDemoActivity(ListCoolDemoActivity.class);
 					break;
-				case R.id.id_main_viewlayerdemo2:
-					startDemoActivity(ViewLayerOnlyActivity.class);
+				case R.id.id_mainlist_facedetected:
+					startDemoActivity(ListFaceDetectedDemoActivity.class);
 					break;
-				case R.id.id_main_canvaslayerdemo:  //绘制一个心形.
-					startDemoActivity(CanvasLayerDemoActivity.class);
-					break; 
-				case R.id.id_main_layermothed3:
-					startDemoActivity(Demo3LayerFilterActivity.class);
+				case R.id.id_mainlist_videoonedo:
+					startDemoActivity(VideoOneProcessActivity.class);
 					break;
-				case R.id.id_main_mvlayerdemo:
-					startDemoActivity(MVLayerDemoActivity.class);
+				case R.id.id_mainlist_bitmaps:
+					startDemoActivity(ListBitmapAudioActivity.class);
 					break;
-				case R.id.id_main_pictures:
-					startDemoActivity(PictureSetRealTimeActivity.class);
-					break;
-				case R.id.id_main_layermothed2:
-					startDemoActivity(Demo2LayerMothedActivity.class);
-					break;
-				case R.id.id_main_layermothed1:
-					startDemoActivity(Demo1LayerMothedActivity.class);
-					break;
-				case R.id.id_main_drawpadexecute_filter:
-					startDemoActivity(ExecuteFilterDemoActivity.class);
-					break;
-				case R.id.id_main_drawpad_all:
-					startDemoActivity(ExecuteAllDrawpadActivity.class);
-					break;
-				case R.id.id_main_drawpadpictureexecute:
-					startDemoActivity(ExecuteVideoLayerActivity.class);
-					break;
-				case R.id.id_main_commonversion:
-					startDemoActivity(CommonDemoActivity.class);
-					break;
-				case R.id.id_main_testvideoplay:
+				case R.id.id_mainlist_videoplay:
 					startDemoActivity(VideoPlayerActivity.class);
-					break;
-					//---新增
-				case R.id.id_main_twovideolayer:
-					startDemoActivity(TwoVideoLayerActivity.class);
-					break;
-				case R.id.id_main_videotransform:
-					startDemoActivity(VideoLayerTransformActivity.class);
-					break;
-				case R.id.id_main_videobiansu:
-					startDemoActivity(TestLayerPlayerActivity.class);
 					break;
 				default:
 					break;
@@ -192,43 +147,20 @@ public class MainActivity extends Activity implements OnClickListener{
 	private void initView()
 	{
 			tvVideoPath=(TextView)findViewById(R.id.id_main_tvvideo);
-	        
-	        findViewById(R.id.id_main_outbody).setOnClickListener(this); //灵魂出窍
-	        findViewById(R.id.id_main_cameralayer).setOnClickListener(this);
-	        
-	        findViewById(R.id.id_main_viewlayerdemo1).setOnClickListener(this);
-	        findViewById(R.id.id_main_viewremark).setOnClickListener(this);
-	        findViewById(R.id.id_main_viewlayerdemo2).setOnClickListener(this);
-	        findViewById(R.id.id_main_canvaslayerdemo).setOnClickListener(this);
-	        findViewById(R.id.id_main_layermothed3).setOnClickListener(this); 
-	        
-	        findViewById(R.id.id_main_mvlayerdemo).setOnClickListener(this);
-	        
-	        findViewById(R.id.id_main_pictures).setOnClickListener(this);
-	        
-	        findViewById(R.id.id_main_commonversion).setOnClickListener(this);
-	        
-	        findViewById(R.id.id_main_layermothed2).setOnClickListener(this);
-	        findViewById(R.id.id_main_layermothed1).setOnClickListener(this);
-	        
-	        findViewById(R.id.id_main_drawpadpictureexecute).setOnClickListener(this);
-	        findViewById(R.id.id_main_drawpadexecute_filter).setOnClickListener(this);
-	        findViewById(R.id.id_main_drawpad_all).setOnClickListener(this);
-	        
-	        findViewById(R.id.id_main_twovideolayer).setOnClickListener(this);
-	        findViewById(R.id.id_main_videotransform).setOnClickListener(this);
-	        findViewById(R.id.id_main_videobiansu).setOnClickListener(this);
-		
-	        findViewById(R.id.id_main_testvideoplay).setOnClickListener(this);
-	        
-	        findViewById(R.id.id_main_extract_frame).setOnClickListener(this);
-	        
-	        
+			
+			findViewById(R.id.id_mainlist_camerarecord).setOnClickListener(this);
+			findViewById(R.id.id_mainlist_somelayer).setOnClickListener(this);
+			findViewById(R.id.id_mainlist_changjing).setOnClickListener(this);
+			findViewById(R.id.id_mainlist_xuanku).setOnClickListener(this);
+			findViewById(R.id.id_mainlist_facedetected).setOnClickListener(this);
+			findViewById(R.id.id_mainlist_videoonedo).setOnClickListener(this);
+			findViewById(R.id.id_mainlist_bitmaps).setOnClickListener(this);
+			findViewById(R.id.id_mainlist_videoplay).setOnClickListener(this);
+			///----------------------
 	        findViewById(R.id.id_main_select_video).setOnClickListener(new OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
-					// TODO Auto-generated method stub
 					startSelectVideoActivity();
 				}
 			});
@@ -237,8 +169,7 @@ public class MainActivity extends Activity implements OnClickListener{
 				
 				@Override
 				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					new CopyDefaultVideoAsyncTask(MainActivity.this, tvVideoPath, "ping20s.mp4").execute();
+					new CopyDefaultVideoAsyncTask(ListMainActivity.this, tvVideoPath, "ping20s.mp4").execute();
 				}
 			});
 	}
@@ -250,14 +181,14 @@ public class MainActivity extends Activity implements OnClickListener{
            @Override
            public void onGranted() {
            	isPermissionOk=true;
-               Toast.makeText(MainActivity.this, R.string.message_granted, Toast.LENGTH_SHORT).show();
+               Toast.makeText(ListMainActivity.this, R.string.message_granted, Toast.LENGTH_SHORT).show();
            }
 
            @Override
            public void onDenied(String permission) {
            	isPermissionOk=false;
                String message = String.format(Locale.getDefault(), getString(R.string.message_denied), permission);
-               Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+               Toast.makeText(ListMainActivity.this, message, Toast.LENGTH_SHORT).show();
            }
        });
     }
@@ -282,7 +213,6 @@ public class MainActivity extends Activity implements OnClickListener{
    			
    			@Override
    			public void onClick(DialogInterface dialog, int which) {
-   				// TODO Auto-generated method stub
    			}
    		})
         .show();
@@ -296,7 +226,6 @@ public class MainActivity extends Activity implements OnClickListener{
    			
    			@Override
    			public void onClick(DialogInterface dialog, int which) {
-   				// TODO Auto-generated method stub
    			}
    		})
            .show();
@@ -309,7 +238,6 @@ public class MainActivity extends Activity implements OnClickListener{
 	    }
 	    @Override
 	    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-	    	// TODO Auto-generated method stub
 	    	super.onActivityResult(requestCode, resultCode, data);
 	    	switch (resultCode) {
 			case RESULT_OK:
@@ -328,7 +256,7 @@ public class MainActivity extends Activity implements OnClickListener{
 	   	private void startDemoActivity(Class<?> cls)
 	   	{
 	   		String path=tvVideoPath.getText().toString();
-	    	Intent intent=new Intent(MainActivity.this,cls);
+	    	Intent intent=new Intent(ListMainActivity.this,cls);
 	    	intent.putExtra("videopath", path);
 	    	startActivity(intent);
 	   	}
@@ -363,6 +291,5 @@ public class MainActivity extends Activity implements OnClickListener{
 	   //--------------------------------
 	    private void testFile()
 	    {
-//
 		}
 }

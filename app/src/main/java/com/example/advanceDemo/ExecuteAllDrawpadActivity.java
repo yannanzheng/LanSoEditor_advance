@@ -87,8 +87,6 @@ public class ExecuteAllDrawpadActivity extends Activity{
 	    private ScaleAnimation scaleAnim;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.execute_edit_demo_layout);
 		
@@ -145,7 +143,6 @@ public class ExecuteAllDrawpadActivity extends Activity{
 			
 			@Override
 			public void onError(DrawPad d, int what) {
-				// TODO Auto-generated method stub
 				mDrawPad.stopDrawPad();
 				Log.e(TAG,"后台容器线程 运行失败,您请检查下是否码率分辨率设置过大,或者联系我们!...");
 			}
@@ -162,13 +159,13 @@ public class ExecuteAllDrawpadActivity extends Activity{
 				if(currentTimeUs>18*1000*1000){  //18秒的时候停止.
 					mDrawPad.stopDrawPad();
 				}
-				else if(currentTimeUs>15*1000*1000 ){
+				else if(currentTimeUs>15*1000*1000 ){  //显示第4个图层.
 					showFourLayer();
 				}
-				else if(currentTimeUs>8*1000*1000 && videoLayer2==null){  //8秒的时候增加一个视频.
+				else if(currentTimeUs>8*1000*1000 && videoLayer2==null){  //8秒的时候增加一个视频图层
 					showThreeLayer(currentTimeUs);
 				}
-				else if(currentTimeUs>3*1000*1000 && bmpLayer==null){  //3秒的时候, 增加图片.
+				else if(currentTimeUs>3*1000*1000 && bmpLayer==null){  //3秒的时候, 增加图片图层
 					showSecondLayer(currentTimeUs);
 				}
 				

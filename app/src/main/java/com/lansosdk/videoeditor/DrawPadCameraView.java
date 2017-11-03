@@ -59,6 +59,7 @@ import com.lansosdk.box.onDrawPadCompletedListener;
 import com.lansosdk.box.onDrawPadErrorListener;
 import com.lansosdk.box.onDrawPadOutFrameListener;
 import com.lansosdk.box.onDrawPadProgressListener;
+import com.lansosdk.box.onDrawPadRunTimeListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
 import com.lansosdk.box.onDrawPadSnapShotListener;
 import com.lansosdk.box.onDrawPadThreadProgressListener;
@@ -419,7 +420,28 @@ public class DrawPadCameraView extends FrameLayout {
             requestLayout();
         }
 	}
-	
+	private onDrawPadRunTimeListener drawpadRunTimeListener=null;
+	/**
+	 * 当前drawpad容器运行了多长时间, 仅供参考使用. 没有特别的意义.
+	 * 内部每渲染一帧, 则会回调这里.
+	 * 仅仅作为drawpad容器运行时间的参考, 
+	 * 如果你要看当前视频图层的运行时间,则应设置图层的监听,而不是容器运行时间的监听, 可以通过 {@link #resetDrawPadRunTime()}来复位这个时间.
+	 * 
+	 * @param li
+	 */
+	public void setOnDrawPadRunTimeListener(onDrawPadRunTimeListener li){
+		if(renderer!=null){
+			renderer.setDrawPadRunTimeListener(li);
+		}
+		drawpadRunTimeListener=li;
+	}
+	public void resetDrawPadRunTime()
+	{
+		if(renderer!=null){
+			renderer.resetPadRunTime();
+		}
+	}
+	//----------------------------
 	private onDrawPadProgressListener drawpadProgressListener=null;
 	/**
 	 * 录制执行的回调.
@@ -574,10 +596,10 @@ public class DrawPadCameraView extends FrameLayout {
 		extCameraLayer=layer;
 	}
 	private boolean isFastVideoMode=false;
-	public void setFastVideoMode(boolean is)
+	public void setLanSongVideoMode(boolean is)
 	{
 		if(renderer!=null){
-			renderer.setFastVideoMode(is);
+			renderer.setLanSongVideoMode(is);
 		}else{
 			isFastVideoMode=is;
 		}
@@ -647,7 +669,7 @@ public class DrawPadCameraView extends FrameLayout {
 	 				}
 	 				renderer.setEncoderEnable(encWidth,encHeight,encBitRate,encFrameRate,encodeOutput);
 	 				if(isFastVideoMode){
-	 					renderer.setFastVideoMode(isFastVideoMode);
+	 					renderer.setLanSongVideoMode(isFastVideoMode);
 	 				}
 	 				 //设置DrawPad处理的进度监听, 回传的currentTimeUs单位是微秒.
 	 				renderer.setDrawpadSnapShotListener(drawpadSnapShotListener);
@@ -656,6 +678,7 @@ public class DrawPadCameraView extends FrameLayout {
 	 				renderer.setDrawPadCompletedListener(drawpadCompletedListener);
 	 				renderer.setDrawPadThreadProgressListener(drawPadThreadProgressListener);
 	 				renderer.setOutFrameInDrawPad(frameListenerInDrawPad);
+	 				renderer.setDrawPadRunTimeListener(drawpadRunTimeListener);
 	 				
 	 				renderer.setDrawPadErrorListener(drawPadErrorListener);
 	 				if(isRecordMic){

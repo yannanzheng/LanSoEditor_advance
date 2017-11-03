@@ -18,6 +18,7 @@ import jp.co.cyberagent.lansongsdk.gpuimage.LanSongTestCentorFilter;
 import com.example.advanceDemo.GPUImageFilterTools.FilterAdjuster;
 import com.example.advanceDemo.GPUImageFilterTools.OnGpuImageFilterChosenListener;
 import com.lansoeditor.demo.R;
+import com.lansosdk.box.BitmapLayer;
 import com.lansosdk.box.DrawPad;
 import com.lansosdk.box.DrawPadUpdateMode;
 import com.lansosdk.box.DrawPadVideoRunnable;
@@ -71,7 +72,7 @@ public class Demo3LayerFilterActivity extends Activity {
 
     private String mVideoPath;
 
-    private DrawPadView mDrawPadView;
+    private DrawPadView drawPadView;
     
     private MediaPlayer mplayer=null;
     
@@ -101,7 +102,7 @@ public class Demo3LayerFilterActivity extends Activity {
         
        
         
-        mDrawPadView = (DrawPadView) findViewById(R.id.id_filterLayer_demo_view);
+        drawPadView = (DrawPadView) findViewById(R.id.id_filterLayer_demo_view);
         skbarFilterAdjuster=(SeekBar)findViewById(R.id.id_filterLayer_demo_seek1);
         skbarFilterAdjuster.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 			
@@ -147,7 +148,6 @@ public class Demo3LayerFilterActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				if(SDKFileUtils.fileExist(dstPath)){
 					Intent intent=new Intent(Demo3LayerFilterActivity.this,VideoPlayerActivity.class);
 		    	    intent.putExtra("videopath", dstPath);
@@ -171,7 +171,6 @@ public class Demo3LayerFilterActivity extends Activity {
      			
      			@Override
      			public void run() {
-     				// TODO Auto-generated method stub
      				 startPlayVideo();
      			}
      		}, 500);
@@ -179,7 +178,6 @@ public class Demo3LayerFilterActivity extends Activity {
     }
     @Override
     protected void onPause() {
-    	// TODO Auto-generated method stub
     	super.onPause();
     	if(mplayer!=null){
 			mplayer.stop();
@@ -217,14 +215,12 @@ public class Demo3LayerFilterActivity extends Activity {
 				mplayer.setDataSource(mVideoPath);
 				
 			}  catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
         	  mplayer.setOnPreparedListener(new OnPreparedListener() {
 				
 				@Override
 				public void onPrepared(MediaPlayer mp) {
-					// TODO Auto-generated method stub
 					initDrawPad();
 				}
 			});
@@ -232,9 +228,8 @@ public class Demo3LayerFilterActivity extends Activity {
 				
 				@Override
 				public void onCompletion(MediaPlayer mp) {
-					// TODO Auto-generated method stub
-					if(mDrawPadView!=null && mDrawPadView.isRunning()){
-						mDrawPadView.stopDrawPad();
+					if(drawPadView!=null && drawPadView.isRunning()){
+						drawPadView.stopDrawPad();
 						findViewById(R.id.id_filterdemo_saveplay).setVisibility(View.VISIBLE);
 					}
 				}
@@ -248,25 +243,26 @@ public class Demo3LayerFilterActivity extends Activity {
           }
     }
     private int pngCnt=0;
-    //Step1:开始 DrawPad 容器
+    /**
+     * Step1:开始 DrawPad 容器
+     */
     private void initDrawPad()
     {
     	MediaInfo info=new MediaInfo(mVideoPath);
     	if(info.prepare())
     	{
-    			mDrawPadView.setUpdateMode(DrawPadUpdateMode.ALL_VIDEO_READY,25);
+    			drawPadView.setUpdateMode(DrawPadUpdateMode.ALL_VIDEO_READY,25);
     			/**
     			 * 设置使能 实时保存, 即把正在DrawPad中呈现的画面实时的保存下来,实现所见即所得的模式
     			 */
-    			mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
+    			drawPadView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
 
-    			mDrawPadView.setOnDrawPadCompletedListener(new DrawPadCompleted());
+    			drawPadView.setOnDrawPadCompletedListener(new DrawPadCompleted());
         	//设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
-        	mDrawPadView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
+        	drawPadView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
     			
     			@Override
     			public void onSizeChanged(int viewWidth, int viewHeight) {
-    				// TODO Auto-generated method stub
     				startDrawPad();
     			}
     		});
@@ -277,18 +273,21 @@ public class Demo3LayerFilterActivity extends Activity {
      */
     private void startDrawPad()
     {
-    	if(mDrawPadView.startDrawPad())
+    	if(drawPadView.startDrawPad())
     	{
     		addVideoLayer();	
     	}
     }
    
     private void addVideoLayer()
-    {
+    { 
+    	BitmapLayer layer=drawPadView.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.videobg));
+    	layer.setScaledValue(layer.getPadWidth(), layer.getPadHeight());
+    	
     	/**
 		 * 这里增加一个addVideoLayer, 并把设置滤镜效果为GPUImageSepiaFilter滤镜.
 		 */
-		filterLayer=mDrawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),
+		filterLayer=drawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),
 				new IF1977Filter(getBaseContext()));
 		
 		if(filterLayer!=null){
@@ -305,7 +304,6 @@ public class Demo3LayerFilterActivity extends Activity {
 
 		@Override
 		public void onCompleted(DrawPad v) {
-			// TODO Auto-generated method stub
 			if(isDestorying==false)
 			{
 					Toast.makeText(getApplicationContext(), "录制已停止!!", Toast.LENGTH_SHORT).show();
@@ -325,22 +323,18 @@ public class Demo3LayerFilterActivity extends Activity {
     
     @Override
     protected void onDestroy() {
-    	// TODO Auto-generated method stub
     	super.onDestroy();
     	
     	isDestorying=true;
-		if(mDrawPadView!=null){
-			mDrawPadView.stopDrawPad();
-			mDrawPadView=null;        		   
+		if(drawPadView!=null){
+			drawPadView.stopDrawPad();
+			drawPadView=null;        		   
 		}
-		 if(SDKFileUtils.fileExist(dstPath)){
-			 SDKFileUtils.deleteFile(dstPath);
-	     }
-	     if(SDKFileUtils.fileExist(editTmpPath)){
-	    	 SDKFileUtils.deleteFile(editTmpPath);
-	     } 
+			 
+		SDKFileUtils.deleteFile(dstPath);
+		SDKFileUtils.deleteFile(editTmpPath);
     }
-    //----------------------------------------------------------放到后台执行
+    //-----------------------------如果您需要放到后台执行.则使用如下代码.
     private boolean isExecuting=false; 
     private DrawPadVideoExecute  vDrawPad=null;
     private ProgressDialog  mProgressDialog;
@@ -371,8 +365,6 @@ public class Demo3LayerFilterActivity extends Activity {
 			
 			@Override
 			public void onProgress(DrawPad v, long currentTimeUs) {
-				// TODO Auto-generated method stub
-				
 				float percent= (float)currentTimeUs/1000000f;
 				percent/=mInfo.vDuration;
 				Log.i(TAG,"drawpad  progress is:"+percent);
@@ -390,7 +382,6 @@ public class Demo3LayerFilterActivity extends Activity {
 			
 			@Override
 			public void onCompleted(DrawPad v) {
-				// TODO Auto-generated method stub
 				if( mProgressDialog!=null){
 		     		 mProgressDialog.cancel();
 		     		 mProgressDialog=null;
@@ -412,8 +403,5 @@ public class Demo3LayerFilterActivity extends Activity {
 		});
 		vDrawPad.startDrawPad();
 	}
-
-	
-	//------------------------------------------------------------------------
 	
 }

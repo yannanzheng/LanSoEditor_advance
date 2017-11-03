@@ -324,6 +324,10 @@ public class VPlayer {
     		mMediaPlayer.setVolume(leftVolume, rightVolume);
     }
     
+    /**
+     * 获取当前视频的总时间,单位ms;
+     * @return
+     */
     public int getDuration() {
         if (isInPlaybackState()) {
             return (int) mMediaPlayer.getDuration();
@@ -331,7 +335,10 @@ public class VPlayer {
 
         return -1;
     }
-
+/**
+ * 获取视频正在播放的时间
+ * @return
+ */
     public int getCurrentPosition() {
         if (isInPlaybackState()) {
             return (int) mMediaPlayer.getCurrentPosition();

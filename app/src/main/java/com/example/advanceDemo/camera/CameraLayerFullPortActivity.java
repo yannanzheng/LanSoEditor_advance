@@ -8,7 +8,9 @@ import java.util.Locale;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBeautyAdvanceFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBlackMaskBlendFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.LanSongGrindFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.LanSongMaskBlendFilter;
 
 
 import com.example.advanceDemo.GPUImageFilterTools;
@@ -172,7 +174,7 @@ public class CameraLayerFullPortActivity extends Activity implements OnClickList
     	/**
     	 * 相机前后置.是否设置滤镜.
     	 */
-    	mDrawPadCamera.setCameraParam(false,null,true);
+    	mDrawPadCamera.setCameraParam(false, null,true);
     	/**
     	 * 当手动聚焦的时候, 返回聚焦点的位置,让focusView去显示一个聚焦的动画.
     	 */
@@ -180,6 +182,7 @@ public class CameraLayerFullPortActivity extends Activity implements OnClickList
 			
 			@Override
 			public void onFocus(int x, int y) {
+				// TODO Auto-generated method stub
 				focusView.startFocus(x, y);
 			}
 		});
@@ -208,12 +211,12 @@ public class CameraLayerFullPortActivity extends Activity implements OnClickList
      */
       private void startDrawPad()
       {
-    	  if(mDrawPadCamera.setupDrawpad())
+    	  if(mDrawPadCamera.setupDrawpad())  //建立图层.
     	  {
     		  mCamLayer=mDrawPadCamera.getCameraLayer();
     		  addBitmapLayer();
-    		  addMVLayer();
     		  
+    		  addMVLayer();
     		  mDrawPadCamera.startPreview();
     	  }else{
     		  Log.i(TAG,"建立drawpad线程失败.");
@@ -288,10 +291,8 @@ public class CameraLayerFullPortActivity extends Activity implements OnClickList
 			super.onDestroy();
 			stopDrawPad();
 			
-		    if(SDKFileUtils.fileExist(dstPath)){
 		    	SDKFileUtils.deleteFile(dstPath);
 		    	dstPath=null;
-		    }
 	}
    private BitmapLayer  bmpLayer;
    private void addBitmapLayer()

@@ -43,14 +43,14 @@
               android:text="暂停/恢复"
               android:textSize="20sp"/>
           <Button 
-              android:id="@+id/id_test_btn_backplay"
+              android:id="@+id/id_test_btn_speedslow"
               android:layout_width="0dip"
               android:layout_height="wrap_content"
               android:layout_weight="1"
               android:text="慢速"
               android:textSize="20sp"/>
           <Button 
-              android:id="@+id/id_test_btn_replace"
+              android:id="@+id/id_test_btn_speedfast"
               android:layout_width="0dip"
               android:layout_height="wrap_content"
               android:layout_weight="1"

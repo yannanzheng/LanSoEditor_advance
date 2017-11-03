@@ -197,7 +197,7 @@ public class StartActivity extends Activity {
 	}
     
     public void startbutton(View v) {  
-    	Intent intent=new Intent(StartActivity.this,MainActivity.class);
+    	Intent intent=new Intent(StartActivity.this,ListMainActivity.class);
 		startActivity(intent);
 		StartActivity.this.finish();
       }  

@@ -363,8 +363,8 @@ public class MediaInfo {
 	        			  str+= "文件大小(字节):"+file.length()+"\n";
         			  if(info.isHaveVideo()){
         				  str+="视频信息-----:\n";
-	        			  str+= "宽度:"+info.vHeight+"\n";
-	        			  str+= "高度:"+info.vWidth+"\n";
+	        			  str+= "宽度:"+info.vWidth+"\n";
+	        			  str+= "高度:"+info.vHeight+"\n";
 	        			  str+= "时长:"+info.vDuration+"\n";
 	        			  str+= "帧率:"+info.vFrameRate+"\n";
 	        			  str+= "码率:"+info.vBitRate+"\n";

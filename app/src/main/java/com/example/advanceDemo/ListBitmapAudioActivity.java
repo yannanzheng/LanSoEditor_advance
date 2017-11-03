@@ -8,12 +8,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-public class ExtractFrameTypeListActivity extends Activity implements  OnClickListener{
+public class ListBitmapAudioActivity extends Activity implements  OnClickListener{
 
 	String videoPath=null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		
 		 videoPath=getIntent().getStringExtra("videopath");
@@ -28,22 +27,21 @@ public class ExtractFrameTypeListActivity extends Activity implements  OnClickLi
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		switch (v.getId()) {
-		case R.id.id_getframe_testtime:
-			startDemoActivity(ExtractVideoFrameDemoActivity.class,0);
-			break;
-		case R.id.id_getframe_get25frame:
-			startDemoActivity(DisplayFramesActivity.class,DisplayFramesActivity.FRAME_TYPE_25);
-			break;
-		case R.id.id_getframe_get60frame:
-			startDemoActivity(DisplayFramesActivity.class,DisplayFramesActivity.FRAME_TYPE_60);
-			break;
-		case R.id.id_getframe_allframe:
-			startDemoActivity(DisplayFramesActivity.class,DisplayFramesActivity.FRAME_TYPE_ALL);
-			break;
-		default:
-			break;
+			case R.id.id_getframe_testtime:
+				startDemoActivity(ExtractVideoFrameDemoActivity.class,0);
+				break;
+			case R.id.id_getframe_get25frame:
+				startDemoActivity(DisplayFramesActivity.class,DisplayFramesActivity.FRAME_TYPE_25);
+				break;
+			case R.id.id_getframe_get60frame:
+				startDemoActivity(DisplayFramesActivity.class,DisplayFramesActivity.FRAME_TYPE_60);
+				break;
+			case R.id.id_getframe_allframe:
+				startDemoActivity(DisplayFramesActivity.class,DisplayFramesActivity.FRAME_TYPE_ALL);
+				break;
+			default:
+				break;
 		}
 	}
 	private void startDemoActivity(Class<?> cls,int Type)

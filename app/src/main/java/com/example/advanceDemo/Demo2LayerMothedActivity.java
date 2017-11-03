@@ -78,7 +78,7 @@ public class Demo2LayerMothedActivity extends Activity implements OnSeekBarChang
 
     private String mVideoPath;
 
-    private DrawPadView mDrawPadView;
+    private DrawPadView drawPadView;
     
     private MediaPlayer mplayer=null;
     
@@ -96,7 +96,7 @@ public class Demo2LayerMothedActivity extends Activity implements OnSeekBarChang
         initView();
         
         mVideoPath = getIntent().getStringExtra("videopath");
-        mDrawPadView = (DrawPadView) findViewById(R.id.id_mothed2_drawpadview);
+        drawPadView = (DrawPadView) findViewById(R.id.id_mothed2_drawpadview);
         
 
         /**
@@ -110,7 +110,6 @@ public class Demo2LayerMothedActivity extends Activity implements OnSeekBarChang
 			
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				 startPlayVideo();
 			}
 		}, 500);
@@ -123,14 +122,12 @@ public class Demo2LayerMothedActivity extends Activity implements OnSeekBarChang
 				mplayer.setDataSource(mVideoPath);
 				
 			}  catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
         	  mplayer.setOnPreparedListener(new OnPreparedListener() {
 				
 				@Override
 				public void onPrepared(MediaPlayer mp) {
-					// TODO Auto-generated method stub
 					initDrawPad(mp);
 				}
 			});
@@ -138,7 +135,6 @@ public class Demo2LayerMothedActivity extends Activity implements OnSeekBarChang
 				
 				@Override
 				public void onCompletion(MediaPlayer mp) {
-					// TODO Auto-generated method stub
 					stopDrawPad();
 				}
 			});
@@ -151,8 +147,6 @@ public class Demo2LayerMothedActivity extends Activity implements OnSeekBarChang
     }
     /**
      * Step1:  init Drawpad  初始化DrawPad
-     * 
-     * @param mp
      */
     private void initDrawPad(MediaPlayer mp)
     {
@@ -163,17 +157,17 @@ public class Demo2LayerMothedActivity extends Activity implements OnSeekBarChang
     		/**
     		 * 设置DrawPad的刷新模式,默认 {@link DrawPad.UpdateMode#ALL_VIDEO_READY};
     		 */
-        	mDrawPadView.setUpdateMode(DrawPadUpdateMode.ALL_VIDEO_READY,25);
+        	drawPadView.setUpdateMode(DrawPadUpdateMode.ALL_VIDEO_READY,25);
         		
         	/**
         	 * 设置使能 实时录制, 即把正在DrawPad中呈现的画面实时的保存下来,起到所见即所得的模式
         	 */
-        	mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)mInfo.vFrameRate,editTmpPath);
+        	drawPadView.setRealEncodeEnable(480,480,1000000,(int)mInfo.vFrameRate,editTmpPath);
         	
         	/**
         	 * 设置当前DrawPad的宽度和高度,并把宽度自动缩放到父view的宽度,然后等比例调整高度.
         	 */
-        	mDrawPadView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
+        	drawPadView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
     			
     			@Override
     			public void onSizeChanged(int viewWidth, int viewHeight) {
@@ -183,7 +177,7 @@ public class Demo2LayerMothedActivity extends Activity implements OnSeekBarChang
     		});
         	
 
-        	mDrawPadView.setOnDrawPadProgressListener(new onDrawPadProgressListener() {
+        	drawPadView.setOnDrawPadProgressListener(new onDrawPadProgressListener() {
 				
 				@Override
 				public void onProgress(DrawPad v, long currentTimeUs) {
@@ -201,12 +195,14 @@ public class Demo2LayerMothedActivity extends Activity implements OnSeekBarChang
     	/**
     	 *  开始DrawPad的渲染线程. 
     	 */
-		if(mDrawPadView.startDrawPad())
+		if(drawPadView.startDrawPad())
 		{
 			/**
 			 * 增加一个背景, 用来说明裁剪掉的一部分是透明的
 			 */
-			mDrawPadView.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.videobg));
+			BitmapLayer layer=drawPadView.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.videobg));
+			layer.setScaledValue(layer.getPadWidth(), layer.getPadHeight());  //填充整个屏幕.
+			
 //			/**
 //			 * 增加一个主视频的 VideoLayer
 //			 */
@@ -224,7 +220,7 @@ public class Demo2LayerMothedActivity extends Activity implements OnSeekBarChang
 //				mVideoLayer=mDrawPadView.addMainVideoLayer(param,null);
 //				mVideoLayer.setImageRenderLast(false);
 //			}
-			videoLayer=mDrawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
+			videoLayer=drawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
 			
 			if(videoLayer!=null){
 				mplayer.setSurface(new Surface(videoLayer.getVideoTexture()));
@@ -237,8 +233,8 @@ public class Demo2LayerMothedActivity extends Activity implements OnSeekBarChang
      */
     private void stopDrawPad()
     {
-    	if(mDrawPadView!=null && mDrawPadView.isRunning()){
-			mDrawPadView.stopDrawPad();
+    	if(drawPadView!=null && drawPadView.isRunning()){
+			drawPadView.stopDrawPad();
 			Toast.makeText(getApplicationContext(), "录制已停止!!", Toast.LENGTH_SHORT).show();
 			
 			if(SDKFileUtils.fileExist(editTmpPath)){
@@ -266,9 +262,9 @@ public class Demo2LayerMothedActivity extends Activity implements OnSeekBarChang
 				mplayer=null;
 			}
 			
-			if(mDrawPadView!=null){
-				mDrawPadView.stopDrawPad();
-				mDrawPadView=null;        		   
+			if(drawPadView!=null){
+				drawPadView.stopDrawPad();
+				drawPadView=null;        		   
 			}
 			if(SDKFileUtils.fileExist(dstPath)){
 				SDKFileUtils.deleteFile(dstPath);
