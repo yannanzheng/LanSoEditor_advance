@@ -79,7 +79,7 @@ public class ListMainActivity extends Activity implements OnClickListener{
         checkPermission();
     	
         initView();
-//        showHintDialog();
+        showHintDialog();
         testFile();
     }
     @Override

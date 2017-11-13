@@ -48,7 +48,6 @@
     
     <!-- android:largeHeap="true"让他内存显示最大到512M -->
     <application
-       	android:name="com.example.advanceDemo.DemoApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:largeHeap="true"
@@ -80,8 +79,7 @@
         <activity android:name="com.example.advanceDemo.ListCameraRecordActivity"
             android:screenOrientation="portrait"></activity>
         
-        <activity android:name="com.example.advanceDemo.camera.CameraLayerEXTPcmActivity"></activity>
-              
+
           <activity android:name="com.example.advanceDemo.camera.CameraLayerRectActivity"
             android:screenOrientation="portrait"></activity>
         <activity android:name="com.example.advanceDemo.camera.CameraLayerFullPortActivity"
