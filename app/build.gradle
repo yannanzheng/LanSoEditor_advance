@@ -27,4 +27,5 @@ dependencies {
     compile files('libs/lansongeditor_hx.jar')
     compile files('libs/PermissionsManager.jar')
     compile files('libs/textsurface.jar')
+    compile files('libs/particlelibrary.jar')
 }

@@ -59,9 +59,6 @@ public class ExecuteBitmapPadActivity extends Activity{
 		TextView tvHint;
 	 
 	    private String dstPath=null;
-	    
-	    
-	
 		BitmapLayer bitmapLayer=null;
 		
 	@Override
@@ -90,7 +87,6 @@ public class ExecuteBitmapPadActivity extends Activity{
     	}
    @Override
     protected void onDestroy() {
-    	// TODO Auto-generated method stub
     	super.onDestroy();
     	 if(SDKFileUtils.fileExist(dstPath)){
     		 SDKFileUtils.deleteFile(dstPath);
@@ -104,6 +100,7 @@ public class ExecuteBitmapPadActivity extends Activity{
 		if(bendBmp.init(bmp1.getWidth(),bmp1.getHeight()))
 		{
 			Bitmap bmp=bendBmp.getBlendBitmap(bmp1, bmp2);
+			
 		}
 		bendBmp.release();
 	}

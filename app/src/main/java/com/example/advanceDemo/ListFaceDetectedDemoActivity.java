@@ -28,5 +28,4 @@ public class ListFaceDetectedDemoActivity extends Activity implements OnClickLis
     	intent.putExtra("videopath", videoPath);
     	startActivity(intent);
    	}
-
 }

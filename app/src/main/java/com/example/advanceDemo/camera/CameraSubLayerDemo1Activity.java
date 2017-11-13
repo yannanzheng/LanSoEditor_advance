@@ -20,9 +20,7 @@ import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBlurFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.LanSongGrindFilter;
 
 
-import com.example.advanceDemo.GPUImageFilterTools;
 import com.example.advanceDemo.VideoPlayerActivity;
-import com.example.advanceDemo.GPUImageFilterTools.OnGpuImageFilterChosenListener;
 import com.example.advanceDemo.view.CameraProgressBar;
 import com.example.advanceDemo.view.FaceView;
 import com.example.advanceDemo.view.FocusImageView;
@@ -48,8 +46,10 @@ import com.lansosdk.videoeditor.AVDecoder;
 import com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask;
 import com.lansosdk.videoeditor.CopyFileFromAssets;
 import com.lansosdk.videoeditor.DrawPadCameraView;
+import com.lansosdk.videoeditor.FilterLibrary;
 import com.lansosdk.videoeditor.DrawPadCameraView.doFousEventListener;
 import com.lansosdk.videoeditor.DrawPadCameraView.onViewAvailable;
+import com.lansosdk.videoeditor.FilterLibrary.OnGpuImageFilterChosenListener;
 import com.lansosdk.videoeditor.DrawPadView;
 import com.lansosdk.videoeditor.LanSongUtil;
 import com.lansosdk.videoeditor.SDKFileUtils;

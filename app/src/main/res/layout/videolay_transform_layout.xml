@@ -35,9 +35,15 @@
               android:layout_gravity="center"
               android:src="@drawable/play2"/>
       </LinearLayout>
-      	   
-       <TextView 
+     
+      <SeekBar 
+          android:id="@+id/id_transform2_seekbar"
            android:layout_below="@id/id_videolayer_drawpad"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:max="100"/>	   
+       <TextView 
+           android:layout_below="@id/id_transform2_seekbar"
     	    android:layout_width="wrap_content"
     	    android:layout_height="wrap_content" 
     	    android:text="@string/videolayer_transform_hints"

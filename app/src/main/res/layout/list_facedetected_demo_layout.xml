@@ -12,6 +12,6 @@
         android:textColor="@color/white"
         android:layout_margin="20dip"
         android:textSize="20dip"
-        android:text="即将推出 人脸检测, 皮肤检测等....\n\n\n\n敬请期待或联系我们."/>
+        android:text="请直接在当前demo文件夹中, 安装[LanSong人脸检测.apk]....\n\n联系我们."/>
 
 </RelativeLayout>

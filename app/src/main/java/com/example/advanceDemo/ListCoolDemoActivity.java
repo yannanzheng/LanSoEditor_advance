@@ -7,6 +7,8 @@ import com.example.advanceDemo.camera.CameraLayerFullSegmentActivity;
 import com.example.advanceDemo.camera.CameraLayerRectActivity;
 import com.example.advanceDemo.camera.CameraSubLayerDemo1Activity;
 import com.example.advanceDemo.camera.CameraSubLayerDemo2Activity;
+import com.example.advanceDemo.cool.ParticleDemoActivity;
+import com.example.advanceDemo.cool.VViewImage3DDemoActivity;
 import com.lansoeditor.demo.R;
 
 import android.app.Activity;
@@ -27,6 +29,8 @@ public class ListCoolDemoActivity extends Activity implements OnClickListener{
 		 
 		
 		findViewById(R.id.id_cool_image3d).setOnClickListener(this);
+		findViewById(R.id.id_cool_particle).setOnClickListener(this);
+		
 	}
 	@Override
 	public void onClick(View v) {
@@ -34,7 +38,9 @@ public class ListCoolDemoActivity extends Activity implements OnClickListener{
 			case R.id.id_cool_image3d:
 				startDemoActivity(VViewImage3DDemoActivity.class);
 				break;
-	
+			case R.id.id_cool_particle:
+				startDemoActivity(ParticleDemoActivity.class);
+				break;
 			default:
 				break;
 		}

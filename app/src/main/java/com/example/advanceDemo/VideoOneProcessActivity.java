@@ -6,17 +6,19 @@ import java.util.Calendar;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 
-import com.example.advanceDemo.GPUImageFilterTools.FilterAdjuster;
-import com.example.advanceDemo.GPUImageFilterTools.OnGpuImageFilterChosenListener;
-import com.example.advanceDemo.RangeSeekBar.OnRangeSeekBarChangeListener;
+import com.example.advanceDemo.view.RangeSeekBar;
+import com.example.advanceDemo.view.RangeSeekBar.OnRangeSeekBarChangeListener;
 import com.example.commonDemo.AVEditorDemoActivity;
 import com.lansoeditor.demo.R;
 import com.lansosdk.videoeditor.CopyFileFromAssets;
+import com.lansosdk.videoeditor.FilterLibrary;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoOneDo;
 import com.lansosdk.videoeditor.onVideoOneDoCompletedListener;
 import com.lansosdk.videoeditor.onVideoOneDoProgressListener;
+import com.lansosdk.videoeditor.FilterLibrary.FilterAdjuster;
+import com.lansosdk.videoeditor.FilterLibrary.OnGpuImageFilterChosenListener;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -84,7 +86,7 @@ public class VideoOneProcessActivity extends Activity  implements OnClickListene
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.test_ui);
+		setContentView(R.layout.video_one_do_process_layout);
 		mContext=getApplicationContext();
 		
 		videoPath = getIntent().getStringExtra("videopath");
@@ -315,10 +317,10 @@ public class VideoOneProcessActivity extends Activity  implements OnClickListene
      */
     private void selectFilter()
     {
-    	GPUImageFilterTools.showDialog(this, new OnGpuImageFilterChosenListener() {
+    	FilterLibrary.showDialog(this, new OnGpuImageFilterChosenListener() {
 
             @Override
-            public void onGpuImageFilterChosenListener(final GPUImageFilter filter) {
+            public void onGpuImageFilterChosenListener(final GPUImageFilter filter,String name) {
             	   if(filter!=null)
             	   {
             		   mFilter=filter;

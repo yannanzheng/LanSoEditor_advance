@@ -387,7 +387,6 @@ public class VideoOneDo {
                 float f= (float)(padHeight*padWidth) /(float)(srcInfo.vWidth * srcInfo.vHeight);
                 bitrate *=f;
             }
-            Log.i(TAG,"xxx+"+ padWidth +" "+ padHeight);
             mDrawPad=new DrawPadVideoExecute(context,videoPath,startTimeUs/1000,padWidth,padHeight,(int)bitrate,videoFilter,editTmpPath);
         }
         mDrawPad.setUseMainVideoPts(true);

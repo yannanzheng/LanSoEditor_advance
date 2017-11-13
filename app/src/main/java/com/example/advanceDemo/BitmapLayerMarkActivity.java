@@ -53,7 +53,7 @@ public class BitmapLayerMarkActivity extends Activity{
 
     private String mVideoPath;
 
-    private MarkArrowView mMarkView;
+    private MarkArrowView markView;
     
     private MediaPlayer mplayer=null;
     
@@ -72,13 +72,12 @@ public class BitmapLayerMarkActivity extends Activity{
         
         mVideoPath = getIntent().getStringExtra("videopath");
         
-        mMarkView = (MarkArrowView) findViewById(R.id.markarrow_view);
+        markView = (MarkArrowView) findViewById(R.id.markarrow_view);
         playVideo=(LinearLayout)findViewById(R.id.id_markarrow_saveplay);
         playVideo.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				 if(SDKFileUtils.fileExist(dstPath)){
 		   			 	Intent intent=new Intent(mContext,VideoPlayerActivity.class);
 			    	    	intent.putExtra("videopath", dstPath);
@@ -94,18 +93,17 @@ public class BitmapLayerMarkActivity extends Activity{
          * 在手机的默认路径下创建一个文件名,
          * 用来保存生成的视频文件,(在onDestroy中删除)
          */
-        editTmpPath=SDKFileUtils.createFile(SDKDir.TMP_DIR, ".mp4");
-        dstPath=SDKFileUtils.newFilePath(SDKDir.TMP_DIR, ".mp4");
+        editTmpPath=SDKFileUtils.createMp4FileInBox();
+        dstPath=SDKFileUtils.createMp4FileInBox();
         
         
         new Handler().postDelayed(new Runnable() {
 			
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				 startPlayVideo();
 			}
-		}, 500);
+		}, 200);
     }
     private void startPlayVideo()
     {
@@ -115,14 +113,12 @@ public class BitmapLayerMarkActivity extends Activity{
 				mplayer.setDataSource(mVideoPath);
 				
 			}  catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
         	  mplayer.setOnPreparedListener(new OnPreparedListener() {
 				
 				@Override
 				public void onPrepared(MediaPlayer mp) {
-					// TODO Auto-generated method stub
 					initDrawPad();
 				}
 			});
@@ -130,7 +126,6 @@ public class BitmapLayerMarkActivity extends Activity{
 				
 				@Override
 				public void onCompletion(MediaPlayer mp) {
-					// TODO Auto-generated method stub
 					stopDrawPad();
 				}
 			});
@@ -151,8 +146,8 @@ public class BitmapLayerMarkActivity extends Activity{
     	if(info.prepare())
     	{
 //    		mMarkView.setUseMainVideoPts(true);
-        	mMarkView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
-        	mMarkView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
+        	markView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
+        	markView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
     			
     			@Override
     			public void onSizeChanged(int viewWidth, int viewHeight) {
@@ -167,9 +162,9 @@ public class BitmapLayerMarkActivity extends Activity{
      */
     private void startDrawPad()
     {
-    	mMarkView.startDrawPad();
+    	markView.startDrawPad();
 		
-		mLayerMain=mMarkView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
+		mLayerMain=markView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
 		if(mLayerMain!=null){
 			mplayer.setSurface(new Surface(mLayerMain.getVideoTexture()));
 		}
@@ -181,8 +176,8 @@ public class BitmapLayerMarkActivity extends Activity{
      */
     private void stopDrawPad()
     {
-    	if(mMarkView!=null && mMarkView.isRunning()){
-			mMarkView.stopDrawPad();
+    	if(markView!=null && markView.isRunning()){
+			markView.stopDrawPad();
 			
 			toastStop();
 			
@@ -209,9 +204,9 @@ public class BitmapLayerMarkActivity extends Activity{
 			mplayer.release();
 			mplayer=null;
 		}
-		if(mMarkView!=null){
-			mMarkView.stopDrawPad();
-			mMarkView=null;        		   
+		if(markView!=null){
+			markView.stopDrawPad();
+			markView=null;        		   
 		}
 		if(SDKFileUtils.fileExist(editTmpPath)){
 			SDKFileUtils.deleteFile(editTmpPath);

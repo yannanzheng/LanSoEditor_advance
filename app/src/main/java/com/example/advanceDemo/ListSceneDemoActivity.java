@@ -1,5 +1,14 @@
 package com.example.advanceDemo;
 
+import com.example.advanceDemo.scene.ExecuteAllDrawpadActivity;
+import com.example.advanceDemo.scene.ExecuteBitmapLayerActivity;
+import com.example.advanceDemo.scene.LayerLayoutDemoActivity;
+import com.example.advanceDemo.scene.MoreLayHeadSeekActivity;
+import com.example.advanceDemo.scene.OutBodyDemoActivity;
+import com.example.advanceDemo.scene.PictureSetRealTimeActivity;
+import com.example.advanceDemo.scene.Video2LayoutActivity;
+import com.example.advanceDemo.scene.VideoLayerTransformActivity;
+import com.example.advanceDemo.scene.VideoSpeedDemoActivity;
 import com.lansoeditor.demo.R;
 
 import android.app.Activity;
@@ -22,11 +31,19 @@ public class ListSceneDemoActivity extends Activity implements OnClickListener{
 		 videoPath = getIntent().getStringExtra("videopath");
 		 
 		findViewById(R.id.id_layer_pictures).setOnClickListener(this);
+		findViewById(R.id.id_layer_pictures_exe).setOnClickListener(this);
+		
 		findViewById(R.id.id_layer_outbody).setOnClickListener(this);
+		
+		
 		findViewById(R.id.id_layer_videotransform).setOnClickListener(this);
 		findViewById(R.id.id_layer_videotransform2).setOnClickListener(this);
 		findViewById(R.id.id_layer_videobiansu).setOnClickListener(this);
 		findViewById(R.id.id_layer_videoreverse).setOnClickListener(this);
+		
+		
+		findViewById(R.id.id_layer_cuoluo_layout).setOnClickListener(this);
+		findViewById(R.id.id_layer_video2_layout).setOnClickListener(this);
 		
 	}
 	@Override
@@ -35,6 +52,10 @@ public class ListSceneDemoActivity extends Activity implements OnClickListener{
 				case R.id.id_layer_pictures:  //图片影集
 					startDemoActivity(PictureSetRealTimeActivity.class);
 				break;
+				case R.id.id_layer_pictures_exe:  //图片影集
+					startDemoActivity(ExecuteBitmapLayerActivity.class);
+				break;
+				
 				case R.id.id_layer_outbody:
 					startDemoActivity(OutBodyDemoActivity.class);
 				break;
@@ -44,8 +65,14 @@ public class ListSceneDemoActivity extends Activity implements OnClickListener{
 				case R.id.id_layer_videotransform2:
 					startDemoActivity(ExecuteAllDrawpadActivity.class);
 				break;
+				case R.id.id_layer_cuoluo_layout:
+					startDemoActivity(LayerLayoutDemoActivity.class);
+					break;
+				case R.id.id_layer_video2_layout:
+					startDemoActivity(Video2LayoutActivity.class);
+					break;
 				case R.id.id_layer_videobiansu:
-					startDemoActivity(TestLayerPlayerActivity.class);
+					startDemoActivity(VideoSpeedDemoActivity.class);
 				break;
 				case R.id.id_layer_videoreverse:
 					showHintDialog("此功能演示在合作后提供");

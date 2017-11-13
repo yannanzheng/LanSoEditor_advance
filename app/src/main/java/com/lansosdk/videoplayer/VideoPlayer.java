@@ -457,6 +457,11 @@ public class VideoPlayer  {
     }
     public void setSpeed(float rate)
     {
+    	if(rate<0.5f){
+    		rate=0.5f;
+    	}else if(rate>2.0f){
+    		rate=2.0f;
+    	}
     	_setSpeed(rate);
     }
     /**

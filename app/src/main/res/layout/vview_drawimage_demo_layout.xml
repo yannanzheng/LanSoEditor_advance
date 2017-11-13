@@ -23,7 +23,6 @@
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:background="@android:color/transparent" >
-	  
 		  	  <com.example.advanceDemo.view.ImageTouchView
 		        android:id="@+id/switcher"
 		        android:layout_width="match_parent"
@@ -39,11 +38,23 @@
 		  	       android:layout_centerVertical="true"
 		  	       android:layout_alignParentLeft="true"
 		  	       android:background="@color/red"
-		  	       android:text="您还可以增加演示文字"
+		  	       android:text="上面是UI图层,您可以把整个UI叠加上面."
 		  	       android:textColor="@color/white"
 		  	       android:visibility="gone"
 		  	       android:textSize="28sp"
 	  	       		/>
+		  	    <com.example.advanceDemo.view.StickerView 
+		  	        android:id="@+id/id_vview_drawimage_stickview"
+		  	        android:layout_width="match_parent"
+		  	        android:layout_height="match_parent"
+		        	android:layout_centerInParent="true"
+		  	        />
+		  	     <com.example.advanceDemo.view.TextStickerView 
+		  	         android:id="@+id/id_vview_drawimage_textstickview"
+		  	        android:layout_width="match_parent"
+		  	        android:layout_height="match_parent"
+		        	android:layout_centerInParent="true"
+		  	        />
    	 </com.lansosdk.box.ViewLayerRelativeLayout>
       	   
      <LinearLayout 
@@ -68,27 +79,43 @@
               android:layout_gravity="center"
               android:src="@drawable/play2"/>
       </LinearLayout>
-         
-     
-       <LinearLayout 
+      
+        <LinearLayout
+	        	android:id="@+id/id_vview_drawimage_control"
            android:layout_below="@id/id_vview_realtime_drawpadview"
-    	    android:layout_width="match_parent"
-    	    android:layout_height="wrap_content"
-    	    android:orientation="vertical">
-          
-           <TextView
-    	    android:layout_width="wrap_content"
-    	    android:layout_height="wrap_content" 
-    	    android:text="@string/drawimage_hint1"
-    	    android:textColor="@color/blue"
-    	    android:textSize="18sp"/>
-           
-           <TextView
-    	    android:layout_width="wrap_content"
-    	    android:layout_height="wrap_content" 
-    	    android:text="@string/drawimage_hint2"
-    		android:layout_gravity="center"
-    	    android:textColor="@color/red"
-    	    android:textSize="18sp"/>
-       </LinearLayout>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+             <Button 
+	        	android:id="@+id/id_vview_drawimage_pause"
+		         android:layout_width="0dip"
+		         android:layout_weight="1"
+		         android:layout_height="wrap_content"
+		         android:layout_margin="5dip"
+		         android:background="@drawable/button_btn_bg"
+		         android:text="暂停/恢复"/>
+             
+             <Button 
+		        android:id="@+id/id_vview_drawimage_addstick"
+		         android:layout_width="0dip"
+		         android:layout_weight="1"
+		         android:layout_height="wrap_content"
+		         android:layout_margin="5dip"
+		         android:background="@drawable/button_btn_bg"
+		         android:text="演示贴纸"/>
+		      <Button 
+		          android:id="@+id/id_vview_drawimage_addtext"
+		         android:layout_width="0dip"
+		         android:layout_weight="1"
+		         android:layout_height="wrap_content"
+		         android:layout_margin="5dip"
+		         android:background="@drawable/button_btn_bg"
+		         android:text="演示文字"/>
+        </LinearLayout>
+          <TextView
+           android:layout_below="@id/id_vview_drawimage_control"
+	   	    android:layout_width="wrap_content"
+	   	    android:layout_height="wrap_content" 
+	   	    android:text="@string/drawimage_hint1"
+	   	    android:textColor="@color/blue"/>
 </RelativeLayout>

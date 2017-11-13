@@ -14,7 +14,10 @@ import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 
 import com.example.advanceDemo.view.ImageTouchView;
 import com.example.advanceDemo.view.PaintConstants;
+import com.example.advanceDemo.view.StickerView;
+import com.example.advanceDemo.view.TextStickerView;
 import com.lansoeditor.demo.R;
+import com.lansosdk.box.BitmapLayer;
 import com.lansosdk.box.DrawPad;
 import com.lansosdk.box.DrawPadUpdateMode;
 import com.lansosdk.box.VideoLayer;
@@ -41,6 +44,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnPreparedListener;
@@ -56,12 +60,16 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -71,25 +79,29 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
  *  演示: 视频涂鸦
  *  
  */
-public class ViewLayerDemoActivity extends Activity{
+public class ViewLayerDemoActivity extends Activity implements OnClickListener{
     private static final String TAG = "ViewLayerDemoActivity";
 
     private String mVideoPath;
 
-    private DrawPadView mDrawPadView;
+    private DrawPadView drawPadView;
     
     private MediaPlayer mplayer=null;
     
     private VideoLayer  mainVideoLayer=null;
-    private ViewLayer mViewLayer=null;
+ 
     
 //    
     private String editTmpPath=null;  //用来保存容器录制的目标文件路径.
     private String dstPath=null;
-
-    private ViewLayerRelativeLayout mLayerRelativeLayout;
+    
+    private ViewLayer mViewLayer=null;
+    private ViewLayerRelativeLayout viewLayerRelativeLayout;
+    
     private MediaInfo  mInfo=null;
     ImageTouchView imgeTouchView;
+    private StickerView  stickView;
+    private TextStickerView textStickView;
     @Override
     protected void onCreate(Bundle savedInstanceState) 
     {
@@ -104,13 +116,9 @@ public class ViewLayerDemoActivity extends Activity{
             finish();
         }
         
-        mDrawPadView = (DrawPadView) findViewById(R.id.id_vview_realtime_drawpadview);
-        imgeTouchView=(ImageTouchView)findViewById(R.id.switcher);
-        imgeTouchView.setActivity(ViewLayerDemoActivity.this);
-        
-        mLayerRelativeLayout=(ViewLayerRelativeLayout)findViewById(R.id.id_vview_realtime_gllayout);
+        drawPadView = (DrawPadView) findViewById(R.id.id_vview_realtime_drawpadview);
+
       
-    	
         initView();
         
         //在手机的默认路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
@@ -125,10 +133,9 @@ public class ViewLayerDemoActivity extends Activity{
 			
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				 startPlayVideo();
 			}
-		},500);
+		},200);
     }
     private void startPlayVideo()
     {
@@ -137,14 +144,12 @@ public class ViewLayerDemoActivity extends Activity{
 				mplayer.setDataSource(mVideoPath);
 				
 			}  catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
         	  mplayer.setOnPreparedListener(new OnPreparedListener() {
 				
 				@Override
 				public void onPrepared(MediaPlayer mp) {
-					// TODO Auto-generated method stub
 					initDrawPad();
 				}
 			});
@@ -152,7 +157,6 @@ public class ViewLayerDemoActivity extends Activity{
 				
 				@Override
 				public void onCompletion(MediaPlayer mp) {
-					// TODO Auto-generated method stub
 					stopDrawPad();
 				}
 			});
@@ -169,23 +173,14 @@ public class ViewLayerDemoActivity extends Activity{
     	MediaInfo info=new MediaInfo(mVideoPath,false);
     	if(info.prepare())
     	{
-    		mDrawPadView.setUpdateMode(DrawPadUpdateMode.AUTO_FLUSH,25);
-    		mDrawPadView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
+    		drawPadView.setUpdateMode(DrawPadUpdateMode.AUTO_FLUSH,25);
+    		drawPadView.setRealEncodeEnable(480,480,1000000,(int)info.vFrameRate,editTmpPath);
     		
-    		mDrawPadView.setOnDrawPadSnapShotListener(new onDrawPadSnapShotListener() {
-				
-				@Override
-				public void onSnapShot(DrawPad v, Bitmap bmp) {
-					// TODO Auto-generated method stub
-					Log.i(TAG,"drawPad snap shot!!!!!"+ bmp.getWidth()+" x " +bmp.getHeight());
-				}
-			});
-    		mDrawPadView.setOnDrawPadProgressListener(new onDrawPadProgressListener() {
+    		drawPadView.setOnDrawPadProgressListener(new onDrawPadProgressListener() {
 				
 				@Override
 				public void onProgress(DrawPad v, long currentTimeUs) {
-					// TODO Auto-generated method stub
-					if(currentTimeUs>7000*1000)  //在第7秒的时候, 不再显示.
+					if(currentTimeUs>10*1000*1000)  //在第7秒的时候, 不再显示.
 		  			{
 		  				hideWord();
 		  			}else if(currentTimeUs>3*1000*1000)  //在第三秒的时候, 显示tvWord
@@ -194,11 +189,10 @@ public class ViewLayerDemoActivity extends Activity{
 		  			}
 				}
 			});
-        	mDrawPadView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
+        	drawPadView.setDrawPadSize(480,480,new onDrawPadSizeChangedListener() {
     			
     			@Override
     			public void onSizeChanged(int viewWidth, int viewHeight) {
-    				// TODO Auto-generated method stub
     				startDrawPad();
     			}
     		});
@@ -210,9 +204,13 @@ public class ViewLayerDemoActivity extends Activity{
      */
     private void startDrawPad()
     {
-    	if(mDrawPadView.startDrawPad())
+    	if(drawPadView.startDrawPad())
     	{
-    		mainVideoLayer=mDrawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
+    		//给容器增加一个背景
+			BitmapLayer layer=drawPadView.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.videobg));
+			layer.setScaledValue(layer.getPadWidth(), layer.getPadHeight());  //填充整个容器
+			
+    		mainVideoLayer=drawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
     		if(mainVideoLayer!=null){
     			mplayer.setSurface(new Surface(mainVideoLayer.getVideoTexture()));
     		}
@@ -225,8 +223,8 @@ public class ViewLayerDemoActivity extends Activity{
      */
     private void stopDrawPad()
     {
-    	if(mDrawPadView!=null && mDrawPadView.isRunning()){
-			mDrawPadView.stopDrawPad();
+    	if(drawPadView!=null && drawPadView.isRunning()){
+			drawPadView.stopDrawPad();
 			
 			toastStop();
 			
@@ -239,7 +237,6 @@ public class ViewLayerDemoActivity extends Activity{
 					SDKFileUtils.deleteFile(editTmpPath);
 		    	findViewById(R.id.id_vview_realtime_saveplay).setVisibility(View.VISIBLE);
 			}
-			
 		}
     }
     /**
@@ -247,18 +244,18 @@ public class ViewLayerDemoActivity extends Activity{
      */
     private void addViewLayer()
     {
-    	if(mDrawPadView!=null && mDrawPadView.isRunning())
+    	if(drawPadView!=null && drawPadView.isRunning())
     	{
-    		mViewLayer=mDrawPadView.addViewLayer();
+    		mViewLayer=drawPadView.addViewLayer();
             
-    		//把这个图层绑定到LayerRelativeLayout中.从而LayerRelativeLayout中的各种UI界面会被绘制到Drawpad上.
-    		mLayerRelativeLayout.bindViewLayer(mViewLayer);
+    		//绑定
+    		viewLayerRelativeLayout.bindViewLayer(mViewLayer);
     		
-            mLayerRelativeLayout.invalidate();//刷新一下.
+            viewLayerRelativeLayout.invalidate();//刷新一下.
             
-            ViewGroup.LayoutParams  params=mLayerRelativeLayout.getLayoutParams();
+            ViewGroup.LayoutParams  params=viewLayerRelativeLayout.getLayoutParams();
             params.height=mViewLayer.getPadHeight();  //因为布局时, 宽度一致, 这里调整高度,让他们一致.
-            mLayerRelativeLayout.setLayoutParams(params);
+            viewLayerRelativeLayout.setLayoutParams(params);
             
             //UI图层的移动缩放旋转.
 //            mViewLayer.setScale(0.5f);
@@ -272,39 +269,51 @@ public class ViewLayerDemoActivity extends Activity{
     	Toast.makeText(getApplicationContext(), "录制已停止!!", Toast.LENGTH_SHORT).show();
     }
     @Override
+    protected void onPause() {
+    	super.onPause();
+    	
+    	if(drawPadView!=null){
+    		drawPadView.stopDrawPad();
+    		drawPadView=null;        		   
+    	}
+    }
+    @Override
     protected void onDestroy() {
-    	// TODO Auto-generated method stub
     	super.onDestroy();
     	if(mplayer!=null){
     		mplayer.stop();
     		mplayer.release();
     		mplayer=null;
     	}
-    	
-    	
-    	if(mDrawPadView!=null){
-    		mDrawPadView.stopDrawPad();
-    		mDrawPadView=null;        		   
+    	if(drawPadView!=null){
+    		drawPadView.stopDrawPad();
+    		drawPadView=null;        		   
     	}
-    	  if(SDKFileUtils.fileExist(dstPath)){
-    		  SDKFileUtils.deleteFile(dstPath);
-          }
-          if(SDKFileUtils.fileExist(editTmpPath)){
-        	  SDKFileUtils.deleteFile(editTmpPath);
-          } 
+    	SDKFileUtils.deleteFile(dstPath);
+    	SDKFileUtils.deleteFile(editTmpPath);
     }
     //--------------------------------------一下为UI界面-----------------------------------------------------------
-    int  snapShotW=480;
-    int  snapShotH=480;
     private void initView()
     {
     	  tvWord=(TextView)findViewById(R.id.id_vview_tvtest);
+          findViewById(R.id.id_vview_drawimage_pause).setOnClickListener(this);
+          findViewById(R.id.id_vview_drawimage_addstick).setOnClickListener(this);
+          findViewById(R.id.id_vview_drawimage_addtext).setOnClickListener(this);
+          
+          
+          imgeTouchView=(ImageTouchView)findViewById(R.id.switcher);
+          imgeTouchView.setActivity(ViewLayerDemoActivity.this);
+          
+          stickView=(StickerView)findViewById(R.id.id_vview_drawimage_stickview);
+          textStickView=(TextStickerView)findViewById(R.id.id_vview_drawimage_textstickview);
+          
+          viewLayerRelativeLayout=(ViewLayerRelativeLayout)findViewById(R.id.id_vview_realtime_gllayout);
+          
           
           findViewById(R.id.id_vview_realtime_saveplay).setOnClickListener(new OnClickListener() {
   			
   			@Override
   			public void onClick(View v) {
-  				// TODO Auto-generated method stub
   				 if(SDKFileUtils.fileExist(dstPath)){
   		   			 	Intent intent=new Intent(ViewLayerDemoActivity.this,VideoPlayerActivity.class);
   			    	    	intent.putExtra("videopath", dstPath);
@@ -322,14 +331,82 @@ public class ViewLayerDemoActivity extends Activity{
     	 if(tvWord!=null&& tvWord.getVisibility()!=View.VISIBLE){
 				 tvWord.startAnimation(AnimationUtils.loadAnimation(ViewLayerDemoActivity.this, R.anim.slide_right_in));
 				 tvWord.setVisibility(View.VISIBLE); 
-			 }
+    	 }
     }
     private void hideWord()
     {
     	 if(tvWord!=null&& tvWord.getVisibility()==View.VISIBLE){
 				 tvWord.startAnimation(AnimationUtils.loadAnimation(ViewLayerDemoActivity.this, R.anim.slide_right_out));
-  			 tvWord.setVisibility(View.GONE); 
+				 tvWord.setVisibility(View.GONE); 
 			 }
     }
+    private int stickCnt=2;
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+			case R.id.id_vview_drawimage_pause:
+					if(mplayer!=null)
+					{
+						 if(mplayer.isPlaying()){
+								mplayer.pause();
+								drawPadView.pauseDrawPad();
+								
+								//解除绑定, 让
+								if(viewLayerRelativeLayout!=null){
+									viewLayerRelativeLayout.unBindViewLayer();
+								}
+								
+						 }else{
+							 	mplayer.start();
+								drawPadView.resumeDrawPad();
+								if(viewLayerRelativeLayout!=null){
+									viewLayerRelativeLayout.bindViewLayer(mViewLayer);
+								}
+								//把贴纸的边框去掉.
+								stickView.disappearIconBorder();
+								textStickView.disappearIconBorder();
+						 }
+					}
+					break;
+			case R.id.id_vview_drawimage_addstick:
+			   if(stickView!=null){
+				   Bitmap bmp=null;
+				   if(stickCnt==2){
+					   bmp=BitmapFactory.decodeResource(getResources(), R.drawable.stick2); 
+				   }else if(stickCnt==3){
+					   bmp=BitmapFactory.decodeResource(getResources(), R.drawable.stick3);   
+				   }else if(stickCnt==4){
+					   bmp=BitmapFactory.decodeResource(getResources(), R.drawable.stick4);   
+				   }else{
+					   bmp=BitmapFactory.decodeResource(getResources(), R.drawable.stick5);   
+				   }
+			   		stickCnt++;
+			   		stickView.addBitImage(bmp);
+			   }
+			break;
+			case R.id.id_vview_drawimage_addtext:
+				showInputDialog();
+				break;
+			default:
+				break;
+		}
+	}
+	private String strInputText="蓝松文字演示";
+	private void showInputDialog()
+	{
+		final EditText etInput = new EditText(this);  
+           
+		new AlertDialog.Builder(this).setTitle("请输入文字")  
+		.setView(etInput)  
+		.setPositiveButton("确定", new AlertDialog.OnClickListener() {  
+		    public void onClick(DialogInterface dialog, int which) {  
+		    	String input = etInput.getText().toString();  
+		    	if(input!=null && input.equals("")==false){
+		    		strInputText=input;
+		    		textStickView.setText(strInputText);
+		    	}
+		    }})
+		.show(); 
+	}
     
 }

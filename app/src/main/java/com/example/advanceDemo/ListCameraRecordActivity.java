@@ -19,7 +19,6 @@ public class ListCameraRecordActivity extends Activity implements OnClickListene
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.camera_demo_list_layout);

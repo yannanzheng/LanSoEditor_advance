@@ -5,9 +5,7 @@ import java.io.IOException;
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.Rotation;
 
-import com.example.advanceDemo.GPUImageFilterTools;
 import com.example.advanceDemo.VideoPlayerActivity;
-import com.example.advanceDemo.GPUImageFilterTools.OnGpuImageFilterChosenListener;
 import com.example.advanceDemo.view.FocusImageView;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.BitmapLayer;
@@ -20,11 +18,13 @@ import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask;
 import com.lansosdk.videoeditor.CopyFileFromAssets;
 import com.lansosdk.videoeditor.DrawPadCameraView;
+import com.lansosdk.videoeditor.FilterLibrary;
 import com.lansosdk.videoeditor.LanSongUtil;
 import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
 import com.lansosdk.videoeditor.DrawPadCameraView.doFousEventListener;
 import com.lansosdk.videoeditor.DrawPadCameraView.onViewAvailable;
+import com.lansosdk.videoeditor.FilterLibrary.OnGpuImageFilterChosenListener;
 
 
 import android.app.Activity;
@@ -254,10 +254,10 @@ public class CameraLayerFullLandscapeActivity extends Activity implements OnClic
    private void selectFilter()
    {
    	if(mDrawPadCamera!=null && mDrawPadCamera.isRunning()){
-   		GPUImageFilterTools.showDialog(this, new OnGpuImageFilterChosenListener() {
+   		FilterLibrary.showDialog(this, new OnGpuImageFilterChosenListener() {
 
                @Override
-               public void onGpuImageFilterChosenListener(final GPUImageFilter filter) {
+               public void onGpuImageFilterChosenListener(final GPUImageFilter filter,String name) {
                
             	   if(mCameraLayer!=null){
             		   mCameraLayer.switchFilterTo(filter);   

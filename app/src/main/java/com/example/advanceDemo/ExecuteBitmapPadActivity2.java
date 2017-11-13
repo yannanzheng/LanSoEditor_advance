@@ -104,6 +104,7 @@ public class ExecuteBitmapPadActivity2 extends Activity{
 		if(bendBmp.init(bmp1.getWidth(),bmp1.getHeight()))
 		{
 			Bitmap bmp=bendBmp.getBlendBitmap(bmp1, bmp2);
+			
 		}
 		bendBmp.release();
 	}

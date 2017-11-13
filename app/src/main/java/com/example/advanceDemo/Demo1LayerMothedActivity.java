@@ -4,14 +4,20 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
 
+import su.levenetc.android.textsurface.animations.Alpha;
+
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.LanSongTestCentorFilter;
 
 import com.lansoeditor.demo.R;
+import com.lansosdk.box.AlphaAnimation;
 import com.lansosdk.box.BitmapLayer;
 import com.lansosdk.box.DrawPad;
+import com.lansosdk.box.DrawPadUpdateMode;
 import com.lansosdk.box.FileParameter;
 import com.lansosdk.box.Layer;
+import com.lansosdk.box.MoveAnimation;
+import com.lansosdk.box.RotateAnimation;
 import com.lansosdk.box.SubLayer;
 import com.lansosdk.box.VideoLayer;
 import com.lansosdk.box.YUVLayer;
@@ -67,7 +73,6 @@ public class Demo1LayerMothedActivity extends Activity implements OnSeekBarChang
     private VideoLayer  mainVideoLayer=null;
     private BitmapLayer bitmapLayer=null;
     
-    
     private String editTmpPath=null;
     private String dstPath=null;
     private LinearLayout  playVideo;
@@ -91,6 +96,7 @@ public class Demo1LayerMothedActivity extends Activity implements OnSeekBarChang
         //在手机的默认路径下创建一个文件名,用来保存生成的视频文件,(在onDestroy中删除)
         editTmpPath=SDKFileUtils.newMp4PathInBox();
         dstPath=SDKFileUtils.newMp4PathInBox();
+        
     }
     @Override
     protected void onResume() {
@@ -151,10 +157,12 @@ public class Demo1LayerMothedActivity extends Activity implements OnSeekBarChang
 				}
     		});
     		drawPadView.setRealEncodeEnable(padWidth,padHeight,1000000,(int)mInfo.vFrameRate,editTmpPath);
+    		
         	drawPadView.setOnDrawPadProgressListener(new onDrawPadProgressListener() {
 				
 				@Override
 				public void onProgress(DrawPad v, long currentTimeUs) {
+					
 				}
 			});
     }
@@ -167,8 +175,9 @@ public class Demo1LayerMothedActivity extends Activity implements OnSeekBarChang
     	
 		if(drawPadView.isRunning()==false && drawPadView.startDrawPad())
 		{
+			//给容器增加一个背景
 			BitmapLayer layer=drawPadView.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.videobg));
-			layer.setScaledValue(layer.getPadWidth(), layer.getPadHeight());  //填充整个屏幕.
+			layer.setScaledValue(layer.getPadWidth(), layer.getPadHeight());  //填充整个容器
 			
 			mainVideoLayer=drawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
 			if(mainVideoLayer!=null)
@@ -177,7 +186,6 @@ public class Demo1LayerMothedActivity extends Activity implements OnSeekBarChang
 			//	mainVideoLayer.setScale(0.8f);  //把视频缩小一些, 因为外面有背景.
 			}
 			mplayer.start();
-			
 			addBitmapLayer();
 			drawPadView.resumeDrawPad();
 		}
@@ -190,7 +198,7 @@ public class Demo1LayerMothedActivity extends Activity implements OnSeekBarChang
     	if(drawPadView!=null && drawPadView.isRunning()){
 			
 			drawPadView.stopDrawPad();
-			toastStop();
+			DemoUtil.showToast(getApplicationContext(), "录制已停止!!");
 			
 			if(SDKFileUtils.fileExist(editTmpPath)){
 				boolean ret=VideoEditor.encoderAddAudio(videoPath,editTmpPath,SDKDir.TMP_DIR,dstPath);
@@ -226,6 +234,7 @@ public class Demo1LayerMothedActivity extends Activity implements OnSeekBarChang
     private YUVLayer mYuvLayer=null;
     private YUVLayerDemoData mData;
     private int count=0;
+    
     /**
      * 增加YUV图层.
      */
@@ -262,7 +271,6 @@ public class Demo1LayerMothedActivity extends Activity implements OnSeekBarChang
     }
     @Override
     protected void onPause() {
-    	// TODO Auto-generated method stub
     	super.onPause();
     	if(mplayer!=null){
     		mplayer.stop();
@@ -310,7 +318,7 @@ public class Demo1LayerMothedActivity extends Activity implements OnSeekBarChang
     }
     private void initSeekBar(int resId,int maxvalue)
     {
-    	SeekBar   skbar=(SeekBar)findViewById(resId);
+    		SeekBar   skbar=(SeekBar)findViewById(resId);
            skbar.setOnSeekBarChangeListener(this);
            skbar.setMax(maxvalue);
     }
@@ -404,9 +412,4 @@ public class Demo1LayerMothedActivity extends Activity implements OnSeekBarChang
 		}
 		return null;
 	}
-	 private void toastStop()
-	    {
-	    	Toast.makeText(getApplicationContext(), "录制已停止!!", Toast.LENGTH_SHORT).show();
-	    	Log.i(TAG,"录制已停止!!");
-	    }
 }

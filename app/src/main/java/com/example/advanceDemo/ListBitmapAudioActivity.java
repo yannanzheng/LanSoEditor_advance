@@ -1,5 +1,8 @@
 package com.example.advanceDemo;
 
+import com.example.advanceDemo.BitmapAudio.BitmapEditDemoActivity;
+import com.example.advanceDemo.BitmapAudio.DisplayFramesActivity;
+import com.example.advanceDemo.BitmapAudio.ExtractVideoFrameDemoActivity;
 import com.lansoeditor.demo.R;
 
 import android.app.Activity;
@@ -23,6 +26,8 @@ public class ListBitmapAudioActivity extends Activity implements  OnClickListene
 		findViewById(R.id.id_getframe_get25frame).setOnClickListener(this);
 		findViewById(R.id.id_getframe_get60frame).setOnClickListener(this);
 		findViewById(R.id.id_getframe_allframe).setOnClickListener(this);
+		
+		findViewById(R.id.id_getframe_bmpedit).setOnClickListener(this);
 	}
 
 	@Override
@@ -39,6 +44,9 @@ public class ListBitmapAudioActivity extends Activity implements  OnClickListene
 				break;
 			case R.id.id_getframe_allframe:
 				startDemoActivity(DisplayFramesActivity.class,DisplayFramesActivity.FRAME_TYPE_ALL);
+				break;
+			case R.id.id_getframe_bmpedit:
+				startDemoActivity(BitmapEditDemoActivity.class,0);
 				break;
 			default:
 				break;

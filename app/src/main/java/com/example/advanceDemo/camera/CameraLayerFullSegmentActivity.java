@@ -12,9 +12,7 @@ import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBeautyAdvanceFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBeautyFilter;
 
-import com.example.advanceDemo.GPUImageFilterTools;
 import com.example.advanceDemo.VideoPlayerActivity;
-import com.example.advanceDemo.GPUImageFilterTools.OnGpuImageFilterChosenListener;
 import com.example.advanceDemo.view.VideoFocusView;
 import com.example.advanceDemo.view.VideoProgressView;
 import com.lansoeditor.demo.R;
@@ -34,11 +32,13 @@ import com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask;
 import com.lansosdk.videoeditor.CopyFileFromAssets;
 import com.lansosdk.videoeditor.DrawPadCameraView;
 import com.lansosdk.videoeditor.DrawPadView;
+import com.lansosdk.videoeditor.FilterLibrary;
 import com.lansosdk.videoeditor.LanSongUtil;
 import com.lansosdk.videoeditor.SDKDir;
 import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
 import com.lansosdk.videoeditor.DrawPadCameraView.onViewAvailable;
+import com.lansosdk.videoeditor.FilterLibrary.OnGpuImageFilterChosenListener;
 
 
 import android.app.Activity;
@@ -410,10 +410,10 @@ public class CameraLayerFullSegmentActivity extends Activity implements OnClickL
     private void selectFilter()
     {
     	if(mDrawPadCamera!=null && mDrawPadCamera.isRunning()){
-    		GPUImageFilterTools.showDialog(this, new OnGpuImageFilterChosenListener() {
+    		FilterLibrary.showDialog(this, new OnGpuImageFilterChosenListener() {
 
                 @Override
-                public void onGpuImageFilterChosenListener(final GPUImageFilter filter) {
+                public void onGpuImageFilterChosenListener(final GPUImageFilter filter,String name) {
                 	/**
                 	 * 通过DrawPad线程去切换 filterLayer的滤镜
                 	 * 有些Filter是可以调节的,这里为了代码简洁,暂时没有演示, 可以在CameraeLayerDemoActivity中查看.

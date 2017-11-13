@@ -389,12 +389,17 @@ public class DrawPadView extends FrameLayout {
 			
 			Log.i(TAG,"setAcpect="+setAcpect+" setViewacpect:"+setViewacpect+
 					"set width:"+width+"x"+height+" view width:"+drawPadWidth+"x"+drawPadHeight);
+			
+			
 		    if(setAcpect==setViewacpect){  //如果比例已经相等,不需要再调整,则直接显示.
-		    	if(cb!=null)
+		    	if(cb!=null){
 		    		cb.onSizeChanged(width, height);
-		    	
+		    	}
+		    }else if(Math.abs(setAcpect-setViewacpect)*1000 < 16.0f){	
+		    	if(cb!=null){
+		    		cb.onSizeChanged(width, height);
+		    	}
 		    }else if (mTextureRenderView != null) {
-            	
                 mTextureRenderView.setVideoSize(width, height);
                 mTextureRenderView.setVideoSampleAspectRatio(1,1);
                 mSizeChangedCB=cb;
@@ -407,7 +412,7 @@ public class DrawPadView extends FrameLayout {
 	 * 当前drawpad容器运行了多长时间, 仅供参考使用. 没有特别的意义.
 	 * 内部每渲染一帧, 则会回调这里.
 	 * 仅仅作为drawpad容器运行时间的参考, 
-	 * 如果你要看当前视频图层的运行时间,则应设置图层的监听,而不是容器运行时间的监听, 可以通过 {@link #resetDrawPadRunTime()}来复位这个时间.
+	 * 如果你要看当前视频图层的运行时间,则应设置图层的监听,而不是容器运行时间的监听, 可以通过 {@link #resetDrawPadRunTime(long)}来复位这个时间.
 	 * 
 	 * @param li
 	 */
@@ -417,10 +422,15 @@ public class DrawPadView extends FrameLayout {
 		}
 		drawpadRunTimeListener=li;
 	}
-	public void resetDrawPadRunTime()
+	/**
+	 * 把运行的时间复位到某一个值, 这样的话, drawpad继续显示, 就会以这个值为参考, 增加相对运行的时间.
+	 * drawpad已经运行了10秒钟, 你复位到2秒.则drawpad下一个onDrawPadRunTimeListener返回的值,就是2秒+相对运行的值,可能是2000*1000 + 40*1000;
+	 * @param runtimeUs
+	 */
+	public void resetDrawPadRunTime(long runtimeUs)
 	{
 		if(renderer!=null){
-			renderer.resetPadRunTime();
+			renderer.resetPadRunTime(runtimeUs);
 		}
 	}
 	/**

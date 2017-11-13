@@ -45,9 +45,6 @@ public class MarkArrowView extends DrawPadView{
     
     @Override
   public boolean onTouchEvent(MotionEvent event) {
-  	// TODO Auto-generated method stub
-  	
-  	
   	 switch (event.getAction())   
        {  
 	       case MotionEvent.ACTION_DOWN:  

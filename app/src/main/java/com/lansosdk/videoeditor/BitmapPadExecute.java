@@ -228,6 +228,8 @@ public class BitmapPadExecute {
 					}
 				}).start();
 			}
+		  *  
+		  *  给一张图片, 增加多个滤镜.
 		  *  private void testGetFilters()
 		    {
 		    	ArrayList<GPUImageFilter>  filters=new ArrayList<GPUImageFilter>();

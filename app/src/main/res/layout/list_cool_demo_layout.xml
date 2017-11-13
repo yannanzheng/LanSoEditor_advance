@@ -16,6 +16,11 @@
 			<TextView  style="@style/main_item_arrow"/> 
 	</RelativeLayout>
 	
+         
+     <RelativeLayout  android:id="@+id/id_cool_particle" style="@style/main_item_reletivelayout">
+           	 <TextView   android:text="视频  + 粒子" style="@style/main_item_textview"/>
+			<TextView  style="@style/main_item_arrow"/> 
+	</RelativeLayout>
      
      	
   	<TextView 
@@ -23,10 +28,7 @@
   	    android:layout_width="match_parent"
   	    android:layout_height="wrap_content"
   	    android:textSize="20dip"
-  	    android:text="此炫酷列表会持续增加...\n\n下一个是[粒子效果].\n\n如果您有好的创意,也可以让我们来为您编写!"/>
-  	    
-
-  
+  	    android:text="此炫酷列表会持续增加...\n\n下一版本增加 [爆闪]类视频.\n\n如果您有好的创意,也可以让我们来为您编写!"/>
 
 </LinearLayout>
 </ScrollView>

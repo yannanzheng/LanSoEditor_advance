@@ -8,6 +8,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
 
+import com.example.advanceDemo.DemoUtil;
 import com.lansosdk.box.BitmapLayer;
 import com.lansosdk.box.CanvasLayer;
 import com.lansosdk.box.DataLayer;
@@ -34,15 +35,15 @@ public class DrawPadPictureExecute {
 	  * @param ctx  语境,android的Context
 	  * @param padwidth  DrawPad的的宽度
 	  * @param padheight  DrawPad的的高度
-	  * @param duration  视频时长
+	  * @param durationMs  视频时长, 单位毫秒
 	  * @param framerate  帧率
 	  * @param bitrate   编码视频所希望的码率,比特率,设置的越大,则文件越大, 设置小一些会起到视频压缩的效果.
 	  * @param dstPath   编码视频保存的路径.
 	  */
-   public DrawPadPictureExecute(Context ctx,int padwidth,int padheight,int duration,int framerate,int bitrate,String dstPath) 
+   public DrawPadPictureExecute(Context ctx,int padwidth,int padheight,int durationMs,int framerate,int bitrate,String dstPath) 
    {
 	   if(renderer==null){
-		   renderer=new DrawPadBitmapRunnable(ctx, padwidth, padheight, duration, framerate, bitrate, dstPath);
+		   renderer=new DrawPadBitmapRunnable(ctx, padwidth, padheight, durationMs, framerate, bitrate, dstPath);
 	   }
 	   this.padWidth=padwidth;
 	   this.padHeight=padheight;
@@ -119,9 +120,10 @@ public class DrawPadPictureExecute {
    }
    public BitmapLayer  addBitmapLayer(Bitmap bmp,GPUImageFilter filter)
    {
-	   if(renderer!=null && renderer.isRunning()){
+	   	if(renderer!=null && renderer.isRunning()){
 			return renderer.addBitmapLayer(bmp,filter);
 		}else{
+			Log.i(TAG,"add------------eeee"+ renderer.isRunning());
 			return null;
 		}
    }
@@ -326,7 +328,7 @@ public class DrawPadPictureExecute {
 	    */
 	   public void pauseRecord()
 	   {
-		   if(renderer!=null && renderer.isRunning()){
+		   if(renderer!=null){
 			   renderer.pauseRecordDrawPad();
 		   }else{
 			   mPauseRecord=true;

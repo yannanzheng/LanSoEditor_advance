@@ -435,10 +435,10 @@ public class DrawPadCameraView extends FrameLayout {
 		}
 		drawpadRunTimeListener=li;
 	}
-	public void resetDrawPadRunTime()
+	public void resetDrawPadRunTime(long runtimeUs)
 	{
 		if(renderer!=null){
-			renderer.resetPadRunTime();
+			renderer.resetPadRunTime(runtimeUs);
 		}
 	}
 	//----------------------------

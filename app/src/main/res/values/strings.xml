@@ -40,14 +40,16 @@
 
 	<string name="file_not_exist">文件不存在</string>
 	
-	<string name="drawimage_hint1">画面涂鸦:在画面中滑动,滑动的线条实时的保存到视频里.</string>
-	<string name="drawimage_hint2">VideoLayer + ViewLayer 绘制到容器上\n\n (这里仅是UI中的ImageView,实际您可以用TextView,Button,ViewPager等控件来增加文字,动画,图片,线条等).</string>
+	<string name="drawimage_hint1">原理:建立一个容器,先放视频图层, 再放UI图层.UI图层就是您的UI界面,你可以把各种炫酷的UI作为一层,叠加到视频上.
+	    \n这里演示的贴纸和文字,您可以实时增加,也可以暂停后增加</string>
 	
 	<string name="canvaslayer_hint1">VideoLayer + CanvasLayer 绘制到容器上</string>
 	
 	<string name="video_remark">滑动画面,进行标记\n\n VideoLayer + BitmapLayer 绘制到容器上 </string>
 	<string name="filter">滤镜</string>
 	
+	<string name="cuoluo_layout">错落布局图层演示:\n 建立一个正方形的容器, 上面显示视频图层, 下面左侧显示一个Gif图层, 右侧显示一个图片图层.\n(您也可以其他方式布局.仅为举例)</string>
+	<string name="vdieo2_layout">两个视频左右布局演示:\n 建立一个正方形的容器, 分别放两个视频图层.宽度缩放一倍,显示出来.\n(音频为了清晰不嘈杂,暂时用一个.如您需要两个都显示,可以直接混合合并.)</string>
 	
 	<string name="gaobai_hint">\n增加一个 ViewLayer(UI图层)到容器上.</string>
 		<string name="mvlayer_hint">\n增加一个 VideoLayer和 MVLayer图层 到  DrawPad 容器上.</string>

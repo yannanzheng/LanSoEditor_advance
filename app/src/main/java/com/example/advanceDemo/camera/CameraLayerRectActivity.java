@@ -8,10 +8,7 @@ import java.util.Locale;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 
-import com.example.advanceDemo.GPUImageFilterTools;
 import com.example.advanceDemo.VideoPlayerActivity;
-import com.example.advanceDemo.GPUImageFilterTools.FilterAdjuster;
-import com.example.advanceDemo.GPUImageFilterTools.OnGpuImageFilterChosenListener;
 import com.example.advanceDemo.view.VideoFocusView;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.CameraLayer;
@@ -20,6 +17,9 @@ import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.box.onDrawPadSizeChangedListener;
 import com.lansosdk.videoeditor.DrawPadCameraView;
 import com.lansosdk.videoeditor.DrawPadCameraView.onViewAvailable;
+import com.lansosdk.videoeditor.FilterLibrary.FilterAdjuster;
+import com.lansosdk.videoeditor.FilterLibrary.OnGpuImageFilterChosenListener;
+import com.lansosdk.videoeditor.FilterLibrary;
 import com.lansosdk.videoeditor.LanSongUtil;
 import com.lansosdk.videoeditor.SDKFileUtils;
 
@@ -191,10 +191,10 @@ public class CameraLayerRectActivity extends Activity implements Handler.Callbac
     private void selectFilter()
     {
     	if(mDrawPad!=null && mDrawPad.isRunning()){
-    		GPUImageFilterTools.showDialog(this, new OnGpuImageFilterChosenListener() {
+    		FilterLibrary.showDialog(this, new OnGpuImageFilterChosenListener() {
 
                 @Override
-                public void onGpuImageFilterChosenListener(final GPUImageFilter filter) {
+                public void onGpuImageFilterChosenListener(final GPUImageFilter filter,String name) {
     	         	   mFilterAdjuster = new FilterAdjuster(filter);
     	         	   if(mCameraLayer!=null){
     	         		   mCameraLayer.switchFilterTo(filter);

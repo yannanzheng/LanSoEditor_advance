@@ -109,6 +109,10 @@ public class VPlayer {
 		   mMediaPlayer.setSpeedEnable();   
 	   }
    }
+   /**
+    * speed 最低范围是0.5, 最高是2.0; 1.0是正常速度.
+    * @param speed
+    */
    public void setSpeed(float speed)
    {
 	   if(mMediaPlayer!=null){

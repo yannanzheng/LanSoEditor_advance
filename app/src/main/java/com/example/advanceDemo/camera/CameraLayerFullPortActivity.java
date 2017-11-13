@@ -7,21 +7,19 @@ import java.util.List;
 import java.util.Locale;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.IFLomofiFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBeautyAdvanceFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBlackMaskBlendFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.LanSongGrindFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.LanSongMaskBlendFilter;
 
 
-import com.example.advanceDemo.GPUImageFilterTools;
 import com.example.advanceDemo.VideoPlayerActivity;
-import com.example.advanceDemo.GPUImageFilterTools.OnGpuImageFilterChosenListener;
 import com.example.advanceDemo.view.CameraProgressBar;
 import com.example.advanceDemo.view.FaceView;
 import com.example.advanceDemo.view.FocusImageView;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.BitmapLayer;
-import com.lansosdk.box.BitmapLoader;
 import com.lansosdk.box.CameraLayer;
 import com.lansosdk.box.DrawPad;
 import com.lansosdk.box.Layer;
@@ -43,8 +41,10 @@ import com.lansosdk.videoeditor.CopyFileFromAssets;
 import com.lansosdk.videoeditor.DrawPadCameraView;
 import com.lansosdk.videoeditor.DrawPadCameraView.doFousEventListener;
 import com.lansosdk.videoeditor.DrawPadCameraView.onViewAvailable;
+import com.lansosdk.videoeditor.FilterLibrary.OnGpuImageFilterChosenListener;
 import com.lansosdk.videoeditor.DrawPadView;
 import com.lansosdk.videoeditor.FileWriteUtils;
+import com.lansosdk.videoeditor.FilterLibrary;
 import com.lansosdk.videoeditor.LanSongUtil;
 import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
@@ -143,7 +143,6 @@ public class CameraLayerFullPortActivity extends Activity implements OnClickList
     }
     @Override
     protected void onResume() {
-    	// TODO Auto-generated method stub
         LanSongUtil.hideBottomUIMenu(this);
     	super.onResume();
     	if (mWakeLock == null) {
@@ -182,7 +181,6 @@ public class CameraLayerFullPortActivity extends Activity implements OnClickList
 			
 			@Override
 			public void onFocus(int x, int y) {
-				// TODO Auto-generated method stub
 				focusView.startFocus(x, y);
 			}
 		});
@@ -213,9 +211,8 @@ public class CameraLayerFullPortActivity extends Activity implements OnClickList
       {
     	  if(mDrawPadCamera.setupDrawpad())  //建立图层.
     	  {
-    		  mCamLayer=mDrawPadCamera.getCameraLayer();
+    		  mCamLayer=mDrawPadCamera.getCameraLayer();  //临时
     		  addBitmapLayer();
-    		  
     		  addMVLayer();
     		  mDrawPadCamera.startPreview();
     	  }else{
@@ -263,10 +260,10 @@ public class CameraLayerFullPortActivity extends Activity implements OnClickList
     private void selectFilter()
     {
     	if(mDrawPadCamera!=null && mDrawPadCamera.isRunning()){
-    		GPUImageFilterTools.showDialog(this, new OnGpuImageFilterChosenListener() {
+    		FilterLibrary.showDialog(this, new OnGpuImageFilterChosenListener() {
 
                 @Override
-                public void onGpuImageFilterChosenListener(final GPUImageFilter filter) {
+                public void onGpuImageFilterChosenListener(final GPUImageFilter filter,String name) {
                 	if(mCamLayer!=null){
                 		mCamLayer.switchFilterTo(filter);
                 	}

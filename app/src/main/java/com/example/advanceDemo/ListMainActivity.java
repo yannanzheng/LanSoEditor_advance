@@ -10,6 +10,9 @@ import java.util.Locale;
 
 import com.anthonycr.grant.PermissionsManager;
 import com.anthonycr.grant.PermissionsResultAction;
+import com.example.advanceDemo.cool.ParticleDemoActivity;
+import com.example.advanceDemo.scene.LayerLayoutDemoActivity;
+import com.example.advanceDemo.scene.Video2LayoutActivity;
 import com.example.commonDemo.CommonDemoActivity;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.FrameInfo;
@@ -52,6 +55,8 @@ import android.widget.Toast;
 
 
 public class ListMainActivity extends Activity implements OnClickListener{
+
+
 	 private static final String TAG="MainActivity";
 	 private static final boolean VERBOSE = false;   
 	 private TextView tvVideoPath;
@@ -74,7 +79,7 @@ public class ListMainActivity extends Activity implements OnClickListener{
         checkPermission();
     	
         initView();
-        showHintDialog();
+//        showHintDialog();
         testFile();
     }
     @Override
@@ -83,37 +88,15 @@ public class ListMainActivity extends Activity implements OnClickListener{
     	LanSoEditor.unInitSo();
     	SDKFileUtils.deleteDir(new File(SDKDir.TMP_DIR));
     }
-    
-    private boolean checkPath(){
-    	if(tvVideoPath.getText()!=null && tvVideoPath.getText().toString().isEmpty()){
-    		Toast.makeText(ListMainActivity.this, "请输入视频地址", Toast.LENGTH_SHORT).show();
-    		return false;
-    	}	
-    	else{
-    		String path=tvVideoPath.getText().toString();
-    		if((new File(path)).exists()==false){
-    			Toast.makeText(ListMainActivity.this, "文件不存在", Toast.LENGTH_SHORT).show();
-    			return false;
-    		}else{
-    			MediaInfo info=new MediaInfo(path,false);
-    			boolean ret=info.prepare();
-    	        Log.i(TAG,"info:"+info.toString());
-    			return ret;
-    		}
-    	}
-    }
 	@Override
 	public void onClick(View v) {
-		if(isPermissionOk==false){
-			checkPermission();
-		}
 		if(isPermissionOk)
 		{
 			if(checkPath()==false)
 				return;
 			switch (v.getId()) {
 				case R.id.id_mainlist_camerarecord:
-					startDemoActivity(ListCameraRecordActivity.class);  
+					startDemoActivity(ListCameraRecordActivity.class);
 					break;
 				case R.id.id_mainlist_somelayer:
 					startDemoActivity(ListLayerDemoActivity.class);
@@ -230,6 +213,26 @@ public class ListMainActivity extends Activity implements OnClickListener{
    		})
            .show();
    	}
+
+    
+    private boolean checkPath(){
+    	if(tvVideoPath.getText()!=null && tvVideoPath.getText().toString().isEmpty()){
+    		Toast.makeText(ListMainActivity.this, "请输入视频地址", Toast.LENGTH_SHORT).show();
+    		return false;
+    	}	
+    	else{
+    		String path=tvVideoPath.getText().toString();
+    		if((new File(path)).exists()==false){
+    			Toast.makeText(ListMainActivity.this, "文件不存在", Toast.LENGTH_SHORT).show();
+    			return false;
+    		}else{
+    			MediaInfo info=new MediaInfo(path,false);
+    			boolean ret=info.prepare();
+    	        Log.i(TAG,"info:"+info.toString());
+    			return ret;
+    		}
+    	}
+    }
 	 private final static int SELECT_FILE_REQUEST_CODE=10;
 	  	private void startSelectVideoActivity()
 	    {

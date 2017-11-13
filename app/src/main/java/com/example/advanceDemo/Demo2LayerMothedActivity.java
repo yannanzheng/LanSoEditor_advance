@@ -2,9 +2,13 @@ package com.example.advanceDemo;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Locale;
 
+import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageTransformFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.IFLomofiFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBeautyAdvanceFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBlackFilter;
 
 import com.lansoeditor.demo.R;
@@ -153,15 +157,7 @@ public class Demo2LayerMothedActivity extends Activity implements OnSeekBarChang
     	mInfo=new MediaInfo(mVideoPath,false);
     	if(mInfo.prepare())
     	{
-    		customDrawpadEncoder();
-    		/**
-    		 * 设置DrawPad的刷新模式,默认 {@link DrawPad.UpdateMode#ALL_VIDEO_READY};
-    		 */
         	drawPadView.setUpdateMode(DrawPadUpdateMode.ALL_VIDEO_READY,25);
-        		
-        	/**
-        	 * 设置使能 实时录制, 即把正在DrawPad中呈现的画面实时的保存下来,起到所见即所得的模式
-        	 */
         	drawPadView.setRealEncodeEnable(480,480,1000000,(int)mInfo.vFrameRate,editTmpPath);
         	
         	/**
@@ -171,22 +167,11 @@ public class Demo2LayerMothedActivity extends Activity implements OnSeekBarChang
     			
     			@Override
     			public void onSizeChanged(int viewWidth, int viewHeight) {
-    				// TODO Auto-generated method stub
     				startDrawPad();
     			}
     		});
-        	
-
-        	drawPadView.setOnDrawPadProgressListener(new onDrawPadProgressListener() {
-				
-				@Override
-				public void onProgress(DrawPad v, long currentTimeUs) {
-					
-				}
-			});
     	}
     }
-    private BitmapLayer bitmapLayer;
     /**
      * Step2:  start DrawPad 开始运行这个容器.
      */
@@ -202,30 +187,12 @@ public class Demo2LayerMothedActivity extends Activity implements OnSeekBarChang
 			 */
 			BitmapLayer layer=drawPadView.addBitmapLayer(BitmapFactory.decodeResource(getResources(), R.drawable.videobg));
 			layer.setScaledValue(layer.getPadWidth(), layer.getPadHeight());  //填充整个屏幕.
-			
-//			/**
-//			 * 增加一个主视频的 VideoLayer
-//			 */
-//			FileParameter  param=new FileParameter();
-//			if(param.setDataSoure(mVideoPath)){
-//				/**
-//				 * 设置当前需要显示的区域 ,以左上角为0,0坐标. 
-//				 * 
-//				 * @param startX  开始的X坐标, 即从宽度的什么位置开始
-//				 * @param startY  开始的Y坐标, 即从高度的什么位置开始
-//				 * @param cropW   需要显示的宽度
-//				 * @param cropH   需要显示的高度.
-//				 */
-//				param.setShowRect(0, 0, 1080, 800);
-//				mVideoLayer=mDrawPadView.addMainVideoLayer(param,null);
-//				mVideoLayer.setImageRenderLast(false);
-//			}
 			videoLayer=drawPadView.addMainVideoLayer(mplayer.getVideoWidth(),mplayer.getVideoHeight(),null);
 			
 			if(videoLayer!=null){
 				mplayer.setSurface(new Surface(videoLayer.getVideoTexture()));
+				mplayer.start();
 			}
-			mplayer.start();
 		}
     }
     /**
@@ -288,7 +255,6 @@ public class Demo2LayerMothedActivity extends Activity implements OnSeekBarChang
  			
  			@Override
  			public void onClick(View v) {
- 				// TODO Auto-generated method stub
  				 if(SDKFileUtils.fileExist(dstPath)){
  		   			 	Intent intent=new Intent(Demo2LayerMothedActivity.this,VideoPlayerActivity.class);
  		   			 	intent.putExtra("videopath", dstPath);
@@ -383,56 +349,9 @@ public class Demo2LayerMothedActivity extends Activity implements OnSeekBarChang
 	}
 	@Override
 	public void onStartTrackingTouch(SeekBar seekBar) {
-		// TODO Auto-generated method stub
 		
 	}
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
-		// TODO Auto-generated method stub
 	}
-	/**
-	   * 定制LanSoSdk的DrawPad的编码参数, 
-	   */
-	  private  void customDrawpadEncoder()
-	  {
-		  /**
-		   * 可以修改
-		   * "video/avc":  是采用H264编码.
-		   * mwidht, mHeight:  为视频的宽度和高度, 请在使用时, 建议采用设置到我们sdk中编码的宽度和高度. 
-		   */
-		  MediaFormat encodeFormat = MediaFormat.createVideoFormat("video/avc", 480, 480);
-	        
-		  /**
-		   * 不能修改
-		   * 我们当前sdk是采用surface格式为渲染窗口, 请务必这里要设置COLOR_FORMAT为FormatSurface;
-		   */
-		  encodeFormat.setInteger(MediaFormat.KEY_COLOR_FORMAT, MediaCodecInfo.CodecCapabilities.COLOR_FormatSurface); 
-	       
-		  /**
-		   * 码率,您可以任意修改
-		   */
-		  encodeFormat.setInteger(MediaFormat.KEY_BIT_RATE,1000*1000);
-	        
-	      /**
-	       * 帧率  , 可以修改
-	       */
-		  encodeFormat.setInteger(MediaFormat.KEY_FRAME_RATE,25);
-	      /**
-	       * 几秒钟一个IDR帧. 可以修改  
-	       */
-		  encodeFormat.setInteger(MediaFormat.KEY_I_FRAME_INTERVAL,1);//这里表示相隔几秒钟产生一个I帧;设置为1表示1秒钟产生一个I帧.
-	        
-		  /**
-		   * ................这里您可以增加别的参数, 比如profile. bitrate_mode等等.
-		   *     encodeFormat.setInteger(MediaFormat.KEY_BITRATE_MODE, EncoderCapabilities.BITRATE_MODE_CQ);
-		   * ...................
-		   */
-		  
-		  /**
-		   *设置到cEc中.注意, 因为这是静态变量, 设置后, 如果您后期没用更正, 则drawpad一直会采用这个方法里的参数作为编码的参数.
-		   *
-		   * 如果您想使用我们drawpad的默认参数,请把DrawPad.cEc设置为null;
-		   */
-	       DrawPad.cEc=encodeFormat;  
-	  }
 }
