@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="lansongeditor_hx">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/app/libs/lansongeditor_hx.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
