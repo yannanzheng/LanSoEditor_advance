@@ -218,12 +218,8 @@ public class NewVideoOneDo {
         Log.d(TAG,"开始执行....startDrawPad");
         if(mDrawPad.startDrawPad()) {
             mainVideoLayer=mDrawPad.getMainVideoLayer();
-            
             addBitmapLayer(); //增加图片图层
-            
-            addCanvasLayer(); //增加文字图层.
             mDrawPad.resumeRecord();  //开始恢复处理.
-            
             return true;
         }else{
         	return false;
