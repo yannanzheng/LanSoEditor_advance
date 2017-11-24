@@ -22,11 +22,6 @@ import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBeautyFilter;
 
 public class NewVideoOneDo {
 
-    public final static int LOGO_POSITION_LELF_TOP = 0;
-    public final static int LOGO_POSITION_LEFT_BOTTOM = 1;
-    public final static int LOGO_POSITION_RIGHT_TOP = 2;
-    public final static int LOGO_POSITION_RIGHT_BOTTOM = 3;
-
     private String sourceFilePath;
     private String destFilePath;
     private String extractSourceAudioPath; //从源视频中分离出的音频临时文件.
@@ -45,7 +40,6 @@ public class NewVideoOneDo {
     private GPUImageFilter videoFilter = null;
 
     private Bitmap logoBitmap = null;
-    private int logoPosition = LOGO_POSITION_RIGHT_TOP;
 
     private OnProgressListener onProgressListener;
     private OnCompletedListener onCompletedListener = null;
@@ -68,24 +62,8 @@ public class NewVideoOneDo {
         this.beautyFilter = beautyFilter;
     }
 
-
-    /**
-     * 设置logo的位置, 这里仅仅是举例,您可以拷贝这个代码, 自行定制各种功能.
-     * 原理:  增加一个图片图层到容器DrawPad中, 设置他的位置.
-     * 位置这里举例是:
-     * {@link #LOGO_POSITION_LEFT_BOTTOM}
-     * {@link #LOGO_POSITION_LELF_TOP}
-     * {@link #LOGO_POSITION_RIGHT_BOTTOM}
-     * {@value #LOGO_POSITION_RIGHT_TOP}
-     *
-     * @param bmp      logo图片对象
-     * @param position 位置
-     */
-    public void setLogo(Bitmap bmp, int position) {
+    public void setLogo(Bitmap bmp) {
         logoBitmap = bmp;
-        if (position <= LOGO_POSITION_RIGHT_BOTTOM) {
-            logoPosition = position;
-        }
     }
 
     /**
@@ -178,7 +156,7 @@ public class NewVideoOneDo {
                 gpuImageFilters.add(videoFilter);
             }
             mainVideoLayer.switchFilterList(gpuImageFilters);
-            addBitmapLayer(); //增加图片图层
+            addLogo(); //增加图片图层
             mDrawPad.resumeRecord();  //开始恢复处理.
             return true;
         } else {
@@ -233,28 +211,13 @@ public class NewVideoOneDo {
     }
 
     /**
-     * 增加图片图层
+     * 增加logo
      */
-    private void addBitmapLayer() {
+    private void addLogo() {
         if (logoBitmap != null) {
             logoBmpLayer = mDrawPad.addBitmapLayer(logoBitmap);
             if (logoBmpLayer != null) {
-                int w = logoBmpLayer.getLayerWidth();
-                int h = logoBmpLayer.getLayerHeight();
-                if (logoPosition == LOGO_POSITION_LELF_TOP) {  //左上角.
-
-                    logoBmpLayer.setPosition(w / 2, h / 2);
-
-                } else if (logoPosition == LOGO_POSITION_LEFT_BOTTOM) {  //左下角
-
-                    logoBmpLayer.setPosition(w / 2, logoBmpLayer.getPadHeight() - h / 2);
-                } else if (logoPosition == LOGO_POSITION_RIGHT_TOP) {  //右上角
-
-                    logoBmpLayer.setPosition(logoBmpLayer.getPadWidth() - w / 2, h / 2);
-
-                } else if (logoPosition == LOGO_POSITION_RIGHT_BOTTOM) {  //右下角
-                    logoBmpLayer.setPosition(logoBmpLayer.getPadWidth() - w / 2, logoBmpLayer.getPadHeight() - h / 2);
-                }
+                logoBmpLayer.setPosition(logoBmpLayer.getPadWidth() / 2, logoBmpLayer.getPadHeight() / 2);
             }
         }
     }

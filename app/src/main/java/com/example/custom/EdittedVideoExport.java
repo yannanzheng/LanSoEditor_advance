@@ -60,6 +60,7 @@ public class EdittedVideoExport {
 
         newVideoOneDo.setFilter(new GPUImageToonFilter());
         newVideoOneDo.setFaceBeautyFilter(new LanSongBeautyFilter());
+        newVideoOneDo.setLogo(logoBitmap);
 
         if(newVideoOneDo.start()){
             Log.d("feature_847", "start，videoInfo 开始执行 " );
