@@ -39,7 +39,6 @@ public class NewVideoOneDo {
     private Context context;
 
     private long startTimeUs = 0;
-    private long cutDurationUs = 0;
     private GPUImageFilter videoFilter = null;
 
     private Bitmap logoBitmap = null;
@@ -104,7 +103,7 @@ public class NewVideoOneDo {
             srcAudioPath = "/sdcard/lansongBox/abstract_music.aac";
             Log.d("feature_847", "sourceFilePath ＝ " + sourceFilePath + ", srcAudioPath = " + srcAudioPath);
 
-            editor.executeDeleteVideo(sourceFilePath, srcAudioPath, (float) startTimeUs / 1000000f, (float) cutDurationUs / 1000000f);//删除视频，应该就是提取音频了吧
+            editor.executeDeleteVideo(sourceFilePath, srcAudioPath, (float) startTimeUs / 1000000f, (float) 0 / 1000000f);//删除视频，应该就是提取音频了吧
         }
 
         isExecuting = true;
@@ -144,9 +143,6 @@ public class NewVideoOneDo {
                     if (b < 1.0f && onProgressListener != null && isExecuting) {
                         onProgressListener.onProgress(NewVideoOneDo.this, b);
                     }
-                }
-                if (cutDurationUs > 0 && currentTimeUs > cutDurationUs) {  //设置了结束时间, 如果当前时间戳大于结束时间,则停止容器.
-                    mDrawPad.stopDrawPad();
                 }
             }
         });
