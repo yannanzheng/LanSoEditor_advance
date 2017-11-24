@@ -2,21 +2,16 @@ package com.example.custom;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.util.Log;
 
 import com.lansosdk.box.BitmapLayer;
 import com.lansosdk.box.CanvasLayer;
-import com.lansosdk.box.CanvasRunnable;
 import com.lansosdk.box.DrawPad;
 import com.lansosdk.box.Layer;
 import com.lansosdk.box.onDrawPadCompletedListener;
 import com.lansosdk.box.onDrawPadProgressListener;
 import com.lansosdk.videoeditor.DrawPadVideoExecute;
 import com.lansosdk.videoeditor.MediaInfo;
-import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
 
 import java.util.ArrayList;
@@ -44,19 +39,15 @@ public class NewVideoOneDo {
     private boolean isExecuting = false;
 
     private BitmapLayer logoBmpLayer = null;
-    private CanvasLayer canvasLayer = null;
 
     private Context context;
 
-    //-------------------------------------------------
     private long startTimeUs = 0;
     private long cutDurationUs = 0;
     private GPUImageFilter videoFilter = null;
 
     private Bitmap logoBitmap = null;
     private int logoPosition = LOGO_POSITION_RIGHT_TOP;
-
-    private String textAdd = null;
 
     private MediaInfo musicInfo;
 
@@ -237,7 +228,6 @@ public class NewVideoOneDo {
             mDrawPad = null;
 
             logoBitmap = null;
-            textAdd = null;
             musicInfo = null;
         }
     }
@@ -273,93 +263,6 @@ public class NewVideoOneDo {
                     Log.w(TAG, "logo默认居中显示");
                 }
             }
-        }
-    }
-
-    /**
-     * 增加Android的Canvas类图层.
-     */
-    private void addCanvasLayer() {
-        if (textAdd != null) {
-            canvasLayer = mDrawPad.addCanvasLayer();
-
-            canvasLayer.addCanvasRunnable(new CanvasRunnable() {
-
-                @Override
-                public void onDrawCanvas(CanvasLayer pen, Canvas canvas, long currentTimeUs) {
-                    Paint paint = new Paint();
-                    paint.setColor(Color.RED);
-                    paint.setAntiAlias(true);
-                    paint.setTextSize(20);
-                    canvas.drawText(textAdd, 20, 20, paint);
-                }
-            });
-        }
-    }
-
-    /**
-     * 得到拼接好的mp3或aac文件. 如果够长,则直接返回;
-     *
-     * @param input
-     * @param isMp3
-     * @return
-     */
-    private String getEnoughAudio(String input, boolean isMp3) {
-        String audio = input;
-        if (musicInfo.aDuration < tmpvDuration) {  //如果小于则自行拼接.
-
-            Log.d(TAG, "音频时长不够,开始转换.musicInfo.aDuration:" + musicInfo.aDuration + " tmpvDuration:" + tmpvDuration);
-
-            int num = (int) (tmpvDuration / musicInfo.aDuration + 1.0f);
-            String[] array = new String[num];
-            for (int i = 0; i < num; i++) {
-                array[i] = input;
-            }
-            if (isMp3) {
-                audio = SDKFileUtils.createMP3FileInBox();
-            } else {
-                audio = SDKFileUtils.createAACFileInBox();
-            }
-            concatAudio(array, audio);  //拼接好.
-        }
-        return audio;
-    }
-
-    /**
-     * 拼接aac
-     *
-     * @param tsArray
-     * @param dstFile
-     * @return
-     */
-    private int concatAudio(String[] tsArray, String dstFile) {
-        if (SDKFileUtils.filesExist(tsArray)) {
-            String concat = "concat:";
-            for (int i = 0; i < tsArray.length - 1; i++) {
-                concat += tsArray[i];
-                concat += "|";
-            }
-            concat += tsArray[tsArray.length - 1];
-
-            List<String> cmdList = new ArrayList<String>();
-
-            cmdList.add("-i");
-            cmdList.add(concat);
-
-            cmdList.add("-c");
-            cmdList.add("copy");
-
-            cmdList.add("-y");
-
-            cmdList.add(dstFile);
-            String[] command = new String[cmdList.size()];
-            for (int i = 0; i < cmdList.size(); i++) {
-                command[i] = (String) cmdList.get(i);
-            }
-            VideoEditor editor = new VideoEditor();
-            return editor.executeVideoEditor(command);
-        } else {
-            return -1;
         }
     }
 
