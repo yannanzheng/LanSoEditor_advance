@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.util.Log;
 
 import com.lansosdk.box.BitmapLayer;
-import com.lansosdk.box.CanvasLayer;
 import com.lansosdk.box.DrawPad;
 import com.lansosdk.box.Layer;
 import com.lansosdk.box.onDrawPadCompletedListener;
@@ -48,8 +47,6 @@ public class NewVideoOneDo {
 
     private Bitmap logoBitmap = null;
     private int logoPosition = LOGO_POSITION_RIGHT_TOP;
-
-    private MediaInfo musicInfo;
 
     public NewVideoOneDo(Context ctx, String sourceFilePath, String destFilePath) {
         this.context = ctx;
@@ -211,7 +208,7 @@ public class NewVideoOneDo {
             monVideoOneDOCompletedListener.onCompleted(NewVideoOneDo.this, dstPath);
         }
         isExecuting = false;
-        Log.i("feature_847", "最后的视频文件是:" + MediaInfo.checkFile(dstPath));
+        Log.d("feature_847", "最后的视频文件是:" + MediaInfo.checkFile(dstPath));
     }
 
     public void stop() {
@@ -228,7 +225,6 @@ public class NewVideoOneDo {
             mDrawPad = null;
 
             logoBitmap = null;
-            musicInfo = null;
         }
     }
 
