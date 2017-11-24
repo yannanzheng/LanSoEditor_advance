@@ -41,7 +41,7 @@ public class EdittedVideoExport {
     }
 
     public boolean start() {
-        NewVideoOneDo newVideoOneDo=new NewVideoOneDo(mContext, sourceFilePath,sourceFilePath);
+        NewVideoOneDo newVideoOneDo = new NewVideoOneDo(mContext, sourceFilePath, destFilePath);
         newVideoOneDo.setOnVideoOneDoProgressListener(new NewVideoOneDo.OnProgressListener() {
             @Override
             public void onProgress(NewVideoOneDo v, float percent) {
