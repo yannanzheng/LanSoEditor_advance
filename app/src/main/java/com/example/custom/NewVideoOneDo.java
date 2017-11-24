@@ -59,7 +59,6 @@ public class NewVideoOneDo {
     private String textAdd = null;
 
     private MediaInfo musicInfo;
-    private String dstAACPath = null;
 
     public NewVideoOneDo(Context ctx, String sourceFilePath, String destFilePath) {
         this.context = ctx;
@@ -208,10 +207,10 @@ public class NewVideoOneDo {
             return;
         }
 
-        String dstPath = SDKFileUtils.createMp4FileInBox();
-        if (dstAACPath != null && isExecuting) {  //增加背景音乐.
-            videoMergeAudio(editTmpPath, dstAACPath, dstPath);
-        } else if (srcAudioPath != null && isExecuting) {  //增加原音.
+        String dstPath = "/sdcard/lansongBox/destVideo.mp4";
+        Log.i("feature_847", "dstPath = " + dstPath + ",isExecuting = " + isExecuting + ", srcAudioPath = " + srcAudioPath);
+
+        if (srcAudioPath != null && isExecuting) {  //增加原音.
             videoMergeAudio(editTmpPath, srcAudioPath, dstPath);
         } else {
             dstPath = editTmpPath;
@@ -221,7 +220,7 @@ public class NewVideoOneDo {
             monVideoOneDOCompletedListener.onCompleted(NewVideoOneDo.this, dstPath);
         }
         isExecuting = false;
-        Log.i(TAG, "最后的视频文件是:" + MediaInfo.checkFile(dstPath));
+        Log.i("feature_847", "最后的视频文件是:" + MediaInfo.checkFile(dstPath));
     }
 
     public void stop() {
@@ -239,7 +238,6 @@ public class NewVideoOneDo {
 
             logoBitmap = null;
             textAdd = null;
-            dstAACPath = null;
             musicInfo = null;
         }
     }
@@ -382,7 +380,6 @@ public class NewVideoOneDo {
         cmdList.add("copy");
         cmdList.add("-acodec");
         cmdList.add("copy");
-
 
         cmdList.add("-absf");
         cmdList.add("aac_adtstoasc");
