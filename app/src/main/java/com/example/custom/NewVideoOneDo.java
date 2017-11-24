@@ -36,7 +36,7 @@ import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
  * 说明3: 如果列举的功能,可以满足您的需求,则调用形式是这样的:
  *      场景1: 只裁剪+logo:
  *      则:
- *      videoOneDo=new VideoOneDo(getApplicationContext(), videoPath);
+ *      videoOneDo=new VideoOneDo(getApplicationContext(), sourceFilePath);
 		
 		videoOneDo.setOnVideoOneDoProgressListener(进度监听);
 		videoOneDo.setOnVideoOneDoCompletedListener(完成监听, 返回处理后的结果);
@@ -56,7 +56,8 @@ public class NewVideoOneDo {
     public final static int LOGO_POSITION_RIGHT_TOP=2;
     public final static int LOGO_POSITION_RIGHT_BOTTOM=3;
 
-    private String videoPath=null;
+    private String sourceFilePath;
+    private String destFilePath;
     private MediaInfo   srcInfo;
     private String srcAudioPath; //从源视频中分离出的音频临时文件.
     private float tmpvDuration=0.0f;//drawpad处理后的视频时长.
@@ -86,7 +87,6 @@ public class NewVideoOneDo {
 
     private String textAdd=null;
 
-
     private String musicAACPath=null;
     private String musicMp3Path=null;
     private MediaInfo  musicInfo;
@@ -94,11 +94,18 @@ public class NewVideoOneDo {
     private float mixBgMusicVolume=0.8f;  //默认减少一点.
     private String dstAACPath=null; 
     
-    public NewVideoOneDo(Context ctx, String videoPath)
-    {
-        this.videoPath=videoPath;
+    public NewVideoOneDo(Context ctx, String sourceFilePath) {
         context=ctx;
+        this.sourceFilePath = sourceFilePath;
     }
+
+    public NewVideoOneDo(Context ctx, String sourceFilePath, String destFilePath) {
+        this.context = ctx;
+        this.sourceFilePath = sourceFilePath;
+        this.destFilePath = destFilePath;
+    }
+
+
     /**
      * 增加背景音乐.
      * 暂时只支持MP3和aac.
@@ -253,7 +260,6 @@ public class NewVideoOneDo {
      * 原理: 增加一个CanvasLayer图层, 把文字绘制到Canvas图层上.
      * 文字的位置, 是Canvas绘制出来的.
      * @param text
-     * @param position
      */
     public void setText(String text)
     {
@@ -273,18 +279,18 @@ public class NewVideoOneDo {
      * 开启成功,返回true. 失败返回false;
      * @return
      */
-    public boolean start()
-    {
-		if(isExecuting)
+    public boolean start() {
+        if (isExecuting) {
             return false;
+        }
 
-		srcInfo=new MediaInfo(videoPath,false);
+		srcInfo=new MediaInfo(sourceFilePath,false);
         if(srcInfo.prepare()==false) {
         	return false;
         }
-        
-        if(startTimeUs>0 || cutDurationUs>0)  //有剪切.
-        {
+        Log.d("feature_847", "srcInfo = " + srcInfo);
+
+        if(startTimeUs>0 || cutDurationUs>0) {  //有剪切.
         	long du=(long)(srcInfo.vDuration*1000*1000);
         	long aDuration=(long)(srcInfo.aDuration*1000*1000);
         	if(aDuration>0){
@@ -303,13 +309,16 @@ public class NewVideoOneDo {
         if(srcInfo.isHaveAudio()){
         	VideoEditor editor=new VideoEditor();
         	srcAudioPath=SDKFileUtils.createAACFileInBox();
-			editor.executeDeleteVideo(videoPath, srcAudioPath,(float)startTimeUs/1000000f,(float)cutDurationUs/1000000f);
+            Log.d("feature_847", "sourceFilePath ＝ " + sourceFilePath + ", srcAudioPath = " + srcAudioPath);
+
+			editor.executeDeleteVideo(sourceFilePath, srcAudioPath,(float)startTimeUs/1000000f,(float)cutDurationUs/1000000f);//删除视频，应该就是提取音频了吧
         }else{
         	isMixBgMusic=false;//没有音频则不混合.
         }
         
         isExecuting=true;
         editTmpPath=SDKFileUtils.createMp4FileInBox();
+        Log.d("feature_847", "editTmpPath = " + editTmpPath);
         
         tmpvDuration=srcInfo.vDuration;
         if(cutDurationUs>0 && cutDurationUs< (srcInfo.vDuration*1000000)){
@@ -332,13 +341,11 @@ public class NewVideoOneDo {
         	return false;
         }
     }
-    private boolean startVideoThread()
-    {
+    private boolean startVideoThread() {
     	 //先判断有无裁剪画面
-        if(cropHeight>0 && cropWidth>0)
-        {
+        if(cropHeight>0 && cropWidth>0) {
             fileParamter=new FileParameter();
-            fileParamter.setDataSoure(videoPath);
+            fileParamter.setDataSoure(sourceFilePath);
             	
             //如果裁剪的视频, 旋转了90度,则宽度高度对调.
         	if(srcInfo.vRotateAngle==90 || srcInfo.vRotateAngle==270){
@@ -388,7 +395,8 @@ public class NewVideoOneDo {
                 float f= (float)(padHeight*padWidth) /(float)(srcInfo.vWidth * srcInfo.vHeight);
                 bitrate *=f;
             }
-            mDrawPad=new DrawPadVideoExecute(context,videoPath,startTimeUs/1000,padWidth,padHeight,(int)bitrate,videoFilter,editTmpPath);
+            Log.d("feature_847", "sourceFilePath = " + sourceFilePath+", startTimeUs = "+startTimeUs+", padWidth = "+padWidth+", bitrate = "+bitrate+", videoFilter = "+videoFilter+", editTmpPath = "+editTmpPath);
+            mDrawPad=new DrawPadVideoExecute(context, sourceFilePath,padWidth,padHeight,(int)bitrate,videoFilter,editTmpPath);
         }
         mDrawPad.setUseMainVideoPts(true);
         /**
@@ -426,8 +434,7 @@ public class NewVideoOneDo {
 
         mDrawPad.pauseRecord();
         Log.d(TAG,"开始执行....startDrawPad");
-        if(mDrawPad.startDrawPad())
-        {
+        if(mDrawPad.startDrawPad()) {
             mainVideoLayer=mDrawPad.getMainVideoLayer();
             
             addBitmapLayer(); //增加图片图层
@@ -479,7 +486,7 @@ public class NewVideoOneDo {
     			mDrawPad.stopDrawPad();
     		}
     		joinAudioThread();
-    		videoPath=null;
+    		sourceFilePath =null;
     		srcInfo=null;
     		mDrawPad=null;
     	  
@@ -552,8 +559,7 @@ public class NewVideoOneDo {
      */
     private void startAudioThread()
     {
-    	if(audioThread==null)
-    	{
+    	if(audioThread==null) {
     		audioThread=new Thread(new Runnable() {
     			@Override
     			public void run() {
@@ -718,8 +724,5 @@ public class NewVideoOneDo {
          */
         void onProgress(NewVideoOneDo v,float percent);
     }
-
-
-
 
 }

@@ -41,16 +41,15 @@ public class EdittedVideoExport {
     }
 
     public boolean start() {
-        NewVideoOneDo videoOneDo=new NewVideoOneDo(mContext, sourceFilePath);
-        videoOneDo.setOnVideoOneDoProgressListener(new NewVideoOneDo.OnVideoOneDoProgressListener() {
-
+        NewVideoOneDo newVideoOneDo=new NewVideoOneDo(mContext, sourceFilePath,sourceFilePath);
+        newVideoOneDo.setOnVideoOneDoProgressListener(new NewVideoOneDo.OnVideoOneDoProgressListener() {
             @Override
             public void onProgress(NewVideoOneDo v, float percent) {
                 Log.d("feature_847", "start，progress ＝ " + percent);
             }
         });
 
-        videoOneDo.setOnVideoOneDoCompletedListener(new NewVideoOneDo.OnVideoOneDoCompletedListener() {
+        newVideoOneDo.setOnVideoOneDoCompletedListener(new NewVideoOneDo.OnVideoOneDoCompletedListener() {
 
             @Override
             public void onCompleted(NewVideoOneDo v, String dstVideo) {
@@ -58,9 +57,9 @@ public class EdittedVideoExport {
             }
         });
 
-        videoOneDo.setFilter(mFilter);
+        newVideoOneDo.setFilter(mFilter);
 
-        if(videoOneDo.start()){
+        if(newVideoOneDo.start()){
             Log.d("feature_847", "start，videoInfo 开始执行 " );
         }else{
             Log.d("feature_847", "start，videoInfo 执行失败 " );
