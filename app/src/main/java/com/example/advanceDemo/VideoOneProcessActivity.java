@@ -2,7 +2,6 @@ package com.example.advanceDemo;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageLaplacianFilter;
@@ -10,9 +9,7 @@ import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBeautyFilter;
 
 import com.example.advanceDemo.view.RangeSeekBar;
 import com.example.advanceDemo.view.RangeSeekBar.OnRangeSeekBarChangeListener;
-import com.example.commonDemo.AVEditorDemoActivity;
 import com.example.custom.EdittedVideoExport;
-import com.example.custom.NewVideoOneDo;
 import com.lansoeditor.demo.R;
 import com.lansosdk.videoeditor.CopyFileFromAssets;
 import com.lansosdk.videoeditor.FilterLibrary;
@@ -21,7 +18,6 @@ import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoOneDo;
 import com.lansosdk.videoeditor.onVideoOneDoCompletedListener;
 import com.lansosdk.videoeditor.onVideoOneDoProgressListener;
-import com.lansosdk.videoeditor.FilterLibrary.FilterAdjuster;
 import com.lansosdk.videoeditor.FilterLibrary.OnGpuImageFilterChosenListener;
 
 import android.app.Activity;
@@ -30,13 +26,11 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -113,29 +107,29 @@ public class VideoOneProcessActivity extends Activity  implements OnClickListene
 		String sourceFilePath = videoPath;
 		String destFilePath = "/sdcard/lansongBox_test/destVideo.mp4";
 
-		NewVideoOneDo newVideoOneDo = new NewVideoOneDo(getApplicationContext(), sourceFilePath, destFilePath);
-		newVideoOneDo.setFaceBeautyFilter(new LanSongBeautyFilter());
-		newVideoOneDo.setFilter(new GPUImageLaplacianFilter());
+		EdittedVideoExport edittedVideoExport = new EdittedVideoExport(getApplicationContext(), sourceFilePath, destFilePath);
+		edittedVideoExport.setFaceBeautyFilter(new LanSongBeautyFilter());
+		edittedVideoExport.setFilter(new GPUImageLaplacianFilter());
 
 		Bitmap bmp=BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
-		newVideoOneDo.setLogo(bmp);
+		edittedVideoExport.setLogo(bmp);
 
-		newVideoOneDo.setOnVideoOneDoProgressListener(new NewVideoOneDo.OnProgressListener() {
+		edittedVideoExport.setOnVideoOneDoProgressListener(new EdittedVideoExport.OnProgressListener() {
 			@Override
-			public void onProgress(NewVideoOneDo v, float percent) {
+			public void onProgress(EdittedVideoExport v, float percent) {
 				Log.d("feature_847", "start，progress ＝ " + percent);
 			}
 		});
 
-		newVideoOneDo.setOnVideoOneDoCompletedListener(new NewVideoOneDo.OnCompletedListener() {
+		edittedVideoExport.setOnVideoOneDoCompletedListener(new EdittedVideoExport.OnCompletedListener() {
 
 			@Override
-			public void onCompleted(NewVideoOneDo v, String dstVideo) {
+			public void onCompleted(EdittedVideoExport v, String dstVideo) {
 				Log.d("feature_847", "start，process completed ");
 			}
 		});
 
-		newVideoOneDo.start();
+		edittedVideoExport.start();
 	}
 
 	/**

@@ -20,7 +20,7 @@ import java.util.List;
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBeautyFilter;
 
-public class NewVideoOneDo {
+public class EdittedVideoExport {
 
     private String sourceFilePath;
     private String destFilePath;
@@ -44,7 +44,7 @@ public class NewVideoOneDo {
     private OnProgressListener onProgressListener;
     private OnCompletedListener onCompletedListener = null;
 
-    public NewVideoOneDo(Context ctx, String sourceFilePath, String destFilePath) {
+    public EdittedVideoExport(Context ctx, String sourceFilePath, String destFilePath) {
         this.context = ctx;
         this.sourceFilePath = sourceFilePath;
         this.destFilePath = destFilePath;
@@ -129,7 +129,7 @@ public class NewVideoOneDo {
 
                     float b = (float) (Math.round(percent * 100)) / 100;  //保留两位小数.
                     if (b < 1.0f && onProgressListener != null && isExecuting) {
-                        onProgressListener.onProgress(NewVideoOneDo.this, b);
+                        onProgressListener.onProgress(EdittedVideoExport.this, b);
                     }
                 }
             }
@@ -184,7 +184,7 @@ public class NewVideoOneDo {
         new File(extractSourceAudioPath).delete();
 
         if (onCompletedListener != null && isExecuting) {
-            onCompletedListener.onCompleted(NewVideoOneDo.this, destFilePath);
+            onCompletedListener.onCompleted(EdittedVideoExport.this, destFilePath);
         }
         isExecuting = false;
         Log.d("feature_847", "最后的视频文件是:" + MediaInfo.checkFile(destFilePath));
@@ -261,10 +261,10 @@ public class NewVideoOneDo {
     }
 
     public interface OnCompletedListener {
-        void onCompleted(NewVideoOneDo v, String dstVideo);
+        void onCompleted(EdittedVideoExport v, String dstVideo);
     }
 
     public interface OnProgressListener {
-        void onProgress(NewVideoOneDo v, float percent);
+        void onProgress(EdittedVideoExport v, float percent);
     }
 }
