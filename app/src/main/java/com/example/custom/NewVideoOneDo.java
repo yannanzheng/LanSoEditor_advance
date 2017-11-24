@@ -219,7 +219,7 @@ public class NewVideoOneDo {
             }
         });
 
-        mDrawPad.pauseRecord();
+//        mDrawPad.pauseRecord();
         Log.d(TAG, "开始执行....startDrawPad");
         if (mDrawPad.startDrawPad()) {
             mainVideoLayer = mDrawPad.getMainVideoLayer();
