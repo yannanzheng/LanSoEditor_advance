@@ -153,7 +153,7 @@ public class NewVideoOneDo {
         
         if(srcInfo.isHaveAudio()){
         	VideoEditor editor=new VideoEditor();
-        	srcAudioPath=SDKFileUtils.createAACFileInBox();
+        	srcAudioPath="/sdcard/lansongBox/abstract_music.aac";
             Log.d("feature_847", "sourceFilePath ＝ " + sourceFilePath + ", srcAudioPath = " + srcAudioPath);
 
 			editor.executeDeleteVideo(sourceFilePath, srcAudioPath,(float)startTimeUs/1000000f,(float)cutDurationUs/1000000f);//删除视频，应该就是提取音频了吧
