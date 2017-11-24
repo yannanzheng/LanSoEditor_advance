@@ -28,7 +28,6 @@ public class NewVideoOneDo {
     private String sourceFilePath;
     private String destFilePath;
     private String srcAudioPath; //从源视频中分离出的音频临时文件.
-//    private float tmpvDuration = 0.0f;//drawpad处理后的视频时长.
 
     private String editTmpPath = null;
 
