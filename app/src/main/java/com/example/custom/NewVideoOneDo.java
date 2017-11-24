@@ -59,7 +59,6 @@ public class NewVideoOneDo {
     private String textAdd = null;
 
     private MediaInfo musicInfo;
-    private boolean isMixBgMusic; //是否要混合背景音乐.
     private String dstAACPath = null;
 
     public NewVideoOneDo(Context ctx, String sourceFilePath, String destFilePath) {
@@ -131,8 +130,6 @@ public class NewVideoOneDo {
             Log.d("feature_847", "sourceFilePath ＝ " + sourceFilePath + ", srcAudioPath = " + srcAudioPath);
 
             editor.executeDeleteVideo(sourceFilePath, srcAudioPath, (float) startTimeUs / 1000000f, (float) cutDurationUs / 1000000f);//删除视频，应该就是提取音频了吧
-        } else {
-            isMixBgMusic = false;//没有音频则不混合.
         }
 
         isExecuting = true;
@@ -406,14 +403,6 @@ public class NewVideoOneDo {
 
     public interface OnVideoOneDoProgressListener {
 
-        /**
-         * 进度百分比, 最小是0.0,最大是1.0;
-         * 如果运行结束, 会回调{@link com.lansosdk.videoeditor.onVideoOneDoCompletedListener}, 只有调用Complete才是正式完成回调.
-         *
-         * @param v
-         * @param percent
-         */
         void onProgress(NewVideoOneDo v, float percent);
     }
-
 }
