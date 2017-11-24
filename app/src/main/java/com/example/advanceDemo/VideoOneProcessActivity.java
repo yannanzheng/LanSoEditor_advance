@@ -111,7 +111,7 @@ public class VideoOneProcessActivity extends Activity  implements OnClickListene
 		}
 
 		String sourceFilePath = videoPath;
-		String destFilePath = dstPath;
+		String destFilePath = "/sdcard/lansongBox_test/destVideo.mp4";
 		edittedVideoExport = new EdittedVideoExport(getApplicationContext(), sourceFilePath, destFilePath);
 		edittedVideoExport.setFilter(new GPUImageLaplacianFilter());//设置滤镜
 		edittedVideoExport.setFaceBeautyFilter(new LanSongBeautyFilter());//设置美颜
