@@ -101,16 +101,18 @@ public class NewVideoOneDo {
 
         if (srcInfo.isHaveAudio()) {
             VideoEditor editor = new VideoEditor();
-            extractSourceAudioPath = "/sdcard/lansongBox/abstract_music.aac";
+            File destDir = new File(destFilePath).getParentFile();
+            if (!destDir.exists()) {
+                destDir.mkdirs();
+            }
+
+            extractSourceAudioPath = destDir.getAbsolutePath() + "/abstract_music.aac";
             Log.d("feature_847", "sourceFilePath ＝ " + sourceFilePath + ", extractSourceAudioPath = " + extractSourceAudioPath);
 
-            editor.executeDeleteVideo(sourceFilePath, extractSourceAudioPath);//删除视频，应该就是提取音频了吧
+            editor.executeDeleteVideo(sourceFilePath, extractSourceAudioPath);//删除视频，提取音频
         }
 
         isExecuting = true;
-        editTmpPath = "/sdcard/lansongBox/temp_edit_video.mp4";
-        Log.d("feature_847", "editTmpPath = " + editTmpPath);
-
         return startVideoThread(srcInfo);
     }
 
@@ -125,6 +127,7 @@ public class NewVideoOneDo {
             padHeight = srcInfo.vWidth;
         }
 
+        editTmpPath = new File(destFilePath).getParent() + "/temp_edit_video.mp4";
         Log.d("feature_847", "sourceFilePath = " + sourceFilePath + ", startTimeUs = " + startTimeUs + ", padWidth = " + padWidth + ", videoFilter = " + videoFilter + ", editTmpPath = " + editTmpPath);
         mDrawPad = new DrawPadVideoExecute(context, sourceFilePath, padWidth, padHeight, videoFilter, editTmpPath);
         mDrawPad.setUseMainVideoPts(true);

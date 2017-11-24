@@ -41,7 +41,8 @@ public class EdittedVideoExport {
     }
 
     public boolean start() {
-        destFilePath = "/sdcard/lansongBox/destVideo.mp4";
+//        destFilePath = "/sdcard/lansongBox/destVideo.mp4";
+        destFilePath = "/sdcard/lansongBox_test/destVideo.mp4";
 
         NewVideoOneDo newVideoOneDo = new NewVideoOneDo(mContext, sourceFilePath, destFilePath);
         newVideoOneDo.setOnVideoOneDoProgressListener(new NewVideoOneDo.OnProgressListener() {
