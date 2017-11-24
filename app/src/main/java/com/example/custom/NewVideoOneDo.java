@@ -150,15 +150,11 @@ public class NewVideoOneDo {
         Log.d("feature_847", "editTmpPath = " + editTmpPath);
         
         tmpvDuration=srcInfo.vDuration;
-        if(cutDurationUs>0 && cutDurationUs< (srcInfo.vDuration*1000000)){
-        	tmpvDuration=(float)cutDurationUs/1000000f;
-        }
-        
-        /**
+
+		/**
          * 开启视频的DrawPad容器处理
          */
         if(startVideoThread()){
-        	
         	/**
         	 * 视频开启成功, 开启音频处理
         	 */
