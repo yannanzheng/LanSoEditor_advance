@@ -27,7 +27,7 @@ public class NewVideoOneDo {
 
     private String sourceFilePath;
     private String destFilePath;
-    private String srcAudioPath; //从源视频中分离出的音频临时文件.
+    private String extractSourceAudioPath; //从源视频中分离出的音频临时文件.
 
     private String editTmpPath = null;
 
@@ -100,10 +100,10 @@ public class NewVideoOneDo {
 
         if (srcInfo.isHaveAudio()) {
             VideoEditor editor = new VideoEditor();
-            srcAudioPath = "/sdcard/lansongBox/abstract_music.aac";
-            Log.d("feature_847", "sourceFilePath ＝ " + sourceFilePath + ", srcAudioPath = " + srcAudioPath);
+            extractSourceAudioPath = "/sdcard/lansongBox/abstract_music.aac";
+            Log.d("feature_847", "sourceFilePath ＝ " + sourceFilePath + ", extractSourceAudioPath = " + extractSourceAudioPath);
 
-            editor.executeDeleteVideo(sourceFilePath, srcAudioPath, (float) startTimeUs / 1000000f, (float) 0 / 1000000f);//删除视频，应该就是提取音频了吧
+            editor.executeDeleteVideo(sourceFilePath, extractSourceAudioPath);//删除视频，应该就是提取音频了吧
         }
 
         isExecuting = true;
@@ -177,10 +177,10 @@ public class NewVideoOneDo {
         }
 
         String dstPath = "/sdcard/lansongBox/destVideo.mp4";
-        Log.i("feature_847", "dstPath = " + dstPath + ",isExecuting = " + isExecuting + ", srcAudioPath = " + srcAudioPath);
+        Log.i("feature_847", "dstPath = " + dstPath + ",isExecuting = " + isExecuting + ", extractSourceAudioPath = " + extractSourceAudioPath);
 
-        if (srcAudioPath != null && isExecuting) {  //增加原音.
-            videoMergeAudio(editTmpPath, srcAudioPath, dstPath);
+        if (extractSourceAudioPath != null && isExecuting) {  //增加原音.
+            videoMergeAudio(editTmpPath, extractSourceAudioPath, dstPath);
         } else {
             dstPath = editTmpPath;
         }
