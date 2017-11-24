@@ -104,7 +104,6 @@ public class VideoOneProcessActivity extends Activity  implements OnClickListene
 		initUI();
 	}
 
-//	private EdittedVideoExport edittedVideoExport;
 	public void startNewDrawPadProcess(){
 		Log.d("feature_847", "开始处理视频，startNewDrawPadProcess ");
 		if(isRunning){
