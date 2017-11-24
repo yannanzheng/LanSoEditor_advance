@@ -182,10 +182,10 @@ public class NewVideoOneDo {
         if (extractSourceAudioPath != null && isExecuting) {  //增加原音.
             videoMergeAudio(editTmpPath, extractSourceAudioPath, destFilePath);
         } else {
-            new File(extractSourceAudioPath).renameTo(new File(destFilePath));
+            new File(editTmpPath).renameTo(new File(destFilePath));
         }
 
-        new File(editTmpPath).delete();//
+        new File(editTmpPath).delete();
         new File(extractSourceAudioPath).delete();
 
         if (onCompletedListener != null && isExecuting) {
