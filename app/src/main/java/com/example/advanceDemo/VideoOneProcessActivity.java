@@ -5,10 +5,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageLaplacianFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBeautyFilter;
 
 import com.example.advanceDemo.view.RangeSeekBar;
 import com.example.advanceDemo.view.RangeSeekBar.OnRangeSeekBarChangeListener;
 import com.example.commonDemo.AVEditorDemoActivity;
+import com.example.custom.EdittedVideoExport;
 import com.lansoeditor.demo.R;
 import com.lansosdk.videoeditor.CopyFileFromAssets;
 import com.lansosdk.videoeditor.FilterLibrary;
@@ -99,6 +102,26 @@ public class VideoOneProcessActivity extends Activity  implements OnClickListene
 		}
 		initUI();
 	}
+
+	private EdittedVideoExport edittedVideoExport;
+	public void startNewDrawPadProcess(){
+		Log.d("feature_847", "开始处理视频，startNewDrawPadProcess ");
+		if(isRunning){
+			return ;
+		}
+
+		String sourceFilePath = videoPath;
+		String destFilePath = dstPath;
+		edittedVideoExport = new EdittedVideoExport(getApplicationContext(), sourceFilePath, destFilePath);
+		edittedVideoExport.setFilter(new GPUImageLaplacianFilter());//设置滤镜
+		edittedVideoExport.setFaceBeautyFilter(new LanSongBeautyFilter());//设置美颜
+
+		Bitmap bmp=BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+		edittedVideoExport.setLogo(bmp);//设置logo
+		boolean start = edittedVideoExport.start();//开始导出
+		Log.d("feature_847", "开始处理视频，start = " + start);
+	}
+
 	/**
 	 * 开始处理.
 	 */
@@ -110,7 +133,7 @@ public class VideoOneProcessActivity extends Activity  implements OnClickListene
 		videoOneDo=new VideoOneDo(getApplicationContext(), videoPath);
 		
 		videoOneDo.setOnVideoOneDoProgressListener(new onVideoOneDoProgressListener() {
-			
+
 			@Override
 			public void onProgress(VideoOneDo v, float percent) {
 				 if(progressDialog!=null){
@@ -119,7 +142,7 @@ public class VideoOneProcessActivity extends Activity  implements OnClickListene
 			}
 		});
 		videoOneDo.setOnVideoOneDoCompletedListener(new onVideoOneDoCompletedListener() {
-			
+
 			@Override
 			public void onCompleted(VideoOneDo v, String dstVideo) {
 				dstPath=dstVideo;
@@ -148,12 +171,12 @@ public class VideoOneProcessActivity extends Activity  implements OnClickListene
 			videoOneDo.setStartPostion(startTimeUs);
 			videoOneDo.setCutDuration(cutDurationUs);
 		}
-		
+
 		if(isFilterEnable && mFilter!=null){  //是否增加滤镜.
 			videoOneDo.setFilter(mFilter);
-			
+
 			 //因为滤镜对象只能被执行一次, 如再次执行,则需要重新创建对象.故这里使用后等于null,并设置UI为no
-			mFilter=null; 
+			mFilter=null;
 			isFilterEnable=false;
 			switchBackImage(R.id.id_oendo_filter_switch,isFilterEnable);
 		}
@@ -163,7 +186,7 @@ public class VideoOneProcessActivity extends Activity  implements OnClickListene
 //			//这里为了代码清晰, 取视频中间的2/3画面为裁剪, 实际您可以任意裁剪.
 			int startX=mInfo.vWidth/6;  //中间2/3,则裁剪掉1/3, 则左上角是一半,为1/6;
 			int startY=mInfo.vHeight/6;
-			
+
 			int cropW=mInfo.vWidth*2/3;
 			int cropH=mInfo.vHeight*2/3;
 			videoOneDo.setCropRect(startX, startY, cropW, cropH);
@@ -175,18 +198,20 @@ public class VideoOneProcessActivity extends Activity  implements OnClickListene
 		}
 		
 		if(isAddWordEnable){  //增加文字.
-			
-			SimpleDateFormat formatter = new SimpleDateFormat ("yyyy年MM月dd日 HH:mm:ss ");  
-			Date curDate = new Date(System.currentTimeMillis());//获取当前时间  
-			String str = formatter.format(curDate);  
-			
+
+			SimpleDateFormat formatter = new SimpleDateFormat ("yyyy年MM月dd日 HH:mm:ss ");
+			Date curDate = new Date(System.currentTimeMillis());//获取当前时间
+			String str = formatter.format(curDate);
+
 			videoOneDo.setText("蓝松SDK演示文字:"+str);
 		}
 		//开始执行.
 		if(videoOneDo.start()){
+			Log.d("feature_847", "videoOneDo.start() 成功");
 			isRunning=true;
 			showProgressDialog();
 		}else{
+			Log.d("feature_847", "videoOneDo.start() 失败");
 			showHintDialog("视频执行错误!,请查看打印信息或联系我们.",false);
 		}
 	}
@@ -298,7 +323,8 @@ public class VideoOneProcessActivity extends Activity  implements OnClickListene
 				switchBackImage(id,isAddWordEnable);
 				break;
 			case R.id.id_onedo_start_process:  //开始执行.
-				startDrawPadProcess();
+//				startDrawPadProcess();
+				startNewDrawPadProcess();
 				break;
 		default:
 			break;
