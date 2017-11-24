@@ -19,9 +19,6 @@ import com.lansosdk.videoeditor.DrawPadVideoExecute;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.SDKFileUtils;
 import com.lansosdk.videoeditor.VideoEditor;
-import com.lansosdk.videoeditor.VideoOneDo;
-import com.lansosdk.videoeditor.onVideoOneDoCompletedListener;
-import com.lansosdk.videoeditor.onVideoOneDoProgressListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -262,13 +259,13 @@ public class NewVideoOneDo {
     {
         textAdd=text;
     }
-    private onVideoOneDoProgressListener monVideoOneDoProgressListener;
-    public void setOnVideoOneDoProgressListener(onVideoOneDoProgressListener li)
+    private OnVideoOneDoProgressListener monVideoOneDoProgressListener;
+    public void setOnVideoOneDoProgressListener(OnVideoOneDoProgressListener li)
     {
     	monVideoOneDoProgressListener=li;
     }
-    private onVideoOneDoCompletedListener monVideoOneDOCompletedListener=null;
-    public void setOnVideoOneDoCompletedListener(onVideoOneDoCompletedListener li){
+    private OnVideoOneDoCompletedListener monVideoOneDOCompletedListener=null;
+    public void setOnVideoOneDoCompletedListener(OnVideoOneDoCompletedListener li){
     	monVideoOneDOCompletedListener=li;
     }
     /**
@@ -706,12 +703,12 @@ public class NewVideoOneDo {
 			    editor.executeVideoEditor(command);
 	  }
 
-    public interface onVideoOneDoCompletedListener {
+    public interface OnVideoOneDoCompletedListener {
 
         void onCompleted(NewVideoOneDo v, String dstVideo);
     }
 
-    public interface onVideoOneDoProgressListener {
+    public interface OnVideoOneDoProgressListener {
 
         /**
          * 进度百分比, 最小是0.0,最大是1.0;

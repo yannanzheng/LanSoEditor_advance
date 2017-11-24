@@ -4,9 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
 
-import com.lansosdk.videoeditor.DrawPadVideoExecute;
-import com.lansosdk.videoeditor.MediaInfo;
-
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageLaplacianFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBeautyFilter;
@@ -45,7 +42,7 @@ public class EdittedVideoExport {
 
     public boolean start() {
         NewVideoOneDo videoOneDo=new NewVideoOneDo(mContext, sourceFilePath);
-        videoOneDo.setOnVideoOneDoProgressListener(new NewVideoOneDo.onVideoOneDoProgressListener() {
+        videoOneDo.setOnVideoOneDoProgressListener(new NewVideoOneDo.OnVideoOneDoProgressListener() {
 
             @Override
             public void onProgress(NewVideoOneDo v, float percent) {
@@ -53,7 +50,7 @@ public class EdittedVideoExport {
             }
         });
 
-        videoOneDo.setOnVideoOneDoCompletedListener(new NewVideoOneDo.onVideoOneDoCompletedListener() {
+        videoOneDo.setOnVideoOneDoCompletedListener(new NewVideoOneDo.OnVideoOneDoCompletedListener() {
 
             @Override
             public void onCompleted(NewVideoOneDo v, String dstVideo) {
