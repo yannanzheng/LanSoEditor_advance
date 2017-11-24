@@ -79,16 +79,16 @@ public class NewVideoOneDo {
         }
     }
 
-    private OnVideoOneDoProgressListener monVideoOneDoProgressListener;
+    private OnProgressListener monProgressListener;
 
-    public void setOnVideoOneDoProgressListener(OnVideoOneDoProgressListener li) {
-        monVideoOneDoProgressListener = li;
+    public void setOnVideoOneDoProgressListener(OnProgressListener li) {
+        monProgressListener = li;
     }
 
-    private OnVideoOneDoCompletedListener monVideoOneDOCompletedListener = null;
+    private OnCompletedListener monCompletedListener = null;
 
-    public void setOnVideoOneDoCompletedListener(OnVideoOneDoCompletedListener li) {
-        monVideoOneDOCompletedListener = li;
+    public void setOnVideoOneDoCompletedListener(OnCompletedListener li) {
+        monCompletedListener = li;
     }
 
     /**
@@ -144,14 +144,14 @@ public class NewVideoOneDo {
             @Override
             public void onProgress(DrawPad v, long currentTimeUs) {
 
-                if (monVideoOneDoProgressListener != null) {
+                if (monProgressListener != null) {
                     float time = (float) currentTimeUs / 1000000f;
 
                     float percent = time / (float) srcInfo.vDuration;
 
                     float b = (float) (Math.round(percent * 100)) / 100;  //保留两位小数.
-                    if (b < 1.0f && monVideoOneDoProgressListener != null && isExecuting) {
-                        monVideoOneDoProgressListener.onProgress(NewVideoOneDo.this, b);
+                    if (b < 1.0f && monProgressListener != null && isExecuting) {
+                        monProgressListener.onProgress(NewVideoOneDo.this, b);
                     }
                 }
                 if (cutDurationUs > 0 && currentTimeUs > cutDurationUs) {  //设置了结束时间, 如果当前时间戳大于结束时间,则停止容器.
@@ -198,8 +198,8 @@ public class NewVideoOneDo {
             dstPath = editTmpPath;
         }
 
-        if (monVideoOneDOCompletedListener != null && isExecuting) {
-            monVideoOneDOCompletedListener.onCompleted(NewVideoOneDo.this, dstPath);
+        if (monCompletedListener != null && isExecuting) {
+            monCompletedListener.onCompleted(NewVideoOneDo.this, dstPath);
         }
         isExecuting = false;
         Log.d("feature_847", "最后的视频文件是:" + MediaInfo.checkFile(dstPath));
@@ -209,8 +209,8 @@ public class NewVideoOneDo {
         if (isExecuting) {
             isExecuting = false;
 
-            monVideoOneDOCompletedListener = null;
-            monVideoOneDoProgressListener = null;
+            monCompletedListener = null;
+            monProgressListener = null;
             if (mDrawPad != null) {
                 mDrawPad.stopDrawPad();
             }
@@ -282,11 +282,11 @@ public class NewVideoOneDo {
         editor.executeVideoEditor(command);
     }
 
-    public interface OnVideoOneDoCompletedListener {
+    public interface OnCompletedListener {
         void onCompleted(NewVideoOneDo v, String dstVideo);
     }
 
-    public interface OnVideoOneDoProgressListener {
+    public interface OnProgressListener {
         void onProgress(NewVideoOneDo v, float percent);
     }
 }

@@ -42,14 +42,14 @@ public class EdittedVideoExport {
 
     public boolean start() {
         NewVideoOneDo newVideoOneDo=new NewVideoOneDo(mContext, sourceFilePath,sourceFilePath);
-        newVideoOneDo.setOnVideoOneDoProgressListener(new NewVideoOneDo.OnVideoOneDoProgressListener() {
+        newVideoOneDo.setOnVideoOneDoProgressListener(new NewVideoOneDo.OnProgressListener() {
             @Override
             public void onProgress(NewVideoOneDo v, float percent) {
                 Log.d("feature_847", "start，progress ＝ " + percent);
             }
         });
 
-        newVideoOneDo.setOnVideoOneDoCompletedListener(new NewVideoOneDo.OnVideoOneDoCompletedListener() {
+        newVideoOneDo.setOnVideoOneDoCompletedListener(new NewVideoOneDo.OnCompletedListener() {
 
             @Override
             public void onCompleted(NewVideoOneDo v, String dstVideo) {
