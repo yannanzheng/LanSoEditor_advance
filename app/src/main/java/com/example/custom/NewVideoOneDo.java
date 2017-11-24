@@ -11,7 +11,6 @@ import com.lansosdk.box.BitmapLayer;
 import com.lansosdk.box.CanvasLayer;
 import com.lansosdk.box.CanvasRunnable;
 import com.lansosdk.box.DrawPad;
-import com.lansosdk.box.FileParameter;
 import com.lansosdk.box.Layer;
 import com.lansosdk.box.onDrawPadCompletedListener;
 import com.lansosdk.box.onDrawPadProgressListener;
@@ -44,7 +43,6 @@ public class NewVideoOneDo {
     private DrawPadVideoExecute mDrawPad = null;
     private boolean isExecuting = false;
 
-    private Layer mainVideoLayer = null;
     private BitmapLayer logoBmpLayer = null;
     private CanvasLayer canvasLayer = null;
 
@@ -53,28 +51,16 @@ public class NewVideoOneDo {
     //-------------------------------------------------
     private long startTimeUs = 0;
     private long cutDurationUs = 0;
-    private FileParameter fileParamter = null;
-    private int startX, startY, cropWidth, cropHeight;
     private GPUImageFilter videoFilter = null;
 
     private Bitmap logoBitmap = null;
     private int logoPosition = LOGO_POSITION_RIGHT_TOP;
-    private int scaleWidth, scaleHeight;
-    private float compressFactor = 1.0f;
 
     private String textAdd = null;
 
-    private String musicAACPath = null;
-    private String musicMp3Path = null;
     private MediaInfo musicInfo;
     private boolean isMixBgMusic; //是否要混合背景音乐.
-    private float mixBgMusicVolume = 0.8f;  //默认减少一点.
     private String dstAACPath = null;
-
-    public NewVideoOneDo(Context ctx, String sourceFilePath) {
-        context = ctx;
-        this.sourceFilePath = sourceFilePath;
-    }
 
     public NewVideoOneDo(Context ctx, String sourceFilePath, String destFilePath) {
         this.context = ctx;
@@ -169,10 +155,6 @@ public class NewVideoOneDo {
             padHeight = srcInfo.vWidth;
         }
 
-        if (scaleHeight > 0 && scaleWidth > 0) {
-            padWidth = scaleWidth;
-            padHeight = scaleHeight;
-        }
         Log.d("feature_847", "sourceFilePath = " + sourceFilePath + ", startTimeUs = " + startTimeUs + ", padWidth = " + padWidth + ", videoFilter = " + videoFilter + ", editTmpPath = " + editTmpPath);
         mDrawPad = new DrawPadVideoExecute(context, sourceFilePath, padWidth, padHeight, videoFilter, editTmpPath);
         mDrawPad.setUseMainVideoPts(true);
@@ -212,7 +194,7 @@ public class NewVideoOneDo {
         mDrawPad.pauseRecord();
         Log.d(TAG, "开始执行....startDrawPad");
         if (mDrawPad.startDrawPad()) {
-            mainVideoLayer = mDrawPad.getMainVideoLayer();
+            Layer mainVideoLayer = mDrawPad.getMainVideoLayer();
             addBitmapLayer(); //增加图片图层
             mDrawPad.resumeRecord();  //开始恢复处理.
             return true;
@@ -261,7 +243,6 @@ public class NewVideoOneDo {
             logoBitmap = null;
             textAdd = null;
             dstAACPath = null;
-            musicMp3Path = null;
             musicInfo = null;
         }
     }
