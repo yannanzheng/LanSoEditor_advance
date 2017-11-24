@@ -293,12 +293,10 @@ public class NewVideoOneDo {
     }
 
     public interface OnVideoOneDoCompletedListener {
-
         void onCompleted(NewVideoOneDo v, String dstVideo);
     }
 
     public interface OnVideoOneDoProgressListener {
-
         void onProgress(NewVideoOneDo v, float percent);
     }
 }
