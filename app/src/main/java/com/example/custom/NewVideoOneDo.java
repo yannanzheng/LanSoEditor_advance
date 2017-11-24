@@ -82,129 +82,7 @@ public class NewVideoOneDo {
         this.destFilePath = destFilePath;
     }
 
-
     /**
-     * 增加背景音乐.
-     * 暂时只支持MP3和aac.
-     * 如果背景音乐是MP3格式, 我们会转换为AAC格式.
-     * 如果背景音乐时间 比视频短,则会循环播放.
-     * 如果背景音乐时间 比视频长,则会从开始截取.
-     * @param path
-     */
-    public void setBackGrondMusic(String path)
-    {
-    	musicInfo=new MediaInfo(path,false);
-    	if(musicInfo.prepare() && musicInfo.isHaveAudio()){
-    		if(musicInfo.aCodecName.equalsIgnoreCase("mp3")){
-    			musicMp3Path=path;
-    			musicAACPath=null;
-    		}else if(musicInfo.aCodecName.equalsIgnoreCase("aac")){
-    			musicAACPath=path;
-    			musicMp3Path=null;
-    		}else{
-    			musicAACPath=null;
-    			musicMp3Path=null;
-    		}
-    	}else{
-    		musicMp3Path=null;
-    		musicAACPath=null;
-    		musicInfo=null;
-    	}
-    }
-    /**
-     * 背景音乐是否要和原视频中的声音混合, 即同时保留原音和背景音乐, 背景音乐通常音量略低一些.
-     * 
-     * @param path
-     * @param isMix   是否增加,
-     * @param volume 如增加,则背景音乐的音量调节 =1.0f为不变, 小于1.0降低; 大于1.0提高; 最大2.0;
-     */
-    public void setBackGrondMusic(String path, boolean isMix,float volume)
-    {
-    	musicInfo=new MediaInfo(path,false);
-    	if(musicInfo.prepare() && musicInfo.isHaveAudio())
-    	{
-    		isMixBgMusic=isMix;
-        	mixBgMusicVolume=volume;
-        	
-    		if(musicInfo.aCodecName.equalsIgnoreCase("mp3")){
-    			musicMp3Path=path;
-    			musicAACPath=null;
-    		}else if(musicInfo.aCodecName.equalsIgnoreCase("aac")){
-    			musicAACPath=path;
-    			musicMp3Path=null;
-    		}else{
-    			musicAACPath=null;
-    			musicMp3Path=null;
-    		}
-    	}else{
-    		Log.e(TAG,"设置背景音乐出错, 音频文件有误.请查看"+musicInfo.toString());
-    		musicMp3Path=null;
-    		musicAACPath=null;
-    		musicInfo=null;
-    	}
-    }
-    /**
-     * 缩放到的目标宽度和高度.
-     * @param scaleW
-     * @param scaleH
-     */
-    public void setScaleWidth(int scaleW,int scaleH){
-    	if(scaleW>0 && scaleH>0){
-    		 scaleWidth=scaleW;
-    		 scaleHeight=scaleH;
-    	}
-    }
-    /**
-     * 设置压缩比, 此压缩比,在运行时, 会根据缩放后的比例,计算出缩放后的码率
-     *  压缩比乘以 缩放后的码率, 等于实际的码率, 如果您缩放后, 建议不要再设置压缩
-     * @param percent  压缩比, 值范围0.0f---1.0f;
-     */
-    public void setCompressPercent(float percent)
-    {
-    	if(percent>0.0f && percent<1.0f){
-    		compressFactor=percent;
-    	}
-    }
-
-    /**
-     * 设置视频的开始位置,等于截取视频中的一段
-     *  单位微秒, 如果你打算从2.3秒处开始处理,则这里的应该是2.3*1000*1000;
-     *  支持精确截取.
-     * @param timeUs
-     */
-    public  void setStartPostion(long timeUs){
-        startTimeUs=timeUs;
-    }
-
-    /**
-     *设置截取视频中的多长时间.
-     * 单位微秒,
-     * 支持精确截取.
-     * @param timeUs
-     */
-    public  void setCutDuration(long timeUs)
-    {
-    	if(timeUs>0){
-    		cutDurationUs=timeUs;
-    	}
-    }
-    /**
-     * 设置裁剪画面的一部分用来处理,
-     *
-     *  裁剪后, 如果设置了缩放,则会把cropW和cropH缩放到指定的缩放宽度.
-     * @param startX  画面的开始横向坐标,
-     * @param startY  画面的结束纵向坐标
-     * @param cropW  裁剪多少宽度
-     * @param cropH  裁剪多少高度
-     */
-    public void setCropRect(int startX,int startY,int cropW,int cropH){
-        fileParamter=new FileParameter();
-        this.startX=startX;
-        this.startY=startY;
-        cropWidth=cropW;
-        cropHeight=cropH;
-    }
-    /** 
      * 这里仅仅是举例,用一个滤镜.如果你要增加多个滤镜,可以判断处理进度,来不断切换滤镜
      * @param filter
      */
@@ -232,16 +110,6 @@ public class NewVideoOneDo {
         }
     }
 
-    /**
-     * 增加文字, 这里仅仅是举例,
-     * 原理: 增加一个CanvasLayer图层, 把文字绘制到Canvas图层上.
-     * 文字的位置, 是Canvas绘制出来的.
-     * @param text
-     */
-    public void setText(String text)
-    {
-        textAdd=text;
-    }
     private OnVideoOneDoProgressListener monVideoOneDoProgressListener;
     public void setOnVideoOneDoProgressListener(OnVideoOneDoProgressListener li)
     {
@@ -424,8 +292,7 @@ public class NewVideoOneDo {
     /**
      * 处理完成后的动作.
      */
-    private void completeDrawPad()
-    {
+    private void completeDrawPad() {
     	 Log.d(TAG,"开始执行....drawPadCompleted");
     	joinAudioThread();
     	
@@ -449,8 +316,7 @@ public class NewVideoOneDo {
     	isExecuting=false;
     	Log.i(TAG,"最后的视频文件是:"+MediaInfo.checkFile(dstPath));
     }
-    public void stop()
-    {
+    public void stop() {
     	if(isExecuting){
     		isExecuting=false;
     		  
@@ -478,8 +344,7 @@ public class NewVideoOneDo {
     /**
      * 增加图片图层
      */
-    private void addBitmapLayer()
-    {
+    private void addBitmapLayer() {
     	 //如果需要增加图片.
         if(logoBitmap!=null){
         	logoBmpLayer=mDrawPad.addBitmapLayer(logoBitmap);
@@ -531,8 +396,7 @@ public class NewVideoOneDo {
     /**
      * 音频处理线程.
      */
-    private void startAudioThread()
-    {
+    private void startAudioThread() {
     	if(audioThread==null) {
     		audioThread=new Thread(new Runnable() {
     			@Override
@@ -574,8 +438,7 @@ public class NewVideoOneDo {
     		audioThread.start();
     	}
     }
-    private void joinAudioThread()
-    {
+    private void joinAudioThread() {
     	if(audioThread!=null){
     		try {
 				audioThread.join(2000);
@@ -593,8 +456,7 @@ public class NewVideoOneDo {
      * @param isMp3
      * @return
      */
-    private String getEnoughAudio(String input, boolean isMp3)
-    {
+    private String getEnoughAudio(String input, boolean isMp3) {
     	String audio=input;
 		if(musicInfo.aDuration<tmpvDuration){  //如果小于则自行拼接.
 			
@@ -620,8 +482,7 @@ public class NewVideoOneDo {
      * @param dstFile
      * @return
      */
-    private int concatAudio(String[] tsArray,String dstFile)
-	   {
+    private int concatAudio(String[] tsArray,String dstFile) {
 		   if(SDKFileUtils.filesExist(tsArray)){
 			    String concat="concat:";
 			    for(int i=0;i<tsArray.length-1;i++){
@@ -654,8 +515,7 @@ public class NewVideoOneDo {
     /**
      * 之所有从VideoEditor.java中拿过来另外写, 是为了省去两次MediaInfo的时间;
      */
-       private void videoMergeAudio(String videoFile,String audioFile,String dstFile)
-	  {
+       private void videoMergeAudio(String videoFile,String audioFile,String dstFile) {
 		  		VideoEditor editor=new VideoEditor();
 				List<String> cmdList=new ArrayList<String>();
 				
