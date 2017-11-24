@@ -45,6 +45,9 @@ public class NewVideoOneDo {
     private Bitmap logoBitmap = null;
     private int logoPosition = LOGO_POSITION_RIGHT_TOP;
 
+    private OnProgressListener onProgressListener;
+    private OnCompletedListener onCompletedListener = null;
+
     public NewVideoOneDo(Context ctx, String sourceFilePath, String destFilePath) {
         this.context = ctx;
         this.sourceFilePath = sourceFilePath;
@@ -77,18 +80,6 @@ public class NewVideoOneDo {
         if (position <= LOGO_POSITION_RIGHT_BOTTOM) {
             logoPosition = position;
         }
-    }
-
-    private OnProgressListener onProgressListener;
-
-    public void setOnVideoOneDoProgressListener(OnProgressListener listener) {
-        onProgressListener = listener;
-    }
-
-    private OnCompletedListener onCompletedListener = null;
-
-    public void setOnVideoOneDoCompletedListener(OnCompletedListener listener) {
-        onCompletedListener = listener;
     }
 
     /**
@@ -280,6 +271,14 @@ public class NewVideoOneDo {
             command[i] = (String) cmdList.get(i);
         }
         editor.executeVideoEditor(command);
+    }
+
+    public void setOnVideoOneDoProgressListener(OnProgressListener listener) {
+        onProgressListener = listener;
+    }
+
+    public void setOnVideoOneDoCompletedListener(OnCompletedListener listener) {
+        onCompletedListener = listener;
     }
 
     public interface OnCompletedListener {
