@@ -25,29 +25,6 @@ import java.util.List;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 
-/**
- * 说明1:用来演示DrawPad, 同时处理裁剪,缩放,压缩,剪切,增加文字, 增加logo等信息.
- * 我们的DrawPad是一个容器, 内部可以放任意图层,并调节图层的各种移动等.
- * 这里仅仅是演示 视频图层+图片图层+Canvas图层的组合.
- * 您可以参考我们其他的各种例子,来实现您的具体需求.
- * 
- * 说明2: 如果你有除了我们列举的功能外, 还有做别的, 可以直接拷贝这个类, 然后删除没用的, 增加上你的图层, 来完成您的需求.
- * 
- * 说明3: 如果列举的功能,可以满足您的需求,则调用形式是这样的:
- *      场景1: 只裁剪+logo:
- *      则:
- *      videoOneDo=new VideoOneDo(getApplicationContext(), sourceFilePath);
-		
-		videoOneDo.setOnVideoOneDoProgressListener(进度监听);
-		videoOneDo.setOnVideoOneDoCompletedListener(完成监听, 返回处理后的结果);
-			videoOneDo.setCropRect(startX, startY, cropW, cropH);  //裁剪
-			videoOneDo.setLogo(bmp, VideoOneDo.LOGO_POSITION_RIGHT_TOP); //加logo
-		videoOneDo.start(); //开启另一个线程成功返回true, 失败返回false
-		场景2: 增加背景音乐, 剪切时长+logo+文字等
-		   则:
-		     创建对象 ===>各种set===> 开始执行
-		     
- */
 public class NewVideoOneDo {
 
     private static final String TAG="VideoOneDo";
