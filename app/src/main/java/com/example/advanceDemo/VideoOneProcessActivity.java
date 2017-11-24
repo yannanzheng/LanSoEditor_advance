@@ -12,6 +12,7 @@ import com.example.advanceDemo.view.RangeSeekBar;
 import com.example.advanceDemo.view.RangeSeekBar.OnRangeSeekBarChangeListener;
 import com.example.commonDemo.AVEditorDemoActivity;
 import com.example.custom.EdittedVideoExport;
+import com.example.custom.NewVideoOneDo;
 import com.lansoeditor.demo.R;
 import com.lansosdk.videoeditor.CopyFileFromAssets;
 import com.lansosdk.videoeditor.FilterLibrary;
@@ -103,7 +104,7 @@ public class VideoOneProcessActivity extends Activity  implements OnClickListene
 		initUI();
 	}
 
-	private EdittedVideoExport edittedVideoExport;
+//	private EdittedVideoExport edittedVideoExport;
 	public void startNewDrawPadProcess(){
 		Log.d("feature_847", "开始处理视频，startNewDrawPadProcess ");
 		if(isRunning){
@@ -112,14 +113,30 @@ public class VideoOneProcessActivity extends Activity  implements OnClickListene
 
 		String sourceFilePath = videoPath;
 		String destFilePath = "/sdcard/lansongBox_test/destVideo.mp4";
-		edittedVideoExport = new EdittedVideoExport(getApplicationContext(), sourceFilePath, destFilePath);
-		edittedVideoExport.setFilter(new GPUImageLaplacianFilter());//设置滤镜
-		edittedVideoExport.setFaceBeautyFilter(new LanSongBeautyFilter());//设置美颜
+
+		NewVideoOneDo newVideoOneDo = new NewVideoOneDo(getApplicationContext(), sourceFilePath, destFilePath);
+		newVideoOneDo.setFaceBeautyFilter(new LanSongBeautyFilter());
+		newVideoOneDo.setFilter(new GPUImageLaplacianFilter());
 
 		Bitmap bmp=BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
-		edittedVideoExport.setLogo(bmp);//设置logo
-		boolean start = edittedVideoExport.start();//开始导出
-		Log.d("feature_847", "开始处理视频，start = " + start);
+		newVideoOneDo.setLogo(bmp);
+
+		newVideoOneDo.setOnVideoOneDoProgressListener(new NewVideoOneDo.OnProgressListener() {
+			@Override
+			public void onProgress(NewVideoOneDo v, float percent) {
+				Log.d("feature_847", "start，progress ＝ " + percent);
+			}
+		});
+
+		newVideoOneDo.setOnVideoOneDoCompletedListener(new NewVideoOneDo.OnCompletedListener() {
+
+			@Override
+			public void onCompleted(NewVideoOneDo v, String dstVideo) {
+				Log.d("feature_847", "start，process completed ");
+			}
+		});
+
+		newVideoOneDo.start();
 	}
 
 	/**
