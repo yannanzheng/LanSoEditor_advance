@@ -135,22 +135,6 @@ public class NewVideoOneDo {
         }
         Log.d("feature_847", "srcInfo = " + srcInfo);
 
-        if(startTimeUs>0 || cutDurationUs>0) {  //有剪切.
-        	long du=(long)(srcInfo.vDuration*1000*1000);
-        	long aDuration=(long)(srcInfo.aDuration*1000*1000);
-        	if(aDuration>0){
-        		 du=Math.min(du, aDuration);
-        	}
-        	if(startTimeUs>du){
-       		 	startTimeUs=0;
-       		 	Log.w(TAG,"开始时间无效,恢复为0...");
-        	}
-        	if(du<(startTimeUs+cutDurationUs)){  //如果总时间 小于要截取的时间,则截取时间默认等于总时间.
-        		cutDurationUs=0;
-        		Log.w(TAG,"剪切时长无效,恢复为0...");
-        	}
-        }
-        
         if(srcInfo.isHaveAudio()){
         	VideoEditor editor=new VideoEditor();
         	srcAudioPath="/sdcard/lansongBox/abstract_music.aac";
