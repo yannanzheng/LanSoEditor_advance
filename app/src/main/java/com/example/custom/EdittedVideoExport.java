@@ -6,6 +6,7 @@ import android.util.Log;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageLaplacianFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageToonFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBeautyFilter;
 
 /**
@@ -60,7 +61,8 @@ public class EdittedVideoExport {
             }
         });
 
-        newVideoOneDo.setFilter(mFilter);
+        newVideoOneDo.setFilter(new GPUImageToonFilter());
+        newVideoOneDo.setFaceBeautyFilter(new LanSongBeautyFilter());
 
         if(newVideoOneDo.start()){
             Log.d("feature_847", "start，videoInfo 开始执行 " );

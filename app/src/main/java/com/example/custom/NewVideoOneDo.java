@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBeautyFilter;
 
 public class NewVideoOneDo {
 
@@ -40,6 +41,7 @@ public class NewVideoOneDo {
     private Context context;
 
     private long startTimeUs = 0;
+    private LanSongBeautyFilter beautyFilter;
     private GPUImageFilter videoFilter = null;
 
     private Bitmap logoBitmap = null;
@@ -55,13 +57,17 @@ public class NewVideoOneDo {
     }
 
     /**
-     * 这里仅仅是举例,用一个滤镜.如果你要增加多个滤镜,可以判断处理进度,来不断切换滤镜
-     *
+     * 设置滤镜
      * @param filter
      */
     public void setFilter(GPUImageFilter filter) {
         videoFilter = filter;
     }
+
+    public void setFaceBeautyFilter(LanSongBeautyFilter beautyFilter) {
+        this.beautyFilter = beautyFilter;
+    }
+
 
     /**
      * 设置logo的位置, 这里仅仅是举例,您可以拷贝这个代码, 自行定制各种功能.
@@ -129,7 +135,7 @@ public class NewVideoOneDo {
 
         editTmpPath = new File(destFilePath).getParent() + "/temp_edit_video.mp4";
         Log.d("feature_847", "sourceFilePath = " + sourceFilePath + ", startTimeUs = " + startTimeUs + ", padWidth = " + padWidth + ", videoFilter = " + videoFilter + ", editTmpPath = " + editTmpPath);
-        mDrawPad = new DrawPadVideoExecute(context, sourceFilePath, padWidth, padHeight, videoFilter, editTmpPath);
+        mDrawPad = new DrawPadVideoExecute(context, sourceFilePath, padWidth, padHeight, null, editTmpPath);
         mDrawPad.setUseMainVideoPts(true);
         /**
          * 设置DrawPad处理的进度监听, 回传的currentTimeUs单位是微秒.
@@ -164,6 +170,14 @@ public class NewVideoOneDo {
         mDrawPad.pauseRecord();
         if (mDrawPad.startDrawPad()) {
             Layer mainVideoLayer = mDrawPad.getMainVideoLayer();
+            ArrayList<GPUImageFilter> gpuImageFilters = new ArrayList<>();
+            if (null != beautyFilter) {
+                gpuImageFilters.add(beautyFilter);
+            }
+            if (null != videoFilter) {
+                gpuImageFilters.add(videoFilter);
+            }
+            mainVideoLayer.switchFilterList(gpuImageFilters);
             addBitmapLayer(); //增加图片图层
             mDrawPad.resumeRecord();  //开始恢复处理.
             return true;
