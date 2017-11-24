@@ -70,19 +70,4 @@ public class EdittedVideoExport {
         }
         return  true;
     }
-
-    private boolean processVideo(MediaInfo videoInfo) {
-        Log.d("feature_847", "processVideo，videoInfo = "+videoInfo);
-        DrawPadVideoExecute drawPadVideoExecute = new DrawPadVideoExecute(mContext, sourceFilePath, videoInfo.vWidth, videoInfo.vHeight, mFilter, destFilePath);
-
-        if (drawPadVideoExecute.isRunning()) {
-            return false;
-        }
-
-        boolean isDrawPadStarted = drawPadVideoExecute.startDrawPad();
-        Log.d("feature_847", "processVideo，isDrawPadStarted = "+isDrawPadStarted);
-
-        return true;
-    }
-
 }
