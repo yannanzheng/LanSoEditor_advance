@@ -20,7 +20,6 @@ import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 
 public class NewVideoOneDo {
 
-    private static final String TAG = "VideoOneDo";
     public final static int LOGO_POSITION_LELF_TOP = 0;
     public final static int LOGO_POSITION_LEFT_BOTTOM = 1;
     public final static int LOGO_POSITION_RIGHT_TOP = 2;
@@ -176,7 +175,6 @@ public class NewVideoOneDo {
         });
 
         mDrawPad.pauseRecord();
-        Log.d(TAG, "开始执行....startDrawPad");
         if (mDrawPad.startDrawPad()) {
             Layer mainVideoLayer = mDrawPad.getMainVideoLayer();
             addBitmapLayer(); //增加图片图层
@@ -236,7 +234,6 @@ public class NewVideoOneDo {
      * 增加图片图层
      */
     private void addBitmapLayer() {
-        //如果需要增加图片.
         if (logoBitmap != null) {
             logoBmpLayer = mDrawPad.addBitmapLayer(logoBitmap);
             if (logoBmpLayer != null) {
@@ -255,8 +252,6 @@ public class NewVideoOneDo {
 
                 } else if (logoPosition == LOGO_POSITION_RIGHT_BOTTOM) {  //右下角
                     logoBmpLayer.setPosition(logoBmpLayer.getPadWidth() - w / 2, logoBmpLayer.getPadHeight() - h / 2);
-                } else {
-                    Log.w(TAG, "logo默认居中显示");
                 }
             }
         }
