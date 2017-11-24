@@ -146,7 +146,7 @@ public class NewVideoOneDo {
         }
         
         isExecuting=true;
-        editTmpPath=SDKFileUtils.createMp4FileInBox();
+        editTmpPath="/sdcard/lansongBox/temp_edit_video.mp4";
         Log.d("feature_847", "editTmpPath = " + editTmpPath);
         
         tmpvDuration=srcInfo.vDuration;
