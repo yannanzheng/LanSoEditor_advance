@@ -27,9 +27,8 @@ public class NewVideoOneDo {
 
     private String sourceFilePath;
     private String destFilePath;
-    private MediaInfo srcInfo;
     private String srcAudioPath; //从源视频中分离出的音频临时文件.
-    private float tmpvDuration = 0.0f;//drawpad处理后的视频时长.
+//    private float tmpvDuration = 0.0f;//drawpad处理后的视频时长.
 
     private String editTmpPath = null;
 
@@ -104,7 +103,7 @@ public class NewVideoOneDo {
             return false;
         }
 
-        srcInfo = new MediaInfo(sourceFilePath, false);
+        MediaInfo srcInfo = new MediaInfo(sourceFilePath, false);
         if (srcInfo.prepare() == false) {
             return false;
         }
@@ -122,15 +121,13 @@ public class NewVideoOneDo {
         editTmpPath = "/sdcard/lansongBox/temp_edit_video.mp4";
         Log.d("feature_847", "editTmpPath = " + editTmpPath);
 
-        tmpvDuration = srcInfo.vDuration;
-
-        /**
-         * 开启视频的DrawPad容器处理
-         */
         return startVideoThread(srcInfo);
     }
 
-    private boolean startVideoThread(MediaInfo srcInfo) {
+    /**
+     * 开启视频的DrawPad容器处理
+     */
+    private boolean startVideoThread(final MediaInfo srcInfo) {
         int padWidth = srcInfo.vWidth;
         int padHeight = srcInfo.vHeight;
         if (srcInfo.vRotateAngle == 90 || srcInfo.vRotateAngle == 270) {
@@ -151,7 +148,7 @@ public class NewVideoOneDo {
                 if (monVideoOneDoProgressListener != null) {
                     float time = (float) currentTimeUs / 1000000f;
 
-                    float percent = time / (float) tmpvDuration;
+                    float percent = time / (float) srcInfo.vDuration;
 
                     float b = (float) (Math.round(percent * 100)) / 100;  //保留两位小数.
                     if (b < 1.0f && monVideoOneDoProgressListener != null && isExecuting) {
@@ -219,7 +216,6 @@ public class NewVideoOneDo {
                 mDrawPad.stopDrawPad();
             }
             sourceFilePath = null;
-            srcInfo = null;
             mDrawPad = null;
 
             logoBitmap = null;
