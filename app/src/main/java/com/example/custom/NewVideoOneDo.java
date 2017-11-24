@@ -167,45 +167,6 @@ public class NewVideoOneDo {
         }
     }
     private boolean startVideoThread() {
-    	 //先判断有无裁剪画面
-        if(cropHeight>0 && cropWidth>0) {
-            fileParamter=new FileParameter();
-            fileParamter.setDataSoure(sourceFilePath);
-            	
-            //如果裁剪的视频, 旋转了90度,则宽度高度对调.
-        	if(srcInfo.vRotateAngle==90 || srcInfo.vRotateAngle==270){
-        		int tmpx=startX;
-        		startX=startY;
-        		startY=srcInfo.vWidth-cropWidth;
-        		
-        		tmpx=cropWidth;
-        		cropWidth=cropHeight;
-        		cropHeight=tmpx;
-            }
-        	/**
-        	 * 设置当前需要显示的区域 ,以左上角为0,0坐标. 
-        	 * 
-        	 * 这里暂时不做判断是否超出宽度或高度, 在videoLayer内部判断,因为有些宽高要调换.
-        	 * 
-        	 * @param startX  开始的X坐标, 即从宽度的什么位置开始
-        	 * @param startY  开始的Y坐标, 即从高度的什么位置开始
-        	 * @param cropW   需要显示的宽度
-        	 * @param cropH   需要显示的高度.
-        	 */
-            fileParamter.setShowRect(startX,startY,cropWidth,cropHeight);
-            fileParamter.setStartTimeUs(startTimeUs);
-            
-            int padWidth=cropWidth;
-            int padHeight=cropHeight;
-            if(scaleHeight>0 && scaleWidth>0) {
-                padWidth=scaleWidth;
-                padHeight=scaleHeight;
-            }
-            float f= (float)(padHeight*padWidth) /(float)(fileParamter.info.vWidth * fileParamter.info.vHeight);
-            float bitrate= f *fileParamter.info.vBitRate *compressFactor*2.0f;
-            mDrawPad = new DrawPadVideoExecute(context, fileParamter, padWidth, padHeight,(int)bitrate, videoFilter, editTmpPath);
-        }else{ //没有裁剪
-        	
             int padWidth=srcInfo.vWidth;
             int padHeight=srcInfo.vHeight;
             if(srcInfo.vRotateAngle==90 || srcInfo.vRotateAngle==270){
@@ -219,7 +180,6 @@ public class NewVideoOneDo {
             }
             Log.d("feature_847", "sourceFilePath = " + sourceFilePath+", startTimeUs = "+startTimeUs+", padWidth = "+padWidth+", videoFilter = "+videoFilter+", editTmpPath = "+editTmpPath);
             mDrawPad=new DrawPadVideoExecute(context, sourceFilePath,padWidth,padHeight,videoFilter,editTmpPath);
-        }
         mDrawPad.setUseMainVideoPts(true);
         /**
          * 设置DrawPad处理的进度监听, 回传的currentTimeUs单位是微秒.
