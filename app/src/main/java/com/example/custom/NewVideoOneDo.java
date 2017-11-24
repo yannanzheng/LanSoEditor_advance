@@ -13,6 +13,7 @@ import com.lansosdk.videoeditor.DrawPadVideoExecute;
 import com.lansosdk.videoeditor.MediaInfo;
 import com.lansosdk.videoeditor.VideoEditor;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -176,20 +177,22 @@ public class NewVideoOneDo {
             return;
         }
 
-        String dstPath = "/sdcard/lansongBox/destVideo.mp4";
-        Log.i("feature_847", "dstPath = " + dstPath + ",isExecuting = " + isExecuting + ", extractSourceAudioPath = " + extractSourceAudioPath);
+        Log.i("feature_847", "destFilePath = " + destFilePath + ",isExecuting = " + isExecuting + ", extractSourceAudioPath = " + extractSourceAudioPath);
 
         if (extractSourceAudioPath != null && isExecuting) {  //增加原音.
-            videoMergeAudio(editTmpPath, extractSourceAudioPath, dstPath);
+            videoMergeAudio(editTmpPath, extractSourceAudioPath, destFilePath);
         } else {
-            dstPath = editTmpPath;
+            new File(extractSourceAudioPath).renameTo(new File(destFilePath));
         }
 
+        new File(editTmpPath).delete();//
+        new File(extractSourceAudioPath).delete();
+
         if (onCompletedListener != null && isExecuting) {
-            onCompletedListener.onCompleted(NewVideoOneDo.this, dstPath);
+            onCompletedListener.onCompleted(NewVideoOneDo.this, destFilePath);
         }
         isExecuting = false;
-        Log.d("feature_847", "最后的视频文件是:" + MediaInfo.checkFile(dstPath));
+        Log.d("feature_847", "最后的视频文件是:" + MediaInfo.checkFile(destFilePath));
     }
 
     public void stop() {
