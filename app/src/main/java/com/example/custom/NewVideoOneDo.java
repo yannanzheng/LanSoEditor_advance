@@ -387,16 +387,13 @@ public class NewVideoOneDo {
                 padWidth=srcInfo.vHeight;
                 padHeight=srcInfo.vWidth;
             }
-            float bitrate= srcInfo.vBitRate*compressFactor*2.0f;
-            
+
             if(scaleHeight>0 && scaleWidth>0) {
                 padWidth=scaleWidth;
                 padHeight=scaleHeight;
-                float f= (float)(padHeight*padWidth) /(float)(srcInfo.vWidth * srcInfo.vHeight);
-                bitrate *=f;
             }
-            Log.d("feature_847", "sourceFilePath = " + sourceFilePath+", startTimeUs = "+startTimeUs+", padWidth = "+padWidth+", bitrate = "+bitrate+", videoFilter = "+videoFilter+", editTmpPath = "+editTmpPath);
-            mDrawPad=new DrawPadVideoExecute(context, sourceFilePath,padWidth,padHeight,(int)bitrate,videoFilter,editTmpPath);
+            Log.d("feature_847", "sourceFilePath = " + sourceFilePath+", startTimeUs = "+startTimeUs+", padWidth = "+padWidth+", videoFilter = "+videoFilter+", editTmpPath = "+editTmpPath);
+            mDrawPad=new DrawPadVideoExecute(context, sourceFilePath,padWidth,padHeight,videoFilter,editTmpPath);
         }
         mDrawPad.setUseMainVideoPts(true);
         /**
