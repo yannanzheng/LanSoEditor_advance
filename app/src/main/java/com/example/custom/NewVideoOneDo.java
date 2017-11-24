@@ -158,17 +158,7 @@ public class NewVideoOneDo {
         /**
          * 开启视频的DrawPad容器处理
          */
-        if (startVideoThread(srcInfo)) {
-            /**
-             * 视频开启成功, 开启音频处理
-             */
-            if (musicMp3Path != null || musicAACPath != null) {
-                startAudioThread();
-            }
-            return true;
-        } else {
-            return false;
-        }
+        return startVideoThread(srcInfo);
     }
 
     private boolean startVideoThread(MediaInfo srcInfo) {
@@ -235,16 +225,12 @@ public class NewVideoOneDo {
      * 处理完成后的动作.
      */
     private void completeDrawPad() {
-        Log.d(TAG, "开始执行....drawPadCompleted");
-        joinAudioThread();
-
         if (isExecuting == false) {
             return;
         }
 
         String dstPath = SDKFileUtils.createMp4FileInBox();
-        if (dstAACPath != null && isExecuting)  //增加背景音乐.
-        {
+        if (dstAACPath != null && isExecuting) {  //增加背景音乐.
             videoMergeAudio(editTmpPath, dstAACPath, dstPath);
         } else if (srcAudioPath != null && isExecuting) {  //增加原音.
             videoMergeAudio(editTmpPath, srcAudioPath, dstPath);
@@ -268,7 +254,6 @@ public class NewVideoOneDo {
             if (mDrawPad != null) {
                 mDrawPad.stopDrawPad();
             }
-            joinAudioThread();
             sourceFilePath = null;
             srcInfo = null;
             mDrawPad = null;
@@ -333,67 +318,6 @@ public class NewVideoOneDo {
                     canvas.drawText(textAdd, 20, 20, paint);
                 }
             });
-        }
-    }
-
-    private Thread audioThread = null;
-
-    /**
-     * 音频处理线程.
-     */
-    private void startAudioThread() {
-        if (audioThread == null) {
-            audioThread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    /**
-                     * 1, 如果mp3,  看是否要mix, 如果要,则长度拼接够, 然后mix;如果不mix,则先转码,再拼接.
-                     * 2, 如果是aac, 是否要mix, 要则拼接 再mix,; 不需要则直接拼接.
-                     */
-                    if (musicMp3Path != null) {  //输入的是MP3;
-                        if (isMixBgMusic) {  //混合.
-                            dstAACPath = SDKFileUtils.createAACFileInBox();
-
-                            String startMp3 = getEnoughAudio(musicMp3Path, true);
-                            VideoEditor editor = new VideoEditor();
-
-                            editor.executeAudioVolumeMix(srcAudioPath, startMp3, 1.0f, mixBgMusicVolume, tmpvDuration, dstAACPath);
-                        } else {//直接增加背景.
-
-                            VideoEditor editor = new VideoEditor();
-                            float duration = (float) cutDurationUs / 1000000f;
-                            String tmpAAC = SDKFileUtils.createAACFileInBox();
-                            editor.executeConvertMp3ToAAC(musicMp3Path, 0, duration, tmpAAC);
-
-                            dstAACPath = getEnoughAudio(tmpAAC, false);
-                        }
-                    } else if (musicAACPath != null) {
-                        if (isMixBgMusic) {  //混合.
-                            dstAACPath = SDKFileUtils.createAACFileInBox();
-                            String startAAC = getEnoughAudio(musicAACPath, false);
-                            VideoEditor editor = new VideoEditor();
-                            editor.executeAudioVolumeMix(srcAudioPath, startAAC, 1.0f, mixBgMusicVolume, tmpvDuration, dstAACPath);
-                        } else {
-                            dstAACPath = getEnoughAudio(musicAACPath, false);
-                        }
-                    }
-                    audioThread = null;
-                }
-            });
-            audioThread.start();
-        }
-    }
-
-    private void joinAudioThread() {
-        if (audioThread != null) {
-            try {
-                audioThread.join(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-                Log.w(TAG, "背景音乐转码失败....使用源音频");
-                dstAACPath = null;
-            }
-            audioThread = null;
         }
     }
 
