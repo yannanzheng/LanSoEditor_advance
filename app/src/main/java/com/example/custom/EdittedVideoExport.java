@@ -2,6 +2,7 @@ package com.example.custom;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Environment;
 import android.util.Log;
 
 import com.lansosdk.box.BitmapLayer;
@@ -18,6 +19,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.IF1977Filter;
+import jp.co.cyberagent.lansongsdk.gpuimage.IFAmaroFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.IFBrannanFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.IFHudsonFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.IFInkwellFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.IFLomofiFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.IFNashvilleFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.IFRiseFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.IFSierraFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.IFToasterFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.IFWaldenFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBeautyFilter;
 
 public class EdittedVideoExport {
@@ -33,7 +46,7 @@ public class EdittedVideoExport {
 
     private BitmapLayer logoBmpLayer = null;
 
-    private Context context;
+    private Context mContext;
 
     private long startTimeUs = 0;
     private LanSongBeautyFilter beautyFilter;
@@ -44,10 +57,29 @@ public class EdittedVideoExport {
     private OnProgressListener onProgressListener;
     private OnCompletedListener onCompletedListener = null;
 
-    public EdittedVideoExport(Context ctx, String sourceFilePath, String destFilePath) {
-        this.context = ctx;
-        this.sourceFilePath = sourceFilePath;
+    /**
+     * 将指定视频导出到具体路径
+     * @param ctx 上下文
+     * @param videoPath 视频源路径
+     * @param destFilePath 导出目标路径
+     */
+    public EdittedVideoExport(Context ctx, String videoPath, String destFilePath) {
+        this.mContext = ctx;
+        this.sourceFilePath = videoPath;
         this.destFilePath = destFilePath;
+    }
+
+    /**
+     * 将指定视频导出到相册
+     * @param ctx 上下文
+     * @param videoPath 视频源路径
+     */
+    public EdittedVideoExport(Context ctx, String videoPath) {
+        this.mContext = ctx;
+        this.sourceFilePath = videoPath;
+
+        this.destFilePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + File.separator + "Camera" + File.separator + new File(sourceFilePath).getName();
+        Log.d("feature_847", "new File(sourceFilePath).getName() = "+new File(sourceFilePath).getName()+"destFilePath = "+destFilePath);
     }
 
     /**
@@ -56,6 +88,54 @@ public class EdittedVideoExport {
      */
     public void setFilter(GPUImageFilter filter) {
         videoFilter = filter;
+    }
+
+    /**
+     * @param filterType 滤镜类型
+     */
+    public void setFilter(int filterType){
+        switch (filterType) {
+            case MediaEditType.Filter.Filter_NULL://0
+                videoFilter = null;
+                break;
+            case MediaEditType.Filter.Filter_IFHudson://1
+                videoFilter = new IFHudsonFilter(mContext);
+                break;
+
+            case MediaEditType.Filter.Filter_IFLomofi://2
+                videoFilter = new IFLomofiFilter(mContext);
+                break;
+            case MediaEditType.Filter.Filter_IFSierra://3
+                videoFilter = new IFSierraFilter(mContext);
+                break;
+            case MediaEditType.Filter.Filter_IFRise://4
+                videoFilter = new IFRiseFilter(mContext);
+                break;
+            case MediaEditType.Filter.Filter_IFAmaro://5
+                videoFilter = new IFAmaroFilter(mContext);
+                break;
+            case MediaEditType.Filter.Filter_IFWalden://6
+                videoFilter = new IFWaldenFilter(mContext);
+                break;
+            case MediaEditType.Filter.Filter_IFNashville://7
+                videoFilter = new IFNashvilleFilter(mContext);
+                break;
+            case MediaEditType.Filter.Filter_IFBrannan://8
+                videoFilter = new IFBrannanFilter(mContext);
+                break;
+            case MediaEditType.Filter.Filter_IFInkwell://9
+                videoFilter = new IFInkwellFilter(mContext);
+                break;
+            case MediaEditType.Filter.Filter_IFToaster://10
+                videoFilter = new IFToasterFilter(mContext);
+                break;
+            case MediaEditType.Filter.Filter_IF1977://11
+                videoFilter = new IF1977Filter(mContext);
+                break;
+            case MediaEditType.Filter.Filter_LanSongSepia://12
+                videoFilter = new GPUImageSepiaFilter();
+                break;
+        }
     }
 
     public void setFaceBeautyFilter(LanSongBeautyFilter beautyFilter) {
@@ -113,7 +193,7 @@ public class EdittedVideoExport {
 
         editTmpPath = new File(destFilePath).getParent() + "/temp_edit_video.mp4";
         Log.d("feature_847", "sourceFilePath = " + sourceFilePath + ", startTimeUs = " + startTimeUs + ", padWidth = " + padWidth + ", videoFilter = " + videoFilter + ", editTmpPath = " + editTmpPath);
-        mDrawPad = new DrawPadVideoExecute(context, sourceFilePath, padWidth, padHeight, null, editTmpPath);
+        mDrawPad = new DrawPadVideoExecute(mContext, sourceFilePath, padWidth, padHeight, null, editTmpPath);
         mDrawPad.setUseMainVideoPts(true);
         /**
          * 设置DrawPad处理的进度监听, 回传的currentTimeUs单位是微秒.

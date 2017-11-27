@@ -98,7 +98,7 @@ public class VideoOneProcessActivity extends Activity  implements OnClickListene
 		initUI();
 	}
 
-	public void startNewDrawPadProcess(){
+	public void startNewDrawPadProcess(){//主线程
 		Log.d("feature_847", "开始处理视频，startNewDrawPadProcess ");
 		if(isRunning){
 			return ;
@@ -107,12 +107,13 @@ public class VideoOneProcessActivity extends Activity  implements OnClickListene
 		String sourceFilePath = videoPath;
 		String destFilePath = "/sdcard/lansongBox_test/destVideo.mp4";
 
-		EdittedVideoExport edittedVideoExport = new EdittedVideoExport(getApplicationContext(), sourceFilePath, destFilePath);
-		edittedVideoExport.setFaceBeautyFilter(new LanSongBeautyFilter());
-		edittedVideoExport.setFilter(new GPUImageLaplacianFilter());
+//		EdittedVideoExport edittedVideoExport = new EdittedVideoExport(getApplicationContext(), sourceFilePath, destFilePath);
+		EdittedVideoExport edittedVideoExport = new EdittedVideoExport(getApplicationContext(), sourceFilePath);
+//		edittedVideoExport.setFaceBeautyFilter(new LanSongBeautyFilter());
+//		edittedVideoExport.setFilter(new GPUImageLaplacianFilter());
 
-		Bitmap bmp=BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
-		edittedVideoExport.setLogo(bmp);
+//		Bitmap bmp=BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+//		edittedVideoExport.setLogo(bmp);
 
 		edittedVideoExport.setOnVideoOneDoProgressListener(new EdittedVideoExport.OnProgressListener() {
 			@Override
@@ -334,7 +335,7 @@ public class VideoOneProcessActivity extends Activity  implements OnClickListene
 				break;
 			case R.id.id_onedo_start_process:  //开始执行.
 //				startDrawPadProcess();
-				startNewDrawPadProcess();
+				startNewDrawPadProcess();//主线程
 				break;
 		default:
 			break;
