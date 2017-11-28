@@ -109,8 +109,8 @@ public class VideoOneProcessActivity extends Activity  implements OnClickListene
 
 //		EdittedVideoExport edittedVideoExport = new EdittedVideoExport(getApplicationContext(), sourceFilePath, destFilePath);
 		EdittedVideoExport edittedVideoExport = new EdittedVideoExport(getApplicationContext(), sourceFilePath);
-//		edittedVideoExport.setFaceBeautyFilter(new LanSongBeautyFilter());
-//		edittedVideoExport.setFilter(new GPUImageLaplacianFilter());
+		edittedVideoExport.setFaceBeautyFilter(new LanSongBeautyFilter());
+		edittedVideoExport.setFilter(new GPUImageLaplacianFilter());
 
 //		Bitmap bmp=BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
 //		edittedVideoExport.setLogo(bmp);
