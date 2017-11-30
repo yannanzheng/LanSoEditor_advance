@@ -65,21 +65,7 @@ public class ProcessTask implements Runnable {
                 e.printStackTrace();
             }
 
-            if (j < 10) {
-//                        Log.d(TAG, "j = " + j);
-
-                try {
-                    Log.d(TAG, "j = " + j);
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                j++;
-            } else {
-                flag = false;
-            }
-
+            flag = false;
             if (null != bitmap) {
                 bitmap.recycle();
                 bitmap = null;
