@@ -10,6 +10,7 @@ import java.util.Locale;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 
+import com.example.advanceDemo.view.BitmapUtils;
 import com.example.advanceDemo.view.ImageTouchView;
 import com.example.advanceDemo.view.StickerView;
 import com.example.advanceDemo.view.TextStickerView;
@@ -42,6 +43,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -239,7 +241,7 @@ public class BitmapEditDemoActivity extends Activity implements OnClickListener{
     	isDestorying=true;
     	if(drawPadView!=null){
     		drawPadView.stopDrawPad();
-    		drawPadView=null;        		   
+    		drawPadView=null;
     	}
     }
     private int stickCnt=2;
@@ -269,19 +271,25 @@ public class BitmapEditDemoActivity extends Activity implements OnClickListener{
 				showInputDialog();
 				break;
 			case R.id.id_bmp2bmp_export_btn:
-				stickView.disappearIconBorder();
-				textStickView.disappearIconBorder();
-				drawPadView.setOnDrawPadOutFrameListener(srcBmp.getWidth(), srcBmp.getHeight(), 1, new onDrawPadOutFrameListener() {
-					
-					@Override
-					public void onDrawPadOutFrame(DrawPad v, Object obj, int type, long ptsUs) {
-							Bitmap bmp=(Bitmap)obj;
-							drawPadView.setOnDrawPadOutFrameListener(0, 0, 0, null);  //禁止再次提取图片.
-							ivShowImg.setImageBitmap(bmp);//显示图片.
-							findViewById(R.id.id_bmp2bmp_showlayout).setVisibility(View.VISIBLE);
-							//startShowOneBitmapActivity(DemoUtil.savePng(bmp));//也可以保存,在另外地方显示,建议异步保存,因为耗时.
-					}
-				});
+
+				String path = SDKDir.getPath();
+				Log.d("feature_847", "path = " + path);
+//				BitmapUtils.saveToSdCard();
+
+
+//				stickView.disappearIconBorder();
+//				textStickView.disappearIconBorder();
+//				drawPadView.setOnDrawPadOutFrameListener(srcBmp.getWidth(), srcBmp.getHeight(), 1, new onDrawPadOutFrameListener() {
+//
+//					@Override
+//					public void onDrawPadOutFrame(DrawPad v, Object obj, int type, long ptsUs) {
+//							Bitmap bmp=(Bitmap)obj;
+//							drawPadView.setOnDrawPadOutFrameListener(0, 0, 0, null);  //禁止再次提取图片.
+//							ivShowImg.setImageBitmap(bmp);//显示图片.
+//							findViewById(R.id.id_bmp2bmp_showlayout).setVisibility(View.VISIBLE);
+//							//startShowOneBitmapActivity(DemoUtil.savePng(bmp));//也可以保存,在另外地方显示,建议异步保存,因为耗时.
+//					}
+//				});
 				break;
 			case R.id.id_bmp2bmp_showimg_btn:
 				findViewById(R.id.id_bmp2bmp_showlayout).setVisibility(View.GONE);;

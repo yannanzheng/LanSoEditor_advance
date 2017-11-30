@@ -1,51 +1,27 @@
 package com.example.advanceDemo;
 
-import java.lang.reflect.Array;
-import java.nio.IntBuffer;
+import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.TextView;
+
+import com.lansoeditor.demo.R;
+import com.lansosdk.box.BitmapGetFilters;
+import com.lansosdk.box.BitmapLayer;
+import com.lansosdk.box.onGetFiltersOutFrameListener;
+import com.lansosdk.videoeditor.BitmapPadExecute;
+import com.lansosdk.videoeditor.CopyFileFromAssets;
+import com.lansosdk.videoeditor.SDKFileUtils;
+
 import java.util.ArrayList;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSwirlFilter;
-import jp.co.cyberagent.lansongsdk.gpuimage.LanSongScreenBlendFilter;
-import junit.framework.Test;
-
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.lansoeditor.demo.R;
-import com.lansosdk.box.BitmapLayer;
-import com.lansosdk.box.BoxDecoder;
-import com.lansosdk.box.DataLayer;
-import com.lansosdk.box.Layer;
-import com.lansosdk.box.DrawPad;
-import com.lansosdk.box.DrawPadBitmapRunnable;
-import com.lansosdk.box.DrawPadVideoRunnable;
-import com.lansosdk.box.ViewLayer;
-import com.lansosdk.box.onDrawPadCompletedListener;
-import com.lansosdk.box.onDrawPadOutFrameListener;
-import com.lansosdk.box.onDrawPadProgressListener;
-import com.lansosdk.box.onDrawPadThreadProgressListener;
-import com.lansosdk.videoeditor.BitmapPadExecute;
-import com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask;
-import com.lansosdk.videoeditor.CopyFileFromAssets;
-import com.lansosdk.videoeditor.DrawPadPictureExecute;
-import com.lansosdk.videoeditor.MediaInfo;
-import com.lansosdk.videoeditor.SDKDir;
-import com.lansosdk.videoeditor.SDKFileUtils;
-import com.lansosdk.videoeditor.VideoEditor;
+import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBulgeDistortionFilter;
 
 /**
  * 
@@ -74,7 +50,7 @@ public class ExecuteBitmapPadActivity extends Activity{
 		 tvHint.setText(R.string.pictureset_execute_demo_hint);
    
 		 tvProgressHint=(TextView)findViewById(R.id.id_video_edit_progress_hint);
-		 
+
 	       findViewById(R.id.id_video_edit_btn).setOnClickListener(new OnClickListener() {
 				
 				@Override
@@ -100,8 +76,31 @@ public class ExecuteBitmapPadActivity extends Activity{
 		if(bendBmp.init(bmp1.getWidth(),bmp1.getHeight()))
 		{
 			Bitmap bmp=bendBmp.getBlendBitmap(bmp1, bmp2);
-			
+
 		}
 		bendBmp.release();
 	}
-}	
+
+	  private void testGetFilters() {
+		ArrayList<GPUImageFilter>  filters=new ArrayList<GPUImageFilter>();
+		filters.add(new GPUImageSepiaFilter());
+		filters.add(new GPUImageSwirlFilter());
+		filters.add(new LanSongBulgeDistortionFilter());
+
+		Bitmap bmp=BitmapFactory.decodeFile(CopyFileFromAssets.copyAssets(getApplicationContext(), "t14.jpg"));
+
+		//------------------------一下是调用流程.
+		//创建对象,传递参数 (此类可被多个线程同时开启执行)
+		BitmapGetFilters bitmapGetFilters=new BitmapGetFilters(getApplicationContext(), bmp,filters);
+		//设置回调, 注意:回调是在
+		bitmapGetFilters.setDrawpadOutFrameListener(new onGetFiltersOutFrameListener() {
+
+			@Override
+			public void onOutFrame(BitmapGetFilters v, Object obj) {
+				// TODO Auto-generated method stub
+				Bitmap bmp2=(Bitmap)obj;
+			}
+		});
+		bitmapGetFilters.start();
+	}
+}
