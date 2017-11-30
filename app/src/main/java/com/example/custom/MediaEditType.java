@@ -1,5 +1,7 @@
 package com.example.custom;
 
+import com.lansoeditor.demo.R;
+
 /**
  * Created by jfyang on 11/22/17.
  */
@@ -36,10 +38,6 @@ public class MediaEditType {
      *  1.  其中图片的命名方式已按照排序位置命名，效果如下图，注意：无水印排在第一位；
      *  2.  请按照命名按序排在无水印后面；
      *  3.  其中命名为3的水印，为默认水印；
-     *
-     * 说明
-     * logo_0.webg对应需求说明1.png
-     * logo_2.webg为默认水印
      */
     public static class Logo{
         public static final int LOGO_0 = 0;
@@ -54,5 +52,54 @@ public class MediaEditType {
         public static final int LOGO_9 = 9;
         public static final int LOGO_10 = 10;
         public static final int LOGO_11 = 11;
+        public static final int LOGO_12 = 12;
+
+        public static int getDefaultLogoDrawableResourceId(){
+            return R.mipmap.logo_3;
+        }
+
+        public static int getResourceIdFromLogoNumber(int logoNumber) {//默认第三张图片
+            switch (logoNumber) {
+                case LOGO_0:
+                    return R.mipmap.logo_3;
+
+                case LOGO_1:
+                    return R.mipmap.logo_1;
+
+                case LOGO_2:
+                    return R.mipmap.logo_2;
+
+                case LOGO_3:
+                    return R.mipmap.logo_3;
+
+                case LOGO_4:
+                    return R.mipmap.logo_4;
+
+                case LOGO_5:
+                    return R.mipmap.logo_5;
+
+                case LOGO_6:
+                    return R.mipmap.logo_6;
+
+                case LOGO_7:
+                    return R.mipmap.logo_7;
+
+                case LOGO_8:
+                    return R.mipmap.logo_8;
+
+                case LOGO_9:
+                    return R.mipmap.logo_9;
+
+                case LOGO_10:
+                    return R.mipmap.logo_10;
+
+                case LOGO_11:
+                    return R.mipmap.logo_11;
+
+                case LOGO_12:
+                    return R.mipmap.logo_12;
+            }
+            return  R.mipmap.logo_3;
+        }
     }
 }
