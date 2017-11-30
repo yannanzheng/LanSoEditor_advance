@@ -1,126 +1,166 @@
-<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" 
-    android:layout_width="match_parent"
-     android:layout_height="match_parent"
-    android:background="#FFA500"
-    android:orientation="vertical">
-
-<LinearLayout
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFA500"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
-    <TextView 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="请选择视频文件"
-        android:textColor="#ff0000"
-        android:textStyle="bold"/>
-    
-    <LinearLayout 
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
-    
-         <Button
-             android:id="@+id/id_main_use_default_videobtn"
-             android:layout_width="0dip"
-             android:layout_weight="5"
-             android:layout_height="60dip"
-             android:background="@drawable/rect_button_bg"
-             android:text="使用默认演示视频"
-             />
-         <ImageView
-             android:id="@+id/id_main_select_video"
-             android:layout_width="0dip"
-             android:layout_weight="2"
-             android:layout_height="60dip"
-             android:src="@drawable/ic_menu_archive"
-             />
-	</LinearLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/id_main_tvvideo"/>
-    
     <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#FFA500"
-    android:orientation="vertical" >
- 
-     <RelativeLayout  android:id="@+id/id_mainlist_camerarecord" style="@style/main_item_reletivelayout2">
-           	 <TextView   android:text="摄像头录制" style="@style/main_item_textview"/>
-			<TextView  style="@style/main_item_arrow"/> 
-	</RelativeLayout>
-	
-     	
-     <RelativeLayout  android:id="@+id/id_mainlist_somelayer" style="@style/main_item_reletivelayout2">
-           	 <TextView   android:text="基本图层控件" style="@style/main_item_textview"/>
-			<TextView  style="@style/main_item_arrow"/> 
-	</RelativeLayout>
-     
-     
-        
-    <RelativeLayout  android:id="@+id/id_mainlist_changjing" style="@style/main_item_reletivelayout2">
-           	 <TextView   android:text="应用场景举例" style="@style/main_item_textview"/>
-			<TextView  style="@style/main_item_arrow"/> 
-	</RelativeLayout>
-	
-         
-      <RelativeLayout  android:id="@+id/id_mainlist_xuanku" style="@style/main_item_reletivelayout2">
-           	 <TextView   android:text="炫酷类" style="@style/main_item_textview"/>
-			<TextView  style="@style/main_item_arrow"/> 
-	</RelativeLayout>
-	
-      <RelativeLayout  android:id="@+id/id_mainlist_facedetected" style="@style/main_item_reletivelayout2">
-           	 <TextView   android:text="人脸识别类" style="@style/main_item_textview"/>
-			<TextView  style="@style/main_item_arrow"/> 
-	</RelativeLayout>
-	
-      
-    <RelativeLayout  android:id="@+id/id_mainlist_videoonedo" style="@style/main_item_reletivelayout2">
-           	 <TextView   android:text="视频常见处理" style="@style/main_item_textview"/>
-			<TextView  style="@style/main_item_arrow"/> 
-	</RelativeLayout>
-	
-    <RelativeLayout  android:id="@+id/id_mainlist_bitmaps" style="@style/main_item_reletivelayout2">
-           	 <TextView   android:text="图片/声音/其他类" style="@style/main_item_textview"/>
-			<TextView  style="@style/main_item_arrow"/> 
-	</RelativeLayout>
-	
-        <RelativeLayout  android:id="@+id/id_mainlist_videoplay" style="@style/main_item_reletivelayout2">
-           	 <TextView   android:text="直接播放" style="@style/main_item_textview"/>
-			<TextView  style="@style/main_item_arrow"/> 
-	</RelativeLayout>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFA500"
+        android:orientation="vertical">
 
-  
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="请选择视频文件"
+            android:textColor="#ff0000"
+            android:textStyle="bold" />
 
-</LinearLayout>
- 
-     
-   
-	
-		
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-	
-    <RelativeLayout 
-	        android:layout_width="match_parent"
-	        android:layout_height="150dip"
-	        android:gravity="center_vertical"
-	        android:background="#FFFFFF"
-	        android:layout_marginTop="20dip"
-	         >
-	         <TextView 
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_centerVertical="true"
-		        android:layout_marginLeft="10dip"
-		        android:text="@string/adv_hint5"
-		        android:textColor="#0000ff"/>
-	</RelativeLayout>
+            <Button
+                android:id="@+id/id_main_use_default_videobtn"
+                android:layout_width="0dip"
+                android:layout_height="60dip"
+                android:layout_weight="5"
+                android:background="@drawable/rect_button_bg"
+                android:text="使用默认演示视频" />
 
-</LinearLayout>
+            <ImageView
+                android:id="@+id/id_main_select_video"
+                android:layout_width="0dip"
+                android:layout_height="60dip"
+                android:layout_weight="2"
+                android:src="@drawable/ic_menu_archive" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/id_main_tvvideo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFA500"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/id_mainlist_camerarecord"
+                style="@style/main_item_reletivelayout2">
+
+                <TextView
+                    style="@style/main_item_textview"
+                    android:text="摄像头录制" />
+
+                <TextView style="@style/main_item_arrow" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/id_mainlist_somelayer"
+                style="@style/main_item_reletivelayout2">
+
+                <TextView
+                    style="@style/main_item_textview"
+                    android:text="基本图层控件" />
+
+                <TextView style="@style/main_item_arrow" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/id_mainlist_changjing"
+                style="@style/main_item_reletivelayout2">
+
+                <TextView
+                    style="@style/main_item_textview"
+                    android:text="应用场景举例" />
+
+                <TextView style="@style/main_item_arrow" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/id_mainlist_xuanku"
+                style="@style/main_item_reletivelayout2">
+
+                <TextView
+                    style="@style/main_item_textview"
+                    android:text="炫酷类" />
+
+                <TextView style="@style/main_item_arrow" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/id_mainlist_facedetected"
+                style="@style/main_item_reletivelayout2">
+
+                <TextView
+                    style="@style/main_item_textview"
+                    android:text="人脸识别类" />
+
+                <TextView style="@style/main_item_arrow" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/id_mainlist_videoonedo"
+                style="@style/main_item_reletivelayout2">
+
+                <TextView
+                    style="@style/main_item_textview"
+                    android:text="视频常见处理" />
+
+                <TextView style="@style/main_item_arrow" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/id_mainlist_bitmaps"
+                style="@style/main_item_reletivelayout2">
+
+                <TextView
+                    style="@style/main_item_textview"
+                    android:text="图片/声音/其他类" />
+
+                <TextView style="@style/main_item_arrow" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/id_mainlist_videoplay"
+                style="@style/main_item_reletivelayout2">
+
+                <TextView
+                    style="@style/main_item_textview"
+                    android:text="直接播放" />
+
+                <TextView style="@style/main_item_arrow" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dip"
+            android:layout_marginTop="20dip"
+            android:background="#FFFFFF"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dip"
+                android:text="@string/adv_hint5"
+                android:textColor="#0000ff" />
+        </RelativeLayout>
+
+    </LinearLayout>
 </ScrollView>
