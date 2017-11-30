@@ -1,43 +1,8 @@
 package com.example.advanceDemo;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Locale;
-
-
-
-import com.anthonycr.grant.PermissionsManager;
-import com.anthonycr.grant.PermissionsResultAction;
-import com.example.advanceDemo.cool.ParticleDemoActivity;
-import com.example.advanceDemo.scene.LayerLayoutDemoActivity;
-import com.example.advanceDemo.scene.Video2LayoutActivity;
-import com.example.commonDemo.CommonDemoActivity;
-import com.lansoeditor.demo.R;
-import com.lansosdk.box.FrameInfo;
-import com.lansosdk.box.LanSoEditorBox;
-import com.lansosdk.box.onCompressCompletedListener;
-import com.lansosdk.box.onCompressProgressListener;
-import com.lansosdk.box.onDrawPadOutFrameListener;
-import com.lansosdk.box.onGetFiltersOutFrameListener;
-import com.lansosdk.videoeditor.AVDecoder;
-import com.lansosdk.videoeditor.AudioPadExecute;
-import com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask;
-import com.lansosdk.videoeditor.CopyFileFromAssets;
-import com.lansosdk.videoeditor.FileWriteUtils;
-import com.lansosdk.videoeditor.LanSoEditor;
-import com.lansosdk.videoeditor.LoadLanSongSdk;
-import com.lansosdk.videoeditor.MediaInfo;
-import com.lansosdk.videoeditor.SDKDir;
-import com.lansosdk.videoeditor.SDKFileUtils;
-import com.lansosdk.videoeditor.VideoEditor;
-
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -45,7 +10,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.content.PermissionChecker;
 import android.util.Log;
 import android.view.View;
@@ -53,11 +17,27 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.anthonycr.grant.PermissionsManager;
+import com.anthonycr.grant.PermissionsResultAction;
+import com.example.custom.MutiTasksProcessActivity;
+import com.lansoeditor.demo.R;
+import com.lansosdk.box.LanSoEditorBox;
+import com.lansosdk.box.T;
+import com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask;
+import com.lansosdk.videoeditor.LanSoEditor;
+import com.lansosdk.videoeditor.MediaInfo;
+import com.lansosdk.videoeditor.SDKDir;
+import com.lansosdk.videoeditor.SDKFileUtils;
+import com.lansosdk.videoeditor.VideoEditor;
+
+import java.io.File;
+import java.util.Calendar;
+import java.util.Locale;
+
 
 public class ListMainActivity extends Activity implements OnClickListener{
 
-
-	 private static final String TAG="MainActivity";
+	 private static final String TAG="simulate_task";
 	 private static final boolean VERBOSE = false;   
 	 private TextView tvVideoPath;
 	 private boolean isPermissionOk=false;
@@ -95,6 +75,12 @@ public class ListMainActivity extends Activity implements OnClickListener{
 			if(checkPath()==false)
 				return;
 			switch (v.getId()) {
+				case R.id.id_mainlist_muti_picture_process:
+//					Intent intent = new Intent(this, MutiTasksProcessActivity.class);
+//					startActivity(intent);
+					Log.d(TAG,"点击，跳转" );
+					startDemoActivity(MutiTasksProcessActivity.class);
+					break;
 				case R.id.id_mainlist_camerarecord:
 					startDemoActivity(ListCameraRecordActivity.class);
 					break;
@@ -130,7 +116,8 @@ public class ListMainActivity extends Activity implements OnClickListener{
 	private void initView()
 	{
 			tvVideoPath=(TextView)findViewById(R.id.id_main_tvvideo);
-			
+
+		    findViewById(R.id.id_mainlist_muti_picture_process).setOnClickListener(this);
 			findViewById(R.id.id_mainlist_camerarecord).setOnClickListener(this);
 			findViewById(R.id.id_mainlist_somelayer).setOnClickListener(this);
 			findViewById(R.id.id_mainlist_changjing).setOnClickListener(this);

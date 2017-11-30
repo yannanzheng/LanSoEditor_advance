@@ -51,6 +51,17 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:id="@+id/id_mainlist_muti_picture_process"
+                style="@style/main_item_reletivelayout2">
+
+                <TextView
+                    style="@style/main_item_textview"
+                    android:text="多滤镜批量处理图片" />
+
+                <TextView style="@style/main_item_arrow" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:id="@+id/id_mainlist_camerarecord"
                 style="@style/main_item_reletivelayout2">
 
