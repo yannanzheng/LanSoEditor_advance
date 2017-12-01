@@ -22,4 +22,13 @@
         android:text="开始处理视频"
         android:layout_centerInParent="true" />
 
+    <Button
+        android:id="@+id/start_process_media_bt"
+        android:layout_below="@id/start_process_video_bt"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="视频图片混合处理"
+        android:layout_centerInParent="true" />
+
 </RelativeLayout>

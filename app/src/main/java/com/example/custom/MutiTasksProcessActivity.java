@@ -34,6 +34,7 @@ public class MutiTasksProcessActivity extends Activity {
 
     private File sourcePictureFile;
     private Button testVideoEditButton;
+    private Button mixProcessButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,8 @@ public class MutiTasksProcessActivity extends Activity {
 
         button = (Button) findViewById(start_process_bt);
         testVideoEditButton = (Button) findViewById(R.id.start_process_video_bt);
+        mixProcessButton = (Button) findViewById(R.id.start_process_media_bt);
+
         initProcessThread();
         runnableTasksQueue = new ArrayBlockingQueue<Runnable>(100);
         context = getApplicationContext();
@@ -60,6 +63,21 @@ public class MutiTasksProcessActivity extends Activity {
                 processVideo();
             }
         });
+
+        mixProcessButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processMedia();
+            }
+        });
+    }
+
+    private void processMedia() {
+        addPictureTasks(3);
+        addVideoTask(1);
+        addPictureTasks(2);
+        addVideoTask(2);
+        notifyPostRunnable();
     }
 
     private void processVideo() {
@@ -80,19 +98,19 @@ public class MutiTasksProcessActivity extends Activity {
         videoProcessExportRunnable.setOnProcessListener(new VideoProcessExportRunnable.OnProcessListener() {
             @Override
             public void onSucess(String exportedFilePath) {
-                Log.d(TAG, "onSucess, exportedFilePath = "+exportedFilePath);
+                Log.d(TAG, "视频onSucess, exportedFilePath = "+exportedFilePath);
                 isExecuting = false;
                 notifyPostRunnable();
             }
 
             @Override
             public void onProgress(double progress) {
-                Log.d(TAG, "progress = "+progress);
+                Log.d(TAG, "视频progress = "+progress);
             }
 
             @Override
             public void onFail() {
-                Log.d(TAG, "fail");
+                Log.d(TAG, "视频fail");
             }
         });
         runnableTasksQueue.offer(videoProcessExportRunnable);
@@ -147,14 +165,14 @@ public class MutiTasksProcessActivity extends Activity {
         task.setOnProcessListener(new PictureProcessExportRunnable.OnProcessListener() {
             @Override
             public void onSucess(String exportedFilePath ) {
-                Log.d(TAG, "onSucess，处理成功");
+                Log.d(TAG, "onSucess，图片处理成功");
                 isExecuting = false;
                 notifyPostRunnable();
             }
 
             @Override
             public void onFail() {
-                Log.e(TAG, "onSucess，处理失败");
+                Log.e(TAG, "onSucess，图片处理失败");
                 notifyPostRunnable();
             }
         });
