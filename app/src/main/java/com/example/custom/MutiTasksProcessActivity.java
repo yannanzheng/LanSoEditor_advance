@@ -20,6 +20,7 @@ public class MutiTasksProcessActivity extends Activity {
     private static final String TAG="simulate_task";
     private Button button;
 
+    private int finishCopyCount = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,8 +30,8 @@ public class MutiTasksProcessActivity extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                startMockProcessMutiPicture();
-                startProcessMutiPicture();
+                startMockProcessMutiPicture();
+//                startProcessMutiPicture();
             }
         });
     }
@@ -69,7 +70,7 @@ public class MutiTasksProcessActivity extends Activity {
             @Override
             public void run() {
 
-                for (int i = 0; i < 100; i++) {
+                for (int i = 0; i < 10; i++) {
                     Log.d(TAG, "i = " + i);
 
                     addPictureProcessTask();
@@ -85,8 +86,8 @@ public class MutiTasksProcessActivity extends Activity {
 
         Log.d(TAG, "postCount = " + postCount++);
 
-        PictureProcessTask task = new PictureProcessTask(getApplicationContext());
-        task.setOnProcessListener(new PictureProcessTask.OnProcessListener() {
+        AsyncPictureProcessTask task = new AsyncPictureProcessTask(getApplicationContext());
+        task.setOnProcessListener(new AsyncPictureProcessTask.OnProcessListener() {
             @Override
             public void onSucess() {
                 Log.d(TAG, "onSucess，写出成功");
@@ -99,23 +100,19 @@ public class MutiTasksProcessActivity extends Activity {
     }
 
     private void addTask() {
-        runnableTasksQueue.offer(new Runnable() {
+
+        Log.d(TAG, "postCount = " + postCount++);
+        SyncProcessTask task = new SyncProcessTask(getApplicationContext());
+        task.setOnProcessListener(new SyncProcessTask.OnProcessListener() {
             @Override
-            public void run() {
-                Log.d(TAG, "postCount = " + postCount++);
-
-                ProcessTask task = new ProcessTask(getApplicationContext());
-                task.setOnProcessListener(new ProcessTask.OnProcessListener() {
-                    @Override
-                    public void onSucess() {
-                        isExecuting = false;
-                        notifyPostRunnable();
-                    }
-                });
-
-//                new Thread(task).start();
+            public void onSucess() {
+                isExecuting = false;
+                Log.d(TAG, "完成一个copy" + finishCopyCount++);
+                notifyPostRunnable();
             }
         });
+
+        runnableTasksQueue.offer(task);
     }
 
     private void initProcessThread() {

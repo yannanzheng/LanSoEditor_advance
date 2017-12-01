@@ -1,4 +1,4 @@
-package com.evomotion.utils;
+package com.example.custom.util;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -13,12 +13,12 @@ import android.graphics.Point;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
+import android.preference.Preference;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.ArrayMap;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Display;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
@@ -27,16 +27,12 @@ import android.view.ViewConfiguration;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.evomotion.client.R;
-import com.evomotion.client.common.Preference;
-import com.evomotion.client.enums.LanguageType;
 
 import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Locale;
 
-import qiu.niorgai.StatusBarCompat;
 
 public class ActivityUtils {
 
@@ -73,25 +69,6 @@ public class ActivityUtils {
         return runningActivity;
     }
 
-    public static Locale getCurrentLanguage() {
-        int userLanguage = Preference.getUserLanguage();
-        LanguageType type = LanguageType.getLanguageType(userLanguage);
-        switch (type) {
-            case SIMPLIFIED_CHINESE:
-                return Locale.SIMPLIFIED_CHINESE;
-            case TRADITIONAL_CHINESE:
-                return Locale.TRADITIONAL_CHINESE;
-            case ENGLISH:
-                return Locale.ENGLISH;
-            case UNKNOWN:
-            default:
-                Locale locale = Locale.getDefault();
-                if (locale.getCountry().equalsIgnoreCase("hk")) {
-                    return Locale.TRADITIONAL_CHINESE;
-                }
-                return locale;
-        }
-    }
 
     public static void changeLanguage(Context context, Locale locale) {
         Resources resources = context.getResources();
@@ -105,30 +82,6 @@ public class ActivityUtils {
         }
     }
 
-    public static Activity getRunningActivity() {
-        try {
-            Class activityThreadClass = Class.forName("android.app.ActivityThread");
-            Object activityThread = activityThreadClass.getMethod("currentActivityThread")
-                    .invoke(null);
-            Field activitiesField = activityThreadClass.getDeclaredField("mActivities");
-            activitiesField.setAccessible(true);
-            ArrayMap activities = (ArrayMap) activitiesField.get(activityThread);
-            for (Object activityRecord : activities.values()) {
-                Class activityRecordClass = activityRecord.getClass();
-                Field pausedField = activityRecordClass.getDeclaredField("paused");
-                pausedField.setAccessible(true);
-                if (!pausedField.getBoolean(activityRecord)) {
-                    Field activityField = activityRecordClass.getDeclaredField("activity");
-                    activityField.setAccessible(true);
-                    return (Activity) activityField.get(activityRecord);
-                }
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        throw new RuntimeException("Didn't find the running activity");
-    }
 
     public static void notifyMediaScannerScanFile(Context context, File file) {
         Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
@@ -142,8 +95,7 @@ public class ActivityUtils {
                 new MediaScannerConnection.OnScanCompletedListener() {
                     @Override
                     public void onScanCompleted(String path, Uri uri) {
-                        L.v("grokkingandroid",
-                                "file " + path + " was scanned seccessfully: " + uri);
+
                     }
                 });
     }
@@ -217,7 +169,7 @@ public class ActivityUtils {
                 hasNavigationBar = true;
             }
         } catch (Exception e) {
-            L.w(e + "");
+
         }
 
         return hasNavigationBar;
@@ -250,27 +202,6 @@ public class ActivityUtils {
         return result;
     }
 
-    public static int setStatusBarLightMode(Activity activity) {
-        int result = 0;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            if (MIUISetStatusBarLightMode(activity.getWindow(), true)) {
-                result = 1;
-
-            } else if (FlymeSetStatusBarLightMode(activity.getWindow(), true)) {
-                result = 2;
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-                } else {
-                    activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-                }
-                result = 3;
-            }
-        } else {
-            StatusBarCompat.setStatusBarColor(activity, ContextCompat.getColor(activity, R.color.transparent), 112);
-        }
-        return result;
-    }
 
     private static boolean isMIUIStatusBar(Activity activity) {
         boolean result = false;
