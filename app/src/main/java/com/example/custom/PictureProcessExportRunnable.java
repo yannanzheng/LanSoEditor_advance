@@ -12,8 +12,17 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.IF1977Filter;
+import jp.co.cyberagent.lansongsdk.gpuimage.IFAmaroFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.IFBrannanFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.IFHudsonFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.IFInkwellFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.IFLomofiFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.IFNashvilleFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.IFRiseFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.IFSierraFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.IFToasterFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.IFWaldenFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBeautyFilter;
 
 /**
@@ -58,6 +67,10 @@ public class PictureProcessExportRunnable implements Runnable {
 
     @Override
     public void run() {
+        File destFile = new File(destFilePath);
+        if (destFile.exists()) {
+            destFile.delete();
+        }
         Bitmap filterBitmap = processPicture(sourceFilePath);//有可能返回空
         try {
             if (filterBitmap == null) {
@@ -108,50 +121,50 @@ public class PictureProcessExportRunnable implements Runnable {
                 gpuImageFilter =null;
                 break;
             case MediaEditType.Filter.Filter_IFHudson://1
-                gpuImageFilter =new IFLomofiFilter(context);
+                gpuImageFilter =new IFHudsonFilter(context);
                 break;
             case MediaEditType.Filter.Filter_IFLomofi://2
-                gpuImageFilter =new IFHudsonFilter(context);
+                gpuImageFilter =new IFLomofiFilter(context);
                 break;
 
             case MediaEditType.Filter.Filter_IFSierra://3
-                gpuImageFilter =new IFHudsonFilter(context);
+                gpuImageFilter =new IFSierraFilter(context);
                 break;
 
             case MediaEditType.Filter.Filter_IFRise://4
-                gpuImageFilter =new IFHudsonFilter(context);
+                gpuImageFilter =new IFRiseFilter(context);
                 break;
 
             case MediaEditType.Filter.Filter_IFAmaro://5
-                gpuImageFilter =new IFHudsonFilter(context);
+                gpuImageFilter =new IFAmaroFilter(context);
                 break;
 
             case MediaEditType.Filter.Filter_IFWalden://6
-                gpuImageFilter =new IFHudsonFilter(context);
+                gpuImageFilter =new IFWaldenFilter(context);
                 break;
 
             case MediaEditType.Filter.Filter_IFNashville://7
-                gpuImageFilter =new IFHudsonFilter(context);
+                gpuImageFilter =new IFNashvilleFilter(context);
                 break;
 
             case MediaEditType.Filter.Filter_IFBrannan://8
-                gpuImageFilter =new IFHudsonFilter(context);
+                gpuImageFilter =new IFBrannanFilter(context);
                 break;
 
             case MediaEditType.Filter.Filter_IFInkwell://9
-                gpuImageFilter =new IFHudsonFilter(context);
+                gpuImageFilter =new IFInkwellFilter(context);
                 break;
 
             case MediaEditType.Filter.Filter_IFToaster://10
-                gpuImageFilter =new IFHudsonFilter(context);
+                gpuImageFilter =new IFToasterFilter(context);
                 break;
 
             case MediaEditType.Filter.Filter_IF1977://11
-                gpuImageFilter =new IFHudsonFilter(context);
+                gpuImageFilter =new IF1977Filter(context);
                 break;
 
             case MediaEditType.Filter.Filter_LanSongSepia://12
-                gpuImageFilter =new IFHudsonFilter(context);
+                gpuImageFilter =new IFLomofiFilter(context);
                 break;
 
         }
