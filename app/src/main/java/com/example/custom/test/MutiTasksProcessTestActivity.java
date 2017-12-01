@@ -9,7 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.custom.SyncPictureProcessTask;
+import com.example.custom.BitmapProcessExportTask;
 import com.lansoeditor.demo.R;
 
 import java.util.Queue;
@@ -42,47 +42,10 @@ public class MutiTasksProcessTestActivity extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                batchProcessPicture();
 //                startMockProcessMutiPicture();//多图片处理
 //                startProcessMutiPicture();
             }
         });
-    }
-
-    /**
-     * 批量处理图片
-     */
-    private void batchProcessPicture() {
-        runnableTasksQueue = new ArrayBlockingQueue<Runnable>(100);
-        context = getApplicationContext();
-
-        initProcessThread();
-        anyTestThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for (int i = 0; i < 100; i++) {
-                    Log.d(TAG, "i = " + i);
-                    addSyncPictureProcessTasks();//
-                    notifyPostRunnable();
-                }
-            }
-        });
-    }
-
-    private void addSyncPictureProcessTasks(){
-
-        Log.d(TAG, "postCount = " + postCount++);
-        SyncPictureProcessTask task = new SyncPictureProcessTask(getApplicationContext());
-        task.setOnProcessListener(new SyncPictureProcessTask.OnProcessListener() {
-            @Override
-            public void onSucess() {
-                Log.d(TAG, "onSucess，写出成功");
-                isExecuting = false;
-                notifyPostRunnable();
-            }
-        });
-
-        runnableTasksQueue.offer(task);
     }
 
     private void startMockProcessMutiPicture() {
@@ -95,7 +58,6 @@ public class MutiTasksProcessTestActivity extends Activity {
             public void run() {
                 for (int i = 0; i < 100; i++) {
                     Log.d(TAG, "i = " + i);
-                    addTask();
                     notifyPostRunnable();
 //                    handler.post(runnableTasksQueue.poll());
                 }
@@ -140,21 +102,6 @@ public class MutiTasksProcessTestActivity extends Activity {
         runnableTasksQueue.offer(task);
     }
 
-    private void addTask() {
-
-        Log.d(TAG, "postCount = " + postCount++);
-        SyncPictureProcessTask task = new SyncPictureProcessTask(getApplicationContext());
-        task.setOnProcessListener(new SyncPictureProcessTask.OnProcessListener() {
-            @Override
-            public void onSucess() {
-                isExecuting = false;
-                Log.d(TAG, "完成一个copy" + finishCopyCount++);
-                notifyPostRunnable();
-            }
-        });
-
-        runnableTasksQueue.offer(task);
-    }
 
     private void initProcessThread() {
         //保证处理线程已经启动

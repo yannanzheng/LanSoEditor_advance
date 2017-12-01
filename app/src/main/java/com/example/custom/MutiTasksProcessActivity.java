@@ -3,6 +3,7 @@ package com.example.custom;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.Button;
 
 import com.lansoeditor.demo.R;
 
+import java.io.File;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 
@@ -76,9 +78,15 @@ public class MutiTasksProcessActivity extends Activity {
      */
     private void addSyncPictureProcessTask(){
 
-        Log.d(TAG, "postCount = " + postCount++);
-        SyncPictureProcessTask task = new SyncPictureProcessTask(getApplicationContext());
-        task.setOnProcessListener(new SyncPictureProcessTask.OnProcessListener() {
+        Log.d(TAG, "postCount = " + postCount);
+        final File cacheDir = new File(Environment.getExternalStorageDirectory(), "abcLansonTest");
+        if (!cacheDir.exists()) {
+            cacheDir.mkdirs();
+        }
+        File destFile = new File(cacheDir, "img_" + postCount + ".jpg");
+        postCount++;
+        BitmapProcessExportTask task = new BitmapProcessExportTask(getApplicationContext(), null, destFile);
+        task.setOnProcessListener(new BitmapProcessExportTask.OnProcessListener() {
             @Override
             public void onSucess() {
                 Log.d(TAG, "onSucess，写出成功");
