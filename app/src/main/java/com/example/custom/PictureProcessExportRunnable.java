@@ -23,41 +23,41 @@ public class PictureProcessExportRunnable implements Runnable {
     private static String TAG = "simulate_task";
     private Context context;
     private static volatile int j = 0;
-    private File sourceFile = null;
+    private String sourceFilePath = null;
     private LanSongBeautyFilter beautyFilter;
     private GPUImageFilter imageFilter;
-    private File destFile;
+    private String destFilePath;
 
     private OnProcessListener onProcessListener;
 
-    public PictureProcessExportRunnable(Context context, File sourceFile, File destFile) {
+    public PictureProcessExportRunnable(Context context, String sourceFilePath, String destFilePath) {
         this.context = context;
-        this.sourceFile = sourceFile;
-        this.destFile = destFile;
+        this.sourceFilePath = sourceFilePath;
+        this.destFilePath = destFilePath;
     }
 
     /**
      * @param context 上下文
-     * @param sourceFile  待处理的bitmap
+     * @param sourceFilePath  待处理的bitmap
      * @param beautyFilter 美颜滤镜
      * @param imageFilter 滤镜
-     * @param destFile 处理后输出位置
+     * @param destFilePath 处理后输出位置
      */
-    public PictureProcessExportRunnable(Context context, File sourceFile, File destFile, LanSongBeautyFilter beautyFilter, GPUImageFilter imageFilter) {
+    public PictureProcessExportRunnable(Context context, String sourceFilePath, String destFilePath, LanSongBeautyFilter beautyFilter, GPUImageFilter imageFilter) {
         this.context = context;
-        this.sourceFile = sourceFile;
+        this.sourceFilePath = sourceFilePath;
         this.beautyFilter = beautyFilter;
         this.imageFilter = imageFilter;
-        this.destFile = destFile;
+        this.destFilePath = destFilePath;
     }
 
     @Override
     public void run() {
-        Bitmap filterBitmap = processPicture(sourceFile);
+        Bitmap filterBitmap = processPicture(sourceFilePath);
         try {
             exportPicture(filterBitmap);
             if (null != onProcessListener) {
-                onProcessListener.onSucess();
+                onProcessListener.onSucess(destFilePath);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -69,12 +69,12 @@ public class PictureProcessExportRunnable implements Runnable {
     }
 
     private void exportPicture(Bitmap filterBitmap) throws FileNotFoundException {
-        filterBitmap.compress(Bitmap.CompressFormat.JPEG, 100, new FileOutputStream(destFile));
-        ActivityUtils.notifyMediaScannerScanFile(context, destFile);
+        filterBitmap.compress(Bitmap.CompressFormat.JPEG, 100, new FileOutputStream(destFilePath));
+        ActivityUtils.notifyMediaScannerScanFile(context, new File(destFilePath));
     }
 
-    private Bitmap processPicture(File sourceFile) {
-        Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(sourceFile));
+    private Bitmap processPicture(String sourceFilePath) {
+        Bitmap bitmap = BitmapFactory.decodeFile(sourceFilePath);
         BitmapPadExecute bitmapPadExecute = new BitmapPadExecute(context);
         boolean isExecuteInitSuccess = bitmapPadExecute.init(bitmap.getWidth(), bitmap.getHeight());
         if (!isExecuteInitSuccess) {
@@ -107,7 +107,7 @@ public class PictureProcessExportRunnable implements Runnable {
     }
 
     public interface OnProcessListener {
-        void onSucess();
+        void onSucess(String exportedFilePath);
         void onFail();
     }
 }

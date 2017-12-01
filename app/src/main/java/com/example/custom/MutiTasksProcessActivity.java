@@ -95,11 +95,11 @@ public class MutiTasksProcessActivity extends Activity {
         LanSongBeautyFilter beautyFilter = new LanSongBeautyFilter();//美颜
         beautyFilter.setBeautyLevel(0.8f);
 
-        PictureProcessExportRunnable task = new PictureProcessExportRunnable(getApplicationContext(), sourceFile, destFile, beautyFilter, new GPUImageSepiaFilter());
+        PictureProcessExportRunnable task = new PictureProcessExportRunnable(getApplicationContext(), sourceFile.getAbsolutePath(), destFile.getAbsolutePath(), beautyFilter, new GPUImageSepiaFilter());
 
         task.setOnProcessListener(new PictureProcessExportRunnable.OnProcessListener() {
             @Override
-            public void onSucess() {
+            public void onSucess(String exportedFilePath ) {
                 Log.d(TAG, "onSucess，处理成功");
                 isExecuting = false;
                 notifyPostRunnable();
