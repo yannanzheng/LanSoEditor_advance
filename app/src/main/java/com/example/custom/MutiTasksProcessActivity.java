@@ -16,6 +16,9 @@ import java.io.File;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 
+import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBeautyFilter;
+
 import static com.lansoeditor.demo.R.id.start_process_bt;
 
 public class MutiTasksProcessActivity extends Activity {
@@ -31,10 +34,13 @@ public class MutiTasksProcessActivity extends Activity {
     private volatile boolean isExecuting;
 
     private int finishCopyCount = 0;
+
+    private File sourceFile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_muti_tasks_process);
+        sourceFile = new File(Environment.getExternalStorageDirectory(), "ASourceFile/Test1.jpg");
 
         button = (Button) findViewById(start_process_bt);
         button.setOnClickListener(new View.OnClickListener() {
@@ -69,8 +75,8 @@ public class MutiTasksProcessActivity extends Activity {
         for (int i = 0; i < number; i++) {
             Log.d(TAG, "i = " + i);
             addSyncPictureProcessTask();//添加任务
-            notifyPostRunnable();//提醒任务开始
         }
+        notifyPostRunnable();//提醒任务开始
     }
 
     /**
@@ -85,12 +91,23 @@ public class MutiTasksProcessActivity extends Activity {
         }
         File destFile = new File(cacheDir, "img_" + postCount + ".jpg");
         postCount++;
-        BitmapProcessExportTask task = new BitmapProcessExportTask(getApplicationContext(), null, destFile);
-        task.setOnProcessListener(new BitmapProcessExportTask.OnProcessListener() {
+
+        LanSongBeautyFilter beautyFilter = new LanSongBeautyFilter();//美颜
+        beautyFilter.setBeautyLevel(0.8f);
+
+        PictureProcessExportRunnable task = new PictureProcessExportRunnable(getApplicationContext(), sourceFile, destFile, beautyFilter, new GPUImageSepiaFilter());
+
+        task.setOnProcessListener(new PictureProcessExportRunnable.OnProcessListener() {
             @Override
             public void onSucess() {
-                Log.d(TAG, "onSucess，写出成功");
+                Log.d(TAG, "onSucess，处理成功");
                 isExecuting = false;
+                notifyPostRunnable();
+            }
+
+            @Override
+            public void onFail() {
+                Log.e(TAG, "onSucess，处理失败");
                 notifyPostRunnable();
             }
         });
@@ -120,8 +137,8 @@ public class MutiTasksProcessActivity extends Activity {
             return;
         }
         isExecuting = true;
-        Log.d(TAG,"开始处理啦！" );
         handler.post(runnableTasksQueue.poll());
+        Log.d(TAG,"开始处理啦！剩余任务数量taskNum = " +runnableTasksQueue.size());
     }
 
 }

@@ -3,8 +3,6 @@ package com.example.custom;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Environment;
-import android.util.Log;
 
 import com.example.custom.util.ActivityUtils;
 import com.lansosdk.videoeditor.BitmapPadExecute;
@@ -12,11 +10,8 @@ import com.lansosdk.videoeditor.BitmapPadExecute;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
-import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBeautyFilter;
 
 /**
@@ -24,27 +19,33 @@ import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBeautyFilter;
  * Created by jfyang on 11/30/17.
  */
 
-public class BitmapProcessExportTask implements Runnable {
+public class PictureProcessExportRunnable implements Runnable {
     private static String TAG = "simulate_task";
     private Context context;
-    private int postCount = 0;
     private static volatile int j = 0;
-    private Bitmap sourceBitmap = null;
+    private File sourceFile = null;
     private LanSongBeautyFilter beautyFilter;
     private GPUImageFilter imageFilter;
     private File destFile;
 
     private OnProcessListener onProcessListener;
 
-    public BitmapProcessExportTask(Context context, Bitmap sourceBitmap, File destFile) {
+    public PictureProcessExportRunnable(Context context, File sourceFile, File destFile) {
         this.context = context;
-        this.sourceBitmap = sourceBitmap;
+        this.sourceFile = sourceFile;
         this.destFile = destFile;
     }
 
-    public BitmapProcessExportTask(Context context, Bitmap sourceBitmap, LanSongBeautyFilter beautyFilter, GPUImageFilter imageFilter, File destFile) {
+    /**
+     * @param context 上下文
+     * @param sourceFile  待处理的bitmap
+     * @param beautyFilter 美颜滤镜
+     * @param imageFilter 滤镜
+     * @param destFile 处理后输出位置
+     */
+    public PictureProcessExportRunnable(Context context, File sourceFile, File destFile, LanSongBeautyFilter beautyFilter, GPUImageFilter imageFilter) {
         this.context = context;
-        this.sourceBitmap = sourceBitmap;
+        this.sourceFile = sourceFile;
         this.beautyFilter = beautyFilter;
         this.imageFilter = imageFilter;
         this.destFile = destFile;
@@ -52,43 +53,18 @@ public class BitmapProcessExportTask implements Runnable {
 
     @Override
     public void run() {
-        final File cacheDir = new File(Environment.getExternalStorageDirectory(), "abcLansonTest");
-        Log.d(TAG, "cacheDir = " + cacheDir.getAbsolutePath());
-        if (!cacheDir.exists()) {
-            cacheDir.mkdirs();
-        }
-        sourceBitmap = null;
-
+        Bitmap filterBitmap = processPicture(sourceFile);
         try {
-            if (null == sourceBitmap) {
-                InputStream open = null;
-                open = context.getAssets().open("test1.jpg");
-                sourceBitmap = BitmapFactory.decodeStream(open);
-            }
-
-            if (beautyFilter == null) {
-                beautyFilter = new LanSongBeautyFilter();
-                beautyFilter.setBeautyLevel(0.8f);
-            }
-
-            if (null == imageFilter) {
-                imageFilter = new GPUImageSepiaFilter();
-            }
-
-            if (null == destFile) {
-                destFile = new File(cacheDir, "img" + "_" + j + ".jpg");
-                j++;
-            }
-
-            Bitmap filterBitmap = processBitmap();
             exportPicture(filterBitmap);
-
             if (null != onProcessListener) {
                 onProcessListener.onSucess();
             }
-
-        } catch (IOException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
+            if (null != onProcessListener) {
+                onProcessListener.onFail();
+            }
+
         }
     }
 
@@ -97,22 +73,31 @@ public class BitmapProcessExportTask implements Runnable {
         ActivityUtils.notifyMediaScannerScanFile(context, destFile);
     }
 
-    private Bitmap processBitmap() {
+    private Bitmap processPicture(File sourceFile) {
+        Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(sourceFile));
         BitmapPadExecute bitmapPadExecute = new BitmapPadExecute(context);
-        boolean isExecuteInitSuccess = bitmapPadExecute.init(sourceBitmap.getWidth(), sourceBitmap.getHeight());
+        boolean isExecuteInitSuccess = bitmapPadExecute.init(bitmap.getWidth(), bitmap.getHeight());
         if (!isExecuteInitSuccess) {
             return null;
         }
-        Bitmap bmp = bitmapPadExecute.getFilterBitmap(sourceBitmap, beautyFilter);
+        Bitmap bmp = bitmapPadExecute.getFilterBitmap(bitmap, beautyFilter);
         Bitmap filterBitmap = bitmapPadExecute.getFilterBitmap(bmp, imageFilter);
         bitmapPadExecute.release();
         return filterBitmap;
     }
 
+    /**
+     * 设置美颜滤镜
+     * @param beautyFilter
+     */
     public void setBeautyFilter(LanSongBeautyFilter beautyFilter) {
         this.beautyFilter = beautyFilter;
     }
 
+    /**
+     * 设置普通滤镜
+     * @param imageFilter
+     */
     public void setImageFilter(GPUImageFilter imageFilter) {
         this.imageFilter = imageFilter;
     }
@@ -123,5 +108,6 @@ public class BitmapProcessExportTask implements Runnable {
 
     public interface OnProcessListener {
         void onSucess();
+        void onFail();
     }
 }
