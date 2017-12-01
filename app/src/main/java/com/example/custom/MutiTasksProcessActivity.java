@@ -16,9 +16,6 @@ import java.io.File;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 
-import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
-import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBeautyFilter;
-
 import static com.lansoeditor.demo.R.id.start_process_bt;
 
 public class MutiTasksProcessActivity extends Activity {
@@ -28,7 +25,7 @@ public class MutiTasksProcessActivity extends Activity {
     private Queue<Runnable> runnableTasksQueue;
     private int postCount = 0;
     private Thread anyTestThread;
-    private Thread mainProcessThread;
+    private Thread processThread;
 
     private Context context;
     private volatile boolean isExecuting;
@@ -36,6 +33,8 @@ public class MutiTasksProcessActivity extends Activity {
     private int finishCopyCount = 0;
 
     private File sourceFile;
+    private Button testVideoEditButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,12 +42,26 @@ public class MutiTasksProcessActivity extends Activity {
         sourceFile = new File(Environment.getExternalStorageDirectory(), "ASourceFile/Test1.jpg");
 
         button = (Button) findViewById(start_process_bt);
+        testVideoEditButton = (Button) findViewById(R.id.start_process_video_bt);
+        initProcessThread();
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 batchProcessPicture();
             }
         });
+
+        testVideoEditButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processVideo();
+            }
+        });
+    }
+
+    private void processVideo() {
+
     }
 
     /**
@@ -57,14 +70,13 @@ public class MutiTasksProcessActivity extends Activity {
     private void batchProcessPicture() {
         runnableTasksQueue = new ArrayBlockingQueue<Runnable>(100);
         context = getApplicationContext();
-
-        initProcessThread();
         anyTestThread = new Thread(new Runnable() {//添加任务都在这个子线程李进行，模拟项目环境
             @Override
             public void run() {
                 addPictureTasks(100);
             }
         });
+        anyTestThread.start();
     }
 
     /**
@@ -114,17 +126,17 @@ public class MutiTasksProcessActivity extends Activity {
 
     private void initProcessThread() {
         //保证处理线程已经启动
-        mainProcessThread = new Thread(new Runnable() {
+        processThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 Looper.prepare();
                 handler = new Handler();
-                anyTestThread.start();//保证处理线程已经启动
+//                anyTestThread.start();//保证处理线程已经启动
                 Looper.loop();
             }
         });
 
-        mainProcessThread.start();
+        processThread.start();
     }
 
     private void notifyPostRunnable() {

@@ -1,8 +1,6 @@
-package com.evomotion.media.edit;
+package com.example.custom;
 
 import android.content.Context;
-
-import com.evomotion.apiserver.type.MediaEditType;
 
 import java.io.File;
 

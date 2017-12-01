@@ -58,8 +58,13 @@ public class PictureProcessExportRunnable implements Runnable {
 
     @Override
     public void run() {
-        Bitmap filterBitmap = processPicture(sourceFilePath);
+        Bitmap filterBitmap = processPicture(sourceFilePath);//有可能返回空
         try {
+            if (filterBitmap == null) {
+                if (null != onProcessListener) {
+                    onProcessListener.onFail();
+                }
+            }
             exportPicture(filterBitmap);
             if (null != onProcessListener) {
                 onProcessListener.onSucess(destFilePath);
