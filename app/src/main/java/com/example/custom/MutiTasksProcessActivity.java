@@ -64,19 +64,25 @@ public class MutiTasksProcessActivity extends Activity {
 
     private void processVideo() {
         Log.d(TAG, "processVideo");
-        File sourceVideoFile = new File(Environment.getExternalStorageDirectory(), "ASourceFile/V1.mp4");
+        addVideoTasks();
+        notifyPostRunnable();
+    }
 
+    private void addVideoTask(int i) {
+        File sourceVideoFile = new File(Environment.getExternalStorageDirectory(), "ASourceFile/V1.mp4");
         final File cacheDir = new File(Environment.getExternalStorageDirectory(), "abcLansonTest");
         if (!cacheDir.exists()) {
             cacheDir.mkdirs();
         }
-        File destFile = new File(cacheDir, "vid_" + postCount + ".mp4");
+        File destFile = new File(cacheDir, "vid_" + i + ".mp4");
 
         VideoProcessExportRunnable videoProcessExportRunnable = new VideoProcessExportRunnable(context, sourceVideoFile.getAbsolutePath(), destFile.getAbsolutePath(), MediaEditType.FaceBeauty.LEVEL_4, MediaEditType.Filter.Filter_LanSongSepia);
         videoProcessExportRunnable.setOnProcessListener(new VideoProcessExportRunnable.OnProcessListener() {
             @Override
             public void onSucess(String exportedFilePath) {
                 Log.d(TAG, "onSucess, exportedFilePath = "+exportedFilePath);
+                isExecuting = false;
+                notifyPostRunnable();
             }
 
             @Override
@@ -90,7 +96,12 @@ public class MutiTasksProcessActivity extends Activity {
             }
         });
         runnableTasksQueue.offer(videoProcessExportRunnable);
-        notifyPostRunnable();
+    }
+
+    private void addVideoTasks() {
+        for (int i = 0; i < 5; i++) {
+            addVideoTask(i);
+        }
     }
 
     /**
