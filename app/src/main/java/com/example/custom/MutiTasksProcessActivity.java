@@ -51,7 +51,7 @@ public class MutiTasksProcessActivity extends Activity {
         anyTestThread = new Thread(new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < 120; i++) {
+                for (int i = 0; i < 100; i++) {
                     Log.d(TAG, "i = " + i);
                     addTask();
                     notifyPostRunnable();
@@ -82,24 +82,20 @@ public class MutiTasksProcessActivity extends Activity {
     }
 
     private void addPictureProcessTask() {
-        runnableTasksQueue.offer(new Runnable() {
+
+        Log.d(TAG, "postCount = " + postCount++);
+
+        PictureProcessTask task = new PictureProcessTask(getApplicationContext());
+        task.setOnProcessListener(new PictureProcessTask.OnProcessListener() {
             @Override
-            public void run() {
-                Log.d(TAG, "postCount = " + postCount++);
-
-                PictureProcessTask task = new PictureProcessTask(getApplicationContext());
-                task.setOnProcessListener(new PictureProcessTask.OnProcessListener() {
-                    @Override
-                    public void onSucess() {
-                        Log.d(TAG, "onSucess，写出成功");
-                        isExecuting = false;
-                        notifyPostRunnable();
-                    }
-                });
-
-                new Thread(task).start();
+            public void onSucess() {
+                Log.d(TAG, "onSucess，写出成功");
+                isExecuting = false;
+                notifyPostRunnable();
             }
         });
+
+        runnableTasksQueue.offer(task);
     }
 
     private void addTask() {
@@ -117,7 +113,7 @@ public class MutiTasksProcessActivity extends Activity {
                     }
                 });
 
-                new Thread(task).start();
+//                new Thread(task).start();
             }
         });
     }
