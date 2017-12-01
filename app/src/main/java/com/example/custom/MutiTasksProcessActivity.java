@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.custom.SyncPictureProcessTask;
 import com.lansoeditor.demo.R;
 
 import java.util.Queue;
@@ -52,19 +51,30 @@ public class MutiTasksProcessActivity extends Activity {
         context = getApplicationContext();
 
         initProcessThread();
-        anyTestThread = new Thread(new Runnable() {
+        anyTestThread = new Thread(new Runnable() {//添加任务都在这个子线程李进行，模拟项目环境
             @Override
             public void run() {
-                for (int i = 0; i < 100; i++) {
-                    Log.d(TAG, "i = " + i);
-                    addSyncPictureProcessTasks();//
-                    notifyPostRunnable();
-                }
+                addPictureTasks(100);
             }
         });
     }
 
-    private void addSyncPictureProcessTasks(){
+    /**
+     * 添加多个图片处理任务
+     * @param number 任务数量
+     */
+    private void addPictureTasks(int number) {//添加任务
+        for (int i = 0; i < number; i++) {
+            Log.d(TAG, "i = " + i);
+            addSyncPictureProcessTask();//添加任务
+            notifyPostRunnable();//提醒任务开始
+        }
+    }
+
+    /**
+     * 添加一个任务
+     */
+    private void addSyncPictureProcessTask(){
 
         Log.d(TAG, "postCount = " + postCount++);
         SyncPictureProcessTask task = new SyncPictureProcessTask(getApplicationContext());
