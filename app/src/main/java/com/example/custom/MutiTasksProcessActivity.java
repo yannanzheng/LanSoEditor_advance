@@ -29,6 +29,7 @@ public class MutiTasksProcessActivity extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                startMockProcessMutiPicture();
                 startProcessMutiPicture();
             }
         });
@@ -42,7 +43,7 @@ public class MutiTasksProcessActivity extends Activity {
 
     private Context context;
     private volatile boolean isExecuting;
-    private void startProcessMutiPicture() {
+    private void startMockProcessMutiPicture() {
         runnableTasksQueue = new ArrayBlockingQueue<Runnable>(100);
         context = getApplicationContext();
 
@@ -56,6 +57,47 @@ public class MutiTasksProcessActivity extends Activity {
                     notifyPostRunnable();
 //                    handler.post(runnableTasksQueue.poll());
                 }
+            }
+        });
+    }
+
+    private void startProcessMutiPicture() {
+        runnableTasksQueue = new ArrayBlockingQueue<Runnable>(100);
+        context = getApplicationContext();
+
+        anyTestThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                for (int i = 0; i < 100; i++) {
+                    Log.d(TAG, "i = " + i);
+
+                    addPictureProcessTask();
+                    notifyPostRunnable();
+//                    handler.post(runnableTasksQueue.poll());
+                }
+            }
+        });
+        initProcessThread();
+    }
+
+    private void addPictureProcessTask() {
+        runnableTasksQueue.offer(new Runnable() {
+            @Override
+            public void run() {
+                Log.d(TAG, "postCount = " + postCount++);
+
+                PictureProcessTask task = new PictureProcessTask(getApplicationContext());
+                task.setOnProcessListener(new PictureProcessTask.OnProcessListener() {
+                    @Override
+                    public void onSucess() {
+                        Log.d(TAG, "onSucess，写出成功");
+                        isExecuting = false;
+                        notifyPostRunnable();
+                    }
+                });
+
+                new Thread(task).start();
             }
         });
     }

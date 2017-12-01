@@ -5,4 +5,8 @@ package com.example.custom;
  */
 
 public class MockPicturesProcessPresenter {
+
+
+
+
 }

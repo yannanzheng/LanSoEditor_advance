@@ -41,7 +41,7 @@ public class ProcessTask implements Runnable {
             try {
                 InputStream open = context.getAssets().open("test1.jpg");
                 InputStream open2 = context.getAssets().open("test2.jpg");
-                InputStream open3 = context.getAssets().open("test1.jpg");
+                InputStream open3 = context.getAssets().open("test3.jpg");
                 InputStream open4 = context.getAssets().open("test2.jpg");
                 InputStream open5 = context.getAssets().open("test1.jpg");
 //                        InputStream open6 = getAssets().open("test2.jpg");
