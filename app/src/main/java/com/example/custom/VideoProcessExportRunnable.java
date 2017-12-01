@@ -1,8 +1,16 @@
 package com.example.custom;
 
 import android.content.Context;
+import android.util.Log;
+
+import com.lansosdk.box.DrawPad;
+import com.lansosdk.box.onDrawPadCompletedListener;
+import com.lansosdk.box.onDrawPadProgressListener;
+import com.lansosdk.videoeditor.DrawPadVideoExecute;
+import com.lansosdk.videoeditor.MediaInfo;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.IF1977Filter;
@@ -16,6 +24,7 @@ import jp.co.cyberagent.lansongsdk.gpuimage.IFRiseFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.IFSierraFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.IFToasterFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.IFWaldenFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBeautyFilter;
 
 /**
  * 对Video file进行处理并导出到指定文件
@@ -23,6 +32,7 @@ import jp.co.cyberagent.lansongsdk.gpuimage.IFWaldenFilter;
  */
 
 public class VideoProcessExportRunnable implements Runnable {
+    private static final int MAX_BIT_RATE = 3 * 1024 * 1024;
     private static String TAG = "simulate_task";
     private Context context;
     private static volatile int j = 0;
@@ -60,6 +70,96 @@ public class VideoProcessExportRunnable implements Runnable {
         File destFile = new File(destFilePath);
         if (destFile.exists()) {
             destFile.delete();
+        }
+
+        final MediaInfo mediaInfo = new MediaInfo(sourceFilePath);
+        boolean prepare = mediaInfo.prepare();
+        if (!prepare) {
+            fail();
+            return;
+        }
+
+        int padWidth = 1440;
+        int padHeight = 720;
+        if(mediaInfo.vRotateAngle==90 || mediaInfo.vRotateAngle==270){
+            padWidth = 720;
+            padHeight = 1440;
+        }
+
+        String simpleFileName = mediaInfo.fileName;
+        Log.d("compress", "simpleFileName = " + simpleFileName);
+
+
+        DrawPadVideoExecute mDrawPad = new DrawPadVideoExecute(
+                  context
+                , sourceFilePath
+                , padWidth
+                , padHeight
+                , MAX_BIT_RATE
+                , null
+                , destFilePath);
+        mDrawPad.setUseMainVideoPts(true);
+
+        mDrawPad.setDrawPadProgressListener(new onDrawPadProgressListener() {
+            @Override
+            public void onProgress(DrawPad v, long currentTimeUs) {
+                Log.d("compress", "on Progress currentTimeUs = "+currentTimeUs);
+                double progress = ((currentTimeUs/1000)/(mediaInfo.vDuration * 1000) )/2;
+                Log.d("compress", "progress = " + progress);
+                progress(progress);
+            }
+        });
+
+        mDrawPad.setDrawPadCompletedListener(new onDrawPadCompletedListener() {
+            @Override
+            public void onCompleted(DrawPad drawPad) {
+                success();
+            }
+        });
+
+        mDrawPad.pauseRecord();
+
+        if (mDrawPad.startDrawPad()) {
+            if (MediaEditType.FaceBeauty.LEVEL_0 != facebeautyLevel || MediaEditType.Filter.Filter_NULL != imageFilterType) {
+                Log.d("feature_847", "没编辑过的文件不应该走这里");
+                ArrayList<GPUImageFilter> gpuImageFilters = new ArrayList<>();
+
+                LanSongBeautyFilter beautyFilter = new LanSongBeautyFilter();
+                beautyFilter.setBeautyLevel(facebeautyLevel);
+                GPUImageFilter videoFilter = getFilter(imageFilterType);
+
+                if (null != beautyFilter) {
+                    gpuImageFilters.add(beautyFilter);
+                }
+                if (null != videoFilter) {
+                    gpuImageFilters.add(videoFilter);
+                }
+                mDrawPad.getMainVideoLayer().switchFilterList(gpuImageFilters);
+            }
+
+            mDrawPad.resumeRecord();
+        }
+
+
+
+    }
+
+    private void success() {
+        if (null != onProcessListener) {
+            onProcessListener.onSucess(destFilePath);
+        }
+    }
+
+
+    private void progress(double progress){
+        if (null != onProcessListener) {
+            onProcessListener.onProgress(progress);
+        }
+    }
+
+    private void fail() {
+        if (null != onProcessListener) {
+            onProcessListener.onFail();
         }
     }
 
@@ -144,6 +244,8 @@ public class VideoProcessExportRunnable implements Runnable {
 
     public interface OnProcessListener {
         void onSucess(String exportedFilePath);
+        void onProgress(double progress);
         void onFail();
     }
+
 }

@@ -32,18 +32,20 @@ public class MutiTasksProcessActivity extends Activity {
 
     private int finishCopyCount = 0;
 
-    private File sourceFile;
+    private File sourcePictureFile;
     private Button testVideoEditButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_muti_tasks_process);
-        sourceFile = new File(Environment.getExternalStorageDirectory(), "ASourceFile/Test1.jpg");
+        sourcePictureFile = new File(Environment.getExternalStorageDirectory(), "ASourceFile/Test1.jpg");
 
         button = (Button) findViewById(start_process_bt);
         testVideoEditButton = (Button) findViewById(R.id.start_process_video_bt);
         initProcessThread();
+        runnableTasksQueue = new ArrayBlockingQueue<Runnable>(100);
+        context = getApplicationContext();
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,15 +63,40 @@ public class MutiTasksProcessActivity extends Activity {
     }
 
     private void processVideo() {
+        Log.d(TAG, "processVideo");
+        File sourceVideoFile = new File(Environment.getExternalStorageDirectory(), "ASourceFile/V1.mp4");
 
+        final File cacheDir = new File(Environment.getExternalStorageDirectory(), "abcLansonTest");
+        if (!cacheDir.exists()) {
+            cacheDir.mkdirs();
+        }
+        File destFile = new File(cacheDir, "vid_" + postCount + ".mp4");
+
+        VideoProcessExportRunnable videoProcessExportRunnable = new VideoProcessExportRunnable(context, sourceVideoFile.getAbsolutePath(), destFile.getAbsolutePath(), MediaEditType.FaceBeauty.LEVEL_4, MediaEditType.Filter.Filter_LanSongSepia);
+        videoProcessExportRunnable.setOnProcessListener(new VideoProcessExportRunnable.OnProcessListener() {
+            @Override
+            public void onSucess(String exportedFilePath) {
+                Log.d(TAG, "onSucess, exportedFilePath = "+exportedFilePath);
+            }
+
+            @Override
+            public void onProgress(double progress) {
+                Log.d(TAG, "progress = "+progress);
+            }
+
+            @Override
+            public void onFail() {
+                Log.d(TAG, "fail");
+            }
+        });
+        runnableTasksQueue.offer(videoProcessExportRunnable);
+        notifyPostRunnable();
     }
 
     /**
      * 批量处理图片
      */
     private void batchProcessPicture() {
-        runnableTasksQueue = new ArrayBlockingQueue<Runnable>(100);
-        context = getApplicationContext();
         anyTestThread = new Thread(new Runnable() {//添加任务都在这个子线程李进行，模拟项目环境
             @Override
             public void run() {
@@ -104,7 +131,7 @@ public class MutiTasksProcessActivity extends Activity {
         File destFile = new File(cacheDir, "img_" + postCount + ".jpg");
         postCount++;
 
-        PictureProcessExportRunnable task = new PictureProcessExportRunnable(getApplicationContext(), sourceFile.getAbsolutePath(), destFile.getAbsolutePath(), MediaEditType.FaceBeauty.LEVEL_4, MediaEditType.Filter.Filter_LanSongSepia);
+        PictureProcessExportRunnable task = new PictureProcessExportRunnable(getApplicationContext(), sourcePictureFile.getAbsolutePath(), destFile.getAbsolutePath(), MediaEditType.FaceBeauty.LEVEL_4, MediaEditType.Filter.Filter_LanSongSepia);
 
         task.setOnProcessListener(new PictureProcessExportRunnable.OnProcessListener() {
             @Override
