@@ -22,7 +22,6 @@ import com.anthonycr.grant.PermissionsResultAction;
 import com.example.custom.MutiTasksProcessActivity;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.LanSoEditorBox;
-import com.lansosdk.box.T;
 import com.lansosdk.videoeditor.CopyDefaultVideoAsyncTask;
 import com.lansosdk.videoeditor.LanSoEditor;
 import com.lansosdk.videoeditor.MediaInfo;

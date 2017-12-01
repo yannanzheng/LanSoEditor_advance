@@ -9,7 +9,7 @@ import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBeautyFilter;
 
 import com.example.advanceDemo.view.RangeSeekBar;
 import com.example.advanceDemo.view.RangeSeekBar.OnRangeSeekBarChangeListener;
-import com.example.custom.EdittedVideoExport;
+import com.example.custom.waste.EdittedVideoExport;
 import com.lansoeditor.demo.R;
 import com.lansosdk.videoeditor.CopyFileFromAssets;
 import com.lansosdk.videoeditor.FilterLibrary;

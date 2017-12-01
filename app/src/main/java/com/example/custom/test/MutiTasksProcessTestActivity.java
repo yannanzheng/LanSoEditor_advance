@@ -1,4 +1,4 @@
-package com.example.custom;
+package com.example.custom.test;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,7 +17,10 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 import static com.lansoeditor.demo.R.id.start_process_bt;
 
-public class MutiTasksProcessActivity extends Activity {
+/**
+ * 包含一些测试的东西，存档
+ */
+public class MutiTasksProcessTestActivity extends Activity {
     private static final String TAG="simulate_task";
     private Button button;
     private Handler handler;
@@ -40,6 +43,8 @@ public class MutiTasksProcessActivity extends Activity {
             @Override
             public void onClick(View v) {
                 batchProcessPicture();
+//                startMockProcessMutiPicture();//多图片处理
+//                startProcessMutiPicture();
             }
         });
     }
@@ -73,6 +78,77 @@ public class MutiTasksProcessActivity extends Activity {
             public void onSucess() {
                 Log.d(TAG, "onSucess，写出成功");
                 isExecuting = false;
+                notifyPostRunnable();
+            }
+        });
+
+        runnableTasksQueue.offer(task);
+    }
+
+    private void startMockProcessMutiPicture() {
+        runnableTasksQueue = new ArrayBlockingQueue<Runnable>(100);
+        context = getApplicationContext();
+
+        initProcessThread();
+        anyTestThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < 100; i++) {
+                    Log.d(TAG, "i = " + i);
+                    addTask();
+                    notifyPostRunnable();
+//                    handler.post(runnableTasksQueue.poll());
+                }
+            }
+        });
+    }
+
+    private void startProcessMutiPicture() {
+        runnableTasksQueue = new ArrayBlockingQueue<Runnable>(100);
+        context = getApplicationContext();
+
+        anyTestThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                for (int i = 0; i < 10; i++) {
+                    Log.d(TAG, "i = " + i);
+
+                    addPictureProcessTask();
+                    notifyPostRunnable();
+//                    handler.post(runnableTasksQueue.poll());
+                }
+            }
+        });
+        initProcessThread();
+    }
+
+    private void addPictureProcessTask() {
+
+        Log.d(TAG, "postCount = " + postCount++);
+
+        AsyncPictureProcessTask task = new AsyncPictureProcessTask(getApplicationContext());
+        task.setOnProcessListener(new AsyncPictureProcessTask.OnProcessListener() {
+            @Override
+            public void onSucess() {
+                Log.d(TAG, "onSucess，写出成功");
+                isExecuting = false;
+                notifyPostRunnable();
+            }
+        });
+
+        runnableTasksQueue.offer(task);
+    }
+
+    private void addTask() {
+
+        Log.d(TAG, "postCount = " + postCount++);
+        SyncPictureProcessTask task = new SyncPictureProcessTask(getApplicationContext());
+        task.setOnProcessListener(new SyncPictureProcessTask.OnProcessListener() {
+            @Override
+            public void onSucess() {
+                isExecuting = false;
+                Log.d(TAG, "完成一个copy" + finishCopyCount++);
                 notifyPostRunnable();
             }
         });

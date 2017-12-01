@@ -1,4 +1,4 @@
-package com.example.custom;
+package com.example.custom.test;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -22,6 +22,7 @@ import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageSepiaFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBeautyFilter;
 
 /**
+ * 经测试，蓝松的异步图片处理方法有内存泄漏，不能使用，因此只能使用同步方法进行多次处理。
  * Created by jfyang on 11/30/17.
  */
 

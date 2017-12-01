@@ -1,10 +1,11 @@
-package com.example.custom;
+package com.example.custom.waste;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Environment;
 import android.util.Log;
 
+import com.example.custom.MediaEditType;
 import com.lansosdk.box.BitmapLayer;
 import com.lansosdk.box.DrawPad;
 import com.lansosdk.box.Layer;

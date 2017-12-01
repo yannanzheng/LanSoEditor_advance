@@ -21,14 +21,14 @@ import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBeautyFilter;
  * Created by jfyang on 11/30/17.
  */
 
-public class SyncProcessTask implements Runnable {
+public class SyncPictureProcessTask implements Runnable {
     private static String TAG = "simulate_task";
     private Context context;
     private int postCount = 0;
     private static volatile int j = 0;
     private Bitmap bitmap = null;
 
-    public SyncProcessTask(Context context) {
+    public SyncPictureProcessTask(Context context) {
         this.context = context;
     }
 
@@ -53,7 +53,6 @@ public class SyncProcessTask implements Runnable {
 
             GPUImageSepiaFilter gpuImageSepiaFilter = new GPUImageSepiaFilter();
 
-
             if (bitmapPadExecute.init(bitmap.getWidth(), bitmap.getHeight())) {
                 Bitmap bmp = bitmapPadExecute.getFilterBitmap(bitmap, lanSongBeautyFilter);
                 Bitmap filterBitmap = bitmapPadExecute.getFilterBitmap(bmp, gpuImageSepiaFilter);
@@ -71,36 +70,6 @@ public class SyncProcessTask implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-//        new Thread(new Runnable() {//模拟蓝松的开启线程
-//            @Override
-//            public void run() {
-//
-//                try {
-//                    InputStream open = context.getAssets().open("test1.jpg");
-//                    bitmap = BitmapFactory.decodeStream(open);
-//
-//                    File file = new File(cacheDir, "img" + "_" + j + ".jpg");
-//                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, new FileOutputStream(file));
-//                    j++;
-////                    File file2 = new File(cacheDir, "img" + "_" + j + ".jpg");
-////                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, new FileOutputStream(file2));
-////                    j++;
-//                    if (null != onProcessListener) {
-//                        onProcessListener.onSucess();
-//                    }
-////                    bitmap.recycle();
-//                    ActivityUtils.notifyMediaScannerScanFile(context,file);
-//
-//                    Log.d(TAG, "bitmap, width = " + bitmap.getWidth() + ", height = " + bitmap.getHeight());
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }).start();
-
-
     }
 
     private OnProcessListener onProcessListener;

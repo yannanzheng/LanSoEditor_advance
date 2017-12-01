@@ -1,4 +1,4 @@
-package com.example.custom;
+package com.example.custom.waste;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.util.Log;
 
+import com.example.custom.MediaEditType;
 import com.lansosdk.box.BitmapGetFilters;
 import com.lansosdk.box.onGetFiltersOutFrameListener;
 
