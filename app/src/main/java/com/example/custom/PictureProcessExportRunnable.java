@@ -12,6 +12,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 import jp.co.cyberagent.lansongsdk.gpuimage.GPUImageFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.IFHudsonFilter;
+import jp.co.cyberagent.lansongsdk.gpuimage.IFLomofiFilter;
 import jp.co.cyberagent.lansongsdk.gpuimage.LanSongBeautyFilter;
 
 /**
@@ -24,8 +26,11 @@ public class PictureProcessExportRunnable implements Runnable {
     private Context context;
     private static volatile int j = 0;
     private String sourceFilePath = null;
-    private LanSongBeautyFilter beautyFilter;
-    private GPUImageFilter imageFilter;
+    private int imageFilterType;
+    private float facebeautyLevel;
+
+//    private LanSongBeautyFilter beautyFilter;
+//    private GPUImageFilter imageFilter;
     private String destFilePath;
 
     private OnProcessListener onProcessListener;
@@ -39,15 +44,15 @@ public class PictureProcessExportRunnable implements Runnable {
     /**
      * @param context 上下文
      * @param sourceFilePath  待处理的bitmap
-     * @param beautyFilter 美颜滤镜
-     * @param imageFilter 滤镜
+     * @param facebeautyLevel 美颜滤镜类型
+     * @param imageFilterType 滤镜类型
      * @param destFilePath 处理后输出位置
      */
-    public PictureProcessExportRunnable(Context context, String sourceFilePath, String destFilePath, LanSongBeautyFilter beautyFilter, GPUImageFilter imageFilter) {
+    public PictureProcessExportRunnable(Context context, String sourceFilePath, String destFilePath, float facebeautyLevel, int imageFilterType) {
         this.context = context;
         this.sourceFilePath = sourceFilePath;
-        this.beautyFilter = beautyFilter;
-        this.imageFilter = imageFilter;
+        this.facebeautyLevel = facebeautyLevel;
+        this.imageFilterType = imageFilterType;
         this.destFilePath = destFilePath;
     }
 
@@ -80,26 +85,89 @@ public class PictureProcessExportRunnable implements Runnable {
         if (!isExecuteInitSuccess) {
             return null;
         }
+        LanSongBeautyFilter beautyFilter = new LanSongBeautyFilter();
+        beautyFilter.setBeautyLevel(facebeautyLevel);
+
+        GPUImageFilter imageFilter = getFilter(imageFilterType);
+
         Bitmap bmp = bitmapPadExecute.getFilterBitmap(bitmap, beautyFilter);
         Bitmap filterBitmap = bitmapPadExecute.getFilterBitmap(bmp, imageFilter);
         bitmapPadExecute.release();
         return filterBitmap;
     }
 
+    public GPUImageFilter getFilter(int filterType) {
+        GPUImageFilter gpuImageFilter = null;
+        switch (filterType) {
+            case MediaEditType.Filter.Filter_NULL://0
+                gpuImageFilter =null;
+                break;
+            case MediaEditType.Filter.Filter_IFHudson://1
+                gpuImageFilter =new IFLomofiFilter(context);
+                break;
+            case MediaEditType.Filter.Filter_IFLomofi://2
+                gpuImageFilter =new IFHudsonFilter(context);
+                break;
+
+            case MediaEditType.Filter.Filter_IFSierra://3
+                gpuImageFilter =new IFHudsonFilter(context);
+                break;
+
+            case MediaEditType.Filter.Filter_IFRise://4
+                gpuImageFilter =new IFHudsonFilter(context);
+                break;
+
+            case MediaEditType.Filter.Filter_IFAmaro://5
+                gpuImageFilter =new IFHudsonFilter(context);
+                break;
+
+            case MediaEditType.Filter.Filter_IFWalden://6
+                gpuImageFilter =new IFHudsonFilter(context);
+                break;
+
+            case MediaEditType.Filter.Filter_IFNashville://7
+                gpuImageFilter =new IFHudsonFilter(context);
+                break;
+
+            case MediaEditType.Filter.Filter_IFBrannan://8
+                gpuImageFilter =new IFHudsonFilter(context);
+                break;
+
+            case MediaEditType.Filter.Filter_IFInkwell://9
+                gpuImageFilter =new IFHudsonFilter(context);
+                break;
+
+            case MediaEditType.Filter.Filter_IFToaster://10
+                gpuImageFilter =new IFHudsonFilter(context);
+                break;
+
+            case MediaEditType.Filter.Filter_IF1977://11
+                gpuImageFilter =new IFHudsonFilter(context);
+                break;
+
+            case MediaEditType.Filter.Filter_LanSongSepia://12
+                gpuImageFilter =new IFHudsonFilter(context);
+                break;
+
+        }
+
+        return gpuImageFilter;
+    }
+
     /**
      * 设置美颜滤镜
-     * @param beautyFilter
+     * @param facebeautyLevel 美颜等级
      */
-    public void setBeautyFilter(LanSongBeautyFilter beautyFilter) {
-        this.beautyFilter = beautyFilter;
+    public void setBeautyFilter(int facebeautyLevel) {
+        this.facebeautyLevel = facebeautyLevel;
     }
 
     /**
      * 设置普通滤镜
-     * @param imageFilter
+     * @param imageFilterType 滤镜类型
      */
-    public void setImageFilter(GPUImageFilter imageFilter) {
-        this.imageFilter = imageFilter;
+    public void setImageFilter(int imageFilterType) {
+        this.imageFilterType = imageFilterType;
     }
 
     public void setOnProcessListener(OnProcessListener onProcessListener) {

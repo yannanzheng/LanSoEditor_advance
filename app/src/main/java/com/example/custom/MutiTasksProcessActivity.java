@@ -92,10 +92,7 @@ public class MutiTasksProcessActivity extends Activity {
         File destFile = new File(cacheDir, "img_" + postCount + ".jpg");
         postCount++;
 
-        LanSongBeautyFilter beautyFilter = new LanSongBeautyFilter();//美颜
-        beautyFilter.setBeautyLevel(0.8f);
-
-        PictureProcessExportRunnable task = new PictureProcessExportRunnable(getApplicationContext(), sourceFile.getAbsolutePath(), destFile.getAbsolutePath(), beautyFilter, new GPUImageSepiaFilter());
+        PictureProcessExportRunnable task = new PictureProcessExportRunnable(getApplicationContext(), sourceFile.getAbsolutePath(), destFile.getAbsolutePath(), MediaEditType.FaceBeauty.LEVEL_4, MediaEditType.Filter.Filter_LanSongSepia);
 
         task.setOnProcessListener(new PictureProcessExportRunnable.OnProcessListener() {
             @Override
