@@ -10,6 +10,7 @@ import com.example.custom.util.ActivityUtils;
 import com.lansosdk.videoeditor.BitmapPadExecute;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -65,9 +66,6 @@ public class BitmapProcessExportTask implements Runnable {
                 sourceBitmap = BitmapFactory.decodeStream(open);
             }
 
-            BitmapPadExecute bitmapPadExecute;
-            bitmapPadExecute = new BitmapPadExecute(context);
-
             if (beautyFilter == null) {
                 beautyFilter = new LanSongBeautyFilter();
                 beautyFilter.setBeautyLevel(0.8f);
@@ -77,20 +75,13 @@ public class BitmapProcessExportTask implements Runnable {
                 imageFilter = new GPUImageSepiaFilter();
             }
 
-            boolean isExecuteInitSuccess = bitmapPadExecute.init(sourceBitmap.getWidth(), sourceBitmap.getHeight());
-            if (!isExecuteInitSuccess) {
-                return;
-            }
-            Bitmap bmp = bitmapPadExecute.getFilterBitmap(sourceBitmap, beautyFilter);
-            Bitmap filterBitmap = bitmapPadExecute.getFilterBitmap(bmp, imageFilter);
-            bitmapPadExecute.release();
-
             if (null == destFile) {
                 destFile = new File(cacheDir, "img" + "_" + j + ".jpg");
                 j++;
             }
-            filterBitmap.compress(Bitmap.CompressFormat.JPEG, 100, new FileOutputStream(destFile));
-            ActivityUtils.notifyMediaScannerScanFile(context, destFile);
+
+            Bitmap filterBitmap = processBitmap();
+            exportPicture(filterBitmap);
 
             if (null != onProcessListener) {
                 onProcessListener.onSucess();
@@ -99,6 +90,23 @@ public class BitmapProcessExportTask implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void exportPicture(Bitmap filterBitmap) throws FileNotFoundException {
+        filterBitmap.compress(Bitmap.CompressFormat.JPEG, 100, new FileOutputStream(destFile));
+        ActivityUtils.notifyMediaScannerScanFile(context, destFile);
+    }
+
+    private Bitmap processBitmap() {
+        BitmapPadExecute bitmapPadExecute = new BitmapPadExecute(context);
+        boolean isExecuteInitSuccess = bitmapPadExecute.init(sourceBitmap.getWidth(), sourceBitmap.getHeight());
+        if (!isExecuteInitSuccess) {
+            return null;
+        }
+        Bitmap bmp = bitmapPadExecute.getFilterBitmap(sourceBitmap, beautyFilter);
+        Bitmap filterBitmap = bitmapPadExecute.getFilterBitmap(bmp, imageFilter);
+        bitmapPadExecute.release();
+        return filterBitmap;
     }
 
     public void setBeautyFilter(LanSongBeautyFilter beautyFilter) {
