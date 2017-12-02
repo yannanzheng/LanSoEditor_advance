@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import com.example.custom.dependency.MediaEditType;
 import com.example.custom.util.ActivityUtils;
 import com.lansosdk.videoeditor.BitmapPadExecute;
 

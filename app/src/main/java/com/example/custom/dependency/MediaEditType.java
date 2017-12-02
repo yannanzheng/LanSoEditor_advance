@@ -1,4 +1,4 @@
-package com.example.custom;
+package com.example.custom.dependency;
 
 import com.lansoeditor.demo.R;
 

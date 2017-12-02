@@ -3,6 +3,7 @@ package com.example.custom;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.custom.dependency.MediaEditType;
 import com.lansosdk.box.DrawPad;
 import com.lansosdk.box.onDrawPadCompletedListener;
 import com.lansosdk.box.onDrawPadProgressListener;

@@ -6,7 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.util.Log;
 
-import com.example.custom.MediaEditType;
+import com.example.custom.dependency.MediaEditType;
 import com.lansosdk.box.BitmapGetFilters;
 import com.lansosdk.box.onGetFiltersOutFrameListener;
 

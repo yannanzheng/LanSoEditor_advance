@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.custom.dependency.MediaEditType;
 import com.lansoeditor.demo.R;
 
 import java.io.File;
