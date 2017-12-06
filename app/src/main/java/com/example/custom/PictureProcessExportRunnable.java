@@ -81,7 +81,7 @@ public class PictureProcessExportRunnable implements Runnable {
             }
             exportPicture(filterBitmap);
             if (null != onProcessListener) {
-                onProcessListener.onSucess(destFilePath);
+                onProcessListener.onSuccess(destFilePath);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -194,7 +194,7 @@ public class PictureProcessExportRunnable implements Runnable {
     }
 
     public interface OnProcessListener {
-        void onSucess(String exportedFilePath);
+        void onSuccess(String exportedFilePath);
         void onFail();
     }
 }

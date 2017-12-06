@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.custom.dependency.MediaEditType;
+import com.example.custom.dependency.Resource;
 import com.lansoeditor.demo.R;
 
 import java.io.File;
@@ -36,6 +37,7 @@ public class MutiTasksProcessActivity extends Activity {
     private File sourcePictureFile;
     private Button testVideoEditButton;
     private Button mixProcessButton;
+    private Button processManageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class MutiTasksProcessActivity extends Activity {
         button = (Button) findViewById(start_process_bt);
         testVideoEditButton = (Button) findViewById(R.id.start_process_video_bt);
         mixProcessButton = (Button) findViewById(R.id.start_process_media_bt);
+        processManageButton = (Button) findViewById(R.id.process_manager_bt);
 
         initProcessThread();
         runnableTasksQueue = new ArrayBlockingQueue<Runnable>(100);
@@ -71,6 +74,23 @@ public class MutiTasksProcessActivity extends Activity {
                 processMedia();
             }
         });
+
+        processManageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mediaProcessManageTest();
+            }
+        });
+    }
+
+    /**
+     * 用于测试驱动媒体处理管理功能开发
+     */
+    private void mediaProcessManageTest() {
+
+
+
+
     }
 
     private void processMedia() {
@@ -98,7 +118,7 @@ public class MutiTasksProcessActivity extends Activity {
         VideoProcessExportRunnable videoProcessExportRunnable = new VideoProcessExportRunnable(context, sourceVideoFile.getAbsolutePath(), destFile.getAbsolutePath(), MediaEditType.FaceBeauty.LEVEL_4, MediaEditType.Filter.Filter_LanSongSepia);
         videoProcessExportRunnable.setOnProcessListener(new VideoProcessExportRunnable.OnProcessListener() {
             @Override
-            public void onSucess(String exportedFilePath) {
+            public void onSuccess(String exportedFilePath) {
                 Log.d(TAG, "视频onSucess, exportedFilePath = "+exportedFilePath);
                 isExecuting = false;
                 notifyPostRunnable();
@@ -165,15 +185,15 @@ public class MutiTasksProcessActivity extends Activity {
 
         task.setOnProcessListener(new PictureProcessExportRunnable.OnProcessListener() {
             @Override
-            public void onSucess(String exportedFilePath ) {
-                Log.d(TAG, "onSucess，图片处理成功");
+            public void onSuccess(String exportedFilePath ) {
+                Log.d(TAG, "onSuccess，图片处理成功");
                 isExecuting = false;
                 notifyPostRunnable();
             }
 
             @Override
             public void onFail() {
-                Log.e(TAG, "onSucess，图片处理失败");
+                Log.e(TAG, "onSuccess，图片处理失败");
                 notifyPostRunnable();
             }
         });

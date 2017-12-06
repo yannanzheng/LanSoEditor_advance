@@ -147,7 +147,7 @@ public class VideoProcessExportRunnable implements Runnable {
 
     private void success() {
         if (null != onProcessListener) {
-            onProcessListener.onSucess(destFilePath);
+            onProcessListener.onSuccess(destFilePath);
         }
     }
 
@@ -244,7 +244,7 @@ public class VideoProcessExportRunnable implements Runnable {
     }
 
     public interface OnProcessListener {
-        void onSucess(String exportedFilePath);
+        void onSuccess(String exportedFilePath);
         void onProgress(double progress);
         void onFail();
     }

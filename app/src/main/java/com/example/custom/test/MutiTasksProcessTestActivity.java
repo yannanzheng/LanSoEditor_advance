@@ -92,7 +92,7 @@ public class MutiTasksProcessTestActivity extends Activity {
         task.setOnProcessListener(new AsyncPictureProcessTask.OnProcessListener() {
             @Override
             public void onSucess() {
-                Log.d(TAG, "onSucess，写出成功");
+                Log.d(TAG, "onSuccess，写出成功");
                 isExecuting = false;
                 notifyPostRunnable();
             }
