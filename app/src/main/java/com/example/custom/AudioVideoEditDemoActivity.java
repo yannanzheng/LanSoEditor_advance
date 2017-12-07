@@ -8,13 +8,20 @@ import android.view.View;
 import android.widget.Button;
 
 import com.lansoeditor.demo.R;
+import com.lansosdk.videoeditor.VideoEditor;
+import com.lansosdk.videoeditor.onVideoEditorProgressListener;
 
 import java.io.File;
 
 
 public class AudioVideoEditDemoActivity extends Activity implements View.OnClickListener {
     private static final String TAG = "AudioVideoEditDemoActivity";
-    private String testDirPath;
+    private String testDirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/av_test_dir";
+    private String testOriginVideoPath = testDirPath + "/origin.mp4";
+    private String tempAudioPath = testDirPath + "/testAudio.aac";
+    private String tempVideoPath = testDirPath + "/testVideo.mp4";
+    private String mergedVideoPath = testDirPath + "/mergedVideo.mp4";
+
     private Button deleteAudioButton;
     private Button deleteVideoButton;
     private Button mergeAVButton;
@@ -23,7 +30,6 @@ public class AudioVideoEditDemoActivity extends Activity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_audio_merge_demo);
-        testDirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/av_test_dir";
         File testDir = new File(testDirPath);
         if (!testDir.exists()) {
             testDir.mkdirs();
@@ -54,6 +60,7 @@ public class AudioVideoEditDemoActivity extends Activity implements View.OnClick
         switch (v.getId()) {
             case R.id.delete_audio_bt:
                 deleteAudio();
+
                 break;
             case R.id.delete_video_bt:
                 deleteVideo();
@@ -69,11 +76,14 @@ public class AudioVideoEditDemoActivity extends Activity implements View.OnClick
      */
     public void deleteAudio() {
         Log.d(TAG, "点击删除音频，输出mp4视频");
-
-
-
-
-
+        VideoEditor editor=new VideoEditor();
+        editor.setOnProgessListener(new onVideoEditorProgressListener() {
+            @Override
+            public void onProgress(VideoEditor v, int percent) {
+                Log.d(TAG,"deleteAudio, progress = "+percent );
+            }
+        });
+        editor.executeDeleteAudio(testOriginVideoPath, tempVideoPath);
 
     }
 
@@ -82,8 +92,14 @@ public class AudioVideoEditDemoActivity extends Activity implements View.OnClick
      */
     public void deleteVideo(){
         Log.d(TAG, "点击删除视频，输出aac音频");
-
-
+        VideoEditor editor=new VideoEditor();
+        editor.setOnProgessListener(new onVideoEditorProgressListener() {
+            @Override
+            public void onProgress(VideoEditor v, int percent) {
+                Log.d(TAG,"deleteVideo, progress = "+percent );
+            }
+        });
+        editor.executeDeleteVideo(testOriginVideoPath, tempAudioPath);
 
     }
 
