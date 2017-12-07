@@ -36,12 +36,6 @@ public class AudioVideoEditDemoActivity extends Activity implements View.OnClick
         }
 
         initView();
-
-
-
-
-
-
     }
 
     private void initView() {
@@ -71,6 +65,9 @@ public class AudioVideoEditDemoActivity extends Activity implements View.OnClick
         }
     }
 
+    /**
+     * 合并音频和视频测试成功
+     */
     private void mergeAudioVideo() {
         VideoEditor editor = new VideoEditor();
         editor.setOnProgessListener(new onVideoEditorProgressListener() {
@@ -84,7 +81,7 @@ public class AudioVideoEditDemoActivity extends Activity implements View.OnClick
     }
 
     /**
-     * 删除mp4中的视频,输出mp4
+     * 删除mp4中的视频,输出mp4，测试没问题
      */
     public void deleteAudio() {
         Log.d(TAG, "点击删除音频，输出mp4视频");
@@ -100,7 +97,7 @@ public class AudioVideoEditDemoActivity extends Activity implements View.OnClick
     }
 
     /**
-     * 删除视频，输出aac
+     * 删除视频，输出aac，测试没问题
      */
     public void deleteVideo(){
         Log.d(TAG, "点击删除视频，输出aac音频");
