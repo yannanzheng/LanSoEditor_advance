@@ -48,7 +48,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="com.example.advanceDemo.StartActivity"
-            android:theme="@style/AppTheme2"></activity>
+            android:theme="@style/AppTheme2" />
         <activity
             android:name="com.example.advanceDemo.ListMainActivity"
             android:screenOrientation="portrait">
@@ -75,27 +75,27 @@
         <activity
             android:name="com.example.advanceDemo.camera.CameraLayerFullPortActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name="com.example.advanceDemo.camera.CameraLayerFullPortWithMp3Activity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name="com.example.advanceDemo.camera.CameraSubLayerDemo1Activity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name="com.example.advanceDemo.camera.CameraSubLayerDemo2Activity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name="com.example.advanceDemo.camera.CameraLayerFullSegmentActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name="com.example.advanceDemo.camera.CameraLayerFullLandscapeActivity"
             android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
 
         <!-- 基本图层类 -->
 
@@ -156,7 +156,8 @@
         <activity android:name="com.example.commonDemo.MediaInfoActivity" />
         <activity android:name="com.example.commonDemo.AVEditorDemoActivity" />
         <activity android:name="com.example.commonDemo.ScaleExecuteDemoActivity" />
-        <activity android:name="com.example.custom.MutiTasksProcessActivity"></activity>
+        <activity android:name="com.example.custom.MutiTasksProcessActivity" />
+        <activity android:name="com.example.custom.AudioVideoEditDemoActivity"></activity>
     </application>
 
 </manifest>

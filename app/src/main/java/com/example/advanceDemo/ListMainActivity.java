@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.anthonycr.grant.PermissionsManager;
 import com.anthonycr.grant.PermissionsResultAction;
+import com.example.custom.AudioVideoEditDemoActivity;
 import com.example.custom.MutiTasksProcessActivity;
 import com.lansoeditor.demo.R;
 import com.lansosdk.box.LanSoEditorBox;
@@ -74,6 +75,12 @@ public class ListMainActivity extends Activity implements OnClickListener{
 			if(checkPath()==false)
 				return;
 			switch (v.getId()) {
+				case R.id.id_mainlist_video_edit_rl:
+//					Intent intent = new Intent(this, MutiTasksProcessActivity.class);
+//					startActivity(intent);
+					Log.d(TAG,"点击，跳转" );
+					startDemoActivity(AudioVideoEditDemoActivity.class);
+					break;
 				case R.id.id_mainlist_muti_picture_process:
 //					Intent intent = new Intent(this, MutiTasksProcessActivity.class);
 //					startActivity(intent);
@@ -116,6 +123,7 @@ public class ListMainActivity extends Activity implements OnClickListener{
 	{
 			tvVideoPath=(TextView)findViewById(R.id.id_main_tvvideo);
 
+		    findViewById(R.id.id_mainlist_video_edit_rl).setOnClickListener(this);
 		    findViewById(R.id.id_mainlist_muti_picture_process).setOnClickListener(this);
 			findViewById(R.id.id_mainlist_camerarecord).setOnClickListener(this);
 			findViewById(R.id.id_mainlist_somelayer).setOnClickListener(this);

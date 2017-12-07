@@ -51,6 +51,17 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:id="@+id/id_mainlist_video_edit_rl"
+                style="@style/main_item_reletivelayout2">
+
+                <TextView
+                    style="@style/main_item_textview"
+                    android:text="Jephy视频编辑" />
+
+                <TextView style="@style/main_item_arrow" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:id="@+id/id_mainlist_muti_picture_process"
                 style="@style/main_item_reletivelayout2">
 
