@@ -20,7 +20,7 @@ public class AudioVideoEditDemoActivity extends Activity implements View.OnClick
     private String testOriginVideoPath = testDirPath + "/origin.mp4";
     private String tempAudioPath = testDirPath + "/testAudio.aac";
     private String tempVideoPath = testDirPath + "/testVideo.mp4";
-    private String mergedVideoPath = testDirPath + "/mergedVideo.mp4";
+    private String destVideoPath = testDirPath + "/destVideo.mp4";
 
     private Button deleteAudioButton;
     private Button deleteVideoButton;
@@ -66,9 +66,21 @@ public class AudioVideoEditDemoActivity extends Activity implements View.OnClick
                 deleteVideo();
                 break;
             case R.id.merge_video_audio_bt:
-
+                mergeAudioVideo();
                 break;
         }
+    }
+
+    private void mergeAudioVideo() {
+        VideoEditor editor = new VideoEditor();
+        editor.setOnProgessListener(new onVideoEditorProgressListener() {
+            @Override
+            public void onProgress(VideoEditor v, int percent) {
+                Log.d(TAG,"mergeAudioVideo, progress = "+percent );
+            }
+        });
+        editor.executeVideoMergeAudio(tempVideoPath, tempAudioPath, destVideoPath);
+
     }
 
     /**
