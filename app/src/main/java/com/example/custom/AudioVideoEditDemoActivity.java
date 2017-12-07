@@ -1,11 +1,12 @@
 package com.example.custom;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.lansoeditor.demo.R;
 
-public class AudioVideoEditDemoActivity extends AppCompatActivity {
+public class AudioVideoEditDemoActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
